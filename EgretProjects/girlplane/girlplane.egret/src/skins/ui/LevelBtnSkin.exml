@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="200" height="200" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:BitmapLabel id="levelLabel" y="18" font="levelfnt_fnt" text="1" textAlign="center" verticalAlign="middle" horizontalCenter="0"/>
+	<e:UIAsset id="star3" source="home_0001_-0_16_png" x="125" y="138"/>
+	<e:UIAsset id="star2" source="home_0001_-0_16_png" x="86" y="138"/>
+	<e:UIAsset id="star1" source="home_0001_-0_16_png" x="47" y="138"/>
+	<e:UIAsset id="empty3" source="home_0001_-0_10_png" x="120" y="137"/>
+	<e:UIAsset id="empty2" source="home_0001_-0_10_png" x="81.5" y="137"/>
+	<e:UIAsset id="empty1" source="home_0001_-0_10_png" x="42" y="137"/>
+	<e:UIAsset id="notRead" source="home_0001_-0_26_png" x="47" y="64"/>
+	<e:UIAsset id="cur" source="home_0001_-0_29_png" horizontalCenter="0" verticalCenter="0"/>
+	<e:UIAsset id="read" source="home_0001_-0_39_png" x="44" y="65"/>
+</e:Skin>

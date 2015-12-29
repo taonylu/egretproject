@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            background: #dddddd;
+        }
+        #canvas{
+            margin: 10px;
+            padding: 10px;
+            background: #ffffff;
+            border: thin inset #aaaaaa;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="800" height="600">
+    Canvas not Support
+</canvas>
+<img id="screenShotImg" style="float: right"/>
+<script>
+    //--------------打印canvas，toDataURL---------------
+    //1. toDataURL获取canvas数据地址
+    //2. 将数据地址赋值给<img>
+
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+
+    var img = new Image();
+    img.src = "img/1.png";
+    img.onload = function(e){
+        context.drawImage(img,0,0);
+        var url = canvas.toDataURL();
+        var shotImg = document.getElementById("screenShotImg");
+        shotImg.src = url;
+    }
+
+
+</script>
+</body>
+</html>

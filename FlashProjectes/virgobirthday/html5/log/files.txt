@@ -1,0 +1,3 @@
+BirthdayScene.as,0,J:\Git\FlashProjectes\virgobirthday\html5\html5\src\BirthdayScene.as
+Main.as,0,J:\Git\FlashProjectes\virgobirthday\html5\html5\src\Main.as
+SoundM.as,0,J:\Git\FlashProjectes\virgobirthday\html5\html5\src\SoundM.as

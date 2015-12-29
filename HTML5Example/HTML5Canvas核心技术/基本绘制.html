@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    body{
+        background: #dddddd;
+    }
+    #canvas{
+        margin: 10px;
+        padding: 10px;
+        background: #ffffff;
+        border: thin inset #aaaaaa;
+    }
+</style>
+<body>
+    <canvas id="canvas" width="800" height="600">
+        Canvas not Support
+    </canvas>
+
+    <script>
+        var canvas = document.getElementById("canvas");
+        context = canvas.getContext("2d");
+
+        //绘制填充矩形
+        context.fillRect(0,20,100,100);
+
+        //绘制轮廓矩形
+        context.lineJoin = "round";
+        context.lineWidth = 15;
+        context.strokeRect(120,20,100,100);
+
+        //径向渐变色
+        var gradient = context.createLinearGradient(50,0,50,100);
+        gradient.addColorStop(0,"blue");
+        gradient.addColorStop(0.5, "red");
+        gradient.addColorStop(1, "yellow");
+        context.fillStyle = gradient;
+        context.fillRect(250,20,100,100);
+
+        //发射渐变
+
+        //使用图案来填充图形和文本
+        var image = new Image();
+        image.src = "img/1.png";
+        image.onload = function(){
+            var pattern = context.createPattern(image, "repeat-x");
+            context.fillStyle = pattern;
+            context.fillRect(400, 20, 100,100);
+        }
+
+        //阴影
+
+
+        //路径、描边、填充
+
+    </script>
+</body>
+</html>

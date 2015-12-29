@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+    <script>
+        //-------------------效果--------------
+        //1. 淡入淡出 fadeOut
+        //2. 滑动 slideUp
+        //3. 动画 animate ，必须是可移动元素position=absolute等
+
+        $(document).ready(function(){
+            $("p").click(function(){
+               // $("#testJpg").fadeOut(1000, hideComplete);
+               // $("#testDiv").slideUp("slow");
+                $("#testDiv").animate({left:"250px"});
+            });
+        });
+
+        function hideComplete(){
+            console.log("p hide complete");
+        }
+
+
+
+
+    </script>
+    <p>点击</p>
+    <div id="testDiv" style="position: absolute">
+        <img id="testJpg" src="img/1.jpg"/>
+    </div>
+
+</body>
+</html>

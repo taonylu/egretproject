@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="480" height="800" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset id="gameBg" source="bg_mainscene_jpg"/>
+	<e:Label id="targetScoreLabel" text="目标：3000" y="88" textAlign="center" verticalAlign="middle" fontFamily="Arial" horizontalCenter="0"/>
+	<e:Label id="curLevelLabel" text="关卡:1" x="31" y="91" fontFamily="Arial" size="25" textAlign="center" verticalAlign="middle"/>
+	<e:Label id="curScoreLabel" text="9999" y="146" textColor="0xD84820" fontFamily="Arial" horizontalCenter="0"/>
+	<e:UIAsset id="nextLevelUI" source="stage_clear_png" x="104" y="301"/>
+	<e:UIAsset id="gameOverUI" source="GameOver_png" x="94" y="271"/>
+</e:Skin>

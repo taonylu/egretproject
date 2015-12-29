@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="1200" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:Rect id="bg" height="1200" width="640" x="0" y="0" fillAlpha="0"/>
+	<e:Group left="0" right="0" top="0" bottom="0">
+		<e:Rect id="panelBg" height="300" width="400" x="133" y="286"/>
+		<e:Label text="1" textColor="0x090000" size="40" fontFamily="Arial" y="409" x="144"/>
+		<e:Label textColor="0x090000" fontFamily="Arial" size="40" text="3" y="520" x="144"/>
+		<e:Label textColor="0x090000" fontFamily="Arial" size="40" text="2" y="465" x="144"/>
+		<e:Label id="name1Label" textColor="0x090000" fontFamily="Arial" size="40" width="209" text="aaaa" y="411" x="204"/>
+		<e:Label id="score1Label" textColor="0x090000" fontFamily="Arial" width="74" size="40" text="999" y="411" x="442"/>
+		<e:Label id="score2Label" textColor="0x090000" text="999" fontFamily="Arial" width="74" size="40" y="464" x="442"/>
+		<e:Label id="score3Label" textColor="0x090000" text="999" fontFamily="Arial" width="74" size="40" y="517" x="442"/>
+		<e:Label id="name2Label" textColor="0x090000" text="1" fontFamily="Arial" width="212" size="40" y="466" x="204"/>
+		<e:Label id="name3Label" textColor="0x090000" text="1" fontFamily="Arial" width="220" size="40" y="520" x="204"/>
+		<e:UIAsset id="closeBtn" source="close" y="300" x="480"/>
+	</e:Group>
+</e:Skin>

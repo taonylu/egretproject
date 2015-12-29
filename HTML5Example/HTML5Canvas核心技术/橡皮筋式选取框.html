@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    body{
+        background: #dddddd;
+    }
+    #canvas{
+        margin: 10px;
+        padding: 10px;
+        background: #ffffff;
+        border: thin inset #aaaaaa;
+    }
+    #controls{
+        margin: 20px 0px 20px 20px;
+    }
+
+    #rubberbandDiv{
+        position: absolute;
+        border: 3px solid blue;
+        cursor: crosshair;
+        display: none;
+    }
+</style>
+
+<body>
+    <div id="controls">
+        <input type="button" id="resetButton" value="Reset"/>
+    </div>
+    <div id="rubberbandDiv">
+
+    </div>
+    <canvas id="canvas" width="800" height="600">
+        Canvas not Support
+    </canvas>
+
+    <script>
+        //-----------------橡皮筋选取框---------------
+        //1.鼠标选取一个矩形区域，放大该区域
+        //2.综合应用了 绘制线条 + 绘图png + 鼠标事件 + 截图
+
+
+
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+
+        var rubberbandDiv = document.getElementById("rubberbandDiv");
+        var resetButton = document.getElementById("resetButton");
+        var image = new Image();
+        var mousedown = {};
+        var rubberbandRectangle = {};
+        var dragging = false;
+
+        function rubberbandStart(x, y){
+            mousedown.x = x;
+            mousedown.y = y;
+            rubberbandRectangle.left = mousedown.x;
+            rubberbandRectangle.top = mousedown.y;
+            moveRubberbandDiv();
+            showRubberbandDiv();
+            dragging = true;
+        }
+
+        function rubberbandStretch(x, y){
+            rubberbandRectangle.left = x < mousedown.x ? x:mousedown.x;
+            rubberbandRectangle.top = y < mousedown.y ? y:mousedown.y;
+            rubberbandRectangle.width = Math.abs(x - mousedown.x);
+            rubberbandRectangle.height = Math.abs(y - mousedown.y);
+            moveRubberbandDiv();
+            resizeRubberbandDiv();
+        }
+
+        function rubberbandEnd(){
+            var bbox = canvas.getBoundingClientRect();
+            try{
+                context.drawImage(canvas, rubberbandRectangle.left - bbox.left,
+                rubberbandRectangle.top - bbox.top,
+                rubberbandRectangle.width,
+                rubberbandRectangle.height,
+                0,0, canvas.width, canvas.height);
+            }catch(e){
+
+            }
+            resetRubberbandRectangle();
+            rubberbandDiv.style.width = 0;
+            rubberbandDiv.style.height = 0;
+            hideRubberbandDiv();
+            dragging = false;
+        }
+
+        function moveRubberbandDiv(){
+            rubberbandDiv.style.top = rubberbandRectangle.top + "px";
+            rubberbandDiv.style.left = rubberbandRectangle.left + "px";
+        }
+
+        function resizeRubberbandDiv(){
+            rubberbandDiv.style.width = rubberbandRectangle.width + "px";
+            rubberbandDiv.style.height = rubberbandRectangle.height + "px";
+        }
+
+        function showRubberbandDiv(){
+            rubberbandDiv.style.display = "inline";
+        }
+
+        function hideRubberbandDiv(){
+            rubberbandDiv.style.display = "none";
+        }
+
+        function resetRubberbandRectangle(){
+            rubberbandRectangle = {top:0,left:0,width:0,height:0};
+        }
+
+        canvas.onmousedown = function(e){
+            var x = e.clientX;
+            var y = e.clientY;
+            e.preventDefault();
+            rubberbandStart(x,y);
+        }
+
+        window.onmousemove = function(e){
+            var x = e.clientX;
+            var y = e.clientY;
+            e.preventDefault();
+            if(dragging){
+                rubberbandStretch(x, y);
+            }
+        }
+
+        window.onmouseup = function(e){
+            e.preventDefault();
+            rubberbandEnd();
+        }
+
+        image.onload = function(){
+            context.drawImage(image,0,0,canvas.width, canvas.height);
+        }
+
+        resetButton.onclick = function(e){
+            context.clearRect(0,0,context.canvas.width,
+            context.canvas.height);
+            context.drawImage(image,0,0,canvas.width, canvas.height);
+        }
+
+        image.src = "img/1.png";
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

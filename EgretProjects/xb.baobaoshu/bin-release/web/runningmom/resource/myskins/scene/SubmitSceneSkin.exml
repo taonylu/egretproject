@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="SubmitSceneSkin" width="640" height="1150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bg" source="get_bg_jpg"/>
+	<e:Image source="get_title_png" y="79" x="100"/>
+	<e:Image source="get_man_png" x="112" y="263" width="406" height="366"/>
+	<e:Group height="200" width="200" x="220" touchEnabled="false" bottom="352">
+		<e:Image source="get_phone_png" y="-28" x="-198"/>
+		<e:Image id="successBtn" source="get_success_png" x="-193" y="142"/>
+		<e:Image id="submitBtn" source="get_ok_png" y="142" horizontalCenter="0.5"/>
+		<e:EditableText id="phoneLabel" width="516" height="76" textColor="0x050000" verticalAlign="middle" textAlign="center" size="50" y="34" x="-158"/>
+		<e:Image id="text" source="get_text_png" y="269" horizontalCenter="7.5"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    body{
+        background: #dddddd;
+    }
+    #canvas{
+        margin: 10px;
+        padding: 10px;
+        background: #ffffff;
+        border: thin inset #aaaaaa;
+    }
+</style>
+<body>
+<canvas id="canvas" width="800" height="600">
+    Canvas not Support
+</canvas>
+
+<script>
+    //---------------动画制作-------------
+    //1. setInterval持续调用
+    //2. setTimeout只调用一次
+    //3. 以上两种方法，不适合做动画，没有对调用动画循环机制做优化，不考虑绘制动画最佳时刻
+    //4. requestAnimationFrame 浏览器自行计算绘制帧频
+    //5. 利用剪辑区域处理动画背景，剪辑动画所占背景，之后恢复，而不是擦除全部背景再重画
+    //6. 利用图块复制技术处理动画背景，复制离屏canvas背景图块。比剪辑更快，但占用更多内存。
+    //7. 双缓冲技术，为了防止擦除时的空白闪烁情况，先将东西绘制到离屏canvas，然后再复制到屏幕canvas
+    //   这是浏览器自动执行的，在执行clearRect时，并不会立刻擦除，而是等待离屏缓冲区内容复制到屏幕时，
+    //   再执行擦除操作。
+
+
+    var canvas = document.getElementById("canvas");
+    context = canvas.getContext("2d");
+
+    //setInterval
+    window.setInterval(animate1, 1000/60);
+    function animate1(){
+        //console.log("setInterval");
+    }
+
+    //setTimeout
+    window.setTimeout(animate2, 1000/60);
+    function animate2(){
+        //console.log("setTimeout");
+    }
+
+    //requestAnimationFrame 运动小球
+    window.requestAnimationFrame(animate);
+    function animate(){
+        moveBall();
+
+       window.requestAnimationFrame(animate);
+    }
+    var pos = 0;
+    function moveBall(){
+        pos += 1;
+        context.clearRect(0,0,canvas.width, canvas.height);
+        context.beginPath();
+        context.arc(pos,pos,100,0,Math.PI*2);
+        context.fill();
+    }
+
+
+</script>
+</body>
+</html>

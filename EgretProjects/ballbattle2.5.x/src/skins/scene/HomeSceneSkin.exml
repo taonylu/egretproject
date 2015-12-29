@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="850" height="480" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:ns1="*">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset width="850" x="0" height="480" y="0" source="homebg_png"/>
+	<e:Group height="404" width="583" y="40" horizontalCenter="0">
+		<e:Label text="本轮昵称" fontFamily="宋体" x="132" textColor="0x87B031" size="25" y="26"/>
+		<e:Label fontFamily="宋体" text="服务器" textColor="0x87B031" size="25" y="106" x="135"/>
+		<e:Rect height="40" width="250" x="136" y="55"/>
+		<e:Rect width="250" height="40" x="136" y="136"/>
+		<e:Rect fillColor="0x14CD4E" width="68" height="53" x="401" y="199"/>
+		<e:Label fontFamily="宋体" x="402" y="232" width="70" text="团战模式" size="15" height="24" textColor="0xFCFBFB" touchEnabled="false"/>
+		<e:EditableText id="nameLabel" x="136" y="58" fontFamily="宋体" width="249" text="^_^" textColor="0x060000" size="25" height="37" verticalAlign="middle" textAlign="left"/>
+		<e:Group id="centerBtn" height="120" width="80" y="287" x="-2">
+			<e:UIAsset source="userCenter_png" width="80" x="0" y="0"/>
+			<e:Label textColor="0x87B031" fontFamily="宋体" text="个人中心" size="18" x="0" y="90"/>
+		</e:Group>
+		<e:Group id="relationshipBtn" height="120" width="80" x="166" y="288">
+			<e:UIAsset source="relative_png" x="0" y="0"/>
+			<e:Label textColor="0x87B031" fontFamily="宋体" size="18" text="关系" x="20" y="90"/>
+		</e:Group>
+		<e:Group id="rankBtn" height="120" width="80" y="287" x="327">
+			<e:UIAsset source="rank_png" x="0" y="0"/>
+			<e:Label textColor="0x87B031" fontFamily="宋体" size="18" text="排行榜" x="10" y="90"/>
+		</e:Group>
+		<e:Group id="skinBtn" height="120" width="80" y="286" x="488">
+			<e:UIAsset source="skin_png" x="0" y="0"/>
+			<e:Label textColor="0x87B031" fontFamily="宋体" size="18" text="皮肤" x="20" y="90"/>
+		</e:Group>
+		<ns1:NarrowButton id="startBtn" x="133" y="192" skinName="skins.ui.StartBtnSkin"/>
+		<ns1:NarrowButton id="randomNameBtn" x="406" y="54" skinName="skins.ui.RandomNameSkin"/>
+	</e:Group>
+</e:Skin>

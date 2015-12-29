@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="430" height="342" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset source="img_back"/>
+	<e:Button id="closeBtn" label="确定" y="226" skinName="@ButtonSkin('img_btn')" textAlign="center" horizontalCenter="0" fontFamily="Arial" size="40"/>
+	<e:Label id="contentLabel" x="69" y="36" width="267" height="159" textAlign="center" verticalAlign="middle" text="学习作品"/>
+</e:Skin>

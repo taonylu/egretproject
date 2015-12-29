@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html manifest="cache.manifest">
+<head>
+    <meta charset="UTF-8">
+    <title>离线应用缓存示例 - manifest使用方法</title>
+</head>
+<body>
+    <!-- 离线应用 需要服务端做配置，并配置缓存清单，暂无法测试-->
+
+    <script>
+        //检查浏览器是否支持离线应用
+        if(window.applicationCache){
+            alert("true);
+        }
+
+        //缓存状态  0标示未缓存
+        alert(window.applicationCache.status);
+
+        //浏览器是否在线
+        alert(window.navigator.onLine);
+
+    </script>
+
+</body>
+</html>

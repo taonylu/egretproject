@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="GameSceneSkin" width="640" height="1140" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="bg_red_png" cacheAsBitmap="true"/>
+	<e:Image id="score" source="score_png" x="35" y="60" cacheAsBitmap="true"/>
+	<e:Image id="time" source="time_png" x="466" y="63" cacheAsBitmap="true"/>
+	<e:Label id="scoreLabel" text="99" x="75" y="90" textColor="0x060000" width="88" fontFamily="Arial" textAlign="center" verticalAlign="middle" height="32"/>
+	<e:Label id="timeLabel" width="88" y="86" textColor="0x060000" text="99" fontFamily="Arial" textAlign="center" verticalAlign="middle" x="508" height="33"/>
+</e:Skin>

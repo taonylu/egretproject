@@ -1,0 +1,36 @@
+{
+  "skins": {
+    "eui.Button": "resource/eui_skins/ButtonSkin.exml",
+    "eui.CheckBox": "resource/eui_skins/CheckBoxSkin.exml",
+    "eui.HScrollBar": "resource/eui_skins/HScrollBarSkin.exml",
+    "eui.HSlider": "resource/eui_skins/HSliderSkin.exml",
+    "eui.Panel": "resource/eui_skins/PanelSkin.exml",
+    "eui.TextInput": "resource/eui_skins/TextInputSkin.exml",
+    "eui.ProgressBar": "resource/eui_skins/ProgressBarSkin.exml",
+    "eui.RadioButton": "resource/eui_skins/RadioButtonSkin.exml",
+    "eui.Scroller": "resource/eui_skins/ScrollerSkin.exml",
+    "eui.ToggleSwitch": "resource/eui_skins/ToggleSwitchSkin.exml",
+    "eui.VScrollBar": "resource/eui_skins/VScrollBarSkin.exml",
+    "eui.VSlider": "resource/eui_skins/VSliderSkin.exml",
+    "eui.ItemRenderer": "resource/eui_skins/ItemRendererSkin.exml"
+  },
+  "autoGenerateExmlsList": true,
+  "exmls": [
+    {
+      "path": "resource/myskin/GameSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"GameSceneSkin\" width=\"450\" height=\"800\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image source=\"game_bg_jpg\" x=\"-56\"/>\n\t<e:Image id=\"startBtn\" source=\"game_start_png\" x=\"99\" y=\"349\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/HomeSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"HomeSceneSkin\" width=\"450\" height=\"800\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"bg\" source=\"game_bg_jpg\" x=\"-56\"/>\n\t<e:Label id=\"msgLabel\" text=\"标签\" y=\"287\" width=\"323\" height=\"221\" verticalAlign=\"middle\" textAlign=\"center\" textColor=\"0x050000\" x=\"64\" size=\"25\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/PreloadSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PreloadSceneSkin\" width=\"450\" height=\"800\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"bg\" source=\"game_bg_jpg\" y=\"1\" horizontalCenter=\"0\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/pcskin/PCHomeSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PCHomeSceneSkin\" width=\"800\" height=\"450\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image source=\"game_bg_jpg\" x=\"0\" y=\"-1\"/>\n\t<e:Image source=\"game_bg_jpg\" y=\"1\" x=\"563\"/>\n\t<e:Label id=\"msgLabel\" text=\"标签\" width=\"340\" height=\"183\" verticalAlign=\"middle\" textAlign=\"center\" textColor=\"0x050000\" x=\"202\" y=\"32\"/>\n</e:Skin>"
+    }
+  ]
+}

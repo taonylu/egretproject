@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="1000" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:Rect id="bg" height="1200" width="640" x="0" y="0" fillColor="0xF08181"/>
+	<e:UIAsset id="tishiBtn" source="tishi" x="97" bottom="61" visible="false"/>
+	<e:UIAsset id="sortBtn" source="sort" bottom="63" x="216"/>
+	<e:Group id="gameGroup" height="719" left="0" right="0" top="188">
+	</e:Group>
+	<e:UIAsset id="progressBg" source="progress1" height="50" width="500" top="41" x="10"/>
+	<e:UIAsset id="progressBar" height="40" width="480" source="progress2" x="21" y="46"/>
+	<e:Label id="timeLabel" text="99" size="50" top="40" x="517"/>
+	<e:Label id="scoreLabel" text="得分：10" size="50" fontFamily="Arial" verticalAlign="middle" textAlign="center" top="117" x="215"/>
+	<e:UIAsset id="quitBtn" source="close" x="582" y="45"/>
+</e:Skin>

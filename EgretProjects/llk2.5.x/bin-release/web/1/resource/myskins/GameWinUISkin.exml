@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="GameWinSkin" width="563" height="400" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="pop0_png" x="51" y="13"/>
+	<e:Image source="pop1_png" x="109" y="13" width="347"/>
+	<e:Image source="pop2_png" x="456" y="13"/>
+	<e:Image source="pop3_png" x="51" y="73" height="267"/>
+	<e:Image source="pop4_png" x="111" y="74" width="345" height="268"/>
+	<e:Image source="pop5_png" x="456" y="73" height="267"/>
+	<e:Image source="pop6_png" x="51" y="340"/>
+	<e:Image source="pop7_png" x="80" y="340" width="404"/>
+	<e:Image source="pop8_png" x="456" y="340"/>
+	<e:Image source="cat_win_png" x="105" y="46"/>
+	<e:Button id="retryBtn" x="109" y="271">
+		<e:Skin states="up,down" xmlns:e="http://ns.egret.com/eui">
+			<e:Image width="100%" height="100%"
+			         source="retry0_png"
+			         source.down="retry1_png"/>
+		</e:Skin>
+	</e:Button>
+	<e:Button id="nextBtn" label="" x="290" y="271">
+		<e:Skin states="up,down" xmlns:e="http://ns.egret.com/eui">
+			<e:Image width="100%" height="100%"
+			         source="next0_png"
+			         source.down="next1_png"/>
+		</e:Skin>
+	</e:Button>
+	<e:Label id="scoreLabel" text="分数：1111" x="101" y="181" width="353" verticalAlign="middle" size="40" fontFamily="Tahoma 'Microsoft Yahei'" textAlign="center" height="64"/>
+</e:Skin>

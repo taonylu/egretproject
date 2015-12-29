@@ -1,0 +1,17 @@
+{
+	"name": "egret",
+	"version": "2.5.2",
+	"modules": [
+		{
+			"name": "ui",
+			"description": "ui",
+			"files": [
+				"BaseScene.ts",
+			  	"BaseUI.ts",
+				"LayerManager.ts",
+			  	"SimpleMC.ts"
+				  ],
+			"root": "src"
+		}
+	]
+}

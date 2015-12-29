@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="1000" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:ns1="*">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset id="blueBg" source="rect_png" width="640" height="1200" cacheAsBitmap="false"/>
+	<e:Group id="rankGroup" height="616" width="648" cacheAsBitmap="true" x="-4" top="66">
+		<e:UIAsset id="rankBg" width="612" height="564" source="home_frame_png" x="18" y="26"/>
+		<e:UIAsset id="no1Panel" source="img_rankItemBg_1" y="141" x="39"/>
+		<e:UIAsset id="no2Panel" source="img_rankItemBg_1" y="242" x="39"/>
+		<e:UIAsset id="no3Panel" source="img_rankItemBg_1" y="343" x="39"/>
+		<e:UIAsset id="no4Panel" source="img_rankItemBg_1" y="444" x="39"/>
+		<e:UIAsset id="face1Bg" source="img_rankHead_Bg" x="139" y="151"/>
+		<e:UIAsset id="face2Bg" source="img_rankHead_Bg" x="139" y="250.5"/>
+		<e:UIAsset id="face3Bg" source="img_rankHead_Bg" x="139" y="350"/>
+		<e:UIAsset source="2_png" width="82" height="82" y="147" x="137"/>
+		<e:UIAsset source="11_png" x="138" y="246" width="82" height="82"/>
+		<e:UIAsset source="3_png" width="80" height="80" x="138" y="347"/>
+		<e:UIAsset id="face3Bord" source="img_rankHead_Kuang" x="134" y="342"/>
+		<e:UIAsset id="face2Bord" source="img_rankHead_Kuang" x="134" y="243"/>
+		<e:UIAsset id="face1Bord" source="img_rankHead_Kuang" x="133" y="143"/>
+		<e:UIAsset id="no3Cap" source="img_tongde12121" x="49" y="339"/>
+		<e:UIAsset id="no2Cap" source="img_huangguan" x="49" y="240"/>
+		<e:UIAsset id="no1Cap" source="img_54545jinguan1" x="49" y="142"/>
+		<e:Label text="455899" x="240" y="181" textColor="0x066AF6" fontFamily="Arial" size="40"/>
+		<e:Label textColor="0x066AF6" fontFamily="Arial" size="40" x="240" y="281.5" text="445820"/>
+		<e:Label textColor="0x066AF6" fontFamily="Arial" size="40" x="240" y="381" text="395485"/>
+		<e:UIAsset source="roleL_5_png" x="487" y="139"/>
+		<e:UIAsset source="roleL_5_png" x="488" y="239"/>
+		<e:UIAsset source="roleL_5_png" x="488" y="339"/>
+	</e:Group>
+	<e:Group id="modeGroup" height="131" width="564" x="38" bottom="5">
+		<e:Button id="riskBtn" skinName="@ButtonSkin('img_orangeBtn_1','img_orangeBtn_2')" y="14" width="228" x="32"/>
+		<e:UIAsset id="riskLabel" source="img_Adventure_mode" touchEnabled="false" y="35" x="66"/>
+		<e:Button id="endlessBtn" skinName="@ButtonSkin('img_orangeBtn_1','img_orangeBtn_2')" y="15" x="297"/>
+		<e:UIAsset id="endlessLabel" source="img_Endless_mode" touchEnabled="false" y="35" x="343"/>
+	</e:Group>
+	<e:Group id="switchGroup" height="200" width="638" x="1" verticalCenter="259">
+		<e:UIAsset id="switchBg" source="img_xuanzekuangkuang" x="28" y="-3"/>
+		<e:Button id="switchBtn" skinName="@ButtonSkin('img_greenBtnBig_1','img_greenBtnBig_2')" x="391" y="67"/>
+		<e:UIAsset id="switchLabel" source="img_qiehuanfeijiTxt" touchEnabled="false" x="423" y="80"/>
+		<e:UIAsset source="hero_png" x="74" y="36"/>
+	</e:Group>
+	<ns1:AssetPanel x="18" skinName="skins.ui.AssetPanelSkin" top="20"/>
+	<e:Group id="optionGroup" height="64" width="412" x="219" top="136">
+		<e:Button id="giftBtn" width="68" height="56" skinName="@ButtonSkin('img_guanzhu01','img_guanzhu02')" x="0" y="-1"/>
+		<e:Button id="tuiJianBtn" skinName="@ButtonSkin('img_tuijiananniu1','img_tuijiananniu2')" width="74" height="56" x="74" y="-1"/>
+		<e:Button id="taskBtn" skinName="@ButtonSkin('img_renwu01','img_renwu02')" width="67" height="57" x="154.5" y="-1"/>
+		<e:Button id="mailBtn" skinName="@ButtonSkin('img_xinjian01','img_xinjian02')" x="230.5" y="-1"/>
+		<e:Button id="optionBtn" skinName="@ButtonSkin('img_setBtn_01','img_setBtn_02')" width="66" height="54" x="309" y="-1"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,15 @@
+{
+	"resources": [
+		{
+			"url": "swfres/virgobirthday/config.json",
+			"type": "json",
+			"name": "swfres_virgobirthday_config"
+		}
+	],
+	"groups": [
+		{
+			"keys": "",
+			"name": "swfres_virgobirthday_"
+		}
+	]
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            background: #dddddd;
+        }
+        #canvas{
+            margin: 10px;
+            padding: 10px;
+            background: #ffffff;
+            border: thin inset #aaaaaa;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="800" height="600">
+    Canvas not Support
+</canvas>
+
+<script>
+    //-----------------绘制表面的保存与恢复----------------
+    //1. 保存context的状态，例如填充颜色，线条粗细等
+
+    var canvas = document.getElementById("canvas");
+    context = canvas.getContext("2d");
+
+    context.beginPath();
+    context.fillRect(0,0,100,100);
+
+
+    context.save();
+
+    context.fillStyle = "rgba(99,0,0,1)";
+    context.strokeStyle = 0xff0000;
+
+    context.fillRect(150,0,100,100);
+
+    context.restore();
+
+    context.fillRect(300,0,100,100);
+
+</script>
+</body>
+</html>

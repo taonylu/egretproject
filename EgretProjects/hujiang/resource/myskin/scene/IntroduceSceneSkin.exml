@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="IntroduceSceneSkin" width="640" height="1140" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="bg_black_png" cacheAsBitmap="true"/>
+	<e:Image id="bg3" source="count_png" cacheAsBitmap="true"/>
+	<e:Image id="bg2" source="count-2_png" cacheAsBitmap="true"/>
+	<e:Image id="bg1" source="count-3_png" cacheAsBitmap="true"/>
+	<e:Image id="hand" source="hand_png" x="50" cacheAsBitmap="true"/>
+</e:Skin>

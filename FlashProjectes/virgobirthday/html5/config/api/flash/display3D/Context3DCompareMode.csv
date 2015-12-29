@@ -1,0 +1,11 @@
+类,继承类,静态,属性,属性get/set,函数,类型(属性类型或者函数返回类型),转换类,是否需要删前缀,转换属性,转换属性格式,转换函数,转换函数参数,转换是否实现,错误提示,权重,测试
+ver1.0,,,,,,,,,,,,,,,,
+flash.display3D.Context3DCompareMode,Object,,,,,,flash.Context3DCompareMode,,,,,,1,,,
+flash.display3D.Context3DCompareMode,,1,NEVER,,,String,flash.Context3DCompareMode,1,flash.Context3DCompareMode.NEVER,,,1,1,,,
+flash.display3D.Context3DCompareMode,,1,ALWAYS,,,String,flash.Context3DCompareMode,1,flash.Context3DCompareMode.ALWAYS,,,1,1,,,
+flash.display3D.Context3DCompareMode,,1,GREATER,,,String,flash.Context3DCompareMode,1,flash.Context3DCompareMode.GREATER,,,1,1,,,
+flash.display3D.Context3DCompareMode,,1,LESS_EQUAL,,,String,flash.Context3DCompareMode,1,flash.Context3DCompareMode.LESS_EQUAL,,,1,1,,,
+flash.display3D.Context3DCompareMode,,1,EQUAL,,,String,flash.Context3DCompareMode,1,flash.Context3DCompareMode.EQUAL,,,1,1,,,
+flash.display3D.Context3DCompareMode,,1,NOT_EQUAL,,,String,flash.Context3DCompareMode,1,flash.Context3DCompareMode.NOT_EQUAL,,,1,1,,,
+flash.display3D.Context3DCompareMode,,1,GREATER_EQUAL,,,String,flash.Context3DCompareMode,1,flash.Context3DCompareMode.GREATER_EQUAL,,,1,1,,,
+flash.display3D.Context3DCompareMode,,1,LESS,,,String,flash.Context3DCompareMode,1,flash.Context3DCompareMode.LESS,,,1,1,,,

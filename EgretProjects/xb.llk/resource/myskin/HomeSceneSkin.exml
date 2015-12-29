@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HomeSceneSkin" width="450" height="800" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Label id="msgLabel" text="标签" y="287" width="323" height="221" verticalAlign="middle" textAlign="center" textColor="0x050000" x="64" size="25"/>
+</e:Skin>

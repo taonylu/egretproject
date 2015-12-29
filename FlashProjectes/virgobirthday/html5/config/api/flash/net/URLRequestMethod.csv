@@ -1,0 +1,9 @@
+类,继承类,静态,属性,属性get/set,函数,类型(属性类型或者函数返回类型),转换类,是否需要删前缀,转换属性,转换属性格式,转换函数,转换函数参数,转换是否实现,错误提示,权重,测试
+ver1.0,,,,,,,,,,,,,,,,
+flash.net.URLRequestMethod,Object,,,,,,egret.URLRequestMethod,,,,,,1,,10,
+flash.net.URLRequestMethod,,1,HEAD,,,String,egret.URLRequestMethod,1,egret.URLRequestMethod.HEAD,,,1,0,,10,
+flash.net.URLRequestMethod,,1,POST,,,String,egret.URLRequestMethod,1,egret.URLRequestMethod.POST,,,1,1,,10,
+flash.net.URLRequestMethod,,1,OPTIONS,,,String,egret.URLRequestMethod,1,egret.URLRequestMethod.OPTIONS,,,1,0,,10,
+flash.net.URLRequestMethod,,1,DELETE,,,String,egret.URLRequestMethod,1,egret.URLRequestMethod.DELETE,,,1,0,,10,
+flash.net.URLRequestMethod,,1,GET,,,String,egret.URLRequestMethod,1,egret.URLRequestMethod.GET,,,1,1,,10,
+flash.net.URLRequestMethod,,1,PUT,,,String,egret.URLRequestMethod,1,egret.URLRequestMethod.PUT,,,1,0,,10,

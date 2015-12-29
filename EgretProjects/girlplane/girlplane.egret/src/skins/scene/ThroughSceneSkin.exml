@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="1000" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:ns1="*">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:Group id="bgGroup" left="0" right="0" top="0" bottom="0">
+		<e:UIAsset source="bgX_jpg"/>
+	</e:Group>
+	<e:Group id="lightGroup" left="0" right="0" top="0" bottom="0"/>
+	<e:Group id="uiGroup" left="0" right="0" top="0" bottom="0">
+		<ns1:LevelBtnUI id="levelBtn0" height="200" width="200" skinName="skins.ui.LevelBtnSkin" x="76" y="718"/>
+		<ns1:LevelBtnUI id="levelBtn1" width="200" height="200" skinName="skins.ui.LevelBtnSkin" x="206" y="431"/>
+		<ns1:LevelBtnUI id="levelBtn2" width="200" height="200" skinName="skins.ui.LevelBtnSkin" x="375" y="132"/>
+		<e:UIAsset id="backBtn" source="home_0000_-0_06_png" width="94" height="64" x="51" bottom="33"/>
+		<e:UIAsset source="home_0001_a_03_png" x="74" touchEnabled="false" bottom="43"/>
+		<e:UIAsset source="home_a_03_png" x="504" bottom="31"/>
+	</e:Group>
+	<ns1:AssetPanel skinName="skins.ui.AssetPanelSkin"/>
+</e:Skin>

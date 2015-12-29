@@ -1,0 +1,16 @@
+{
+	"name": "egret",
+	"version": "2.5.2",
+	"modules": [
+		{
+			"name": "websocket",
+			"description": "websocket",
+			"files": [ 
+				"ClientSocket.ts",
+				"ISocketHand.ts",
+				"ClientSocket_JSON",
+			  	"ISocketHand_JSON"],
+			"root": "src"
+		}
+	]
+}
