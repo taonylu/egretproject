@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="1200" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:Rect height="1200" width="640" x="0" y="0" fillAlpha="0"/>
+	<e:Group height="59" width="200" y="358" x="130">
+		<e:Rect height="300" width="400" fillColor="0x7F9DEF" x="0" y="0"/>
+		<e:Rect height="60" width="200" fillColor="0xF3F3F7" x="90" y="177"/>
+		<e:Label id="submitBtn" text="提交分数" textColor="0x020000" size="40" fontFamily="Arial" x="114" y="182" touchChildren="true" touchEnabled="true"/>
+	</e:Group>
+	<e:Label id="scoreLabel" text="总得分：123" x="135" y="423" textColor="0x0C0A0A" size="50" fontFamily="Arial" verticalAlign="middle" textAlign="center" width="381"/>
+</e:Skin>

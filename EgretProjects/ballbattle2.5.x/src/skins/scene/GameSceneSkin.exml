@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="850" height="480" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:ns1="*">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:Rect id="bg" height="480" width="850" x="0" y="0" fillColor="0x3E618A"/>
+	<e:Group id="contentGroup" height="20" width="20"/>
+	<e:Label id="weightLabel" textColor="0xF6F0F0" fontFamily="宋体" width="190" text="体重：10毫克" size="18" x="7" y="157" touchChildren="false" touchEnabled="false"/>
+	<e:Group height="277" width="200" x="649" y="3" cacheAsBitmap="true" touchChildren="false" touchEnabled="false">
+		<e:Rect height="31" width="174" x="13" y="5" textColor="0xF1E5E5" fillColor="0x0A0909" fillAlpha="0.2"/>
+		<e:Rect fillColor="0x0A0909" textColor="0xF1E5E5" width="174" height="193" x="14" y="44" fillAlpha="0.2"/>
+		<e:Label text="排行榜" fontFamily="宋体" size="20" y="7" x="65"/>
+		<e:UIAsset source="crown_png" x="14" y="45"/>
+		<e:UIAsset source="no2_png" y="85" x="18"/>
+		<e:UIAsset source="no3_png" y="122" x="19"/>
+		<e:Label text="1" y="57" size="20" fontFamily="宋体" textColor="0x080404" verticalAlign="middle" textAlign="center" width="21" x="24"/>
+		<e:Label textColor="0x080404" fontFamily="宋体" size="20" y="90" text="2" verticalAlign="middle" textAlign="center" width="21" x="25"/>
+		<e:Label textColor="0x080404" fontFamily="宋体" size="20" y="128" text="3" textAlign="center" verticalAlign="middle" width="22" x="25"/>
+		<e:Label fontFamily="宋体" size="20" x="30" y="164" text="4" textColor="0xF6F0F0"/>
+		<e:Label textColor="0xF6F0F0" fontFamily="宋体" size="20" x="30" y="198" text="5"/>
+		<e:Label id="rank0Label" textColor="0xF6F0F0" fontFamily="宋体" size="20" x="65" y="55" width="114" text="aaaaaaa"/>
+		<e:Label id="rank1Label" textColor="0xF6F0F0" text="aaaaaaa" fontFamily="宋体" width="114" size="20" x="65" y="91"/>
+		<e:Label id="rank2Label" textColor="0xF6F0F0" text="aaaaaaa" fontFamily="宋体" width="114" size="20" x="65" y="126"/>
+		<e:Label id="rank3Label" textColor="0xF6F0F0" text="aaaaaaa" fontFamily="宋体" width="114" size="20" x="65" y="162"/>
+		<e:Label id="rank4Label" textColor="0xF6F0F0" text="aaaaaaa" fontFamily="宋体" width="114" size="20" x="65" y="197"/>
+	</e:Group>
+	<e:Label id="topLabel" y="8" width="496" size="15" verticalAlign="middle" textAlign="center" x="155"/>
+	<ns1:NarrowButton id="fenlieBtn" skinName="skins.ui.FenLieSkin" x="734" y="370"/>
+	<ns1:NarrowButton id="tupaopaoBtn" skinName="skins.ui.TuPaoPaoSkin" x="623" y="368"/>
+</e:Skin>

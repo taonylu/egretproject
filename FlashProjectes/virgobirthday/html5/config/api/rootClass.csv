@@ -1,0 +1,12 @@
+类,继承类,静态,属性,属性get/set,函数,类型(属性类型或者函数返回类型),转换类,是否需要删前缀,转换属性,转换属性格式,转换函数,转换函数参数,转换是否实现,错误提示,权重,测试
+v1.0,,,,,,,,,,,,,,,,
+Boolean,,,,,,,boolean,,,,,,1,,10,
+Class,,,,,,,any,,,,,,1,,10,
+Function,,,,,,,Function,,,,,,1,,10,
+Function,,,,,apply,*,Function,,,,apply,,1,,10,
+Function,,,,,call,*,Function,,,,call,,1,,10,
+int,,,,,,,number,,,,,,1,,10,
+Namespace,,,,,,,flash.Namespace,,,,,,0,,10,
+Number,,,,,,,number,,,,,,1,,10,
+uint,,,,,,,number,,,,,,1,,10,
+Vector,,,,,,,Array,,,,,,1,,10,

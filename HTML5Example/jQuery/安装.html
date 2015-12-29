@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+    <script>
+        //-------------jQuery使用--------------
+        //1. 添加jq.js文件
+        //2. document.ready后才能使用，防止文档未加载完成之前操作失败
+        //3. jq访问html元素的方式
+
+
+        $(document).ready(function(){
+            $("p").click(function(){  //访问p元素
+                $(this).hide();  //访问对象
+                $("#a").hide();   //访问id
+                $(".b").hide();   //访问class
+            })
+        });
+
+        
+
+    </script>
+
+    <p>123</p>
+    <p id="a">123</p>
+    <p class="b">123</p>
+
+
+</body>
+</html>

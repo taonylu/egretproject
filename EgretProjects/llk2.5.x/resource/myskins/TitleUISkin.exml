@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="TitleUISkin" width="563" height="120" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="title_bg_png" horizontalCenter="0" top="0"/>
+	<e:Image source="title_fish_png" horizontalCenter="-197.5" top="14"/>
+	<e:Image source="title_star_png" horizontalCenter="199.5" top="8"/>
+	<e:Label id="fishLabel" text="1999" y="21" width="125" fontFamily="Tahoma 'Microsoft Yahei'" horizontalCenter="-107"/>
+	<e:Label id="starlabel" width="129" y="20" text="1999" fontFamily="Tahoma 'Microsoft Yahei'ial" textAlign="right" horizontalCenter="105"/>
+	<e:Label id="titleLabel" text="选择一个主题" y="63" width="293" textAlign="center" verticalAlign="middle" fontFamily="'Microsoft Yahei' Tahoma" horizontalCenter="0"/>
+	
+</e:Skin>

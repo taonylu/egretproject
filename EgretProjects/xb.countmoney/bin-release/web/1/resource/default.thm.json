@@ -1,0 +1,32 @@
+{
+  "skins": {
+    "eui.Button": "resource/eui_skins/ButtonSkin.exml",
+    "eui.CheckBox": "resource/eui_skins/CheckBoxSkin.exml",
+    "eui.HScrollBar": "resource/eui_skins/HScrollBarSkin.exml",
+    "eui.HSlider": "resource/eui_skins/HSliderSkin.exml",
+    "eui.Panel": "resource/eui_skins/PanelSkin.exml",
+    "eui.TextInput": "resource/eui_skins/TextInputSkin.exml",
+    "eui.ProgressBar": "resource/eui_skins/ProgressBarSkin.exml",
+    "eui.RadioButton": "resource/eui_skins/RadioButtonSkin.exml",
+    "eui.Scroller": "resource/eui_skins/ScrollerSkin.exml",
+    "eui.ToggleSwitch": "resource/eui_skins/ToggleSwitchSkin.exml",
+    "eui.VScrollBar": "resource/eui_skins/VScrollBarSkin.exml",
+    "eui.VSlider": "resource/eui_skins/VSliderSkin.exml",
+    "eui.ItemRenderer": "resource/eui_skins/ItemRendererSkin.exml"
+  },
+  "autoGenerateExmlsList": true,
+  "exmls": [
+    {
+      "path": "resource/myskin/GameSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"GameSceneSkin\" width=\"640\" height=\"1150\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\" xmlns:ns1=\"*\">\n\t<e:Group id=\"fallMoneyGroup\" height=\"1150\" width=\"640\">\n\t</e:Group>\n\t<e:Label id=\"moneyLabel\" text=\"标签\" y=\"164\" textColor=\"0x030000\" width=\"210\" height=\"76\" verticalAlign=\"middle\" textAlign=\"center\" horizontalCenter=\"0\"/>\n\t<e:Label id=\"timeLabel\" y=\"250\" textColor=\"0x030000\" text=\"标签\" horizontalCenter=\"0\" width=\"210\" height=\"76\" verticalAlign=\"middle\" textAlign=\"center\" x=\"10\"/>\n\t<e:Image id=\"staticMoney\" source=\"mb0_png\" y=\"550\" x=\"130\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/HomeSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"HomeSceneSkin\" width=\"640\" height=\"1150\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"money\" source=\"m0_png\" x=\"135\" y=\"798\"/>\n\t<e:Image id=\"title\" source=\"splashtitle_png\" y=\"55\" horizontalCenter=\"0\"/>\n\t<e:Image id=\"arrow\" source=\"starttip_png\" x=\"294\" y=\"722\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/ui/ResultUISkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultUISkin\" width=\"640\" height=\"480\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image source=\"dlgbg_png\" width=\"640\"/>\n\t<e:Image id=\"startBtn\" source=\"start_png\" x=\"60\" y=\"311\"/>\n\t<e:Image id=\"rankBtn\" source=\"rank_png\" x=\"270\" y=\"315\"/>\n\t<e:Image id=\"shareBtn\" source=\"share_png\" x=\"478\" y=\"307\"/>\n\t<e:Label id=\"resultLabel\" text=\"标签\" y=\"66\" width=\"425\" height=\"185\" x=\"108\"/>\n</e:Skin>"
+    }
+  ]
+}

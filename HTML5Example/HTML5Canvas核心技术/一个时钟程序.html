@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一个时钟程序</title>
+    <style>
+        body{
+            background: #aaaaaa;
+        }
+        #canvas{
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="1000" height="1000">
+        Canvas not Support
+    </canvas>
+
+    <script>
+        //---------------------时钟程序--------------------
+        //1 使用canvas绘制时钟
+        //2 数组forEach用法
+        //3 lineTo moveTo画线，stroke绘制轮廓，fill填充,clear删除绘制
+        //4 Date时间
+        var canvas = document.getElementById("canvas");
+        context = canvas.getContext("2d");
+        FONT_HEIGHT = 15;
+        MARGIN = 35;
+        HAND_MIN = canvas.width/25;
+        HAND_HOUR = canvas.width/10;
+        NUMBER_SPACE = 20;
+        RADIUS = canvas.width/2 - MARGIN;
+        HAND_RADIUS = RADIUS + NUMBER_SPACE;
+
+        //绘制圆
+        function drawCircle(){
+            context.beginPath();
+            context.arc(canvas.width/2, canvas.height/2,0,Math.PI*2, true);
+            context.stroke();
+        }
+
+        //绘制数字
+        function drawNumber(){
+            var numberList = [1,2,3,4,5,6,7,8,9,10,11,12];
+            var angle = 0;
+            var numberWidth = 0;
+            numberList.forEach(function(number){
+                angle = Math.PI/6*(number - 3);
+                numberWidth = context.measureText(number).width;
+                context.fillText(number, canvas.width/2 + Math.cos(angle)*HAND_RADIUS - numberWidth/2,
+                canvas.height/2 + Math.sin(angle)*HAND_RADIUS + FONT_HEIGHT/3);
+            });
+        }
+
+        //绘制中心
+        function drawCenter(){
+            context.beginPath();
+            context.arc(canvas.width/2, canvas.height/2,5,5,Math.PI*2, true);
+            context.fill();
+        }
+
+        //绘制指针
+        function drawHand(loc, isHour){
+            var angle = (Math.PI*2)*(loc/60)-Math.PI/ 2;
+            var handRadius = isHour?RADIUS - HAND_MIN - HAND_HOUR:RADIUS - HAND_MIN;
+            context.moveTo(canvas.width/2, canvas.height/2);
+            context.lineTo(canvas.width/2 + Math.cos(angle)*handRadius,
+                    canvas.height/2 + Math.sin(angle)*handRadius);
+            context.stroke();
+        }
+
+        //绘制指针s
+        function drawHands(){
+            var date = new Date();
+            var hour = date.getHours();
+            hour = hour>12?hour-12:hour;
+            drawHand(hour*5 + (date.getMinutes()/60)*5, true,0.5);
+            drawHand(date.getMinutes(), false, 0.5);
+            drawHand(date.getSeconds(), false, 0.2);
+        }
+
+        //绘制时钟
+        function drawClock(){
+            console.log(123);
+            context.clearRect(0,0, canvas.width, canvas.height);
+            drawCircle();
+            drawCenter();
+            drawHands();
+            drawNumber();
+        }
+
+        context.font = FONT_HEIGHT + "px Arial";
+        loop = setInterval(drawClock, 1000);
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

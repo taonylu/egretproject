@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+        background: #dddddd;
+        }
+        #canvas{
+         display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600">
+        Canvas not Support
+    </canvas>
+
+    <img id="screenImage"/>
+
+    <script>
+        //-------------------离屏Canvas---------------
+        //1. 下面例子是将离屏Canvas数据赋值到img上
+        //2. 什么是离屏Canvas？ 将canvas设置为不可见，则为离屏canvas
+        //3. 离屏Canvas有什么优点？ 先将图像存储在多个离屏canvas中，再赋值到屏幕上，可以大幅度提高性能
+
+        var canvas = document.getElementById("canvas");
+        context = canvas.getContext("2d");
+
+        context.beginPath();
+        context.fillRect(0,0,100,100);
+        context.fill();
+
+        var img = document.getElementById("screenImage");
+        img.src = canvas.toDataURL();
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

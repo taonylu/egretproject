@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="ResultUISkin" width="640" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="dlgbg_png" width="640"/>
+	<e:Image id="startBtn" source="start_png" x="60" y="311"/>
+	<e:Image id="rankBtn" source="rank_png" x="270" y="315"/>
+	<e:Image id="shareBtn" source="share_png" x="478" y="307"/>
+	<e:Label id="resultLabel" text="标签" y="66" width="425" height="185" x="108"/>
+</e:Skin>

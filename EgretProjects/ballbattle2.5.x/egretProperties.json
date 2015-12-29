@@ -1,0 +1,44 @@
+{
+  "native": {
+    "path_ignore": []
+  },
+  "publish": {
+    "web": 0,
+    "native": 1,
+    "path": "../../../SVN/1/Game/ballbattle"
+  },
+  "egret_version": "2.5.2",
+  "modules": [
+    {
+      "name": "egret"
+    },
+    {
+      "name": "game"
+    },
+    {
+      "name": "res"
+    },
+    {
+      "name": "gui"
+    },
+	{
+      "name": "tween"
+    },
+	{
+      "name": "socket"
+    },
+	{
+      "name":"ui_gui","path":"../mylib2.5/ui_gui"
+    },
+	{
+      "name":"tool","path":"../mylib2.5/tool"
+    },
+	{
+      "name":"puremvc","path":"../mylib2.5/puremvc"
+    },
+	{
+      "name":"websocket","path":"../mylib2.5/websocket"
+    }
+
+  ]
+}

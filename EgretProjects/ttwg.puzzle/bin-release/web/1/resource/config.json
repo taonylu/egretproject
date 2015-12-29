@@ -1,0 +1,13 @@
+{
+	"comment":"折扣",
+	"discountList":[9,8.5,8],
+
+	"comment":"折扣分数",
+	"scoreList":[10,20,30],
+
+	"comment":"拼图关卡镂空数量 范围5-9",
+	"rectNumList":[7,5,5],
+
+	"comment":"时间限制",
+	"timeLimit":60
+}

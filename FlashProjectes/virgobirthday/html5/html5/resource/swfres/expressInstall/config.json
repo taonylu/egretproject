@@ -1,0 +1,77 @@
+{
+	"path": "J:/Git/FlashProjectes/virgobirthday/html5/html5/resource/swfres/expressInstall/",
+	"symbols": {},
+	"relativeDir": "swfres/expressInstall/",
+	"scalingGrids": {},
+	"resDefs": {
+		"0": {
+			"f": 1,
+			"t": "stage",
+			"fd": [
+				[
+					{
+						"sx": 1,
+						"instanceName": null,
+						"tx": 1.5,
+						"color": null,
+						"ty": 0.05,
+						"depth": 1,
+						"sy": 1,
+						"r": 0,
+						"id": 3
+					}
+				]
+			],
+			"id": 0
+		},
+		"1": {
+			"x": 0,
+			"y": 0,
+			"t": "shape",
+			"h": 130,
+			"isexportpng": true,
+			"w": 310,
+			"id": 1
+		},
+		"2": {
+			"f": 1,
+			"t": "sprite",
+			"fd": [
+				[
+					{
+						"sx": 1,
+						"instanceName": null,
+						"tx": 0,
+						"color": null,
+						"ty": 0,
+						"depth": 1,
+						"sy": 1,
+						"r": 0,
+						"id": 1
+					}
+				]
+			],
+			"id": 2
+		},
+		"3": {
+			"f": 1,
+			"t": "sprite",
+			"fd": [
+				[
+					{
+						"sx": 1,
+						"instanceName": "loaderClip",
+						"tx": -1.5,
+						"color": null,
+						"ty": -0.05,
+						"depth": 1,
+						"sy": 1,
+						"r": 0,
+						"id": 2
+					}
+				]
+			],
+			"id": 3
+		}
+	}
+}

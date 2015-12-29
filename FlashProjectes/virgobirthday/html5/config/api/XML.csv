@@ -1,0 +1,58 @@
+类,继承类,静态,属性,属性get/set,函数,类型(属性类型或者函数返回类型),转换类,是否需要删前缀,转换属性,转换属性格式,转换函数,转换函数参数,转换是否实现,错误提示,权重,测试
+v1.0,,,,,,,,,,,,,,,,
+XML,,1,,,,,flash.XML,,,,,,1,,10,
+XML,,1,ignoreComments,,,Boolean,flash.XML,1,flash.XML.ignoreComments,,,,0,,10,
+XML,,1,ignoreProcessingInstructions,,,Boolean,flash.XML,1,flash.XML.ignoreProcessingInstructions,,,,0,,10,
+XML,,1,ignoreWhitespace,,,Boolean,flash.XML,1,flash.XML.ignoreWhitespace,,,,0,,10,
+XML,,1,prettyIndent,,,int,flash.XML,1,flash.XML.prettyIndent,,,,0,,10,
+XML,,1,prettyPrinting,,,Boolean,flash.XML,1,flash.XML.prettyPrinting,,,,0,,10,
+XML,,,,,addNamespace,XML,flash.XML,,,,,,0,,10,
+XML,,,,,appendChild,XML,flash.XML,,,,,,1,,10,1
+XML,,,,,attribute,XMLList ,flash.XML,,,,,,1,,10,1
+XML,,,,,attributes,XMLList ,flash.XML,,,,,,1,,10,1
+XML,,,,,child,XMLList ,flash.XML,,,,,,1,,10,1
+XML,,,,,childIndex,int,flash.XML,,,,,,0,,10,
+XML,,,,,children,XMLList ,flash.XML,,,,,,1,,10,1
+XML,,,,,comments,XMLList,flash.XML,,,,,,0,,10,
+XML,,,,,contains,Boolean ,flash.XML,,,,,,1,,10,1
+XML,,,,,copy,XML,flash.XML,,,,,,1,,10,1
+XML,,,,,defaultSettings,Object ,flash.XML,,,,,,0,,10,
+XML,,,,,descendants,XMLList,flash.XML,,,,,,1,,10,1
+XML,,,,,elements,XMLList,flash.XML,,,,,,1,,10,1
+XML,,,,,hasComplexContent,Boolean,flash.XML,,,,,,1,,10,1
+XML,,,,,hasOwnProperty,Boolean,flash.XML,,,,,,1,,10,1
+XML,,,,,hasSimpleContent,Boolean,flash.XML,,,,,,1,,10,1
+XML,,,,,inScopeNamespaces,Array ,flash.XML,,,,,,0,,10,
+XML,,,,,insertChildAfter,*,flash.XML,,,,,,0,,10,
+XML,,,,,insertChildBefore,*,flash.XML,,,,,,0,,10,
+XML,,,,,length,int,flash.XML,,,,,,1,,10,1
+XML,,,,,localName,Object,flash.XML,,,,,,1,,10,1
+XML,,,,,name,Object,flash.XML,,,,,,1,,10,1
+XML,,,,,namespace,*,flash.XML,,,,,,1,,10,
+XML,,,,,namespaceDeclarations,Array,flash.XML,,,,,,0,,10,
+XML,,,,,nodeKind,String ,flash.XML,,,,,,0,,10,
+XML,,,,,normalize,XML,flash.XML,,,,,,0,,10,
+XML,,,,,parent,*,flash.XML,,,,,,1,,10,1
+XML,,,,,prependChild,XML ,flash.XML,,,,,,1,,10,1
+XML,,,,,processingInstructions,XMLList ,flash.XML,,,,,,0,,10,
+XML,,,,,propertyIsEnumerable,Boolean,flash.XML,,,,,,0,,10,
+XML,,,,,removeNamespace,XML ,flash.XML,,,,,,0,,10,
+XML,,,,,replace,XML ,flash.XML,,,,,,0,,10,
+XML,,,,,setChildren,XML,flash.XML,,,,,,0,,10,
+XML,,,,,setLocalName,void,flash.XML,,,,,,0,,10,
+XML,,,,,setNamespace,void,flash.XML,,,,,,0,,10,
+XML,,,,,setSettings,void,flash.XML,,,,,,0,,10,
+XML,,,,,settings,Object ,flash.XML,,,,,,0,,10,
+XML,,,,,text,XMLList,flash.XML,,,,,,0,,10,
+XML,,,,,toString,String ,flash.XML,,,,,,1,,10,1
+XML,,,,,toXMLString,String,flash.XML,,,,,,1,,10,1
+XML,,,,,valueOf,XML,flash.XML,,,,,,1,,10,1
+XML,,,,,setLocalName,void,flash.XML,,,,,,1,,10,
+XML,,,,,setName,void,flash.XML,,,,,,1,,10,1
+XML,,,,,dotAt,XMLList,flash.XML,,,,,,1,,10,
+XML,,,,,dotStar,*,flash.XML,,,,,,1,,10,
+XML,,,,,dotExpr,*,flash.XML,,,,,,0,,10,
+XML,,,,,dotAtExpr,*,flash.XML,,,,,,1,,10,
+XML,,,,,dotDouble,*,flash.XML,,,,,,1,,10,
+XML,,,,,dotDoubleStar,*,flash.XML,,,,,,1,,10,
+XML,,,,,dotAlt,*,flash.XML,,,,,,1,,10,

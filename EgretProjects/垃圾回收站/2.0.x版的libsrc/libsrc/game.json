@@ -1,0 +1,19 @@
+{
+    "name": "game",
+    "dependence": ["core","res","gui","socket"],
+    "source":"./",
+    "file_list": [
+        "common/LoadManager.ts",
+		"common/ObjectPool.ts",
+		"common/ArrayTool.ts",
+		"common/LayerManager.ts",
+		"common/StringTool.ts",
+		"common/NumberTool.ts",
+		"ui/BaseScene.ts",
+		"net/ClientSocket.ts",
+		"net/ISocketHand.ts",
+		"puremvc/puremvc-typescript-standard-1.0.js",
+        "puremvc/puremvc-typescript-standard-1.0.d.ts"
+    ]
+
+}

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="150" height="150" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset source="img_loading_2" x="39" y="33"/>
+	<e:UIAsset id="circle" source="img_loading_1" x="18" y="18"/>
+	<e:transitions>
+		<e:Array>
+			<e:Transition toState="rotate" fromState="normal">
+				<e:Parallel>
+					<e:Rotate target="{circle}" angleTo="360" duration="1000" repeatBehavior="loop" repeatCount="0"/>
+				</e:Parallel>
+			</e:Transition>
+		</e:Array>
+	</e:transitions>
+</e:Skin>

@@ -1,0 +1,60 @@
+{
+  "skins": {
+    "eui.Button": "resource/eui_skins/ButtonSkin.exml",
+    "eui.CheckBox": "resource/eui_skins/CheckBoxSkin.exml",
+    "eui.HScrollBar": "resource/eui_skins/HScrollBarSkin.exml",
+    "eui.HSlider": "resource/eui_skins/HSliderSkin.exml",
+    "eui.Panel": "resource/eui_skins/PanelSkin.exml",
+    "eui.TextInput": "resource/eui_skins/TextInputSkin.exml",
+    "eui.ProgressBar": "resource/eui_skins/ProgressBarSkin.exml",
+    "eui.RadioButton": "resource/eui_skins/RadioButtonSkin.exml",
+    "eui.Scroller": "resource/eui_skins/ScrollerSkin.exml",
+    "eui.ToggleSwitch": "resource/eui_skins/ToggleSwitchSkin.exml",
+    "eui.VScrollBar": "resource/eui_skins/VScrollBarSkin.exml",
+    "eui.VSlider": "resource/eui_skins/VSliderSkin.exml",
+    "eui.ItemRenderer": "resource/eui_skins/ItemRendererSkin.exml"
+  },
+  "autoGenerateExmlsList": true,
+  "exmls": [
+    {
+      "path": "resource/eui_skins/HScrollBarSkin.exml",
+      "content": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<e:Skin class=\"skins.HScrollBarSkin\" minWidth=\"20\" minHeight=\"8\" xmlns:e=\"http://ns.egret.com/eui\">\n    <e:Image id=\"thumb\" source=\"roundthumb_png\" scale9Grid=\"3,3,2,2\" height=\"8\" width=\"30\" verticalCenter=\"0\"/>\n</e:Skin>\n"
+    },
+    {
+      "path": "resource/eui_skins/ScrollerSkin.exml",
+      "content": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<e:Skin class=\"skins.ScrollerSkin\" minWidth=\"20\" minHeight=\"20\" xmlns:e=\"http://ns.egret.com/eui\">\n    <e:HScrollBar id=\"horizontalScrollBar\" width=\"100%\" bottom=\"0\"/>\n    <e:VScrollBar id=\"verticalScrollBar\" height=\"100%\" right=\"0\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/eui_skins/VScrollBarSkin.exml",
+      "content": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<e:Skin class=\"skins.VScrollBarSkin\" minWidth=\"8\" minHeight=\"20\" xmlns:e=\"http://ns.egret.com/eui\">\n    <e:Image id=\"thumb\" source=\"roundthumb_png\" scale9Grid=\"3,3,2,2\" height=\"30\" width=\"8\" horizontalCenter=\"0\"/>\n</e:Skin>\n"
+    },
+    {
+      "path": "resource/myskin/GameSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"GameSceneSkin\" width=\"640\" height=\"1150\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"bg\" source=\"game_bg_jpg\" y=\"-254\" touchEnabled=\"false\"/>\n\t<e:Group id=\"gridBgGroup\" height=\"510\" width=\"640\" x=\"0\" verticalCenter=\"190\"/>\n\t<e:Group id=\"gridGroup\" height=\"510\" width=\"640\" x=\"0\" verticalCenter=\"190\" touchChildren=\"false\" touchEnabled=\"false\" touchThrough=\"true\"/>\n\t<e:Group id=\"playerGroup\" height=\"510\" width=\"640\" x=\"0\" verticalCenter=\"190\" touchChildren=\"false\" touchEnabled=\"false\" touchThrough=\"true\"/>\n\t<e:Group id=\"resultGroup\" height=\"1150\" width=\"640\">\n\t\t<e:Rect id=\"blackBg\" height=\"1150\" width=\"640\" fillAlpha=\"0.7\"/>\n\t\t<e:Image id=\"popBg\" source=\"result_popbg_png\" y=\"202\" x=\"47\"/>\n\t\t<e:Image id=\"failText\" source=\"result_fail_png\" y=\"402\" x=\"95\"/>\n\t\t<e:Image id=\"shareBtn\" source=\"result_share_png\" x=\"50\" y=\"660\"/>\n\t\t<e:Image id=\"againBtn\" source=\"result_again_png\" x=\"373\" y=\"660\"/>\n\t\t<e:Image id=\"lookBtn\" source=\"result_look_png\" y=\"750\" x=\"236\"/>\n\t\t<e:Image id=\"successText\" source=\"resule_success_png\" y=\"416\" x=\"114\"/>\n\t\t<e:Image id=\"luckBtn\" source=\"result_luckbtn_png\" y=\"496\" x=\"210\"/>\n\t</e:Group>\n\t<e:Group id=\"luckGroup\" height=\"1150\" width=\"640\" x=\"0\" y=\"0\">\n\t\t<e:Rect height=\"1150\" width=\"640\" x=\"0\" y=\"0\" fillAlpha=\"0.7\"/>\n\t\t<e:Scroller id=\"luckScroller\" width=\"600\" height=\"766\" x=\"20\" y=\"96\" skinName=\"skins.ScrollerSkin\">\n\t\t\t<e:Group id=\"luckScrollerGroup\" height=\"950\">\n\t\t\t\t<e:layout>\n\t\t\t\t\t<e:VerticalLayout horizontalAlign=\"center\" verticalAlign=\"top\" gap=\"0\"/>\n\t\t\t\t</e:layout>\n\t\t\t</e:Group>\n\t\t</e:Scroller>\n\t\t<e:Image id=\"okBtn\" source=\"result_okBtn_png\" y=\"878\" x=\"210\"/>\n\t</e:Group>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/ui/PlayerUISkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PlayerUISkin\" width=\"110\" height=\"120\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"girl0\" source=\"A1_png\"/>\n\t<e:Image id=\"girl1\" source=\"A2_png\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/HomeSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"HomeSceneSkin\" width=\"640\" height=\"1150\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\" xmlns:ns1=\"*\">\n\t<e:Image id=\"bg\" source=\"game_bg_jpg\" y=\"0\"/>\n\t<e:Image id=\"title\" source=\"home_title_png\" y=\"60\" x=\"25\"/>\n\t<e:Group id=\"startGroup\" height=\"324\" width=\"640\" x=\"0\" verticalCenter=\"268\">\n\t\t<e:Image id=\"startBtn\" source=\"home_start_png\" x=\"59\" y=\"216\"/>\n\t\t<e:Image id=\"introduceBtn\" source=\"home_introduce_png\" x=\"365\" y=\"216\"/>\n\t\t<ns1:PlayerUI id=\"girl\" y=\"60\" skinName=\"PlayerUISkin\" x=\"265\"/>\n\t</e:Group>\n\t<e:Group id=\"ruleGroup\" width=\"640\" height=\"200\" y=\"874\" touchThrough=\"true\">\n\t\t<e:Image id=\"ruleBg\" source=\"game_rulebg_png\" y=\"-612\" x=\"-2\"/>\n\t\t<e:Image id=\"bigGril\" source=\"home_girl_png\" rotation=\"-15\" y=\"-47\" x=\"611\"/>\n\t\t<e:Scroller id=\"ruleScroller\" width=\"640\" y=\"-523\" height=\"382\">\n\t\t\t<e:Group>\n\t\t\t\t<e:Image id=\"ruleText\" source=\"game_rule_png\" y=\"13\" x=\"92\"/>\n\t\t\t</e:Group>\n\t\t</e:Scroller>\n\t\t<e:Image id=\"arrow\" source=\"arrow_png\" y=\"-107\" horizontalCenter=\"-45.5\"/>\n\t</e:Group>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/LuckSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"LuckSceneSkin\" width=\"640\" height=\"1150\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"bg\" source=\"game_bg_jpg\"/>\n\t<e:Group height=\"200\" width=\"200\" x=\"216\" bottom=\"105\">\n\t\t<e:Image id=\"rulebg\" source=\"game_rulebg_png\" y=\"-642\" x=\"-211\"/>\n\t\t<e:Image id=\"luckText\" source=\"luck_text_png\" x=\"-166\" y=\"-554\"/>\n\t\t<e:Image id=\"qrcode\" source=\"game_qrcode_png\" x=\"-169\" bottom=\"-14\"/>\n\t\t<e:Image id=\"girl\" source=\"home_girl_png\" x=\"62\" rotation=\"-15\" y=\"-47\"/>\n\t</e:Group>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/PreloadSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PreloadSceneSkin\" width=\"640\" height=\"1150\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"logo\" source=\"LODING_png\" x=\"249\" y=\"310\"/>\n\t<e:Label id=\"processLabel\" text=\"35%\" y=\"474\" fontFamily=\"微软雅黑\" verticalAlign=\"middle\" textAlign=\"center\" width=\"123\" x=\"259\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/ResultSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultSceneSkin\" width=\"640\" height=\"1150\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image source=\"game_bg_jpg\"/>\n\t<e:Group id=\"resultGroup\" height=\"1056\" width=\"640\" y=\"94\">\n\t\t<e:Image id=\"girl\" source=\"home_girl_png\" x=\"262\" y=\"693\" rotation=\"-15\"/>\n\t\t<e:Image id=\"resultBg\" source=\"game_rulebg_png\" y=\"88\"/>\n\t\t<e:Image id=\"prizebg\" source=\"prize_bg_png\" x=\"42\" y=\"178\"/>\n\t\t<e:Label id=\"prizeLabel\" text=\"标签\" x=\"106\" y=\"230\" width=\"382\" height=\"44\" textColor=\"0x104EB3\" textAlign=\"left\" verticalAlign=\"middle\"/>\n\t\t<e:Image id=\"moneybg\" source=\"prizemoney_png\" x=\"385\" y=\"198\"/>\n\t\t<e:Image id=\"moneyImg\" source=\"prize6_png\" x=\"406\" y=\"217\"/>\n\t\t<e:Group id=\"prizeGroup\" height=\"200\" width=\"200\" x=\"399\" y=\"187\">\n\t\t\t<e:Image id=\"itemImg\" source=\"prize1_png\" x=\"6\" bottom=\"0\"/>\n\t\t</e:Group>\n\t\t<e:EditableText id=\"codeLabel\" width=\"289\" height=\"46\" x=\"82\" y=\"321\" textColor=\"0x010000\" verticalAlign=\"middle\" textAlign=\"center\" touchEnabled=\"false\"/>\n\t</e:Group>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/ui/LuckTextSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"LuckTextSkin\" width=\"530\" height=\"100\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image source=\"luck_bg_png\" x=\"1\" y=\"3\"/>\n\t<e:Label id=\"nameLabel\" text=\"玩家123\" x=\"31\" y=\"13\" textColor=\"0x070995\" width=\"433\" textAlign=\"left\" fontFamily=\"微软雅黑\" size=\"25\"/>\n\t<e:Label id=\"prizeLabel\" y=\"54\" textColor=\"0x070995\" text=\"什么什么面膜\" fontFamily=\"微软雅黑\" textAlign=\"left\" width=\"369\" x=\"127\" size=\"25\"/>\n</e:Skin>"
+    }
+  ]
+}

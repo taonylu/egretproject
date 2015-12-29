@@ -1,0 +1,12 @@
+{
+	"file_list": [
+		"common/LoadManager.ts",
+		"common/ObjectPool.ts",
+		"common/ArrayTool.ts",
+		"common/LayerManager.ts",
+		"common/StringTool.ts",
+		"common/NumberTool.ts",
+		"ui/BaseScene.ts",
+		"puremvc/puremvc-typescript-standard-1.0.js"
+	]
+}

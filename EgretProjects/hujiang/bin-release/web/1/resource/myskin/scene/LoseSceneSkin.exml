@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="LoseSceneSkin" width="640" height="1140" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="bg_black_png" cacheAsBitmap="false"/>
+	<e:Image source="result-bg_png" cacheAsBitmap="false"/>
+	<e:Image id="linkBtn" source="result-btn-1_png" y="682" x="218" cacheAsBitmap="false"/>
+	<e:Image id="againBtn" source="result-btn-2_png" y="782" horizontalCenter="0.5" cacheAsBitmap="false"/>
+</e:Skin>

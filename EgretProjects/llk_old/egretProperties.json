@@ -1,0 +1,29 @@
+{
+	"document_class": "Main",
+	"modules": [
+		{
+			"name": "core"
+		},
+		{
+			"name": "version_old"
+		},
+		{
+			"name": "res"
+		},
+		{
+			"name": "gui"
+		},
+		{
+			"name": "socket"
+		},
+		{
+			"name": "game",
+			"path": "../codelib/src"
+		}
+	],
+	"native": {
+		"path_ignore": []
+	},
+	"egret_version": "2.5.2",
+	"release": "../../../SeaSVN/1/llk"
+}

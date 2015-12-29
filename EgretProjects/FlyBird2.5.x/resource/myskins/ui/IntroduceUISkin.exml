@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="IntroduceSceneSkin" width="285" height="512" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="getready_png" y="110" horizontalCenter="0"/>
+	<e:Image source="intrudoce_png" y="207" horizontalCenter="0"/>
+</e:Skin>

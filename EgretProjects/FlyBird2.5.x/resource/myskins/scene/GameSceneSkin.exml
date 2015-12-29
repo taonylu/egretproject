@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="GameSceneSkin" width="285" height="512" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="bg_png"/>
+	<e:Label id="scoreLabel" text="score:0" x="11" y="15" size="30" width="170"/>
+</e:Skin>

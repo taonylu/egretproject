@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+        background: #dddddd;
+        }
+        #canvas{
+        margin: 10px;
+        padding: 10px;
+        background: #ffffff;
+        border: thin inset #aaaaaa;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="canvas" width="800" height="600">
+    Canvas not Support
+</canvas>
+
+<script>
+    var canvas = document.getElementById("canvas");
+    context = canvas.getContext("2d");
+
+    //---------------图片---------------
+    //1. 加载一张图片，并绘制到Canvas中
+    //2. 保留和恢复context内容
+    //3. 切图getImageData
+
+    var image = new Image();
+    image.src = "img/1.png";
+    image.onload = function(e){
+        context.drawImage(image,0,0);
+
+        var imageData = context.getImageData(0,0,canvas.width,canvas.height);
+
+        context.clearRect(0,0,canvas.width, canvas.height);
+
+        context.putImageData(imageData,0,0);
+    };
+
+</script>
+</body>
+</html>

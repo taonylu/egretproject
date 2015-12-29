@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="1000" currentState="moveArrow" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:ns1="*">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset source="activityBg_jpg"/>
+	<ns1:ItemScroll id="scroll" width="498" height="756" x="71" verticalCenter="-105">
+		<e:Group xmlns:e="http://ns.egret-labs.org/egret" width="498" height="756">
+			<e:UIAsset source="activityPic1_jpg" x="72" y="72"/>
+			<e:UIAsset source="activityPic2_jpg" x="-2" y="371"/>
+			<e:UIAsset source="activityPic3_jpg" x="-111" y="763"/>
+			<e:UIAsset source="activityPic4_jpg" x="-204" y="704"/>
+			<e:layout>
+				<e:HorizontalLayout gap="0"/>
+			</e:layout>
+		</e:Group>
+	</ns1:ItemScroll>
+	<e:Button id="konwBtn" skinName="@ButtonSkin('img_vitBtn_03','img_vitBtn_03')" x="211" verticalCenter="405"/>
+	<e:UIAsset id="knowPng" source="img_know" x="250" verticalCenter="408.5"/>
+	<e:UIAsset id="radio1" source="img_pagepoint_no" x="239" verticalCenter="323.5"/>
+	<e:UIAsset id="radio2" source="img_pagepoint_no" x="287.5" verticalCenter="323.5"/>
+	<e:UIAsset id="radio3" source="img_pagepoint_no" x="335.5" verticalCenter="323.5"/>
+	<e:UIAsset id="radio4" source="img_pagepoint_no" x="384" verticalCenter="323.5"/>
+	<e:UIAsset id="circle" source="img_pagepoint_yes" x="240" verticalCenter="323.5"/>
+	<e:UIAsset id="leftArrow" source="img_pageLeftBtn_1" bottom.normal="569" y.disabled="333" x.disabled="11" x="13" y="330"/>
+	<e:UIAsset id="rightArrow" source="img_pageRightBtn_1" bottom.normal="569" y.disabled="333" x.disabled="586" x="584" y="330"/>
+	<e:transitions>
+		<e:Array>
+			<e:Transition toState="moveArrow" fromState="normal">
+				<e:Parallel>
+					<e:Parallel target="{leftArrow}">
+						<e:Move repeatBehavior="loop" xTo="50" xFrom="0"/>
+					</e:Parallel>
+				</e:Parallel>
+			</e:Transition>
+		</e:Array>
+	</e:transitions>
+</e:Skin>

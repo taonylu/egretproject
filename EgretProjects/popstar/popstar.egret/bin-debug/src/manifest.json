@@ -1,0 +1,15 @@
+[
+	"view/BaseScene.ts",
+	"common/SoundManager.ts",
+	"constant/AppConst.ts",
+	"view/UI/TileUI.ts",
+	"view/GameScene.ts",
+	"view/HomeScene.ts",
+	"App.ts",
+	"AssetAdapter.ts",
+	"common/ObjectPool.ts",
+	"Main.ts",
+	"skins/scene/GameSceneSkin.exml",
+	"skins/scene/HomeSceneSkin.exml",
+	"view/UI/StarParticle.ts"
+]

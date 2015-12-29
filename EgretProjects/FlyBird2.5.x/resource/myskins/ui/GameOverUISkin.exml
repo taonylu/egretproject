@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="GameOverUISkin" width="285" height="512" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="gameover_png" y="101" horizontalCenter="0"/>
+	<e:Image source="scorePanel_png" y="168" horizontalCenter="0"/>
+	<e:Label id="scoreLabel" text="112" x="166" y="203" size="20" width="87" height="21" verticalAlign="middle" textAlign="center"/>
+	<e:Button id="startBtn" label=""  y="306" horizontalCenter="0.5">
+		<e:Skin states="up,down" xmlns:e="http://ns.egret.com/eui">
+			<e:Image width="100%" height="100%"
+			         source="startBtn_png"/>
+		</e:Skin>
+	</e:Button>
+</e:Skin>

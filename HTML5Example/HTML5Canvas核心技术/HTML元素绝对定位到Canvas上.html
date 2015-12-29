@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            background: #dddddd;
+        }
+        #canvas{
+            margin: 10px;
+            padding: 10px;
+            background: #ffffff;
+            border: thin inset #aaaaaa;
+        }
+        #glasspane {
+            position: absolute;
+            background: rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <script>
+        //-------------Canvs中使用HTML元素------------
+        //1. Canvas下不能存放html元素，因为Canvas下只有在不支持Canvas才显示的内容
+        //2. HTML元素绝对定位到Canvas上，看上去像玻璃窗格
+    </script>
+
+    <div id="glasspane">
+        <h2>Bouncing Balls</h2>
+    </div>
+    <canvas id="canvas" width="800" height="600">
+        Canvas not Support
+    </canvas>
+
+    <script>
+        var canvas = document.getElementById("canvas");
+        context = canvas.getContext("2d");
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HomeSceneSkin" width="640" height="1150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="money" source="m0_png" x="135" y="798"/>
+	<e:Image id="title" source="splashtitle_png" y="55" horizontalCenter="0"/>
+	<e:Image id="arrow" source="starttip_png" x="294" y="722"/>
+</e:Skin>

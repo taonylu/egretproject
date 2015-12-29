@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="GameSceneSkin" width="640" height="1150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="fallMoneyGroup" height="1150" width="640">
+	</e:Group>
+	<e:Label id="moneyLabel" text="标签" y="164" textColor="0x030000" width="210" height="76" verticalAlign="middle" textAlign="center" horizontalCenter="0"/>
+	<e:Label id="timeLabel" y="250" textColor="0x030000" text="标签" horizontalCenter="0" width="210" height="76" verticalAlign="middle" textAlign="center" x="10"/>
+	<e:Image id="staticMoney" source="mb0_png" y="550" x="130"/>
+</e:Skin>

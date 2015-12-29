@@ -1,0 +1,12 @@
+类,继承类,静态,属性,属性get/set,函数,类型(属性类型或者函数返回类型),转换类,是否需要删前缀,转换属性,转换属性格式,转换函数,转换函数参数,转换是否实现,错误提示,权重,测试
+ver1.0,,,,,,,,,,,,,,,,
+flash.ui.ContextMenuBuiltInItems,Object,,,,,,flash.ContextMenuBuiltInItems,,,,,,1,,,
+flash.ui.ContextMenuBuiltInItems,,,loop,,,Boolean,flash.ContextMenuBuiltInItems,,,,,,0,,,
+flash.ui.ContextMenuBuiltInItems,,,rewind,,,Boolean,flash.ContextMenuBuiltInItems,,,,,,0,,,
+flash.ui.ContextMenuBuiltInItems,,,forwardAndBack,,,Boolean,flash.ContextMenuBuiltInItems,,,,,,0,,,
+flash.ui.ContextMenuBuiltInItems,,,print,,,Boolean,flash.ContextMenuBuiltInItems,,,,,,0,,,
+flash.ui.ContextMenuBuiltInItems,,,save,,,Boolean,flash.ContextMenuBuiltInItems,,,,,,0,,,
+flash.ui.ContextMenuBuiltInItems,,,zoom,,,Boolean,flash.ContextMenuBuiltInItems,,,,,,0,,,
+flash.ui.ContextMenuBuiltInItems,,,quality,,,Boolean,flash.ContextMenuBuiltInItems,,,,,,0,,,
+flash.ui.ContextMenuBuiltInItems,,,play,,,Boolean,flash.ContextMenuBuiltInItems,,,,,,0,,,
+flash.ui.ContextMenuBuiltInItems,,,,,clone,flash.ui.ContextMenuBuiltInItems,flash.ContextMenuBuiltInItems,,,,,,0,,,

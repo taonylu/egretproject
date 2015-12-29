@@ -1,0 +1,10 @@
+类,继承类,静态,属性,属性get/set,函数,类型(属性类型或者函数返回类型),转换类,是否需要删前缀,转换属性,转换属性格式,转换函数,转换函数参数,转换是否实现,错误提示,权重,测试
+ver1.0,,,,,,,,,,,,,,,,
+flash.utils.Timer,flash.events.EventDispatcher,,,,,,egret.Timer,,,,,,1,,10,
+flash.utils.Timer,,,running,1,,Boolean,egret.Timer,,,,,,1,,10,
+flash.utils.Timer,,,delay,,,Number,egret.Timer,,,,,,1,,10,
+flash.utils.Timer,,,repeatCount,,,int,egret.Timer,,,,,,1,,10,
+flash.utils.Timer,,,currentCount,1,,int,egret.Timer,,,,,,1,,10,
+flash.utils.Timer,,,,,reset,void,egret.Timer,,,,,,1,,10,
+flash.utils.Timer,,,,,start,void,egret.Timer,,,,,,1,,10,
+flash.utils.Timer,,,,,stop,void,egret.Timer,,,,,,1,,10,

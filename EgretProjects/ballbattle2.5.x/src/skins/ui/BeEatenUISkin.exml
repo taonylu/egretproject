@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="500" height="300" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:Rect width="500" height="300" y="0" x="0" textColor="0xD0EFD7" fillColor="0xCBEFEB"/>
+	<e:Label id="titleLabel" text="你被xxxx吃掉了" y="19" width="410" x="45" verticalAlign="middle" textAlign="center" textColor="0x030000"/>
+	<e:Button id="continueBtn" label="继续游戏" x="163" y="213" textColor="0x050000" width="156" height="50" skinName="@ButtonSkin('whitebg_jpg')"/>
+	
+</e:Skin>

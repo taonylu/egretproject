@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin width="640" height="1000" xmlns:e="http://ns.egret-labs.org/egret" xmlns:w="http://ns.egret-labs.org/wing" xmlns:ns1="*">
+	<w:HostComponent name="egret.gui.SkinnableComponent"/>
+	<w:Declarations/>
+	<e:states>
+		<e:State name="normal"/>
+		<e:State name="disabled"/>
+	</e:states>
+	<e:UIAsset source="bg03_jpg" x="0" y="-50"/>
+	<e:Button id="startBtn" skinName="@ButtonSkin('img_begain1','img_begain1')" bottom="135" x="155"/>
+	<e:UIAsset id="loadBg" source="img_loadingbg" bottom="140" x="104"/>
+	<e:Label id="loadLabel" textColor="0x040000" fontFamily="Arial" text="游戏加载中...99%" x="225" size="25" textAlign="center" verticalAlign="middle" bottom="169"/>
+	<e:Button id="infoBtn" x="552" skinName="@ButtonSkin('img_icon_up','img_icon_down')" width="65" height="65" bottom="39"/>
+	<e:UIAsset source="egretEngineLogo_png" bottom="82" horizontalCenter="0"/>
+	<ns1:TileWindow id="infoWindow" skinName="skins.ui.ProductInfoSkin" x="105" top="318" bottom="340"/>
+</e:Skin>

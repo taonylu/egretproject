@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A simple canvas example</title>
+
+    <!-- 测试 -->
+    <!-- 1 Canvas和绘图环境变量2d，类似于Flash的Sprite的Graphics-->
+    <!-- 2 Canvas的width和height不能使用CSS设置，因为CSS只能设置canvas大小，而不能设置绘图对象大小-->
+    <!-- 3 -->
+
+    <style>
+        body{
+            background: #dddddd;
+        }
+        #canvas{
+            margin: 10px;
+            padding: 10px;
+            background: #ffffff;
+            border: thin inset #aaaaaa;
+            /*width: 800px;*/
+            /*height: 600px;*/
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600">
+        Canvas not Support
+    </canvas>
+
+    <script>
+        //使用Canvas文本
+        var canvas = document.getElementById("canvas");
+        context = canvas.getContext("2d");
+        context.font = "38pt Arial";
+        context.fillStyle = "cornflowerblue";
+        context.strokeStyle = "blue";
+        context.fillText("hello canvas", canvas.width/2 - 150, canvas.height/2 + 15);
+        context.strokeText("hello canvas", canvas.width/2 - 150, canvas.height/2 + 15);
+
+    </script>
+
+    <!-- <script src="example.js"></script> -->
+</body>
+</html>

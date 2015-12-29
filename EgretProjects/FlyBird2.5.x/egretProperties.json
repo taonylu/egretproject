@@ -1,0 +1,36 @@
+{
+	"native": {
+		"path_ignore": []
+	},
+	"publish": {
+		"web": 0,
+		"native": 1,
+		"path": "../../../SVN/1/Game/flappybird"
+	},
+	"egret_version": "2.5.5",
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "game"
+		},
+		{
+			"name": "eui"
+		},
+		{
+			"name": "res"
+		},
+		{
+			"name": "res"
+		},
+		{
+			"name": "ui",
+			"path": "../mylib2.5/ui"
+		},
+		{
+			"name": "tool",
+			"path": "../mylib2.5/tool"
+		}
+	]
+}

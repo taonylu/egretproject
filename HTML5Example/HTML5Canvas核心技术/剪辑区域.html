@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    body{
+        background: #dddddd;
+    }
+    #canvas{
+        margin: 10px;
+        padding: 10px;
+        background: #ffffff;
+        border: thin inset #aaaaaa;
+    }
+</style>
+<body>
+    <canvas id="canvas" width="800" height="600">
+        Canvas not Support
+    </canvas>
+
+    <script>
+        var canvas = document.getElementById("canvas");
+        context = canvas.getContext("2d");
+
+
+
+        //绘制两个一个矩形
+        context.fillRect(0,0,100,100);
+        context.fillRect(120,0,100,100);
+
+        //擦除指定矩形区域
+        context.rect(0,0,50,50);    //创建矩形
+        context.clip();             //从原始画布剪切任意形状和尺寸的区域，之后的绘制都在该矩形内，可以使用save和restore保存恢复矩形区域
+        context.clearRect(0,0,canvas.width, canvas.height);  //在给定的矩形内清除指定的像素，这里只会擦除选定矩形内的内容
+
+    </script>
+</body>
+</html>
