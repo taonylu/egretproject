@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<data>
+	<name  comment="I'm comment">我是数据</name>
+	<age>13</age>
+
+</data>

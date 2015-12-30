@@ -1,0 +1,18 @@
+{
+	"groups":[
+	{
+		"keys":"fireworks_json,star_png",
+		"name":"preload"
+	}],
+	"resources":[
+	{
+		"name":"fireworks_json",
+		"type":"json",
+		"url":"assets/fireworks.json"
+	},
+	{
+		"name":"star_png",
+		"type":"image",
+		"url":"assets/star.png"
+	}]
+}

@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="Buttone0Skin" width="100" height="100"
+        xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="test_jpg" x="1" y="5"/>
+</e:Skin>

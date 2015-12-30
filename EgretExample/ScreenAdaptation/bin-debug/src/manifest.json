@@ -1,0 +1,6 @@
+[
+	"skins/scene/HomeSceneSkin.exml",
+	"AssetAdapter.ts",
+	"scene/HomeScene.ts",
+	"Main.ts"
+]
