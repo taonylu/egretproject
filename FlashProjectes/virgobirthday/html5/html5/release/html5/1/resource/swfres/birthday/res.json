@@ -1,0 +1,470 @@
+{
+	"resources": [
+		{
+			"url": "swfres/birthday/sound_1.mp3",
+			"type": "sound",
+			"name": "swfres_birthday_sound_1"
+		},
+		{
+			"url": "swfres/birthday/shape_3.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_3"
+		},
+		{
+			"url": "swfres/birthday/shape_5.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_5"
+		},
+		{
+			"url": "swfres/birthday/shape_8.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_8"
+		},
+		{
+			"url": "swfres/birthday/shape_10.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_10"
+		},
+		{
+			"url": "swfres/birthday/shape_12.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_12"
+		},
+		{
+			"url": "swfres/birthday/shape_14.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_14"
+		},
+		{
+			"url": "swfres/birthday/shape_16.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_16"
+		},
+		{
+			"url": "swfres/birthday/shape_18.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_18"
+		},
+		{
+			"url": "swfres/birthday/shape_20.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_20"
+		},
+		{
+			"url": "swfres/birthday/shape_22.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_22"
+		},
+		{
+			"url": "swfres/birthday/shape_24.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_24"
+		},
+		{
+			"url": "swfres/birthday/shape_26.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_26"
+		},
+		{
+			"url": "swfres/birthday/shape_28.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_28"
+		},
+		{
+			"url": "swfres/birthday/shape_30.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_30"
+		},
+		{
+			"url": "swfres/birthday/shape_32.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_32"
+		},
+		{
+			"url": "swfres/birthday/shape_34.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_34"
+		},
+		{
+			"url": "swfres/birthday/shape_36.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_36"
+		},
+		{
+			"url": "swfres/birthday/shape_38.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_38"
+		},
+		{
+			"url": "swfres/birthday/shape_40.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_40"
+		},
+		{
+			"url": "swfres/birthday/shape_42.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_42"
+		},
+		{
+			"url": "swfres/birthday/shape_45.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_45"
+		},
+		{
+			"url": "swfres/birthday/shape_47.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_47"
+		},
+		{
+			"url": "swfres/birthday/shape_49.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_49"
+		},
+		{
+			"url": "swfres/birthday/shape_51.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_51"
+		},
+		{
+			"url": "swfres/birthday/shape_53.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_53"
+		},
+		{
+			"url": "swfres/birthday/shape_55.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_55"
+		},
+		{
+			"url": "swfres/birthday/shape_57.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_57"
+		},
+		{
+			"url": "swfres/birthday/shape_59.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_59"
+		},
+		{
+			"url": "swfres/birthday/shape_61.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_61"
+		},
+		{
+			"url": "swfres/birthday/shape_63.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_63"
+		},
+		{
+			"url": "swfres/birthday/shape_65.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_65"
+		},
+		{
+			"url": "swfres/birthday/shape_67.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_67"
+		},
+		{
+			"url": "swfres/birthday/shape_69.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_69"
+		},
+		{
+			"url": "swfres/birthday/shape_72.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_72"
+		},
+		{
+			"url": "swfres/birthday/shape_74.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_74"
+		},
+		{
+			"url": "swfres/birthday/shape_76.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_76"
+		},
+		{
+			"url": "swfres/birthday/shape_78.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_78"
+		},
+		{
+			"url": "swfres/birthday/shape_80.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_80"
+		},
+		{
+			"url": "swfres/birthday/shape_82.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_82"
+		},
+		{
+			"url": "swfres/birthday/shape_85.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_85"
+		},
+		{
+			"url": "swfres/birthday/shape_89.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_89"
+		},
+		{
+			"url": "swfres/birthday/shape_90.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_90"
+		},
+		{
+			"url": "swfres/birthday/shape_93.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_93"
+		},
+		{
+			"url": "swfres/birthday/shape_96.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_96"
+		},
+		{
+			"url": "swfres/birthday/shape_102.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_102"
+		},
+		{
+			"url": "swfres/birthday/shape_104.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_104"
+		},
+		{
+			"url": "swfres/birthday/shape_106.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_106"
+		},
+		{
+			"url": "swfres/birthday/shape_108.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_108"
+		},
+		{
+			"url": "swfres/birthday/shape_110.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_110"
+		},
+		{
+			"url": "swfres/birthday/shape_112.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_112"
+		},
+		{
+			"url": "swfres/birthday/shape_114.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_114"
+		},
+		{
+			"url": "swfres/birthday/shape_116.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_116"
+		},
+		{
+			"url": "swfres/birthday/shape_118.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_118"
+		},
+		{
+			"url": "swfres/birthday/shape_120.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_120"
+		},
+		{
+			"url": "swfres/birthday/shape_122.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_122"
+		},
+		{
+			"url": "swfres/birthday/shape_124.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_124"
+		},
+		{
+			"url": "swfres/birthday/shape_126.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_126"
+		},
+		{
+			"url": "swfres/birthday/shape_128.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_128"
+		},
+		{
+			"url": "swfres/birthday/shape_130.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_130"
+		},
+		{
+			"url": "swfres/birthday/shape_132.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_132"
+		},
+		{
+			"url": "swfres/birthday/shape_134.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_134"
+		},
+		{
+			"url": "swfres/birthday/shape_136.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_136"
+		},
+		{
+			"url": "swfres/birthday/shape_138.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_138"
+		},
+		{
+			"url": "swfres/birthday/shape_140.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_140"
+		},
+		{
+			"url": "swfres/birthday/shape_142.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_142"
+		},
+		{
+			"url": "swfres/birthday/shape_144.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_144"
+		},
+		{
+			"url": "swfres/birthday/shape_146.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_146"
+		},
+		{
+			"url": "swfres/birthday/shape_148.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_148"
+		},
+		{
+			"url": "swfres/birthday/shape_150.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_150"
+		},
+		{
+			"url": "swfres/birthday/shape_152.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_152"
+		},
+		{
+			"url": "swfres/birthday/shape_154.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_154"
+		},
+		{
+			"url": "swfres/birthday/shape_156.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_156"
+		},
+		{
+			"url": "swfres/birthday/shape_158.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_158"
+		},
+		{
+			"url": "swfres/birthday/shape_160.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_160"
+		},
+		{
+			"url": "swfres/birthday/shape_162.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_162"
+		},
+		{
+			"url": "swfres/birthday/shape_164.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_164"
+		},
+		{
+			"url": "swfres/birthday/shape_166.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_166"
+		},
+		{
+			"url": "swfres/birthday/shape_168.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_168"
+		},
+		{
+			"url": "swfres/birthday/shape_170.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_170"
+		},
+		{
+			"url": "swfres/birthday/shape_172.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_172"
+		},
+		{
+			"url": "swfres/birthday/shape_174.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_174"
+		},
+		{
+			"url": "swfres/birthday/shape_176.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_176"
+		},
+		{
+			"url": "swfres/birthday/shape_178.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_178"
+		},
+		{
+			"url": "swfres/birthday/shape_180.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_180"
+		},
+		{
+			"url": "swfres/birthday/shape_182.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_182"
+		},
+		{
+			"url": "swfres/birthday/shape_184.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_184"
+		},
+		{
+			"url": "swfres/birthday/shape_186.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_186"
+		},
+		{
+			"url": "swfres/birthday/shape_188.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_188"
+		},
+		{
+			"url": "swfres/birthday/shape_190.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_190"
+		},
+		{
+			"url": "swfres/birthday/shape_192.png",
+			"type": "image",
+			"name": "swfres_birthday_shape_192"
+		},
+		{
+			"url": "swfres/birthday/config.json",
+			"type": "json",
+			"name": "swfres_birthday_config"
+		}
+	],
+	"groups": [
+		{
+			"keys": "swfres_birthday_sound_1,swfres_birthday_shape_3,swfres_birthday_shape_5,swfres_birthday_shape_8,swfres_birthday_shape_10,swfres_birthday_shape_12,swfres_birthday_shape_14,swfres_birthday_shape_16,swfres_birthday_shape_18,swfres_birthday_shape_20,swfres_birthday_shape_22,swfres_birthday_shape_24,swfres_birthday_shape_26,swfres_birthday_shape_28,swfres_birthday_shape_30,swfres_birthday_shape_32,swfres_birthday_shape_34,swfres_birthday_shape_36,swfres_birthday_shape_38,swfres_birthday_shape_40,swfres_birthday_shape_42,swfres_birthday_shape_45,swfres_birthday_shape_47,swfres_birthday_shape_49,swfres_birthday_shape_51,swfres_birthday_shape_53,swfres_birthday_shape_55,swfres_birthday_shape_57,swfres_birthday_shape_59,swfres_birthday_shape_61,swfres_birthday_shape_63,swfres_birthday_shape_65,swfres_birthday_shape_67,swfres_birthday_shape_69,swfres_birthday_shape_72,swfres_birthday_shape_74,swfres_birthday_shape_76,swfres_birthday_shape_78,swfres_birthday_shape_80,swfres_birthday_shape_82,swfres_birthday_shape_85,swfres_birthday_shape_89,swfres_birthday_shape_90,swfres_birthday_shape_93,swfres_birthday_shape_96,swfres_birthday_shape_102,swfres_birthday_shape_104,swfres_birthday_shape_106,swfres_birthday_shape_108,swfres_birthday_shape_110,swfres_birthday_shape_112,swfres_birthday_shape_114,swfres_birthday_shape_116,swfres_birthday_shape_118,swfres_birthday_shape_120,swfres_birthday_shape_122,swfres_birthday_shape_124,swfres_birthday_shape_126,swfres_birthday_shape_128,swfres_birthday_shape_130,swfres_birthday_shape_132,swfres_birthday_shape_134,swfres_birthday_shape_136,swfres_birthday_shape_138,swfres_birthday_shape_140,swfres_birthday_shape_142,swfres_birthday_shape_144,swfres_birthday_shape_146,swfres_birthday_shape_148,swfres_birthday_shape_150,swfres_birthday_shape_152,swfres_birthday_shape_154,swfres_birthday_shape_156,swfres_birthday_shape_158,swfres_birthday_shape_160,swfres_birthday_shape_162,swfres_birthday_shape_164,swfres_birthday_shape_166,swfres_birthday_shape_168,swfres_birthday_shape_170,swfres_birthday_shape_172,swfres_birthday_shape_174,swfres_birthday_shape_176,swfres_birthday_shape_178,swfres_birthday_shape_180,swfres_birthday_shape_182,swfres_birthday_shape_184,swfres_birthday_shape_186,swfres_birthday_shape_188,swfres_birthday_shape_190,swfres_birthday_shape_192",
+			"name": "swfres_birthday_"
+		}
+	]
+}

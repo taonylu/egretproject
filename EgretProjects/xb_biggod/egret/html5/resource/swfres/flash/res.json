@@ -1,0 +1,15 @@
+{
+	"resources": [
+		{
+			"url": "resource/swfres/flash/config.json",
+			"type": "json",
+			"name": "swfres_flash_config"
+		}
+	],
+	"groups": [
+		{
+			"keys": "",
+			"name": "swfres_flash_"
+		}
+	]
+}

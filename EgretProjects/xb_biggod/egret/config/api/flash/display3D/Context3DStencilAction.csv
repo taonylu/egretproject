@@ -1,0 +1,11 @@
+类,继承类,静态,属性,属性get/set,函数,类型(属性类型或者函数返回类型),转换类,是否需要删前缀,转换属性,转换属性格式,转换函数,转换函数参数,转换是否实现,错误提示,权重,测试
+ver1.0,,,,,,,,,,,,,,,,
+flash.display3D.Context3DStencilAction,Object,,,,,,flash.Context3DStencilAction,,,,,,1,,,
+flash.display3D.Context3DStencilAction,,1,DECREMENT_WRAP,,,String,flash.Context3DStencilAction,1,flash.Context3DStencilAction.DECREMENT_WRAP,,,1,1,,,
+flash.display3D.Context3DStencilAction,,1,SET,,,String,flash.Context3DStencilAction,1,flash.Context3DStencilAction.SET,,,1,1,,,
+flash.display3D.Context3DStencilAction,,1,KEEP,,,String,flash.Context3DStencilAction,1,flash.Context3DStencilAction.KEEP,,,1,1,,,
+flash.display3D.Context3DStencilAction,,1,ZERO,,,String,flash.Context3DStencilAction,1,flash.Context3DStencilAction.ZERO,,,1,1,,,
+flash.display3D.Context3DStencilAction,,1,INCREMENT_SATURATE,,,String,flash.Context3DStencilAction,1,flash.Context3DStencilAction.INCREMENT_SATURATE,,,1,1,,,
+flash.display3D.Context3DStencilAction,,1,DECREMENT_SATURATE,,,String,flash.Context3DStencilAction,1,flash.Context3DStencilAction.DECREMENT_SATURATE,,,1,1,,,
+flash.display3D.Context3DStencilAction,,1,INVERT,,,String,flash.Context3DStencilAction,1,flash.Context3DStencilAction.INVERT,,,1,1,,,
+flash.display3D.Context3DStencilAction,,1,INCREMENT_WRAP,,,String,flash.Context3DStencilAction,1,flash.Context3DStencilAction.INCREMENT_WRAP,,,1,1,,,
