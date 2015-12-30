@@ -1,0 +1,29 @@
+{
+	"groups":[
+	{
+		"keys":"circle_jpg,rect_jpg,bg_png,pc_json",
+		"name":"preload"
+	}],
+	"resources":[
+	{
+		"name":"circle_jpg",
+		"type":"image",
+		"url":"assets/circle.jpg"
+	},
+	{
+		"name":"rect_jpg",
+		"type":"image",
+		"url":"assets/rect.jpg"
+	},
+	{
+		"name":"bg_png",
+		"type":"image",
+		"url":"assets/bg.png"
+	},
+	{
+		"name":"pc_json",
+		"subkeys":"cupback,cupfront,ice001,ice002,ice003,ice004,ice005,ice006,qrcode",
+		"type":"sheet",
+		"url":"assets/pc.json"
+	}]
+}

@@ -1,0 +1,18 @@
+{
+	"groups":[
+	{
+		"keys":"Ball_png,Ball_json",
+		"name":"preload"
+	}],
+	"resources":[
+	{
+		"name":"Ball_png",
+		"type":"image",
+		"url":"assets/Ball.png"
+	},
+	{
+		"name":"Ball_json",
+		"type":"json",
+		"url":"assets/Ball.json"
+	}]
+}

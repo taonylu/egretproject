@@ -1,0 +1,21 @@
+{
+	"close":false,
+	"resourcePlugin":
+	{
+		"configs":[
+		{
+			"configPath":"resource/default.res.json",
+			"relativePath":"resource/"
+		}],
+		"id":"",
+		"library":
+		{
+			"children":[
+			{
+				"isFolder":false,
+				"key":"resource/assets/Ball.png",
+				"name":"Ball.png"
+			}]
+		}
+	}
+}

@@ -1,0 +1,12 @@
+{
+	"player":{
+		"name":"peter",
+		"speed":20,
+		"age":13,
+		"skillID":[1000,1001,1002]
+	},
+	"monster":[
+		{"name":"hungry cat","attack":1}
+	]
+
+}

@@ -1,0 +1,9 @@
+{
+	"groups":[],
+	"resources":[
+	{
+		"name":"gameConfig_json",
+		"type":"json",
+		"url":"assets/gameConfig.json"
+	}]
+}
