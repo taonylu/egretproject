@@ -1,0 +1,7 @@
+类,继承类,静态,属性,属性get/set,函数,类型(属性类型或者函数返回类型),转换类,是否需要删前缀,转换属性,转换属性格式,转换函数,转换函数参数,转换是否实现,错误提示,权重,测试
+ver1.0,,,,,,,,,,,,,,,,
+flash.display.LineScaleMode,Object,,,,,,flash.LineScaleMode,,,,,,1,,,
+flash.display.LineScaleMode,,1,VERTICAL,,,String,flash.LineScaleMode,1,flash.LineScaleMode.VERTICAL,,,,1,,,
+flash.display.LineScaleMode,,1,HORIZONTAL,,,String,flash.LineScaleMode,1,flash.LineScaleMode.HORIZONTAL,,,,1,,,
+flash.display.LineScaleMode,,1,NONE,,,String,flash.LineScaleMode,1,flash.LineScaleMode.NONE,,,,1,,,
+flash.display.LineScaleMode,,1,NORMAL,,,String,flash.LineScaleMode,1,flash.LineScaleMode.NORMAL,,,,1,,,

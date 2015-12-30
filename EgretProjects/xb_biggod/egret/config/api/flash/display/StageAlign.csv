@@ -1,0 +1,11 @@
+类,继承类,静态,属性,属性get/set,函数,类型(属性类型或者函数返回类型),转换类,是否需要删前缀,转换属性,转换属性格式,转换函数,转换函数参数,转换是否实现,错误提示,权重,测试
+ver1.0,,,,,,,,,,,,,,,,
+flash.display.StageAlign,Object,,,,,,flash.StageAlign,,,,,,1,,1,
+flash.display.StageAlign,,1,BOTTOM,,,String,flash.StageAlign,1,flash.StageAlign.BOTTOM,,,1,1,,1,
+flash.display.StageAlign,,1,RIGHT,,,String,flash.StageAlign,1,flash.StageAlign.RIGHT,,,1,1,,1,
+flash.display.StageAlign,,1,TOP_LEFT,,,String,flash.StageAlign,1,flash.StageAlign.TOP_LEFT,,,1,1,,1,
+flash.display.StageAlign,,1,TOP,,,String,flash.StageAlign,1,flash.StageAlign.TOP,,,1,1,,1,
+flash.display.StageAlign,,1,LEFT,,,String,flash.StageAlign,1,flash.StageAlign.LEFT,,,1,1,,1,
+flash.display.StageAlign,,1,TOP_RIGHT,,,String,flash.StageAlign,1,flash.StageAlign.TOP_RIGHT,,,1,1,,1,
+flash.display.StageAlign,,1,BOTTOM_LEFT,,,String,flash.StageAlign,1,flash.StageAlign.BOTTOM_LEFT,,,1,1,,1,
+flash.display.StageAlign,,1,BOTTOM_RIGHT,,,String,flash.StageAlign,1,flash.StageAlign.BOTTOM_RIGHT,,,1,1,,1,

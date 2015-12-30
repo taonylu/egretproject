@@ -1,0 +1,12 @@
+类,继承类,静态,属性,属性get/set,函数,类型(属性类型或者函数返回类型),转换类,是否需要删前缀,转换属性,转换属性格式,转换函数,转换函数参数,转换是否实现,错误提示,权重,测试
+ver1.0,,,,,,,,,,,,,,,,
+flash.text.TextSnapshot,Object,,,,,,flash.TextSnapshot,,,,,,1,,,
+flash.text.TextSnapshot,,,charCount,1,,int,flash.TextSnapshot,,,,,,0,,,
+flash.text.TextSnapshot,,,,,hitTestTextNearPos,Number,flash.TextSnapshot,,,,,,0,,,
+flash.text.TextSnapshot,,,,,setSelectColor,void,flash.TextSnapshot,,,,,,0,,,
+flash.text.TextSnapshot,,,,,getSelected,Boolean,flash.TextSnapshot,,,,,,0,,,
+flash.text.TextSnapshot,,,,,setSelected,void,flash.TextSnapshot,,,,,,0,,,
+flash.text.TextSnapshot,,,,,getSelectedText,String,flash.TextSnapshot,,,,,,0,,,
+flash.text.TextSnapshot,,,,,getText,String,flash.TextSnapshot,,,,,,0,,,
+flash.text.TextSnapshot,,,,,getTextRunInfo,Array,flash.TextSnapshot,,,,,,0,,,
+flash.text.TextSnapshot,,,,,findText,int,flash.TextSnapshot,,,,,,0,,,

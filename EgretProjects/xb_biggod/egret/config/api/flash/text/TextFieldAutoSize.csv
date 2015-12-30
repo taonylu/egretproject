@@ -1,0 +1,7 @@
+类,继承类,静态,属性,属性get/set,函数,类型(属性类型或者函数返回类型),转换类,是否需要删前缀,转换属性,转换属性格式,转换函数,转换函数参数,转换是否实现,错误提示,权重,测试
+ver1.0,,,,,,,,,,,,,,,,
+flash.text.TextFieldAutoSize,Object,,,,,,flash.TextFieldAutoSize,,,,,,1,,,
+flash.text.TextFieldAutoSize,,1,RIGHT,,,String,flash.TextFieldAutoSize,1,flash.TextFieldAutoSize.RIGHT,,,1,1,,,
+flash.text.TextFieldAutoSize,,1,CENTER,,,String,flash.TextFieldAutoSize,1,flash.TextFieldAutoSize.CENTER,,,1,1,,,
+flash.text.TextFieldAutoSize,,1,NONE,,,String,flash.TextFieldAutoSize,1,flash.TextFieldAutoSize.NONE,,,1,1,,,
+flash.text.TextFieldAutoSize,,1,LEFT,,,String,flash.TextFieldAutoSize,1,flash.TextFieldAutoSize.LEFT,,,1,1,,,
