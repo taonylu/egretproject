@@ -1,14 +1,14 @@
 {
 	"resources": [
 		{
-			"url": "resource/swfres/movie/1_1.png",
+			"url": "resource/swfres/movie/1_124.png",
 			"type": "image",
-			"name": "swfres_movie_1_1"
+			"name": "swfres_movie_1_124"
 		},
 		{
-			"url": "resource/swfres/movie/1_3.png",
+			"url": "resource/swfres/movie/1_125.png",
 			"type": "image",
-			"name": "swfres_movie_1_3"
+			"name": "swfres_movie_1_125"
 		},
 		{
 			"url": "resource/swfres/movie/config.json",
@@ -18,7 +18,7 @@
 	],
 	"groups": [
 		{
-			"keys": "swfres_movie_1_1,swfres_movie_1_3",
+			"keys": "swfres_movie_1_124,swfres_movie_1_125",
 			"name": "swfres_movie_"
 		}
 	]

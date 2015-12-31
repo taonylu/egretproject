@@ -16,12 +16,24 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'2015/12/30'</value>
+      <value>'2015/12/31'</value>
+    </define>
+    <define append="true">
+      <name>CONFIG::air</name>
+      <value>false</value>
+    </define>
+    <define append="true">
+      <name>CONFIG::mobile</name>
+      <value>false</value>
+    </define>
+    <define append="true">
+      <name>CONFIG::desktop</name>
+      <value>false</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
       <path-element>E:\SVN_EgretProjects\EgretProjects\xb_biggod\flash\src</path-element>
-      <path-element>E:\Tool\FlashDevelop\Library\AS3\classes</path-element>
+      <path-element>E:\Tool\FD4.6\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>

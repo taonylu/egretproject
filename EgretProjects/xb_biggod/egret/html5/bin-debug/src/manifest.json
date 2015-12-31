@@ -47,7 +47,7 @@
 	"as3/flash/events/MouseEvent.ts",
 	"as3/flash/text/TextField.ts",
 	"as3/flash/text/TextFormatAlign.ts",
-	"BirthdayScene.ts",
+	"GameScene.ts",
 	"LoadingUI.ts",
 	"as3/flash/AllInterfaceImplements.ts",
 	"as3/flash/text/TextFormat.ts",

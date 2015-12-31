@@ -61,7 +61,7 @@ package
 		private function onComplete(e:Event):void {
 			removeChild(progressText);
 			
-			this.addChild(new BirthdayScene());
+			this.addChild(new GameScene());
 		}
 		
 		

@@ -35,9 +35,9 @@ egret_h5.startGame = function () {
 
     egret.StageDelegate.getInstance().setDesignSize(640,1150);
     var stage = new egret.Stage();
-    var scaleMode = egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.SHOW_ALL : egret.StageScaleMode.NO_SCALE;
+    var scaleMode = egret.StageScaleMode.NO_BORDER;
     stage.scaleMode = scaleMode;
-    stage.frameRate = 60;
+    stage.frameRate = 30;
     context.stage = stage;
 
     //WebGL is a Egret's beta property. It's off by default.

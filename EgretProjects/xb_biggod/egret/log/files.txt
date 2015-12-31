@@ -1,2 +1,2 @@
-BirthdayScene.as,0,E:\SVN_EgretProjects\EgretProjects\xb_biggod\egret\html5\src\BirthdayScene.as
+GameScene.as,0,E:\SVN_EgretProjects\EgretProjects\xb_biggod\egret\html5\src\GameScene.as
 Main.as,0,E:\SVN_EgretProjects\EgretProjects\xb_biggod\egret\html5\src\Main.as

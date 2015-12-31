@@ -36,7 +36,7 @@ var Main = (function (_super) {
     __egretProto__.onComplete = function (e) {
         var _self__ = this;
         _self__.removeChild(this.progressText);
-        this.addChild(new BirthdayScene());
+        this.addChild(new GameScene());
     };
     return Main;
 })(egret.Sprite);
