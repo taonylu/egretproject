@@ -46,7 +46,7 @@ var game_file_list = [
 	"as3/flash/events/MouseEvent.js",
 	"as3/flash/text/TextField.js",
 	"as3/flash/text/TextFormatAlign.js",
-	"BirthdayScene.js",
+	"GameScene.js",
 	"LoadingUI.js",
 	"as3/flash/AllInterfaceImplements.js",
 	"as3/flash/text/TextFormat.js",

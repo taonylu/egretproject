@@ -47,7 +47,7 @@
 
 		var _self__:any = this;
 		_self__.removeChild(this.progressText);
-		this.addChild(new BirthdayScene());
+		this.addChild(new GameScene());
 	}
 
 }
