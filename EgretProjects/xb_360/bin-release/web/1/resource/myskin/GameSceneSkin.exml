@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="GameSceneSkin" width="640" height="3000" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="scene2Group" height="1150" width="640" x="0" y="1150">
+		<e:Image source="scene3_cloud_png" y="225" x="237" id="scene2_cloud"/>
+		<e:Image source="scene3_bg_png" y="324" x="-131" id="scene2_bg"/>
+		<ns1:FingerUI x="136" y="398" skinName="FingerUISkin" id="fingerUI"/>
+		<e:Image source="ball_png" y="1312" id="ball7" x="535"/>
+		<e:Image source="ball_png" y="662" x="535" id="ball6"/>
+		<e:Image source="ball_png" y="635" id="ball5" x="473"/>
+		<e:Image source="scene3_guandao_png" y="624" x="465" id="scene2_guan"/>
+		<e:Image id="fingerCircle" source="fingerCirle_png" x="173" y="496"/>
+		<e:Image id="weinxintext" source="weixin_text.png_png" x="362" y="878" anchorOffsetX="0" anchorOffsetY="49"/>
+	</e:Group>
+	<e:Group id="scene1Group" height="1150" width="640" y="0">
+		<e:Image source="scene6_cloud0_png" x="-3" y="861" width="742" height="491"/>
+		<e:Image source="cloud_1_2_png" y="273" x="-92" id="scene1_cloud0"/>
+		<e:Image source="cloud_1_1_png" y="9" x="-8" id="scene1_cloud1" width="698"/>
+		<e:Image source="cloud_1_3_png" y="389" x="167" id="scene1_cloud2" width="473"/>
+		<e:Image source="mobile_down_png" y="59" x="328" id="mobile_down"/>
+		<e:Image id="zhanpai2" source="zhanpai2_png" x="42" y="169"/>
+		<e:Image source="zhanpai_png" y="169" x="42" id="zhanpai"/>
+		<e:Image source="tiegui_png" y="462" x="-137" id="tiegui"/>
+		<e:Image source="train_png" y="52" x="539" id="train"/>
+		<e:Image source="mobile_up_png" y="59" x="329" id="mobile_up"/>
+		<e:Image source="ball_png" y="655" x="416" id="ball1"/>
+		<e:Image source="ball_png" y="591" x="280" id="ball0"/>
+		<e:Image source="ball_png" y="592" id="ball" x="281"/>
+		<e:Image source="ball_png" y="1562" id="ball4" x="152"/>
+		<e:Image source="ball_png" y="1073" x="156" id="ball3"/>
+		<e:Image source="ball_png" y="1148" id="ball2" x="413"/>
+		<e:Image source="guandao_1_png" y="583" x="143" id="guan1"/>
+		<e:Image source="scene2_shengliuliang_png" y="1352" anchorOffsetY="49" x="377" anchorOffsetX="184" id="ostip2"/>
+		<e:Image source="scene2_tisu_png" y="1129" anchorOffsetY="49" x="379" anchorOffsetX="184" id="ostip1"/>
+		<e:Image source="scene2_shengdian_png" y="929" anchorOffsetY="49" x="379" anchorOffsetX="184" id="ostip0"/>
+		<e:Image id="pai2_0" source="pai0_1_png" x="399" y="1292"/>
+		<e:Image id="pai2_1" source="pai0_0_png" x="399" y="1292"/>
+		<e:Image id="pai1_0" source="pai1_1_png" x="400" y="1078"/>
+		<e:Image id="pai1_1" source="pai1_0_png" x="400" y="1078"/>
+		<e:Image id="pai0_0" source="pai2_1_png" x="398" y="861"/>
+		<e:Image id="pai0_1" source="pai2_0_png" x="398" y="861"/>
+		<e:Image source="scene2_360os_png" y="917" x="560" id="os360"/>
+		<e:Image id="os3602" source="scene2_360os2_png" x="560" y="917"/>
+	</e:Group>
+	<e:Group id="scene4Group" height="1500" width="640" x="0" y="1150">
+		<e:Image id="skybg" source="scene6_sky_png" x="0" bottom="0"/>
+		<e:Image source="scene6_cloud1_png" x="260" y="32" width="526" height="305"/>
+		<e:Image source="scene6_cloud1_png" width="526" y="251" height="399" x="-320"/>
+		<e:Image source="scene6_cloud1_png" width="397" y="371" height="308" x="423"/>
+		<e:Image source="scene6_qiu0.png_png" x="30" y="70"/>
+		<e:Image id="dianxinball" source="scene6_qiu1_png" x="125" y="126"/>
+		<e:Image source="scene6_qiu2_png" x="534" y="319"/>
+		<e:Image id="liantongball" source="scene6_qiu3_png" x="20" y="396"/>
+		<e:Image id="whatball" source="scene6_qiu4_png" x="365" y="537"/>
+		<e:Image id="dianxinstar" source="scene6_star0_png" x="418" y="171" anchorOffsetX="0" anchorOffsetY="120"/>
+		<e:Image id="whatstar" source="scene6_star1_png" x="465" y="671" anchorOffsetX="109" anchorOffsetY="0"/>
+		<e:Image source="ball_png" y="141" x="206" id="ball16"/>
+		<e:Image source="ball_png" y="196" x="267" id="ball15"/>
+		<e:Image source="ball_png" y="460" id="ball17" x="146"/>
+		<e:Image source="ball_png" y="363" x="263" id="ball18"/>
+		<e:Image source="ball_png" y="595" id="ball19" x="443"/>
+		<e:Image source="ball_png" y="508" x="371" id="ball20"/>
+		<e:Image id="btnlight" source="scene6_btnbg_png" x="157" y="1124"/>
+		<e:Image id="btn_up" source="scene6_btn_png" y="1124" x="215"/>
+		<e:Image id="btn_down" source="scene6_btn1_png" x="216" y="1134"/>
+		<e:Image source="ball_png" y="1124" id="ball21" x="294"/>
+		<e:Image id="note3" source="scene6_god_png" y="939" anchorOffsetX="203" anchorOffsetY="98" x="315"/>
+		<e:Image id="G4tip" source="scene6_text_png" x="358" y="444" anchorOffsetX="0" anchorOffsetY="49"/>
+		<e:Image source="ball_png" y="-430" x="324" id="ball14"/>
+	</e:Group>
+	<e:Group id="scene3Group" height="1150" width="640" x="0" y="430">
+		<e:Image id="scene6_qiu1" source="scene5_qiu1_png" x="551" y="673"/>
+		<e:Image source="ball_png" y="403" id="ball8" x="279"/>
+		<e:Image id="scene4_could1" source="scene4_cloud1_png" x="-4" y="-246" width="688" height="592"/>
+		<e:Image id="scene6_cloud" source="scene6_cloud0_png" x="-300" y="595" height="585"/>
+		<e:Image id="scene6_cloud1" source="scene5_cloud1_png" x="156" y="434"/>
+		<e:Image id="scene5_qiu0" source="scene5_qiu0_png" x="53" y="460"/>
+		<ns1:WeiXinUI id="weixin1" x="31" y="-469" skinName="WeiXinUI2Skin"/>
+		<ns1:WeiXinUI id="weixin0" x="205" y="-251" skinName="WeiXinUISkin"/>
+		<e:Image id="scene4_guan" source="scene4_guandao_png" x="271" y="325"/>
+		<e:Image id="scene4_could0" source="scene4_cloud1_png" x="-66" y="-81" width="483" height="456"/>
+		<e:Image id="scene4_bg" source="scene4_bg_png" x="33" y="-69"/>
+		<e:Image id="suger0" source="scene4_suger0_png" x="91" y="92" anchorOffsetX="42.5" anchorOffsetY="39"/>
+		<e:Image id="suger1" source="scene4_suger2_png" x="513" y="73" anchorOffsetX="24" anchorOffsetY="22"/>
+		<e:Image id="suger2" source="scene4_suger1_png" x="125" y="177" anchorOffsetX="32" anchorOffsetY="33.5"/>
+		<e:Image id="suger3" source="scene4_suger3_png" x="473" y="82" anchorOffsetY="18.5" anchorOffsetX="17"/>
+		<e:Image id="man" source="scene5_man_png" x="30" y="555"/>
+		<e:Image id="woman" source="scene5_woman_png" x="367" y="703"/>
+		<e:Image id="man_hand" source="scene5_man_hand_png" x="147" y="796" anchorOffsetX="0" anchorOffsetY="40.5"/>
+		<e:Image id="woman_hand" source="scene5_woman_hand_png" x="533" y="956" anchorOffsetX="193" anchorOffsetY="48.5"/>
+		<e:Image source="ball_png" y="760" id="ball9" x="287"/>
+		<e:Image source="ball_png" y="604" x="335" id="ball10"/>
+		<e:Image source="ball_png" y="903" id="ball11" x="346"/>
+		<e:Image source="ball_png" y="720" id="ball12" x="324"/>
+		<e:Image id="mantip" source="tip_man_png" x="295" y="644" anchorOffsetX="0" anchorOffsetY="49"/>
+		<e:Image id="womantip" source="tip_woman_png" x="391" y="1060" anchorOffsetX="242" anchorOffsetY="49"/>
+		<e:Image source="ball_png" y="1346" id="ball13" x="268"/>
+	</e:Group>
+</e:Skin>

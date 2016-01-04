@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="PreloadSceneSkin" width="640" height="1150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group height="1150" width="640" x="0" y="0">
+		<e:Image id="center" source="loading1_png" y="325" x="256"/>
+		<e:Image source="loading2_png" y="275" x="214"/>
+		<e:Image source="scene6_sky_png" y="308"/>
+		<e:Image id="circle" source="loading0_png" x="358" y="312" anchorOffsetX="18.5" anchorOffsetY="17.5"/>
+		<e:Label id="progressLabel" text="Loading...0%" y="555" width="260" verticalAlign="middle" textAlign="center" x="190"/>
+	</e:Group>
+</e:Skin>
