@@ -4,8 +4,10 @@
  *
  */
 class GameManager {
+    
     public gameScene: GameScene = new GameScene();  //游戏场景
-    public shareUI:ShareUI = new ShareUI();         //分享UI
+    public openScene:OpenScene = new OpenScene();     //打开红包场景
+    public shareUI:ShareUI = new ShareUI();                        //分享UI
     
     public startup(main:Main): void {
         //初始化配置

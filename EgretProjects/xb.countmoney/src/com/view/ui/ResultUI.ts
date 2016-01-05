@@ -8,8 +8,15 @@ class ResultUI extends BaseUI{
     private shareBtn:eui.Rect;      //分享
     private openPacketBtn:eui.Rect; //去拆红包
     private prizeBtn:eui.Rect;      //我的奖品
+    
+    private countLabel:eui.Label;  //你数了多少个红包文本
+    private fightLabel:eui.Label;    //你打败了多少人文本
+    private packetLabel:eui.Label;  //红包个数文本
+    
     private initShareBtnY:number;   //分享按钮初始位置
     
+    
+    private httpUtil: HttpUtil = new HttpUtil();  //请求
 	public constructor() {
         super("ResultUISkin");
 	}
@@ -26,11 +33,12 @@ class ResultUI extends BaseUI{
         //分享按钮动画
         egret.Tween.get(this.shareBtn,{loop:true}).to({y:this.initShareBtnY + 15},500).to({y:this.initShareBtnY},500);
         
+        this.packetLabel.text = totalPacket.toString();
+        this.countLabel.text = "你数了" + totalPacket + "个红包";
+        this.fightLabel.text = "你打败了" + Math.round(totalPacket/30*100) + "%的人";  //30暂定为最多数红包个数
+        
         //监听
-        this.againBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAgainBtnTouch, this);
-        this.openPacketBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onOpenBtnTouch,this);
-        this.shareBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onShareBtnTouch,this);
-        this.prizeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onPrizeBtnTouch,this);
+        this.configListeners();
     }
     
     public hide(): void {
@@ -41,11 +49,23 @@ class ResultUI extends BaseUI{
         egret.Tween.removeTweens(this.shareBtn);
         
         //移除监听
+        this.deConfigListeners();
+    }
+    
+    private configListeners():void{
+        this.againBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onAgainBtnTouch,this);
+        this.openPacketBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onOpenBtnTouch,this);
+        this.shareBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onShareBtnTouch,this);
+        this.prizeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onPrizeBtnTouch,this);
+    }
+    
+    private deConfigListeners():void{
         this.againBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onAgainBtnTouch,this);
         this.openPacketBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onOpenBtnTouch,this);
         this.shareBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onShareBtnTouch,this);
         this.prizeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onPrizeBtnTouch,this);
     }
+    
     
     //再拆一次
     private onAgainBtnTouch():void{
@@ -55,7 +75,8 @@ class ResultUI extends BaseUI{
     
     //去拆红包
     private onOpenBtnTouch(): void {
-        
+        this.hide();
+        LayerManager.getInstance().runScene(GameManager.getInstance().openScene);
     }
     
     //分享按钮
@@ -65,9 +86,27 @@ class ResultUI extends BaseUI{
     
     //我的奖品
     private onPrizeBtnTouch(): void {
-
+        
+         this.deConfigListeners();
+         
+          this.httpUtil.completeHandler = this.revMyPrize;
+          this.httpUtil.errorHandler = this.onMyPrizeError;
+          var url:string = "";
+          var msg:string = "";
+          this.httpUtil.send(url, egret.HttpMethod.POST, msg, this);
     }
     
+    //接收我的奖品请求结果
+    private revMyPrize(result:any){
+        this.configListeners();
+        console.log("我的奖品:" + result);
+    }
+    
+    //接收我的奖品请求结果
+    private onMyPrizeError(e: egret.IOErrorEvent) {
+        this.configListeners();
+        console.log("请求错误");
+    }
     
 }
 

@@ -6,6 +6,7 @@
 var GameManager = (function () {
     function GameManager() {
         this.gameScene = new GameScene(); //游戏场景
+        this.openScene = new OpenScene(); //打开红包场景
         this.shareUI = new ShareUI(); //分享UI
     }
     var d = __define,c=GameManager,p=c.prototype;

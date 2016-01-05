@@ -5,7 +5,7 @@
 		"name":"preload"
 	},
 	{
-		"keys":"game_bg_png,game_fall_png,game_hand_png,game_item0_png,game_item1_png,game_item2_png,game_packet_png,game_arrow_png,game_timebg_png,game_moneybg_png,game_bag_png,game_resultbg_png,share0_png,share1_png,open_bg_png,open_open_png,open_opened_png",
+		"keys":"game_bg_png,game_fall_png,game_hand_png,game_item0_png,game_item1_png,game_item2_png,game_packet_png,game_arrow_png,game_timebg_png,game_moneybg_png,game_bag_png,game_resultbg_png,share0_png,share1_png,open_bg_png,open_open_png,open_opened_png,rule_bg_png,rule_btn_png,rule_content_png,roundthumb_png",
 		"name":"game"
 	}],
 	"resources":[
@@ -128,5 +128,25 @@
 		"name":"open_opened_png",
 		"type":"image",
 		"url":"assets/open_opened.png"
+	},
+	{
+		"name":"rule_bg_png",
+		"type":"image",
+		"url":"assets/rule_bg.png"
+	},
+	{
+		"name":"rule_btn_png",
+		"type":"image",
+		"url":"assets/rule_btn.png"
+	},
+	{
+		"name":"rule_content_png",
+		"type":"image",
+		"url":"assets/rule_content.png"
+	},
+	{
+		"name":"roundthumb_png",
+		"type":"image",
+		"url":"assets/roundthumb.png"
 	}]
 }
