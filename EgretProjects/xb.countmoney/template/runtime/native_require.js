@@ -10,6 +10,7 @@ var game_file_list = [
 	"bin-debug/AssetAdapter.js",
 	"bin-debug/com/common/BaseScene.js",
 	"bin-debug/com/common/BaseUI.js",
+	"bin-debug/com/common/HttpUtil.js",
 	"bin-debug/com/common/ImageMC.js",
 	"bin-debug/com/common/LayerManager.js",
 	"bin-debug/com/common/LoadManager.js",
@@ -23,6 +24,7 @@ var game_file_list = [
 	"bin-debug/com/view/ui/ShareUI.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
+	"bin-debug/com/view/ui/RuleUI.js",
 	//----auto game_file_list end----
 ];
 

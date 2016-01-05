@@ -128,9 +128,30 @@
 					"isFolder":false,
 					"key":"open_opened_png",
 					"name":"open_opened_png"
+				},
+				{
+					"isFolder":false,
+					"key":"rule_bg_png",
+					"name":"rule_bg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"rule_btn_png",
+					"name":"rule_btn_png"
+				},
+				{
+					"isFolder":false,
+					"key":"rule_content_png",
+					"name":"rule_content_png"
+				},
+				{
+					"isFolder":false,
+					"key":"roundthumb_png",
+					"name":"roundthumb_png"
 				}
 			]
 		}
 	},
-	"theme":"resource/default.thm.json"
+	"theme":"resource/default.thm.json",
+	"tmRelativePath":"design/"
 }

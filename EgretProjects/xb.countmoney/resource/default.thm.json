@@ -1,10 +1,13 @@
 {
   "autoGenerateExmlsList": true,
   "exmls": [
+    "resource/eui_skins/ScrollerSkin.exml",
+    "resource/eui_skins/VScrollBarSkin.exml",
     "resource/myskin/GameSceneSkin.exml",
     "resource/myskin/OpenSceneSkin.exml",
     "resource/myskin/PreloadSceneSkin.exml",
     "resource/myskin/ui/ResultUISkin.exml",
+    "resource/myskin/ui/RuleUISkin.exml",
     "resource/myskin/ui/ShareUISkin.exml"
   ],
   "skins": {

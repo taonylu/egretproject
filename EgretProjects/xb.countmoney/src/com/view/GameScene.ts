@@ -49,7 +49,7 @@ class GameScene extends BaseScene{
     }
 
     public onRemove(): void {
-        egret.Tween.removeAllTweens();
+        egret.Tween.removeTweens(this.arrow);
     }
     
     public startGame(): void {
@@ -95,8 +95,7 @@ class GameScene extends BaseScene{
     //初始化界面元素
     private initView(): void {
         //固定红包上滑位置
-        this.initPacketY = this.staticPacket.y - 610;
-        
+        this.initPacketY = this.staticPacket.y - 610;  //610用于确定红包高度
         //箭头位置
         this.initArrowY = this.arrow.y;
     }
@@ -114,7 +113,7 @@ class GameScene extends BaseScene{
     
     //第一次游戏滑动屏幕，触摸结束
     private onFirstGameTouchEnd(e:egret.TouchEvent):void{
-        if(this.beginY - e.stageY > 50){  //滑动距离达到要求，则将杂物退散，并开始游戏
+        if(this.beginY - e.stageY > 50){  //滑动距离达到50，则将杂物退散，开始游戏
             //移除监听
             GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onFirstGameTouchBegin,this);
             GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_END,this.onFirstGameTouchEnd,this);
@@ -155,9 +154,9 @@ class GameScene extends BaseScene{
     }
     
     private onTouchEnd(e: egret.TouchEvent): void {
-        //滑动距离超过一段距离
+        //滑动距离超过50，则将红包飞出
         if(this.isDrag && this.curDragPacket && (this.staticPacket.y - this.curDragPacket.y > 50)) {
-            //根据距离计算滑动时间
+            //根据距离计算滑动时间       当前所需时间=  当前位置/起始位置*起始位置到终点时间 
             var time: number = (this.curDragPacket.y / this.staticPacket.y) * 200;
             var tempMoney: egret.Bitmap = this.curDragPacket;
             this.curDragPacket = null;
@@ -186,7 +185,7 @@ class GameScene extends BaseScene{
     private initCountPacket(): void {
         this.countPacketList = new Array<egret.Bitmap>();
         var bm: egret.Bitmap;
-        for(var i: number = 0;i < 10;i++) {
+        for(var i: number = 0;i < 10;i++) {  //初始化飞出红包数10个
             bm = new egret.Bitmap(RES.getRes("game_packet_png"));
             this.countPacketList.push(bm);
         }
@@ -216,7 +215,7 @@ class GameScene extends BaseScene{
     private initFallPacket(): void {
         this.fallPacketList = new Array<egret.Bitmap>();
         var bm: egret.Bitmap;
-        for(var i: number = 0;i < 3;i++) {
+        for(var i: number = 0;i < 3;i++) { //初始化下落红包3个
             bm = new egret.Bitmap(RES.getRes("game_fall_png"));
             bm.anchorOffsetX = bm.width / 2;
             bm.anchorOffsetY = bm.height / 2;
@@ -233,7 +232,7 @@ class GameScene extends BaseScene{
         var bm: egret.Bitmap;
         for(var i: number = 0;i < len;i++) {
             bm = this.fallPacketList[i];
-            bm.rotation += 10;
+            bm.rotation += 10; //下落红包旋转和位置
             bm.y += 20;
             if(bm.y >= this.fallEdge) {
                 this.resetFallPacketPos(bm);
@@ -243,8 +242,8 @@ class GameScene extends BaseScene{
     
     //重置下落红包位置
     private resetFallPacketPos(bm:egret.Bitmap): void { 
-        bm.y = -bm.height - Math.random() * 600; //随机红包位置
-        bm.x = Math.random() * 640;
+        bm.y = -bm.height - Math.random() * 1000; //随机红包位置，舞台以上红包高度+600位置内随机
+        bm.x = Math.random() * 640;                       //640舞台宽度
     }
     
     //重置所有下落的红包位置
@@ -265,7 +264,7 @@ class GameScene extends BaseScene{
     
     private startTimer(): void {
         if(this.gameTimer == null) {
-            this.gameTimer = new egret.Timer(800);
+            this.gameTimer = new egret.Timer(800); //计时为800ms减1
         }
         this.gameTimer.addEventListener(egret.TimerEvent.TIMER,this.onGameTimer,this);
         this.gameTimer.reset();

@@ -6,7 +6,10 @@
 		<e:Rect id="openBtn" height="188" width="192" x="218" y="370"/>
 		<e:Image id="openBg" source="open_open_png" y="228" x="47" touchEnabled="false"/>
 	</e:Group>
-	<e:Group id="openedGroup" height="1136" width="640" x="0" y="0" visible="false">
-		<e:Image id="openedBg" source="open_opened_png" x="48" y="168"/>
+	<e:Group id="openedGroup" height="1136" width="640" x="0" y="0" touchEnabled="false" touchThrough="true">
+		<e:Rect id="againBtn" height="175" width="183" x="229" y="581"/>
+		<e:Rect id="ruleBtn" height="69" width="221" x="71" y="795"/>
+		<e:Rect id="myPrizeBtn" height="69" width="221" x="348" y="795"/>
+		<e:Image id="openedBg" source="open_opened_png" x="48" y="168" touchEnabled="false"/>
 	</e:Group>
 </e:Skin>

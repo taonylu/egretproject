@@ -25,7 +25,7 @@ var GameScene = (function (_super) {
         this.startGame();
     };
     p.onRemove = function () {
-        egret.Tween.removeAllTweens();
+        egret.Tween.removeTweens(this.arrow);
     };
     p.startGame = function () {
         //重置游戏
@@ -66,7 +66,7 @@ var GameScene = (function (_super) {
     //初始化界面元素
     p.initView = function () {
         //固定红包上滑位置
-        this.initPacketY = this.staticPacket.y - 610;
+        this.initPacketY = this.staticPacket.y - 610; //610用于确定红包高度
         //箭头位置
         this.initArrowY = this.arrow.y;
     };
@@ -112,9 +112,9 @@ var GameScene = (function (_super) {
         }
     };
     p.onTouchEnd = function (e) {
-        //滑动距离超过一段距离
+        //滑动距离超过50，则将红包飞出
         if (this.isDrag && this.curDragPacket && (this.staticPacket.y - this.curDragPacket.y > 50)) {
-            //根据距离计算滑动时间
+            //根据距离计算滑动时间       当前所需时间=  当前位置/起始位置*起始位置到终点时间 
             var time = (this.curDragPacket.y / this.staticPacket.y) * 200;
             var tempMoney = this.curDragPacket;
             this.curDragPacket = null;
@@ -181,7 +181,7 @@ var GameScene = (function (_super) {
         var bm;
         for (var i = 0; i < len; i++) {
             bm = this.fallPacketList[i];
-            bm.rotation += 10;
+            bm.rotation += 10; //下落红包旋转和位置
             bm.y += 20;
             if (bm.y >= this.fallEdge) {
                 this.resetFallPacketPos(bm);
@@ -190,8 +190,8 @@ var GameScene = (function (_super) {
     };
     //重置下落红包位置
     p.resetFallPacketPos = function (bm) {
-        bm.y = -bm.height - Math.random() * 600; //随机红包位置
-        bm.x = Math.random() * 640;
+        bm.y = -bm.height - Math.random() * 1000; //随机红包位置，舞台以上红包高度+600位置内随机
+        bm.x = Math.random() * 640; //640舞台宽度
     };
     //重置所有下落的红包位置
     p.resetAllPacketMoney = function () {
@@ -208,7 +208,7 @@ var GameScene = (function (_super) {
     };
     p.startTimer = function () {
         if (this.gameTimer == null) {
-            this.gameTimer = new egret.Timer(800);
+            this.gameTimer = new egret.Timer(800); //计时为800ms减1
         }
         this.gameTimer.addEventListener(egret.TimerEvent.TIMER, this.onGameTimer, this);
         this.gameTimer.reset();
