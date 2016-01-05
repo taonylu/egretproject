@@ -5,8 +5,8 @@
  */
 var GameManager = (function () {
     function GameManager() {
-        this.homeScene = new HomeScene();
-        this.gameScene = new GameScene();
+        this.gameScene = new GameScene(); //游戏场景
+        this.shareUI = new ShareUI(); //分享UI
     }
     var d = __define,c=GameManager,p=c.prototype;
     p.startup = function (main) {
@@ -14,7 +14,7 @@ var GameManager = (function () {
         GameConst.stage = main.stage;
         LayerManager.getInstance().initialize(main);
         //跳转场景
-        LayerManager.getInstance().runScene(this.homeScene);
+        LayerManager.getInstance().runScene(this.gameScene);
     };
     GameManager.getInstance = function () {
         if (this.instance == null) {

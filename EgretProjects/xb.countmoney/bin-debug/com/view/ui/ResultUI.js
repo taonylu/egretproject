@@ -11,31 +11,43 @@ var ResultUI = (function (_super) {
     var d = __define,c=ResultUI,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
+        this.initShareBtnY = this.shareBtn.y;
     };
-    p.showInScene = function (doc, totalMoney) {
-        this.y = (GameConst.stage.stageHeight - this.height) / 2;
+    p.showInScene = function (doc, totalPacket) {
         doc.addChild(this);
-        this.setResultLabel(totalMoney);
-        this.startBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onStartBtnTouch, this);
-        this.rankBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRankBtnTouch, this);
+        //分享按钮动画
+        egret.Tween.get(this.shareBtn, { loop: true }).to({ y: this.initShareBtnY + 15 }, 500).to({ y: this.initShareBtnY }, 500);
+        //监听
+        this.againBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAgainBtnTouch, this);
+        this.openPacketBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOpenBtnTouch, this);
         this.shareBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onShareBtnTouch, this);
+        this.prizeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPrizeBtnTouch, this);
     };
     p.hide = function () {
+        //从场景移除
         this.parent && this.parent.removeChild(this);
-        this.startBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onStartBtnTouch, this);
-        this.rankBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onRankBtnTouch, this);
+        //停止分享按钮动画
+        egret.Tween.removeTweens(this.shareBtn);
+        //移除监听
+        this.againBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onAgainBtnTouch, this);
+        this.openPacketBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onOpenBtnTouch, this);
         this.shareBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onShareBtnTouch, this);
+        this.prizeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onPrizeBtnTouch, this);
     };
-    p.onStartBtnTouch = function () {
+    //再拆一次
+    p.onAgainBtnTouch = function () {
         this.hide();
         GameManager.getInstance().gameScene.startGame();
     };
-    p.onRankBtnTouch = function () {
+    //去拆红包
+    p.onOpenBtnTouch = function () {
     };
+    //分享按钮
     p.onShareBtnTouch = function () {
+        GameManager.getInstance().shareUI.show();
     };
-    p.setResultLabel = function (totalMoney) {
-        this.resultLabel.text = "获得了xxxxx，超过了xxxx";
+    //我的奖品
+    p.onPrizeBtnTouch = function () {
     };
     return ResultUI;
 })(BaseUI);

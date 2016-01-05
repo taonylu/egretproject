@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="PreloadSceneSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bg" source="load_bg_png" left="0" right="0" top="0" bottom="0"/>
+	<e:Image id="anim1" source="load_anim1_png" x="211" y="266"/>
+	<e:Image id="anim0" source="load_anim0_png" x="221" y="265"/>
+	<e:Image id="barbg" source="load_barbg_png" y="460" x="91"/>
+	<e:Image id="bar" source="load_bar_png" y="460" x="92" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image id="anim2" source="load_anim2_png" x="208" y="269"/>
+	<e:Image id="anim3" source="load_anim3_png" x="208" y="267"/>
+	<e:Label id="progressLabel" text="100%" y="497" textColor="0xEACB21" fontFamily="Arial" width="164" verticalAlign="middle" textAlign="center" x="238"/>
+</e:Skin>

@@ -1,32 +1,40 @@
 {
+  "autoGenerateExmlsList": true,
+  "exmls": [
+    {
+      "path": "resource/myskin/GameSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"GameSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\" xmlns:ns1=\"*\">\n\t<e:Image id=\"bg\" source=\"game_bg_png\" left=\"0\" right=\"0\" top=\"0\" bottom=\"0\"/>\n\t<e:Group id=\"fallPacketGroup\" height=\"1150\" width=\"640\"/>\n\t<e:Image id=\"timebg\" source=\"game_timebg_png\" y=\"89\" x=\"205\"/>\n\t<e:Image id=\"moneybg\" source=\"game_moneybg_png\" y=\"20\" x=\"205\"/>\n\t<e:Label id=\"packetLabel\" text=\"999\" y=\"23\" width=\"150\" height=\"50\" verticalAlign=\"middle\" textAlign=\"center\" textColor=\"0xFFFFFF\" horizontalCenter=\"0\" size=\"35\"/>\n\t<e:Label id=\"timeLabel\" y=\"92\" text=\"999\" width=\"150\" height=\"50\" verticalAlign=\"middle\" textAlign=\"center\" textColor=\"0xFFFFFF\" x=\"245\" size=\"35\"/>\n\t<e:Image id=\"item_box\" source=\"game_item0_png\" x=\"-151\" y=\"127\"/>\n\t<e:Image id=\"item_ipad\" source=\"game_item1_png\" x=\"466\" y=\"372\"/>\n\t<e:Image id=\"item_paper\" source=\"game_item2_png\" x=\"310\" y=\"72\"/>\n\t<e:Image id=\"hand\" source=\"game_hand_png\" x=\"35\" y=\"620\"/>\n\t<e:Image id=\"arrow\" source=\"game_arrow_png\" y=\"394\" x=\"274\"/>\n\t<e:Image id=\"staticPacket\" source=\"game_packet_png\" y=\"1145\" x=\"121\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/OpenSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"OpenSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"bg\" source=\"open_bg_png\" width=\"640\" x=\"0\" height=\"1136\" y=\"0\"/>\n\t<e:Image id=\"shareBtn\" source=\"game_bag_png\" x=\"558\" y=\"-15\"/>\n\t<e:Group id=\"openGroup\" height=\"1136\" width=\"640\" x=\"0\" y=\"0\">\n\t\t<e:Rect id=\"openBtn\" height=\"188\" width=\"192\" x=\"218\" y=\"370\"/>\n\t\t<e:Image id=\"openBg\" source=\"open_open_png\" y=\"228\" x=\"47\" touchEnabled=\"false\"/>\n\t</e:Group>\n\t<e:Group id=\"openedGroup\" height=\"1136\" width=\"640\" x=\"0\" y=\"0\" visible=\"false\">\n\t\t<e:Image id=\"openedBg\" source=\"open_opened_png\" x=\"48\" y=\"168\"/>\n\t</e:Group>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/PreloadSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PreloadSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"bg\" source=\"load_bg_png\" left=\"0\" right=\"0\" top=\"0\" bottom=\"0\"/>\n\t<e:Image id=\"anim1\" source=\"load_anim1_png\" x=\"211\" y=\"266\"/>\n\t<e:Image id=\"anim0\" source=\"load_anim0_png\" x=\"221\" y=\"265\"/>\n\t<e:Image id=\"barbg\" source=\"load_barbg_png\" y=\"460\" x=\"91\"/>\n\t<e:Image id=\"bar\" source=\"load_bar_png\" y=\"460\" x=\"92\" anchorOffsetX=\"0\" anchorOffsetY=\"0\"/>\n\t<e:Image id=\"anim2\" source=\"load_anim2_png\" x=\"208\" y=\"269\"/>\n\t<e:Image id=\"anim3\" source=\"load_anim3_png\" x=\"208\" y=\"267\"/>\n\t<e:Label id=\"progressLabel\" text=\"100%\" y=\"497\" textColor=\"0xEACB21\" fontFamily=\"Arial\" width=\"164\" verticalAlign=\"middle\" textAlign=\"center\" x=\"238\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/ui/ResultUISkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultUISkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect height=\"1136\" width=\"640\" x=\"0\" y=\"0\" fillAlpha=\"0.7\"/>\n\t<e:Rect id=\"openPacketBtn\" height=\"150\" width=\"150\" x=\"247\" y=\"402\"/>\n\t<e:Rect id=\"prizeBtn\" height=\"62\" width=\"218\" x=\"352\" y=\"580\"/>\n\t<e:Rect id=\"againBtn\" height=\"66\" width=\"212\" x=\"78\" y=\"579\"/>\n\t<e:Image id=\"resultbg\" source=\"game_resultbg_png\" y=\"230\" x=\"38\" touchEnabled=\"false\"/>\n\t<e:Image id=\"shareBtn\" source=\"game_bag_png\" x=\"559\" y=\"-15\" touchEnabled=\"true\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/ui/ShareUISkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ShareUISkin\" width=\"640\" height=\"1150\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect height=\"1136\" width=\"640\" x=\"0\" y=\"0\" fillAlpha=\"0.7\"/>\n\t<e:Image id=\"haveChance\" source=\"share0_png\" x=\"127\" y=\"18\"/>\n\t<e:Image id=\"noChance\" source=\"share1_png\" x=\"126\" y=\"17\"/>\n</e:Skin>"
+    }
+  ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",
     "eui.CheckBox": "resource/eui_skins/CheckBoxSkin.exml",
     "eui.HScrollBar": "resource/eui_skins/HScrollBarSkin.exml",
     "eui.HSlider": "resource/eui_skins/HSliderSkin.exml",
+    "eui.ItemRenderer": "resource/eui_skins/ItemRendererSkin.exml",
     "eui.Panel": "resource/eui_skins/PanelSkin.exml",
-    "eui.TextInput": "resource/eui_skins/TextInputSkin.exml",
     "eui.ProgressBar": "resource/eui_skins/ProgressBarSkin.exml",
     "eui.RadioButton": "resource/eui_skins/RadioButtonSkin.exml",
     "eui.Scroller": "resource/eui_skins/ScrollerSkin.exml",
+    "eui.TextInput": "resource/eui_skins/TextInputSkin.exml",
     "eui.ToggleSwitch": "resource/eui_skins/ToggleSwitchSkin.exml",
     "eui.VScrollBar": "resource/eui_skins/VScrollBarSkin.exml",
-    "eui.VSlider": "resource/eui_skins/VSliderSkin.exml",
-    "eui.ItemRenderer": "resource/eui_skins/ItemRendererSkin.exml"
-  },
-  "autoGenerateExmlsList": true,
-  "exmls": [
-    {
-      "path": "resource/myskin/GameSceneSkin.exml",
-      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"GameSceneSkin\" width=\"640\" height=\"1150\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\" xmlns:ns1=\"*\">\n\t<e:Group id=\"fallMoneyGroup\" height=\"1150\" width=\"640\">\n\t</e:Group>\n\t<e:Label id=\"moneyLabel\" text=\"标签\" y=\"164\" textColor=\"0x030000\" width=\"210\" height=\"76\" verticalAlign=\"middle\" textAlign=\"center\" horizontalCenter=\"0\"/>\n\t<e:Label id=\"timeLabel\" y=\"250\" textColor=\"0x030000\" text=\"标签\" horizontalCenter=\"0\" width=\"210\" height=\"76\" verticalAlign=\"middle\" textAlign=\"center\" x=\"10\"/>\n\t<e:Image id=\"staticMoney\" source=\"mb0_png\" y=\"550\" x=\"130\"/>\n</e:Skin>"
-    },
-    {
-      "path": "resource/myskin/HomeSceneSkin.exml",
-      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"HomeSceneSkin\" width=\"640\" height=\"1150\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"money\" source=\"m0_png\" x=\"135\" y=\"798\"/>\n\t<e:Image id=\"title\" source=\"splashtitle_png\" y=\"55\" horizontalCenter=\"0\"/>\n\t<e:Image id=\"arrow\" source=\"starttip_png\" x=\"294\" y=\"722\"/>\n</e:Skin>"
-    },
-    {
-      "path": "resource/myskin/ui/ResultUISkin.exml",
-      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultUISkin\" width=\"640\" height=\"480\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image source=\"dlgbg_png\" width=\"640\"/>\n\t<e:Image id=\"startBtn\" source=\"start_png\" x=\"60\" y=\"311\"/>\n\t<e:Image id=\"rankBtn\" source=\"rank_png\" x=\"270\" y=\"315\"/>\n\t<e:Image id=\"shareBtn\" source=\"share_png\" x=\"478\" y=\"307\"/>\n\t<e:Label id=\"resultLabel\" text=\"标签\" y=\"66\" width=\"425\" height=\"185\" x=\"108\"/>\n</e:Skin>"
-    }
-  ]
+    "eui.VSlider": "resource/eui_skins/VSliderSkin.exml"
+  }
 }

@@ -90,6 +90,9 @@ $signPackage = $jssdk->GetSignPackage();
                 }
             });
 		}
+
+		1. 进入  http://www.cisigo.com/index.php?s=/addon/Runbai/Runbai/getwxCode
+		2。请求  
 		
 		function sendGetPrize(){
 			var nullData;

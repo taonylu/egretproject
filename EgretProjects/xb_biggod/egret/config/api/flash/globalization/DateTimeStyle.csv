@@ -1,8 +1,0 @@
-类,继承类,静态,属性,属性get/set,函数,类型(属性类型或者函数返回类型),转换类,是否需要删前缀,转换属性,转换属性格式,转换函数,转换函数参数,转换是否实现,错误提示,权重,测试
-ver1.0,,,,,,,,,,,,,,,,
-flash.globalization.DateTimeStyle,Object,,,,,,flash.DateTimeStyle,,,,,,0,,,
-flash.globalization.DateTimeStyle,,1,LONG,,,String,flash.DateTimeStyle,1,flash.DateTimeStyle.LONG,,,,0,,,
-flash.globalization.DateTimeStyle,,1,SHORT,,,String,flash.DateTimeStyle,1,flash.DateTimeStyle.SHORT,,,,0,,,
-flash.globalization.DateTimeStyle,,1,MEDIUM,,,String,flash.DateTimeStyle,1,flash.DateTimeStyle.MEDIUM,,,,0,,,
-flash.globalization.DateTimeStyle,,1,NONE,,,String,flash.DateTimeStyle,1,flash.DateTimeStyle.NONE,,,,0,,,
-flash.globalization.DateTimeStyle,,1,CUSTOM,,,String,flash.DateTimeStyle,1,flash.DateTimeStyle.CUSTOM,,,,0,,,

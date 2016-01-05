@@ -31,6 +31,7 @@ class Main extends eui.UILayer {
 
     protected createChildren(): void {
         super.createChildren();
+        
         //注入自定义的素材解析器
         var assetAdapter = new AssetAdapter();
         this.stage.registerImplementation("eui.IAssetAdapter",assetAdapter);
@@ -53,28 +54,29 @@ class Main extends eui.UILayer {
         LoadManager.getInstance().loadGroup("preload",this, this.onPreloadComplete);
     }
 
+    
+    private preloadScene:PreloadScene;
+    
     //preload资源组加载完成
     private onPreloadComplete(event:RES.ResourceEvent):void {
-        
-        //启动游戏
-        GameManager.getInstance().startup(this);
-        
-        
-        
-        
-        //LoadManager.getInstance().loadGroup("game",this,this.onGameComplete,this.onGameProgress);
+        this.preloadScene = new PreloadScene();
+        this.addChild(this.preloadScene);
+        LoadManager.getInstance().loadGroup("game",this,this.onGameComplete,this.onGameProgress);
     }
     
     //game资源组加载进度
     private onGameProgress(event: RES.ResourceEvent): void {
-        
-
+        this.preloadScene.setProgress(Math.round(event.itemsLoaded/event.itemsTotal*100));
     }
     
     //game资源组加载进度
     private onGameComplete(event: RES.ResourceEvent): void {
-
-
+        //销毁预加载界面
+        this.preloadScene.stopAnim();
+        this.removeChild(this.preloadScene);
+        this.preloadScene = null;
+        //启动游戏
+        GameManager.getInstance().startup(this);
     }
 
 }

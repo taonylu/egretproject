@@ -12,7 +12,7 @@
     <style>
         html, body {
             -ms-touch-action: none;
-            background: #229922;
+            background: #FF0000;
             padding: 0;
             border: 0;
             margin: 0;
@@ -38,14 +38,17 @@
 	<script egret="game" src="bin-debug/AssetAdapter.js"></script>
 	<script egret="game" src="bin-debug/com/common/BaseScene.js"></script>
 	<script egret="game" src="bin-debug/com/common/BaseUI.js"></script>
+	<script egret="game" src="bin-debug/com/common/ImageMC.js"></script>
 	<script egret="game" src="bin-debug/com/common/LayerManager.js"></script>
 	<script egret="game" src="bin-debug/com/common/LoadManager.js"></script>
 	<script egret="game" src="bin-debug/com/common/ObjectPool.js"></script>
 	<script egret="game" src="bin-debug/com/constant/GameConst.js"></script>
 	<script egret="game" src="bin-debug/com/GameManager.js"></script>
 	<script egret="game" src="bin-debug/com/view/GameScene.js"></script>
-	<script egret="game" src="bin-debug/com/view/HomeScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/OpenScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/PreloadScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/ResultUI.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/ShareUI.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
 	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
 	<!--game_files_end-->
@@ -58,14 +61,106 @@
          data-scale-mode="fixedWidth"
          data-frame-rate="60"
          data-content-width="640"
-         data-content-height="1150"
+         data-content-height="1136"
          data-show-paint-rect="false"
          data-multi-fingered="2"
          data-show-fps="false" data-show-log="false"
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>
+
         egret.runEgret();
+    	/*
+    	var xmlhttp;
+    	if(window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+    			xmlhttp = new XMLHttpRequest();
+    	}
+    	else {// code for IE6, IE5
+    		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    	}
+    	
+    	var code = Request("code");
+
+    	//
+    	//JSON.stringify
+    	
+    	var userData;
+    	var pass;
+    	
+    	getUserData();
+    	
+    	function getUserData(){
+    		xmlhttp.onreadystatechange = function() {
+		    	if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    				console.log("请求用户数据结果:" + xmlhttp.responseText);
+    				userData = JSON.parse(xmlhttp.responseText);
+					if(userData.code != 200){
+						alert("获取用户数据错误 code != 200");
+					}
+		    		pass = userData.pass;
+	    		}else{
+					alert("获取用户数据错误");
+					window.location.href="http://www.cisigo.com/index.php?s=/addon/Runbai/Runbai/getwxCode";
+				}
+	    	}
+	    	xmlhttp.open("GET","http://www.cisigo.com/index.php?s=/addon/Runbai/Runbai/getUserinfo/code/" + code + "/",false);
+	    	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	    	xmlhttp.send();
+    	
+		
+	    	$.ajax({
+	    	type : "GET",
+	    	url:"http://www.cisigo.com/index.php?s=/addon/Runbai/Runbai/getUserinfo/code/" + code + "/",
+	    	dataType : 'json',
+	    	success : function(revData){
+	    	userData = revData;
+	    	if(userData.code != 200){
+	    	alert("请求错误：" + code);
+	    	}	
+	    	pass = userData.pass;
+	    	},
+	    	error:function(){
+	    	//alert("获取用户数据错误");
+	    	window.location.href="http://www.cisigo.com/index.php?s=/addon/Runbai/Runbai/getwxCode";
+	    	}
+	    	});
+    	}
+    	
+
+    	function sendOpenPakcetRequest(msg,url){
+	    	xmlhttp.onreadystatechange = function() {
+		    	if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+		    		//xmlhttp.responseText
+    				
+		    	}
+	    	}
+	    	xmlhttp.open("POST",url,false);
+    		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    		xmlhttp.send(msg);
+    	}
+
+		function Request(argname) //获取get的值
+		{ 
+			var url = document.location.href; 
+			var arrStr = url.substring(url.indexOf("?")+1).split("&"); 
+			//return arrStr; 
+			for(var i =0;i<arrStr.length;i++) 
+			{ 
+				var loc = arrStr[i].indexOf(argname+"="); 
+				if(loc!=-1) 
+				{ 
+					return arrStr[i].replace(argname+"=","").replace("?",""); 
+					break; 
+				} 
+			} 
+			return ""; 
+		}*/
+
     </script>
 </body>
 </html>
+
+
+
+
+
