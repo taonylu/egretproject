@@ -4,9 +4,8 @@
  *
  */
 class GameManager {
-    public homeScene: HomeScene = new HomeScene();
-    public gameScene: GameScene = new GameScene();
-    
+    public gameScene: GameScene = new GameScene();  //游戏场景
+    public shareUI:ShareUI = new ShareUI();         //分享UI
     
     public startup(main:Main): void {
         //初始化配置
@@ -14,7 +13,7 @@ class GameManager {
         LayerManager.getInstance().initialize(main);
         
         //跳转场景
-        LayerManager.getInstance().runScene(this.homeScene);
+        LayerManager.getInstance().runScene(this.gameScene);
     }
     
     

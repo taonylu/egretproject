@@ -55,15 +55,22 @@ var Main = (function (_super) {
     };
     //preload资源组加载完成
     p.onPreloadComplete = function (event) {
-        //启动游戏
-        GameManager.getInstance().startup(this);
-        //LoadManager.getInstance().loadGroup("game",this,this.onGameComplete,this.onGameProgress);
+        this.preloadScene = new PreloadScene();
+        this.addChild(this.preloadScene);
+        LoadManager.getInstance().loadGroup("game", this, this.onGameComplete, this.onGameProgress);
     };
     //game资源组加载进度
     p.onGameProgress = function (event) {
+        this.preloadScene.setProgress(Math.round(event.itemsLoaded / event.itemsTotal * 100));
     };
     //game资源组加载进度
     p.onGameComplete = function (event) {
+        //销毁预加载界面
+        this.preloadScene.stopAnim();
+        this.removeChild(this.preloadScene);
+        this.preloadScene = null;
+        //启动游戏
+        GameManager.getInstance().startup(this);
     };
     return Main;
 })(eui.UILayer);

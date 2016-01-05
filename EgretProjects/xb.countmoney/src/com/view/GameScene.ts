@@ -4,21 +4,31 @@
  *
  */
 class GameScene extends BaseScene{
-    private fallMoneyList: Array<egret.Bitmap>;  //掉钱数组
-    private fallMoneyGroup: eui.Group;           //掉钱容器
-    private fallEdge: number;                    //掉钱下边界
+    private fallPacketList: Array<egret.Bitmap>; //掉红包数组
+    private fallPacketGroup: eui.Group;          //掉红包容器
+    private fallEdge: number;                    //掉红包下边界
     
-    private moneyLabel: eui.Label;               //获得钱总数文本
-    private countMoneyList: Array<egret.Bitmap>; //数钱数组
-    private staticMoney: eui.Image;              //固定的钱
-    private totalMoney: number = 0;              //当前钱总数
-    private moneyValue: number = 100;            //一张钱的价值
+    private packetLabel: eui.Label;              //获得红包总数文本
+    private countPacketList: Array<egret.Bitmap>;//触摸飞出的红包数组
+    private staticPacket: eui.Image;             //固定的红包
+    private totalPacket: number = 0;             //当前红包总数
     
     private timeLabel: eui.Label;                //计时文本
     private timeLimit: number = 3;               //时间限制
     private gameTimer: egret.Timer;              //游戏计时器
     
+    private item_box:eui.Image;                  //杂物
+    private item_ipad:eui.Image;
+    private item_paper:eui.Image;
+    private hand:eui.Image;                      //手拿红包
+    private arrow:eui.Image;                     //箭头
+    
+    private initArrowY:number;                   //箭头Y
+    private initPacketY:number;                  //固定红包上滑的位置
+    
     private resultUI: ResultUI = new ResultUI(); //结果UI
+    
+    private bFirstGame:Boolean = true;           //是否首次游戏，第一次游戏会有杂物，第二次则不出现杂物
     
     
 	public constructor() {
@@ -28,88 +38,142 @@ class GameScene extends BaseScene{
     public componentCreated(): void {
         super.componentCreated();
         
-        this.initFallMoney();
-        this.initCountMoney();
+        this.initView();
+        this.initFallPacket();
+        this.initCountPacket();
     }
 
     public onEnable(): void {
+        this.playArrowAnim();
         this.startGame();
     }
 
     public onRemove(): void {
-
+        egret.Tween.removeAllTweens();
     }
     
     public startGame(): void {
+        //重置游戏
         this.resetGame();
         
-        this.addEventListener(egret.TouchEvent.ENTER_FRAME,this.onFallMoney,this);
-        this.staticMoney.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouchBegin,this);
-        GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.onTouchMove,this);
-        GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_END,this.onTouchEnd,this);
+        if(this.bFirstGame){   //首次游戏，出现杂物
+            this.bFirstGame = false;
+            GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onFirstGameTouchBegin, this);
+            GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onFirstGameTouchEnd, this);
+        }else{  //非首次游戏，则直接开始
+            this.addEventListener(egret.TouchEvent.ENTER_FRAME,this.onFallPacket,this);
+            this.staticPacket.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouchBegin,this);
+            GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.onTouchMove,this);
+            GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_END,this.onTouchEnd,this);
+        }
     }
     
     private resetGame(): void {
-        //重置下落的钱位置
-        this.resetAllFallMoney();
+        //重置下落的红包位置
+        this.resetAllPacketMoney();
+        //重置飞出红包
+        this.resetCountPacket();
         //重置时间
         this.setTimeLabel(this.timeLimit.toString());
-        //重置钱总数
-        this.totalMoney = 0;
-        this.setMoneyLabel(this.totalMoney.toString());
+        //重置红包总数
+        this.totalPacket = 0;
+        this.setPacketLabel(this.totalPacket.toString());
     }
     
     private gameOver(): void {
+        //停止计时器
         this.stopTimer();
-        this.staticMoney.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouchBegin,this);
+        //移除监听
+        this.staticPacket.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouchBegin,this);
         GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,this.onTouchMove,this);
         GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_END,this.onTouchEnd,this);
-        
-        this.resultUI.showInScene(this,this.totalMoney);
+        //显示结果面板
+        this.resultUI.showInScene(this,this.totalPacket);
         
     }
+    
+    //初始化界面元素
+    private initView(): void {
+        //固定红包上滑位置
+        this.initPacketY = this.staticPacket.y - 610;
+        
+        //箭头位置
+        this.initArrowY = this.arrow.y;
+    }
+    
+    //播放箭头动画
+    private playArrowAnim():void{
+        this.arrow.y = this.initArrowY;
+        egret.Tween.get(this.arrow,{ loop: true }).to({ y: this.initArrowY - 20 },500).to({ y: this.initArrowY},500);
+    }
+    
+    //第一次游戏滑动屏幕，触摸开始
+    private onFirstGameTouchBegin(e:egret.TouchEvent):void{
+        this.beginY = e.stageY;
+    }
+    
+    //第一次游戏滑动屏幕，触摸结束
+    private onFirstGameTouchEnd(e:egret.TouchEvent):void{
+        if(this.beginY - e.stageY > 50){  //滑动距离达到要求，则将杂物退散，并开始游戏
+            //移除监听
+            GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onFirstGameTouchBegin,this);
+            GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_END,this.onFirstGameTouchEnd,this);
+            //杂物退散
+            var self:GameScene = this;
+            egret.Tween.get(this.item_box).to({x:-this.item_box.width},500);
+            egret.Tween.get(this.item_ipad).to({x:GameConst.stage.stageWidth},500);
+            egret.Tween.get(this.item_paper).to({ x: GameConst.stage.stageWidth },500);
+            egret.Tween.get(this.hand).to({ y: GameConst.stage.stageHeight },500);
+            //红包进场
+            egret.Tween.get(this.staticPacket).to({ y: this.initPacketY},1000).call(function() {
+                self.startGame();
+            },this);  
+        }
+    }
+    
     
     
     private beginY: number;             //触摸初始位置
     private isDrag: Boolean = false;    //是否拖拽状态
-    private curCountMoney: egret.Bitmap;//当前拖拽的钱
+    private curDragPacket: egret.Bitmap;//当前拖拽的红包
     
     private onTouchBegin(e:egret.TouchEvent): void {
         this.beginY = e.stageY;
         this.isDrag = true;
-        this.curCountMoney = this.countMoneyList.pop();
-        this.curCountMoney.x = this.staticMoney.x;
-        this.curCountMoney.y = this.staticMoney.y;
-        this.addChild(this.curCountMoney);
+        this.curDragPacket = this.countPacketList.pop();
+        this.curDragPacket.x = this.staticPacket.x;
+        this.curDragPacket.y = this.staticPacket.y;
+        this.addChild(this.curDragPacket);
         
     }
     
     private onTouchMove(e: egret.TouchEvent): void {
-        if(this.isDrag && this.curCountMoney) {
-            this.curCountMoney.y += e.stageY - this.beginY;
+        if(this.isDrag && this.curDragPacket) {
+            this.curDragPacket.y += e.stageY - this.beginY;
             this.beginY = e.stageY;
         }
     }
     
     private onTouchEnd(e: egret.TouchEvent): void {
-        
         //滑动距离超过一段距离
-        if(this.isDrag && this.curCountMoney && (Math.abs(this.curCountMoney.y - this.staticMoney.y) > 10)) {
+        if(this.isDrag && this.curDragPacket && (this.staticPacket.y - this.curDragPacket.y > 50)) {
             //根据距离计算滑动时间
-            var time: number = (this.curCountMoney.y / this.staticMoney.y) * 200;
-            var tempMoney: egret.Bitmap = this.curCountMoney;
-            this.curCountMoney = null;
+            var time: number = (this.curDragPacket.y / this.staticPacket.y) * 200;
+            var tempMoney: egret.Bitmap = this.curDragPacket;
+            this.curDragPacket = null;
             var self: GameScene = this;
             egret.Tween.get(tempMoney).to({ y: -tempMoney.height },time).call(function() {
-                self.countMoneyList.push(tempMoney);
+                self.countPacketList.push(tempMoney);
             });
-            //计算钱
-            this.totalMoney += this.moneyValue;
-            this.setMoneyLabel(this.totalMoney.toString());
-            //第一张钱滑动后，开始计时
-            if(this.totalMoney == this.moneyValue) {
+            //计算红包
+            this.totalPacket ++;
+            this.setPacketLabel(this.totalPacket.toString());
+            //第一张红包滑动后，开始计时
+            if(this.totalPacket == 1) {
                 this.startTimer();
             } 
+        }else if(this.curDragPacket){  //重置红包位置
+            this.curDragPacket.y = -this.curDragPacket.height;
         }
         
         //重置拖拽状态
@@ -117,61 +181,82 @@ class GameScene extends BaseScene{
     }
     
     
-    //初始化数钱数组
-    private initCountMoney(): void {
-        this.countMoneyList = new Array<egret.Bitmap>();
+    
+    //初始化数红包数组
+    private initCountPacket(): void {
+        this.countPacketList = new Array<egret.Bitmap>();
         var bm: egret.Bitmap;
         for(var i: number = 0;i < 10;i++) {
-            bm = new egret.Bitmap(RES.getRes("m0_png"));
-            this.countMoneyList.push(bm);
+            bm = new egret.Bitmap(RES.getRes("game_packet_png"));
+            this.countPacketList.push(bm);
         }
     }
     
-    //初始化下落的钱
-    private initFallMoney(): void {
-        this.fallMoneyList = new Array<egret.Bitmap>();
+    //重置飞出红包
+    private resetCountPacket():void{
+        //拖拽的红包
+        if(this.curDragPacket){
+            this.curDragPacket.y = -this.curDragPacket.height;
+            this.countPacketList.push(this.curDragPacket);
+            this.curDragPacket = null;
+        }
+        //重置所有红包位置
+        var len:number = this.countPacketList.length;
+        var bm: egret.Bitmap;
+        for(var i: number = 0;i < len;i++) {
+            bm = this.countPacketList[i];
+            bm.y = -bm.height;
+        }
+    }
+    
+    
+    
+    
+    //初始化下落的红包
+    private initFallPacket(): void {
+        this.fallPacketList = new Array<egret.Bitmap>();
         var bm: egret.Bitmap;
         for(var i: number = 0;i < 3;i++) {
-            bm = new egret.Bitmap(RES.getRes("d0_png"));
+            bm = new egret.Bitmap(RES.getRes("game_fall_png"));
             bm.anchorOffsetX = bm.width / 2;
             bm.anchorOffsetY = bm.height / 2;
-            this.fallMoneyList.push(bm);
-            this.resetFallMoneyPos(bm);
-            this.fallMoneyGroup.addChild(bm);
+            this.fallPacketList.push(bm);
+            this.resetFallPacketPos(bm);
+            this.fallPacketGroup.addChild(bm);
         }
         this.fallEdge = GameConst.stage.stageHeight + bm.height;
     }
     
-    //下落钱处理函数
-    private onFallMoney(): void {
-        var len = this.fallMoneyList.length;
+    //下落红包处理函数
+    private onFallPacket(): void {
+        var len = this.fallPacketList.length;
         var bm: egret.Bitmap;
         for(var i: number = 0;i < len;i++) {
-            bm = this.fallMoneyList[i];
+            bm = this.fallPacketList[i];
             bm.rotation += 10;
             bm.y += 20;
             if(bm.y >= this.fallEdge) {
-                this.resetFallMoneyPos(bm);
+                this.resetFallPacketPos(bm);
             }
         }
     }
     
-    //重置下落钱位置
-    private resetFallMoneyPos(bm:egret.Bitmap): void { 
-        bm.y = -bm.height - Math.random() * 600; //随机钱位置
+    //重置下落红包位置
+    private resetFallPacketPos(bm:egret.Bitmap): void { 
+        bm.y = -bm.height - Math.random() * 600; //随机红包位置
         bm.x = Math.random() * 640;
     }
     
-    //重置所有下落的钱位置
-    private resetAllFallMoney(): void {
-        var len = this.fallMoneyList.length;
+    //重置所有下落的红包位置
+    private resetAllPacketMoney(): void {
+        var len = this.fallPacketList.length;
         for(var i: number = 0;i < len;i++) {
-            this.resetFallMoneyPos(this.fallMoneyList[i]);
+            this.resetFallPacketPos(this.fallPacketList[i]);
         }
     }
     
-    private setMoneyLabel(str: string): void {
-        this.moneyLabel.text = str;
+    private setPacketLabel(str: string): void {
+        this.packetLabel.text = str;
     }
     
     private setTimeLabel(str: string): void {

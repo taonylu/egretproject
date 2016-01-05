@@ -1,8 +1,0 @@
-
-totalSwfNumber: 1
-ExportRes.ExportRes(): 		swfpath=E:\SVN_EgretProjects\EgretProjects\xb_biggod\flash\bin\movie.swf
-ExportRes.onLoadSwfComplete(): 	relativeDir=swfres/movie/
-ExportRes.onLoadSwfComplete(): 	fileDir=E:/SVN_EgretProjects/EgretProjects/xb_biggod/egret/html5/resource/swfres/movie/
-E:/SVN_EgretProjects/EgretProjects/xb_biggod/flash/bin/movie.swf,0,E:/SVN_EgretProjects/EgretProjects/xb_biggod/egret/html5/resource/swfres/movie/
-
-exported swf number: 1/1
