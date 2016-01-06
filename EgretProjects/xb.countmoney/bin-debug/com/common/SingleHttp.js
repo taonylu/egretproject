@@ -3,14 +3,23 @@
  * @author
  *
  */
-var HttpUtil = (function () {
-    function HttpUtil() {
+/**
+ * 使用范例
+  var http:SingleHttp = SingleHttp.getInstance();
+  http.completeHandler = this.completeHandler;
+  http.errorHandler = this.errorHandler;
+  var url:string = "";
+  var msg:string = "";
+  http.send(url, egret.HttpMethod.POST, msg, this);
+ */
+var SingleHttp = (function () {
+    function SingleHttp() {
         this.request = new egret.HttpRequest();
         this.request.responseType = egret.HttpResponseType.TEXT;
         this.request.addEventListener(egret.Event.COMPLETE, this.onPostComplete, this);
         this.request.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onPostIOError, this);
     }
-    var d = __define,c=HttpUtil,p=c.prototype;
+    var d = __define,c=SingleHttp,p=c.prototype;
     p.send = function (url, httpMethod, msg, obj) {
         this.thisObject = obj;
         this.request.open(url, httpMethod);
@@ -32,12 +41,12 @@ var HttpUtil = (function () {
             this.errorHandler.call(this.thisObject, e);
         }
     };
-    p.destroy = function () {
-        this.completeHandler = null;
-        this.errorHandler = null;
-        this.request.removeEventListener(egret.Event.COMPLETE, this.onPostComplete, this);
-        this.request.removeEventListener(egret.IOErrorEvent.IO_ERROR, this.onPostIOError, this);
+    SingleHttp.getInstance = function () {
+        if (this.instance == null) {
+            this.instance = new SingleHttp();
+        }
+        return this.instance;
     };
-    return HttpUtil;
+    return SingleHttp;
 })();
-egret.registerClass(HttpUtil,'HttpUtil');
+egret.registerClass(SingleHttp,'SingleHttp');

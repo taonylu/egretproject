@@ -10,6 +10,7 @@ var GameScene = (function (_super) {
         this.totalPacket = 0; //当前红包总数
         this.timeLimit = 3; //时间限制
         this.resultUI = new ResultUI(); //结果UI
+        this.countDownUI = new CountDownUI(); //倒计时UI
         this.bFirstGame = true; //是否首次游戏，第一次游戏会有杂物，第二次则不出现杂物
         this.isDrag = false; //是否拖拽状态
     }
@@ -36,10 +37,8 @@ var GameScene = (function (_super) {
             GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onFirstGameTouchEnd, this);
         }
         else {
-            this.addEventListener(egret.TouchEvent.ENTER_FRAME, this.onFallPacket, this);
-            this.staticPacket.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-            GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
-            GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
+            this.countDownUI.show();
+            this.countDownUI.addEventListener("countComplete", this.countComplete, this);
         }
     };
     p.resetGame = function () {
@@ -63,12 +62,23 @@ var GameScene = (function (_super) {
         //显示结果面板
         this.resultUI.showInScene(this, this.totalPacket);
     };
+    //倒计时结束
+    p.countComplete = function () {
+        this.addEventListener(egret.TouchEvent.ENTER_FRAME, this.onFallPacket, this);
+        this.staticPacket.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+        GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
+        GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
+        this.startTimer();
+    };
     //初始化界面元素
     p.initView = function () {
+        //手拿红包位置
+        this.hand.y = GameConst.stage.stageHeight - 515;
         //固定红包上滑位置
-        this.initPacketY = this.staticPacket.y - 610; //610用于确定红包高度
+        this.initPacketY = GameConst.stage.stageHeight - 590;
         //箭头位置
-        this.initArrowY = this.arrow.y;
+        this.initArrowY = this.initPacketY - 100 - 20;
+        this.arrow.y = this.initArrowY;
     };
     //播放箭头动画
     p.playArrowAnim = function () {
@@ -103,7 +113,7 @@ var GameScene = (function (_super) {
         this.curDragPacket = this.countPacketList.pop();
         this.curDragPacket.x = this.staticPacket.x;
         this.curDragPacket.y = this.staticPacket.y;
-        this.addChild(this.curDragPacket);
+        this.countGroup.addChild(this.curDragPacket);
     };
     p.onTouchMove = function (e) {
         if (this.isDrag && this.curDragPacket) {
@@ -114,8 +124,10 @@ var GameScene = (function (_super) {
     p.onTouchEnd = function (e) {
         //滑动距离超过50，则将红包飞出
         if (this.isDrag && this.curDragPacket && (this.staticPacket.y - this.curDragPacket.y > 50)) {
+            //播放音效
+            window["playCountSnd"]();
             //根据距离计算滑动时间       当前所需时间=  当前位置/起始位置*起始位置到终点时间 
-            var time = (this.curDragPacket.y / this.staticPacket.y) * 200;
+            var time = (this.curDragPacket.y / this.staticPacket.y) * 500;
             var tempMoney = this.curDragPacket;
             this.curDragPacket = null;
             var self = this;
@@ -125,10 +137,6 @@ var GameScene = (function (_super) {
             //计算红包
             this.totalPacket++;
             this.setPacketLabel(this.totalPacket.toString());
-            //第一张红包滑动后，开始计时
-            if (this.totalPacket == 1) {
-                this.startTimer();
-            }
         }
         else if (this.curDragPacket) {
             this.curDragPacket.y = -this.curDragPacket.height;

@@ -8,4 +8,5 @@
 	<e:Image id="anim2" source="load_anim2_png" x="208" y="269"/>
 	<e:Image id="anim3" source="load_anim3_png" x="208" y="267"/>
 	<e:Label id="progressLabel" text="100%" y="497" textColor="0xEACB21" fontFamily="Arial" width="164" verticalAlign="middle" textAlign="center" x="238"/>
+	<e:Label text="技术支持：信步游戏" fontFamily="微软雅黑" textAlign="center" width="360" verticalAlign="middle" x="150" bottom="65" textColor="0xFAFAF6"/>
 </e:Skin>

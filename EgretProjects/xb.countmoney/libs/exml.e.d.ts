@@ -12,6 +12,10 @@ declare class OpenSceneSkin extends eui.Skin{
 }
 declare class PreloadSceneSkin extends eui.Skin{
 }
+declare class CountDownUISkin extends eui.Skin{
+}
+declare class MyPrizeUISkin extends eui.Skin{
+}
 declare class ResultUISkin extends eui.Skin{
 }
 declare class RuleUISkin extends eui.Skin{

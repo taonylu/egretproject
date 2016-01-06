@@ -29,7 +29,12 @@ class ShareUI extends BaseUI{
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);   
     }
     
-    private onTouchTap():void{
+    public hide():void{
+        this.parent && this.parent.removeChild(this);
+        this.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouchTap,this);  
+    }
+    
+    private onTouchTap(e:egret.TouchEvent):void{
         this.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouchTap,this);   
         this.parent.removeChild(this);
     }

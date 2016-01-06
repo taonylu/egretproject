@@ -1,13 +1,24 @@
 /**
  * 一个Http请求
  * @author 
- *
+ *         
  */
-class HttpUtil {
+
+/**
+ * 使用范例
+  var http:SingleHttp = SingleHttp.getInstance();
+  http.completeHandler = this.completeHandler;
+  http.errorHandler = this.errorHandler;
+  var url:string = "";
+  var msg:string = "";
+  http.send(url, egret.HttpMethod.POST, msg, this);
+ */ 
+
+class SingleHttp {
     public completeHandler:Function;   //完成回调函数
-    public errorHandler:Function;           //错误回调函数
-    public thisObject:any;                         //回调函数绑定对象
-    private request:egret.HttpRequest;     //请求
+    public errorHandler:Function;      //错误回调函数
+    public thisObject:any;             //回调函数绑定对象
+    private request:egret.HttpRequest; //请求
     
 	public constructor() {
         this.request = new egret.HttpRequest();
@@ -39,11 +50,15 @@ class HttpUtil {
         }
 	}
 	
-	public destroy():void{
-        this.completeHandler  = null;
-        this.errorHandler = null;
-        this.request.removeEventListener(egret.Event.COMPLETE,this.onPostComplete,this);
-        this.request.removeEventListener(egret.IOErrorEvent.IO_ERROR,this.onPostIOError,this);
+	
+	
+    private static instance: SingleHttp;
+	
+    public static getInstance(): SingleHttp{
+    	if(this.instance == null){
+        	this.instance = new SingleHttp();
+    	}
+    	return this.instance;
 	}
 	
 }

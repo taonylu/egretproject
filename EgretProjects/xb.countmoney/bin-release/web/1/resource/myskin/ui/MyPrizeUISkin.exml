@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="MyPrizeUISkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect height="1136" width="640" x="0" y="0" fillAlpha="0.7"/>
+	<e:Rect id="okBtn" height="52" width="198" x="230" y="565"/>
+	<e:Image source="prize_result_png" x="100" y="264" touchEnabled="false"/>
+	<e:Label id="contentLabel" text="标签" x="130" y="336" width="394" height="218" textColor="0x471717"/>
+</e:Skin>

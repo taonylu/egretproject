@@ -126,11 +126,6 @@
 				},
 				{
 					"isFolder":false,
-					"key":"open_opened_png",
-					"name":"open_opened_png"
-				},
-				{
-					"isFolder":false,
 					"key":"rule_bg_png",
 					"name":"rule_bg_png"
 				},
@@ -148,6 +143,81 @@
 					"isFolder":false,
 					"key":"roundthumb_png",
 					"name":"roundthumb_png"
+				},
+				{
+					"isFolder":false,
+					"key":"open_opened.png_png",
+					"name":"open_opened.png_png"
+				},
+				{
+					"isFolder":false,
+					"key":"open_opened2.png_png",
+					"name":"open_opened2.png_png"
+				},
+				{
+					"isFolder":false,
+					"key":"prize_phone_png",
+					"name":"prize_phone_png"
+				},
+				{
+					"isFolder":false,
+					"key":"prize_result_png",
+					"name":"prize_result_png"
+				},
+				{
+					"isFolder":false,
+					"key":"prize1_png",
+					"name":"prize1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"prize2_png",
+					"name":"prize2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"prize3_png",
+					"name":"prize3_png"
+				},
+				{
+					"isFolder":false,
+					"key":"prize4_png",
+					"name":"prize4_png"
+				},
+				{
+					"isFolder":false,
+					"key":"prize5_png",
+					"name":"prize5_png"
+				},
+				{
+					"isFolder":false,
+					"key":"prize6_png",
+					"name":"prize6_png"
+				},
+				{
+					"isFolder":false,
+					"key":"prize7_png",
+					"name":"prize7_png"
+				},
+				{
+					"isFolder":false,
+					"key":"count1_png",
+					"name":"count1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"count2_png",
+					"name":"count2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"count3_png",
+					"name":"count3_png"
+				},
+				{
+					"isFolder":false,
+					"key":"count_rule_png",
+					"name":"count_rule_png"
 				}
 			]
 		}

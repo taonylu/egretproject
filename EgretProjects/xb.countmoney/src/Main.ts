@@ -29,8 +29,12 @@
 
 class Main extends eui.UILayer {
 
+    private path:string = "";  //路由路径
+    
     protected createChildren(): void {
         super.createChildren();
+        
+        this.path = window["addon_public_path"];
         
         //注入自定义的素材解析器
         var assetAdapter = new AssetAdapter();
@@ -38,14 +42,16 @@ class Main extends eui.UILayer {
         this.stage.registerImplementation("eui.IThemeAdapter",new ThemeAdapter());
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.loadConfig("resource/default.res.json", "resource/");
+        var path: string = window["addon_public_path"];
+        RES.loadConfig(this.path + "resource/default.res.json", this.path + "resource/");
+        
     }
     
     //配置文件加载完成,开始预加载皮肤主题资源和preload资源组。
     private onConfigComplete(event:RES.ResourceEvent):void {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-        var theme = new eui.Theme("resource/default.thm.json", this.stage);
+        var theme = new eui.Theme(this.path + "resource/default.thm.json", this.stage);
         theme.addEventListener(eui.UIEvent.COMPLETE, this.onThemeLoadComplete, this);
     }
 

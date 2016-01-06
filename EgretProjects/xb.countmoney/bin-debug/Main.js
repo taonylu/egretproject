@@ -30,23 +30,26 @@ var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
         _super.apply(this, arguments);
+        this.path = ""; //路由路径
     }
     var d = __define,c=Main,p=c.prototype;
     p.createChildren = function () {
         _super.prototype.createChildren.call(this);
+        this.path = window["addon_public_path"];
         //注入自定义的素材解析器
         var assetAdapter = new AssetAdapter();
         this.stage.registerImplementation("eui.IAssetAdapter", assetAdapter);
         this.stage.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.loadConfig("resource/default.res.json", "resource/");
+        var path = window["addon_public_path"];
+        RES.loadConfig(this.path + "resource/default.res.json", this.path + "resource/");
     };
     //配置文件加载完成,开始预加载皮肤主题资源和preload资源组。
     p.onConfigComplete = function (event) {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-        var theme = new eui.Theme("resource/default.thm.json", this.stage);
+        var theme = new eui.Theme(this.path + "resource/default.thm.json", this.stage);
         theme.addEventListener(eui.UIEvent.COMPLETE, this.onThemeLoadComplete, this);
     };
     //主题文件加载完成,开始预加载
