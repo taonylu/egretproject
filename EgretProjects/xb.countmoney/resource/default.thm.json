@@ -1,14 +1,46 @@
 {
   "autoGenerateExmlsList": true,
   "exmls": [
-    "resource/eui_skins/ScrollerSkin.exml",
-    "resource/eui_skins/VScrollBarSkin.exml",
-    "resource/myskin/GameSceneSkin.exml",
-    "resource/myskin/OpenSceneSkin.exml",
-    "resource/myskin/PreloadSceneSkin.exml",
-    "resource/myskin/ui/ResultUISkin.exml",
-    "resource/myskin/ui/RuleUISkin.exml",
-    "resource/myskin/ui/ShareUISkin.exml"
+    {
+      "path": "resource/eui_skins/ScrollerSkin.exml",
+      "content": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<e:Skin class=\"skins.ScrollerSkin\" minWidth=\"20\" minHeight=\"20\" xmlns:e=\"http://ns.egret.com/eui\">\n    <e:VScrollBar id=\"verticalScrollBar\" height=\"100%\" right=\"0\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/eui_skins/VScrollBarSkin.exml",
+      "content": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<e:Skin class=\"skins.VScrollBarSkin\" minWidth=\"8\" minHeight=\"20\" xmlns:e=\"http://ns.egret.com/eui\">\n    <e:Image id=\"thumb\" source=\"roundthumb_png\" scale9Grid=\"3,3,2,2\" height=\"30\" width=\"8\" horizontalCenter=\"0\"/>\n</e:Skin>\n"
+    },
+    {
+      "path": "resource/myskin/GameSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"GameSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\" xmlns:ns1=\"*\">\n\t<e:Image id=\"bg\" source=\"game_bg_png\" left=\"0\" right=\"0\" top=\"0\" bottom=\"0\"/>\n\t<e:Group id=\"fallPacketGroup\" height=\"1150\" width=\"640\"/>\n\t<e:Image id=\"item_box\" source=\"game_item0_png\" x=\"-151\" y=\"127\"/>\n\t<e:Image id=\"item_ipad\" source=\"game_item1_png\" x=\"466\" y=\"372\"/>\n\t<e:Image id=\"item_paper\" source=\"game_item2_png\" x=\"310\" y=\"70\"/>\n\t<e:Image id=\"hand\" source=\"game_hand_png\" x=\"35\" y=\"620\"/>\n\t<e:Image id=\"arrow\" source=\"game_arrow_png\" y=\"394\" x=\"274\"/>\n\t<e:Image id=\"staticPacket\" source=\"game_packet_png\" y=\"1145\" x=\"121\"/>\n\t<e:Group id=\"countGroup\" height=\"1136\" width=\"640\" x=\"0\" y=\"0\" touchChildren=\"false\" touchEnabled=\"false\" touchThrough=\"true\"/>\n\t<e:Group id=\"labelGroup\" height=\"1136\" width=\"640\" x=\"0\" y=\"0\" touchThrough=\"true\" touchEnabled=\"false\" touchChildren=\"false\">\n\t\t<e:Image id=\"timebg\" source=\"game_timebg_png\" y=\"89\" x=\"205\"/>\n\t\t<e:Image id=\"moneybg\" source=\"game_moneybg_png\" y=\"20\" x=\"205\"/>\n\t\t<e:Label id=\"packetLabel\" text=\"999\" y=\"23\" width=\"150\" height=\"50\" verticalAlign=\"middle\" textAlign=\"center\" textColor=\"0xFFFFFF\" horizontalCenter=\"0\" size=\"35\"/>\n\t\t<e:Label id=\"timeLabel\" y=\"92\" text=\"999\" width=\"150\" height=\"50\" verticalAlign=\"middle\" textAlign=\"center\" textColor=\"0xFFFFFF\" x=\"245\" size=\"35\"/>\n\t</e:Group>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/OpenSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"OpenSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"bg\" source=\"open_bg_png\" width=\"640\" x=\"0\" height=\"1136\" y=\"0\"/>\n\t<e:Image id=\"shareBtn\" source=\"game_bag_png\" x=\"558\" y=\"-15\"/>\n\t<e:Group id=\"openGroup\" height=\"1136\" width=\"640\" x=\"0\" y=\"0\" touchEnabled=\"false\" touchThrough=\"true\">\n\t\t<e:Rect id=\"openBtn\" height=\"188\" width=\"192\" x=\"224\" y=\"370\"/>\n\t\t<e:Image id=\"openBg\" source=\"open_open_png\" y=\"538\" x=\"320\" touchEnabled=\"false\" anchorOffsetX=\"273\" anchorOffsetY=\"308\"/>\n\t</e:Group>\n\t<e:Group id=\"openedGroup\" height=\"1136\" width=\"640\" x=\"0\" y=\"-40\" touchEnabled=\"false\" touchThrough=\"true\">\n\t\t<e:Rect id=\"againBtn\" height=\"175\" width=\"183\" x=\"229\" y=\"621\"/>\n\t\t<e:Rect id=\"ruleBtn\" height=\"69\" width=\"221\" x=\"71\" y=\"835\"/>\n\t\t<e:Rect id=\"myPrizeBtn\" height=\"69\" width=\"221\" x=\"348\" y=\"835\"/>\n\t\t<e:Image id=\"opened_openedBg_up\" source=\"open_opened2.png_png\" x=\"48\" y=\"205\" touchEnabled=\"false\"/>\n\t\t<e:Image id=\"prize1\" source=\"prize1_png\" x=\"-3\" y=\"30\" touchEnabled=\"false\"/>\n\t\t<e:Image id=\"prize2\" source=\"prize2_png\" x=\"0\" y=\"51\" touchEnabled=\"false\"/>\n\t\t<e:Image id=\"prize3\" source=\"prize3_png\" x=\"0\" y=\"24\"/>\n\t\t<e:Image id=\"prize4\" source=\"prize4_png\" x=\"18\" y=\"-40\"/>\n\t\t<e:Image id=\"prize5\" source=\"prize5_png\" x=\"-2\" y=\"36\"/>\n\t\t<e:Image id=\"prize6\" source=\"prize6_png\" x=\"-16\" y=\"38\"/>\n\t\t<e:Image id=\"prize7\" source=\"prize7_png\" x=\"-2\" y=\"38\"/>\n\t\t<e:Image id=\"openedBg\" x=\"48\" y=\"208\" touchEnabled=\"false\" source=\"open_opened.png_png\"/>\n\t</e:Group>\n\t<e:Group id=\"phoneGroup\" height=\"1136\" width=\"640\" x=\"0\" y=\"0\">\n\t\t<e:Rect id=\"phoneRect\" height=\"1136\" width=\"640\" x=\"0\" y=\"0\" fillAlpha=\"0.7\"/>\n\t\t<e:Rect id=\"submitBtn\" height=\"46\" width=\"190\" x=\"223\" y=\"557\"/>\n\t\t<e:Image source=\"prize_phone_png\" y=\"378\" touchEnabled=\"false\" x=\"89\"/>\n\t\t<e:EditableText id=\"phoneLabel\" width=\"354\" height=\"48\" x=\"136\" y=\"429\" textColor=\"0x000000\" verticalAlign=\"middle\" textAlign=\"center\"/>\n\t</e:Group>\n\t<e:Label text=\"技术支持：信步游戏\" width=\"360\" verticalAlign=\"middle\" textAlign=\"center\" fontFamily=\"微软雅黑\" bottom=\"45\" x=\"140\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/PreloadSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PreloadSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"bg\" source=\"load_bg_png\" left=\"0\" right=\"0\" top=\"0\" bottom=\"0\"/>\n\t<e:Image id=\"anim1\" source=\"load_anim1_png\" x=\"211\" y=\"266\"/>\n\t<e:Image id=\"anim0\" source=\"load_anim0_png\" x=\"221\" y=\"265\"/>\n\t<e:Image id=\"barbg\" source=\"load_barbg_png\" y=\"460\" x=\"91\"/>\n\t<e:Image id=\"bar\" source=\"load_bar_png\" y=\"460\" x=\"92\" anchorOffsetX=\"0\" anchorOffsetY=\"0\"/>\n\t<e:Image id=\"anim2\" source=\"load_anim2_png\" x=\"208\" y=\"269\"/>\n\t<e:Image id=\"anim3\" source=\"load_anim3_png\" x=\"208\" y=\"267\"/>\n\t<e:Label id=\"progressLabel\" text=\"100%\" y=\"497\" textColor=\"0xEACB21\" fontFamily=\"Arial\" width=\"164\" verticalAlign=\"middle\" textAlign=\"center\" x=\"238\"/>\n\t<e:Label text=\"技术支持：信步游戏\" fontFamily=\"微软雅黑\" textAlign=\"center\" width=\"360\" verticalAlign=\"middle\" x=\"150\" bottom=\"65\" textColor=\"0xFAFAF6\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/ui/CountDownUISkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"CountDownUISkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect height=\"1136\" width=\"640\" x=\"0\" y=\"0\" fillAlpha=\"0.8\"/>\n\t<e:Image id=\"num3\" source=\"count3_png\" y=\"177\" x=\"206\"/>\n\t<e:Image id=\"num2\" source=\"count2_png\" x=\"204\" y=\"180\"/>\n\t<e:Image id=\"num1\" source=\"count1_png\" x=\"214\" y=\"172\"/>\n\t<e:Image source=\"count_rule_png\" y=\"532\" x=\"81\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/ui/MyPrizeUISkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"MyPrizeUISkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect height=\"1136\" width=\"640\" x=\"0\" y=\"0\" fillAlpha=\"0.7\"/>\n\t<e:Rect id=\"okBtn\" height=\"52\" width=\"198\" x=\"230\" y=\"565\"/>\n\t<e:Image source=\"prize_result_png\" x=\"100\" y=\"264\" touchEnabled=\"false\"/>\n\t<e:Label id=\"contentLabel\" text=\"标签\" x=\"130\" y=\"336\" width=\"394\" height=\"218\" textColor=\"0x471717\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/ui/ResultUISkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultUISkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect height=\"1136\" width=\"640\" x=\"0\" y=\"0\" fillAlpha=\"0.7\"/>\n\t<e:Rect id=\"openPacketBtn\" height=\"150\" width=\"150\" x=\"247\" y=\"402\"/>\n\t<e:Rect id=\"prizeBtn\" height=\"62\" width=\"218\" x=\"352\" y=\"580\"/>\n\t<e:Rect id=\"againBtn\" height=\"66\" width=\"212\" x=\"78\" y=\"579\"/>\n\t<e:Image id=\"resultbg\" source=\"game_resultbg_png\" y=\"230\" x=\"38\" touchEnabled=\"false\"/>\n\t<e:Image id=\"shareBtn\" source=\"game_bag_png\" x=\"559\" y=\"-15\" touchEnabled=\"true\"/>\n\t<e:Label id=\"packetLabel\" text=\"99\" x=\"299\" y=\"261\" width=\"92\" verticalAlign=\"middle\" textAlign=\"center\" size=\"40\"/>\n\t<e:Label id=\"countLabel\" text=\"你数了xxx个红包\" y=\"308\" width=\"398\" height=\"44\" verticalAlign=\"middle\" textAlign=\"center\" x=\"121\"/>\n\t<e:Label id=\"fightLabel\" y=\"352\" text=\"打败了xxxx个人\" textAlign=\"center\" verticalAlign=\"middle\" width=\"398\" height=\"44\" x=\"121\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/ui/RuleUISkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"RuleUISkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect height=\"1136\" width=\"640\" x=\"0\" y=\"0\" fillAlpha=\"0.7\"/>\n\t<e:Image id=\"bg\" source=\"rule_bg_png\" y=\"127\" x=\"90\"/>\n\t<e:Scroller id=\"scroller\" width=\"373\" height=\"487\" x=\"129\" y=\"208\" skinName=\"skins.ScrollerSkin\">\n\t\t<e:Group>\n\t\t\t<e:Image source=\"rule_content_png\" x=\"20\" y=\"0\"/>\n\t\t</e:Group>\n\t</e:Scroller>\n\t<e:Image id=\"okBtn\" source=\"rule_btn_png\" y=\"729\" x=\"223\"/>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/ui/ShareUISkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ShareUISkin\" width=\"640\" height=\"1150\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect height=\"1136\" width=\"640\" x=\"0\" y=\"0\" fillAlpha=\"0.7\"/>\n\t<e:Image id=\"haveChance\" source=\"share0_png\" x=\"127\" y=\"18\"/>\n\t<e:Image id=\"noChance\" source=\"share1_png\" x=\"126\" y=\"17\"/>\n</e:Skin>"
+    }
   ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",

@@ -7,7 +7,6 @@ var ResultUI = (function (_super) {
     __extends(ResultUI, _super);
     function ResultUI() {
         _super.call(this, "ResultUISkin");
-        this.httpUtil = new HttpUtil(); //请求
     }
     var d = __define,c=ResultUI,p=c.prototype;
     p.componentCreated = function () {
@@ -61,16 +60,23 @@ var ResultUI = (function (_super) {
     //我的奖品
     p.onPrizeBtnTouch = function () {
         this.deConfigListeners();
-        this.httpUtil.completeHandler = this.revMyPrize;
-        this.httpUtil.errorHandler = this.onMyPrizeError;
-        var url = "";
+        var http = SingleHttp.getInstance();
+        http.completeHandler = this.revMyPrize;
+        http.errorHandler = this.onMyPrizeError;
+        var url = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/prizeList";
         var msg = "";
-        this.httpUtil.send(url, egret.HttpMethod.POST, msg, this);
+        http.send(url, egret.HttpMethod.GET, msg, this);
     };
     //接收我的奖品请求结果
     p.revMyPrize = function (result) {
         this.configListeners();
         console.log("我的奖品:" + result);
+        var json = JSON.parse(result);
+        var str = "";
+        for (var item in json) {
+            str += json[item].prizemsg + "\n";
+        }
+        GameManager.getInstance().myPrizeUI.show(str);
     };
     //接收我的奖品请求结果
     p.onMyPrizeError = function (e) {

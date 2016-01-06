@@ -37,12 +37,12 @@ var PreloadScene = (function (_super) {
     p.onEnterFrame = function () {
         this.count++;
         if (this.imageMC.curFrame == 0) {
-            if (this.count % 60 == 0) {
+            if (this.count % 20 == 0) {
                 this.imageMC.nextFrame();
             }
         }
         else {
-            if (this.count % 10 == 0) {
+            if (this.count % 5 == 0) {
                 this.imageMC.nextFrame();
             }
         }

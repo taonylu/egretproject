@@ -16,7 +16,7 @@ class ResultUI extends BaseUI{
     private initShareBtnY:number;   //分享按钮初始位置
     
     
-    private httpUtil: HttpUtil = new HttpUtil();  //请求
+    
 	public constructor() {
         super("ResultUISkin");
 	}
@@ -89,17 +89,26 @@ class ResultUI extends BaseUI{
         
          this.deConfigListeners();
          
-          this.httpUtil.completeHandler = this.revMyPrize;
-          this.httpUtil.errorHandler = this.onMyPrizeError;
-          var url:string = "";
+          var http:SingleHttp = SingleHttp.getInstance();
+          http.completeHandler = this.revMyPrize;
+          http.errorHandler = this.onMyPrizeError;
+          var url: string = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/prizeList";
           var msg:string = "";
-          this.httpUtil.send(url, egret.HttpMethod.POST, msg, this);
+          http.send(url, egret.HttpMethod.GET, msg, this);
     }
     
     //接收我的奖品请求结果
     private revMyPrize(result:any){
         this.configListeners();
         console.log("我的奖品:" + result);
+        
+        var json = JSON.parse(result);
+        var str: string = "";
+        for(var item in json) {
+            str += json[item].prizemsg + "\n";
+        }
+        
+        GameManager.getInstance().myPrizeUI.show(str);
     }
     
     //接收我的奖品请求结果

@@ -5,7 +5,7 @@
 		"name":"preload"
 	},
 	{
-		"keys":"game_bg_png,game_fall_png,game_hand_png,game_item0_png,game_item1_png,game_item2_png,game_packet_png,game_arrow_png,game_timebg_png,game_moneybg_png,game_bag_png,game_resultbg_png,share0_png,share1_png,open_bg_png,open_open_png,open_opened_png,rule_bg_png,rule_btn_png,rule_content_png,roundthumb_png",
+		"keys":"game_bg_png,game_fall_png,game_hand_png,game_item0_png,game_item1_png,game_item2_png,game_packet_png,game_arrow_png,game_timebg_png,game_moneybg_png,game_bag_png,game_resultbg_png,share0_png,share1_png,open_bg_png,open_open_png,rule_bg_png,rule_btn_png,rule_content_png,roundthumb_png,open_opened2.png_png,open_opened.png_png,prize_phone_png,prize_result_png,prize1_png,prize2_png,prize3_png,prize4_png,prize5_png,prize6_png,prize7_png,count3_png,count_rule_png,count1_png,count2_png",
 		"name":"game"
 	}],
 	"resources":[
@@ -125,11 +125,6 @@
 		"url":"assets/open_open.png"
 	},
 	{
-		"name":"open_opened_png",
-		"type":"image",
-		"url":"assets/open_opened.png"
-	},
-	{
 		"name":"rule_bg_png",
 		"type":"image",
 		"url":"assets/rule_bg.png"
@@ -148,5 +143,80 @@
 		"name":"roundthumb_png",
 		"type":"image",
 		"url":"assets/roundthumb.png"
+	},
+	{
+		"name":"open_opened2.png_png",
+		"type":"image",
+		"url":"assets/open_opened2.png.png"
+	},
+	{
+		"name":"open_opened.png_png",
+		"type":"image",
+		"url":"assets/open_opened.png.png"
+	},
+	{
+		"name":"prize_phone_png",
+		"type":"image",
+		"url":"assets/prize_phone.png"
+	},
+	{
+		"name":"prize_result_png",
+		"type":"image",
+		"url":"assets/prize_result.png"
+	},
+	{
+		"name":"prize1_png",
+		"type":"image",
+		"url":"assets/prize1.png"
+	},
+	{
+		"name":"prize2_png",
+		"type":"image",
+		"url":"assets/prize2.png"
+	},
+	{
+		"name":"prize3_png",
+		"type":"image",
+		"url":"assets/prize3.png"
+	},
+	{
+		"name":"prize4_png",
+		"type":"image",
+		"url":"assets/prize4.png"
+	},
+	{
+		"name":"prize5_png",
+		"type":"image",
+		"url":"assets/prize5.png"
+	},
+	{
+		"name":"prize6_png",
+		"type":"image",
+		"url":"assets/prize6.png"
+	},
+	{
+		"name":"prize7_png",
+		"type":"image",
+		"url":"assets/prize7.png"
+	},
+	{
+		"name":"count3_png",
+		"type":"image",
+		"url":"assets/count3.png"
+	},
+	{
+		"name":"count_rule_png",
+		"type":"image",
+		"url":"assets/count_rule.png"
+	},
+	{
+		"name":"count1_png",
+		"type":"image",
+		"url":"assets/count1.png"
+	},
+	{
+		"name":"count2_png",
+		"type":"image",
+		"url":"assets/count2.png"
 	}]
 }

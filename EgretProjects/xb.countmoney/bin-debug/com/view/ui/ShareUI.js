@@ -24,7 +24,11 @@ var ShareUI = (function (_super) {
         LayerManager.getInstance().popLayer.addChild(this);
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
     };
-    p.onTouchTap = function () {
+    p.hide = function () {
+        this.parent && this.parent.removeChild(this);
+        this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
+    };
+    p.onTouchTap = function (e) {
         this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
         this.parent.removeChild(this);
     };
