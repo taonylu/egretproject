@@ -1,3 +1,22 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="GameSceneSkin" width="450" height="800" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="GameSceneSkin" width="2560" height="1440" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="homge_bg_png" y="242" id="bg" horizontalCenter="0.5" x="10"/>
+	<e:Image source="home_title_png" y="71" id="title" x="807"/>
+	<e:Image id="nav_show" source="game_showicon_png" x="339" y="246"/>
+	<e:Image id="bar" source="game_bar_png" y="433" x="389"/>
+	<e:Group id="headGroup" height="109" width="1745" x="403" y="340"/>
+	<e:Image id="bareffect" source="game_bareffect_png" x="1692" y="351"/>
+	<e:Image source="game_blockbg_png" x="399" y="531"/>
+	<e:Group id="skillGroup" height="603" width="748" x="1015" y="539">
+		<e:Image source="game_skillbg_png" x="1" y="-3"/>
+		<e:Image source="game_skillbg_png" y="148" x="1"/>
+		<e:Image source="game_skillbg_png" y="299" x="1"/>
+		<e:Image source="game_skillbg_png" y="450" x="1"/>
+	</e:Group>
+	<e:Image source="game_introicon_png" x="1003" y="1116"/>
+	<e:Image source="game_skill0_png" x="1060" y="1231"/>
+	<e:Image source="game_skill1_png" x="1295" y="1232"/>
+	<e:Image source="home_thxbg_png" x="1803" y="536"/>
+	<e:Image source="game_skill2_png" x="1532" y="1228"/>
+	<e:Group id="blockGroup" height="776" width="564" x="406" y="542"/>
 </e:Skin>

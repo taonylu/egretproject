@@ -15,7 +15,6 @@ var ClientSocket = (function () {
     };
     p.startConnect = function (url) {
         //连接socket
-        this.homeScene.setMsgLabel("连接中...");
         this.socket = io.connect(url);
         var self = this;
         //连接成功 
@@ -38,8 +37,8 @@ var ClientSocket = (function () {
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
         //屏幕准备
-        this.socket.on(NetConst.screenReady, function (data) {
-            self.homeScene.revScreenReady(data);
+        this.socket.on(NetConst.loginComplete, function (data) {
+            self.homeScene.revLoginComplete(data);
         });
         //玩家加入
         this.socket.on(NetConst.userJoin, function (data) {
@@ -74,21 +73,24 @@ var ClientSocket = (function () {
             self.gameScene.revGameOver(data);
         });
     };
+    //////////////////////////////////////////////////////
+    /////////////////   事件处理    //////////////////////
+    //////////////////////////////////////////////////////
     //连接成功
     p.onConnect = function () {
-        this.homeScene.setMsgLabel("连接成功");
+        egret.log("connenct succss");
     };
     //连接失败
     p.onError = function (data) {
-        this.homeScene.setMsgLabel("连接失败");
+        egret.log("connenct erro");
     };
     //连接断开
     p.onDisconnect = function () {
-        this.homeScene.setMsgLabel("已断开连接");
+        egret.log("connenct close");
     };
     //尝试重新连接
     p.onReconnectAttempt = function () {
-        this.homeScene.setMsgLabel("尝试重新连接...");
+        egret.log("reconnect");
     };
     //发送数据
     p.sendMessage = function (cmd, data) {

@@ -21,9 +21,12 @@
     {
       "name": "tween"
     },
+    {
+      "name": "game"
+    },
 	{
 		"name": "socket.io",
-		"path": "../egretlib2.5.7/socket.io/libsrc"
+		"path": "../socket.io/libsrc"
 	}
   ]
 }

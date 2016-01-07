@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>连连看</title>
+    <title>连连看PC端</title>
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="full-screen" content="true"/>
@@ -12,7 +12,7 @@
     <style>
         html, body {
             -ms-touch-action: none;
-            background: #CCEFCF;
+            background: #f0aa02;
             padding: 0;
             border: 0;
             margin: 0;
@@ -27,6 +27,8 @@
 	<script egret="lib" src="libs/modules/eui/eui.js" src-release="libs/modules/eui/eui.min.js"></script>
 	<script egret="lib" src="libs/modules/res/res.js" src-release="libs/modules/res/res.min.js"></script>
 	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
+	<script egret="lib" src="libs/modules/game/game.js" src-release="libs/modules/game/game.min.js"></script>
+	<script egret="lib" src="libs/modules/game/game.web.js" src-release="libs/modules/game/game.web.min.js"></script>
 	<script egret="lib" src="libs/modules/socket.io/socket.io.js" src-release="libs/modules/socket.io/socket.io.min.js"></script>
 	<!--modules_files_end-->
 
@@ -40,21 +42,22 @@
 	<script egret="game" src="bin-debug/com/common/ArrayTool.js"></script>
 	<script egret="game" src="bin-debug/com/common/BaseScene.js"></script>
 	<script egret="game" src="bin-debug/com/common/BaseUI.js"></script>
-	<script egret="game" src="bin-debug/com/common/GameConst.js"></script>
 	<script egret="game" src="bin-debug/com/common/LayerManager.js"></script>
 	<script egret="game" src="bin-debug/com/common/LoadManager.js"></script>
 	<script egret="game" src="bin-debug/com/common/MapManager.js"></script>
 	<script egret="game" src="bin-debug/com/common/NumberTool.js"></script>
 	<script egret="game" src="bin-debug/com/common/ObjectPool.js"></script>
+	<script egret="game" src="bin-debug/com/constant/GameConst.js"></script>
 	<script egret="game" src="bin-debug/com/GameManager.js"></script>
 	<script egret="game" src="bin-debug/com/net/ClientSocket.js"></script>
 	<script egret="game" src="bin-debug/com/net/NetConst.js"></script>
 	<script egret="game" src="bin-debug/com/view/GameScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/HomeScene.js"></script>
-	<script egret="game" src="bin-debug/com/view/PreloadScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/BlockUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/BoomUI.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/HeadUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/SelectUI.js"></script>
+	<script egret="game" src="bin-debug/com/view/util/HeadLoader.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
 	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
 	<!--game_files_end-->
@@ -63,11 +66,11 @@
 
     <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
          data-entry-class="Main"
-         data-orientation="portrait"
-         data-scale-mode="fixedWidth"
+         data-orientation="landspace"
+         data-scale-mode="showAll"
          data-frame-rate="60"
-         data-content-width="450"
-         data-content-height="800"
+         data-content-width="2560"
+         data-content-height="1440"
          data-show-paint-rect="false"
          data-multi-fingered="2"
          data-show-fps="true" data-show-log="true"

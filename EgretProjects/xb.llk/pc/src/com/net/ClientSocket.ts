@@ -20,7 +20,6 @@ class ClientSocket {
     public startConnect(url:string): void {
 
         //连接socket
-        this.homeScene.setMsgLabel("连接中...");
         this.socket = io.connect(url);
          
         var self: ClientSocket = this;
@@ -50,8 +49,8 @@ class ClientSocket {
         //////////////////////////////////////////////////////
         
         //屏幕准备
-        this.socket.on(NetConst.screenReady,function(data) {
-            self.homeScene.revScreenReady(data);
+        this.socket.on(NetConst.loginComplete,function(data) {
+            self.homeScene.revLoginComplete(data);
         });
         
         //玩家加入
@@ -93,36 +92,38 @@ class ClientSocket {
         this.socket.on(NetConst.gameOver,function(data) {
             self.gameScene.revGameOver(data);
         });
-        
-        
-        
     }
     
+    //////////////////////////////////////////////////////
+    /////////////////   事件处理    //////////////////////
+    //////////////////////////////////////////////////////
+        
     //连接成功
     private onConnect(): void {
-        this.homeScene.setMsgLabel("连接成功");
+        egret.log("connenct succss");
     }
-    
+        
     //连接失败
     private onError(data): void {
-        this.homeScene.setMsgLabel("连接失败");
+        egret.log("connenct erro");
     }
-    
+        
     //连接断开
     private onDisconnect(): void {
-        this.homeScene.setMsgLabel("已断开连接");
+        egret.log("connenct close");
     }
-    
+        
     //尝试重新连接
     private onReconnectAttempt(): void {
-        this.homeScene.setMsgLabel("尝试重新连接...");
+        egret.log("reconnect");
     }
-
+    
     //发送数据
-    public sendMessage(cmd:string,data): void {
+    public sendMessage(cmd: string,data): void {
         console.log("send:" + data);
         this.socket.emit(cmd,data);
     }
+    
 }
 
 

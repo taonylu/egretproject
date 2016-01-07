@@ -4,33 +4,16 @@
  *
  */
 class GameManager {
-    public homeScene: HomeScene;           //主页场景
-    public gameScene: GameScene;           //游戏场景
-    
-    public isMobile: Boolean;              //手机环境
-    
-    public startup(main: Main): void {
-        //判断PC或者手机
-        this.isMobile = egret.Capabilities.isMobile;
-        if(this.isMobile) {
-            main.stage.scaleMode = egret.StageScaleMode.FIXED_WIDTH;
-            main.stage.orientation = egret.OrientationMode.PORTRAIT;
-            main.stage.setContentSize(450,800);
-            this.homeScene = new HomeScene("HomeSceneSkin");
-            this.gameScene = new GameScene();
-        } else {
-            main.stage.setContentSize(800,450);
-            main.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
-            main.stage.orientation = egret.OrientationMode.LANDSCAPE;
-            this.homeScene = new HomeScene("PCHomeSceneSkin");
-            this.gameScene = new GameScene();
-        }
+    public homeScene: HomeScene = new HomeScene();  //主页场景
+    public gameScene: GameScene = new GameScene();  //游戏场景
 
+    public startup(main: Main): void {
         //配置socket
         var socket:ClientSocket = new ClientSocket();
         socket.homeScene = this.homeScene;
         socket.gameScene = this.gameScene;
-        socket.startConnect(NetConst.url);
+        this.homeScene.socket = socket;
+        this.gameScene.socket = socket;
         
         //配置Layer
         GameConst.stage = main.stage;
@@ -38,6 +21,45 @@ class GameManager {
         
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);  
+        
+        //模拟数据
+        var json = {"mapData":[],"luckyUser":1};
+        json.mapData[0] = [
+            [1,0,0,0,1,0,0],
+            [0,0,1,0,0,1,0],
+            [0,0,1,0,0,0,0],
+            [0,0,0,0,0,1,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0]
+        ];
+        json.mapData[1] = [
+            [1,1,0,0,1,0,0],
+            [0,0,1,0,0,1,0],
+            [0,0,1,0,0,0,0],
+            [0,0,0,0,0,1,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0]
+        ];
+        json.mapData[2] = [
+            [1,1,1,0,1,0,0],
+            [0,0,1,0,0,1,0],
+            [0,0,1,0,0,0,0],
+            [0,0,0,0,0,1,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0]
+        ];
+        
+        
+        this.homeScene.revGameStart(json);
+        
+        //链接socket
+        //socket.startConnect(NetConst.url);
     }
     
     
