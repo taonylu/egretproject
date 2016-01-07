@@ -51,11 +51,11 @@ class PreloadScene extends BaseScene{
     private onEnterFrame():void{
         this.count ++;
         if(this.imageMC.curFrame == 0){
-            if(this.count%20 == 0){            //第一帧播放时间较长
+            if(this.count%30 == 0){            //第一帧播放时间较长
                 this.imageMC.nextFrame();
             }
         }else {
-            if(this.count%5 == 0){             //其他帧播放时间
+            if(this.count%10 == 0){             //其他帧播放时间
                 this.imageMC.nextFrame();
             }
         }

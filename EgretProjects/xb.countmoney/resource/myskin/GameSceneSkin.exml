@@ -5,7 +5,10 @@
 	<e:Image id="item_box" source="game_item0_png" x="-151" y="127"/>
 	<e:Image id="item_ipad" source="game_item1_png" x="466" y="372"/>
 	<e:Image id="item_paper" source="game_item2_png" x="310" y="70"/>
-	<e:Image id="hand" source="game_hand_png" x="35" y="620"/>
+	<e:Group id="handGroup" height="515" width="640" x="0" y="620" touchEnabled="false" touchThrough="true">
+		<e:Image id="hand" source="game_hand_png" x="45" y="0"/>
+		<e:Image id="ruleBtn" source="game_rule_png" x="273" y="180"/>
+	</e:Group>
 	<e:Image id="arrow" source="game_arrow_png" y="394" x="274"/>
 	<e:Image id="staticPacket" source="game_packet_png" y="1145" x="121"/>
 	<e:Group id="countGroup" height="1136" width="640" x="0" y="0" touchChildren="false" touchEnabled="false" touchThrough="true"/>

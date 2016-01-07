@@ -5,11 +5,9 @@
 	<e:Group id="openGroup" height="1136" width="640" x="0" y="0" touchEnabled="false" touchThrough="true">
 		<e:Rect id="openBtn" height="188" width="192" x="224" y="370"/>
 		<e:Image id="openBg" source="open_open_png" y="538" x="320" touchEnabled="false" anchorOffsetX="273" anchorOffsetY="308"/>
+		<e:Image id="ruleBtn" source="open_rule_png" y="722" x="213"/>
 	</e:Group>
 	<e:Group id="openedGroup" height="1136" width="640" x="0" y="-40" touchEnabled="false" touchThrough="true">
-		<e:Rect id="againBtn" height="175" width="183" x="229" y="621"/>
-		<e:Rect id="ruleBtn" height="69" width="221" x="71" y="835"/>
-		<e:Rect id="myPrizeBtn" height="69" width="221" x="348" y="835"/>
 		<e:Image id="opened_openedBg_up" source="open_opened2.png_png" x="48" y="205" touchEnabled="false"/>
 		<e:Image id="prize1" source="prize1_png" x="-3" y="30" touchEnabled="false"/>
 		<e:Image id="prize2" source="prize2_png" x="0" y="51" touchEnabled="false"/>
@@ -19,6 +17,9 @@
 		<e:Image id="prize6" source="prize6_png" x="-16" y="38"/>
 		<e:Image id="prize7" source="prize7_png" x="-2" y="38"/>
 		<e:Image id="openedBg" x="48" y="208" touchEnabled="false" source="open_opened.png_png"/>
+		<e:Image id="againBtn" source="opened_open_png" x="236" y="617"/>
+		<e:Image id="myPrizeBtn" source="opened_myPrize_png" y="841" x="213"/>
+		<e:Label id="prizeResultLabel" x="48" y="533" width="545" verticalAlign="middle" textAlign="center" fontFamily="微软雅黑" size="25"/>
 	</e:Group>
 	<e:Group id="phoneGroup" height="1136" width="640" x="0" y="0">
 		<e:Rect id="phoneRect" height="1136" width="640" x="0" y="0" fillAlpha="0.7"/>

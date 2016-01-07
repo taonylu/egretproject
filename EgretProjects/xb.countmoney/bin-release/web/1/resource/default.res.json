@@ -1,11 +1,11 @@
 {
 	"groups":[
 	{
-		"keys":"load_anim0_png,load_anim1_png,load_anim2_png,load_anim3_png,load_bar_png,load_barbg_png,load_bg_png",
+		"keys":"load_anim0_png,load_anim1_png,load_anim2_png,load_anim3_png,load_bar_png,load_barbg_png",
 		"name":"preload"
 	},
 	{
-		"keys":"game_bg_png,game_fall_png,game_hand_png,game_item0_png,game_item1_png,game_item2_png,game_packet_png,game_arrow_png,game_timebg_png,game_moneybg_png,game_bag_png,game_resultbg_png,share0_png,share1_png,open_bg_png,open_open_png,rule_bg_png,rule_btn_png,rule_content_png,roundthumb_png,open_opened2.png_png,open_opened.png_png,prize_phone_png,prize_result_png,prize1_png,prize2_png,prize3_png,prize4_png,prize5_png,prize6_png,prize7_png,count3_png,count_rule_png,count1_png,count2_png",
+		"keys":"game_bg_png,game_fall_png,game_hand_png,game_item0_png,game_item1_png,game_item2_png,game_packet_png,game_arrow_png,game_timebg_png,game_moneybg_png,game_bag_png,game_resultbg_png,share0_png,share1_png,open_bg_png,open_open_png,rule_bg_png,rule_btn_png,rule_content_png,roundthumb_png,open_opened2.png_png,open_opened.png_png,prize_phone_png,prize_result_png,prize1_png,prize2_png,prize3_png,prize4_png,prize5_png,prize6_png,prize7_png,count3_png,count_rule_png,count1_png,count2_png,open_rule_png,opened_myPrize_png,opened_open_png,game_rule_png",
 		"name":"game"
 	}],
 	"resources":[
@@ -38,11 +38,6 @@
 		"name":"load_barbg_png",
 		"type":"image",
 		"url":"assets/load_barbg.png"
-	},
-	{
-		"name":"load_bg_png",
-		"type":"image",
-		"url":"assets/load_bg.png"
 	},
 	{
 		"name":"game_bg_png",
@@ -137,7 +132,7 @@
 	{
 		"name":"rule_content_png",
 		"type":"image",
-		"url":"assets/rule_content.png"
+		"url":"assets/rule_content.png?ver=1.0"
 	},
 	{
 		"name":"roundthumb_png",
@@ -152,7 +147,7 @@
 	{
 		"name":"open_opened.png_png",
 		"type":"image",
-		"url":"assets/open_opened.png.png"
+		"url":"assets/open_opened.png.png?ver1.0"
 	},
 	{
 		"name":"prize_phone_png",
@@ -218,5 +213,25 @@
 		"name":"count2_png",
 		"type":"image",
 		"url":"assets/count2.png"
+	},
+	{
+		"name":"open_rule_png",
+		"type":"image",
+		"url":"assets/open_rule.png"
+	},
+	{
+		"name":"opened_myPrize_png",
+		"type":"image",
+		"url":"assets/opened_myPrize.png"
+	},
+	{
+		"name":"opened_open_png",
+		"type":"image",
+		"url":"assets/opened_open.png"
+	},
+	{
+		"name":"game_rule_png",
+		"type":"image",
+		"url":"assets/game_rule.png"
 	}]
 }

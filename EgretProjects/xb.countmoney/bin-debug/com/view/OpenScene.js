@@ -8,7 +8,6 @@ var OpenScene = (function (_super) {
     function OpenScene() {
         _super.call(this, "OpenSceneSkin");
         this.prizeList = []; //奖品图片数组
-        this.ruleUI = new RuleUI(); //领奖须知
         this.bSubmit = false;
     }
     var d = __define,c=OpenScene,p=c.prototype;
@@ -26,6 +25,7 @@ var OpenScene = (function (_super) {
         this.openedGroup.visible = false;
         this.phoneGroup.visible = false;
         this.phoneLabel.prompt = "请输入手机号码";
+        this.prizeResultLabel.text = "";
         //分享按钮动画
         egret.Tween.get(this.shareBtn, { loop: true }).to({ y: this.initShareBtnY + 15 }, 500).to({ y: this.initShareBtnY }, 500);
         //监听
@@ -76,7 +76,7 @@ var OpenScene = (function (_super) {
         var json = JSON.parse(result);
         if (json.code == "200") {
             window["pass"] = json.pass;
-            this.showPrize(json.prizeid);
+            this.showPrize(json.prizeid, json.prize);
         }
         else {
             //alert(json.msg);
@@ -91,7 +91,7 @@ var OpenScene = (function (_super) {
         alert("链接已失效");
     };
     //拆红包成功，显示奖品
-    p.showPrize = function (prizeid) {
+    p.showPrize = function (prizeid, prizeName) {
         //显示拆开红包
         this.openGroup.visible = false;
         this.openedGroup.visible = true;
@@ -105,6 +105,8 @@ var OpenScene = (function (_super) {
         this.curPrizeImg.y += 300;
         this.curPrizeImg.visible = true;
         egret.Tween.get(this.curPrizeImg).to({ y: this.initPrizeImgY }, 1000);
+        //显示奖品名称
+        this.prizeResultLabel.text = "抽中" + prizeName;
         //过一段时间出现提交手机号
         var self = this;
         egret.Tween.get(this).wait(4000).call(function () {
@@ -139,7 +141,7 @@ var OpenScene = (function (_super) {
     };
     //点击奖品须知
     p.onRuleBtnTouch = function () {
-        this.ruleUI.show();
+        GameManager.getInstance().ruleUI.show();
     };
     //分享按钮
     p.onShareBtnTouch = function () {

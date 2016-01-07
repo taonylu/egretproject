@@ -8,7 +8,7 @@ var GameScene = (function (_super) {
     function GameScene() {
         _super.call(this, "GameSceneSkin");
         this.totalPacket = 0; //当前红包总数
-        this.timeLimit = 3; //时间限制
+        this.timeLimit = 15; //时间限制
         this.resultUI = new ResultUI(); //结果UI
         this.countDownUI = new CountDownUI(); //倒计时UI
         this.bFirstGame = true; //是否首次游戏，第一次游戏会有杂物，第二次则不出现杂物
@@ -24,9 +24,11 @@ var GameScene = (function (_super) {
     p.onEnable = function () {
         this.playArrowAnim();
         this.startGame();
+        this.ruleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRuleBtnTouch, this);
     };
     p.onRemove = function () {
         egret.Tween.removeTweens(this.arrow);
+        this.ruleBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onRuleBtnTouch, this);
     };
     p.startGame = function () {
         //重置游戏
@@ -73,7 +75,7 @@ var GameScene = (function (_super) {
     //初始化界面元素
     p.initView = function () {
         //手拿红包位置
-        this.hand.y = GameConst.stage.stageHeight - 515;
+        this.handGroup.y = GameConst.stage.stageHeight - 515;
         //固定红包上滑位置
         this.initPacketY = GameConst.stage.stageHeight - 590;
         //箭头位置
@@ -91,6 +93,9 @@ var GameScene = (function (_super) {
     };
     //第一次游戏滑动屏幕，触摸结束
     p.onFirstGameTouchEnd = function (e) {
+        if (GameManager.getInstance().ruleUI.parent) {
+            return;
+        }
         if (this.beginY - e.stageY > 50) {
             //移除监听
             GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onFirstGameTouchBegin, this);
@@ -100,7 +105,7 @@ var GameScene = (function (_super) {
             egret.Tween.get(this.item_box).to({ x: -this.item_box.width }, 500);
             egret.Tween.get(this.item_ipad).to({ x: GameConst.stage.stageWidth }, 500);
             egret.Tween.get(this.item_paper).to({ x: GameConst.stage.stageWidth }, 500);
-            egret.Tween.get(this.hand).to({ y: GameConst.stage.stageHeight }, 500);
+            egret.Tween.get(this.handGroup).to({ y: GameConst.stage.stageHeight }, 500);
             //红包进场
             egret.Tween.get(this.staticPacket).to({ y: this.initPacketY }, 1000).call(function () {
                 self.startGame();
@@ -108,6 +113,9 @@ var GameScene = (function (_super) {
         }
     };
     p.onTouchBegin = function (e) {
+        if (this.curDragPacket) {
+            return;
+        }
         this.beginY = e.stageY;
         this.isDrag = true;
         this.curDragPacket = this.countPacketList.pop();
@@ -140,6 +148,8 @@ var GameScene = (function (_super) {
         }
         else if (this.curDragPacket) {
             this.curDragPacket.y = -this.curDragPacket.height;
+            this.countPacketList.push(this.curDragPacket);
+            this.curDragPacket = null;
         }
         //重置拖拽状态
         this.isDrag = false;
@@ -148,7 +158,7 @@ var GameScene = (function (_super) {
     p.initCountPacket = function () {
         this.countPacketList = new Array();
         var bm;
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 15; i++) {
             bm = new egret.Bitmap(RES.getRes("game_packet_png"));
             this.countPacketList.push(bm);
         }
@@ -233,6 +243,9 @@ var GameScene = (function (_super) {
         if (this.gameTimer != null) {
             this.gameTimer.removeEventListener(egret.TimerEvent.TIMER, this.onGameTimer, this);
         }
+    };
+    p.onRuleBtnTouch = function () {
+        GameManager.getInstance().ruleUI.show();
     };
     return GameScene;
 })(BaseScene);

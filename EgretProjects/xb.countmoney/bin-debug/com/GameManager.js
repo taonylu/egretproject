@@ -9,6 +9,7 @@ var GameManager = (function () {
         this.openScene = new OpenScene(); //打开红包场景
         this.shareUI = new ShareUI(); //分享UI
         this.myPrizeUI = new MyPrizeUI(); //我的奖品
+        this.ruleUI = new RuleUI(); //领奖须知
     }
     var d = __define,c=GameManager,p=c.prototype;
     p.startup = function (main) {

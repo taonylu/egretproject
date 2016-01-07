@@ -11,8 +11,9 @@ class OpenScene extends BaseScene{
     private openedGroup: eui.Group;    //已拆开红包容器
     private openedBg:eui.Image;        //已拆开红包背景
     private ruleBtn:eui.Rect;          //领奖须知
-    private myPrizeBtn:eui.Rect;       //我的奖品
-    private againBtn:eui.Rect;         //再拆一次
+    private myPrizeBtn:eui.Image;      //我的奖品
+    private againBtn:eui.Image;        //再拆一次
+    private prizeResultLabel:eui.Label;//恭喜你抽中文本
     
     private shareBtn:eui.Image;        //分享按钮
     private initShareBtnY: number;     //初始分享按钮位置
@@ -23,8 +24,7 @@ class OpenScene extends BaseScene{
     private phoneRect:eui.Rect;           //手机号码半透明背景
     
     private prizeList:Array<eui.Image> = []; //奖品图片数组
-    
-    private ruleUI:RuleUI = new RuleUI();  //领奖须知
+
     
     private curPrizeImg: eui.Image;        //当前显示的礼物
     private initPrizeImgY: number;
@@ -50,7 +50,7 @@ class OpenScene extends BaseScene{
         this.openedGroup.visible = false;
         this.phoneGroup.visible = false;
         this.phoneLabel.prompt = "请输入手机号码";
-        
+        this.prizeResultLabel.text = "";
         //分享按钮动画
         egret.Tween.get(this.shareBtn,{ loop: true }).to({ y: this.initShareBtnY + 15 },500).to({ y: this.initShareBtnY },500);
         
@@ -113,7 +113,7 @@ class OpenScene extends BaseScene{
         
         if(json.code == "200"){  //成功
             window["pass"] = json.pass;
-            this.showPrize(json.prizeid);
+            this.showPrize(json.prizeid, json.prize);
         }else{   //失败
             //alert(json.msg);
             GameManager.getInstance().shareUI.show();
@@ -131,7 +131,7 @@ class OpenScene extends BaseScene{
     }
     
     //拆红包成功，显示奖品
-    private showPrize(prizeid:number):void{
+    private showPrize(prizeid:number, prizeName:string):void{
         //显示拆开红包
         this.openGroup.visible = false;
         this.openedGroup.visible = true;
@@ -146,6 +146,9 @@ class OpenScene extends BaseScene{
         this.curPrizeImg.y += 300;
         this.curPrizeImg.visible = true;
         egret.Tween.get(this.curPrizeImg).to({y:this.initPrizeImgY},1000);
+        //显示奖品名称
+        this.prizeResultLabel.text = "抽中" + prizeName;
+        
         
         //过一段时间出现提交手机号
         var self:OpenScene = this;
@@ -188,7 +191,7 @@ class OpenScene extends BaseScene{
     
     //点击奖品须知
     private onRuleBtnTouch(): void {
-        this.ruleUI.show();
+        GameManager.getInstance().ruleUI.show();
     }
 
     
