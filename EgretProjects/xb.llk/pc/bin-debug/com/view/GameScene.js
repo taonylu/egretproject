@@ -12,23 +12,23 @@ var GameScene = (function (_super) {
         this.boomPool = ObjectPool.getPool(BoomUI.NAME, 10); //炸弹对象池
         this.selectOld = new SelectUI(); //选择框动画，第一个对象
         this.selectNew = new SelectUI(); //选择框动画，第二个对象
-        //------------------[地图数据]--------------------
-        this.blockTypeNum = 10; //方块的数量种类
+        this.blockTypeNum = 11; //方块的数量种类
         this.blockNum = 0; //当前关卡方块数量
         this.blockData = new Array(); //方块的类型数组，用于判断方块皮肤
         this.tempMap = new Array(); //临时地图，存放本关的地图数据的拷贝
         this.blockArr = new Array(); //方块数组，用于存放Block实例
-        this.rowMax = 6; //地图最大行
+        this.rowMax = 8; //地图最大行
         this.colMax = 7; //地图最大列
-        this.blockWidth = 64; //方块宽
-        this.blockHeight = 64; //方块高
-        this.mapStartY = 220; //方块起始位置
+        this.blockWidth = 80; //方块宽
+        this.blockHeight = 80; //方块高
+        this.mapStartY = 0; //方块起始位置
         this.mapStartX = 0;
         //------------------[游戏变量]--------------------
         this.isSelect = false; //是否已经选择了一个方块
         this.score = 0; //得分
         this.curLevel = 1; //当前关卡
-        this.timeLimit = 10; //计时时间限制
+        //private gameTimer: egret.Timer;         //计时器
+        //private timeLimit: number = 10;         //计时时间限制
         this.totalScore = 0; //总分
         //------------------[寻路数据]--------------------
         this.minRoadPoint = 10000; //路径数
@@ -59,7 +59,7 @@ var GameScene = (function (_super) {
     p.initView = function () {
         this.socket = ClientSocket.getInstance();
         this._stage = GameConst.stage;
-        this.mapStartX = (this._stage.stageWidth - this.blockWidth * this.colMax) / 2;
+        //this.mapStartX = (this._stage.stageWidth - this.blockWidth * this.colMax) / 2;
     };
     p.initLineSprite = function () {
         //初始变量
@@ -70,7 +70,7 @@ var GameScene = (function (_super) {
         this.lineSprite.height = this._stage.stageHeight;
         this.lineSprite.touchChildren = false;
         this.lineSprite.touchEnabled = false;
-        this.addChild(this.lineSprite);
+        this.blockGroup.addChild(this.lineSprite);
     };
     ///////////////////////////////////////////////////
     ///-----------------[游戏逻辑]----------------------
@@ -104,7 +104,7 @@ var GameScene = (function (_super) {
                     block.x = this.mapStartX + j * (this.blockWidth + 1);
                     block.y = this.mapStartY + i * (this.blockHeight + 1) - this._stage.stageHeight;
                     block.index = index;
-                    this.addChild(block);
+                    this.blockGroup.addChild(block);
                     this.blockArr.push(block);
                     egret.Tween.get(block).to({ y: (this.mapStartY + i * (this.blockHeight + 1)) }, 500);
                     index++;
@@ -116,7 +116,7 @@ var GameScene = (function (_super) {
     p.initBlockData = function (blockNum) {
         //方块数量除以2只创建一半编号另一半是相同的。
         for (var i = 0; i < blockNum / 2; i++) {
-            var date = NumberTool.getRandomInt(1, this.blockTypeNum);
+            var date = NumberTool.getRandomInt(1, this.blockTypeNum); //1-方块总数
             this.blockData.push(date, date);
         }
         //随机排序数组
@@ -169,6 +169,7 @@ var GameScene = (function (_super) {
                     this.isSelect = false;
                     //检查游戏是否结束
                     if (this.checkGameOver()) {
+                        this.nextLevel();
                     }
                     return;
                 }
@@ -193,7 +194,6 @@ var GameScene = (function (_super) {
     };
     //直线、一折、二折、综合检查函数
     p.checkRoad = function (oldTarget, newTarget) {
-        console.log("checkRoad...");
         var r1 = oldTarget.row;
         var c1 = oldTarget.col;
         var r2 = newTarget.row;

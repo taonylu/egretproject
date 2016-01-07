@@ -2,9 +2,8 @@
   "autoGenerateExmlsList": true,
   "exmls": [
     "resource/myskin/GameSceneSkin.exml",
-    "resource/myskin/HomeSceneSkin.exml",
-    "resource/myskin/PreloadSceneSkin.exml",
-    "resource/pcskin/PCHomeSceneSkin.exml"
+    "resource/myskin/ui/HeadUISkin.exml",
+    "resource/myskin/HomeSceneSkin.exml"
   ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",

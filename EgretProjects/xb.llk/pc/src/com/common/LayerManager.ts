@@ -34,6 +34,7 @@ class LayerManager {
         this.popLayer.percentWidth = 100;
         this.popLayer.percentHeight = 100;
         this.popLayer.touchEnabled = false;
+        this.popLayer.touchThrough = true;
         this.main.addChild(this.popLayer);
     }
    
@@ -43,13 +44,6 @@ class LayerManager {
      * @param 是否销毁上一场景          
      */
     public runScene(nextScene: BaseScene,destroy: boolean = false): void { 
-             
-        //添加下一场景
-        this.sceneLayer.addChild(nextScene);
-        if(nextScene.inited){
-            nextScene.onEnable();
-        }
-        
         //隐藏或销毁当前场景
         if(this.curScene != null) {
             if(this.curScene) {
@@ -60,6 +54,12 @@ class LayerManager {
                 }
             }
         }  
+        
+        //添加下一场景
+        this.sceneLayer.addChild(nextScene);
+        if(nextScene.inited) {
+            nextScene.onEnable();
+        }
         
         //设置当前场景
         this.curScene = nextScene;

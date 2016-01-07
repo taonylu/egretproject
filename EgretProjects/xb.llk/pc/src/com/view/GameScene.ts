@@ -6,9 +6,11 @@
 class GameScene extends BaseScene{
     
     //------------------[网络]------------------
-    private socket: ClientSocket;
+    public socket: ClientSocket;
 
     //---------------[游戏UI]-----------------
+    
+    
     private blockPool: ObjectPool = ObjectPool.getPool(BlockUI.NAME,10); //方块对象池
     private boomPool: ObjectPool = ObjectPool.getPool(BoomUI.NAME,10);   //炸弹对象池
     private selectOld: SelectUI = new SelectUI(); //选择框动画，第一个对象
@@ -16,16 +18,17 @@ class GameScene extends BaseScene{
     private lineSprite: egret.Sprite;             //画线容器
     
     //------------------[地图数据]--------------------
-    private blockTypeNum: number = 10;    //方块的数量种类
+    private blockGroup: eui.Group;        //方块容器
+    private blockTypeNum: number = 11;    //方块的数量种类
     private blockNum: number = 0;         //当前关卡方块数量
     private blockData: Array<number> = new Array<number>();  //方块的类型数组，用于判断方块皮肤
     private tempMap: Array<any> = new Array<any>();          //临时地图，存放本关的地图数据的拷贝
     private blockArr: Array<BlockUI> = new Array<BlockUI>();//方块数组，用于存放Block实例
-    private rowMax: number = 6;      //地图最大行
+    private rowMax: number = 8;      //地图最大行
     private colMax: number = 7;      //地图最大列
-    private blockWidth: number = 64; //方块宽
-    private blockHeight: number = 64;//方块高
-    private mapStartY: number = 220; //方块起始位置
+    private blockWidth: number = 80; //方块宽
+    private blockHeight: number = 80;//方块高
+    private mapStartY: number = 0; //方块起始位置
     private mapStartX: number = 0;
     
     //------------------[游戏变量]--------------------
@@ -34,14 +37,14 @@ class GameScene extends BaseScene{
     private newTarget: BlockUI;             //第二次点击的方块
     private score: number = 0;              //得分
     private curLevel: number = 1;           //当前关卡
-    private gameTimer: egret.Timer;         //计时器
-    private timeLimit: number = 10;         //计时时间限制
+    //private gameTimer: egret.Timer;         //计时器
+    //private timeLimit: number = 10;         //计时时间限制
     public totalScore: number = 0;          //总分
     
     //------------------[寻路数据]--------------------
     private minRoadPoint: number = 10000;               //路径数
     private route: Array<Object> = new Array<Object>(); //记录路径
-    private _stage: egret.Stage;
+    private _stage: egret.Stage;                        //舞台stage
     
     
     
@@ -58,11 +61,12 @@ class GameScene extends BaseScene{
     }
 
     public onEnable(): void {
+        
         this.startGame();
     }
 
     public onRemove(): void {
-
+        
     }
     
     private startGame(): void {
@@ -84,7 +88,7 @@ class GameScene extends BaseScene{
     private initView(): void {
         this.socket = ClientSocket.getInstance();
         this._stage = GameConst.stage;
-        this.mapStartX = (this._stage.stageWidth - this.blockWidth * this.colMax) / 2;
+        //this.mapStartX = (this._stage.stageWidth - this.blockWidth * this.colMax) / 2;
     }
     
     private initLineSprite() {
@@ -96,7 +100,7 @@ class GameScene extends BaseScene{
         this.lineSprite.height = this._stage.stageHeight;
         this.lineSprite.touchChildren = false;
         this.lineSprite.touchEnabled = false;
-        this.addChild(this.lineSprite);
+        this.blockGroup.addChild(this.lineSprite);
     }
     
     ///////////////////////////////////////////////////
@@ -135,7 +139,7 @@ class GameScene extends BaseScene{
                     block.x = this.mapStartX + j * (this.blockWidth + 1);
                     block.y = this.mapStartY + i * (this.blockHeight + 1) - this._stage.stageHeight;
                     block.index = index;
-                    this.addChild(block);
+                    this.blockGroup.addChild(block);
                     this.blockArr.push(block);
                     egret.Tween.get(block).to({ y: (this.mapStartY + i * (this.blockHeight + 1)) },500);
                     index++;
@@ -148,7 +152,7 @@ class GameScene extends BaseScene{
     public initBlockData(blockNum: number): void {
         //方块数量除以2只创建一半编号另一半是相同的。
         for(var i: number = 0;i < blockNum / 2;i++) {
-            var date: number = NumberTool.getRandomInt(1,this.blockTypeNum);
+            var date: number = NumberTool.getRandomInt(1,this.blockTypeNum); //1-方块总数
             this.blockData.push(date,date);
         }
         //随机排序数组
@@ -204,7 +208,7 @@ class GameScene extends BaseScene{
                     
                     //检查游戏是否结束
                     if(this.checkGameOver()) {
-                       // this.nextLevel();
+                        this.nextLevel();
                     }
                     return;
                     //两个相同类型方块不能相连，则取消选择
@@ -230,7 +234,6 @@ class GameScene extends BaseScene{
         
     //直线、一折、二折、综合检查函数
     private checkRoad(oldTarget: BlockUI,newTarget: BlockUI): Boolean {
-        console.log("checkRoad...");
         var r1: number = oldTarget.row;
         var c1: number = oldTarget.col;
         var r2: number = newTarget.row;

@@ -5,9 +5,9 @@
  */
 class NetConst {
     
-    public static url: string = "http://192.168.1.103:3000";
+    public static url: string = "http://192.168.1.103:3000"; //IP、端口号
     
-    public static screenReady: string = "screenReady";   //大屏幕准备
+    public static loginComplete: string = "`loginComplete`";   //登录完成
     public static userJoin: string = "userJoin";         //玩家加入
     public static userQuit: string = "userQuit";         //玩家退出
     public static gameStart: string = "gameStart";       //游戏开始

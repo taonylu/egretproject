@@ -24,6 +24,7 @@ var LayerManager = (function () {
         this.popLayer.percentWidth = 100;
         this.popLayer.percentHeight = 100;
         this.popLayer.touchEnabled = false;
+        this.popLayer.touchThrough = true;
         this.main.addChild(this.popLayer);
     };
     /**
@@ -33,11 +34,6 @@ var LayerManager = (function () {
      */
     p.runScene = function (nextScene, destroy) {
         if (destroy === void 0) { destroy = false; }
-        //添加下一场景
-        this.sceneLayer.addChild(nextScene);
-        if (nextScene.inited) {
-            nextScene.onEnable();
-        }
         //隐藏或销毁当前场景
         if (this.curScene != null) {
             if (this.curScene) {
@@ -47,6 +43,11 @@ var LayerManager = (function () {
                     this.curScene.onDestroy();
                 }
             }
+        }
+        //添加下一场景
+        this.sceneLayer.addChild(nextScene);
+        if (nextScene.inited) {
+            nextScene.onEnable();
         }
         //设置当前场景
         this.curScene = nextScene;

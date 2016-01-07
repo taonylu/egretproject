@@ -1,5 +1,6 @@
 {
 	"close":false,
+	"natures":["egretProject"],
 	"resourcePlugin":{
 		"configs":[{
 				"configPath":"resource/default.res.json",
@@ -10,8 +11,113 @@
 			"children":[
 				{
 					"isFolder":false,
-					"key":"block0_png",
-					"name":"block0_png"
+					"key":"game_bar_png",
+					"name":"game_bar_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_bareffect_png",
+					"name":"game_bareffect_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_blockbg_png",
+					"name":"game_blockbg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_head_png",
+					"name":"game_head_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_intro_png",
+					"name":"game_intro_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_introicon_png",
+					"name":"game_introicon_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_namebg_jpg",
+					"name":"game_namebg_jpg"
+				},
+				{
+					"isFolder":false,
+					"key":"game_showicon_png",
+					"name":"game_showicon_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_skill0_png",
+					"name":"game_skill0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_skill1_png",
+					"name":"game_skill1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_skill2_png",
+					"name":"game_skill2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_skillbg_png",
+					"name":"game_skillbg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_code_jpg",
+					"name":"home_code_jpg"
+				},
+				{
+					"isFolder":false,
+					"key":"home_codetext_png",
+					"name":"home_codetext_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_entergame_png",
+					"name":"home_entergame_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_img_jpg",
+					"name":"home_img_jpg"
+				},
+				{
+					"isFolder":false,
+					"key":"home_namebg_png",
+					"name":"home_namebg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_thx_png",
+					"name":"home_thx_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_thxbg_png",
+					"name":"home_thxbg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_title_png",
+					"name":"home_title_png"
+				},
+				{
+					"isFolder":false,
+					"key":"homge_bg_png",
+					"name":"homge_bg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"block10_png",
+					"name":"block10_png"
 				},
 				{
 					"isFolder":false,
@@ -60,8 +166,8 @@
 				},
 				{
 					"isFolder":false,
-					"key":"game_bg_jpg",
-					"name":"game_bg_jpg"
+					"key":"block11_png",
+					"name":"block11_png"
 				},
 				{
 					"isFolder":false,
