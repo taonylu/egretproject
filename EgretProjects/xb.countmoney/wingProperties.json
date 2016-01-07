@@ -41,11 +41,6 @@
 				},
 				{
 					"isFolder":false,
-					"key":"load_bg_png",
-					"name":"load_bg_png"
-				},
-				{
-					"isFolder":false,
 					"key":"game_arrow_png",
 					"name":"game_arrow_png"
 				},
@@ -218,6 +213,26 @@
 					"isFolder":false,
 					"key":"count_rule_png",
 					"name":"count_rule_png"
+				},
+				{
+					"isFolder":false,
+					"key":"open_rule_png",
+					"name":"open_rule_png"
+				},
+				{
+					"isFolder":false,
+					"key":"opened_myPrize_png",
+					"name":"opened_myPrize_png"
+				},
+				{
+					"isFolder":false,
+					"key":"opened_open_png",
+					"name":"opened_open_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_rule_png",
+					"name":"game_rule_png"
 				}
 			]
 		}

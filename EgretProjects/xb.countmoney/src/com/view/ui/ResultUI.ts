@@ -35,7 +35,19 @@ class ResultUI extends BaseUI{
         
         this.packetLabel.text = totalPacket.toString();
         this.countLabel.text = "你数了" + totalPacket + "个红包";
-        this.fightLabel.text = "你打败了" + Math.round(totalPacket/30*100) + "%的人";  //30暂定为最多数红包个数
+        
+
+        var rate: number  = Math.round(totalPacket / 110 * 100);
+
+        if(totalPacket > 150){  //概率区间
+            rate = 100;
+        }else if(totalPacket > 130){
+            rate = 99;
+        }else if(totalPacket >= 110){
+            rate = 98;
+        }
+        
+        this.fightLabel.text = "你打败了" + rate + "%的人";  //30暂定为最多数红包个数
         
         //监听
         this.configListeners();

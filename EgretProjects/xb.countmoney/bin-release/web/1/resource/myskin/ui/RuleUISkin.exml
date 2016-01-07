@@ -4,7 +4,7 @@
 	<e:Image id="bg" source="rule_bg_png" y="127" x="90"/>
 	<e:Scroller id="scroller" width="373" height="487" x="129" y="208" skinName="skins.ScrollerSkin">
 		<e:Group>
-			<e:Image source="rule_content_png" x="20" y="0"/>
+			<e:Image source="rule_content_png" x="12" y="0"/>
 		</e:Group>
 	</e:Scroller>
 	<e:Image id="okBtn" source="rule_btn_png" y="729" x="223"/>

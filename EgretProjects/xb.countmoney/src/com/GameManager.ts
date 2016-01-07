@@ -9,6 +9,7 @@ class GameManager {
     public openScene:OpenScene = new OpenScene();     //打开红包场景
     public shareUI:ShareUI = new ShareUI();           //分享UI
     public myPrizeUI:MyPrizeUI = new MyPrizeUI();     //我的奖品
+    public ruleUI: RuleUI = new RuleUI();            //领奖须知
     
     public startup(main:Main): void {
         

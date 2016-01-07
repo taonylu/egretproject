@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="PreloadSceneSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="bg" source="load_bg_png" left="0" right="0" top="0" bottom="0"/>
 	<e:Image id="anim1" source="load_anim1_png" x="211" y="266"/>
 	<e:Image id="anim0" source="load_anim0_png" x="221" y="265"/>
 	<e:Image id="barbg" source="load_barbg_png" y="460" x="91"/>

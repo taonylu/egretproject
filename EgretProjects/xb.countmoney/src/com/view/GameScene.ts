@@ -15,17 +15,21 @@ class GameScene extends BaseScene{
     private totalPacket: number = 0;             //当前红包总数
     
     private timeLabel: eui.Label;                //计时文本
-    private timeLimit: number = 3;               //时间限制
+    private timeLimit: number = 15;               //时间限制
     private gameTimer: egret.Timer;              //游戏计时器
     
     private item_box:eui.Image;                  //杂物
     private item_ipad:eui.Image;
     private item_paper:eui.Image;
-    private hand:eui.Image;                      //手拿红包
+    
     private arrow:eui.Image;                     //箭头
     
     private initArrowY:number;                   //箭头Y
     private initPacketY:number;                  //固定红包上滑的位置
+    
+    private handGroup:eui.Group;                 //手Group
+    private ruleBtn:eui.Image;                   //活动规则
+    private hand: eui.Image;                      //手拿红包
     
     private resultUI: ResultUI = new ResultUI(); //结果UI
     private countDownUI:CountDownUI = new CountDownUI(); //倒计时UI
@@ -48,10 +52,12 @@ class GameScene extends BaseScene{
     public onEnable(): void {
         this.playArrowAnim();
         this.startGame();
+        this.ruleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRuleBtnTouch, this);
     }
 
     public onRemove(): void {
         egret.Tween.removeTweens(this.arrow);
+        this.ruleBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onRuleBtnTouch,this);
     }
     
     public startGame(): void {
@@ -104,7 +110,7 @@ class GameScene extends BaseScene{
     //初始化界面元素
     private initView(): void {
         //手拿红包位置
-        this.hand.y = GameConst.stage.stageHeight - 515;   
+        this.handGroup.y = GameConst.stage.stageHeight - 515;   
         //固定红包上滑位置
         this.initPacketY = GameConst.stage.stageHeight - 590; 
         //箭头位置
@@ -125,6 +131,10 @@ class GameScene extends BaseScene{
     
     //第一次游戏滑动屏幕，触摸结束
     private onFirstGameTouchEnd(e:egret.TouchEvent):void{
+        if(GameManager.getInstance().ruleUI.parent){
+            return;
+        }
+        
         if(this.beginY - e.stageY > 50){  //滑动距离达到50，则将杂物退散，开始游戏
             //移除监听
             GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onFirstGameTouchBegin,this);
@@ -134,7 +144,7 @@ class GameScene extends BaseScene{
             egret.Tween.get(this.item_box).to({x:-this.item_box.width},500);
             egret.Tween.get(this.item_ipad).to({x:GameConst.stage.stageWidth},500);
             egret.Tween.get(this.item_paper).to({ x: GameConst.stage.stageWidth },500);
-            egret.Tween.get(this.hand).to({ y: GameConst.stage.stageHeight },500);
+            egret.Tween.get(this.handGroup).to({ y: GameConst.stage.stageHeight },500);
             //红包进场
             egret.Tween.get(this.staticPacket).to({ y: this.initPacketY},1000).call(function() {
                 self.startGame();
@@ -149,13 +159,15 @@ class GameScene extends BaseScene{
     private curDragPacket: egret.Bitmap;//当前拖拽的红包
     
     private onTouchBegin(e:egret.TouchEvent): void {
+        if(this.curDragPacket){
+            return;
+        }
         this.beginY = e.stageY;
         this.isDrag = true;
         this.curDragPacket = this.countPacketList.pop();
         this.curDragPacket.x = this.staticPacket.x;
         this.curDragPacket.y = this.staticPacket.y;
         this.countGroup.addChild(this.curDragPacket);
-        
     }
     
     private onTouchMove(e: egret.TouchEvent): void {
@@ -187,6 +199,8 @@ class GameScene extends BaseScene{
             //} 
         }else if(this.curDragPacket){  //重置红包位置
             this.curDragPacket.y = -this.curDragPacket.height;
+            this.countPacketList.push(this.curDragPacket);
+            this.curDragPacket = null;
         }
         
         //重置拖拽状态
@@ -199,7 +213,7 @@ class GameScene extends BaseScene{
     private initCountPacket(): void {
         this.countPacketList = new Array<egret.Bitmap>();
         var bm: egret.Bitmap;
-        for(var i: number = 0;i < 10;i++) {  //初始化飞出红包数10个
+        for(var i: number = 0;i < 15;i++) {  //初始化飞出红包数15个
             bm = new egret.Bitmap(RES.getRes("game_packet_png"));
             this.countPacketList.push(bm);
         }
@@ -297,6 +311,10 @@ class GameScene extends BaseScene{
         if(this.gameTimer != null) {
             this.gameTimer.removeEventListener(egret.TimerEvent.TIMER,this.onGameTimer,this);
         }
+    }
+    
+    private onRuleBtnTouch():void{
+        GameManager.getInstance().ruleUI.show();
     }
 }
 
