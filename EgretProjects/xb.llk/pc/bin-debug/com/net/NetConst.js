@@ -8,16 +8,16 @@ var NetConst = (function () {
     }
     var d = __define,c=NetConst,p=c.prototype;
     NetConst.url = "http://192.168.1.103:3000"; //IP、端口号
-    NetConst.loginComplete = "`loginComplete`"; //登录完成
-    NetConst.userJoin = "userJoin"; //玩家加入
-    NetConst.userQuit = "userQuit"; //玩家退出
-    NetConst.gameStart = "gameStart"; //游戏开始
-    NetConst.eliminate = "eliminate"; //消除
-    NetConst.pro = "pro"; //返回使用道具
-    NetConst.userPro = "userPro"; //使用道具
-    NetConst.luckyMap = "luckMap"; //更换地图
-    NetConst.gameOver = "gameOver"; //游戏结束
-    NetConst.levelDone = "levelDone"; //关卡结束
+    NetConst.S2C_barrage = "barrage"; //弹幕
+    NetConst.S2C_loginComplete = "loginComplete"; //登录完成
+    NetConst.S2C_userJoin = "userJoin"; //玩家加入
+    NetConst.S2C_userQuit = "userQuit"; //玩家退出
+    NetConst.S2C_gameStart = "gameStart"; //游戏开始
+    NetConst.S2C_eliminate = "eliminate"; //消除
+    NetConst.S2C_pro = "pro"; //返回使用道具
+    NetConst.S2C_luckyMap = "luckMap"; //更换地图，玩家无可消除，随机地图
+    NetConst.S2C_mapData = "mapData"; //更换地图，下一关
+    NetConst.S2C_gameOver = "gameOver"; //游戏结束 
     return NetConst;
 })();
 egret.registerClass(NetConst,'NetConst');

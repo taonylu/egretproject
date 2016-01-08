@@ -36,40 +36,44 @@ var ClientSocket = (function () {
         //////////////////////////////////////////////////////
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
-        //屏幕准备
-        this.socket.on(NetConst.loginComplete, function (data) {
+        //玩家弹幕
+        this.socket.on(NetConst.S2C_barrage, function (data) {
+            GameManager.getInstance().barrageUI.showOne(data.msg);
+        });
+        //登录完成
+        this.socket.on(NetConst.S2C_loginComplete, function (data) {
             self.homeScene.revLoginComplete(data);
         });
         //玩家加入
-        this.socket.on(NetConst.userJoin, function (data) {
+        this.socket.on(NetConst.S2C_userJoin, function (data) {
             self.homeScene.revUserJoin(data);
         });
         //玩家退出
-        this.socket.on(NetConst.userQuit, function (data) {
+        this.socket.on(NetConst.S2C_userQuit, function (data) {
             self.homeScene.revUserQuit(data);
         });
         //游戏开始
-        this.socket.on(NetConst.gameStart, function (data) {
+        this.socket.on(NetConst.S2C_gameStart, function (data) {
             self.homeScene.revGameStart(data);
         });
         //玩家消除
-        this.socket.on(NetConst.eliminate, function (data) {
+        this.socket.on(NetConst.S2C_eliminate, function (data) {
             self.gameScene.revEliminate(data);
         });
         //使用道具(大屏幕)
-        this.socket.on(NetConst.pro, function (data) {
+        this.socket.on(NetConst.S2C_pro, function (data) {
             self.gameScene.revPro(data);
         });
-        //使用道具（手机）
-        this.socket.on(NetConst.userPro, function (data) {
-            self.gameScene.revUserPro(data);
-        });
         //地图更换
-        this.socket.on(NetConst.luckyMap, function (data) {
+        this.socket.on(NetConst.S2C_luckyMap, function (data) {
             self.gameScene.revLuckyMap(data);
         });
+        //下一关地图
+        this.socket.on(NetConst.S2C_mapData, function (data) {
+            self.gameScene.revMapData(data);
+        });
         //游戏结束
-        this.socket.on(NetConst.gameOver, function (data) {
+        this.socket.on(NetConst.S2C_gameOver, function (data) {
             self.gameScene.revGameOver(data);
         });
     };

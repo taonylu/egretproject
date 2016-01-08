@@ -14154,7 +14154,8 @@ var egret;
                 textField.textColor = egret.sys.isUndefined(this.styles["textColor"]) ? 0x00c200 : parseInt(this.styles["textColor"]);
                 textField.fontFamily = "monospace";
                 textField.x = 10;
-                textField.size = egret.sys.isUndefined(this.styles["size"]) ? 12 : this.styles["size"] / 2;
+                //textField.size = egret.sys.isUndefined(this.styles["size"]) ? 12 : this.styles["size"] / 2;
+                textField.size = 25;
                 textField.y = 10;
             };
             FPSImpl.prototype.update = function (drawCalls, dirtyRatio, costDirty, costRender, costTicker) {

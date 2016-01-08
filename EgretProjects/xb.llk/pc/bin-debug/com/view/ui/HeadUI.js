@@ -9,13 +9,14 @@ var HeadUI = (function (_super) {
         _super.call(this, "HeadUISkin");
         this.imgX = 10; //图片大小高宽
         this.imgY = 17;
-        this.imgWidth = 50;
-        this.imgHeight = 50;
+        this.imgWidth = 45;
+        this.imgHeight = 45;
         this.imageLoader = new egret.ImageLoader();
     }
     var d = __define,c=HeadUI,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
+        this.nameLabel.text = "";
     };
     p.setNameLabel = function (_name) {
         this.nameLabel.text = _name;
@@ -31,8 +32,8 @@ var HeadUI = (function (_super) {
         var bitmap = new egret.Bitmap(imageLoader.data);
         bitmap.x = this.imgX; //调整位置
         bitmap.y = this.imgY;
-        //bitmap.width = this.imgWidth;
-        //bitmap.height = this.imgHeight;
+        bitmap.width = this.imgWidth;
+        bitmap.height = this.imgHeight;
         this.addChild(bitmap);
         this.headImg = bitmap;
     };
