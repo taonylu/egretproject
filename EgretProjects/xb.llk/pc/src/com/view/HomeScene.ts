@@ -30,7 +30,7 @@ class HomeScene extends BaseScene{
     }
 
     private initView():void{
-        //获取头像背景
+        //初始头像
         this.headUIList = new Array<HeadUI>();
         for(var i: number = 0;i < this.userMax;i++) {
             this.headUIList.push(this["headUI" + i]);
@@ -55,7 +55,7 @@ class HomeScene extends BaseScene{
         var avatar: string = data.avatar;  //用户头像
         var name: string = data.name;      //用户名
         var id: string = data.id;          //用户id
-        egret.log("userJion:" + avatar, name, id);
+        egret.log("玩家加入,链接:" + avatar, "名字:" + name,"ID:" +  id);
         
         //设置用户名，选取一个空文本。因为可能出现靠前的玩家退出游戏。
         var index:number = -1;
@@ -78,6 +78,8 @@ class HomeScene extends BaseScene{
                 this.headUIList[i].clear();
             }
         }
+        
+        //TODO 游戏中玩家退出，可能是大屏用户
     }
 
     //游戏开始
@@ -85,9 +87,11 @@ class HomeScene extends BaseScene{
         var mapData:any = data.mapData;        //地图信息
         var luckyUser:string = data.luckyUser; //大屏幕显示的用户
         
-        MapManager.getInstance().level1 = mapData[0];
-        MapManager.getInstance().level2 = mapData[1];
-        MapManager.getInstance().level3 = mapData[2];
+        egret.log("游戏开始，幸运用户:",luckyUser);
+        
+        MapManager.getInstance().level = mapData;
+        
+        UserManager.getInstance().luckyUser = luckyUser;
         
         //跳转场景
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);

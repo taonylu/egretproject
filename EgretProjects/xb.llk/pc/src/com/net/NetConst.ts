@@ -6,16 +6,15 @@
 class NetConst {
     
     public static url: string = "http://192.168.1.103:3000"; //IP、端口号
-    
-    public static loginComplete: string = "`loginComplete`";   //登录完成
-    public static userJoin: string = "userJoin";         //玩家加入
-    public static userQuit: string = "userQuit";         //玩家退出
-    public static gameStart: string = "gameStart";       //游戏开始
-    public static eliminate: string = "eliminate";       //消除
-    public static pro: string = "pro";                   //返回使用道具
-    public static userPro: string = "userPro";           //使用道具
-    public static luckyMap: string = "luckMap";          //更换地图
-    public static gameOver: string = "gameOver";         //游戏结束
-    public static levelDone: string = "levelDone";       //关卡结束
-    
+
+    public static S2C_barrage: string = "barrage";               //弹幕
+    public static S2C_loginComplete: string = "loginComplete";   //登录完成
+    public static S2C_userJoin: string = "userJoin";         //玩家加入
+    public static S2C_userQuit: string = "userQuit";         //玩家退出
+    public static S2C_gameStart: string = "gameStart";       //游戏开始
+    public static S2C_eliminate: string = "eliminate";       //消除
+    public static S2C_pro: string = "pro";                   //返回使用道具
+    public static S2C_luckyMap: string = "luckMap";          //更换地图，玩家无可消除，随机地图
+    public static S2C_mapData:string = "mapData";            //更换地图，下一关
+    public static S2C_gameOver: string = "gameOver";         //游戏结束 
 }

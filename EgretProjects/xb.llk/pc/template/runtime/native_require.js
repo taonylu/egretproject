@@ -19,6 +19,7 @@ var game_file_list = [
 	"bin-debug/com/common/MapManager.js",
 	"bin-debug/com/common/NumberTool.js",
 	"bin-debug/com/common/ObjectPool.js",
+	"bin-debug/com/common/UserManager.js",
 	"bin-debug/com/constant/GameConst.js",
 	"bin-debug/com/GameManager.js",
 	"bin-debug/com/net/ClientSocket.js",
@@ -29,9 +30,9 @@ var game_file_list = [
 	"bin-debug/com/view/ui/BoomUI.js",
 	"bin-debug/com/view/ui/HeadUI.js",
 	"bin-debug/com/view/ui/SelectUI.js",
-	"bin-debug/com/view/util/HeadLoader.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
+	"bin-debug/com/view/ui/BarrageUI.js",
 	//----auto game_file_list end----
 ];
 

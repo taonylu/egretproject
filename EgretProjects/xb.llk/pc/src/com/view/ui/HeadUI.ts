@@ -10,8 +10,8 @@ class HeadUI extends BaseUI{
     public  userID:string;          //用户ID
     private imgX:number = 10;       //图片大小高宽
     private imgY:number = 17;
-    private imgWidth:number = 50;
-    private imgHeight:number = 50;
+    private imgWidth:number = 45;
+    private imgHeight:number = 45;
     
     private imageLoader: egret.ImageLoader = new egret.ImageLoader();
     
@@ -21,6 +21,7 @@ class HeadUI extends BaseUI{
 	
     public componentCreated(): void {
         super.componentCreated();
+        this.nameLabel.text = "";
     }
     
     public setNameLabel(_name:string):void{
@@ -39,8 +40,8 @@ class HeadUI extends BaseUI{
         var bitmap: egret.Bitmap = new egret.Bitmap(imageLoader.data);
         bitmap.x = this.imgX;  //调整位置
         bitmap.y = this.imgY;
-        //bitmap.width = this.imgWidth;
-        //bitmap.height = this.imgHeight;
+        bitmap.width = this.imgWidth;
+        bitmap.height = this.imgHeight;
         this.addChild(bitmap);
         this.headImg = bitmap;
     }
