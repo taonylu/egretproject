@@ -26,13 +26,13 @@ var game_file_list = [
 	"bin-debug/com/net/NetConst.js",
 	"bin-debug/com/view/GameScene.js",
 	"bin-debug/com/view/HomeScene.js",
+	"bin-debug/com/view/ui/BarrageUI.js",
 	"bin-debug/com/view/ui/BlockUI.js",
 	"bin-debug/com/view/ui/BoomUI.js",
 	"bin-debug/com/view/ui/HeadUI.js",
 	"bin-debug/com/view/ui/SelectUI.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
-	"bin-debug/com/view/ui/BarrageUI.js",
 	//----auto game_file_list end----
 ];
 

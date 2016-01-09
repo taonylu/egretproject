@@ -24,11 +24,9 @@ var GameScene = (function (_super) {
     p.onEnable = function () {
         this.playArrowAnim();
         this.startGame();
-        this.ruleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRuleBtnTouch, this);
     };
     p.onRemove = function () {
         egret.Tween.removeTweens(this.arrow);
-        this.ruleBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onRuleBtnTouch, this);
     };
     p.startGame = function () {
         //重置游戏
@@ -74,12 +72,8 @@ var GameScene = (function (_super) {
     };
     //初始化界面元素
     p.initView = function () {
-        //手拿红包位置
-        this.handGroup.y = GameConst.stage.stageHeight - 515;
-        //固定红包上滑位置
-        this.initPacketY = GameConst.stage.stageHeight - 590;
         //箭头位置
-        this.initArrowY = this.initPacketY - 100 - 20;
+        this.initArrowY = this.staticPacket.y - 150;
         this.arrow.y = this.initArrowY;
     };
     //播放箭头动画
@@ -102,12 +96,11 @@ var GameScene = (function (_super) {
             GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onFirstGameTouchEnd, this);
             //杂物退散
             var self = this;
-            egret.Tween.get(this.item_box).to({ x: -this.item_box.width }, 500);
-            egret.Tween.get(this.item_ipad).to({ x: GameConst.stage.stageWidth }, 500);
-            egret.Tween.get(this.item_paper).to({ x: GameConst.stage.stageWidth }, 500);
-            egret.Tween.get(this.handGroup).to({ y: GameConst.stage.stageHeight }, 500);
-            //红包进场
-            egret.Tween.get(this.staticPacket).to({ y: this.initPacketY }, 1000).call(function () {
+            egret.Tween.get(this.item_paper0).to({ x: -300 }, 500);
+            egret.Tween.get(this.item_paper1).to({ x: 800 }, 500);
+            egret.Tween.get(this.item_p0).to({ x: -300 }, 500);
+            egret.Tween.get(this.item_p1).to({ x: 800 }, 500);
+            egret.Tween.get(this.item_p2).to({ x: 900 }, 700).call(function () {
                 self.startGame();
             }, this);
         }
@@ -222,7 +215,7 @@ var GameScene = (function (_super) {
         this.packetLabel.text = str;
     };
     p.setTimeLabel = function (str) {
-        this.timeLabel.text = str;
+        this.timeLabel.text = str + " s";
     };
     p.startTimer = function () {
         if (this.gameTimer == null) {
@@ -243,9 +236,6 @@ var GameScene = (function (_super) {
         if (this.gameTimer != null) {
             this.gameTimer.removeEventListener(egret.TimerEvent.TIMER, this.onGameTimer, this);
         }
-    };
-    p.onRuleBtnTouch = function () {
-        GameManager.getInstance().ruleUI.show();
     };
     return GameScene;
 })(BaseScene);

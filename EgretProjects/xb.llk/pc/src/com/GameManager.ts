@@ -31,6 +31,11 @@ class GameManager {
         LayerManager.getInstance().runScene(this.homeScene);  
         
         //模拟数据
+        //登录成功
+        var loginJson = {"status":1, "msg": ""};
+        this.homeScene.revLoginComplete(loginJson);
+        
+        
         //用户进入
         var userJoin = {
             "avatar": "resource/assets/testhead.png",  //用户头像

@@ -5,6 +5,7 @@
  */
 var GameManager = (function () {
     function GameManager() {
+        this.homeScene = new HomeScene(); //主页场景
         this.gameScene = new GameScene(); //游戏场景
         this.openScene = new OpenScene(); //打开红包场景
         this.shareUI = new ShareUI(); //分享UI
@@ -18,7 +19,7 @@ var GameManager = (function () {
         LayerManager.getInstance().initialize(main);
         window['openScene'] = this.openScene;
         //跳转场景
-        LayerManager.getInstance().runScene(this.gameScene);
+        LayerManager.getInstance().runScene(this.homeScene);
     };
     GameManager.getInstance = function () {
         if (this.instance == null) {

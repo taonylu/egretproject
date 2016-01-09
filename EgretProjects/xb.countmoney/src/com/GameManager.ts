@@ -4,7 +4,7 @@
  *
  */
 class GameManager {
-    
+    public homeScene:HomeScene = new HomeScene();     //主页场景
     public gameScene: GameScene = new GameScene();    //游戏场景
     public openScene:OpenScene = new OpenScene();     //打开红包场景
     public shareUI:ShareUI = new ShareUI();           //分享UI
@@ -21,7 +21,7 @@ class GameManager {
         window['openScene'] = this.openScene;
         
         //跳转场景
-        LayerManager.getInstance().runScene(this.gameScene);
+        LayerManager.getInstance().runScene(this.homeScene);
     }
     
     

@@ -2,30 +2,32 @@
 <e:Skin class="OpenSceneSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="bg" source="open_bg_png" width="640" x="0" height="1136" y="0"/>
 	<e:Image id="shareBtn" source="game_bag_png" x="558" y="-15"/>
+	<e:Image source="open_logo_png" x="1" y="5"/>
 	<e:Group id="openGroup" height="1136" width="640" x="0" y="0" touchEnabled="false" touchThrough="true">
 		<e:Rect id="openBtn" height="188" width="192" x="224" y="370"/>
 		<e:Image id="openBg" source="open_open_png" y="538" x="320" touchEnabled="false" anchorOffsetX="273" anchorOffsetY="308"/>
-		<e:Image id="ruleBtn" source="open_rule_png" y="722" x="213"/>
 	</e:Group>
-	<e:Group id="openedGroup" height="1136" width="640" x="0" y="-40" touchEnabled="false" touchThrough="true">
+	<e:Group id="openedGroup" height="1136" width="640" x="0" y="-20" touchEnabled="false" touchThrough="true">
+		<e:Rect id="myPrizeBtn" height="63" width="220" x="351" y="840"/>
+		<e:Rect id="ruleBtn" height="62" width="217" x="72" y="840"/>
+		<e:Rect id="againBtn" height="166" width="175" x="229" y="625"/>
 		<e:Image id="opened_openedBg_up" source="open_opened2.png_png" x="48" y="205" touchEnabled="false"/>
-		<e:Image id="prize1" source="prize1_png" x="-3" y="30" touchEnabled="false"/>
-		<e:Image id="prize2" source="prize2_png" x="0" y="51" touchEnabled="false"/>
-		<e:Image id="prize3" source="prize3_png" x="0" y="24"/>
-		<e:Image id="prize4" source="prize4_png" x="18" y="-40"/>
+		<e:Image id="prize1" source="prize1_png" x="-3" y="40" touchEnabled="false"/>
+		<e:Image id="prize2" source="prize2_png" x="0" y="61" touchEnabled="false"/>
+		<e:Image id="prize3" source="prize3_png" x="0" y="44"/>
+		<e:Image id="prize4" source="prize4_png" x="18" y="30"/>
 		<e:Image id="prize5" source="prize5_png" x="-2" y="36"/>
 		<e:Image id="prize6" source="prize6_png" x="-16" y="38"/>
 		<e:Image id="prize7" source="prize7_png" x="-2" y="38"/>
+		<e:Image id="prize8" source="prize8_png" x="134" y="122"/>
 		<e:Image id="openedBg" x="48" y="208" touchEnabled="false" source="open_opened.png_png"/>
-		<e:Image id="againBtn" source="opened_open_png" x="236" y="617"/>
-		<e:Image id="myPrizeBtn" source="opened_myPrize_png" y="841" x="213"/>
-		<e:Label id="prizeResultLabel" x="48" y="533" width="545" verticalAlign="middle" textAlign="center" fontFamily="微软雅黑" size="25"/>
+		<e:Label id="prizeResultLabel" x="48" y="522" width="545" verticalAlign="middle" textAlign="center" fontFamily="微软雅黑" size="40" height="56" textColor="0xF2E717"/>
 	</e:Group>
-	<e:Group id="phoneGroup" height="1136" width="640" x="0" y="0">
+	<e:Group id="phoneGroup" height="1136" width="640" x="0" y="0" visible="false">
 		<e:Rect id="phoneRect" height="1136" width="640" x="0" y="0" fillAlpha="0.7"/>
 		<e:Rect id="submitBtn" height="46" width="190" x="223" y="557"/>
-		<e:Image source="prize_phone_png" y="378" touchEnabled="false" x="89"/>
+		<e:Image id="phoneTextBg" source="prize_phone_png" y="378" touchEnabled="false" x="89"/>
 		<e:EditableText id="phoneLabel" width="354" height="48" x="136" y="429" textColor="0x000000" verticalAlign="middle" textAlign="center"/>
 	</e:Group>
-	<e:Label text="技术支持：信步游戏" width="360" verticalAlign="middle" textAlign="center" fontFamily="微软雅黑" bottom="45" x="140"/>
+	<e:Label text="技术支持：信步游戏" width="360" verticalAlign="middle" textAlign="center" fontFamily="微软雅黑" bottom="25" x="140"/>
 </e:Skin>

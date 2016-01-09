@@ -4,12 +4,11 @@ var io = require('socket.io')(http);
 
 app.get('/', function(req, res){
     res.send('<h1>Welcome Realtime Server</h1>');
-
 });
 
-//åœ¨çº¿ç”¨æˆ·
+//ÔÚÏßÓÃ»§
 var onlineUsers = {};
-//å½“å‰åœ¨çº¿äººæ•°
+//µ±Ç°ÔÚÏßÈËÊı
 var onlineCount = 0;
 
 io.on('connection', function(socket){
@@ -17,48 +16,48 @@ io.on('connection', function(socket){
     //socket.emit("news","welcome");
 
     console.log(socket.baseUrl);
-
-
-    //ç›‘å¬æ–°ç”¨æˆ·åŠ å…¥
+    
+    
+    //¼àÌıĞÂÓÃ»§¼ÓÈë
     socket.on('login', function(obj){
-        //å°†æ–°åŠ å…¥ç”¨æˆ·çš„å”¯ä¸€æ ‡è¯†å½“ä½œsocketçš„åç§°ï¼Œåé¢é€€å‡ºçš„æ—¶å€™ä¼šç”¨åˆ°
+        //½«ĞÂ¼ÓÈëÓÃ»§µÄÎ¨Ò»±êÊ¶µ±×÷socketµÄÃû³Æ£¬ºóÃæÍË³öµÄÊ±ºò»áÓÃµ½
         socket.name = obj.userid;
 
-        //æ£€æŸ¥åœ¨çº¿åˆ—è¡¨ï¼Œå¦‚æœä¸åœ¨é‡Œé¢å°±åŠ å…¥
+        //¼ì²éÔÚÏßÁĞ±í£¬Èç¹û²»ÔÚÀïÃæ¾Í¼ÓÈë
         if(!onlineUsers.hasOwnProperty(obj.userid)) {
             onlineUsers[obj.userid] = obj.username;
-            //åœ¨çº¿äººæ•°+1
+            //ÔÚÏßÈËÊı+1
             onlineCount++;
         }
 
-        //å‘æ‰€æœ‰å®¢æˆ·ç«¯å¹¿æ’­ç”¨æˆ·åŠ å…¥
+        //ÏòËùÓĞ¿Í»§¶Ë¹ã²¥ÓÃ»§¼ÓÈë
         io.emit('login', {onlineUsers:onlineUsers, onlineCount:onlineCount, user:obj});
-        console.log(obj.username+'åŠ å…¥äº†èŠå¤©å®¤');
+        console.log(obj.username+'¼ÓÈëÁËÁÄÌìÊÒ');
     });
 
-    //ç›‘å¬ç”¨æˆ·é€€å‡º
+    //¼àÌıÓÃ»§ÍË³ö
     socket.on('disconnect', function(){
-        //å°†é€€å‡ºçš„ç”¨æˆ·ä»åœ¨çº¿åˆ—è¡¨ä¸­åˆ é™¤
+        //½«ÍË³öµÄÓÃ»§´ÓÔÚÏßÁĞ±íÖĞÉ¾³ı
         if(onlineUsers.hasOwnProperty(socket.name)) {
-            //é€€å‡ºç”¨æˆ·çš„ä¿¡æ¯
+            //ÍË³öÓÃ»§µÄĞÅÏ¢
             var obj = {userid:socket.name, username:onlineUsers[socket.name]};
 
-            //åˆ é™¤
+            //É¾³ı
             delete onlineUsers[socket.name];
-            //åœ¨çº¿äººæ•°-1
+            //ÔÚÏßÈËÊı-1
             onlineCount--;
 
-            //å‘æ‰€æœ‰å®¢æˆ·ç«¯å¹¿æ’­ç”¨æˆ·é€€å‡º
+            //ÏòËùÓĞ¿Í»§¶Ë¹ã²¥ÓÃ»§ÍË³ö
             io.emit('logout', {onlineUsers:onlineUsers, onlineCount:onlineCount, user:obj});
-            console.log(obj.username+'é€€å‡ºäº†èŠå¤©å®¤');
+            console.log(obj.username+'ÍË³öÁËÁÄÌìÊÒ');
         }
     });
 
-    //ç›‘å¬ç”¨æˆ·å‘å¸ƒèŠå¤©å†…å®¹
+    //¼àÌıÓÃ»§·¢²¼ÁÄÌìÄÚÈİ
     socket.on('message', function(obj){
-        //å‘æ‰€æœ‰å®¢æˆ·ç«¯å¹¿æ’­å‘å¸ƒçš„æ¶ˆæ¯
+        //ÏòËùÓĞ¿Í»§¶Ë¹ã²¥·¢²¼µÄÏûÏ¢
         io.emit('message', obj);
-        console.log(obj.username+'è¯´ï¼š'+obj.content);
+        console.log(obj.username+'Ëµ£º'+obj.content);
     });
 
 });
