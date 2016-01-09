@@ -56,26 +56,6 @@
 				},
 				{
 					"isFolder":false,
-					"key":"game_hand_png",
-					"name":"game_hand_png"
-				},
-				{
-					"isFolder":false,
-					"key":"game_item0_png",
-					"name":"game_item0_png"
-				},
-				{
-					"isFolder":false,
-					"key":"game_item1_png",
-					"name":"game_item1_png"
-				},
-				{
-					"isFolder":false,
-					"key":"game_item2_png",
-					"name":"game_item2_png"
-				},
-				{
-					"isFolder":false,
 					"key":"game_packet_png",
 					"name":"game_packet_png"
 				},
@@ -83,11 +63,6 @@
 					"isFolder":false,
 					"key":"game_moneybg_png",
 					"name":"game_moneybg_png"
-				},
-				{
-					"isFolder":false,
-					"key":"game_timebg_png",
-					"name":"game_timebg_png"
 				},
 				{
 					"isFolder":false,
@@ -216,23 +191,128 @@
 				},
 				{
 					"isFolder":false,
-					"key":"open_rule_png",
-					"name":"open_rule_png"
+					"key":"home_bg_png",
+					"name":"home_bg_png"
 				},
 				{
 					"isFolder":false,
-					"key":"opened_myPrize_png",
-					"name":"opened_myPrize_png"
+					"key":"home_gonglue_png",
+					"name":"home_gonglue_png"
 				},
 				{
 					"isFolder":false,
-					"key":"opened_open_png",
-					"name":"opened_open_png"
+					"key":"home_gongluebg_png",
+					"name":"home_gongluebg_png"
 				},
 				{
 					"isFolder":false,
-					"key":"game_rule_png",
-					"name":"game_rule_png"
+					"key":"home_start_png",
+					"name":"home_start_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_paper0_png",
+					"name":"game_paper0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_paper1_png",
+					"name":"game_paper1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"open_logo_png",
+					"name":"open_logo_png"
+				},
+				{
+					"isFolder":false,
+					"key":"phone_bg_png",
+					"name":"phone_bg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"prize8_png",
+					"name":"prize8_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail_log_png",
+					"name":"detail_log_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail_title_png",
+					"name":"detail_title_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail1_03_png",
+					"name":"detail1_03_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail1_07_png",
+					"name":"detail1_07_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail2_03_png",
+					"name":"detail2_03_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail2_07_png",
+					"name":"detail2_07_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail3_03_png",
+					"name":"detail3_03_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail3_07_png",
+					"name":"detail3_07_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail4_03_png",
+					"name":"detail4_03_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail4_07_png",
+					"name":"detail4_07_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail5_03_png",
+					"name":"detail5_03_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail5_07_png",
+					"name":"detail5_07_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail6_03_png",
+					"name":"detail6_03_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail6_07_png",
+					"name":"detail6_07_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail7_03_png",
+					"name":"detail7_03_png"
+				},
+				{
+					"isFolder":false,
+					"key":"detail7_07_png",
+					"name":"detail7_07_png"
 				}
 			]
 		}

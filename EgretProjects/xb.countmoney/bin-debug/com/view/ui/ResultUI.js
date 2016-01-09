@@ -17,7 +17,7 @@ var ResultUI = (function (_super) {
         doc.addChild(this);
         //分享按钮动画
         egret.Tween.get(this.shareBtn, { loop: true }).to({ y: this.initShareBtnY + 15 }, 500).to({ y: this.initShareBtnY }, 500);
-        this.packetLabel.text = totalPacket.toString();
+        //this.packetLabel.text = totalPacket.toString();
         this.countLabel.text = "你数了" + totalPacket + "个红包";
         var rate = Math.round(totalPacket / 110 * 100);
         if (totalPacket > 150) {
@@ -82,11 +82,10 @@ var ResultUI = (function (_super) {
         this.configListeners();
         console.log("我的奖品:" + result);
         var json = JSON.parse(result);
-        var str = "";
         for (var item in json) {
-            str += json[item].prizemsg + "\n";
+            egret.log("查看奖品:" + json[item].prizenum, json[item].prizemsg);
         }
-        GameManager.getInstance().myPrizeUI.show(str);
+        GameManager.getInstance().myPrizeUI.show(json);
     };
     //接收我的奖品请求结果
     p.onMyPrizeError = function (e) {

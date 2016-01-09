@@ -49,6 +49,7 @@ class GameScene extends BaseScene{
     
 	public constructor() {
         super("GameSceneSkin");
+ 
 	}
 	
     public componentCreated(): void {

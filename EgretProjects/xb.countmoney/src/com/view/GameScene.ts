@@ -18,17 +18,17 @@ class GameScene extends BaseScene{
     private timeLimit: number = 15;               //时间限制
     private gameTimer: egret.Timer;              //游戏计时器
     
-    private item_box:eui.Image;                  //杂物
-    private item_ipad:eui.Image;
-    private item_paper:eui.Image;
+   
+    private item_paper0:eui.Image;                //杂物
+    private item_paper1: eui.Image;
+    private item_p0:eui.Image;
+    private item_p1:eui.Image;
+    private item_p2:eui.Image;
+    
     
     private arrow:eui.Image;                     //箭头
-    
-    private initArrowY:number;                   //箭头Y
-    private initPacketY:number;                  //固定红包上滑的位置
-    
-    private handGroup:eui.Group;                 //手Group
-    private ruleBtn:eui.Image;                   //活动规则
+    private initArrowY:number;
+
     private hand: eui.Image;                      //手拿红包
     
     private resultUI: ResultUI = new ResultUI(); //结果UI
@@ -52,12 +52,10 @@ class GameScene extends BaseScene{
     public onEnable(): void {
         this.playArrowAnim();
         this.startGame();
-        this.ruleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRuleBtnTouch, this);
     }
 
     public onRemove(): void {
         egret.Tween.removeTweens(this.arrow);
-        this.ruleBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onRuleBtnTouch,this);
     }
     
     public startGame(): void {
@@ -109,12 +107,8 @@ class GameScene extends BaseScene{
     
     //初始化界面元素
     private initView(): void {
-        //手拿红包位置
-        this.handGroup.y = GameConst.stage.stageHeight - 515;   
-        //固定红包上滑位置
-        this.initPacketY = GameConst.stage.stageHeight - 590; 
         //箭头位置
-        this.initArrowY = this.initPacketY - 100 - 20;
+        this.initArrowY = this.staticPacket.y - 150;
         this.arrow.y = this.initArrowY;
     }
     
@@ -141,14 +135,13 @@ class GameScene extends BaseScene{
             GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_END,this.onFirstGameTouchEnd,this);
             //杂物退散
             var self:GameScene = this;
-            egret.Tween.get(this.item_box).to({x:-this.item_box.width},500);
-            egret.Tween.get(this.item_ipad).to({x:GameConst.stage.stageWidth},500);
-            egret.Tween.get(this.item_paper).to({ x: GameConst.stage.stageWidth },500);
-            egret.Tween.get(this.handGroup).to({ y: GameConst.stage.stageHeight },500);
-            //红包进场
-            egret.Tween.get(this.staticPacket).to({ y: this.initPacketY},1000).call(function() {
+            egret.Tween.get(this.item_paper0).to({ x: -300 },500);
+            egret.Tween.get(this.item_paper1).to({ x: 800 },500);
+            egret.Tween.get(this.item_p0).to({ x: -300 },500);
+            egret.Tween.get(this.item_p1).to({ x: 800 },500);
+            egret.Tween.get(this.item_p2).to({ x: 900 },700).call(function() {
                 self.startGame();
-            },this);  
+            },this);
         }
     }
     
@@ -287,7 +280,7 @@ class GameScene extends BaseScene{
     }
     
     private setTimeLabel(str: string): void {
-        this.timeLabel.text = str;
+        this.timeLabel.text = str + " s";
     }
     
     private startTimer(): void {
@@ -311,10 +304,6 @@ class GameScene extends BaseScene{
         if(this.gameTimer != null) {
             this.gameTimer.removeEventListener(egret.TimerEvent.TIMER,this.onGameTimer,this);
         }
-    }
-    
-    private onRuleBtnTouch():void{
-        GameManager.getInstance().ruleUI.show();
     }
 }
 

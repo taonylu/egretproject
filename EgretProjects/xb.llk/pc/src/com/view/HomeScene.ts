@@ -42,7 +42,7 @@ class HomeScene extends BaseScene{
     public revLoginComplete(data) {
         var status: Number = data.status;
         var msg: string = data.msg;
-        egret.log("loginComplete:" ,status,msg);
+        egret.log("登录成功:" ,status,msg);
         if(status == 1) { //验证成功
             
         } else if(status == 0) {  //验证失败
@@ -55,7 +55,7 @@ class HomeScene extends BaseScene{
         var avatar: string = data.avatar;  //用户头像
         var name: string = data.name;      //用户名
         var id: string = data.id;          //用户id
-        egret.log("玩家加入,链接:" + avatar, "名字:" + name,"ID:" +  id);
+        egret.log("玩家加入,头像:" + avatar, "名字:" + name,"ID:" +  id);
         
         //设置用户名，选取一个空文本。因为可能出现靠前的玩家退出游戏。
         var index:number = -1;
@@ -71,7 +71,7 @@ class HomeScene extends BaseScene{
     //玩家退出
     public revUserQuit(data): void {
         var id: string = data.id;  //用户id
-        
+        egret.log("玩家退出:",id);
         //删除玩家头像
         for(var i:number=0; i<this.userMax;i++){
             if(this.headUIList[i].userID == id){

@@ -18,6 +18,7 @@ var game_file_list = [
 	"bin-debug/com/constant/GameConst.js",
 	"bin-debug/com/GameManager.js",
 	"bin-debug/com/view/GameScene.js",
+	"bin-debug/com/view/HomeScene.js",
 	"bin-debug/com/view/OpenScene.js",
 	"bin-debug/com/view/PreloadScene.js",
 	"bin-debug/com/view/ui/CountDownUI.js",

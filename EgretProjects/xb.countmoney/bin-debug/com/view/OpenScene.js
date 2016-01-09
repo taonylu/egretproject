@@ -14,7 +14,7 @@ var OpenScene = (function (_super) {
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
         this.initShareBtnY = this.shareBtn.y;
-        for (var i = 0; i < 7; i++) {
+        for (var i = 0; i < 8; i++) {
             this.prizeList.push(this["prize" + (i + 1)]);
             this.prizeList[i].touchEnabled = false;
             this.prizeList[i].visible = false;
@@ -55,10 +55,14 @@ var OpenScene = (function (_super) {
     };
     //拆红包按钮
     p.openBtnTouch = function () {
+        //测试
         this.deConfigListeners();
         //红包晃动
         egret.Tween.get(this.openBg, { loop: true }).to({ rotation: this.openBg.rotation + 5 }, 50).
             to({ rotation: this.openBg.rotation - 5 }, 50);
+        //测试
+        //        this.showPrize(1, "iphone");
+        //        return;
         //发送请求
         var http = SingleHttp.getInstance();
         http.completeHandler = this.revOpenPrize;
@@ -74,12 +78,12 @@ var OpenScene = (function (_super) {
         egret.Tween.removeTweens(this.openBg);
         this.openBg.rotation = 0;
         var json = JSON.parse(result);
+        egret.log("奖品ID:" + json.prizeid, "奖品名:" + json.prize);
         if (json.code == "200") {
             window["pass"] = json.pass;
             this.showPrize(json.prizeid, json.prize);
         }
         else {
-            //alert(json.msg);
             GameManager.getInstance().shareUI.show();
         }
     };
@@ -100,22 +104,25 @@ var OpenScene = (function (_super) {
             this.curPrizeImg.visible = false;
             this.curPrizeImg.y = this.initPrizeImgY;
         }
-        this.curPrizeImg = this.prizeList[prizeid - 1]; //奖品id1-7，数组下标0-6
+        this.curPrizeImg = this.prizeList[prizeid - 1]; //奖品id1-8，数组下标0-7
         this.initPrizeImgY = this.curPrizeImg.y;
         this.curPrizeImg.y += 300;
         this.curPrizeImg.visible = true;
         egret.Tween.get(this.curPrizeImg).to({ y: this.initPrizeImgY }, 1000);
         //显示奖品名称
-        this.prizeResultLabel.text = "抽中" + prizeName;
-        //过一段时间出现提交手机号
+        this.prizeResultLabel.text = "获得" + prizeName;
+        //测试 过一段时间出现提交手机号
         var self = this;
-        egret.Tween.get(this).wait(4000).call(function () {
+        egret.Tween.get(this).wait(2500).call(function () {
             self.phoneGroup.visible = true;
         }, this);
     };
     //点击我的奖品
     p.onMyPrizeTouch = function () {
         this.deConfigListeners();
+        //测试
+        //        GameManager.getInstance().myPrizeUI.show([{"prizenum":7,"prizemsg":"123"},{"prizenum":8,"prizemsg":"321"}]);
+        //        return;
         var http = SingleHttp.getInstance();
         http.completeHandler = this.revMyPrize;
         http.errorHandler = this.onMyPrizeError;
@@ -126,13 +133,11 @@ var OpenScene = (function (_super) {
     //接收我的奖品请求结果
     p.revMyPrize = function (result) {
         this.configListeners();
-        console.log("我的奖品:" + result);
         var json = JSON.parse(result);
-        var str = "";
         for (var item in json) {
-            str += json[item].prizemsg + "\n";
+            egret.log("查看奖品:" + json[item].prizenum, json[item].prizemsg);
         }
-        GameManager.getInstance().myPrizeUI.show(str);
+        GameManager.getInstance().myPrizeUI.show(json);
     };
     //我的奖品请求错误
     p.onMyPrizeError = function (e) {

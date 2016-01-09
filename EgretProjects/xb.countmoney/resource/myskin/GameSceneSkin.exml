@@ -2,20 +2,19 @@
 <e:Skin class="GameSceneSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
 	<e:Image id="bg" source="game_bg_png" left="0" right="0" top="0" bottom="0"/>
 	<e:Group id="fallPacketGroup" height="1150" width="640"/>
-	<e:Image id="item_box" source="game_item0_png" x="-151" y="127"/>
-	<e:Image id="item_ipad" source="game_item1_png" x="466" y="372"/>
-	<e:Image id="item_paper" source="game_item2_png" x="310" y="70"/>
-	<e:Group id="handGroup" height="515" width="640" x="0" y="620" touchEnabled="false" touchThrough="true">
-		<e:Image id="hand" source="game_hand_png" x="45" y="0"/>
-		<e:Image id="ruleBtn" source="game_rule_png" x="273" y="180"/>
+	<e:Group id="itemGroup" height="1136" width="640" x="0" y="0">
+		<e:Image id="item_paper0" source="game_paper0_png" x="-4" y="709"/>
+		<e:Image id="item_paper1" source="game_paper1_png" x="350" y="219"/>
+		<e:Image id="item_p0" source="game_fall_png" x="100" y="377" rotation="30" anchorOffsetX="109" anchorOffsetY="127"/>
+		<e:Image id="item_p1" source="game_fall_png" x="457" y="65" width="140" height="162"/>
+		<e:Image id="item_p2" source="game_fall_png" x="460" y="688" width="331" height="383" rotation="30"/>
 	</e:Group>
-	<e:Image id="arrow" source="game_arrow_png" y="394" x="274"/>
-	<e:Image id="staticPacket" source="game_packet_png" y="1145" x="121"/>
+	<e:Image id="arrow" source="game_arrow_png" y="394" horizontalCenter="0"/>
+	<e:Image id="staticPacket" source="game_packet_png" y="595" horizontalCenter="0.5"/>
 	<e:Group id="countGroup" height="1136" width="640" x="0" y="0" touchChildren="false" touchEnabled="false" touchThrough="true"/>
 	<e:Group id="labelGroup" height="1136" width="640" x="0" y="0" touchThrough="true" touchEnabled="false" touchChildren="false">
-		<e:Image id="timebg" source="game_timebg_png" y="89" x="205"/>
-		<e:Image id="moneybg" source="game_moneybg_png" y="20" x="205"/>
-		<e:Label id="packetLabel" text="999" y="23" width="150" height="50" verticalAlign="middle" textAlign="center" textColor="0xFFFFFF" horizontalCenter="0" size="35"/>
-		<e:Label id="timeLabel" y="92" text="999" width="150" height="50" verticalAlign="middle" textAlign="center" textColor="0xFFFFFF" x="245" size="35"/>
+		<e:Image id="moneybg" source="game_moneybg_png" y="15" x="199"/>
+		<e:Label id="packetLabel" text="999" y="26" width="150" height="50" verticalAlign="middle" textAlign="center" textColor="0xFFFFFF" size="35" x="250"/>
+		<e:Label id="timeLabel" y="90" text="999" width="150" height="50" verticalAlign="middle" textAlign="center" textColor="0xFFFFFF" x="250" size="35"/>
 	</e:Group>
 </e:Skin>

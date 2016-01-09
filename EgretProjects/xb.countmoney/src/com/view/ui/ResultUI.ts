@@ -11,7 +11,7 @@ class ResultUI extends BaseUI{
     
     private countLabel:eui.Label;  //你数了多少个红包文本
     private fightLabel:eui.Label;    //你打败了多少人文本
-    private packetLabel:eui.Label;  //红包个数文本
+    //private packetLabel:eui.Label;  //红包个数文本
     
     private initShareBtnY:number;   //分享按钮初始位置
     
@@ -33,7 +33,7 @@ class ResultUI extends BaseUI{
         //分享按钮动画
         egret.Tween.get(this.shareBtn,{loop:true}).to({y:this.initShareBtnY + 15},500).to({y:this.initShareBtnY},500);
         
-        this.packetLabel.text = totalPacket.toString();
+        //this.packetLabel.text = totalPacket.toString();
         this.countLabel.text = "你数了" + totalPacket + "个红包";
         
 
@@ -115,12 +115,12 @@ class ResultUI extends BaseUI{
         console.log("我的奖品:" + result);
         
         var json = JSON.parse(result);
-        var str: string = "";
-        for(var item in json) {
-            str += json[item].prizemsg + "\n";
+        
+        for(var item in json){
+            egret.log("查看奖品:" + json[item].prizenum, json[item].prizemsg);
         }
         
-        GameManager.getInstance().myPrizeUI.show(str);
+        GameManager.getInstance().myPrizeUI.show(json);
     }
     
     //接收我的奖品请求结果
