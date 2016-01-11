@@ -6,62 +6,112 @@ app.get('/', function(req, res){
     res.send('<h1>Welcome Realtime Server</h1>');
 });
 
-//ÔÚÏßÓÃ»§
-var onlineUsers = {};
-//µ±Ç°ÔÚÏßÈËÊı
-var onlineCount = 0;
+
+var socketList = {}; //socketåˆ—è¡¨
+var licence = 0;     //æˆæƒç 
+var rid = 0;         //æˆ¿é—´å·
+var luckyUser = 0;   //å¹¸è¿ç”¨æˆ·
+var idAdd = 0;       //ç”¨äºç”Ÿæˆsocket.name
+var onlineNum = 0;   //åœ¨çº¿äººæ•°
 
 io.on('connection', function(socket){
     console.log('a user connected');
-    //socket.emit("news","welcome");
 
-    console.log(socket.baseUrl);
-    
-    
-    //¼àÌıĞÂÓÃ»§¼ÓÈë
+    //ç›‘å¬æ–°ç”¨æˆ·åŠ å…¥
     socket.on('login', function(obj){
-        //½«ĞÂ¼ÓÈëÓÃ»§µÄÎ¨Ò»±êÊ¶µ±×÷socketµÄÃû³Æ£¬ºóÃæÍË³öµÄÊ±ºò»áÓÃµ½
-        socket.name = obj.userid;
 
-        //¼ì²éÔÚÏßÁĞ±í£¬Èç¹û²»ÔÚÀïÃæ¾Í¼ÓÈë
-        if(!onlineUsers.hasOwnProperty(obj.userid)) {
-            onlineUsers[obj.userid] = obj.username;
-            //ÔÚÏßÈËÊı+1
-            onlineCount++;
+        if(obj.licence && obj.rid){  //å¤§å±å¹•æ¥å…¥
+            onlineNum++;
+            licence = obj.licence;
+            rid = obj.rid;
+            socket.name = "pc";
+            socketList[socket.name] = socket;
+            socket.emit('loginComplete', {"status":1, "msg":"å¤§å±å¹•ç™»å½•æˆåŠŸäº†"});
+        }else if(obj.licence && obj.rid == null){  //æ‰‹æœºæ¥å…¥
+            if(obj.licence == licence){
+                idAdd++;
+                onlineNum++;
+                socket.name = idAdd.toString();
+                socketList[socket.name] = socket;
+                socketList["pc"].emit("userJoin",{"avatar":"resource/assets/testhead.png", "name":"peter" + idAdd, "id":idAdd });
+                socket.emit("userInfo",{"avatar":"resource/assets/testhead.png", "name":"peter" + idAdd, "id":idAdd });
+
+                //ç”¨æˆ·è¾¾åˆ°3äººåˆ™å¼€å§‹
+                if(onlineNum >= 3){
+                    var json = {};
+                    json.mapdata = [
+                        [1,0,0,0,1,0,0],
+                        [0,0,2,0,0,2,0],
+                        [0,0,0,0,0,0,0],
+                        [0,3,0,3,0,0,0],
+                        [0,0,0,0,0,0,0],
+                        [0,4,0,0,4,0,0],
+                        [0,0,0,0,0,0,0],
+                        [0,0,0,0,0,0,0]
+                    ];
+
+                    for(var socketID in socketList){
+                        luckyUser = socketID;
+                        console.log("å¹¸è¿:" + luckyUser);
+                        break;
+                    }
+
+                    json.luckyUser = luckyUser;
+
+                    socketList["pc"].emit("gameStart", json);
+
+                    for(var socketID in socketList){
+                        socketList[socketID].emit("mapData",json);
+                    }
+                }
+
+            }
+        }else{  //æ¥å…¥é”™è¯¯
+            console.log("æ¥å…¥é”™è¯¯ï¼Œå…³é—­socket");
+            socket.disconnect();
         }
 
-        //ÏòËùÓĞ¿Í»§¶Ë¹ã²¥ÓÃ»§¼ÓÈë
-        io.emit('login', {onlineUsers:onlineUsers, onlineCount:onlineCount, user:obj});
-        console.log(obj.username+'¼ÓÈëÁËÁÄÌìÊÒ');
+        console.log("å½“å‰åœ¨çº¿äººæ•°:" + onlineNum);
     });
 
-    //¼àÌıÓÃ»§ÍË³ö
+    //ç›‘å¬ç”¨æˆ·é€€å‡º
     socket.on('disconnect', function(){
-        //½«ÍË³öµÄÓÃ»§´ÓÔÚÏßÁĞ±íÖĞÉ¾³ı
-        if(onlineUsers.hasOwnProperty(socket.name)) {
-            //ÍË³öÓÃ»§µÄĞÅÏ¢
-            var obj = {userid:socket.name, username:onlineUsers[socket.name]};
+        //å°†é€€å‡ºçš„ç”¨æˆ·ä»åœ¨çº¿åˆ—è¡¨ä¸­åˆ é™¤
+        if(socketList.hasOwnProperty(socket.name)) {
+            onlineNum--;
+            delete  socketList[socket.name];
+            console.log("ç©å®¶é€€å‡º:" + socket.name);
+            //é€€å‡ºç”¨æˆ·çš„ä¿¡æ¯
+            //var obj = {userid:socket.name, username:onlineUsers[socket.name]};
 
-            //É¾³ı
-            delete onlineUsers[socket.name];
-            //ÔÚÏßÈËÊı-1
-            onlineCount--;
+            //åˆ é™¤
+           // delete onlineUsers[socket.name];
+            //åœ¨çº¿äººæ•°-1
+           // onlineCount--;
 
-            //ÏòËùÓĞ¿Í»§¶Ë¹ã²¥ÓÃ»§ÍË³ö
-            io.emit('logout', {onlineUsers:onlineUsers, onlineCount:onlineCount, user:obj});
-            console.log(obj.username+'ÍË³öÁËÁÄÌìÊÒ');
+            //å‘æ‰€æœ‰å®¢æˆ·ç«¯å¹¿æ’­ç”¨æˆ·é€€å‡º
+           // io.emit('logout', {onlineUsers:onlineUsers, onlineCount:onlineCount, user:obj});
+
         }
     });
 
-    //¼àÌıÓÃ»§·¢²¼ÁÄÌìÄÚÈİ
+    //æ‰‹æœºç«¯ç”¨æˆ·æ¶ˆé™¤ï¼Œè½¬å‘ç»™å¤§å±å¹•
+    socket.on('eliminate',function(obj){
+        socketList["pc"].emit('eliminate', {'id':socket.name, 'pos':obj.pos});
+
+    });
+
+
+    //ç›‘å¬ç”¨æˆ·å‘å¸ƒèŠå¤©å†…å®¹
     socket.on('message', function(obj){
-        //ÏòËùÓĞ¿Í»§¶Ë¹ã²¥·¢²¼µÄÏûÏ¢
-        io.emit('message', obj);
-        console.log(obj.username+'Ëµ£º'+obj.content);
+        //å‘æ‰€æœ‰å®¢æˆ·ç«¯å¹¿æ’­å‘å¸ƒçš„æ¶ˆæ¯
+       // io.emit('message', obj);
+       // console.log(obj.username+'è¯´ï¼š'+obj.content);
     });
 
 });
 
+//ç›‘å¬ç«¯å£æœ¬åœ°åœ°å€ http://192.168.1.103:3000
 http.listen(3000, function(){
     console.log('listening on *:3000');
 });

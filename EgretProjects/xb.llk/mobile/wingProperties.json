@@ -128,6 +128,11 @@
 					"isFolder":false,
 					"key":"cloud_png",
 					"name":"cloud_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_dmbg_png",
+					"name":"game_dmbg_png"
 				}
 			]
 		}

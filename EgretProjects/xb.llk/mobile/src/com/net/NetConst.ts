@@ -14,6 +14,7 @@ class NetConst {
     public static S2C_gameOver: string = "gameOver";     //游戏结束
     
     //发送
+    public static C2S_login:string = "login";            //登录
     public static C2S_barrage: string = "barrage";       //发送弹幕
     public static C2S_upMap: string = "upMap";           //无可消除，随机地图，提交地图
     public static C2S_eliminate: string = "eliminate";   //玩家消除

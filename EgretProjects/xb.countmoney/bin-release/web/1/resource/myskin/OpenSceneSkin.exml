@@ -23,7 +23,7 @@
 		<e:Image id="openedBg" x="48" y="208" touchEnabled="false" source="open_opened.png_png"/>
 		<e:Label id="prizeResultLabel" x="48" y="522" width="545" verticalAlign="middle" textAlign="center" fontFamily="微软雅黑" size="40" height="56" textColor="0xF2E717"/>
 	</e:Group>
-	<e:Group id="phoneGroup" height="1136" width="640" x="0" y="0" visible="false">
+	<e:Group id="phoneGroup" height="1136" width="640" x="0" y="0">
 		<e:Rect id="phoneRect" height="1136" width="640" x="0" y="0" fillAlpha="0.7"/>
 		<e:Rect id="submitBtn" height="46" width="190" x="223" y="557"/>
 		<e:Image id="phoneTextBg" source="prize_phone_png" y="378" touchEnabled="false" x="89"/>

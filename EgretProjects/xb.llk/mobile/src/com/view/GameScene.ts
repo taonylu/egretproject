@@ -24,8 +24,8 @@ class GameScene extends BaseScene{
     private blockArr: Array<any> = new Array<any>();         //方块数组，二维数组，用于存放Block实例
     private rowMax: number = 8;      //地图最大行
     private colMax: number = 7;      //地图最大列
-    private blockWidth: number = 80; //方块宽
-    private blockHeight: number = 80;//方块高
+    private blockWidth: number = 64; //方块宽
+    private blockHeight: number = 64;//方块高
     private mapStartY: number = 0;   //方块起始位置
     private mapStartX: number = 0;
     
@@ -148,24 +148,25 @@ class GameScene extends BaseScene{
         this.tempMap = ArrayTool.copy2DArr(mapData);
 
         //获得当前地图的方块数量
-        for(var i: number = 0;i < this.rowMax;i++) {
-            for(var j: number = 0;j < this.colMax;j++) {
-                if(this.tempMap[i][j] > 0) {
-                    this.blockNum++;
-                }
-            }
-        }
+//        for(var i: number = 0;i < this.rowMax;i++) {
+//            for(var j: number = 0;j < this.colMax;j++) {
+//                if(this.tempMap[i][j] > 0) {
+//                    this.blockNum++;
+//                }
+//            }
+//        }
 
         //根据方块数量创建编号
-        this.initBlockData(this.blockNum);
+//        this.initBlockData(this.blockNum);
         //创建方块
         var index: number = 0; //已经生成的方块数
         for(var i = 0;i < this.rowMax;i++) {
             for(var j = 0;j < this.colMax;j++) {
                 if(this.tempMap[i][j] > 0) {
                     var block: BlockUI = this.blockPool.getObject();
-                    block.setSkin(this.blockData[index]);
-                    block.skinID = this.blockData[index];
+                    //block.setSkin(this.blockData[index]);
+                    //block.skinID = this.blockData[index];
+                    block.setSkin(this.tempMap[i][j]);
                     block.row = i;
                     block.col = j;
                     block.x = this.mapStartX + j * (this.blockWidth + 1);

@@ -134,25 +134,13 @@ class GameScene extends BaseScene{
         
         this.tempMap = ArrayTool.copy2DArr(mapData);
 
-        //获得当前地图的方块数量
-        for(var i: number = 0;i < this.rowMax;i++) {
-            for(var j: number = 0;j < this.colMax;j++) {
-                if(this.tempMap[i][j] > 0) {
-                    this.blockNum++;
-                }
-            }
-        }
-
-        //根据方块数量创建编号
-        this.initBlockData(this.blockNum);
         //创建方块
         var index: number = 0; //已经生成的方块数
         for(var i = 0;i < this.rowMax;i++) {
             for(var j = 0;j < this.colMax;j++) {
                 if(this.tempMap[i][j] > 0) {
                     var block: BlockUI = this.blockPool.getObject();
-                    block.setSkin(this.blockData[index]);
-                    block.skinID = this.blockData[index];
+                    block.setSkin(this.tempMap[i][j]);
                     block.row = i;
                     block.col = j;
                     block.name = i + "_" + j;
@@ -230,11 +218,14 @@ class GameScene extends BaseScene{
         
         egret.log("玩家消除方块:",id,pos);
         
-        var blockA:BlockUI = this.blockArr[pos[0][0]][pos[0][1]];
-        var blockB: BlockUI = this.blockArr[pos[1][0]][pos[1][1]];
-        if(blockA && blockB){
-            this.cancelBlock(blockA,blockB);
+        if(id == UserManager.getInstance().luckyUser){
+            var blockA: BlockUI = this.blockArr[pos[0][0]][pos[0][1]];
+            var blockB: BlockUI = this.blockArr[pos[1][0]][pos[1][1]];
+            if(blockA && blockB) {
+                this.cancelBlock(blockA,blockB);
+            }
         }
+        
     }
     
     //过关后，接收新关卡数据

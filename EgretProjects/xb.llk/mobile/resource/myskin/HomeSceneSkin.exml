@@ -1,9 +1,22 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="HomeSceneSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="HomeSceneSkin" width="480" height="852" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="bg" source="game_bg_png"/>
 	<e:Image id="title" source="game_title_png" y="15" x="30"/>
-	<e:Image id="waitBg" source="game_wait_png" x="108" y="132"/>
-	<e:Image id="ruleBtn" source="game_rulebtn_png" x="368" y="930"/>
-	<e:Image id="toolBtn" source="game_introbtn_png" x="42" y="932"/>
-	<e:Image id="danmuBtn" source="game_dmbtn_png" x="234" y="1102"/>
+	<e:Group id="contentGroup" height="701" width="480" x="0" y="116">
+		<e:Image id="waitBg" source="game_wait_png" x="59" y="14"/>
+		<e:Image id="ruleBtn" x="28" y="635" source="game_rulebtn_png"/>
+		<e:Image id="toolBtn" source="game_introbtn_png" x="262" y="634"/>
+		<e:Image id="danmuBtn" source="game_dmbtn_png" y="557" x="164"/>
+	</e:Group>
+	<e:Group id="ruleGroup" height="852" width="480" x="0" bottom="0">
+		<e:Rect id="closeRuleBtn" height="44" width="39" x="401" y="225"/>
+		<e:Image source="game_rulebg_png" x="41" y="217" touchEnabled="false"/>
+		<e:Label text="123" x="89" y="303" width="312" height="386" textColor="0x4F1010" fontFamily="微软雅黑" size="25"/>
+	</e:Group>
+	<e:Group id="dmGroup" height="852" width="480" x="0" bottom="0">
+		<e:Rect id="closeDmBtn" height="40" width="37" x="393" y="506"/>
+		<e:Rect id="sendDmBtn" width="77" y="570" height="40" x="333"/>
+		<e:Image source="game_dmbg_png" x="47" y="499" touchEnabled="false"/>
+		<e:EditableText id="dmLabel" width="234" height="56" text="标签" x="89" y="546" textColor="0x581919" fontFamily="微软雅黑" size="22"/>
+	</e:Group>
 </e:Skin>

@@ -84,13 +84,29 @@
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>
-        $("#code").qrcode({ width: 400, height:400,text: "http://www.baidu.com" });
+    	  var request = location.search;
+        $("#code").qrcode({ width: 400, height:400,text: "http://www.baidu.com" + request });
         var i=$("#code > canvas");
         var codeData=i[0].toDataURL();
         window["qrcodeUrl"] = codeData;
         window["logoUrl"] = "logo.jpg";
-    	
-
+		
+    	function Request(argname) //获取get的值
+		{ 
+			var url = document.location.href; 
+			var arrStr = url.substring(url.indexOf("?")+1).split("&"); 
+			//return arrStr; 
+			for(var i =0;i<arrStr.length;i++) 
+			{ 
+			var loc = arrStr[i].indexOf(argname+"="); 
+			if(loc!=-1) 
+			{ 
+			return arrStr[i].replace(argname+"=","").replace("?",""); 
+			break; 
+			} 
+			} 
+			return ""; 
+		}
     	
         egret.runEgret();
     </script>

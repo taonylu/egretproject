@@ -25,6 +25,7 @@ class HomeScene extends BaseScene{
     }
 
     public onEnable(): void {
+       
     }
 
     public onRemove(): void {
@@ -46,6 +47,12 @@ class HomeScene extends BaseScene{
      ///////////////////////////////////////////////////
     ///-----------------[网络处理]----------------------
     ///////////////////////////////////////////////////
+    
+    //-----------------------------发送数据----------------------------------
+    public sendLogin(){
+        var json = { "licence": egret.getOption("licence"), "rid":egret.getOption("rid")};
+        this.socket.sendMessage(NetConst.C2S_login, json);
+    }
 
     
     //-----------------------------接收数据----------------------------------
@@ -96,7 +103,7 @@ class HomeScene extends BaseScene{
 
     //游戏开始
     public revGameStart(data):void {
-        var mapData:any = data.mapData;        //地图信息
+        var mapData:any = data.mapdata;        //地图信息
         var luckyUser:string = data.luckyUser; //大屏幕显示的用户
         
         egret.log("游戏开始，幸运用户:",luckyUser);
