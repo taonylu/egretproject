@@ -5,6 +5,7 @@
  */
 var ClientSocket = (function () {
     function ClientSocket() {
+        this.connected = false; //是否连接
     }
     var d = __define,c=ClientSocket,p=c.prototype;
     ClientSocket.getInstance = function () {
@@ -19,18 +20,22 @@ var ClientSocket = (function () {
         var self = this;
         //连接成功 
         this.socket.on('connect', function () {
+            self.connected = true;
             self.onConnect();
         });
         //连接失败    
         this.socket.on('error', function (data) {
+            self.connected = false;
             self.onError(data);
         });
         //断开连接    
         this.socket.on('disconnect', function () {
+            self.connected = false;
             self.onDisconnect();
         });
         //尝试重新连接
         this.socket.on('reconnect_attempt', function () {
+            self.connected = false;
             self.onReconnectAttempt();
         });
         //////////////////////////////////////////////////////
@@ -46,7 +51,12 @@ var ClientSocket = (function () {
         });
         //关卡地图
         this.socket.on(NetConst.S2C_mapData, function (data) {
-            self.gameScene.revMapData(data);
+            if (MapManager.getInstance().level == null) {
+                self.homeScene.revMapData(data);
+            }
+            else {
+                self.gameScene.revMapData(data);
+            }
         });
         //游戏结束
         this.socket.on(NetConst.S2C_gameOver, function (data) {
@@ -75,7 +85,11 @@ var ClientSocket = (function () {
     //发送数据
     p.sendMessage = function (cmd, json) {
         console.log("send:" + json);
-        this.socket.emit(cmd, json);
+        if (this.connected) {
+            this.socket.emit(cmd, json);
+        }
+        else {
+        }
     };
     return ClientSocket;
 })();

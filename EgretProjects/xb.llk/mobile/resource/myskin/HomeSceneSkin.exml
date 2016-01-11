@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HomeSceneSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bg" source="game_bg_png"/>
+	<e:Image id="title" source="game_title_png" y="15" x="30"/>
+	<e:Image id="waitBg" source="game_wait_png" x="108" y="132"/>
+	<e:Image id="ruleBtn" source="game_rulebtn_png" x="368" y="930"/>
+	<e:Image id="toolBtn" source="game_introbtn_png" x="42" y="932"/>
+	<e:Image id="danmuBtn" source="game_dmbtn_png" x="234" y="1102"/>
+</e:Skin>

@@ -84,13 +84,13 @@
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>
-    	var request = location.search;
-        $("#code").qrcode({ width: 400, height:400,text: "http://www.baidu.com" + request });
+        $("#code").qrcode({ width: 400, height:400,text: "http://www.baidu.com" });
         var i=$("#code > canvas");
         var codeData=i[0].toDataURL();
         window["qrcodeUrl"] = codeData;
         window["logoUrl"] = "logo.jpg";
-	
+    	
+
     	
         egret.runEgret();
     </script>

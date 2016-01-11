@@ -19,6 +19,7 @@ var game_file_list = [
 	"bin-debug/com/common/MapManager.js",
 	"bin-debug/com/common/NumberTool.js",
 	"bin-debug/com/common/ObjectPool.js",
+	"bin-debug/com/common/QRCodeLoader.js",
 	"bin-debug/com/common/UserManager.js",
 	"bin-debug/com/constant/GameConst.js",
 	"bin-debug/com/GameManager.js",
