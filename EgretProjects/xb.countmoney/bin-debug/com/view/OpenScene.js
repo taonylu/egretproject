@@ -78,10 +78,10 @@ var OpenScene = (function (_super) {
         egret.Tween.removeTweens(this.openBg);
         this.openBg.rotation = 0;
         var json = JSON.parse(result);
-        egret.log("奖品ID:" + json.prizeid, "奖品名:" + json.prize);
+        egret.log("奖品ID:" + json.prizeid, "奖品名:" + json.msg);
         if (json.code == "200") {
             window["pass"] = json.pass;
-            this.showPrize(json.prizeid, json.prize);
+            this.showPrize(json.prizeid, json.msg);
         }
         else {
             GameManager.getInstance().shareUI.show();
@@ -113,7 +113,7 @@ var OpenScene = (function (_super) {
         this.prizeResultLabel.text = "获得" + prizeName;
         //测试 过一段时间出现提交手机号
         var self = this;
-        egret.Tween.get(this).wait(2500).call(function () {
+        egret.Tween.get(this).wait(1000).call(function () {
             self.phoneGroup.visible = true;
         }, this);
     };
@@ -168,6 +168,7 @@ var OpenScene = (function (_super) {
         var url = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/addTel/tel/" + this.phoneLabel.text;
         var msg = "";
         http.send(url, egret.HttpMethod.GET, msg, this);
+        GameConst.phone = this.phoneLabel.text;
         //超时
         var self = this;
         egret.Tween.get(this.submitBtn).wait(3000).call(function () {
@@ -178,10 +179,7 @@ var OpenScene = (function (_super) {
     p.submitComplete = function (result) {
         egret.Tween.removeTweens(this.submitBtn);
         this.configListeners();
-        if (this.bSubmit == false) {
-            this.phoneGroup.visible = false;
-        }
-        this.bSubmit = true;
+        this.phoneGroup.visible = false;
         var json = JSON.parse(result);
         alert(json.msg);
     };

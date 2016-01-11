@@ -162,7 +162,7 @@
 	{
 		"name":"prize7_png",
 		"type":"image",
-		"url":"assets/prize7.png"
+		"url":"assets/prize7.png?ver=1.0"
 	},
 	{
 		"name":"count3_png",
@@ -232,7 +232,7 @@
 	{
 		"name":"prize8_png",
 		"type":"image",
-		"url":"assets/prize8.png"
+		"url":"assets/prize8.png?ver=1.0"
 	},
 	{
 		"name":"detail_title_png",

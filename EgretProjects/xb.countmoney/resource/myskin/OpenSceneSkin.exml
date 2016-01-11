@@ -18,8 +18,8 @@
 		<e:Image id="prize4" source="prize4_png" x="18" y="30"/>
 		<e:Image id="prize5" source="prize5_png" x="-2" y="36"/>
 		<e:Image id="prize6" source="prize6_png" x="-16" y="38"/>
-		<e:Image id="prize7" source="prize7_png" x="-2" y="38"/>
-		<e:Image id="prize8" source="prize8_png" x="134" y="122"/>
+		<e:Image id="prize7" x="104" y="102" source="prize7_png"/>
+		<e:Image id="prize8" x="-22" y="48" source="prize8_png"/>
 		<e:Image id="openedBg" x="48" y="208" touchEnabled="false" source="open_opened.png_png"/>
 		<e:Label id="prizeResultLabel" x="48" y="522" width="545" verticalAlign="middle" textAlign="center" fontFamily="微软雅黑" size="40" height="56" textColor="0xF2E717"/>
 	</e:Group>

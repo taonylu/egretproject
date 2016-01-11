@@ -8,9 +8,8 @@ var MyPrizeUI = (function (_super) {
     //private detailScroller:eui.Scroller; //详情页滚动条
     function MyPrizeUI() {
         _super.call(this, "MyPrizeUISkin");
-        this.code = "AAA"; //兑换码
         this.detailList = new Array(); //详情页分页Group
-        this.prizeNum = 7;
+        this.prizeNum = 8;
         //this.percentHeight = 100;
     }
     var d = __define,c=MyPrizeUI,p=c.prototype;
@@ -55,15 +54,16 @@ var MyPrizeUI = (function (_super) {
         this.showDetail(parseInt(this.prizeID1));
     };
     p.showDetail = function (prizeID) {
+        //清理详情页
+        this.codeLabel.text = "";
         //显示详情页
         this.codeLabel.text = "";
         for (var i = 0; i < this.prizeNum; i++) {
-            this.detailList[i].visible = false;
-            ;
+            this.detailList[i] && (this.detailList[i].visible = false);
         }
         if (this.detailList[prizeID - 1]) {
             this.detailList[prizeID - 1].visible = true; //奖品id 1-8， 详情页0-6，现金无详情页，所以少一页
-            this.codeLabel.text = "兑换码:" + this.code;
+            this.codeLabel.text = "兑换号:" + GameConst.phone;
             this.detailGroup.visible = true;
             //监听
             this.detailGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onDetailTouch, this);

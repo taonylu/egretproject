@@ -13207,6 +13207,7 @@ var eui;
             var horizontalBar = this.horizontalScrollBar;
             var verticalBar = this.verticalScrollBar;
             if (horizontalBar && horizontalBar.visible || verticalBar && verticalBar.visible) {
+                //修改
                 if (!values[2 /* autoHideTimer */]) {
                    // values[2 /* autoHideTimer */] = new egret.Timer(200, 1);
                     //values[2 /* autoHideTimer */].addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.onAutoHideTimer, this);
@@ -13266,6 +13267,7 @@ var eui;
                 this.verticalScrollBar.touchChildren = false;
                 this.verticalScrollBar.touchEnabled = false;
                 this.verticalScrollBar.viewport = this.viewport;
+                //修改
                 //this.verticalScrollBar.visible = false;
             }
         };

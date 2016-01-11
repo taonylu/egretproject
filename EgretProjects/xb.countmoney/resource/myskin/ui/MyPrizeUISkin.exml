@@ -12,7 +12,7 @@
 		<e:Rect id="codeBg" height="36" width="350" y="532" fillColor="0xFEFAFA" x="145"/>
 		<e:Image id="detail_title" source="detail_title_png" y="12" x="102"/>
 		<e:Image id="detail_logo" source="detail_log_png" x="47" bottom="68"/>
-		<e:Group id="detail7" height="1136" width="640">
+		<e:Group id="detail8" height="1136" width="640">
 			<e:Image source="detail7_03_png" x="61" y="178"/>
 			<e:Image source="detail7_07_png" x="89" y="620"/>
 		</e:Group>
