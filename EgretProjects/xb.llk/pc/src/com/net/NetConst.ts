@@ -6,7 +6,11 @@
 class NetConst {
     
     public static url: string = "http://192.168.1.103:3000"; //IP、端口号
-
+    
+    //-----------------发送数据----------------------
+    public static C2S_login:string = "login";                //请求登录
+    
+    //-----------------接收数据----------------------
     public static S2C_barrage: string = "barrage";               //弹幕
     public static S2C_loginComplete: string = "loginComplete";   //登录完成
     public static S2C_userJoin: string = "userJoin";         //玩家加入

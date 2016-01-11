@@ -86,6 +86,7 @@ class ClientSocket {
     //连接成功
     private onConnect(): void {
         egret.log("connenct succss");
+        this.homeScene.sendLogin();
     }
         
     //连接失败
@@ -105,7 +106,6 @@ class ClientSocket {
     
     //发送数据
     public sendMessage(cmd: string,json): void {
-        console.log("send:" + json);
         if(this.connected ){
             this.socket.emit(cmd,json);
         }else{

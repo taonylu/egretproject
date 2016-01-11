@@ -23,7 +23,7 @@ class GameManager {
         LayerManager.getInstance().runScene(this.homeScene);
         
         //连接socket
-        //socket.startConnect(NetConst.url);
+        socket.startConnect(NetConst.url);
         
         //模拟数据
 //        var json = { "mapdata": []};

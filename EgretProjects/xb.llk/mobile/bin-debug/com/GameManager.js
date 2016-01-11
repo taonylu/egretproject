@@ -22,7 +22,7 @@ var GameManager = (function () {
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);
         //连接socket
-        //socket.startConnect(NetConst.url);
+        socket.startConnect(NetConst.url);
         //模拟数据
         //        var json = { "mapdata": []};
         //        json.mapdata = [

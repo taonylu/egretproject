@@ -8,6 +8,9 @@ var NetConst = (function () {
     }
     var d = __define,c=NetConst,p=c.prototype;
     NetConst.url = "http://192.168.1.103:3000"; //IP、端口号
+    //-----------------发送数据----------------------
+    NetConst.C2S_login = "login"; //请求登录
+    //-----------------接收数据----------------------
     NetConst.S2C_barrage = "barrage"; //弹幕
     NetConst.S2C_loginComplete = "loginComplete"; //登录完成
     NetConst.S2C_userJoin = "userJoin"; //玩家加入

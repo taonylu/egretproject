@@ -83,6 +83,7 @@ var ClientSocket = (function () {
     //连接成功
     p.onConnect = function () {
         egret.log("connenct succss");
+        this.homeScene.sendLogin();
     };
     //连接失败
     p.onError = function (data) {
@@ -98,7 +99,6 @@ var ClientSocket = (function () {
     };
     //发送数据
     p.sendMessage = function (cmd, data) {
-        console.log("send:" + data);
         this.socket.emit(cmd, data);
     };
     return ClientSocket;

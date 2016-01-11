@@ -19,8 +19,8 @@ var GameScene = (function (_super) {
         this.blockArr = new Array(); //方块数组，二维数组，用于存放Block实例
         this.rowMax = 8; //地图最大行
         this.colMax = 7; //地图最大列
-        this.blockWidth = 80; //方块宽
-        this.blockHeight = 80; //方块高
+        this.blockWidth = 64; //方块宽
+        this.blockHeight = 64; //方块高
         this.mapStartY = 0; //方块起始位置
         this.mapStartX = 0;
         //------------------[游戏变量]--------------------
@@ -115,23 +115,24 @@ var GameScene = (function (_super) {
         var mapData = MapManager.getInstance().level;
         this.tempMap = ArrayTool.copy2DArr(mapData);
         //获得当前地图的方块数量
-        for (var i = 0; i < this.rowMax; i++) {
-            for (var j = 0; j < this.colMax; j++) {
-                if (this.tempMap[i][j] > 0) {
-                    this.blockNum++;
-                }
-            }
-        }
+        //        for(var i: number = 0;i < this.rowMax;i++) {
+        //            for(var j: number = 0;j < this.colMax;j++) {
+        //                if(this.tempMap[i][j] > 0) {
+        //                    this.blockNum++;
+        //                }
+        //            }
+        //        }
         //根据方块数量创建编号
-        this.initBlockData(this.blockNum);
+        //        this.initBlockData(this.blockNum);
         //创建方块
         var index = 0; //已经生成的方块数
         for (var i = 0; i < this.rowMax; i++) {
             for (var j = 0; j < this.colMax; j++) {
                 if (this.tempMap[i][j] > 0) {
                     var block = this.blockPool.getObject();
-                    block.setSkin(this.blockData[index]);
-                    block.skinID = this.blockData[index];
+                    //block.setSkin(this.blockData[index]);
+                    //block.skinID = this.blockData[index];
+                    block.setSkin(this.tempMap[i][j]);
                     block.row = i;
                     block.col = j;
                     block.x = this.mapStartX + j * (this.blockWidth + 1);

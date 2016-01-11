@@ -12,9 +12,11 @@ var HomeScene = (function (_super) {
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
         this.gonglueGroup.visible = false;
-        ;
     };
     p.onEnable = function () {
+        this.startBtn.scaleX = 1;
+        this.startBtn.scaleY = 1;
+        egret.Tween.get(this.startBtn, { loop: true }).to({ scaleX: 1.05, scaleY: 1.05 }, 800).to({ scaleX: 1, scaleY: 1 }, 800);
         this.gonglueBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onGongLueBtnTouch, this);
         this.startBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onStartBtnTouch, this);
     };

@@ -32,6 +32,11 @@ var HomeScene = (function (_super) {
     ///////////////////////////////////////////////////
     ///-----------------[网络处理]----------------------
     ///////////////////////////////////////////////////
+    //-----------------------------发送数据----------------------------------
+    p.sendLogin = function () {
+        var json = { "licence": egret.getOption("licence"), "rid": egret.getOption("rid") };
+        this.socket.sendMessage(NetConst.C2S_login, json);
+    };
     //-----------------------------接收数据----------------------------------
     //返回登录成功
     p.revLoginComplete = function (data) {
@@ -73,7 +78,7 @@ var HomeScene = (function (_super) {
     };
     //游戏开始
     p.revGameStart = function (data) {
-        var mapData = data.mapData; //地图信息
+        var mapData = data.mapdata; //地图信息
         var luckyUser = data.luckyUser; //大屏幕显示的用户
         egret.log("游戏开始，幸运用户:", luckyUser);
         MapManager.getInstance().level = mapData;
