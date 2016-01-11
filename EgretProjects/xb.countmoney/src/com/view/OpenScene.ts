@@ -116,11 +116,11 @@ class OpenScene extends BaseScene{
 
         var json = JSON.parse(result);
         
-        egret.log("奖品ID:"+ json.prizeid,"奖品名:"+ json.prize);
+        egret.log("奖品ID:"+ json.prizeid,"奖品名:"+ json.msg);
         
         if(json.code == "200"){  //成功
             window["pass"] = json.pass;
-            this.showPrize(json.prizeid, json.prize);
+            this.showPrize(json.prizeid,json.msg);
         }else{   //失败
             GameManager.getInstance().shareUI.show();
         }
@@ -158,7 +158,7 @@ class OpenScene extends BaseScene{
         
         //测试 过一段时间出现提交手机号
         var self:OpenScene = this;
-        egret.Tween.get(this).wait(2500).call(function(){
+        egret.Tween.get(this).wait(1000).call(function(){
             self.phoneGroup.visible = true;
             },this);
     }
@@ -229,7 +229,9 @@ class OpenScene extends BaseScene{
         var url: string = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/addTel/tel/" + this.phoneLabel.text;
         var msg: string = "";
         http.send(url,egret.HttpMethod.GET,msg,this);
-
+        
+        GameConst.phone = this.phoneLabel.text;
+        
         //超时
         var self:OpenScene = this;
         egret.Tween.get(this.submitBtn).wait(3000).call(function(){
@@ -244,10 +246,7 @@ class OpenScene extends BaseScene{
         egret.Tween.removeTweens(this.submitBtn);
         this.configListeners();
         
-        if(this.bSubmit == false){
-            this.phoneGroup.visible = false;
-        }
-        this.bSubmit = true;
+        this.phoneGroup.visible = false;
         
         var json = JSON.parse(result);
         alert(json.msg);

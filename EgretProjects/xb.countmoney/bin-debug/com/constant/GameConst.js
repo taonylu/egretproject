@@ -8,6 +8,7 @@ var GameConst = (function () {
     }
     var d = __define,c=GameConst,p=c.prototype;
     GameConst.haveChance = true; //是否还有拆红包的机会
+    GameConst.phone = "";
     return GameConst;
 })();
 egret.registerClass(GameConst,'GameConst');
