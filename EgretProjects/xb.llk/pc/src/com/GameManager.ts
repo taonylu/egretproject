@@ -1,6 +1,6 @@
 /**
  * 游戏管理类
- * @author 
+ * @author  陈凯
  *
  */
 class GameManager {
@@ -30,34 +30,41 @@ class GameManager {
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);  
         
+        //链接socket
+        socket.startConnect(NetConst.url);
+        
         //模拟数据
         //登录成功
-        var loginJson = {"status":1, "msg": ""};
-        this.homeScene.revLoginComplete(loginJson);
+//        var loginJson = {"status":1, "msg": ""};
+//        this.homeScene.revLoginComplete(loginJson);
         
         
         //用户进入
-        var userJoin = {
-            "avatar": "resource/assets/testhead.png",  //用户头像
-            "name":"我是用户1",      //用户名
-            "id": "gdfer1"          //用户id
-        };
-        
-        this.homeScene.revUserJoin(userJoin);
+//        var userJoin = {
+//            "avatar": "resource/assets/testhead.png",  //用户头像
+//            "name":"我是用户1",      //用户名
+//            "id": "gdfer1"          //用户id
+//        };
+//        
+//        this.homeScene.revUserJoin(userJoin);
         
         //游戏开始
-        var json = { "mapData": [],"luckyUser": 1 };
-        json.mapData = [
-            [1,0,0,0,1,0,0],
-            [0,0,1,0,0,1,0],
-            [0,0,0,0,0,0,0],
-            [0,0,0,0,0,,0],
-            [0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0]
-        ];
-        this.homeScene.revGameStart(json);
+//        var json = { "mapData": [],"luckyUser": 1 };
+//        json.mapData = [
+//            [1,0,0,0,1,0,0],
+//            [0,0,1,0,0,1,0],
+//            [0,0,0,0,0,0,0],
+//            [0,0,0,0,0,,0],
+//            [0,0,0,0,0,0,0],
+//            [0,0,0,0,0,0,0],
+//            [0,0,0,0,0,0,0],
+//            [0,0,0,0,0,0,0]
+//        ];
+//        this.homeScene.revGameStart(json);
+        
+        //弹幕测试
+        //GameManager.getInstance().barrageUI.showOne("123");
+       // GameManager.getInstance().barrageUI.showOne("312");
         
         //游戏消除
         var self:GameManager = this;
@@ -125,10 +132,7 @@ class GameManager {
 //            var json = {"winners":["4","1","2"]};
 //            self.gameScene.revGameOver(json);
 //        });
-        
-        
-        //链接socket
-        //socket.startConnect(NetConst.url);
+
     }
     
     

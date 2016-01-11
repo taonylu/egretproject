@@ -24,7 +24,15 @@ var HomeScene = (function (_super) {
         for (var i = 0; i < this.userMax; i++) {
             this.headUIList.push(this["headUI" + i]);
         }
+        //生成二维码
+        var qrcdeLoader = new QRCodeLoader();
+        qrcdeLoader.load(window["qrcodeUrl"], 400, 400, window["logoUrl"]);
+        this.qrcodeGroup.addChild(qrcdeLoader);
     };
+    ///////////////////////////////////////////////////
+    ///-----------------[网络处理]----------------------
+    ///////////////////////////////////////////////////
+    //-----------------------------接收数据----------------------------------
     //返回登录成功
     p.revLoginComplete = function (data) {
         var status = data.status;

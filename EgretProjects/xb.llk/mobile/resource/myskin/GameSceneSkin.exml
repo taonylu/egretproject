@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="GameSceneSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="game_bg_png"/>
-	<e:Image id="title" source="game_title_png" y="9" x="30"/>
-	<e:Image source="game_wait_png" y="166" x="82"/>
+	<e:Image source="game_bar_png" y="68" x="47"/>
+	<e:Image source="game_bareffect_png" x="416" y="1"/>
+	<e:Group id="blockGroup" height="640" width="560" y="266" x="80">
+	</e:Group>
 </e:Skin>

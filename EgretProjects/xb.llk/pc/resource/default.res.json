@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"game_bar_png,game_bareffect_png,game_blockbg_png,game_head_png,game_intro_png,game_introicon_png,game_namebg_jpg,game_showicon_png,game_skill0_png,game_skill1_png,game_skill2_png,game_skillbg_png,home_code_jpg,home_codetext_png,home_entergame_png,home_img_jpg,home_namebg_png,home_thx_png,home_thxbg_png,home_title_png,homge_bg_png,block10_png,block1_png,block2_png,block3_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png,block11_png,cloud_png,select0_png,select1_png",
+			"keys":"game_bar_png,game_bareffect_png,game_blockbg_png,game_head_png,game_intro_png,game_introicon_png,game_namebg_jpg,game_showicon_png,game_skill0_png,game_skill1_png,game_skill2_png,game_skillbg_png,home_codetext_png,home_entergame_png,home_img_jpg,home_namebg_png,home_thx_png,home_thxbg_png,home_title_png,homge_bg_png,block10_png,block1_png,block2_png,block3_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png,block11_png,cloud_png,select0_png,select1_png",
 			"name":"game"
 		}
 	],
@@ -69,11 +69,6 @@
 			"name":"game_skillbg_png",
 			"type":"image",
 			"url":"assets/game_skillbg.png"
-		},
-		{
-			"name":"home_code_jpg",
-			"type":"image",
-			"url":"assets/home_code.jpg"
 		},
 		{
 			"name":"home_codetext_png",

@@ -44,6 +44,8 @@ var GameScene = (function (_super) {
         this.startGame();
     };
     p.onRemove = function () {
+        //清理地图
+        MapManager.getInstance().level = null;
     };
     p.startGame = function () {
         this.createMap();
@@ -89,7 +91,6 @@ var GameScene = (function (_super) {
     ///////////////////////////////////////////////////
     p.initView = function () {
         this._stage = GameConst.stage;
-        //this.mapStartX = (this._stage.stageWidth - this.blockWidth * this.colMax) / 2;
         for (var i = 0; i < this.rowMax; i++) {
             this.blockArr.push(new Array());
         }
@@ -133,7 +134,6 @@ var GameScene = (function (_super) {
                     block.skinID = this.blockData[index];
                     block.row = i;
                     block.col = j;
-                    block.name = i + "_" + j;
                     block.x = this.mapStartX + j * (this.blockWidth + 1);
                     block.y = this.mapStartY + i * (this.blockHeight + 1) - this._stage.stageHeight;
                     this.blockGroup.addChild(block);
@@ -144,7 +144,7 @@ var GameScene = (function (_super) {
             }
         }
     };
-    //初始化方块数据
+    //根据方块数量，随机相同数量成对的方块皮肤，并打乱顺序
     p.initBlockData = function (blockNum) {
         //方块数量除以2只创建一半编号另一半是相同的。
         for (var i = 0; i < blockNum / 2; i++) {
@@ -184,6 +184,8 @@ var GameScene = (function (_super) {
                     this.addChild(boom2);
                     boom1.play(this.newTarget);
                     boom2.play(this.oldTarget);
+                    //发送消除信息
+                    this.sendEliminate(this.oldTarget, this.newTarget);
                     //两方块的消失
                     this.oldTarget.hide();
                     this.newTarget.hide();
@@ -440,35 +442,51 @@ var GameScene = (function (_super) {
         }
         return true;
     };
-    //删除指定两个方块
-    p.cancelBlock = function (blockA, blockB) {
-        //画线
-        this.lineSprite.graphics.lineStyle(5, 0xff0000);
-        var x1 = blockA.col * this.blockWidth + this.blockWidth / 2;
-        var y1 = blockA.row * this.blockHeight + this.blockHeight / 2;
-        var x2 = blockB.col * this.blockWidth + this.blockWidth / 2;
-        var y2 = blockB.row * this.blockHeight + this.blockHeight / 2;
-        this.lineSprite.graphics.moveTo(x1, y1);
-        this.lineSprite.graphics.lineTo(x2, y2);
-        //画完线清空路径数组
-        this.lineSprite.graphics.endFill();
-        //清理路线
-        var self = this;
-        setTimeout(function () {
-            self.lineSprite.graphics.clear();
-        }, 300);
-        //爆炸效果
-        var boom1 = this.boomPool.getObject();
-        var boom2 = this.boomPool.getObject();
-        boom1.play(blockA);
-        boom2.play(blockB);
-        //两方块的消失
-        blockA.hide();
-        blockB.hide();
-        this.tempMap[blockA.row][blockA.col] = 0;
-        this.tempMap[blockB.row][blockB.col] = 0;
-        this.blockArr[blockA.row][blockA.col] = null;
-        this.blockArr[blockB.row][blockB.col] = null;
+    //点击提示
+    p.tishi = function () {
+        this.oldTarget && this.selectOld.hide();
+        this.newTarget && this.selectNew.hide();
+        this.oldTarget = null;
+        this.newTarget = null;
+        if (this.bangzhu()) {
+            egret.log("提示方块:", this.oldTarget.row, this.oldTarget.col, this.newTarget.row, this.newTarget.col);
+        }
+    };
+    //帮助找到两个通路的方块
+    p.bangzhu = function () {
+        for (var i = 0; i < this.rowMax - 1; i++) {
+            for (var j = 0; j < this.colMax - 1; j++) {
+                if (this.tempMap[i][j] > 0) {
+                    //每一个方块遍历每一个元素
+                    for (var m = i; m < this.rowMax - 1; m++) {
+                        var n;
+                        if (m == i) {
+                            n = j + 1;
+                        }
+                        else {
+                            n = 0;
+                        }
+                        for (; n < this.colMax - 1; n++) {
+                            if (this.tempMap[m][n] > 0) {
+                                var obj1 = this.blockArr[i][j];
+                                var obj2 = this.blockArr[m][n];
+                                //检查两者是否通路
+                                if (obj1.skinID == obj2.skinID) {
+                                    if (this.checkRoad(obj1, obj2)) {
+                                        //只提示两个方块不记录线路
+                                        this.route.length = 0;
+                                        this.oldTarget = obj1;
+                                        this.newTarget = obj2;
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     };
     ///////////////////////////////////////////////////
     ///-----------------[网络处理]----------------------
@@ -498,11 +516,12 @@ var GameScene = (function (_super) {
     //游戏结束
     p.revGameOver = function (data) {
         var winners = data.winners; //前三名玩家ID
-        egret.log("revGameOver:" + winners[0], winners[1], winners[2]);
+        egret.log("游戏结束：" + winners[0], winners[1], winners[2]);
     };
     //过关后，接收新关卡数据
     p.revMapData = function (data) {
         var mapData = data.mapdata;
+        egret.log("下一关");
         //重置地图数据，进入下一关
         MapManager.getInstance().level = mapData;
         this.nextLevel();
@@ -511,7 +530,7 @@ var GameScene = (function (_super) {
     p.revPro = function (data) {
         var type = data.type; //道具类型
         var mapData = data.mapdata; //道具使用后影响的位置
-        egret.log("revPro:", type);
+        egret.log("使用道具:", type);
         if (type == "1") {
             MapManager.getInstance().level = mapData;
             this.nextLevel();

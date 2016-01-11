@@ -123,6 +123,11 @@
 					"isFolder":false,
 					"key":"game_wait_png",
 					"name":"game_wait_png"
+				},
+				{
+					"isFolder":false,
+					"key":"cloud_png",
+					"name":"cloud_png"
 				}
 			]
 		}

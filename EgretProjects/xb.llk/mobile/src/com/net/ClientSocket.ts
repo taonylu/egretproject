@@ -9,6 +9,9 @@ class ClientSocket {
     
     public homeScene: HomeScene;            //主页场景
     public gameScene: GameScene;            //游戏场景
+    
+    public connected:Boolean = false;   //是否连接
+    
 
     public static getInstance(): ClientSocket {
         if(this.instance == null) {
@@ -21,26 +24,29 @@ class ClientSocket {
 
         //连接socket
         this.socket = io.connect(url);
-         
         var self: ClientSocket = this;
         
         //连接成功 
         this.socket.on('connect',function() {
+            self.connected = true;
             self.onConnect();
         });    
             
         //连接失败    
         this.socket.on('error',function(data) {
+            self.connected = false;
             self.onError(data);
         });   
             
         //断开连接    
         this.socket.on('disconnect',function() {
+            self.connected = false;
             self.onDisconnect();
         });  
         
         //尝试重新连接
         this.socket.on('reconnect_attempt',function() {
+            self.connected = false;
             self.onReconnectAttempt();
         }); 
         
@@ -60,7 +66,11 @@ class ClientSocket {
         
         //关卡地图
         this.socket.on(NetConst.S2C_mapData,function(data) {
-            self.gameScene.revMapData(data);
+            if(MapManager.getInstance().level == null){
+                self.homeScene.revMapData(data);
+            }else{
+                self.gameScene.revMapData(data);
+            }
         });
         
         //游戏结束
@@ -96,7 +106,11 @@ class ClientSocket {
     //发送数据
     public sendMessage(cmd: string,json): void {
         console.log("send:" + json);
-        this.socket.emit(cmd,json);
+        if(this.connected ){
+            this.socket.emit(cmd,json);
+        }else{
+            //TODO 连接已断开
+        } 
     }
     
 }

@@ -10,6 +10,8 @@ class HomeScene extends BaseScene{
     private headUIList:Array<HeadUI>;        //头像数组
     private userMax:number = 8;              //用户最大数量
     
+    private qrcodeGroup:eui.Group;
+    
     public constructor() {
         super("HomeSceneSkin");
 	}
@@ -35,8 +37,18 @@ class HomeScene extends BaseScene{
         for(var i: number = 0;i < this.userMax;i++) {
             this.headUIList.push(this["headUI" + i]);
         }
-
+        //生成二维码
+        var qrcdeLoader:QRCodeLoader = new QRCodeLoader();
+        qrcdeLoader.load(window["qrcodeUrl"], 400,400, window["logoUrl"]);
+        this.qrcodeGroup.addChild(qrcdeLoader);
     }
+    
+     ///////////////////////////////////////////////////
+    ///-----------------[网络处理]----------------------
+    ///////////////////////////////////////////////////
+
+    
+    //-----------------------------接收数据----------------------------------
     
     //返回登录成功
     public revLoginComplete(data) {

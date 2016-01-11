@@ -65,7 +65,8 @@ class GameScene extends BaseScene{
     }
 
     public onRemove(): void {
-        
+        //清理地图
+        MapManager.getInstance().level = null;
     }
     
     private startGame(): void {
@@ -117,7 +118,6 @@ class GameScene extends BaseScene{
     ///////////////////////////////////////////////////
     private initView(): void {
         this._stage = GameConst.stage;
-        //this.mapStartX = (this._stage.stageWidth - this.blockWidth * this.colMax) / 2;
         for(var i:number=0;i<this.rowMax;i++){
             this.blockArr.push(new Array<BlockUI>());
         }
@@ -168,7 +168,6 @@ class GameScene extends BaseScene{
                     block.skinID = this.blockData[index];
                     block.row = i;
                     block.col = j;
-                    block.name = i + "_" + j;
                     block.x = this.mapStartX + j * (this.blockWidth + 1);
                     block.y = this.mapStartY + i * (this.blockHeight + 1) - this._stage.stageHeight;
                     this.blockGroup.addChild(block);
@@ -180,7 +179,7 @@ class GameScene extends BaseScene{
         }
     }
 
-    //初始化方块数据
+    //根据方块数量，随机相同数量成对的方块皮肤，并打乱顺序
     public initBlockData(blockNum: number): void {
         //方块数量除以2只创建一半编号另一半是相同的。
         for(var i: number = 0;i < blockNum / 2;i++) {
@@ -222,6 +221,8 @@ class GameScene extends BaseScene{
                     this.addChild(boom2);
                     boom1.play(this.newTarget);
                     boom2.play(this.oldTarget);
+                    //发送消除信息
+                    this.sendEliminate(this.oldTarget, this.newTarget);
                     //两方块的消失
                     this.oldTarget.hide();
                     this.newTarget.hide();
@@ -237,7 +238,7 @@ class GameScene extends BaseScene{
                     this.selectOld.hide();
                     this.selectNew.hide();
                     this.isSelect = false;
-                    
+
                     //检查游戏是否结束
 //                    if(this.checkGameOver()) {
 //                        this.nextLevel();
@@ -488,41 +489,54 @@ class GameScene extends BaseScene{
         return true;
     }
     
-    //删除指定两个方块
-    private cancelBlock(blockA:BlockUI, blockB:BlockUI):void{
-        //画线
-        this.lineSprite.graphics.lineStyle(5,0xff0000);
-        
-        var x1: number = blockA.col * this.blockWidth + this.blockWidth / 2;
-        var y1: number = blockA.row * this.blockHeight + this.blockHeight / 2;
-        var x2: number = blockB.col * this.blockWidth + this.blockWidth / 2;
-        var y2: number = blockB.row * this.blockHeight + this.blockHeight / 2;
-        
-        this.lineSprite.graphics.moveTo(x1,y1);
-        this.lineSprite.graphics.lineTo(x2,y2);
-     
-        //画完线清空路径数组
-        this.lineSprite.graphics.endFill();
-
-        //清理路线
-        var self: GameScene = this;
-        setTimeout(function(): void {
-            self.lineSprite.graphics.clear();
-        },300);
-        
-        
-        //爆炸效果
-        var boom1: BoomUI = this.boomPool.getObject();
-        var boom2: BoomUI = this.boomPool.getObject();
-        boom1.play(blockA);
-        boom2.play(blockB);
-        //两方块的消失
-        blockA.hide();
-        blockB.hide();
-        this.tempMap[blockA.row][blockA.col] = 0;
-        this.tempMap[blockB.row][blockB.col] = 0;
-        this.blockArr[blockA.row][blockA.col] = null;
-        this.blockArr[blockB.row][blockB.col] = null;
+    //点击提示
+    public tishi(): void {
+        this.oldTarget && this.selectOld.hide();
+        this.newTarget && this.selectNew.hide();
+        this.oldTarget = null;
+        this.newTarget = null;
+        if(this.bangzhu()) {
+            egret.log("提示方块:" , this.oldTarget.row, this.oldTarget.col, this.newTarget.row, this.newTarget.col);
+           // this.oldTarget.startFlash();
+           // this.newTarget.startFlash();
+        }
+    }
+    
+    //帮助找到两个通路的方块
+    private bangzhu(): boolean {
+        for(var i: number = 0;i < this.rowMax - 1;i++) {   //i,j当前方块行列
+            for(var j: number = 0;j < this.colMax - 1;j++) {
+                if(this.tempMap[i][j] > 0) {
+                    //每一个方块遍历每一个元素
+                    for(var m: number = i;m < this.rowMax - 1;m++) {  //m,n检测的方块行列
+                        var n: number;
+                        if(m == i) {   //m=i，同一行，则检查的是自己，所以列+1
+                            n = j + 1;
+                        }
+                        else {
+                            n = 0;
+                        }
+                        for(;n< this.colMax-1;n++) {
+                            if(this.tempMap[m][n] > 0) {
+                                var obj1: BlockUI = this.blockArr[i][j];
+                                var obj2: BlockUI = this.blockArr[m][n];
+                                //检查两者是否通路
+                                if(obj1.skinID == obj2.skinID) {
+                                    if(this.checkRoad(obj1,obj2)) {
+                                        //只提示两个方块不记录线路
+                                        this.route.length = 0;
+                                        this.oldTarget = obj1;
+                                        this.newTarget = obj2;
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
     
     ///////////////////////////////////////////////////
@@ -545,8 +559,9 @@ class GameScene extends BaseScene{
     
     //发送消除，pos是二维数组
     public sendEliminate(blockA:BlockUI, blockB:BlockUI): void {
-        var json = {"pos":[[blockA.row, blockA.col], [blockB.row, blockB.col]]};
-        this.socket.sendMessage(NetConst.C2S_eliminate, json);
+            var json = { "pos": [[blockA.row,blockA.col],[blockB.row,blockB.col]] };
+            this.socket.sendMessage(NetConst.C2S_eliminate,json);
+            
     }
     
     //发送用户使用道具
@@ -560,12 +575,13 @@ class GameScene extends BaseScene{
     //游戏结束
     public revGameOver(data): void {
         var winners: any = data.winners;  //前三名玩家ID
-        egret.log("revGameOver:" + winners[0],winners[1],winners[2]);
+        egret.log("游戏结束：" + winners[0],winners[1],winners[2]);
     }
     
     //过关后，接收新关卡数据
     public revMapData(data): void {
         var mapData = data.mapdata;
+        egret.log("下一关" );
         //重置地图数据，进入下一关
         MapManager.getInstance().level = mapData;
         this.nextLevel();
@@ -576,7 +592,7 @@ class GameScene extends BaseScene{
         var type: string = data.type;  //道具类型
         var mapData = data.mapdata;    //道具使用后影响的位置
         
-        egret.log("revPro:",type);
+        egret.log("使用道具:",type);
         
         if(type == "1"){  //打乱
             MapManager.getInstance().level = mapData;

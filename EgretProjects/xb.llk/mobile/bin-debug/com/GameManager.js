@@ -21,6 +21,21 @@ var GameManager = (function () {
         LayerManager.getInstance().initialize(main);
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);
+        //连接socket
+        //socket.startConnect(NetConst.url);
+        //模拟数据
+        //        var json = { "mapdata": []};
+        //        json.mapdata = [
+        //            [1,0,0,0,1,0,1],
+        //            [0,0,1,0,0,1,0],
+        //            [0,0,1,0,0,0,1],
+        //            [1,0,0,1,0,1,1],
+        //            [0,0,1,0,0,0,0],
+        //            [1,0,0,0,0,0,0],
+        //            [0,0,0,0,0,1,0],
+        //            [1,0,0,1,0,0,0]
+        //        ];
+        //        this.homeScene.revMapData(json);
     };
     GameManager.getInstance = function () {
         if (this.instance == null) {
