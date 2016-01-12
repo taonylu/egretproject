@@ -227,7 +227,6 @@ var OpenScene = (function (_super) {
             alert(json.msg);
         }
         else {
-            GameConst.haveChance = false;
             GameManager.getInstance().shareUI.show();
             alert(json.msg);
         }

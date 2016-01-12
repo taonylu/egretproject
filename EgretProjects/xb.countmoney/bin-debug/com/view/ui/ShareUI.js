@@ -13,14 +13,14 @@ var ShareUI = (function (_super) {
         _super.prototype.componentCreated.call(this);
     };
     p.show = function () {
-        if (GameConst.haveChance) {
-            this.haveChance.visible = true;
-            this.noChance.visible = false;
-        }
-        else {
-            this.haveChance.visible = false;
-            this.noChance.visible = true;
-        }
+        this.haveChance.visible = true;
+        this.noChance.visible = false;
+        LayerManager.getInstance().popLayer.addChild(this);
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
+    };
+    p.showNoChange = function () {
+        this.haveChance.visible = false;
+        this.noChance.visible = true;
         LayerManager.getInstance().popLayer.addChild(this);
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
     };

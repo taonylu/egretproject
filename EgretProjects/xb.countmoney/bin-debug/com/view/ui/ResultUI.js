@@ -30,7 +30,7 @@ var ResultUI = (function (_super) {
             rate = 98;
         }
         this.fightLabel.text = "你打败了" + rate + "%的人"; //30暂定为最多数红包个数
-        //监听
+        //如果已获得奖品超过2个，则不能再拆红包
         this.configListeners();
     };
     p.hide = function () {
@@ -60,8 +60,14 @@ var ResultUI = (function (_super) {
     };
     //去拆红包
     p.onOpenBtnTouch = function () {
-        this.hide();
-        LayerManager.getInstance().runScene(GameManager.getInstance().openScene);
+        //如果已获得奖品超过2个，则不能去到拆红包页面
+        if (GameConst.myPrizeNum >= 2) {
+            GameManager.getInstance().shareUI.showNoChange();
+        }
+        else {
+            this.hide();
+            LayerManager.getInstance().runScene(GameManager.getInstance().openScene);
+        }
     };
     //分享按钮
     p.onShareBtnTouch = function () {

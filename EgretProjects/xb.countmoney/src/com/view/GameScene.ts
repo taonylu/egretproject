@@ -62,6 +62,8 @@ class GameScene extends BaseScene{
     public startGame(): void {
         //重置游戏
         this.resetGame();
+        //每次游戏前查看我获得奖品数量，用来确定游戏结束后，我是否能进入拆红包页面
+        this.sendMyPrizeRequest();  
         
         if(this.bFirstGame){   //首次游戏，出现杂物
             this.bFirstGame = false;
@@ -309,6 +311,37 @@ class GameScene extends BaseScene{
             this.gameTimer.removeEventListener(egret.TimerEvent.TIMER,this.onGameTimer,this);
         }
     }
+    
+    //----------------------------------[查看我获得的奖品数量]-------------------------
+    
+    //发送查看我的奖品请求，查看我到底拆了多少次红包
+    private sendMyPrizeRequest(): void {
+        var http: SingleHttp = SingleHttp.getInstance();
+        http.completeHandler = this.revMyPrize;
+        http.errorHandler = this.onMyPrizeError;
+        var url: string = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/prizeList";
+        var msg: string = "";
+        http.send(url,egret.HttpMethod.GET,msg,this);
+    }
+    
+    //接收我的奖品请求结果
+    private revMyPrize(result: any) {
+        var json = JSON.parse(result);
+        
+        var myPrizeNum:number = 0;
+        for(var item in json) {
+            myPrizeNum++;
+        }
+        GameConst.myPrizeNum = myPrizeNum;
+    }
+    
+    //我的奖品请求错误
+    private onMyPrizeError(e: egret.IOErrorEvent) {
+        console.log("请求错误");
+    }
+    //----------------------------------[查看我获得的奖品数量 End]-------------------------
+    
+    
 }
 
 
