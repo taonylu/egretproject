@@ -1,6 +1,7 @@
 {
   "autoGenerateExmlsList": true,
   "exmls": [
+    "resource/myskin/ui/SkillUISkin.exml",
     "resource/myskin/GameSceneSkin.exml",
     "resource/myskin/ui/HeadUISkin.exml",
     "resource/myskin/HomeSceneSkin.exml"

@@ -122,6 +122,7 @@ class OpenScene extends BaseScene{
             window["pass"] = json.pass;
             this.showPrize(json.prizeid,json.msg);
         }else{   //失败
+            
             GameManager.getInstance().shareUI.show();
         }
         
@@ -135,6 +136,9 @@ class OpenScene extends BaseScene{
         this.openBg.rotation = 0;
         alert("链接已失效");
     }
+    
+    //第一次拆红包，显示手机号，第二次拆，则不显示手机号
+    private bSubmit:Boolean = false;
     
     //拆红包成功，显示奖品
     private showPrize(prizeid:number, prizeName:string):void{
@@ -157,10 +161,14 @@ class OpenScene extends BaseScene{
         
         
         //测试 过一段时间出现提交手机号
-        var self:OpenScene = this;
-        egret.Tween.get(this).wait(1000).call(function(){
-            self.phoneGroup.visible = true;
+        if(this.bSubmit == false){
+            this.bSubmit = true;
+            var self: OpenScene = this;
+            egret.Tween.get(this).wait(1000).call(function() {
+                self.phoneGroup.visible = true;
             },this);
+        }
+        
     }
     
     //点击我的奖品
@@ -230,7 +238,7 @@ class OpenScene extends BaseScene{
         var msg: string = "";
         http.send(url,egret.HttpMethod.GET,msg,this);
         
-        GameConst.phone = this.phoneLabel.text;
+        
         
         //超时
         var self:OpenScene = this;
@@ -239,12 +247,13 @@ class OpenScene extends BaseScene{
             });
     }
     
-    private bSubmit:Boolean = false;
-    
     //提交完成
     private submitComplete(result:any):void{
         egret.Tween.removeTweens(this.submitBtn);
         this.configListeners();
+        
+        GameConst.phone = this.phoneLabel.text;
+        egret.localStorage.setItem("gzrb", this.phoneLabel.text);
         
         this.phoneGroup.visible = false;
         
@@ -301,6 +310,7 @@ class OpenScene extends BaseScene{
             GameManager.getInstance().shareUI.show();
             alert(json.msg);
         }
+        
     }
     
     //请求失败

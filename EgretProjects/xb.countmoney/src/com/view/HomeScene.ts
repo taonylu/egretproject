@@ -16,6 +16,7 @@ class HomeScene extends BaseScene{
         super.componentCreated();
         
         this.gonglueGroup.visible = false;
+
     }
 
 

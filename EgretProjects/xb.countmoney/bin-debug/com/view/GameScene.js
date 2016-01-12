@@ -8,7 +8,7 @@ var GameScene = (function (_super) {
     function GameScene() {
         _super.call(this, "GameSceneSkin");
         this.totalPacket = 0; //当前红包总数
-        this.timeLimit = 15; //时间限制
+        this.timeLimit = 10; //时间限制
         this.resultUI = new ResultUI(); //结果UI
         this.countDownUI = new CountDownUI(); //倒计时UI
         this.bFirstGame = true; //是否首次游戏，第一次游戏会有杂物，第二次则不出现杂物
@@ -72,6 +72,7 @@ var GameScene = (function (_super) {
     };
     //初始化界面元素
     p.initView = function () {
+        this.staticPacket.y = GameConst.stage.stageHeight - 520;
         //箭头位置
         this.initArrowY = this.staticPacket.y - 150;
         this.arrow.y = this.initArrowY;

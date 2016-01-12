@@ -11,23 +11,22 @@ class MyPrizeUI extends BaseUI{
     private prizeID1:string;  //已获得奖品2的ID
     
     
-    
+    private detailScroller:eui.Scroller;  //详情页滚动条
     private detailGroup:eui.Group;  //详情页总Group
     private detailList:Array<eui.Group> = new Array<eui.Group>();  //详情页分页Group
     private codeLabel:eui.Label;  //兑换码
     private prizeNum:number= 8;
-    
-    //private detailScroller:eui.Scroller; //详情页滚动条
-    
+
 	public constructor() {
     	super("MyPrizeUISkin");
-        //this.percentHeight = 100;
+    	this.percentHeight = 100;
 	}
 	
     public componentCreated(): void {
         super.componentCreated();
         
-        //this.detailScroller.bounces = false;
+        this.detailScroller.bounces = false;
+        
         
         //初始化详情页
         this.detailGroup.visible = false;
@@ -42,7 +41,9 @@ class MyPrizeUI extends BaseUI{
         this.prizeID1 = "";
         this.contentLabel0.text = "";
         this.contentLabel1.text = "";
-
+        
+        this.detailScroller.touchChildren =  false;
+        this.detailScroller.touchEnabled = false;
 
         //显示奖品1
         if(json[0]){
@@ -76,7 +77,11 @@ class MyPrizeUI extends BaseUI{
         this.showDetail(parseInt(this.prizeID1));
     }
     
-    private showDetail(prizeID:number):void{
+    public showDetail(prizeID:number):void{
+        
+        this.detailScroller.touchChildren = true;
+        this.detailScroller.touchEnabled = true;
+        
         //清理详情页
         this.codeLabel.text = "";
         
@@ -87,20 +92,29 @@ class MyPrizeUI extends BaseUI{
         }
         if(this.detailList[prizeID-1]){  //有些奖品无详情页
             this.detailList[prizeID - 1].visible = true; //奖品id 1-8， 详情页0-6，现金无详情页，所以少一页
-            this.codeLabel.text = "兑换号:" + GameConst.phone;
+            //this.codeLabel.text = "兑换号:" + GameConst.phone;
+            this.codeLabel.text = "兑换号:" + egret.localStorage.getItem("gzrb");
             this.detailGroup.visible = true;
             //监听
+            this.detailGroup.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onDetailBegin,this);
             this.detailGroup.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onDetailTouch,this);
         }
     }
     
+    private beginY:number = 0;
+    private onDetailBegin(e:egret.TouchEvent){
+        this.beginY = e.stageY;
+    }
+    
     private onDetailTouch(e:egret.TouchEvent):void{
-        console.log(e.target, e.currentTarget);
-        if(e.target instanceof eui.Label){
+        if(e.stageY != this.beginY){ //滑动后不关闭页面
             return;
         }
+        this.detailGroup.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onDetailBegin,this);
         this.detailGroup.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onDetailTouch,this);
         this.detailGroup.visible = false;
+        this.detailScroller.touchChildren = false;
+        this.detailScroller.touchEnabled = false;
     }
 }
 

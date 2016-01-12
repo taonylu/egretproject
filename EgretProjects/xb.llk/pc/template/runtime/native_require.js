@@ -23,6 +23,7 @@ var game_file_list = [
 	"bin-debug/com/common/UserManager.js",
 	"bin-debug/com/constant/GameConst.js",
 	"bin-debug/com/GameManager.js",
+	"bin-debug/com/model/UserVO.js",
 	"bin-debug/com/net/ClientSocket.js",
 	"bin-debug/com/net/NetConst.js",
 	"bin-debug/com/view/GameScene.js",
@@ -32,6 +33,7 @@ var game_file_list = [
 	"bin-debug/com/view/ui/BoomUI.js",
 	"bin-debug/com/view/ui/HeadUI.js",
 	"bin-debug/com/view/ui/SelectUI.js",
+	"bin-debug/com/view/ui/SkillUI.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
 	//----auto game_file_list end----

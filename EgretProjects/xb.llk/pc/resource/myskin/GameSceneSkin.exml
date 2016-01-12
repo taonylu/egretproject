@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="GameSceneSkin" width="2560" height="1440" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="GameSceneSkin" width="2560" height="1440" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
 	<e:Image source="homge_bg_png" y="242" id="bg" horizontalCenter="0.5" x="10"/>
 	<e:Image source="home_title_png" y="71" id="title" x="807"/>
 	<e:Image id="nav_show" source="game_showicon_png" x="339" y="246"/>
@@ -8,10 +8,10 @@
 	<e:Image id="bareffect" source="game_bareffect_png" x="1692" y="351"/>
 	<e:Image source="game_blockbg_png" x="399" y="531"/>
 	<e:Group id="skillGroup" height="603" width="748" x="1015" y="539">
-		<e:Image source="game_skillbg_png" x="1" y="-3"/>
-		<e:Image source="game_skillbg_png" y="148" x="1"/>
-		<e:Image source="game_skillbg_png" y="299" x="1"/>
-		<e:Image source="game_skillbg_png" y="450" x="1"/>
+		<ns1:SkillUI id="skillUI0" x="10" y="23" skinName="SkillUISkin"/>
+		<ns1:SkillUI x="10" y="160" skinName="SkillUISkin" id="skillUI1"/>
+		<ns1:SkillUI x="10" y="296" id="skillUI2" skinName="SkillUISkin"/>
+		<ns1:SkillUI x="10" y="433" skinName="SkillUISkin" id="skillUI3"/>
 	</e:Group>
 	<e:Image source="game_introicon_png" x="1003" y="1116"/>
 	<e:Image source="game_skill0_png" x="1060" y="1231"/>

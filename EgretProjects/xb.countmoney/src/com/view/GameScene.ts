@@ -15,7 +15,7 @@ class GameScene extends BaseScene{
     private totalPacket: number = 0;             //当前红包总数
     
     private timeLabel: eui.Label;                //计时文本
-    private timeLimit: number = 15;               //时间限制
+    private timeLimit: number = 10;               //时间限制
     private gameTimer: egret.Timer;              //游戏计时器
     
    
@@ -52,6 +52,7 @@ class GameScene extends BaseScene{
     public onEnable(): void {
         this.playArrowAnim();
         this.startGame();
+        
     }
 
     public onRemove(): void {
@@ -107,6 +108,9 @@ class GameScene extends BaseScene{
     
     //初始化界面元素
     private initView(): void {
+        
+        this.staticPacket.y = GameConst.stage.stageHeight - 520;
+        
         //箭头位置
         this.initArrowY = this.staticPacket.y - 150;
         this.arrow.y = this.initArrowY;

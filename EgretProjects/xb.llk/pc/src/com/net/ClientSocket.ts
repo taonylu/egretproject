@@ -50,12 +50,12 @@ class ClientSocket {
         
         //玩家弹幕
         this.socket.on(NetConst.S2C_barrage,function(data) {
-            GameManager.getInstance().barrageUI.showOne(data.msg);
+            GameManager.getInstance().revBarrage(data);
         });
         
         //登录完成
-        this.socket.on(NetConst.S2C_loginComplete,function(data) {
-            self.homeScene.revLoginComplete(data);
+        this.socket.on(NetConst.S2C_login,function(data) {
+            self.homeScene.revLogin(data);
         });
         
         //玩家加入
@@ -106,7 +106,7 @@ class ClientSocket {
     //连接成功
     private onConnect(): void {
         egret.log("connenct succss");
-        this.homeScene.sendLogin();
+        GameManager.getInstance().onConnect();
     }
         
     //连接失败

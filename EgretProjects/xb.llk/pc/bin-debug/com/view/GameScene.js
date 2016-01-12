@@ -8,6 +8,7 @@ var GameScene = (function (_super) {
     function GameScene() {
         _super.call(this, "GameSceneSkin");
         //---------------[游戏UI]-----------------
+        this.skillUIList = new Array(); //道具面板列表
         this.blockPool = ObjectPool.getPool(BlockUI.NAME, 10); //方块对象池
         this.boomPool = ObjectPool.getPool(BoomUI.NAME, 10); //炸弹对象池
         this.selectOld = new SelectUI(); //选择框动画，第一个对象
@@ -77,9 +78,13 @@ var GameScene = (function (_super) {
     ///////////////////////////////////////////////////
     p.initView = function () {
         this._stage = GameConst.stage;
-        //this.mapStartX = (this._stage.stageWidth - this.blockWidth * this.colMax) / 2;
+        //方块
         for (var i = 0; i < this.rowMax; i++) {
             this.blockArr.push(new Array());
+        }
+        //技能显示面板 测试
+        for (var i = 0; i < 4; i++) {
+            this.skillUIList.push(this["skillUI" + i]);
         }
     };
     p.initLineSprite = function () {
@@ -166,7 +171,7 @@ var GameScene = (function (_super) {
     ///////////////////////////////////////////////////
     //玩家消除动作
     p.revEliminate = function (data) {
-        var id = data.id; //用户id
+        var id = data.uid; //用户id
         var pos = data.pos; //消除的位置
         egret.log("玩家消除方块:", id, pos);
         if (id == UserManager.getInstance().luckyUser) {
@@ -179,7 +184,7 @@ var GameScene = (function (_super) {
     };
     //过关后，接收新关卡数据
     p.revMapData = function (data) {
-        var mapData = data.mapdata;
+        var mapData = data.mapData;
         egret.log("下一关");
         //重置地图数据，进入下一关
         MapManager.getInstance().level = mapData;
@@ -195,17 +200,27 @@ var GameScene = (function (_super) {
     };
     //使用道具(大屏幕)
     p.revPro = function (data) {
+        var from = data.from; //施放道具的玩家
+        var to = data.to; //被施放道具的玩家
         var type = data.type; //道具类型
-        var mapData = data.mapdata; //道具使用后影响的位置
+        var mapData = data.mapData; //道具使用后影响的位置
         egret.log("使用道具:" + type);
+        //道具效果
+        var toolName = "";
         if (type == "1") {
+            toolName = "打乱";
             MapManager.getInstance().level = mapData;
             this.nextLevel();
         }
         else if (type == "2") {
+            toolName = "冻结";
         }
         else if (type == "3") {
         }
+        //大屏幕显示道具信息
+        var img0 = UserManager.getInstance().userList[from].headImg;
+        var img1 = UserManager.getInstance().userList[to].headImg;
+        this.skillUIList[0].setSkill(img0, img1, toolName);
     };
     //幸运用户的地图因为没有可以消除的，系统自动更换
     p.revLuckyMap = function (data) {

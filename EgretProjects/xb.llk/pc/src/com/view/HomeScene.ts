@@ -49,19 +49,16 @@ class HomeScene extends BaseScene{
     ///////////////////////////////////////////////////
     
     //-----------------------------发送数据----------------------------------
-    public sendLogin(){
-        var json = { "licence": egret.getOption("licence"), "rid":egret.getOption("rid")};
-        this.socket.sendMessage(NetConst.C2S_login, json);
-    }
+    
 
     
     //-----------------------------接收数据----------------------------------
     
     //返回登录成功
-    public revLoginComplete(data) {
-        var status: Number = data.status;
-        var msg: string = data.msg;
-        egret.log("登录成功:" ,status,msg);
+    public revLogin(data) {
+        var status: Number = data.status; //  -1 房间已经存在 ， 0 房间错误， 1 开放成功
+
+        egret.log("登录成功，是否授权成功" ,status);
         if(status == 1) { //验证成功
             
         } else if(status == 0) {  //验证失败
@@ -73,37 +70,49 @@ class HomeScene extends BaseScene{
     public revUserJoin(data): void {
         var avatar: string = data.avatar;  //用户头像
         var name: string = data.name;      //用户名
-        var id: string = data.id;          //用户id
-        egret.log("玩家加入,头像:" + avatar, "名字:" + name,"ID:" +  id);
+        var uid: string = data.uid;        //用户id
+        egret.log("玩家加入,头像:" + avatar,"名字:" + name,"ID:" + uid);
         
         //设置用户名，选取一个空文本。因为可能出现靠前的玩家退出游戏。
         var index:number = -1;
+        var headUI:HeadUI;
         for(var i:number = 0;i<this.userMax;i++){
-            if(this.headUIList[i].isEmpty()){
-                this.headUIList[i].setNameLabel(name);
-                this.headUIList[i].loadImg(avatar);
+            headUI = this.headUIList[i];
+            if(headUI.isEmpty()){
+                headUI.userID = uid;
+                headUI.setNameLabel(name);
+                headUI.loadImg(avatar);
                 break;
             }
         }
+        
+        //保存用户
+        var userVO: UserVO = new UserVO();
+        userVO.uid = uid;
+        userVO.name = name;
+        userVO.headImg = new egret.Bitmap(headUI.headImg.bitmapData);
+        UserManager.getInstance().userList[uid] = userVO;
     }
 
     //玩家退出
     public revUserQuit(data): void {
-        var id: string = data.id;  //用户id
-        egret.log("玩家退出:",id);
+        var uid: string = data.uid;  //用户id
+        egret.log("玩家退出:",uid);
         //删除玩家头像
         for(var i:number=0; i<this.userMax;i++){
-            if(this.headUIList[i].userID == id){
+            if(this.headUIList[i].userID == uid){
                 this.headUIList[i].clear();
             }
         }
+        //删除用户
+        delete UserManager.getInstance().userList[uid];
         
         //TODO 游戏中玩家退出，可能是大屏用户
     }
 
     //游戏开始
     public revGameStart(data):void {
-        var mapData:any = data.mapdata;        //地图信息
+        var mapData:any = data.mapData;        //地图信息
         var luckyUser:string = data.luckyUser; //大屏幕显示的用户
         
         egret.log("游戏开始，幸运用户:",luckyUser);
