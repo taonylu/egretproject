@@ -9,6 +9,8 @@ class GameScene extends BaseScene{
     public socket: ClientSocket;
 
     //---------------[游戏UI]-----------------
+    private skillUIList:Array<SkillUI> = new Array<SkillUI>();   //道具面板列表
+    
     private blockPool: ObjectPool = ObjectPool.getPool(BlockUI.NAME,10); //方块对象池
     private boomPool: ObjectPool = ObjectPool.getPool(BoomUI.NAME,10);   //炸弹对象池
     private selectOld: SelectUI = new SelectUI(); //选择框动画，第一个对象
@@ -104,11 +106,14 @@ class GameScene extends BaseScene{
     ///////////////////////////////////////////////////
     private initView(): void {
         this._stage = GameConst.stage;
-        //this.mapStartX = (this._stage.stageWidth - this.blockWidth * this.colMax) / 2;
+        //方块
         for(var i:number=0;i<this.rowMax;i++){
             this.blockArr.push(new Array<BlockUI>());
         }
-        
+        //技能显示面板 测试
+        for(var i:number=0;i<4;i++){
+            this.skillUIList.push(this["skillUI" + i]);
+        } 
     }
     
     private initLineSprite() {
@@ -213,7 +218,7 @@ class GameScene extends BaseScene{
     
     //玩家消除动作
     public revEliminate(data): void {
-        var id: string = data.id; //用户id
+        var id: string = data.uid; //用户id
         var pos: any = data.pos;  //消除的位置
         
         egret.log("玩家消除方块:",id,pos);
@@ -230,7 +235,7 @@ class GameScene extends BaseScene{
     
     //过关后，接收新关卡数据
     public revMapData(data):void{
-        var mapData = data.mapdata;
+        var mapData = data.mapData;
         
         egret.log("下一关");
         
@@ -253,19 +258,28 @@ class GameScene extends BaseScene{
 
     //使用道具(大屏幕)
     public revPro(data): void {
+        var from:string = data.from;   //施放道具的玩家
+        var to:string = data.to;       //被施放道具的玩家
         var type: string = data.type;  //道具类型
-        var mapData = data.mapdata;    //道具使用后影响的位置
+        var mapData = data.mapData;    //道具使用后影响的位置
         
         egret.log("使用道具:" + type);
-        
+        //道具效果
+        var toolName:string = "";
         if(type == "1"){  //打乱
+            toolName = "打乱";
             MapManager.getInstance().level = mapData;
             this.nextLevel();
         }else if(type == "2"){  //冻结
-            
+            toolName = "冻结";
         }else if(type == "3"){  //提示
             
         }
+        
+        //大屏幕显示道具信息
+        var img0: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[from]).headImg;
+        var img1: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[to]).headImg;
+        this.skillUIList[0].setSkill(img0,img1,toolName);
     }
 
     //幸运用户的地图因为没有可以消除的，系统自动更换

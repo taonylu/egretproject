@@ -11,8 +11,8 @@ class NetConst {
     public static C2S_login:string = "login";                //请求登录
     
     //-----------------接收数据----------------------
-    public static S2C_barrage: string = "barrage";               //弹幕
-    public static S2C_loginComplete: string = "loginComplete";   //登录完成
+    public static S2C_barrage: string = "barrage";           //弹幕
+    public static S2C_login: string = "login";               //登录完成
     public static S2C_userJoin: string = "userJoin";         //玩家加入
     public static S2C_userQuit: string = "userQuit";         //玩家退出
     public static S2C_gameStart: string = "gameStart";       //游戏开始

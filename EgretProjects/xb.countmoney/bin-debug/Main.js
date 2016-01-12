@@ -43,13 +43,13 @@ var Main = (function (_super) {
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         var path = window["addon_public_path"];
-        RES.loadConfig(this.path + "resource/default.res.json?ver=1.1", this.path + "resource/");
+        RES.loadConfig(this.path + "resource/default.res.json?ver=1.6", this.path + "resource/");
     };
     //配置文件加载完成,开始预加载皮肤主题资源和preload资源组。
     p.onConfigComplete = function (event) {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-        var theme = new eui.Theme(this.path + "resource/default.thm.json?ver=1.1", this.stage);
+        var theme = new eui.Theme(this.path + "resource/default.thm.json?ver=1.6", this.stage);
         theme.addEventListener(eui.UIEvent.COMPLETE, this.onThemeLoadComplete, this);
     };
     //主题文件加载完成,开始预加载

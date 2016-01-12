@@ -6,7 +6,7 @@
 class HeadUI extends BaseUI{
     
     private nameLabel:eui.Label;    //名字文本
-    private headImg:egret.Bitmap;   //头像图片
+    public headImg:egret.Bitmap;   //头像图片
     public  userID:string;          //用户ID
     private imgX:number = 10;       //图片大小高宽
     private imgY:number = 17;

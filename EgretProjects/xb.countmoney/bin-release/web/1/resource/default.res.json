@@ -72,12 +72,12 @@
 	{
 		"name":"share0_png",
 		"type":"image",
-		"url":"assets/share0.png"
+		"url":"assets/share0.png?ver=1.1"
 	},
 	{
 		"name":"share1_png",
 		"type":"image",
-		"url":"assets/share1.png"
+		"url":"assets/share1.png?ver=1.1"
 	},
 	{
 		"name":"open_bg_png",
@@ -102,7 +102,7 @@
 	{
 		"name":"rule_content_png",
 		"type":"image",
-		"url":"assets/rule_content.png?ver=1.1"
+		"url":"assets/rule_content.png?ver=1.2"
 	},
 	{
 		"name":"roundthumb_png",

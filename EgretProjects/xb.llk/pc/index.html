@@ -51,6 +51,7 @@
 	<script egret="game" src="bin-debug/com/common/UserManager.js"></script>
 	<script egret="game" src="bin-debug/com/constant/GameConst.js"></script>
 	<script egret="game" src="bin-debug/com/GameManager.js"></script>
+	<script egret="game" src="bin-debug/com/model/UserVO.js"></script>
 	<script egret="game" src="bin-debug/com/net/ClientSocket.js"></script>
 	<script egret="game" src="bin-debug/com/net/NetConst.js"></script>
 	<script egret="game" src="bin-debug/com/view/GameScene.js"></script>
@@ -60,6 +61,7 @@
 	<script egret="game" src="bin-debug/com/view/ui/BoomUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/HeadUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/SelectUI.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/SkillUI.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
 	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
 	<!--game_files_end-->
@@ -84,29 +86,45 @@
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>
-
-        $("#code").qrcode({ width: 400, height:400,text: "http://www.baidu.com?licence=" + Request("licence")});
+    	//------配置信息------
+    	var srvConfig = {
+    		"rid" : "abc",          
+    		"licencStatus" : 1, 
+    		"rommStatus" : 1 ,  
+    	}
+    	window["srvConfig"] = srvConfig;
+    	//------配置信息 end------
+    	
+		//------生成二维码 start-------
+    	var codeUrl =  "http://www.baidu.com";
+    	var codeWidth = 400;
+    	var codeHeight = 400;
+    	var logoUrl = "logo.jpg";
+    	
+        $("#code").qrcode({ width: codeWidth, height:codeHeight,text:codeUrl });
         var i=$("#code > canvas");
         var codeData=i[0].toDataURL();
         window["qrcodeUrl"] = codeData;
-        window["logoUrl"] = "logo.jpg";
-		
+        window["logoUrl"] = logoUrl;
+    	
     	function Request(argname) //获取get的值
-		{ 
-			var url = document.location.href; 
-			var arrStr = url.substring(url.indexOf("?")+1).split("&"); 
-			//return arrStr; 
-			for(var i =0;i<arrStr.length;i++) 
-			{ 
-			var loc = arrStr[i].indexOf(argname+"="); 
-			if(loc!=-1) 
-			{ 
-			return arrStr[i].replace(argname+"=","").replace("?",""); 
-			break; 
-			} 
-			} 
-			return ""; 
-		}
+    	{ 
+	    	var url = document.location.href; 
+	    	var arrStr = url.substring(url.indexOf("?")+1).split("&"); 
+	    	for(var i =0;i<arrStr.length;i++) 
+	        { 
+	            var loc = arrStr[i].indexOf(argname+"="); 
+	            if(loc!=-1) 
+	            { 
+	                 return arrStr[i].replace(argname+"=","").replace("?",""); 
+	                 break; 
+	            } 
+	         } 
+	         return "";
+         }
+		//------生成二维码 end-------
+    	
+    	
     	
         egret.runEgret();
     </script>

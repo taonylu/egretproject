@@ -7,39 +7,43 @@
 	<e:Label id="contentLabel0" text="标签" x="130" y="356" width="394" height="35" textColor="0x471717"/>
 	<e:Label y="521" textColor="0x471717" id="contentLabel2" width="394" height="35" horizontalCenter="0" text="点击奖品名称可查看详情" verticalAlign="middle" textAlign="center" size="25" fontFamily="微软雅黑"/>
 	<e:Image source="phone_bg_png" y="690" x="20"/>
-	<e:Group id="detailGroup" height="1136" width="640" x="0" y="0">
-		<e:Rect height="1136" width="640" x="0" y="0" fillColor="0xFEB431"/>
-		<e:Rect id="codeBg" height="36" width="350" y="532" fillColor="0xFEFAFA" x="145"/>
-		<e:Image id="detail_title" source="detail_title_png" y="12" x="102"/>
-		<e:Image id="detail_logo" source="detail_log_png" x="47" bottom="68"/>
-		<e:Group id="detail8" height="1136" width="640">
-			<e:Image source="detail7_03_png" x="61" y="178"/>
-			<e:Image source="detail7_07_png" x="89" y="620"/>
+	<e:Scroller id="detailScroller" width="640" x="0" top="0" bottom="0">
+		<e:Group>
+			<e:Group id="detailGroup" height="1136" width="640" x="0" y="0">
+				<e:Rect height="1136" width="640" x="0" y="0" fillColor="0xFEB431"/>
+				<e:Rect id="codeBg" height="36" width="350" y="532" fillColor="0xFEFAFA" x="145"/>
+				<e:Image id="detail_title" source="detail_title_png" y="12" x="102"/>
+				<e:Image id="detail_logo" source="detail_log_png" x="47" bottom="68"/>
+				<e:Group id="detail8" height="1136" width="640">
+					<e:Image source="detail7_03_png" x="61" y="178"/>
+					<e:Image source="detail7_07_png" x="89" y="620"/>
+				</e:Group>
+				<e:Group id="detail6" height="1136" width="640" x="0" y="0">
+					<e:Image source="detail6_03_png" x="62" y="178"/>
+					<e:Image source="detail6_07_png" x="88" y="620"/>
+				</e:Group>
+				<e:Group id="detail5" width="640" y="0" height="1136" x="0">
+					<e:Image source="detail5_03_png" x="58" y="180"/>
+					<e:Image source="detail5_07_png" x="78" y="600"/>
+				</e:Group>
+				<e:Group id="detail4" width="640" y="0" height="1136" x="0">
+					<e:Image source="detail4_03_png" x="64" y="174"/>
+					<e:Image source="detail4_07_png" x="80" y="610"/>
+				</e:Group>
+				<e:Group id="detail3" width="640" y="0" height="1136" x="0">
+					<e:Image source="detail3_03_png" x="62" y="173"/>
+					<e:Image source="detail3_07_png" x="78" y="608"/>
+				</e:Group>
+				<e:Group id="detail2" width="640" y="0" height="1136" x="0">
+					<e:Image source="detail2_03_png" x="54" y="176"/>
+					<e:Image source="detail2_07_png" x="76" y="612"/>
+				</e:Group>
+				<e:Group id="detail1" width="640" y="0" height="1136" x="0">
+					<e:Image source="detail1_03_png" x="56" y="174"/>
+					<e:Image source="detail1_07_png" x="80" y="610"/>
+				</e:Group>
+				<e:Label id="codeLabel" text="兑奖号：123123123123" y="534" textColor="0x040000" width="348" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center" size="25" height="32" x="146" touchEnabled="true"/>
+			</e:Group>
 		</e:Group>
-		<e:Group id="detail6" height="1136" width="640" x="0" y="0">
-			<e:Image source="detail6_03_png" x="62" y="178"/>
-			<e:Image source="detail6_07_png" x="88" y="620"/>
-		</e:Group>
-		<e:Group id="detail5" width="640" y="0" height="1136" x="0">
-			<e:Image source="detail5_03_png" x="58" y="180"/>
-			<e:Image source="detail5_07_png" x="78" y="600"/>
-		</e:Group>
-		<e:Group id="detail4" width="640" y="0" height="1136" x="0">
-			<e:Image source="detail4_03_png" x="64" y="174"/>
-			<e:Image source="detail4_07_png" x="80" y="610"/>
-		</e:Group>
-		<e:Group id="detail3" width="640" y="0" height="1136" x="0">
-			<e:Image source="detail3_03_png" x="62" y="173"/>
-			<e:Image source="detail3_07_png" x="78" y="608"/>
-		</e:Group>
-		<e:Group id="detail2" width="640" y="0" height="1136" x="0">
-			<e:Image source="detail2_03_png" x="54" y="176"/>
-			<e:Image source="detail2_07_png" x="76" y="612"/>
-		</e:Group>
-		<e:Group id="detail1" width="640" y="0" height="1136" x="0">
-			<e:Image source="detail1_03_png" x="56" y="174"/>
-			<e:Image source="detail1_07_png" x="80" y="610"/>
-		</e:Group>
-		<e:Label id="codeLabel" text="兑奖号：123123123123" y="534" textColor="0x040000" width="348" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center" size="25" height="32" x="146" touchEnabled="true"/>
-	</e:Group>
+	</e:Scroller>
 </e:Skin>

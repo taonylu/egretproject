@@ -9,8 +9,8 @@
 		<e:Image id="item_p1" source="game_fall_png" x="457" y="65" width="140" height="162"/>
 		<e:Image id="item_p2" source="game_fall_png" x="460" y="688" width="331" height="383" rotation="30"/>
 	</e:Group>
-	<e:Image id="arrow" source="game_arrow_png" y="394" horizontalCenter="0"/>
-	<e:Image id="staticPacket" source="game_packet_png" y="595" horizontalCenter="0.5"/>
+	<e:Image id="arrow" source="game_arrow_png" y="394" x="254"/>
+	<e:Image id="staticPacket" source="game_packet_png" x="137" y="595"/>
 	<e:Group id="countGroup" height="1136" width="640" x="0" y="0" touchChildren="false" touchEnabled="false" touchThrough="true"/>
 	<e:Group id="labelGroup" height="1136" width="640" x="0" y="0" touchThrough="true" touchEnabled="false" touchChildren="false">
 		<e:Image id="moneybg" source="game_moneybg_png" y="15" x="199"/>

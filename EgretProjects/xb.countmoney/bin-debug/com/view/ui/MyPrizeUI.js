@@ -5,17 +5,17 @@
  */
 var MyPrizeUI = (function (_super) {
     __extends(MyPrizeUI, _super);
-    //private detailScroller:eui.Scroller; //详情页滚动条
     function MyPrizeUI() {
         _super.call(this, "MyPrizeUISkin");
         this.detailList = new Array(); //详情页分页Group
         this.prizeNum = 8;
-        //this.percentHeight = 100;
+        this.beginY = 0;
+        this.percentHeight = 100;
     }
     var d = __define,c=MyPrizeUI,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
-        //this.detailScroller.bounces = false;
+        this.detailScroller.bounces = false;
         //初始化详情页
         this.detailGroup.visible = false;
         for (var i = 1; i <= this.prizeNum; i++) {
@@ -28,6 +28,8 @@ var MyPrizeUI = (function (_super) {
         this.prizeID1 = "";
         this.contentLabel0.text = "";
         this.contentLabel1.text = "";
+        this.detailScroller.touchChildren = false;
+        this.detailScroller.touchEnabled = false;
         //显示奖品1
         if (json[0]) {
             this.prizeID0 = json[0].prizenum;
@@ -54,6 +56,8 @@ var MyPrizeUI = (function (_super) {
         this.showDetail(parseInt(this.prizeID1));
     };
     p.showDetail = function (prizeID) {
+        this.detailScroller.touchChildren = true;
+        this.detailScroller.touchEnabled = true;
         //清理详情页
         this.codeLabel.text = "";
         //显示详情页
@@ -63,19 +67,26 @@ var MyPrizeUI = (function (_super) {
         }
         if (this.detailList[prizeID - 1]) {
             this.detailList[prizeID - 1].visible = true; //奖品id 1-8， 详情页0-6，现金无详情页，所以少一页
-            this.codeLabel.text = "兑换号:" + GameConst.phone;
+            //this.codeLabel.text = "兑换号:" + GameConst.phone;
+            this.codeLabel.text = "兑换号:" + egret.localStorage.getItem("gzrb");
             this.detailGroup.visible = true;
             //监听
+            this.detailGroup.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onDetailBegin, this);
             this.detailGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onDetailTouch, this);
         }
     };
+    p.onDetailBegin = function (e) {
+        this.beginY = e.stageY;
+    };
     p.onDetailTouch = function (e) {
-        console.log(e.target, e.currentTarget);
-        if (e.target instanceof eui.Label) {
+        if (e.stageY != this.beginY) {
             return;
         }
+        this.detailGroup.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onDetailBegin, this);
         this.detailGroup.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onDetailTouch, this);
         this.detailGroup.visible = false;
+        this.detailScroller.touchChildren = false;
+        this.detailScroller.touchEnabled = false;
     };
     return MyPrizeUI;
 })(BaseUI);

@@ -17,7 +17,7 @@ class ShareUI extends BaseUI{
     }
     
     public show():void{
-        if(GameConst.haveChance){  //根据是否有机会拆红包，显示不同的分享文字
+        if(GameConst.haveChance){  //根据是否有机会拆红包，显示不同的分享文字。
             this.haveChance.visible = true;
             this.noChance.visible = false;
         }else{

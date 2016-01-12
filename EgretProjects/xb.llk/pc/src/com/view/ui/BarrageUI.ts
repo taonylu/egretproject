@@ -16,23 +16,24 @@ class BarrageUI extends egret.DisplayObjectContainer{
         
         for(var i:number=0;i<this.textMax;i++){  
             var text:egret.TextField = new egret.TextField();
-            text.width = 800;   //宽度800
+            text.size = 100;
+            text.textColor = 0xFF0000;
             this.textList.push(text);
         }
 	}
 	
 	//显示一条弹幕
-	public showOne(msg:string):void{
+	public showOneMsg(data):void{
     	var textField:egret.TextField =  this.textList.pop();
     	if(textField != null){
-        	    textField.text = msg;
-        	    textField.x = GameConst.stage.stageWidth + 1000;   //x从右方1000处开始运动
-        	    textField.y = 200 +  Math.random()*GameConst.stage.stageHeight - 400;  //y范围
-        	    this.addChild(textField);
-        	    var self:BarrageUI = this;
-        	    egret.Tween.get(textField).to({x:-1000},10000).call(function(){
-            	        self.textList.push(textField);
-            	    });  //运动到-1000处
+    	    textField.text = data.msg;
+    	    textField.x = GameConst.stage.stageWidth + textField.width;   //x从右方1000处开始运动
+    	    textField.y = 200 +  Math.random()*(GameConst.stage.stageHeight - 400);  //y范围
+    	    this.addChild(textField);
+    	    var self:BarrageUI = this;
+    	    egret.Tween.get(textField).to({x:-textField.width},10000).call(function(){
+    	        self.textList.push(textField);
+    	    }); 
     	}
 	}
 }

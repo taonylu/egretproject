@@ -12,7 +12,7 @@ var NetConst = (function () {
     NetConst.C2S_login = "login"; //请求登录
     //-----------------接收数据----------------------
     NetConst.S2C_barrage = "barrage"; //弹幕
-    NetConst.S2C_loginComplete = "loginComplete"; //登录完成
+    NetConst.S2C_login = "login"; //登录完成
     NetConst.S2C_userJoin = "userJoin"; //玩家加入
     NetConst.S2C_userQuit = "userQuit"; //玩家退出
     NetConst.S2C_gameStart = "gameStart"; //游戏开始
