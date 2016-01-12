@@ -31,6 +31,8 @@ var GameScene = (function (_super) {
     p.startGame = function () {
         //重置游戏
         this.resetGame();
+        //每次游戏前查看我获得奖品数量，用来确定游戏结束后，我是否能进入拆红包页面
+        this.sendMyPrizeRequest();
         if (this.bFirstGame) {
             this.bFirstGame = false;
             GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onFirstGameTouchBegin, this);
@@ -237,6 +239,29 @@ var GameScene = (function (_super) {
         if (this.gameTimer != null) {
             this.gameTimer.removeEventListener(egret.TimerEvent.TIMER, this.onGameTimer, this);
         }
+    };
+    //----------------------------------[查看我获得的奖品数量]-------------------------
+    //发送查看我的奖品请求，查看我到底拆了多少次红包
+    p.sendMyPrizeRequest = function () {
+        var http = SingleHttp.getInstance();
+        http.completeHandler = this.revMyPrize;
+        http.errorHandler = this.onMyPrizeError;
+        var url = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/prizeList";
+        var msg = "";
+        http.send(url, egret.HttpMethod.GET, msg, this);
+    };
+    //接收我的奖品请求结果
+    p.revMyPrize = function (result) {
+        var json = JSON.parse(result);
+        var myPrizeNum = 0;
+        for (var item in json) {
+            myPrizeNum++;
+        }
+        GameConst.myPrizeNum = myPrizeNum;
+    };
+    //我的奖品请求错误
+    p.onMyPrizeError = function (e) {
+        console.log("请求错误");
     };
     return GameScene;
 })(BaseScene);

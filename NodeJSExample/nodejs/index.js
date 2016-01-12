@@ -16,11 +16,10 @@ var onlineNum = 0;   //在线人数
 
 io.on('connection', function(socket){
     console.log('a user connected');
-
     //监听新用户加入
     socket.on('login', function(obj){
-
         if(obj.licence && obj.rid){  //大屏幕接入
+            console.log("大屏幕进入");
             onlineNum++;
             licence = obj.licence;
             rid = obj.rid;
@@ -29,6 +28,7 @@ io.on('connection', function(socket){
             socket.emit('loginComplete', {"status":1, "msg":"大屏幕登录成功了"});
         }else if(obj.licence && obj.rid == null){  //手机接入
             if(obj.licence == licence){
+                console.log("手机用户进入");
                 idAdd++;
                 onlineNum++;
                 socket.name = idAdd.toString();
