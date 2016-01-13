@@ -7,7 +7,6 @@ var GameScene = (function (_super) {
     __extends(GameScene, _super);
     function GameScene() {
         _super.call(this, "GameSceneSkin");
-        //---------------[游戏UI]-----------------
         this.blockPool = ObjectPool.getPool(BlockUI.NAME, 10); //方块对象池
         this.boomPool = ObjectPool.getPool(BoomUI.NAME, 10); //炸弹对象池
         this.selectOld = new SelectUI(); //选择框动画，第一个对象
@@ -48,8 +47,9 @@ var GameScene = (function (_super) {
         MapManager.getInstance().level = null;
     };
     p.startGame = function () {
+        this.curLevel = 1;
         this.createMap();
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
+        this.configListener();
     };
     p.resetGame = function () {
         //清理剩余方块
@@ -74,17 +74,37 @@ var GameScene = (function (_super) {
         this.selectOld.hide();
         this.selectNew.hide();
     };
+    //游戏结束
     p.gameOver = function () {
         console.log("game over");
-        //this.stopTimer();
-        this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
-        //this.submitScore();
-        //this.showResult();
     };
     //下一关
     p.nextLevel = function () {
+        this.curLevel++;
         this.resetGame();
         this.createMap();
+        this.configListener();
+    };
+    p.configListener = function () {
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
+        this.skill0Btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill0, this);
+        this.skill1Btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill1, this);
+        this.skill2Btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill2, this);
+    };
+    p.deConfigListener = function () {
+        this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
+        this.skill0Btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill0, this);
+        this.skill1Btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill1, this);
+        this.skill2Btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill2, this);
+    };
+    //打乱对手
+    p.onSkill0 = function () {
+    };
+    //冰冻对手
+    p.onSkill1 = function () {
+    };
+    //重排自己
+    p.onSkill2 = function () {
     };
     ///////////////////////////////////////////////////
     ///-----------------[游戏UI]----------------------
@@ -112,7 +132,10 @@ var GameScene = (function (_super) {
     //创建地图
     p.createMap = function () {
         //引用原始地图的数据
-        var mapData = MapManager.getInstance().level;
+        var mapData = MapManager.getInstance().level[this.curLevel - 1]; //关卡1-3，数组下标0-2
+        if (mapData == null) {
+            return;
+        }
         this.tempMap = ArrayTool.copy2DArr(mapData);
         //获得当前地图的方块数量
         //        for(var i: number = 0;i < this.rowMax;i++) {
@@ -122,16 +145,12 @@ var GameScene = (function (_super) {
         //                }
         //            }
         //        }
-        //根据方块数量创建编号
-        //        this.initBlockData(this.blockNum);
         //创建方块
         var index = 0; //已经生成的方块数
         for (var i = 0; i < this.rowMax; i++) {
             for (var j = 0; j < this.colMax; j++) {
                 if (this.tempMap[i][j] > 0) {
                     var block = this.blockPool.getObject();
-                    //block.setSkin(this.blockData[index]);
-                    //block.skinID = this.blockData[index];
                     block.setSkin(this.tempMap[i][j]);
                     block.row = i;
                     block.col = j;
@@ -203,8 +222,12 @@ var GameScene = (function (_super) {
                     this.selectNew.hide();
                     this.isSelect = false;
                     //检查游戏是否结束
-                    //                    if(this.checkGameOver()) {
-                    //                        this.nextLevel();
+                    if (this.checkGameOver()) {
+                        this.nextLevel();
+                    }
+                    //检查地图上是否有能相连的方块，如果没有，则重新排列
+                    //                    if(this.bangzhu() == false){
+                    //                        this.sortBlock();
                     //                    }
                     return;
                 }
@@ -420,7 +443,7 @@ var GameScene = (function (_super) {
         }
         //打乱顺序
         ArrayTool.randomArr(tempBlockArr);
-        //交换皮肤
+        //交换皮肤和tempMap
         var len = tempBlockArr.length / 2;
         var blockA;
         var blockB;
@@ -430,6 +453,9 @@ var GameScene = (function (_super) {
             var temp = blockA.skinID;
             blockA.setSkin(blockB.skinID);
             blockB.setSkin(temp);
+            temp = this.tempMap[blockA.row][blockA.col];
+            this.tempMap[blockA.row][blockA.col] = this.tempMap[blockB.row][blockB.col];
+            this.tempMap[blockB.row][blockB.col] = temp;
         }
     };
     //检查方块是否消除完毕
@@ -499,8 +525,8 @@ var GameScene = (function (_super) {
         this.socket.sendMessage(NetConst.C2S_barrage, json);
     };
     //发送地图
-    p.sendUpMap = function (pos) {
-        var json = { "mapData": MapManager.getInstance().level };
+    p.sendUpMap = function () {
+        var json = { "mapData": this.tempMap };
         this.socket.sendMessage(NetConst.C2S_upMap, json);
     };
     //发送消除，pos是二维数组
@@ -516,8 +542,8 @@ var GameScene = (function (_super) {
     //--------------------[接收]----------------------
     //游戏结束
     p.revGameOver = function (data) {
-        var winners = data.winners; //前三名玩家ID
-        egret.log("游戏结束：" + winners[0], winners[1], winners[2]);
+        var rank = data.rank; //前三名玩家ID
+        egret.log("游戏结束，排名" + rank);
     };
     //过关后，接收新关卡数据
     p.revMapData = function (data) {
@@ -527,11 +553,11 @@ var GameScene = (function (_super) {
         MapManager.getInstance().level = mapData;
         this.nextLevel();
     };
-    //使用道具(大屏幕)
+    //使用道具
     p.revPro = function (data) {
         var type = data.type; //道具类型
-        var mapData = data.mapdata; //道具使用后影响的位置
-        egret.log("使用道具:", type);
+        var mapData = data.mapData; //道具使用后影响的位置
+        egret.log("被使用道具:", type);
         if (type == "1") {
             MapManager.getInstance().level = mapData;
             this.nextLevel();
@@ -540,6 +566,12 @@ var GameScene = (function (_super) {
         }
         else if (type == "3") {
         }
+    };
+    //玩家自己施放道具返回
+    p.revUserPro = function (data) {
+        var status = data.status; // 是否使用成功 1 0
+        var change = data.change; // 该道具剩余次数
+        egret.log("玩家使用道具返回:", status, change);
     };
     return GameScene;
 })(BaseScene);

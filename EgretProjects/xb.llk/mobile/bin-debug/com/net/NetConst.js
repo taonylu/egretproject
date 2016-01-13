@@ -9,8 +9,10 @@ var NetConst = (function () {
     var d = __define,c=NetConst,p=c.prototype;
     NetConst.url = "http://192.168.1.103:3000"; //IP、端口号
     //接收
+    NetConst.S2C_login = "login"; //登录
     NetConst.S2C_userInfo = "userInfo"; //用户信息
     NetConst.S2C_mapData = "mapData"; //关卡地图数据
+    NetConst.S2C_usePro = "usePro"; //用户施放道具返回
     NetConst.S2C_pro = "pro"; //被施放道具
     NetConst.S2C_gameOver = "gameOver"; //游戏结束
     //发送

@@ -5,6 +5,7 @@
  */
 var MapManager = (function () {
     function MapManager() {
+        this.level = new Array();
     }
     var d = __define,c=MapManager,p=c.prototype;
     MapManager.getInstance = function () {

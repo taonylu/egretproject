@@ -13,7 +13,7 @@ class MapManager {
         return this.instance;
     }
     
-    public level:Array<any>;
+    public level:Array<any> = new Array<any>();
     
 //    public level1: Array<any> =
 //    [

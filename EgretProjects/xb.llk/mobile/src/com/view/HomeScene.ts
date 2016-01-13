@@ -86,10 +86,7 @@ class HomeScene extends BaseScene{
     
     //-----------------------------发送数据----------------------------------
     
-    public sendLogin():void{
-        var json = { "licence": egret.getOption("licence")};
-        this.socket.sendMessage(NetConst.C2S_login, json);
-    }
+    
     
     public sendDanMu(msg: string): void {
         egret.log("发送弹幕:" + msg);
@@ -111,10 +108,11 @@ class HomeScene extends BaseScene{
     
     //过关后，接收新关卡数据
     public revMapData(data): void {
-        var mapData = data.mapdata;
+        var mapData = data.mapData;
         egret.log("下一关");
         //第一次接收，则是开始游戏
-        MapManager.getInstance().level = mapData;
+        MapManager.getInstance().level.length = 0;
+        MapManager.getInstance().level.push(mapData[0],mapData[1],mapData[2]);
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
     }
     

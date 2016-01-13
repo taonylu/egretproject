@@ -43,7 +43,7 @@ class Main extends eui.UILayer {
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         var path: string = window["addon_public_path"];
-        RES.loadConfig(this.path + "resource/default.res.json?ver=1.7", this.path + "resource/");
+        RES.loadConfig(this.path + "resource/default.res.json?ver=1.8", this.path + "resource/");
         
     }
     
@@ -51,7 +51,7 @@ class Main extends eui.UILayer {
     private onConfigComplete(event:RES.ResourceEvent):void {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-        var theme = new eui.Theme(this.path + "resource/default.thm.json?ver=1.7", this.stage);
+        var theme = new eui.Theme(this.path + "resource/default.thm.json?ver=1.8", this.stage);
         theme.addEventListener(eui.UIEvent.COMPLETE, this.onThemeLoadComplete, this);
     }
 

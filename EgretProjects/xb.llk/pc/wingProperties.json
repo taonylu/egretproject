@@ -21,33 +21,8 @@
 				},
 				{
 					"isFolder":false,
-					"key":"game_blockbg_png",
-					"name":"game_blockbg_png"
-				},
-				{
-					"isFolder":false,
 					"key":"game_head_png",
 					"name":"game_head_png"
-				},
-				{
-					"isFolder":false,
-					"key":"game_intro_png",
-					"name":"game_intro_png"
-				},
-				{
-					"isFolder":false,
-					"key":"game_introicon_png",
-					"name":"game_introicon_png"
-				},
-				{
-					"isFolder":false,
-					"key":"game_namebg_jpg",
-					"name":"game_namebg_jpg"
-				},
-				{
-					"isFolder":false,
-					"key":"game_showicon_png",
-					"name":"game_showicon_png"
 				},
 				{
 					"isFolder":false,
@@ -71,43 +46,8 @@
 				},
 				{
 					"isFolder":false,
-					"key":"home_codetext_png",
-					"name":"home_codetext_png"
-				},
-				{
-					"isFolder":false,
-					"key":"home_entergame_png",
-					"name":"home_entergame_png"
-				},
-				{
-					"isFolder":false,
-					"key":"home_img_jpg",
-					"name":"home_img_jpg"
-				},
-				{
-					"isFolder":false,
 					"key":"home_namebg_png",
 					"name":"home_namebg_png"
-				},
-				{
-					"isFolder":false,
-					"key":"home_thx_png",
-					"name":"home_thx_png"
-				},
-				{
-					"isFolder":false,
-					"key":"home_thxbg_png",
-					"name":"home_thxbg_png"
-				},
-				{
-					"isFolder":false,
-					"key":"home_title_png",
-					"name":"home_title_png"
-				},
-				{
-					"isFolder":false,
-					"key":"homge_bg_png",
-					"name":"homge_bg_png"
 				},
 				{
 					"isFolder":false,
@@ -178,6 +118,66 @@
 					"isFolder":false,
 					"key":"select1_png",
 					"name":"select1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"shalou_png",
+					"name":"shalou_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_blockbg_png",
+					"name":"game_blockbg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_intro_png",
+					"name":"game_intro_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_introicon_png",
+					"name":"game_introicon_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_showicon_png",
+					"name":"game_showicon_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_entergame_png",
+					"name":"home_entergame_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_img_jpg",
+					"name":"home_img_jpg"
+				},
+				{
+					"isFolder":false,
+					"key":"home_thx_png",
+					"name":"home_thx_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_thxbg_png",
+					"name":"home_thxbg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_title_png",
+					"name":"home_title_png"
+				},
+				{
+					"isFolder":false,
+					"key":"homge_bg_png",
+					"name":"homge_bg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_codebg_png",
+					"name":"home_codebg_png"
 				}
 			]
 		}

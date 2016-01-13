@@ -6,14 +6,16 @@
 class GameManager {
     public homeScene: HomeScene = new HomeScene();  //主页场景
     public gameScene: GameScene = new GameScene();  //游戏场景
+    
+    private socket:ClientSocket;
 
     public startup(main: Main): void {
         //配置socket
-        var socket:ClientSocket = new ClientSocket();
-        socket.homeScene = this.homeScene;
-        socket.gameScene = this.gameScene;
-        this.homeScene.socket = socket;
-        this.gameScene.socket = socket;
+        this.socket = new ClientSocket();
+        this.socket.homeScene = this.homeScene;
+        this.socket.gameScene = this.gameScene;
+        this.homeScene.socket = this.socket;
+        this.gameScene.socket = this.socket;
         
         //配置Layer
         GameConst.stage = main.stage;
@@ -23,25 +25,32 @@ class GameManager {
         LayerManager.getInstance().runScene(this.homeScene);
         
         //连接socket
-        socket.startConnect(NetConst.url);
-        
-        //模拟数据
-//        var json = { "mapdata": []};
-//        json.mapdata = [
-//            [1,0,0,0,1,0,1],
-//            [0,0,1,0,0,1,0],
-//            [0,0,1,0,0,0,1],
-//            [1,0,0,1,0,1,1],
-//            [0,0,1,0,0,0,0],
-//            [1,0,0,0,0,0,0],
-//            [0,0,0,0,0,1,0],
-//            [1,0,0,1,0,0,0]
-//        ];
-//        this.homeScene.revMapData(json);
+        this.socket.startConnect(NetConst.url);
+    }
+    
+    ///////////////////////////////////////////////////
+    ///-----------------[网络处理]----------------------
+    ///////////////////////////////////////////////////
+    
+    //--------------------[接收]----------------------
+    //链接成功
+    public onConnect(){
+        this.sendLogin();
+    }
+    
+    //接收登录
+    public revLogin(data){
+        var status:number = data.status;
+        egret.log("接收登录:" + status);
     }
     
     
-
+    //--------------------[发送]----------------------
+    //发送登录
+    public sendLogin(): void {
+        var json = { "uid": window["srvConfig"].uid, "rid":window["srvConfig"].rid};
+        this.socket.sendMessage(NetConst.C2S_login,json);
+    }
    
     
     //获取单例

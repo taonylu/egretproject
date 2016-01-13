@@ -133,6 +133,21 @@
 					"isFolder":false,
 					"key":"game_dmbg_png",
 					"name":"game_dmbg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_skill0_png",
+					"name":"game_skill0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_skill1_png",
+					"name":"game_skill1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_skill2_png",
+					"name":"game_skill2_png"
 				}
 			]
 		}

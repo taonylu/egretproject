@@ -56,10 +56,6 @@ var HomeScene = (function (_super) {
     ///-----------------[网络处理]----------------------
     ///////////////////////////////////////////////////
     //-----------------------------发送数据----------------------------------
-    p.sendLogin = function () {
-        var json = { "licence": egret.getOption("licence") };
-        this.socket.sendMessage(NetConst.C2S_login, json);
-    };
     p.sendDanMu = function (msg) {
         egret.log("发送弹幕:" + msg);
         var json = { "msg": msg };
@@ -75,10 +71,11 @@ var HomeScene = (function (_super) {
     };
     //过关后，接收新关卡数据
     p.revMapData = function (data) {
-        var mapData = data.mapdata;
+        var mapData = data.mapData;
         egret.log("下一关");
         //第一次接收，则是开始游戏
-        MapManager.getInstance().level = mapData;
+        MapManager.getInstance().level.length = 0;
+        MapManager.getInstance().level.push(mapData[0], mapData[1], mapData[2]);
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
     };
     return HomeScene;

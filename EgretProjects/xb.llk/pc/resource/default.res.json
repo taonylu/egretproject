@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"game_bar_png,game_bareffect_png,game_blockbg_png,game_head_png,game_intro_png,game_introicon_png,game_namebg_jpg,game_showicon_png,game_skill0_png,game_skill1_png,game_skill2_png,game_skillbg_png,home_codetext_png,home_entergame_png,home_img_jpg,home_namebg_png,home_thx_png,home_thxbg_png,home_title_png,homge_bg_png,block10_png,block1_png,block2_png,block3_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png,block11_png,cloud_png,select0_png,select1_png",
+			"keys":"game_bar_png,game_bareffect_png,game_head_png,game_skill0_png,game_skill1_png,game_skill2_png,game_skillbg_png,home_namebg_png,block10_png,block1_png,block2_png,block3_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png,block11_png,cloud_png,select0_png,select1_png,countdown_fnt,shalou_png,game_blockbg_png,game_intro_png,game_introicon_png,game_showicon_png,home_entergame_png,home_img_jpg,home_thx_png,home_thxbg_png,home_title_png,home_codebg_png",
 			"name":"game"
 		}
 	],
@@ -21,34 +21,9 @@
 			"url":"assets/game_bareffect.png"
 		},
 		{
-			"name":"game_blockbg_png",
-			"type":"image",
-			"url":"assets/game_blockbg.png"
-		},
-		{
 			"name":"game_head_png",
 			"type":"image",
 			"url":"assets/game_head.png"
-		},
-		{
-			"name":"game_intro_png",
-			"type":"image",
-			"url":"assets/game_intro.png"
-		},
-		{
-			"name":"game_introicon_png",
-			"type":"image",
-			"url":"assets/game_introicon.png"
-		},
-		{
-			"name":"game_namebg_jpg",
-			"type":"image",
-			"url":"assets/game_namebg.jpg"
-		},
-		{
-			"name":"game_showicon_png",
-			"type":"image",
-			"url":"assets/game_showicon.png"
 		},
 		{
 			"name":"game_skill0_png",
@@ -71,44 +46,9 @@
 			"url":"assets/game_skillbg.png"
 		},
 		{
-			"name":"home_codetext_png",
-			"type":"image",
-			"url":"assets/home_codetext.png"
-		},
-		{
-			"name":"home_entergame_png",
-			"type":"image",
-			"url":"assets/home_entergame.png"
-		},
-		{
-			"name":"home_img_jpg",
-			"type":"image",
-			"url":"assets/home_img.jpg"
-		},
-		{
 			"name":"home_namebg_png",
 			"type":"image",
 			"url":"assets/home_namebg.png"
-		},
-		{
-			"name":"home_thx_png",
-			"type":"image",
-			"url":"assets/home_thx.png"
-		},
-		{
-			"name":"home_thxbg_png",
-			"type":"image",
-			"url":"assets/home_thxbg.png"
-		},
-		{
-			"name":"home_title_png",
-			"type":"image",
-			"url":"assets/home_title.png"
-		},
-		{
-			"name":"homge_bg_png",
-			"type":"image",
-			"url":"assets/homge_bg.png"
 		},
 		{
 			"name":"block10_png",
@@ -179,6 +119,71 @@
 			"name":"select1_png",
 			"type":"image",
 			"url":"assets/select1.png"
+		},
+		{
+			"name":"countdown_fnt",
+			"type":"font",
+			"url":"assets/countdown.fnt"
+		},
+		{
+			"name":"shalou_png",
+			"type":"image",
+			"url":"assets/shalou.png"
+		},
+		{
+			"name":"homge_bg_png",
+			"type":"image",
+			"url":"assets/homge_bg.png"
+		},
+		{
+			"name":"game_blockbg_png",
+			"type":"image",
+			"url":"assets/game_blockbg.png"
+		},
+		{
+			"name":"game_intro_png",
+			"type":"image",
+			"url":"assets/game_intro.png"
+		},
+		{
+			"name":"game_introicon_png",
+			"type":"image",
+			"url":"assets/game_introicon.png"
+		},
+		{
+			"name":"game_showicon_png",
+			"type":"image",
+			"url":"assets/game_showicon.png"
+		},
+		{
+			"name":"home_entergame_png",
+			"type":"image",
+			"url":"assets/home_entergame.png"
+		},
+		{
+			"name":"home_img_jpg",
+			"type":"image",
+			"url":"assets/home_img.jpg"
+		},
+		{
+			"name":"home_thx_png",
+			"type":"image",
+			"url":"assets/home_thx.png"
+		},
+		{
+			"name":"home_thxbg_png",
+			"type":"image",
+			"url":"assets/home_thxbg.png"
+		},
+		{
+			"name":"home_title_png",
+			"type":"image",
+			"url":"assets/home_title.png"
+		},
+		{
+			"name":"home_codebg_png",
+			"type":"image",
+			"url":"assets/home_codebg.png"
 		}
 	]
 }

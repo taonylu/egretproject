@@ -2,8 +2,13 @@
 <e:Skin class="GameSceneSkin" width="480" height="852" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="game_bg_png"/>
 	<e:Image source="game_bar_png" y="68" x="47"/>
-	<e:Image source="game_bareffect_png" x="196" y="31"/>
+	<e:Image source="game_bareffect_png" x="226" y="31"/>
 	<e:Group id="blockGroup" height="480" width="480" y="166" x="0">
 		<e:Rect height="480" width="480" x="0" y="0" fillColor="0x9D7676"/>
+	</e:Group>
+	<e:Group id="skillGroup" height="98" width="480" x="0" y="696">
+		<e:Image id="skill0Btn" source="game_skill0_png" x="77" y="0"/>
+		<e:Image id="skill1Btn" source="game_skill1_png" x="205" y="1"/>
+		<e:Image id="skill2Btn" source="game_skill2_png" x="332" y="0"/>
 	</e:Group>
 </e:Skin>

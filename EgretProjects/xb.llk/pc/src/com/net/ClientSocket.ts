@@ -20,7 +20,7 @@ class ClientSocket {
     public startConnect(url:string): void {
 
         //连接socket
-        this.socket = io.connect(url);
+        this.socket = io.connect(url,{ reconnection: false});
          
         var self: ClientSocket = this;
         
@@ -55,7 +55,7 @@ class ClientSocket {
         
         //登录完成
         this.socket.on(NetConst.S2C_login,function(data) {
-            self.homeScene.revLogin(data);
+            GameManager.getInstance().revLogin(data);
         });
         
         //玩家加入
@@ -86,11 +86,6 @@ class ClientSocket {
         //地图更换
         this.socket.on(NetConst.S2C_luckyMap,function(data) {
             self.gameScene.revLuckyMap(data);
-        });
-        
-        //下一关地图
-        this.socket.on(NetConst.S2C_mapData,function(data) {
-            self.gameScene.revMapData(data);
         });
         
         //游戏结束
