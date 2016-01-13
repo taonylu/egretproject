@@ -55,7 +55,7 @@ class ClientSocket {
         
         //登录完成
         this.socket.on(NetConst.S2C_login,function(data) {
-            GameManager.getInstance().revLogin(data);
+           self.homeScene.revLogin(data);
         });
         
         //玩家加入

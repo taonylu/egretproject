@@ -14,7 +14,7 @@ class HomeScene extends BaseScene{
     
     private shaLou:eui.Image;                //沙漏
     private countDownLabel:eui.BitmapLabel;  //倒计时文本
-    private timeLimit:number = 10;           //倒计时时间 
+    private timeLimit:number = 20;           //倒计时时间 
     private countDownTimer:egret.Timer = new egret.Timer(1000); 
     
     
@@ -35,7 +35,7 @@ class HomeScene extends BaseScene{
     }
 
     public onRemove(): void {
-
+        
     }
 
     private initView():void{
@@ -71,16 +71,20 @@ class HomeScene extends BaseScene{
         
         //倒计时结束，则进入游戏
         if(curTimeCount < 0) {
-            this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER,this.onCountDownHandler,this);
-            this.countDownTimer.stop();
+            this.stopCountDown();
             return;
         }
-        if(curTimeCount < 10){
+        //个位数计时补0
+        if(curTimeCount < 10){ 
             this.countDownLabel.text = "0" +  curTimeCount.toString();   
         }else{
             this.countDownLabel.text =  curTimeCount.toString();   
         }
-        
+    }
+    
+    private stopCountDown():void{
+        this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER,this.onCountDownHandler,this);
+        this.countDownTimer.stop();
     }
     
      ///////////////////////////////////////////////////
@@ -93,7 +97,22 @@ class HomeScene extends BaseScene{
     
     //-----------------------------接收数据----------------------------------
     
-    
+    //返回登录成功
+    public revLogin(data) {
+        var status: Number = data.status; //  -1 房间已经存在 ， 0 房间错误， 1 开放成功
+
+        egret.log("登录返回，房间状态：",status);
+        switch(status){
+            case 1:
+                this.startCountDown();
+                break;
+            case 0:
+                break;
+            case -1:
+                break;
+            default:
+        }
+    }
     
     //玩家加入
     public revUserJoin(data): void {
@@ -102,7 +121,7 @@ class HomeScene extends BaseScene{
         var uid: string = data.uid;        //用户id
         egret.log("玩家加入,头像:" + headimgurl,"名字:" + nickname,"ID:" + uid);
         
-        //设置用户名，选取一个空文本。因为可能出现靠前的玩家退出游戏。
+        //设置用户名，选取列表靠前的一个空文本。因为可能出现靠前的玩家退出游戏。
         var index:number = -1;
         var headUI:HeadUI;
         for(var i:number = 0;i<this.userMax;i++){
@@ -146,9 +165,11 @@ class HomeScene extends BaseScene{
         
         egret.log("游戏开始，幸运用户:",luckyUser);
         
+        //记录地图信息
         MapManager.getInstance().level.length = 0;
         MapManager.getInstance().level.push(mapData[0],mapData[1],mapData[2]);
         
+        //记录幸运用户
         UserManager.getInstance().luckyUser = luckyUser;
         
         //跳转场景

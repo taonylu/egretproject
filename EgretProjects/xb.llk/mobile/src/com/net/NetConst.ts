@@ -9,9 +9,7 @@ class NetConst {
     
     //接收
     public static S2C_login:string = "login";            //登录
-    public static S2C_userInfo: string ="userInfo";      //用户信息
     public static S2C_mapData:string = "mapData";        //关卡地图数据
-    public static S2C_usePro:string = "usePro";          //用户施放道具返回
     public static S2C_pro: string = "pro";               //被施放道具
     public static S2C_gameOver: string = "gameOver";     //游戏结束
     
