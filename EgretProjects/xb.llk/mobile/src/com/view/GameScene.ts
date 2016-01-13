@@ -39,8 +39,6 @@ class GameScene extends BaseScene{
     private newTarget: BlockUI;             //第二次点击的方块
     private score: number = 0;              //得分
     private curLevel: number = 1;           //当前关卡
-    //private gameTimer: egret.Timer;       //计时器
-    //private timeLimit: number = 10;       //计时时间限制
     public totalScore: number = 0;          //总分
     
     //------------------[寻路数据]--------------------
@@ -623,17 +621,8 @@ class GameScene extends BaseScene{
         var rank: number = data.rank;  //前三名玩家ID
         egret.log("游戏结束，排名" + rank);
     }
-    
-    //过关后，接收新关卡数据
-    public revMapData(data): void {
-        var mapData = data.mapdata;
-        egret.log("下一关" );
-        //重置地图数据，进入下一关
-        MapManager.getInstance().level = mapData;
-        this.nextLevel();
-    }
 
-    //使用道具
+    //玩家被使用道具
     public revPro(data): void {
         var type: string = data.type;  //道具类型
         var mapData = data.mapData;    //道具使用后影响的位置
@@ -641,20 +630,16 @@ class GameScene extends BaseScene{
         egret.log("被使用道具:",type);
         
         if(type == "1"){  //打乱
-            MapManager.getInstance().level = mapData;
-            this.nextLevel();
+            this.deConfigListener();
+            MapManager.getInstance().level [this.curLevel-1]= mapData;
+            this.resetGame();
+            this.createMap();
+            this.configListener();
         }else if(type == "2"){  //冻结
             
         }else if(type == "3"){  //提示
             
         }
-    }
-    
-    //玩家自己施放道具返回
-    public revUserPro(data){
-        var status: number = data.status; // 是否使用成功 1 0
-        var change: number = data.change; // 该道具剩余次数
-        egret.log("玩家使用道具返回:",status, change);    
     }
     
     

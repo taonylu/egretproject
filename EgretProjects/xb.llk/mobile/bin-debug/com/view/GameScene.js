@@ -26,8 +26,6 @@ var GameScene = (function (_super) {
         this.isSelect = false; //是否已经选择了一个方块
         this.score = 0; //得分
         this.curLevel = 1; //当前关卡
-        //private gameTimer: egret.Timer;       //计时器
-        //private timeLimit: number = 10;       //计时时间限制
         this.totalScore = 0; //总分
         //------------------[寻路数据]--------------------
         this.minRoadPoint = 10000; //路径数
@@ -545,33 +543,22 @@ var GameScene = (function (_super) {
         var rank = data.rank; //前三名玩家ID
         egret.log("游戏结束，排名" + rank);
     };
-    //过关后，接收新关卡数据
-    p.revMapData = function (data) {
-        var mapData = data.mapdata;
-        egret.log("下一关");
-        //重置地图数据，进入下一关
-        MapManager.getInstance().level = mapData;
-        this.nextLevel();
-    };
-    //使用道具
+    //玩家被使用道具
     p.revPro = function (data) {
         var type = data.type; //道具类型
         var mapData = data.mapData; //道具使用后影响的位置
         egret.log("被使用道具:", type);
         if (type == "1") {
-            MapManager.getInstance().level = mapData;
-            this.nextLevel();
+            this.deConfigListener();
+            MapManager.getInstance().level[this.curLevel - 1] = mapData;
+            this.resetGame();
+            this.createMap();
+            this.configListener();
         }
         else if (type == "2") {
         }
         else if (type == "3") {
         }
-    };
-    //玩家自己施放道具返回
-    p.revUserPro = function (data) {
-        var status = data.status; // 是否使用成功 1 0
-        var change = data.change; // 该道具剩余次数
-        egret.log("玩家使用道具返回:", status, change);
     };
     return GameScene;
 })(BaseScene);

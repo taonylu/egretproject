@@ -41,6 +41,7 @@ var HomeScene = (function (_super) {
         this.closeRuleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseRuleBtnTouch, this);
     };
     p.onSendDmBtnTouch = function () {
+        this.dmGroup.visible = false;
         this.sendDanMu(this.dmLabel.text);
     };
     p.onCloseDmBtnTouch = function () {
@@ -62,18 +63,11 @@ var HomeScene = (function (_super) {
         this.socket.sendMessage(NetConst.C2S_barrage, json);
     };
     //-----------------------------接收数据----------------------------------
-    //接收用户自己数据
-    p.revUserInfo = function (data) {
-        var id = data.id;
-        var avatar = data.avatar;
-        var name = data.name;
-        egret.log("用户信息:", id, avatar, name);
-    };
     //过关后，接收新关卡数据
     p.revMapData = function (data) {
         var mapData = data.mapData;
         egret.log("下一关");
-        //第一次接收，则是开始游戏
+        //接收地图数据，则表示开始游戏
         MapManager.getInstance().level.length = 0;
         MapManager.getInstance().level.push(mapData[0], mapData[1], mapData[2]);
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);

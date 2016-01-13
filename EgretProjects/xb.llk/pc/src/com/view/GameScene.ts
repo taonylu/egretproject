@@ -404,9 +404,7 @@ class GameScene extends BaseScene{
     ///-----------------[网络处理]----------------------
     ///////////////////////////////////////////////////
 
-    
-    
-    
+
     //玩家消除动作
     public revEliminate(data): void {
         var uid: string = data.uid; //用户id
@@ -424,19 +422,6 @@ class GameScene extends BaseScene{
         }
         
     }
-
-    
-    //本次关卡无可消除，则由用户手机更新地图后，发送到大屏幕，大屏幕接收后更新地图
-    public revluckyMap(data):void{
-        var mapData = data.mapdata;
-        
-        egret.log("玩家无可消除，重排地图");
-        
-        //更新操作同下一关。都是重置界面。特效方面可能不同
-        MapManager.getInstance().level = mapData;
-        this.nextLevel();
-    }
-
 
     //使用道具(大屏幕)
     public revPro(data): void {
@@ -467,10 +452,11 @@ class GameScene extends BaseScene{
 
     //幸运用户的地图因为没有可以消除的，系统自动更换
     public revLuckyMap(data): void {
-        var mapData: any = data.mapdata;  //地图数据
-        //同下一关。都是重置界面。特效方面可能不同
-        MapManager.getInstance().level = mapData;
-        this.nextLevel();
+        var mapData: any = data.mapData;  //地图数据
+        //重置地图
+        MapManager.getInstance().level [this.curLevel-1]= mapData;
+        this.resetGame();
+        this.createMap();
     }
     
     //游戏结束
@@ -479,7 +465,7 @@ class GameScene extends BaseScene{
         egret.log("游戏结束，前三名ID：" + winners[0],winners[1],winners[2]);
         
         //TODO 返回首页?还是在游戏界面进行某些显示？
-        LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
+        //LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
     }
     
     

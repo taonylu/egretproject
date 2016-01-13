@@ -66,6 +66,7 @@ class HomeScene extends BaseScene{
     }
     
     private onSendDmBtnTouch():void{
+        this.dmGroup.visible = false;
         this.sendDanMu(this.dmLabel.text);
     }
     
@@ -98,19 +99,12 @@ class HomeScene extends BaseScene{
     
     //-----------------------------接收数据----------------------------------
     
-    //接收用户自己数据
-    public revUserInfo(data):void{
-        var id:string = data.id;
-        var avatar:string = data.avatar;
-        var name:string = data.name;
-        egret.log("用户信息:",id, avatar, name);
-    }
     
     //过关后，接收新关卡数据
     public revMapData(data): void {
         var mapData = data.mapData;
         egret.log("下一关");
-        //第一次接收，则是开始游戏
+        //接收地图数据，则表示开始游戏
         MapManager.getInstance().level.length = 0;
         MapManager.getInstance().level.push(mapData[0],mapData[1],mapData[2]);
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);

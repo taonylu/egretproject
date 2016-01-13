@@ -8,7 +8,7 @@ var HomeScene = (function (_super) {
     function HomeScene() {
         _super.call(this, "HomeSceneSkin");
         this.userMax = 8; //用户最大数量
-        this.timeLimit = 10; //倒计时时间 
+        this.timeLimit = 20; //倒计时时间 
         this.countDownTimer = new egret.Timer(1000);
     }
     var d = __define,c=HomeScene,p=c.prototype;
@@ -50,10 +50,10 @@ var HomeScene = (function (_super) {
         var curTimeCount = this.timeLimit - this.countDownTimer.currentCount;
         //倒计时结束，则进入游戏
         if (curTimeCount < 0) {
-            this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
-            this.countDownTimer.stop();
+            this.stopCountDown();
             return;
         }
+        //个位数计时补0
         if (curTimeCount < 10) {
             this.countDownLabel.text = "0" + curTimeCount.toString();
         }
@@ -61,18 +61,37 @@ var HomeScene = (function (_super) {
             this.countDownLabel.text = curTimeCount.toString();
         }
     };
+    p.stopCountDown = function () {
+        this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
+        this.countDownTimer.stop();
+    };
     ///////////////////////////////////////////////////
     ///-----------------[网络处理]----------------------
     ///////////////////////////////////////////////////
     //-----------------------------发送数据----------------------------------
     //-----------------------------接收数据----------------------------------
+    //返回登录成功
+    p.revLogin = function (data) {
+        var status = data.status; //  -1 房间已经存在 ， 0 房间错误， 1 开放成功
+        egret.log("登录返回，房间状态：", status);
+        switch (status) {
+            case 1:
+                this.startCountDown();
+                break;
+            case 0:
+                break;
+            case -1:
+                break;
+            default:
+        }
+    };
     //玩家加入
     p.revUserJoin = function (data) {
         var headimgurl = data.headimgurl; //用户头像
         var nickname = data.nickname; //用户名
         var uid = data.uid; //用户id
         egret.log("玩家加入,头像:" + headimgurl, "名字:" + nickname, "ID:" + uid);
-        //设置用户名，选取一个空文本。因为可能出现靠前的玩家退出游戏。
+        //设置用户名，选取列表靠前的一个空文本。因为可能出现靠前的玩家退出游戏。
         var index = -1;
         var headUI;
         for (var i = 0; i < this.userMax; i++) {
@@ -110,8 +129,10 @@ var HomeScene = (function (_super) {
         var mapData = data.mapData; //地图信息
         var luckyUser = data.luckyUser; //大屏幕显示的用户
         egret.log("游戏开始，幸运用户:", luckyUser);
+        //记录地图信息
         MapManager.getInstance().level.length = 0;
         MapManager.getInstance().level.push(mapData[0], mapData[1], mapData[2]);
+        //记录幸运用户
         UserManager.getInstance().luckyUser = luckyUser;
         //跳转场景
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);

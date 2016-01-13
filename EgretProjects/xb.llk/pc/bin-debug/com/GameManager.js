@@ -36,15 +36,6 @@ var GameManager = (function () {
     p.onConnect = function () {
         this.sendLoginRequest();
     };
-    //返回登录成功
-    p.revLogin = function (data) {
-        var status = data.status; //  -1 房间已经存在 ， 0 房间错误， 1 开放成功
-        egret.log("登录成功，房间状态：", status);
-        if (status == 1) {
-        }
-        else if (status == 0) {
-        }
-    };
     //接收弹幕
     p.revBarrage = function (data) {
         this.barrageUI.showOneMsg(data);

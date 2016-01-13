@@ -58,16 +58,6 @@ class ClientSocket {
         this.socket.on(NetConst.S2C_login, function(data){
            GameManager.getInstance().revLogin(data); 
         });
-        
-        //接收用户自己信息
-        this.socket.on(NetConst.S2C_userInfo,function(data) {
-            self.homeScene.revUserInfo(data);
-        });
-        
-        //施放道具返回
-        this.socket.on(NetConst.S2C_usePro, function(data){
-            self.gameScene.revUserPro(data);
-        });
 
         //被施放道具
         this.socket.on(NetConst.S2C_pro,function(data) {

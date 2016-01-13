@@ -47,17 +47,7 @@ class GameManager {
         this.sendLoginRequest();
     }
     
-    //返回登录成功
-    public revLogin(data) {
-        var status: Number = data.status; //  -1 房间已经存在 ， 0 房间错误， 1 开放成功
-
-        egret.log("登录成功，房间状态：",status);
-        if(status == 1) { //验证成功
-            
-        } else if(status == 0) {  //验证失败
-            
-        }
-    }
+    
     
     //接收弹幕
     public revBarrage(data){
