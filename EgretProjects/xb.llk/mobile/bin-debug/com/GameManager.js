@@ -11,31 +11,37 @@ var GameManager = (function () {
     var d = __define,c=GameManager,p=c.prototype;
     p.startup = function (main) {
         //配置socket
-        var socket = new ClientSocket();
-        socket.homeScene = this.homeScene;
-        socket.gameScene = this.gameScene;
-        this.homeScene.socket = socket;
-        this.gameScene.socket = socket;
+        this.socket = new ClientSocket();
+        this.socket.homeScene = this.homeScene;
+        this.socket.gameScene = this.gameScene;
+        this.homeScene.socket = this.socket;
+        this.gameScene.socket = this.socket;
         //配置Layer
         GameConst.stage = main.stage;
         LayerManager.getInstance().initialize(main);
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);
         //连接socket
-        socket.startConnect(NetConst.url);
-        //模拟数据
-        //        var json = { "mapdata": []};
-        //        json.mapdata = [
-        //            [1,0,0,0,1,0,1],
-        //            [0,0,1,0,0,1,0],
-        //            [0,0,1,0,0,0,1],
-        //            [1,0,0,1,0,1,1],
-        //            [0,0,1,0,0,0,0],
-        //            [1,0,0,0,0,0,0],
-        //            [0,0,0,0,0,1,0],
-        //            [1,0,0,1,0,0,0]
-        //        ];
-        //        this.homeScene.revMapData(json);
+        this.socket.startConnect(NetConst.url);
+    };
+    ///////////////////////////////////////////////////
+    ///-----------------[网络处理]----------------------
+    ///////////////////////////////////////////////////
+    //--------------------[接收]----------------------
+    //链接成功
+    p.onConnect = function () {
+        this.sendLogin();
+    };
+    //接收登录
+    p.revLogin = function (data) {
+        var status = data.status;
+        egret.log("接收登录:" + status);
+    };
+    //--------------------[发送]----------------------
+    //发送登录
+    p.sendLogin = function () {
+        var json = { "uid": window["srvConfig"].uid, "rid": window["srvConfig"].rid };
+        this.socket.sendMessage(NetConst.C2S_login, json);
     };
     GameManager.getInstance = function () {
         if (this.instance == null) {

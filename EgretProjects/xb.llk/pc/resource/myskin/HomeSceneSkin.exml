@@ -1,14 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="HomeSceneSkin" width="2560" height="1440" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
-	<e:Image id="bg" source="homge_bg_png" y="232" horizontalCenter="0.5"/>
-	<e:Image id="title" source="home_title_png" y="61" x="797"/>
-	<e:Image id="nav_intro" x="457" y="389" source="game_intro_png"/>
-	<e:Image id="nav_img" source="home_img_jpg" x="435" y="1012"/>
-	<e:Image id="nav_enter" source="home_entergame_png" x="1397" y="389"/>
-	<e:Image id="logo" source="home_thxbg_png" x="1842" y="540"/>
-	<e:Image id="nav_thx" source="home_thx_png" x="1849" y="387"/>
-	<e:Image source="home_codetext_png" x="1411" y="940"/>
-	<e:Group id="userGroup" height="342" width="448" x="1348" y="1014">
+	<e:Image id="bg" source="homge_bg_png" y="213" x="303"/>
+	<e:Group id="userGroup" height="342" width="448" x="1298" y="1014">
 		<ns1:HeadUI id="headUI0" x="-1" y="0" skinName="HeadUISkin"/>
 		<ns1:HeadUI x="207" y="0" skinName="HeadUISkin" id="headUI1"/>
 		<ns1:HeadUI id="headUI2" y="74" skinName="HeadUISkin" x="-1"/>
@@ -18,6 +11,16 @@
 		<ns1:HeadUI id="headUI6" y="223" skinName="HeadUISkin" x="-1"/>
 		<ns1:HeadUI x="207" y="223" skinName="HeadUISkin" id="headUI7"/>
 	</e:Group>
-	<e:Label id="gameIntroLabel" text="标签标签标签标签标签标签标签标签标签标签标签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签标签标签标签标签" x="444" y="502" textColor="0x030000" fontFamily="微软雅黑" width="792" height="472"/>
-	<e:Group id="qrcodeGroup" height="400" width="400" x="1362" y="512"/>
+	<e:Label id="gameIntroLabel" text="标签标签标签标签标签标签标签标签标签标签标签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签标签标签标签标签" x="444" y="505" textColor="0x030000" fontFamily="微软雅黑" width="513" height="472"/>
+	<e:Image id="codebg" source="home_codebg_png" x="971" y="490"/>
+	<e:Group id="qrcodeGroup" height="350" width="350" x="1390" y="534">
+	</e:Group>
+	<e:BitmapLabel id="countDownLabel" x="1067" y="628" font="countdown_fnt" width="285" height="185" text="00"/>
+	<e:Image id="shaLou" source="shalou_png" x="1076" y="548"/>
+	<e:Image source="home_title_png" y="46" x="797"/>
+	<e:Image source="home_entergame_png" x="976" y="358"/>
+	<e:Image source="home_img_jpg" x="406" y="1003"/>
+	<e:Image source="home_thx_png" x="1837" y="358"/>
+	<e:Image source="home_thxbg_png" x="1818" y="507"/>
+	<e:Image source="game_intro_png" x="421" y="358"/>
 </e:Skin>

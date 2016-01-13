@@ -23,7 +23,7 @@ class ClientSocket {
     public startConnect(url:string): void {
 
         //连接socket
-        this.socket = io.connect(url);
+        this.socket = io.connect(url,{ reconnection:false});
         var self: ClientSocket = this;
         
         //连接成功 
@@ -54,9 +54,19 @@ class ClientSocket {
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
         
+        //用户登录
+        this.socket.on(NetConst.S2C_login, function(data){
+           GameManager.getInstance().revLogin(data); 
+        });
+        
         //接收用户自己信息
         this.socket.on(NetConst.S2C_userInfo,function(data) {
             self.homeScene.revUserInfo(data);
+        });
+        
+        //施放道具返回
+        this.socket.on(NetConst.S2C_usePro, function(data){
+            self.gameScene.revUserPro(data);
         });
 
         //被施放道具
@@ -66,11 +76,7 @@ class ClientSocket {
         
         //关卡地图
         this.socket.on(NetConst.S2C_mapData,function(data) {
-            if(MapManager.getInstance().level == null){
-                self.homeScene.revMapData(data);
-            }else{
-                self.gameScene.revMapData(data);
-            }
+            self.homeScene.revMapData(data);
         });
         
         //游戏结束
@@ -86,7 +92,8 @@ class ClientSocket {
     //连接成功
     private onConnect(): void {
         egret.log("connenct succss");
-        this.homeScene.sendLogin();
+        GameManager.getInstance().onConnect();
+        
     }
         
     //连接失败
