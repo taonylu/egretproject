@@ -25,7 +25,7 @@ class GameManager {
         LayerManager.getInstance().runScene(this.homeScene);
         
         //连接socket
-        this.socket.startConnect(NetConst.url);
+        this.socket.startConnect(window["server"]);
     }
     
     ///////////////////////////////////////////////////
@@ -40,7 +40,7 @@ class GameManager {
     
     //接收登录
     public revLogin(data){
-        var status:number = data.status;
+        var status:number = data;
         egret.log("接收登录:" + status);
     }
     
@@ -49,7 +49,7 @@ class GameManager {
     //发送登录
     public sendLogin(): void {
         var json = { "uid": window["srvConfig"].uid, "rid":window["srvConfig"].rid};
-        this.socket.sendMessage(NetConst.C2S_login,json);
+        this.socket.sendMessage(NetConst.C2S_login,json,this.revLogin, this);
     }
    
     

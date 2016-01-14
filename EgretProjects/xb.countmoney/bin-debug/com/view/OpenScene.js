@@ -183,7 +183,7 @@ var OpenScene = (function (_super) {
         egret.Tween.removeTweens(this.submitBtn);
         this.configListeners();
         GameConst.phone = this.phoneLabel.text;
-        egret.localStorage.setItem("gzrb", this.phoneLabel.text);
+        //egret.localStorage.setItem("gzrb", this.phoneLabel.text);
         this.phoneGroup.visible = false;
         var json = JSON.parse(result);
         alert(json.msg);

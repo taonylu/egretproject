@@ -31,6 +31,7 @@ var game_file_list = [
 	"bin-debug/com/view/ui/BarrageUI.js",
 	"bin-debug/com/view/ui/BlockUI.js",
 	"bin-debug/com/view/ui/BoomUI.js",
+	"bin-debug/com/view/ui/GameHeadUI.js",
 	"bin-debug/com/view/ui/HeadUI.js",
 	"bin-debug/com/view/ui/SelectUI.js",
 	"bin-debug/com/view/ui/SkillUI.js",

@@ -9,9 +9,9 @@ class GameScene extends BaseScene{
     public socket: ClientSocket;
 
     //---------------[游戏UI]-----------------
-    private skill0Btn:eui.Image;  //技能按钮 打乱
-    private skill1Btn:eui.Image;  //冰冻
-    private skill2Btn:eui.Image;  //提示
+    private skillResetBtn:eui.Image;  //技能按钮 打乱
+    private skillIceBtn:eui.Image;  //冰冻
+    private skillTipBtn:eui.Image;  //提示
     
     private blockPool: ObjectPool = ObjectPool.getPool(BlockUI.NAME,10); //方块对象池
     private boomPool: ObjectPool = ObjectPool.getPool(BoomUI.NAME,10);   //炸弹对象池
@@ -118,31 +118,31 @@ class GameScene extends BaseScene{
     
     public configListener(){
         this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouchTap,this);
-        this.skill0Btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill0, this);
-        this.skill1Btn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onSkill1,this);
-        this.skill2Btn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onSkill2,this);
+        this.skillResetBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onResetTouch, this);
+        this.skillIceBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onIceTouch,this);
+        this.skillTipBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTipTouch,this);
     }
     
     public deConfigListener(){
         this.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouchTap,this);
-        this.skill0Btn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onSkill0,this);
-        this.skill1Btn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onSkill1,this);
-        this.skill2Btn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onSkill2,this);
+        this.skillResetBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onResetTouch,this);
+        this.skillIceBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onIceTouch,this);
+        this.skillTipBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onTipTouch,this);
     }
     
     //打乱对手
-    private onSkill0(){
-        
+    private onResetTouch(){
+        this.sendUserPro("1");
     }
     
     //冰冻对手
-    private onSkill1(){
-        
+    private onIceTouch(){
+        this.sendUserPro("2");
     }
     
     //重排自己
-    private onSkill2(){
-        
+    private onTipTouch(){
+        this.sendUserPro("3");
     }
     
     ///////////////////////////////////////////////////

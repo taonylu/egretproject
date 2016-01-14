@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"block1_png,block10_png,block11_png,block2_png,block3_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png,game_bar_png,game_bareffect_png,game_bg_png,game_dmbtn_png,game_introbtn_png,game_rulebg_png,game_rulebtn_png,game_sendbtn_png,game_title_png,select0_png,select1_png,game_wait_png,cloud_png,game_dmbg_png,game_skill2_png,game_skill0_png,game_skill1_png",
+			"keys":"block1_png,block10_png,block11_png,block2_png,block3_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png,game_bar_png,game_bareffect_png,game_bg_png,game_dmbtn_png,game_introbtn_png,game_rulebg_png,game_rulebtn_png,game_sendbtn_png,game_title_png,select0_png,select1_png,game_wait_png,cloud_png,game_dmbg_png,game_skill2_png,game_skill0_png,game_skill1_png,skill_ice_png",
 			"name":"game"
 		}
 	],
@@ -149,6 +149,11 @@
 			"name":"game_skill1_png",
 			"type":"image",
 			"url":"assets/game_skill1.png"
+		},
+		{
+			"name":"skill_ice_png",
+			"type":"image",
+			"url":"assets/skill_ice.png"
 		}
 	]
 }

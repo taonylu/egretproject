@@ -13,6 +13,7 @@ var GameScene = (function (_super) {
         this.boomPool = ObjectPool.getPool(BoomUI.NAME, 10); //炸弹对象池
         this.selectOld = new SelectUI(); //选择框动画，第一个对象
         this.selectNew = new SelectUI(); //选择框动画，第二个对象
+        this.gameHeadUIList = new Array(); //进度头像列表
         this.blockTypeNum = 11; //方块的数量种类
         this.blockNum = 0; //当前关卡方块数量
         this.blockData = new Array(); //方块的类型数组，用于判断方块皮肤ID后缀数字,"block" + blockData[i]
@@ -29,6 +30,8 @@ var GameScene = (function (_super) {
         this.score = 0; //得分
         this.curLevel = 1; //当前关卡
         this.totalScore = 0; //总分
+        this.userMax = 8; //用户最大数量
+        this.blockTotal = 0; //3个关卡所有方块总数
         //------------------[寻路数据]--------------------
         this.minRoadPoint = 10000; //路径数
         this.route = new Array(); //记录路径
@@ -47,6 +50,7 @@ var GameScene = (function (_super) {
     p.startGame = function () {
         this.curLevel = 1;
         this.createMap();
+        this.initGameHead();
     };
     p.resetGame = function () {
         //清理剩余方块
@@ -91,6 +95,10 @@ var GameScene = (function (_super) {
         for (var i = 0; i < 4; i++) {
             this.skillUIList.push(this["skillUI" + i]);
         }
+        //进度头像
+        for (var i = 0; i < this.userMax; i++) {
+            this.gameHeadUIList.push(new GameHeadUI());
+        }
     };
     p.initLineSprite = function () {
         //初始变量
@@ -102,6 +110,29 @@ var GameScene = (function (_super) {
         this.lineSprite.touchChildren = false;
         this.lineSprite.touchEnabled = false;
         this.blockGroup.addChild(this.lineSprite);
+    };
+    //初始化用户进度头像
+    p.initGameHead = function () {
+        var userList = UserManager.getInstance().userList;
+        var index = 0; //游戏进度头像计数
+        var userVO; //用户信息
+        var gameHeadUI; //游戏进度头像
+        for (var key in userList) {
+            userVO = userList[key];
+            gameHeadUI = this.gameHeadUIList[index];
+            index++;
+            gameHeadUI.setHeadBmd(userVO.headBmd);
+            userVO.gameHeadUI = gameHeadUI;
+            this.headGroup.addChild(gameHeadUI);
+        }
+    };
+    //玩家消除一次，则游戏进度头像移动
+    p.moveGameHead = function (uid) {
+        var userVO = UserManager.getInstance().userList[uid];
+        if (userVO) {
+            var gameHeadUI = userVO.gameHeadUI;
+            gameHeadUI.y = userVO.cancelBloukNum / this.blockTotal * (this.headGroup.width - gameHeadUI.width);
+        }
     };
     ///////////////////////////////////////////////////
     ///-----------------[游戏逻辑]----------------------
@@ -361,6 +392,9 @@ var GameScene = (function (_super) {
         var uid = data.uid; //用户id
         var pos = data.pos; //消除的位置
         egret.log("玩家消除方块:", uid, pos);
+        //计算用户消除和头像移动
+        UserManager.getInstance().userList[uid].cancelBloukNum++;
+        this.moveGameHead(uid);
         //大屏用户消除
         if (uid == UserManager.getInstance().luckyUser) {
             var blockA = this.blockArr[pos[0][0]][pos[0][1]];
@@ -391,9 +425,9 @@ var GameScene = (function (_super) {
         else if (type == "3") {
         }
         //大屏幕显示道具信息  暂时用第一栏显示
-        var img0 = UserManager.getInstance().userList[from].headImg;
-        var img1 = UserManager.getInstance().userList[to].headImg;
-        this.skillUIList[0].setSkill(img0, img1, toolName);
+        // var img0: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[from]).headImg;
+        // var img1: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[to]).headImg;
+        // this.skillUIList[0].setSkill(img0,img1,toolName);
     };
     //幸运用户的地图因为没有可以消除的，系统自动更换
     p.revLuckyMap = function (data) {

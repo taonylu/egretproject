@@ -26,7 +26,7 @@ var GameManager = (function () {
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);
         //链接socket
-        this.socket.startConnect(NetConst.url);
+        this.socket.startConnect(window["server"]);
     };
     ///////////////////////////////////////////////////
     ///-----------------[网络处理]----------------------
@@ -44,7 +44,7 @@ var GameManager = (function () {
     //发送登录请求
     p.sendLoginRequest = function () {
         var json = { "rid": window["srvConfig"].rid };
-        this.socket.sendMessage(NetConst.C2S_login, json);
+        this.socket.sendMessage(NetConst.C2S_login, json, this.homeScene.revLogin, this.homeScene);
     };
     GameManager.getInstance = function () {
         if (this.instance == null) {

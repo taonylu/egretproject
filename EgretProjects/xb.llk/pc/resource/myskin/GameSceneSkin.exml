@@ -11,13 +11,24 @@
 		<ns1:SkillUI x="10" y="296" id="skillUI2" skinName="SkillUISkin"/>
 		<ns1:SkillUI x="10" y="433" skinName="SkillUISkin" id="skillUI3"/>
 	</e:Group>
-	<e:Image id="skill0" source="game_skill0_png" x="1060" y="1231"/>
-	<e:Image id="skill1" source="game_skill1_png" x="1295" y="1232"/>
-	<e:Image id="skill2" source="game_skill2_png" x="1532" y="1228"/>
 	<e:Group id="blockGroup" height="776" width="564" x="410" y="544">
 		<e:Image id="gamebg" source="game_blockbg_png" y="-11" x="-8"/>
 	</e:Group>
-	<e:Image id="title" source="home_title_png" y="46" x="797"/>
+	<e:Image id="title" source="home_title_png" y="46" x="837"/>
 	<e:Image id="logo" source="home_thxbg_png" y="507" x="1808"/>
 	<e:Image id="zhanshi" source="game_showicon_png" x="352" y="221"/>
+	<e:Group id="skillIntroGroup" height="256" width="758" x="1026" y="1097" cacheAsBitmap="false">
+		<e:Label text="全部打乱" x="59" y="10" textColor="0x030000" width="125" size="30" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center"/>
+		<e:Label x="21" y="173" textColor="0x030000" text="投放给对手" fontFamily="微软雅黑" textAlign="center" width="196" size="25" verticalAlign="middle" height="37"/>
+		<e:Label y="172" textColor="0x030000" size="25" text="投放给对手" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" width="196" height="37" x="276"/>
+		<e:Label x="524" y="172" textColor="0x030000" height="37" text="投放给对手" fontFamily="微软雅黑" textAlign="center" width="196" size="25" verticalAlign="middle"/>
+		<e:Label x="303" y="10" textColor="0x030000" text="冻结" fontFamily="微软雅黑" textAlign="center" width="125" size="30" verticalAlign="middle"/>
+		<e:Label y="9" textColor="0x030000" text="提示道具" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" width="125" size="30" x="556"/>
+		<e:Label y="202" textColor="0x030000" size="25" text="提示自己可执行操作" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" width="263" height="37" x="497"/>
+		<e:Label x="237" y="204" textColor="0x030000" height="37" text="停止对手操作界面" fontFamily="微软雅黑" textAlign="center" width="263" size="25" verticalAlign="middle"/>
+		<e:Label y="204" textColor="0x030000" size="25" text="捣乱对手原来版面" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" width="263" height="37" x="-13"/>
+		<e:Image id="skill0" source="game_skill0_png" x="60" y="50"/>
+		<e:Image id="skill1" source="game_skill1_png" x="310" y="50"/>
+		<e:Image id="skill2" source="game_skill2_png" x="560" y="50"/>
+	</e:Group>
 </e:Skin>

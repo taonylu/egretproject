@@ -22,7 +22,7 @@ var GameManager = (function () {
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);
         //连接socket
-        this.socket.startConnect(NetConst.url);
+        this.socket.startConnect(window["server"]);
     };
     ///////////////////////////////////////////////////
     ///-----------------[网络处理]----------------------
@@ -34,14 +34,14 @@ var GameManager = (function () {
     };
     //接收登录
     p.revLogin = function (data) {
-        var status = data.status;
+        var status = data;
         egret.log("接收登录:" + status);
     };
     //--------------------[发送]----------------------
     //发送登录
     p.sendLogin = function () {
         var json = { "uid": window["srvConfig"].uid, "rid": window["srvConfig"].rid };
-        this.socket.sendMessage(NetConst.C2S_login, json);
+        this.socket.sendMessage(NetConst.C2S_login, json, this.revLogin, this);
     };
     GameManager.getInstance = function () {
         if (this.instance == null) {

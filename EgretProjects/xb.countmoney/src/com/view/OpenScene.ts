@@ -253,7 +253,7 @@ class OpenScene extends BaseScene{
         this.configListeners();
         
         GameConst.phone = this.phoneLabel.text;
-        egret.localStorage.setItem("gzrb", this.phoneLabel.text);
+        //egret.localStorage.setItem("gzrb", this.phoneLabel.text);
         
         this.phoneGroup.visible = false;
         

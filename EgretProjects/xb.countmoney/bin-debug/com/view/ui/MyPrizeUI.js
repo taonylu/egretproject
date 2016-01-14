@@ -26,6 +26,8 @@ var MyPrizeUI = (function (_super) {
         //初始化文本
         this.prizeID0 = "";
         this.prizeID1 = "";
+        this.phone0 = "";
+        this.phone1 = "";
         this.contentLabel0.text = "";
         this.contentLabel1.text = "";
         this.detailScroller.touchChildren = false;
@@ -33,12 +35,14 @@ var MyPrizeUI = (function (_super) {
         //显示奖品1
         if (json[0]) {
             this.prizeID0 = json[0].prizenum;
+            this.phone0 = json[0].tel;
             this.contentLabel0.text = json[0].prizemsg;
             this.contentLabel0.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onLabel0Touch, this);
         }
         //显示奖品2
         if (json[1]) {
             this.prizeID1 = json[1].prizenum;
+            this.phone1 = json[1].tel;
             this.contentLabel1.text = json[1].prizemsg;
             this.contentLabel1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onLabel1Touch, this);
         }
@@ -50,12 +54,12 @@ var MyPrizeUI = (function (_super) {
         this.parent && this.parent.removeChild(this);
     };
     p.onLabel0Touch = function () {
-        this.showDetail(parseInt(this.prizeID0));
+        this.showDetail(parseInt(this.prizeID0), this.phone0);
     };
     p.onLabel1Touch = function () {
-        this.showDetail(parseInt(this.prizeID1));
+        this.showDetail(parseInt(this.prizeID1), this.phone1);
     };
-    p.showDetail = function (prizeID) {
+    p.showDetail = function (prizeID, phone) {
         this.detailScroller.touchChildren = true;
         this.detailScroller.touchEnabled = true;
         //清理详情页
@@ -68,7 +72,8 @@ var MyPrizeUI = (function (_super) {
         if (this.detailList[prizeID - 1]) {
             this.detailList[prizeID - 1].visible = true; //奖品id 1-8， 详情页0-6，现金无详情页，所以少一页
             //this.codeLabel.text = "兑换号:" + GameConst.phone;
-            this.codeLabel.text = "兑换号:" + egret.localStorage.getItem("gzrb");
+            //this.codeLabel.text = "兑换号:" + egret.localStorage.getItem("gzrb");
+            this.codeLabel.text = "兑换号:" + phone;
             this.detailGroup.visible = true;
             //监听
             this.detailGroup.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onDetailBegin, this);

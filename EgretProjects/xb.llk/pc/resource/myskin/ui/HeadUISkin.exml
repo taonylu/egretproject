@@ -2,4 +2,5 @@
 <e:Skin class="HeadUISkin" width="200" height="80" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="bg" source="home_namebg_png" x="5" y="9"/>
 	<e:Label id="nameLabel" text="用户用户用户用" x="61" y="25" size="18" textColor="0x2A0B0B" width="133" height="29" textAlign="left" verticalAlign="middle" fontFamily="微软雅黑"/>
+	<e:Image id="headMask" source="home_headmask_png" x="-1" y="5"/>
 </e:Skin>

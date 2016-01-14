@@ -17,6 +17,9 @@ class GameScene extends BaseScene{
     private selectNew: SelectUI = new SelectUI(); //选择框动画，第二个对象
     private lineSprite: egret.Sprite;             //画线容器
     
+    private headGroup:eui.Group;    //进度头像Group
+    private gameHeadUIList:Array<GameHeadUI> = new Array<GameHeadUI>();  //进度头像列表
+    
     //------------------[地图数据]--------------------
     private blockGroup: eui.Group;        //方块容器
     private blockTypeNum: number = 11;    //方块的数量种类
@@ -38,6 +41,8 @@ class GameScene extends BaseScene{
     private score: number = 0;              //得分
     private curLevel: number = 1;           //当前关卡
     public totalScore: number = 0;          //总分
+    private userMax: number = 8;            //用户最大数量
+    private blockTotal:number = 0;          //3个关卡所有方块总数
     
     //------------------[寻路数据]--------------------
     private minRoadPoint: number = 10000;               //路径数
@@ -69,6 +74,7 @@ class GameScene extends BaseScene{
     private startGame(): void {
         this.curLevel = 1;
         this.createMap();
+        this.initGameHead();
     }
     
     private resetGame(): void {
@@ -119,6 +125,10 @@ class GameScene extends BaseScene{
         for(var i:number=0;i<4;i++){
             this.skillUIList.push(this["skillUI" + i]);
         } 
+        //进度头像
+        for(var i:number=0;i<this.userMax;i++){  //人数8人
+            this.gameHeadUIList.push(new GameHeadUI());
+        }
     }
     
     private initLineSprite() {
@@ -131,6 +141,31 @@ class GameScene extends BaseScene{
         this.lineSprite.touchChildren = false;
         this.lineSprite.touchEnabled = false;
         this.blockGroup.addChild(this.lineSprite);
+    }
+    
+    //初始化用户进度头像
+    private initGameHead(){
+        var userList = UserManager.getInstance().userList;
+        var index:number= 0;   //游戏进度头像计数
+        var userVO:UserVO;     //用户信息
+        var gameHeadUI:GameHeadUI; //游戏进度头像
+        for(var key in userList){
+            userVO = userList[key];
+            gameHeadUI = this.gameHeadUIList[index];
+            index++;
+            gameHeadUI.setHeadBmd(userVO.headBmd);
+            userVO.gameHeadUI = gameHeadUI;
+            this.headGroup.addChild(gameHeadUI);
+        }
+    }
+    
+    //玩家消除一次，则游戏进度头像移动
+    private moveGameHead(uid:string){
+        var userVO:UserVO = UserManager.getInstance().userList[uid];
+        if(userVO){
+            var gameHeadUI:GameHeadUI = userVO.gameHeadUI;
+            gameHeadUI.y = userVO.cancelBloukNum/this.blockTotal*(this.headGroup.width - gameHeadUI.width);
+        }
     }
     
     ///////////////////////////////////////////////////
@@ -412,6 +447,10 @@ class GameScene extends BaseScene{
         
         egret.log("玩家消除方块:",uid,pos);
         
+        //计算用户消除和头像移动
+        (<UserVO>UserManager.getInstance().userList[uid]).cancelBloukNum++;
+        this.moveGameHead(uid);
+        
         //大屏用户消除
         if(uid == UserManager.getInstance().luckyUser){
             var blockA: BlockUI = this.blockArr[pos[0][0]][pos[0][1]];
@@ -445,9 +484,9 @@ class GameScene extends BaseScene{
         }
         
         //大屏幕显示道具信息  暂时用第一栏显示
-        var img0: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[from]).headImg;
-        var img1: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[to]).headImg;
-        this.skillUIList[0].setSkill(img0,img1,toolName);
+       // var img0: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[from]).headImg;
+       // var img1: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[to]).headImg;
+       // this.skillUIList[0].setSkill(img0,img1,toolName);
     }
 
     //幸运用户的地图因为没有可以消除的，系统自动更换
