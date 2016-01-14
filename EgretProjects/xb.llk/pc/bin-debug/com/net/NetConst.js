@@ -7,7 +7,6 @@ var NetConst = (function () {
     function NetConst() {
     }
     var d = __define,c=NetConst,p=c.prototype;
-    NetConst.url = "http://192.168.1.103:3000"; //IP、端口号
     //-----------------发送数据----------------------
     NetConst.C2S_login = "login"; //请求登录
     //-----------------接收数据----------------------

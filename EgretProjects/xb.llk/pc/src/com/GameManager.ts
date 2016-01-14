@@ -32,7 +32,7 @@ class GameManager {
         LayerManager.getInstance().runScene(this.homeScene);  
         
         //链接socket
-        this.socket.startConnect(NetConst.url);
+        this.socket.startConnect(window["server"]);
     }
     
     
@@ -59,7 +59,7 @@ class GameManager {
     //发送登录请求
     public sendLoginRequest(){
         var json = {"rid": window["srvConfig"].rid};
-        this.socket.sendMessage(NetConst.C2S_login,json);
+        this.socket.sendMessage(NetConst.C2S_login,json , this.homeScene.revLogin, this.homeScene);
     }
     
     

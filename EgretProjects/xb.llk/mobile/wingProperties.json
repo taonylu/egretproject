@@ -148,6 +148,11 @@
 					"isFolder":false,
 					"key":"game_skill2_png",
 					"name":"game_skill2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"skill_ice_png",
+					"name":"skill_ice_png"
 				}
 			]
 		}

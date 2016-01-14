@@ -79,9 +79,10 @@
     	//----------配置信息--------------
     	var srvConfig = {
     		"uid" : (new Date().getTime()).toString(), // 用户ID
-    		"rid" : Request("rid"), // 房间ID
+    		"rid" : 1, // 房间ID
     	}
     	window["srvConfig"] = srvConfig;
+    	window["server"] = "192.168.1.113:3000/mobile";
     	
     	function Request(argname) //获取get的值
     	{ 

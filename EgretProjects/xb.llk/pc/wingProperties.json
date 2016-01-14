@@ -178,6 +178,26 @@
 					"isFolder":false,
 					"key":"home_codebg_png",
 					"name":"home_codebg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_headmask_png",
+					"name":"home_headmask_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_skill0_0_png",
+					"name":"game_skill0_0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_skill1_0_png",
+					"name":"game_skill1_0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_skill2_0_png",
+					"name":"game_skill2_0_png"
 				}
 			]
 		}

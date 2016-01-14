@@ -7,7 +7,6 @@ var NetConst = (function () {
     function NetConst() {
     }
     var d = __define,c=NetConst,p=c.prototype;
-    NetConst.url = "http://192.168.1.103:3000"; //IP、端口号
     //接收
     NetConst.S2C_login = "login"; //登录
     NetConst.S2C_mapData = "mapData"; //关卡地图数据

@@ -59,6 +59,7 @@
 	<script egret="game" src="bin-debug/com/view/ui/BarrageUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/BlockUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/BoomUI.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/GameHeadUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/HeadUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/SelectUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/SkillUI.js"></script>
@@ -88,7 +89,7 @@
     <script>
     	//------配置信息------
     	var srvConfig = {
-    		"rid" : Request("rid"),        // 房间ID     
+    		"rid" : 1,        // 房间ID     
     		"licenceStatus" : 1,           // -1 授权码不存在， 0 授权码到期， 1 授权码可用
     		"rommStatus" : 1 ,             //  0 房间已经存在 ， 1 开房成功
     	}
@@ -96,7 +97,8 @@
     	//------配置信息 end------
     	
 		//------生成二维码 start-------
-    	var codeUrl =  "http://192.168.1.103:3000?licence=" + Request("licence") + "&rid" + Request("rid");
+    	var server = "http://192.168.1.113:3000/screen";
+    	var codeUrl =  server + "?licence=" + Request("licence") + "&rid" + Request("rid");
     	var codeWidth = 350;
     	var codeHeight = 350;
     	var logoUrl = "logo.jpg";
@@ -108,6 +110,7 @@
     	window["codeWidth"] = codeWidth;
     	window["codeHeight"] = codeHeight;
         window["logoUrl"] = logoUrl;
+    	window["server"] = server;
     	
     	function Request(argname) //获取get的值
     	{ 

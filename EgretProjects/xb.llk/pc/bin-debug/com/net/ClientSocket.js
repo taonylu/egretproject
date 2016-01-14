@@ -5,6 +5,7 @@
  */
 var ClientSocket = (function () {
     function ClientSocket() {
+        this.connected = false; //是否连接
     }
     var d = __define,c=ClientSocket,p=c.prototype;
     ClientSocket.getInstance = function () {
@@ -19,18 +20,22 @@ var ClientSocket = (function () {
         var self = this;
         //连接成功 
         this.socket.on('connect', function () {
+            self.connected = true;
             self.onConnect();
         });
         //连接失败    
         this.socket.on('error', function (data) {
+            self.connected = false;
             self.onError(data);
         });
         //断开连接    
         this.socket.on('disconnect', function () {
+            self.connected = false;
             self.onDisconnect();
         });
         //尝试重新连接
         this.socket.on('reconnect_attempt', function () {
+            self.connected = false;
             self.onReconnectAttempt();
         });
         //////////////////////////////////////////////////////
@@ -39,10 +44,6 @@ var ClientSocket = (function () {
         //玩家弹幕
         this.socket.on(NetConst.S2C_barrage, function (data) {
             GameManager.getInstance().revBarrage(data);
-        });
-        //登录完成
-        this.socket.on(NetConst.S2C_login, function (data) {
-            self.homeScene.revLogin(data);
         });
         //玩家加入
         this.socket.on(NetConst.S2C_userJoin, function (data) {
@@ -94,8 +95,16 @@ var ClientSocket = (function () {
         egret.log("reconnect");
     };
     //发送数据
-    p.sendMessage = function (cmd, data) {
-        this.socket.emit(cmd, data);
+    p.sendMessage = function (cmd, data, callBack, thisObject) {
+        if (callBack === void 0) { callBack = null; }
+        if (thisObject === void 0) { thisObject = null; }
+        if (this.connected) {
+            this.socket.emit(cmd, data, function (data) {
+                if (callBack && thisObject) {
+                    callBack.call(thisObject, data);
+                }
+            });
+        }
     };
     return ClientSocket;
 })();

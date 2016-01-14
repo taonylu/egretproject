@@ -85,24 +85,27 @@ var GameScene = (function (_super) {
     };
     p.configListener = function () {
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
-        this.skill0Btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill0, this);
-        this.skill1Btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill1, this);
-        this.skill2Btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill2, this);
+        this.skillResetBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onResetTouch, this);
+        this.skillIceBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onIceTouch, this);
+        this.skillTipBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTipTouch, this);
     };
     p.deConfigListener = function () {
         this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
-        this.skill0Btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill0, this);
-        this.skill1Btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill1, this);
-        this.skill2Btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onSkill2, this);
+        this.skillResetBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onResetTouch, this);
+        this.skillIceBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onIceTouch, this);
+        this.skillTipBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTipTouch, this);
     };
     //打乱对手
-    p.onSkill0 = function () {
+    p.onResetTouch = function () {
+        this.sendUserPro("1");
     };
     //冰冻对手
-    p.onSkill1 = function () {
+    p.onIceTouch = function () {
+        this.sendUserPro("2");
     };
     //重排自己
-    p.onSkill2 = function () {
+    p.onTipTouch = function () {
+        this.sendUserPro("3");
     };
     ///////////////////////////////////////////////////
     ///-----------------[游戏UI]----------------------

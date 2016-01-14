@@ -9,7 +9,8 @@ class MyPrizeUI extends BaseUI{
     private okBtn:eui.Rect;   //朕已阅
     private prizeID0:string;  //已获得奖品1的ID
     private prizeID1:string;  //已获得奖品2的ID
-    
+    private phone0:string;
+    private phone1:string;
     
     private detailScroller:eui.Scroller;  //详情页滚动条
     private detailGroup:eui.Group;  //详情页总Group
@@ -39,8 +40,11 @@ class MyPrizeUI extends BaseUI{
         //初始化文本
         this.prizeID0 = "";
         this.prizeID1 = "";
+        this.phone0 = "";
+        this.phone1 = "";
         this.contentLabel0.text = "";
         this.contentLabel1.text = "";
+
         
         this.detailScroller.touchChildren =  false;
         this.detailScroller.touchEnabled = false;
@@ -48,14 +52,14 @@ class MyPrizeUI extends BaseUI{
         //显示奖品1
         if(json[0]){
             this.prizeID0 = json[0].prizenum;
-
+            this.phone0 = json[0].tel;
             this.contentLabel0.text = json[0].prizemsg;
             this.contentLabel0.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onLabel0Touch, this);
         }
         //显示奖品2
         if(json[1]) {
             this.prizeID1 = json[1].prizenum;
- 
+            this.phone1 = json[1].tel;
             this.contentLabel1.text = json[1].prizemsg;
             this.contentLabel1.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onLabel1Touch,this);
         }
@@ -70,14 +74,14 @@ class MyPrizeUI extends BaseUI{
     }
     
     private onLabel0Touch():void{
-        this.showDetail(parseInt(this.prizeID0));
+        this.showDetail(parseInt(this.prizeID0),this.phone0);
     }
     
     private onLabel1Touch():void{
-        this.showDetail(parseInt(this.prizeID1));
+        this.showDetail(parseInt(this.prizeID1), this.phone1);
     }
     
-    public showDetail(prizeID:number):void{
+    public showDetail(prizeID:number, phone:string):void{
         
         this.detailScroller.touchChildren = true;
         this.detailScroller.touchEnabled = true;
@@ -93,7 +97,8 @@ class MyPrizeUI extends BaseUI{
         if(this.detailList[prizeID-1]){  //有些奖品无详情页
             this.detailList[prizeID - 1].visible = true; //奖品id 1-8， 详情页0-6，现金无详情页，所以少一页
             //this.codeLabel.text = "兑换号:" + GameConst.phone;
-            this.codeLabel.text = "兑换号:" + egret.localStorage.getItem("gzrb");
+            //this.codeLabel.text = "兑换号:" + egret.localStorage.getItem("gzrb");
+            this.codeLabel.text = "兑换号:" + phone;
             this.detailGroup.visible = true;
             //监听
             this.detailGroup.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onDetailBegin,this);

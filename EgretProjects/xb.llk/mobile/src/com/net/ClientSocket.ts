@@ -53,12 +53,6 @@ class ClientSocket {
         //////////////////////////////////////////////////////
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
-        
-        //用户登录
-        this.socket.on(NetConst.S2C_login, function(data){
-           GameManager.getInstance().revLogin(data); 
-        });
-
         //被施放道具
         this.socket.on(NetConst.S2C_pro,function(data) {
             self.gameScene.revPro(data);
@@ -101,13 +95,14 @@ class ClientSocket {
         egret.log("reconnect");
     }
     
-    //发送数据
-    public sendMessage(cmd: string,json): void {
-        if(this.connected ){
-            this.socket.emit(cmd,json);
-        }else{
-            //TODO 连接已断开
-        } 
+    public sendMessage(cmd: string,data,callBack: Function = null,thisObject = null): void {
+        if(this.connected) {
+            this.socket.emit(cmd,data,function(data) {
+                if(callBack && thisObject) {
+                    callBack.call(thisObject,data);
+                }
+            });
+        }
     }
     
 }

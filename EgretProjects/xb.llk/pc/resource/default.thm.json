@@ -4,7 +4,8 @@
     "resource/myskin/ui/SkillUISkin.exml",
     "resource/myskin/GameSceneSkin.exml",
     "resource/myskin/ui/HeadUISkin.exml",
-    "resource/myskin/HomeSceneSkin.exml"
+    "resource/myskin/HomeSceneSkin.exml",
+    "resource/myskin/ui/GameHeadUISkin.exml"
   ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",

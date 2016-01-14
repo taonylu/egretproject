@@ -11,13 +11,13 @@
 		<ns1:HeadUI id="headUI6" y="223" skinName="HeadUISkin" x="-1"/>
 		<ns1:HeadUI x="207" y="223" skinName="HeadUISkin" id="headUI7"/>
 	</e:Group>
-	<e:Label id="gameIntroLabel" text="标签标签标签标签标签标签标签标签标签标签标签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签签标签标签标签标签标签标签标签标签标签" x="444" y="505" textColor="0x030000" fontFamily="微软雅黑" width="513" height="472"/>
+	<e:Label id="gameIntroLabel" x="444" y="505" textColor="0x030000" fontFamily="微软雅黑" width="513" height="472" text="游戏介绍..."/>
 	<e:Image id="codebg" source="home_codebg_png" x="971" y="490"/>
 	<e:Group id="qrcodeGroup" height="350" width="350" x="1390" y="534">
 	</e:Group>
 	<e:BitmapLabel id="countDownLabel" x="1067" y="628" font="countdown_fnt" width="285" height="185" text="00"/>
 	<e:Image id="shaLou" source="shalou_png" x="1076" y="548"/>
-	<e:Image source="home_title_png" y="46" x="797"/>
+	<e:Image source="home_title_png" y="46" x="837"/>
 	<e:Image source="home_entergame_png" x="976" y="358"/>
 	<e:Image source="home_img_jpg" x="406" y="1003"/>
 	<e:Image source="home_thx_png" x="1837" y="358"/>

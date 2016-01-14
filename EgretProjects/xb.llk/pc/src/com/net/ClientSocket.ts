@@ -9,6 +9,8 @@ class ClientSocket {
     
     public homeScene: HomeScene;            //主页场景
     public gameScene: GameScene;            //游戏场景
+    
+    public connected: Boolean = false;   //是否连接
 
     public static getInstance(): ClientSocket {
         if(this.instance == null) {
@@ -26,21 +28,25 @@ class ClientSocket {
         
         //连接成功 
         this.socket.on('connect',function() {
+            self.connected = true;
             self.onConnect();
         });    
             
         //连接失败    
         this.socket.on('error',function(data) {
+            self.connected = false;
             self.onError(data);
         });   
             
         //断开连接    
         this.socket.on('disconnect',function() {
+            self.connected = false;
             self.onDisconnect();
         });  
         
         //尝试重新连接
         this.socket.on('reconnect_attempt',function() {
+            self.connected = false;
             self.onReconnectAttempt();
         }); 
         
@@ -51,11 +57,6 @@ class ClientSocket {
         //玩家弹幕
         this.socket.on(NetConst.S2C_barrage,function(data) {
             GameManager.getInstance().revBarrage(data);
-        });
-        
-        //登录完成
-        this.socket.on(NetConst.S2C_login,function(data) {
-           self.homeScene.revLogin(data);
         });
         
         //玩家加入
@@ -120,8 +121,14 @@ class ClientSocket {
     }
     
     //发送数据
-    public sendMessage(cmd: string,data): void {
-        this.socket.emit(cmd,data);
+    public sendMessage(cmd: string,data, callBack:Function = null, thisObject = null): void {
+        if(this.connected){
+            this.socket.emit(cmd,data,function(data) {
+                if(callBack && thisObject) {
+                    callBack.call(thisObject,data);
+                }
+            });
+        }
     }
     
 }

@@ -41,10 +41,6 @@ var ClientSocket = (function () {
         //////////////////////////////////////////////////////
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
-        //用户登录
-        this.socket.on(NetConst.S2C_login, function (data) {
-            GameManager.getInstance().revLogin(data);
-        });
         //被施放道具
         this.socket.on(NetConst.S2C_pro, function (data) {
             self.gameScene.revPro(data);
@@ -78,12 +74,15 @@ var ClientSocket = (function () {
     p.onReconnectAttempt = function () {
         egret.log("reconnect");
     };
-    //发送数据
-    p.sendMessage = function (cmd, json) {
+    p.sendMessage = function (cmd, data, callBack, thisObject) {
+        if (callBack === void 0) { callBack = null; }
+        if (thisObject === void 0) { thisObject = null; }
         if (this.connected) {
-            this.socket.emit(cmd, json);
-        }
-        else {
+            this.socket.emit(cmd, data, function (data) {
+                if (callBack && thisObject) {
+                    callBack.call(thisObject, data);
+                }
+            });
         }
     };
     return ClientSocket;

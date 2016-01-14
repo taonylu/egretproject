@@ -72,11 +72,11 @@ var HomeScene = (function (_super) {
     //-----------------------------接收数据----------------------------------
     //返回登录成功
     p.revLogin = function (data) {
-        var status = data.status; //  -1 房间已经存在 ， 0 房间错误， 1 开放成功
+        var status = data; //  -1 房间已经存在 ， 0 房间错误， 1 开放成功
         egret.log("登录返回，房间状态：", status);
         switch (status) {
             case 1:
-                this.startCountDown();
+                //this.startCountDown();
                 break;
             case 0:
                 break;
@@ -91,36 +91,31 @@ var HomeScene = (function (_super) {
         var nickname = data.nickname; //用户名
         var uid = data.uid; //用户id
         egret.log("玩家加入,头像:" + headimgurl, "名字:" + nickname, "ID:" + uid);
+        //保存用户
+        var userVO = new UserVO();
+        userVO.uid = uid;
+        userVO.name = name;
+        UserManager.getInstance().userList[uid] = userVO;
         //设置用户名，选取列表靠前的一个空文本。因为可能出现靠前的玩家退出游戏。
         var index = -1;
         var headUI;
         for (var i = 0; i < this.userMax; i++) {
             headUI = this.headUIList[i];
             if (headUI.isEmpty()) {
+                userVO.headUI = headUI;
                 headUI.userID = uid;
                 headUI.setNameLabel(nickname);
                 headUI.loadImg(headimgurl);
                 break;
             }
         }
-        //保存用户
-        var userVO = new UserVO();
-        userVO.uid = uid;
-        userVO.name = name;
-        userVO.headImg = new egret.Bitmap(headUI.headImg.bitmapData); //新建一张用户头像图片，用于技能显示
-        UserManager.getInstance().userList[uid] = userVO;
     };
     //玩家退出
     p.revUserQuit = function (data) {
         var uid = data.uid; //用户id
         egret.log("玩家退出:", uid);
-        //删除玩家头像
-        for (var i = 0; i < this.userMax; i++) {
-            if (this.headUIList[i].userID == uid) {
-                this.headUIList[i].clear();
-            }
-        }
         //列表删除用户
+        UserManager.getInstance().userList[uid].clear();
         delete UserManager.getInstance().userList[uid];
         //TODO 游戏中玩家退出，可能是大屏用户
     };

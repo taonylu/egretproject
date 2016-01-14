@@ -1,5 +1,5 @@
 /**
- * 头像UI
+ * 头像UI,主页场景，用户进入后显示的头像UI
  * @author
  *
  */
@@ -17,6 +17,13 @@ var HeadUI = (function (_super) {
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
         this.nameLabel.text = "";
+        this.headImg = new egret.Bitmap();
+        this.headImg.x = this.imgX; //调整位置
+        this.headImg.y = this.imgY;
+        this.headImg.width = this.imgWidth;
+        this.headImg.height = this.imgHeight;
+        this.headImg.mask = this.headMask;
+        this.addChild(this.headImg);
     };
     p.setNameLabel = function (_name) {
         this.nameLabel.text = _name;
@@ -29,13 +36,9 @@ var HeadUI = (function (_super) {
     //加载完成
     p.loadCompleteHandler = function (event) {
         var imageLoader = event.currentTarget;
-        var bitmap = new egret.Bitmap(imageLoader.data);
-        bitmap.x = this.imgX; //调整位置
-        bitmap.y = this.imgY;
-        bitmap.width = this.imgWidth;
-        bitmap.height = this.imgHeight;
-        this.addChild(bitmap);
-        this.headImg = bitmap;
+        this.headImg.bitmapData = imageLoader.data;
+        //保存用户头像数据
+        UserManager.getInstance().userList[this.userID].headBmd = imageLoader.data;
     };
     //加载头像错误
     p.onLoadError = function () {
@@ -51,7 +54,7 @@ var HeadUI = (function (_super) {
     //清理数据
     p.clear = function () {
         this.nameLabel.text = "";
-        this.headImg && this.removeChild(this.headImg);
+        this.headImg.bitmapData = null;
         this.userID = "";
     };
     return HeadUI;

@@ -5,8 +5,6 @@
  */
 class NetConst {
     
-    public static url: string = "http://192.168.1.103:3000"; //IP、端口号
-    
     //接收
     public static S2C_login:string = "login";            //登录
     public static S2C_mapData:string = "mapData";        //关卡地图数据

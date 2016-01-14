@@ -4,8 +4,7 @@
  *
  */
 class NetConst {
-    
-    public static url: string = "http://192.168.1.103:3000"; //IP、端口号
+
     
     //-----------------发送数据----------------------
     public static C2S_login:string = "login";                //请求登录
