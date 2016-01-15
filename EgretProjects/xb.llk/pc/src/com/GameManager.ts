@@ -19,7 +19,7 @@ class GameManager {
         this.socket.gameScene = this.gameScene;
         this.homeScene.socket = this.socket;
         this.gameScene.socket = this.socket;
-        
+
         //配置Layer
         GameConst.stage = main.stage;
         LayerManager.getInstance().initialize(main);

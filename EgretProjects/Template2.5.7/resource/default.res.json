@@ -1,0 +1,17 @@
+{
+	"groups":[
+		{
+			"keys":"test_png",
+			"name":"preload"
+		},
+		{
+			"keys":"test_png",
+			"name":"game"
+		}
+	],
+	"resources":[{
+			"name":"test_png",
+			"type":"image",
+			"url":"assets/test.png"
+		}]
+}

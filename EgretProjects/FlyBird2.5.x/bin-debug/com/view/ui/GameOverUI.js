@@ -9,7 +9,7 @@ var GameOverUI = (function (_super) {
         _super.call(this);
         this.skinName = "resource/myskins/ui/GameOverUISkin.exml";
     }
-    var d = __define,c=GameOverUI;p=c.prototype;
+    var d = __define,c=GameOverUI,p=c.prototype;
     p.show = function (doc) {
         doc.addChild(this);
         this.startBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.startBtnTouch, this);
@@ -25,4 +25,4 @@ var GameOverUI = (function (_super) {
     };
     return GameOverUI;
 })(BaseUI);
-egret.registerClass(GameOverUI,"GameOverUI");
+egret.registerClass(GameOverUI,'GameOverUI');

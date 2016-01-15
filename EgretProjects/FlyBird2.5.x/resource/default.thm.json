@@ -1,4 +1,5 @@
 {
+  "autoGenerateExmlsList": true,
   "exmls": [
     "resource/eui_skins/ButtonSkin.exml",
     "resource/eui_skins/CheckBoxSkin.exml",
@@ -16,5 +17,6 @@
     "resource/myskins/scene/HomeSceneSkin.exml",
     "resource/myskins/ui/GameOverUISkin.exml",
     "resource/myskins/ui/IntroduceUISkin.exml"
-  ]
+  ],
+  "skins": {}
 }

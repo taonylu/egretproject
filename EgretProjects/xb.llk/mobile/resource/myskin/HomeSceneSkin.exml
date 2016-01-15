@@ -7,13 +7,15 @@
 		<e:Image id="ruleBtn" x="28" y="635" source="game_rulebtn_png"/>
 		<e:Image id="toolBtn" source="game_introbtn_png" x="262" y="634"/>
 		<e:Image id="danmuBtn" source="game_dmbtn_png" y="557" x="164"/>
+		<e:Label id="queueLabel" text="1" y="348" height="129" width="232" size="100" textColor="0x2E0404" verticalAlign="middle" textAlign="center" x="124"/>
+		<e:Image id="joinBtn" source="home_join_png" y="461" x="172"/>
 	</e:Group>
-	<e:Group id="ruleGroup" height="852" width="480" x="0" bottom="0">
+	<e:Group id="ruleGroup" height="852" width="480" x="0" bottom="0" visible="false">
 		<e:Rect id="closeRuleBtn" height="44" width="39" x="401" y="225"/>
 		<e:Image source="game_rulebg_png" x="41" y="217" touchEnabled="false"/>
 		<e:Label text="123" x="89" y="303" width="312" height="386" textColor="0x4F1010" fontFamily="微软雅黑" size="25"/>
 	</e:Group>
-	<e:Group id="dmGroup" height="852" width="480" x="0" bottom="0">
+	<e:Group id="dmGroup" height="852" width="480" x="0" bottom="0" visible="false">
 		<e:Rect id="closeDmBtn" height="40" width="37" x="393" y="506"/>
 		<e:Rect id="sendDmBtn" width="77" y="570" height="40" x="333"/>
 		<e:Image source="game_dmbg_png" x="47" y="499" touchEnabled="false"/>

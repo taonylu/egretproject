@@ -31,7 +31,7 @@ var Main = (function (_super) {
     function Main() {
         _super.apply(this, arguments);
     }
-    var d = __define,c=Main;p=c.prototype;
+    var d = __define,c=Main,p=c.prototype;
     p.createChildren = function () {
         _super.prototype.createChildren.call(this);
         //注入自定义的素材解析器
@@ -70,4 +70,4 @@ var Main = (function (_super) {
     };
     return Main;
 })(eui.UILayer);
-egret.registerClass(Main,"Main");
+egret.registerClass(Main,'Main');

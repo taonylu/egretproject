@@ -9,8 +9,8 @@ var GuanUpUI = (function (_super) {
         _super.call(this);
         this.texture = RES.getRes("guanup_png");
     }
-    var d = __define,c=GuanUpUI;p=c.prototype;
+    var d = __define,c=GuanUpUI,p=c.prototype;
     GuanUpUI.NAME = "GuanUpUI";
     return GuanUpUI;
 })(BaseGuan);
-egret.registerClass(GuanUpUI,"GuanUpUI");
+egret.registerClass(GuanUpUI,'GuanUpUI');

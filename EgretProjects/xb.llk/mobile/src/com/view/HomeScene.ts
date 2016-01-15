@@ -18,6 +18,9 @@ class HomeScene extends BaseScene{
     private closeDmBtn:eui.Rect;   //关闭弹幕框
     private closeRuleBtn:eui.Rect; //关闭规则
     
+    private queueLabel:eui.Label; //排队文本
+    private joinBtn:eui.Image;    //加入游戏按钮
+    
     public constructor() {
         super("HomeSceneSkin");
 	}
@@ -26,11 +29,13 @@ class HomeScene extends BaseScene{
         super.componentCreated();
         
         this.initView();
-    
- 
+        
+        
     }
 
     public onEnable(): void {
+        
+        
         this.danmuBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onDanMuBtnTouch, this);
         this.toolBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onToolBtnTouch, this);
         this.ruleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRuleBtnTouch, this);
@@ -47,7 +52,7 @@ class HomeScene extends BaseScene{
     private initView():void{
       this.ruleGroup.visible = false;
       this.dmGroup.visible = false;
-
+      this.queueLabel.text = "";
     }
     
     private onDanMuBtnTouch():void{
@@ -88,18 +93,39 @@ class HomeScene extends BaseScene{
     //-----------------------------发送数据----------------------------------
     
     
-    
     public sendDanMu(msg: string): void {
         egret.log("发送弹幕:" + msg);
         var json = { "msg": msg };
         this.socket.sendMessage(NetConst.C2S_barrage,json);
     }
     
+    public sendUserReady(){
+        egret.log("发送用户准备");
+        this.socket.sendMessage("userReady");
+       
+    }
     
     
     //-----------------------------接收数据----------------------------------
     
+    //接收排队信息
+    public revQueue(data){
+        var queueNum: number = data.Number;  //排队位置
+        this.queueLabel.text = queueNum.toString();
+    }
     
+    //允许用户加入游戏
+    public revWaitForReady(data) {
+        var time: number = data.time;  //等待时间，超过时间，则用户被T出准备列表，让其他玩家加入
+        
+        //显示加入游戏按钮
+        this.joinBtn.visible = true;
+        var self:HomeScene = this;
+        this.joinBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
+                self.sendUserReady();
+        }, this);
+    }
+
     //过关后，接收新关卡数据
     public revMapData(data): void {
         var mapData = data.mapData;

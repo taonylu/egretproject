@@ -15,11 +15,11 @@ var BirdMC = (function (_super) {
         this.anchorOffsetY = this.height / 2;
         this.hitRect = new egret.Rectangle(0, 0, 20, 20);
     }
-    var d = __define,c=BirdMC;p=c.prototype;
+    var d = __define,c=BirdMC,p=c.prototype;
     //向上一个力，飞一下
     p.fly = function () {
         this.speedY = -this.upforce;
     };
     return BirdMC;
 })(SimpleMC);
-egret.registerClass(BirdMC,"BirdMC");
+egret.registerClass(BirdMC,'BirdMC');
