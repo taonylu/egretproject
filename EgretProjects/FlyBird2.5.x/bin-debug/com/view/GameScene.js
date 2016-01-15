@@ -27,7 +27,7 @@ var GameScene = (function (_super) {
         this.stageWidth = LayerManager.getInstance().stage.stageWidth;
         this.stageHeight = LayerManager.getInstance().stage.stageHeight;
     }
-    var d = __define,c=GameScene;p=c.prototype;
+    var d = __define,c=GameScene,p=c.prototype;
     p.onEnable = function () {
         LayerManager.getInstance().popLayer.addChild(this.scoreLabel);
         this.addBird();
@@ -145,4 +145,4 @@ var GameScene = (function (_super) {
     };
     return GameScene;
 })(BaseScene);
-egret.registerClass(GameScene,"GameScene");
+egret.registerClass(GameScene,'GameScene');

@@ -28,6 +28,7 @@ var HomeScene = (function (_super) {
     p.initView = function () {
         this.ruleGroup.visible = false;
         this.dmGroup.visible = false;
+        this.queueLabel.text = "";
     };
     p.onDanMuBtnTouch = function () {
         this.dmGroup.visible = true;
@@ -62,7 +63,26 @@ var HomeScene = (function (_super) {
         var json = { "msg": msg };
         this.socket.sendMessage(NetConst.C2S_barrage, json);
     };
+    p.sendUserReady = function () {
+        egret.log("发送用户准备");
+        this.socket.sendMessage("userReady");
+    };
     //-----------------------------接收数据----------------------------------
+    //接收排队信息
+    p.revQueue = function (data) {
+        var queueNum = data.Number; //排队位置
+        this.queueLabel.text = queueNum.toString();
+    };
+    //允许用户加入游戏
+    p.revWaitForReady = function (data) {
+        var time = data.time; //等待时间，超过时间，则用户被T出准备列表，让其他玩家加入
+        //显示加入游戏按钮
+        this.joinBtn.visible = true;
+        var self = this;
+        this.joinBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+            self.sendUserReady();
+        }, this);
+    };
     //过关后，接收新关卡数据
     p.revMapData = function (data) {
         var mapData = data.mapData;

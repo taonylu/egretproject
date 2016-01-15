@@ -9,10 +9,10 @@ var BaseGuan = (function (_super) {
         _super.call(this);
         this.isChecked = false; //小鸟飞过水管，是否已经计数过
     }
-    var d = __define,c=BaseGuan;p=c.prototype;
+    var d = __define,c=BaseGuan,p=c.prototype;
     p.reset = function () {
         this.isChecked = false;
     };
     return BaseGuan;
 })(egret.Bitmap);
-egret.registerClass(BaseGuan,"BaseGuan");
+egret.registerClass(BaseGuan,'BaseGuan');

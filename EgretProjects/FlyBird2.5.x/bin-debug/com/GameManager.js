@@ -8,7 +8,7 @@ var GameManager = (function () {
         this.homeScene = new HomeScene();
         this.gameScene = new GameScene();
     }
-    var d = __define,c=GameManager;p=c.prototype;
+    var d = __define,c=GameManager,p=c.prototype;
     p.startup = function () {
         LayerManager.getInstance().runScene(this.homeScene);
         this.createGreenBar();
@@ -29,4 +29,4 @@ var GameManager = (function () {
     };
     return GameManager;
 })();
-egret.registerClass(GameManager,"GameManager");
+egret.registerClass(GameManager,'GameManager');

@@ -153,6 +153,11 @@
 					"isFolder":false,
 					"key":"skill_ice_png",
 					"name":"skill_ice_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_join_png",
+					"name":"home_join_png"
 				}
 			]
 		}

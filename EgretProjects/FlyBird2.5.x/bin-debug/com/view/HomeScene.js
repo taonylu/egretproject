@@ -9,7 +9,7 @@ var HomeScene = (function (_super) {
         _super.call(this);
         this.skinName = "resource/myskins/scene/HomeSceneSkin.exml";
     }
-    var d = __define,c=HomeScene;p=c.prototype;
+    var d = __define,c=HomeScene,p=c.prototype;
     p.onEnable = function () {
         this.createBird();
         this.startBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onStartBtnTouch, this);
@@ -32,4 +32,4 @@ var HomeScene = (function (_super) {
     };
     return HomeScene;
 })(BaseScene);
-egret.registerClass(HomeScene,"HomeScene");
+egret.registerClass(HomeScene,'HomeScene');

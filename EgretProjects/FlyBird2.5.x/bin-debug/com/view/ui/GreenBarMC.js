@@ -8,7 +8,7 @@ var GreenBarMC = (function (_super) {
     function GreenBarMC() {
         _super.call(this, "greenbar_png", "greenbar_json", "greenbar");
     }
-    var d = __define,c=GreenBarMC;p=c.prototype;
+    var d = __define,c=GreenBarMC,p=c.prototype;
     return GreenBarMC;
 })(SimpleMC);
-egret.registerClass(GreenBarMC,"GreenBarMC");
+egret.registerClass(GreenBarMC,'GreenBarMC');

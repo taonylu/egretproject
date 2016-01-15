@@ -9,8 +9,8 @@ var GuanDownUI = (function (_super) {
         _super.call(this);
         this.texture = RES.getRes("guandown_png");
     }
-    var d = __define,c=GuanDownUI;p=c.prototype;
+    var d = __define,c=GuanDownUI,p=c.prototype;
     GuanDownUI.NAME = "GuanDownUI";
     return GuanDownUI;
 })(BaseGuan);
-egret.registerClass(GuanDownUI,"GuanDownUI");
+egret.registerClass(GuanDownUI,'GuanDownUI');

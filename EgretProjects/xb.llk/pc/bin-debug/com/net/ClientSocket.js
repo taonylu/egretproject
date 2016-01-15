@@ -5,7 +5,6 @@
  */
 var ClientSocket = (function () {
     function ClientSocket() {
-        this.connected = false; //是否连接
     }
     var d = __define,c=ClientSocket,p=c.prototype;
     ClientSocket.getInstance = function () {
@@ -20,22 +19,18 @@ var ClientSocket = (function () {
         var self = this;
         //连接成功 
         this.socket.on('connect', function () {
-            self.connected = true;
             self.onConnect();
         });
         //连接失败    
         this.socket.on('error', function (data) {
-            self.connected = false;
             self.onError(data);
         });
         //断开连接    
         this.socket.on('disconnect', function () {
-            self.connected = false;
             self.onDisconnect();
         });
         //尝试重新连接
         this.socket.on('reconnect_attempt', function () {
-            self.connected = false;
             self.onReconnectAttempt();
         });
         //////////////////////////////////////////////////////
@@ -98,7 +93,7 @@ var ClientSocket = (function () {
     p.sendMessage = function (cmd, data, callBack, thisObject) {
         if (callBack === void 0) { callBack = null; }
         if (thisObject === void 0) { thisObject = null; }
-        if (this.connected) {
+        if (this.socket.connected) {
             this.socket.emit(cmd, data, function (data) {
                 if (callBack && thisObject) {
                     callBack.call(thisObject, data);

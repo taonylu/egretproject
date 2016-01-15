@@ -32,7 +32,7 @@ var LoadingUI = (function (_super) {
         _super.call(this);
         this.createView();
     }
-    var d = __define,c=LoadingUI;p=c.prototype;
+    var d = __define,c=LoadingUI,p=c.prototype;
     p.createView = function () {
         this.textField = new egret.TextField();
         this.addChild(this.textField);
@@ -46,4 +46,4 @@ var LoadingUI = (function (_super) {
     };
     return LoadingUI;
 })(egret.Sprite);
-egret.registerClass(LoadingUI,"LoadingUI");
+egret.registerClass(LoadingUI,'LoadingUI');
