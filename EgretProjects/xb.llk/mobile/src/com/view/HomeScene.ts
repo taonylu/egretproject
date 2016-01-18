@@ -18,7 +18,7 @@ class HomeScene extends BaseScene{
     private closeDmBtn:eui.Rect;   //关闭弹幕框
     private closeRuleBtn:eui.Rect; //关闭规则
     
-    private queueLabel:eui.Label; //排队文本
+    private queueLabel:eui.BitmapLabel; //排队文本
     private joinBtn:eui.Image;    //加入游戏按钮
     
     public constructor() {
@@ -35,6 +35,7 @@ class HomeScene extends BaseScene{
 
     public onEnable(): void {
         
+        this.showJoinBtn();
         
         this.danmuBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onDanMuBtnTouch, this);
         this.toolBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onToolBtnTouch, this);
@@ -53,6 +54,15 @@ class HomeScene extends BaseScene{
       this.ruleGroup.visible = false;
       this.dmGroup.visible = false;
       this.queueLabel.text = "";
+    }
+    
+     //显示加入游戏按钮
+    private showJoinBtn(){
+        this.joinBtn.visible = true;
+        var self: HomeScene = this;
+        this.joinBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,function() {
+            self.sendUserReady();
+        },this);
     }
     
     private onDanMuBtnTouch():void{
@@ -110,20 +120,15 @@ class HomeScene extends BaseScene{
     
     //接收排队信息
     public revQueue(data){
-        var queueNum: number = data.Number;  //排队位置
-        this.queueLabel.text = queueNum.toString();
-    }
-    
-    //允许用户加入游戏
-    public revWaitForReady(data) {
-        var time: number = data.time;  //等待时间，超过时间，则用户被T出准备列表，让其他玩家加入
-        
-        //显示加入游戏按钮
-        this.joinBtn.visible = true;
-        var self:HomeScene = this;
-        this.joinBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
-                self.sendUserReady();
-        }, this);
+        var status:string = data.status; //"wait"、"ready"
+        var queue: number = data.queue;  //排队位置
+        egret.log("排队信息:" + status, queue);
+        if(status == "wait"){  //排队
+            this.queueLabel.text = queue.toString();
+        }else if(status == "ready"){  //用户准备好，等待游戏开始
+            
+        }
+        this.joinBtn.visible = false;
     }
 
     //过关后，接收新关卡数据

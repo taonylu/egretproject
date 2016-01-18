@@ -48,15 +48,9 @@ class ClientSocket {
         //////////////////////////////////////////////////////
         
         //排队信息
-        this.socket.on("queue",function(data) {
+        this.socket.on("queueInfo",function(data) {
             self.homeScene.revQueue(data);
         });
-        
-        //允许用户加入游戏
-        this.socket.on("waitForReady",function(data) {
-            self.homeScene.revWaitForReady(data);
-        });
-        
         
         //被施放道具
         this.socket.on(NetConst.S2C_pro,function(data) {

@@ -13,9 +13,12 @@
 	</e:Group>
 	<e:Group id="blockGroup" height="776" width="564" x="410" y="544">
 		<e:Image id="gamebg" source="game_blockbg_png" y="-11" x="-8"/>
+		<e:Image id="skillIce" source="skill_ice_png" x="4" y="2" width="562" height="760" visible="false"/>
+		<e:Rect id="gameOverBg" height="801" width="583" y="-11" x="-8" fillAlpha="0.8"/>
+		<e:Image id="gameOverText" source="game_over_png" x="65" y="302"/>
 	</e:Group>
 	<e:Image id="title" source="home_title_png" y="46" x="837"/>
-	<e:Image id="logo" source="home_thxbg_png" y="507" x="1808"/>
+	<e:Image id="logo" source="home_thxbg_png" y="530" x="1808"/>
 	<e:Image id="zhanshi" source="game_showicon_png" x="352" y="221"/>
 	<e:Group id="skillIntroGroup" height="256" width="758" x="1026" y="1097" cacheAsBitmap="false">
 		<e:Label text="全部打乱" x="59" y="10" textColor="0x030000" width="125" size="30" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center"/>
@@ -30,5 +33,18 @@
 		<e:Image id="skill0" source="game_skill0_png" x="60" y="50"/>
 		<e:Image id="skill1" source="game_skill1_png" x="310" y="50"/>
 		<e:Image id="skill2" source="game_skill2_png" x="560" y="50"/>
+	</e:Group>
+	<e:Group id="resultGroup" height="848" width="757" x="1020" y="519">
+		<e:Image source="result_bg_png" x="0" y="0"/>
+		<e:Label id="nameLabel0" text="标签" x="248" y="169" textColor="0x300404" width="405" height="59" fontFamily="微软雅黑" size="50"/>
+		<e:Label id="nameLabel1" y="281.5" textColor="0x300404" height="59" text="标签" fontFamily="微软雅黑" width="405" size="50" x="248"/>
+		<e:Label id="nameLabel2" y="394.5" textColor="0x300404" size="50" text="标签" fontFamily="微软雅黑" width="405" height="59" x="248"/>
+		<e:Label id="nameLabel3" y="506.5" textColor="0x300404" height="59" text="标签" fontFamily="微软雅黑" width="405" size="50" x="248"/>
+		<e:Label id="nameLabel4" y="619" textColor="0x300404" size="50" text="标签" fontFamily="微软雅黑" width="405" height="59" x="248"/>
+		<e:Group id="resultHead0" height="80" width="80" x="129" y="155"/>
+		<e:Group id="resultHead1" width="80" y="268" height="80" x="129"/>
+		<e:Group id="resultHead2" width="80" y="382" height="80" x="129"/>
+		<e:Group id="resultHead3" width="80" y="495" height="80" x="129"/>
+		<e:Group id="resultHead4" width="80" y="608" height="80" x="129"/>
 	</e:Group>
 </e:Skin>

@@ -5,6 +5,8 @@
  */
 class MapManager {
     private static instance: MapManager;
+    private rowMax: number = 8;
+    private colMax: number = 7;
     
     public static getInstance(): MapManager {
         if(this.instance == null) {
@@ -14,6 +16,23 @@ class MapManager {
     }
     
     public level:Array<any> = new Array<any>();
+    
+    //计算当前地图的方块的总数
+    public getBlockNum(): number {
+        var len: number = this.level.length;
+        var blockNum: number = 0;
+        for(var i: number = 0;i < len;i++) {
+            var arr = this.level[i];
+            for(var j: number = 0;j < this.rowMax;j++) {
+                for(var k: number = 0;k < this.colMax;k++) {
+                    if(arr[i][j] > 0) {
+                        blockNum++;
+                    }
+                }
+            }
+        }
+        return blockNum;
+    }
     
 //    public level1: Array<any> =
 //    [

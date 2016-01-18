@@ -66,6 +66,7 @@ class Main extends eui.UILayer {
     //加载游戏资源完成
     private onGameComplete(event:RES.ResourceEvent):void {
         GameManager.getInstance().startup(this);
+        
     }
 
 

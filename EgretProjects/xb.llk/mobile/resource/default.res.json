@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"block1_png,block10_png,block11_png,block2_png,block3_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png,game_bar_png,game_bareffect_png,game_bg_png,game_dmbtn_png,game_introbtn_png,game_rulebg_png,game_rulebtn_png,game_sendbtn_png,game_title_png,select0_png,select1_png,game_wait_png,cloud_png,game_dmbg_png,game_skill2_png,game_skill0_png,game_skill1_png,skill_ice_png,home_join_png",
+			"keys":"block1_png,block10_png,block11_png,block2_png,block3_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png,game_bar_png,game_bareffect_png,game_bg_png,game_dmbtn_png,game_introbtn_png,game_rulebg_png,game_rulebtn_png,game_sendbtn_png,game_title_png,select0_png,game_wait_png,game_dmbg_png,game_skill2_png,game_skill0_png,game_skill1_png,skill_ice_png,home_join_png,countdown_fnt,line_zhe_png,line_su_png,resutl_bg_png",
 			"name":"game"
 		}
 	],
@@ -116,19 +116,9 @@
 			"url":"assets/select0.png"
 		},
 		{
-			"name":"select1_png",
-			"type":"image",
-			"url":"assets/select1.png"
-		},
-		{
 			"name":"game_wait_png",
 			"type":"image",
 			"url":"assets/game_wait.png"
-		},
-		{
-			"name":"cloud_png",
-			"type":"image",
-			"url":"assets/cloud.png"
 		},
 		{
 			"name":"game_dmbg_png",
@@ -159,6 +149,26 @@
 			"name":"home_join_png",
 			"type":"image",
 			"url":"assets/home_join.png"
+		},
+		{
+			"name":"countdown_fnt",
+			"type":"font",
+			"url":"assets/countdown.fnt"
+		},
+		{
+			"name":"line_zhe_png",
+			"type":"image",
+			"url":"assets/line_zhe.png"
+		},
+		{
+			"name":"line_su_png",
+			"type":"image",
+			"url":"assets/line_su.png"
+		},
+		{
+			"name":"resutl_bg_png",
+			"type":"image",
+			"url":"assets/resutl_bg.png"
 		}
 	]
 }

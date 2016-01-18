@@ -28,6 +28,8 @@ var game_file_list = [
 	"bin-debug/com/view/HomeScene.js",
 	"bin-debug/com/view/ui/BlockUI.js",
 	"bin-debug/com/view/ui/BoomUI.js",
+	"bin-debug/com/view/ui/LineSu.js",
+	"bin-debug/com/view/ui/LineZhe.js",
 	"bin-debug/com/view/ui/SelectUI.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",

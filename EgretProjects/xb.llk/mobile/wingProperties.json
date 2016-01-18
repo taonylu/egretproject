@@ -116,18 +116,8 @@
 				},
 				{
 					"isFolder":false,
-					"key":"select1_png",
-					"name":"select1_png"
-				},
-				{
-					"isFolder":false,
 					"key":"game_wait_png",
 					"name":"game_wait_png"
-				},
-				{
-					"isFolder":false,
-					"key":"cloud_png",
-					"name":"cloud_png"
 				},
 				{
 					"isFolder":false,
@@ -158,6 +148,21 @@
 					"isFolder":false,
 					"key":"home_join_png",
 					"name":"home_join_png"
+				},
+				{
+					"isFolder":false,
+					"key":"line_su_png",
+					"name":"line_su_png"
+				},
+				{
+					"isFolder":false,
+					"key":"line_zhe_png",
+					"name":"line_zhe_png"
+				},
+				{
+					"isFolder":false,
+					"key":"resutl_bg_png",
+					"name":"resutl_bg_png"
 				}
 			]
 		}
