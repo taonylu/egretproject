@@ -14,6 +14,11 @@ var GameScene = (function (_super) {
         this.selectOld = new SelectUI(); //选择框动画，第一个对象
         this.selectNew = new SelectUI(); //选择框动画，第二个对象
         this.gameHeadUIList = new Array(); //进度头像列表
+        this.lineSuPool = ObjectPool.getPool(LineSu.NAME, 10); //连线
+        this.lineZhePool = ObjectPool.getPool(LineZhe.NAME, 2);
+        this.lineList = new Array(); //保存连线数组
+        this.nameLabelList = new Array(); //结果面板昵称文本数组
+        this.resultHeadList = new Array(); //结果头像Group数组
         this.blockTypeNum = 11; //方块的数量种类
         this.blockNum = 0; //当前关卡方块数量
         this.blockData = new Array(); //方块的类型数组，用于判断方块皮肤ID后缀数字,"block" + blockData[i]
@@ -40,7 +45,6 @@ var GameScene = (function (_super) {
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
         this.initView(); //初始化界面参数
-        this.initLineSprite(); //初始化画线容器
     };
     p.onEnable = function () {
         this.startGame();
@@ -48,9 +52,12 @@ var GameScene = (function (_super) {
     p.onRemove = function () {
     };
     p.startGame = function () {
+        //初始化
         this.curLevel = 1;
+        this.blockTotal = MapManager.getInstance().getBlockNum();
+        this.hideResutl();
+        this.resetGameHead();
         this.createMap();
-        this.initGameHead();
     };
     p.resetGame = function () {
         //清理剩余方块
@@ -99,20 +106,13 @@ var GameScene = (function (_super) {
         for (var i = 0; i < this.userMax; i++) {
             this.gameHeadUIList.push(new GameHeadUI());
         }
+        for (var i = 0; i < 5; i++) {
+            this.nameLabelList.push(this["nameLabel" + i]);
+            this.resultHeadList.push(this["resultHead" + i]);
+        }
     };
-    p.initLineSprite = function () {
-        //初始变量
-        this.lineSprite = new egret.Sprite();
-        this.lineSprite.x = this.mapStartX;
-        this.lineSprite.y = this.mapStartY;
-        this.lineSprite.width = this._stage.stageWidth;
-        this.lineSprite.height = this._stage.stageHeight;
-        this.lineSprite.touchChildren = false;
-        this.lineSprite.touchEnabled = false;
-        this.blockGroup.addChild(this.lineSprite);
-    };
-    //初始化用户进度头像
-    p.initGameHead = function () {
+    //重置用户进度头像
+    p.resetGameHead = function () {
         var userList = UserManager.getInstance().userList;
         var index = 0; //游戏进度头像计数
         var userVO; //用户信息
@@ -120,6 +120,7 @@ var GameScene = (function (_super) {
         for (var key in userList) {
             userVO = userList[key];
             gameHeadUI = this.gameHeadUIList[index];
+            gameHeadUI.x = 0;
             index++;
             gameHeadUI.setHeadBmd(userVO.headBmd);
             userVO.gameHeadUI = gameHeadUI;
@@ -131,7 +132,45 @@ var GameScene = (function (_super) {
         var userVO = UserManager.getInstance().userList[uid];
         if (userVO) {
             var gameHeadUI = userVO.gameHeadUI;
+            // 头像y / 进度条总长 = 消除方块数/总方块数
             gameHeadUI.y = userVO.cancelBloukNum / this.blockTotal * (this.headGroup.width - gameHeadUI.width);
+        }
+    };
+    //游戏结束，显示结果
+    p.showResult = function (data) {
+        this.skillGroup.visible = false;
+        this.skillIntroGroup.visible = false;
+        this.gameOverBg.visible = true;
+        this.gameOverText.visible = true;
+        this.resultGroup.visible = true;
+        //显示前几名昵称
+        for (var i = 0; i < 5; i++) {
+            this.nameLabelList[i].text = "";
+            if (data.winners[i] != null) {
+                var userVO = UserManager.getInstance().userList[data.winners[i]];
+                if (userVO) {
+                    this.nameLabelList[i].text = userVO.name;
+                    var bm = new egret.Bitmap(userVO.headBmd);
+                    bm.width = 80;
+                    bm.height = 80;
+                    this.resultHeadList[i].addChild(bm);
+                }
+            }
+        }
+    };
+    //隐藏游戏结束
+    p.hideResutl = function () {
+        this.skillGroup.visible = true;
+        this.skillIntroGroup.visible = true;
+        this.gameOverBg.visible = false;
+        this.gameOverText.visible = false;
+        this.resultGroup.visible = false;
+        //删除头像
+        for (var i = 0; i < 5; i++) {
+            if (this.resultHeadList[i].numChildren > 0) {
+                var headImg = this.resultHeadList[i].getChildAt(0);
+                headImg && headImg.parent && headImg.parent.removeChild(headImg);
+            }
         }
     };
     ///////////////////////////////////////////////////
@@ -145,14 +184,6 @@ var GameScene = (function (_super) {
             return;
         }
         this.tempMap = ArrayTool.copy2DArr(mapData);
-        //获得当前地图的方块数量
-        //        for(var i: number = 0;i < this.rowMax;i++) {
-        //            for(var j: number = 0;j < this.colMax;j++) {
-        //                if(this.tempMap[i][j] > 0) {
-        //                    this.blockNum++;
-        //                }
-        //            }
-        //        }
         //创建方块
         var index = 0; //已经生成的方块数
         for (var i = 0; i < this.rowMax; i++) {
@@ -184,7 +215,7 @@ var GameScene = (function (_super) {
             //直线扫描
             if (this.lineCheck(r1, c1, r2, c2)) {
                 //直线是最短路径不需要计算直接传给路径数组
-                this.route.push({ x: c1, y: r1 }, { x: c2, y: r2 });
+                this.saveLinePath(r1, c1, r2, c2);
                 return true;
             }
             //同一行两折点扫描
@@ -192,7 +223,7 @@ var GameScene = (function (_super) {
                 //两者上或下同时为0垂直扫描3条线
                 if (this.tempMap[i][c1] == 0 && this.tempMap[i][c2] == 0) {
                     if (this.lineCheck(r1, c1, i, c1) && this.lineCheck(i, c1, i, c2) && this.lineCheck(i, c2, r2, c2)) {
-                        //route.push({x:c1,y:r1},{x:c1,y:i},{x:c2,y:i},{x:c2,y:r2});
+                        //this.route.push({x:c1,y:r1},{x:c1,y:i},{x:c2,y:i},{x:c2,y:r2});
                         //两折点需要计算出最短路径
                         this.theShortest(r1, c1, i, c1, i, c2, r2, c2);
                         result = true;
@@ -204,7 +235,8 @@ var GameScene = (function (_super) {
             //两者处于同一列
             if (this.lineCheck(r1, c1, r2, c2)) {
                 //直线是最短路径不需要计算直接传给路径数组
-                this.route.push({ x: c1, y: r1 }, { x: c2, y: r2 });
+                //this.route.push({ x: c1,y: r1 },{ x: c2,y: r2 });
+                this.saveLinePath(r1, c1, r2, c2);
                 return true;
             }
             //同一列两折点扫描
@@ -212,7 +244,7 @@ var GameScene = (function (_super) {
                 //两者前或后同时为0横向扫描3条线
                 if (this.tempMap[r1][i] == 0 && this.tempMap[r2][i] == 0) {
                     if (this.lineCheck(r1, c1, r1, i) && this.lineCheck(r1, i, r2, i) && this.lineCheck(r2, i, r2, c2)) {
-                        //route.push({x:c1,y:r1},{x:i,y:r1},{x:i,y:r2},{x:c2,y:r2});
+                        //this.route.push({x:c1,y:r1},{x:i,y:r1},{x:i,y:r2},{x:c2,y:r2});
                         //两折点需要计算出最短路径
                         this.theShortest(r1, c1, r1, i, r2, i, r2, c2);
                         result = true;
@@ -226,7 +258,10 @@ var GameScene = (function (_super) {
             if (this.tempMap[r2][c1] == 0) {
                 if (this.lineCheck(r1, c1, r2, c1) && this.lineCheck(r2, c1, r2, c2)) {
                     //一折拐角没有最短路径直接传给数组不需要计算
-                    this.route.push({ x: c1, y: r1 }, { x: c1, y: r2 }, { x: c2, y: r2 });
+                    //this.route.push({ x: c1,y: r1 },{ x: c1,y: r2 },{ x: c2,y: r2 });
+                    this.saveLinePath(r1, c1, r2, c1);
+                    this.route.pop();
+                    this.saveLinePath(r2, c1, r2, c2);
                     return true;
                 }
             }
@@ -234,7 +269,10 @@ var GameScene = (function (_super) {
             if (this.tempMap[r1][c2] == 0) {
                 if (this.lineCheck(r1, c1, r1, c2) && this.lineCheck(r2, c2, r1, c2)) {
                     //一折拐角没有最短路径直接传给数组不需要计算
-                    this.route.push({ x: c1, y: r1 }, { x: c2, y: r1 }, { x: c2, y: r2 });
+                    //this.route.push({ x: c1,y: r1 },{ x: c2,y: r1 },{ x: c2,y: r2 });
+                    this.saveLinePath(r1, c1, r1, c2);
+                    this.route.pop();
+                    this.saveLinePath(r1, c2, r2, c2);
                     return true;
                 }
             }
@@ -244,7 +282,7 @@ var GameScene = (function (_super) {
                 //两者前或后同时为0横向扫描3条线
                 if (this.tempMap[r1][i] == 0 && this.tempMap[r2][i] == 0) {
                     if (this.lineCheck(r1, c1, r1, i) && this.lineCheck(r1, i, r2, i) && this.lineCheck(r2, i, r2, c2)) {
-                        //route.push({x:c1,y:r1},{x:i,y:r1},{x:i,y:r2},{x:c2,y:r2});
+                        //this.route.push({x:c1,y:r1},{x:i,y:r1},{x:i,y:r2},{x:c2,y:r2});
                         //两折点需要计算出最短路径
                         this.theShortest(r1, c1, r1, i, r2, i, r2, c2);
                         result = true;
@@ -256,7 +294,7 @@ var GameScene = (function (_super) {
                 //两者上或下同时为0垂直扫描3条线
                 if (this.tempMap[i][c1] == 0 && this.tempMap[i][c2] == 0) {
                     if (this.lineCheck(r1, c1, i, c1) && this.lineCheck(i, c1, i, c2) && this.lineCheck(i, c2, r2, c2)) {
-                        //route.push({x:c1,y:r1},{x:c1,y:i},{x:c2,y:i},{x:c2,y:r2});
+                        //this.route.push({x:c1,y:r1},{x:c1,y:i},{x:c2,y:i},{x:c2,y:r2});
                         //两折点需要计算出最短路径
                         this.theShortest(r1, c1, i, c1, i, c2, r2, c2);
                         result = true;
@@ -310,30 +348,110 @@ var GameScene = (function (_super) {
         }
         return false;
     };
+    //保存直线数组数组
+    p.saveLinePath = function (r1, c1, r2, c2) {
+        if (r1 == r2) {
+            if (c1 > c2) {
+                for (var i = c1; i >= c2; i--) {
+                    this.route.push({ x: i, y: r1 });
+                }
+            }
+            else {
+                for (var i = c1; i <= c2; i++) {
+                    this.route.push({ x: i, y: r1 });
+                }
+            }
+        }
+        else if (c1 == c2) {
+            if (r1 > r2) {
+                for (var i = r1; i >= r2; i--) {
+                    this.route.push({ x: c1, y: i });
+                }
+            }
+            else {
+                for (var i = r1; i <= r2; i++) {
+                    this.route.push({ x: c1, y: i });
+                }
+            }
+        }
+    };
     //画线函数
     p.linkRoad = function () {
-        this.lineSprite.graphics.lineStyle(5, 0xff0000);
         //挨个对比
         var len = this.route.length - 1;
         for (var i = 0; i < len; i++) {
             //每次取出前两个
             var obj1 = this.route[i];
             var obj2 = this.route[i + 1];
-            var x1 = obj1["x"] * this.blockWidth + this.blockWidth / 2;
-            var y1 = obj1["y"] * this.blockHeight + this.blockHeight / 2;
-            var x2 = obj2["x"] * this.blockWidth + this.blockWidth / 2;
-            var y2 = obj2["y"] * this.blockHeight + this.blockHeight / 2;
-            this.lineSprite.graphics.moveTo(x1, y1);
-            this.lineSprite.graphics.lineTo(x2, y2);
+            if (i + 2 <= len) {
+                var obj3 = this.route[i + 2];
+                var c3 = obj3["x"];
+                var r3 = obj3["y"];
+            }
+            var c1 = obj1["x"];
+            var r1 = obj1["y"];
+            var c2 = obj2["x"];
+            var r2 = obj2["y"];
+            console.log(r1, c1, r2, c2);
+            if (c1 == c2 && (obj3 == null || c2 == c3)) {
+                var lineSu = this.lineSuPool.getObject();
+                lineSu.rotation = 0;
+                lineSu.x = c1 * this.blockWidth + this.blockWidth / 2;
+                lineSu.y = (r2 > r1 ? r2 : r1) * this.blockHeight;
+                this.lineList.push(lineSu);
+                this.blockGroup.addChild(lineSu);
+                console.log("同列");
+            }
+            else if (r1 == r2 && (obj3 == null || r2 == r3)) {
+                var lineSu = this.lineSuPool.getObject();
+                lineSu.rotation = 90;
+                lineSu.x = (c2 > c1 ? c2 : c1) * this.blockWidth;
+                lineSu.y = r1 * this.blockHeight + this.blockHeight / 2;
+                this.lineList.push(lineSu);
+                this.blockGroup.addChild(lineSu);
+                console.log("同行");
+            }
+            else if (obj3) {
+                var lineZhe = this.lineZhePool.getObject();
+                lineZhe.x = c2 * this.blockWidth + this.blockWidth / 2;
+                lineZhe.y = r2 * this.blockHeight + this.blockHeight / 2;
+                this.blockGroup.addChild(lineZhe);
+                this.lineList.push(lineZhe);
+                if ((c1 == c2 && r2 > r1 && r2 == r3 && c3 > c2) || (r1 == r2 && c1 > c2 && c2 == c3 && r3 < r2)) {
+                    lineZhe.rotation = 0;
+                    console.log("L");
+                }
+                else if ((c1 == c2 && r2 < r1 && r2 == r3 && c3 > c2) || (r1 == r2 && c1 > c2 && c2 == c3 && r3 > r2)) {
+                    lineZhe.rotation = 90;
+                    console.log("|-");
+                }
+                else if ((r1 == r2 && c2 > c1 && c2 == c3 && r3 > r2) || (c1 == c2 && r1 > r2 && r2 == r3 && c3 < c2)) {
+                    lineZhe.rotation = 180;
+                    console.log("-|");
+                }
+                else {
+                    lineZhe.rotation = 270;
+                    console.log("_|");
+                }
+            }
         }
         //画完线清空路径数组
-        this.lineSprite.graphics.endFill();
         this.route.length = 0;
         this.minRoadPoint = 10000;
         var self = this;
-        setTimeout(function () {
-            self.lineSprite.graphics.clear();
-        }, 300);
+        egret.Tween.get(this).wait(300).call(function () {
+            var len = self.lineList.length;
+            var line;
+            for (var i = 0; i < len; i++) {
+                line = self.lineList[i];
+                if (line instanceof LineSu) {
+                    line.recycle();
+                }
+                else {
+                    line.recycle();
+                }
+            }
+        });
     };
     //计算出最短的线路
     p.theShortest = function (r1, c1, r2, c2, r3, c3, r4, c4) {
@@ -342,10 +460,16 @@ var GameScene = (function (_super) {
         count = Math.abs(r2 - r1) + Math.abs(r3 - r2) + Math.abs(r4 - r3) + Math.abs(c2 - c1) + Math.abs(c3 - c2) + Math.abs(c4 - c3);
         //当前数小于上一次的数就把当前的值赋给路径数组,如果大于就不去管它了我们只需要最短路径点即可。
         if (count <= this.minRoadPoint) {
-            this.route[0] = { x: c1, y: r1 };
-            this.route[1] = { x: c2, y: r2 };
-            this.route[2] = { x: c3, y: r3 };
-            this.route[3] = { x: c4, y: r4 };
+            //            this.route[0] = { x: c1,y: r1 };
+            //            this.route[1] = { x: c2,y: r2 };
+            //            this.route[2] = { x: c3,y: r3 };
+            //            this.route[3] = { x: c4,y: r4 };
+            this.route.length = 0;
+            this.saveLinePath(r1, c1, r2, c2);
+            this.route.pop();
+            this.saveLinePath(r2, c2, r3, c3);
+            this.route.pop();
+            this.saveLinePath(r3, c3, r4, c4);
             //上一次的数等于当前的数以便下一次计算
             this.minRoadPoint = count;
         }
@@ -384,6 +508,54 @@ var GameScene = (function (_super) {
         }
         return true;
     };
+    //点击提示
+    p.tishi = function () {
+        this.oldTarget && this.selectOld.hide();
+        this.newTarget && this.selectNew.hide();
+        this.oldTarget = null;
+        this.newTarget = null;
+        if (this.bangzhu()) {
+            egret.log("提示方块:", this.oldTarget.row, this.oldTarget.col, this.newTarget.row, this.newTarget.col);
+            this.selectOld.play(this.oldTarget);
+            this.selectNew.play(this.newTarget);
+        }
+    };
+    //帮助找到两个通路的方块
+    p.bangzhu = function () {
+        for (var i = 0; i < this.rowMax - 1; i++) {
+            for (var j = 0; j < this.colMax - 1; j++) {
+                if (this.tempMap[i][j] > 0) {
+                    //每一个方块遍历每一个元素
+                    for (var m = i; m < this.rowMax - 1; m++) {
+                        var n;
+                        if (m == i) {
+                            n = j + 1;
+                        }
+                        else {
+                            n = 0;
+                        }
+                        for (; n < this.colMax - 1; n++) {
+                            if (this.tempMap[m][n] > 0) {
+                                var obj1 = this.blockArr[i][j];
+                                var obj2 = this.blockArr[m][n];
+                                //检查两者是否通路
+                                if (obj1.skinID == obj2.skinID) {
+                                    if (this.checkRoad(obj1, obj2)) {
+                                        //只提示两个方块不记录线路
+                                        this.route.length = 0;
+                                        this.oldTarget = obj1;
+                                        this.newTarget = obj2;
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    };
     ///////////////////////////////////////////////////
     ///-----------------[网络处理]----------------------
     ///////////////////////////////////////////////////
@@ -393,7 +565,7 @@ var GameScene = (function (_super) {
         var pos = data.pos; //消除的位置
         egret.log("玩家消除方块:", uid, pos);
         //计算用户消除和头像移动
-        UserManager.getInstance().userList[uid].cancelBloukNum++;
+        UserManager.getInstance().userList[uid].cancelBloukNum += 2; //一次消除2个方块
         this.moveGameHead(uid);
         //大屏用户消除
         if (uid == UserManager.getInstance().luckyUser) {
@@ -410,23 +582,32 @@ var GameScene = (function (_super) {
         var to = data.to; //被施放道具的玩家uid
         var type = data.type; //道具类型
         var mapData = data.mapData; //道具使用后影响的位置
-        egret.log("使用道具:" + type);
+        egret.log("使用道具:" + from, to, type, mapData);
         //道具效果
         var toolName = "";
-        if (type == "1") {
-            toolName = "打乱";
-            //相当于重置地图，特效可能不同
-            MapManager.getInstance().level = mapData;
-            this.nextLevel();
-        }
-        else if (type == "2") {
-            toolName = "冻结";
-        }
-        else if (type == "3") {
+        switch (type) {
+            case "disturb":
+                toolName = "打乱";
+                // MapManager.getInstance().level = mapData;
+                //this.nextLevel();
+                break;
+            case "ice":
+                toolName = "冻结";
+                this.addChild(this.skillIce);
+                var self = this;
+                egret.Tween.removeTweens(this.skillIce);
+                egret.Tween.get(this.skillIce).wait(3000).call(function () {
+                    self.skillIce.parent && self.removeChild(self.skillIce);
+                });
+                break;
+            case "find":
+                toolName = "提示";
+                this.tishi();
+                break;
         }
         //大屏幕显示道具信息  暂时用第一栏显示
-        // var img0: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[from]).headImg;
-        // var img1: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[to]).headImg;
+        //var img0: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[from]).headImg;
+        //var img1: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[to]).headImg;
         // this.skillUIList[0].setSkill(img0,img1,toolName);
     };
     //幸运用户的地图因为没有可以消除的，系统自动更换
@@ -442,7 +623,7 @@ var GameScene = (function (_super) {
         var winners = data.winners; //前三名玩家ID
         egret.log("游戏结束，前三名ID：" + winners[0], winners[1], winners[2]);
         //TODO 返回首页?还是在游戏界面进行某些显示？
-        //LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
+        this.showResult(data);
     };
     return GameScene;
 })(BaseScene);

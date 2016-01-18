@@ -8,16 +8,22 @@ var GameHeadUI = (function (_super) {
     function GameHeadUI() {
         _super.call(this, "GameHeadUISkin");
         this.headImg = new egret.Bitmap();
+        this.imgWidth = 55;
+        this.imgHeight = 55;
     }
     var d = __define,c=GameHeadUI,p=c.prototype;
     p.componentCreated = function () {
-        this.componentCreated();
+        _super.prototype.componentCreated.call(this);
         this.addChild(this.headImg);
         this.addChild(this.headMask);
     };
     //设置头像
     p.setHeadBmd = function (bmd) {
         this.headImg.bitmapData = bmd;
+        this.headImg.width = this.imgWidth;
+        this.headImg.height = this.imgHeight;
+        this.headImg.x = 23;
+        this.headImg.y = 20;
     };
     //清理头像
     p.clear = function () {

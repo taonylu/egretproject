@@ -7,8 +7,8 @@
 		<e:Image id="ruleBtn" x="28" y="635" source="game_rulebtn_png"/>
 		<e:Image id="toolBtn" source="game_introbtn_png" x="262" y="634"/>
 		<e:Image id="danmuBtn" source="game_dmbtn_png" y="557" x="164"/>
-		<e:Label id="queueLabel" text="1" y="348" height="129" width="232" size="100" textColor="0x2E0404" verticalAlign="middle" textAlign="center" x="124"/>
 		<e:Image id="joinBtn" source="home_join_png" y="461" x="172"/>
+		<e:BitmapLabel id="queueLabel" y="307" font="countdown_fnt" x="164" width="139" height="159" text="9"/>
 	</e:Group>
 	<e:Group id="ruleGroup" height="852" width="480" x="0" bottom="0" visible="false">
 		<e:Rect id="closeRuleBtn" height="44" width="39" x="401" y="225"/>

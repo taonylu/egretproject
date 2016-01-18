@@ -14,6 +14,7 @@ var HomeScene = (function (_super) {
         this.initView();
     };
     p.onEnable = function () {
+        this.showJoinBtn();
         this.danmuBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onDanMuBtnTouch, this);
         this.toolBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onToolBtnTouch, this);
         this.ruleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRuleBtnTouch, this);
@@ -29,6 +30,14 @@ var HomeScene = (function (_super) {
         this.ruleGroup.visible = false;
         this.dmGroup.visible = false;
         this.queueLabel.text = "";
+    };
+    //显示加入游戏按钮
+    p.showJoinBtn = function () {
+        this.joinBtn.visible = true;
+        var self = this;
+        this.joinBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+            self.sendUserReady();
+        }, this);
     };
     p.onDanMuBtnTouch = function () {
         this.dmGroup.visible = true;
@@ -70,18 +79,15 @@ var HomeScene = (function (_super) {
     //-----------------------------接收数据----------------------------------
     //接收排队信息
     p.revQueue = function (data) {
-        var queueNum = data.Number; //排队位置
-        this.queueLabel.text = queueNum.toString();
-    };
-    //允许用户加入游戏
-    p.revWaitForReady = function (data) {
-        var time = data.time; //等待时间，超过时间，则用户被T出准备列表，让其他玩家加入
-        //显示加入游戏按钮
-        this.joinBtn.visible = true;
-        var self = this;
-        this.joinBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
-            self.sendUserReady();
-        }, this);
+        var status = data.status; //"wait"、"ready"
+        var queue = data.queue; //排队位置
+        egret.log("排队信息:" + status, queue);
+        if (status == "wait") {
+            this.queueLabel.text = queue.toString();
+        }
+        else if (status == "ready") {
+        }
+        this.joinBtn.visible = false;
     };
     //过关后，接收新关卡数据
     p.revMapData = function (data) {

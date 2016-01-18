@@ -61,7 +61,6 @@ class HomeScene extends BaseScene{
         this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
         this.countDownTimer.reset();
         this.countDownTimer.start();
-        this.shaLou.visible = false;
         this.countDownLabel.visible = true;
         this.countDownLabel.text = this.timeLimit.toString();
     }
@@ -104,7 +103,7 @@ class HomeScene extends BaseScene{
         egret.log("登录返回，房间状态：",status);
         switch(status){
             case 1:
-                //this.startCountDown();
+                
                 break;
             case 0:
                 break;
@@ -140,8 +139,20 @@ class HomeScene extends BaseScene{
                 break;
             }
         }
-        
-        
+    }
+    
+    //倒计时
+    public revCountDown(data) {
+        var time:number = data.time;
+        this.timeLimit = time;
+        this.shaLou.visible = false;
+        this.startCountDown();
+    }
+    
+    //清除倒计时
+    public revClearCountDown(data) {
+        this.stopCountDown();
+        this.showShaLou();
     }
 
     //玩家退出
@@ -149,7 +160,8 @@ class HomeScene extends BaseScene{
         var uid: string = data.uid;  //用户id
         egret.log("玩家退出:",uid);
         //列表删除用户
-        (<UserVO>UserManager.getInstance().userList[uid]).clear();
+        var userVO:UserVO = (<UserVO>UserManager.getInstance().userList[uid]);
+        userVO && userVO.clear();
         delete UserManager.getInstance().userList[uid];
         
         //TODO 游戏中玩家退出，可能是大屏用户

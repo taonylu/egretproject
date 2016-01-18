@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"game_bar_png,game_bareffect_png,game_head_png,game_skill0_png,game_skill1_png,game_skill2_png,game_skillbg_png,home_namebg_png,block10_png,block1_png,block2_png,block3_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png,block11_png,cloud_png,select0_png,select1_png,countdown_fnt,shalou_png,game_blockbg_png,game_intro_png,game_introicon_png,game_showicon_png,home_entergame_png,home_img_jpg,home_thx_png,home_thxbg_png,home_title_png,home_codebg_png,home_headmask_png,game_skill2_0_png,game_skill0_0_png,game_skill1_0_png",
+			"keys":"game_bar_png,game_bareffect_png,game_head_png,game_skill0_png,game_skill1_png,game_skill2_png,game_skillbg_png,home_namebg_png,block10_png,block1_png,block2_png,block3_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png,block11_png,select0_png,countdown_fnt,shalou_png,game_blockbg_png,game_intro_png,game_introicon_png,game_showicon_png,home_entergame_png,home_img_jpg,home_thx_png,home_thxbg_png,home_title_png,home_codebg_png,home_headmask_png,game_skill2_0_png,game_skill0_0_png,game_skill1_0_png,skill_ice_png,line_su_png,line_zhe_png,result_bg_png,game_over_png",
 			"name":"game"
 		}
 	],
@@ -106,19 +106,9 @@
 			"url":"assets/block11.png"
 		},
 		{
-			"name":"cloud_png",
-			"type":"image",
-			"url":"assets/cloud.png"
-		},
-		{
 			"name":"select0_png",
 			"type":"image",
 			"url":"assets/select0.png"
-		},
-		{
-			"name":"select1_png",
-			"type":"image",
-			"url":"assets/select1.png"
 		},
 		{
 			"name":"countdown_fnt",
@@ -204,6 +194,31 @@
 			"name":"game_skill1_0_png",
 			"type":"image",
 			"url":"assets/game_skill1_0.png"
+		},
+		{
+			"name":"skill_ice_png",
+			"type":"image",
+			"url":"assets/skill_ice.png"
+		},
+		{
+			"name":"line_su_png",
+			"type":"image",
+			"url":"assets/line_su.png"
+		},
+		{
+			"name":"line_zhe_png",
+			"type":"image",
+			"url":"assets/line_zhe.png"
+		},
+		{
+			"name":"result_bg_png",
+			"type":"image",
+			"url":"assets/result_bg.png"
+		},
+		{
+			"name":"game_over_png",
+			"type":"image",
+			"url":"assets/game_over.png"
 		}
 	]
 }

@@ -87,6 +87,16 @@ class ClientSocket {
         this.socket.on(NetConst.S2C_gameOver,function(data) {
             self.gameScene.revGameOver(data);
         });
+        
+        //倒计时
+        this.socket.on("countDown",function(data) {
+            self.homeScene.revCountDown(data);
+        });
+        
+        //清除倒计时
+        this.socket.on("clearCountDown",function(data) {
+            self.homeScene.revClearCountDown(data);
+        });
     }
     
     //////////////////////////////////////////////////////
