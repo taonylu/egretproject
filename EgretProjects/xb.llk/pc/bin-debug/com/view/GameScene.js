@@ -15,10 +15,10 @@ var GameScene = (function (_super) {
         this.selectNew = new SelectUI(); //选择框动画，第二个对象
         this.gameHeadUIList = new Array(); //进度头像列表
         this.lineSuPool = ObjectPool.getPool(LineSu.NAME, 10); //连线
-        this.lineZhePool = ObjectPool.getPool(LineZhe.NAME, 2);
-        this.lineList = new Array(); //保存连线数组
+        this.lineZhePool = ObjectPool.getPool(LineZhe.NAME, 4);
         this.nameLabelList = new Array(); //结果面板昵称文本数组
         this.resultHeadList = new Array(); //结果头像Group数组
+        this.resultTimeList = new Array(); //结果时间文本
         this.blockTypeNum = 11; //方块的数量种类
         this.blockNum = 0; //当前关卡方块数量
         this.blockData = new Array(); //方块的类型数组，用于判断方块皮肤ID后缀数字,"block" + blockData[i]
@@ -44,19 +44,21 @@ var GameScene = (function (_super) {
     var d = __define,c=GameScene,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
-        this.initView(); //初始化界面参数
+        this.initView();
     };
     p.onEnable = function () {
         this.startGame();
     };
     p.onRemove = function () {
     };
+    p.reset = function () {
+    };
     p.startGame = function () {
         //初始化
         this.curLevel = 1;
         this.blockTotal = MapManager.getInstance().getBlockNum();
         this.hideResutl();
-        this.resetGameHead();
+        this.initGameHead();
         this.createMap();
     };
     p.resetGame = function () {
@@ -98,7 +100,7 @@ var GameScene = (function (_super) {
         for (var i = 0; i < this.rowMax; i++) {
             this.blockArr.push(new Array());
         }
-        //技能显示面板 测试
+        //技能显示面板
         for (var i = 0; i < 4; i++) {
             this.skillUIList.push(this["skillUI" + i]);
         }
@@ -106,13 +108,14 @@ var GameScene = (function (_super) {
         for (var i = 0; i < this.userMax; i++) {
             this.gameHeadUIList.push(new GameHeadUI());
         }
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < this.userMax; i++) {
             this.nameLabelList.push(this["nameLabel" + i]);
             this.resultHeadList.push(this["resultHead" + i]);
+            this.resultTimeList.push(this["resultTimeLabel" + i]);
         }
     };
-    //重置用户进度头像
-    p.resetGameHead = function () {
+    //初始化用户进度头像
+    p.initGameHead = function () {
         var userList = UserManager.getInstance().userList;
         var index = 0; //游戏进度头像计数
         var userVO; //用户信息
@@ -133,7 +136,7 @@ var GameScene = (function (_super) {
         if (userVO) {
             var gameHeadUI = userVO.gameHeadUI;
             // 头像y / 进度条总长 = 消除方块数/总方块数
-            gameHeadUI.y = userVO.cancelBloukNum / this.blockTotal * (this.headGroup.width - gameHeadUI.width);
+            gameHeadUI.x = userVO.cancelBloukNum / this.blockTotal * this.headGroup.width;
         }
     };
     //游戏结束，显示结果
@@ -143,17 +146,28 @@ var GameScene = (function (_super) {
         this.gameOverBg.visible = true;
         this.gameOverText.visible = true;
         this.resultGroup.visible = true;
-        //显示前几名昵称
-        for (var i = 0; i < 5; i++) {
+        //显示排名
+        for (var i = 0; i < this.userMax; i++) {
             this.nameLabelList[i].text = "";
+            this.resultTimeList[i].text = "";
             if (data.winners[i] != null) {
-                var userVO = UserManager.getInstance().userList[data.winners[i]];
+                var uid = data.winners[i].uid;
+                var spend = data.winners[i].spend;
+                var userVO = UserManager.getInstance().getUser(uid);
                 if (userVO) {
                     this.nameLabelList[i].text = userVO.name;
                     var bm = new egret.Bitmap(userVO.headBmd);
-                    bm.width = 80;
-                    bm.height = 80;
+                    bm.width = 65;
+                    bm.height = 65;
                     this.resultHeadList[i].addChild(bm);
+                    if (spend > 0) {
+                        var min = Math.floor(spend / 1000 / 60);
+                        var sec = Math.floor(spend / 1000 % 60);
+                        this.resultTimeList[i].text = min + ":" + sec;
+                    }
+                    else {
+                        this.resultTimeList[i].text = "0";
+                    }
                 }
             }
         }
@@ -166,7 +180,7 @@ var GameScene = (function (_super) {
         this.gameOverText.visible = false;
         this.resultGroup.visible = false;
         //删除头像
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < this.userMax; i++) {
             if (this.resultHeadList[i].numChildren > 0) {
                 var headImg = this.resultHeadList[i].getChildAt(0);
                 headImg && headImg.parent && headImg.parent.removeChild(headImg);
@@ -378,7 +392,8 @@ var GameScene = (function (_super) {
     //画线函数
     p.linkRoad = function () {
         //挨个对比
-        var len = this.route.length - 1;
+        var len = this.route.length - 1; //倒数第1个不需要判断
+        var lineList = new Array();
         for (var i = 0; i < len; i++) {
             //每次取出前两个
             var obj1 = this.route[i];
@@ -388,6 +403,9 @@ var GameScene = (function (_super) {
                 var c3 = obj3["x"];
                 var r3 = obj3["y"];
             }
+            if (i + 1 == len) {
+                break;
+            }
             var c1 = obj1["x"];
             var r1 = obj1["y"];
             var c2 = obj2["x"];
@@ -396,18 +414,18 @@ var GameScene = (function (_super) {
             if (c1 == c2 && (obj3 == null || c2 == c3)) {
                 var lineSu = this.lineSuPool.getObject();
                 lineSu.rotation = 0;
-                lineSu.x = c1 * this.blockWidth + this.blockWidth / 2;
-                lineSu.y = (r2 > r1 ? r2 : r1) * this.blockHeight;
-                this.lineList.push(lineSu);
+                lineSu.x = c2 * this.blockWidth + this.blockWidth / 2;
+                lineSu.y = r2 * this.blockHeight + this.blockHeight / 2;
+                lineList.push(lineSu);
                 this.blockGroup.addChild(lineSu);
                 console.log("同列");
             }
             else if (r1 == r2 && (obj3 == null || r2 == r3)) {
                 var lineSu = this.lineSuPool.getObject();
                 lineSu.rotation = 90;
-                lineSu.x = (c2 > c1 ? c2 : c1) * this.blockWidth;
-                lineSu.y = r1 * this.blockHeight + this.blockHeight / 2;
-                this.lineList.push(lineSu);
+                lineSu.x = c2 * this.blockWidth + this.blockWidth / 2;
+                lineSu.y = r2 * this.blockHeight + this.blockHeight / 2;
+                lineList.push(lineSu);
                 this.blockGroup.addChild(lineSu);
                 console.log("同行");
             }
@@ -416,7 +434,7 @@ var GameScene = (function (_super) {
                 lineZhe.x = c2 * this.blockWidth + this.blockWidth / 2;
                 lineZhe.y = r2 * this.blockHeight + this.blockHeight / 2;
                 this.blockGroup.addChild(lineZhe);
-                this.lineList.push(lineZhe);
+                lineList.push(lineZhe);
                 if ((c1 == c2 && r2 > r1 && r2 == r3 && c3 > c2) || (r1 == r2 && c1 > c2 && c2 == c3 && r3 < r2)) {
                     lineZhe.rotation = 0;
                     console.log("L");
@@ -438,20 +456,10 @@ var GameScene = (function (_super) {
         //画完线清空路径数组
         this.route.length = 0;
         this.minRoadPoint = 10000;
-        var self = this;
-        egret.Tween.get(this).wait(300).call(function () {
-            var len = self.lineList.length;
-            var line;
-            for (var i = 0; i < len; i++) {
-                line = self.lineList[i];
-                if (line instanceof LineSu) {
-                    line.recycle();
-                }
-                else {
-                    line.recycle();
-                }
-            }
-        });
+        var len = lineList.length;
+        for (var i = 0; i < len; i++) {
+            lineList[i].recycle();
+        }
     };
     //计算出最短的线路
     p.theShortest = function (r1, c1, r2, c2, r3, c3, r4, c4) {
@@ -514,6 +522,7 @@ var GameScene = (function (_super) {
         this.newTarget && this.selectNew.hide();
         this.oldTarget = null;
         this.newTarget = null;
+        this.isSelect = false;
         if (this.bangzhu()) {
             egret.log("提示方块:", this.oldTarget.row, this.oldTarget.col, this.newTarget.row, this.newTarget.col);
             this.selectOld.play(this.oldTarget);
@@ -582,27 +591,37 @@ var GameScene = (function (_super) {
         var to = data.to; //被施放道具的玩家uid
         var type = data.type; //道具类型
         var mapData = data.mapData; //道具使用后影响的位置
-        egret.log("使用道具:" + from, to, type, mapData);
+        var time = data.time; //冰冻时间
+        egret.log("使用道具:" + from, to, type, mapData, time);
+        egret.log("是否大屏幕:", UserManager.getInstance().luckyUser == to);
         //道具效果
         var toolName = "";
         switch (type) {
             case "disturb":
                 toolName = "打乱";
-                // MapManager.getInstance().level = mapData;
-                //this.nextLevel();
+                if (UserManager.getInstance().luckyUser == to) {
+                    MapManager.getInstance().level[this.curLevel - 1] = mapData;
+                    this.resetGame();
+                    this.createMap();
+                }
                 break;
             case "ice":
                 toolName = "冻结";
-                this.addChild(this.skillIce);
-                var self = this;
-                egret.Tween.removeTweens(this.skillIce);
-                egret.Tween.get(this.skillIce).wait(3000).call(function () {
-                    self.skillIce.parent && self.removeChild(self.skillIce);
-                });
+                if (UserManager.getInstance().luckyUser == to) {
+                    this.skillIce.visible = true;
+                    this.blockGroup.addChild(this.skillIce);
+                    var self = this;
+                    egret.Tween.removeTweens(this.skillIce);
+                    egret.Tween.get(this.skillIce).wait(time).call(function () {
+                        self.skillIce.parent && self.skillIce.parent.removeChild(self.skillIce);
+                    });
+                }
                 break;
             case "find":
                 toolName = "提示";
-                this.tishi();
+                if (UserManager.getInstance().luckyUser == to) {
+                    this.tishi();
+                }
                 break;
         }
         //大屏幕显示道具信息  暂时用第一栏显示
@@ -621,9 +640,16 @@ var GameScene = (function (_super) {
     //游戏结束
     p.revGameOver = function (data) {
         var winners = data.winners; //前三名玩家ID
-        egret.log("游戏结束，前三名ID：" + winners[0], winners[1], winners[2]);
+        var rankLast = data.rankLast; //结果页面显示时间
+        egret.log("游戏结束");
         //TODO 返回首页?还是在游戏界面进行某些显示？
         this.showResult(data);
+        var self = this;
+        egret.Tween.get(this).wait(rankLast).call(function () {
+            self.resetGame();
+            UserManager.getInstance().clear();
+            LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
+        }, this);
     };
     return GameScene;
 })(BaseScene);

@@ -49,6 +49,10 @@ class HomeScene extends BaseScene{
         this.dmGroup.visible = false;
         this.ruleGroup.visible = false;
     }
+    
+    public reset(){
+        
+    }
 
     private initView():void{
       this.ruleGroup.visible = false;
@@ -124,7 +128,14 @@ class HomeScene extends BaseScene{
         var queue: number = data.queue;  //排队位置
         egret.log("排队信息:" + status, queue);
         if(status == "wait"){  //排队
-            this.queueLabel.text = queue.toString();
+            if(queue < 10){
+                this.queueLabel.text = "0" + queue.toString(); 
+            }else if(queue <=99){
+                this.queueLabel.text = queue.toString();
+            }else{
+                this.queueLabel.text = "99";
+            }
+            
         }else if(status == "ready"){  //用户准备好，等待游戏开始
             
         }

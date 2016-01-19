@@ -16,6 +16,7 @@ var GameHeadUI = (function (_super) {
         _super.prototype.componentCreated.call(this);
         this.addChild(this.headImg);
         this.addChild(this.headMask);
+        this.anchorOffsetX = this.width / 2;
     };
     //设置头像
     p.setHeadBmd = function (bmd) {

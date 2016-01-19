@@ -9,7 +9,7 @@ var HomeScene = (function (_super) {
         _super.call(this, "HomeSceneSkin");
         this.userMax = 8; //用户最大数量
         this.timeLimit = 20; //倒计时时间 
-        this.countDownTimer = new egret.Timer(1000);
+        this.countDownTimer = new egret.Timer(1000); //计时器
     }
     var d = __define,c=HomeScene,p=c.prototype;
     p.componentCreated = function () {
@@ -21,6 +21,11 @@ var HomeScene = (function (_super) {
     };
     p.onRemove = function () {
     };
+    p.reset = function () {
+    };
+    ///////////////////////////////////////////////////
+    ///-----------------[游戏UI]----------------------
+    ///////////////////////////////////////////////////
     p.initView = function () {
         //初始头像
         this.headUIList = new Array();
@@ -37,14 +42,26 @@ var HomeScene = (function (_super) {
         this.shaLou.visible = true;
         this.countDownLabel.visible = false;
     };
+    p.resetHeadUI = function () {
+        var len = this.headUIList.length;
+        for (var i = 0; i < len; i++) {
+            this.headUIList[i].reset();
+        }
+    };
     //开始倒计时
     p.startCountDown = function () {
         this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
         this.countDownTimer.reset();
         this.countDownTimer.start();
         this.countDownLabel.visible = true;
-        this.countDownLabel.text = this.timeLimit.toString();
+        if (this.timeLimit < 10) {
+            this.countDownLabel.text = "0" + this.timeLimit.toString();
+        }
+        else {
+            this.countDownLabel.text = this.timeLimit.toString();
+        }
     };
+    //倒计时处理
     p.onCountDownHandler = function (e) {
         var curTimeCount = this.timeLimit - this.countDownTimer.currentCount;
         //倒计时结束，则进入游戏
@@ -60,6 +77,7 @@ var HomeScene = (function (_super) {
             this.countDownLabel.text = curTimeCount.toString();
         }
     };
+    //停止倒计时
     p.stopCountDown = function () {
         this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
         this.countDownTimer.stop();
@@ -67,8 +85,7 @@ var HomeScene = (function (_super) {
     ///////////////////////////////////////////////////
     ///-----------------[网络处理]----------------------
     ///////////////////////////////////////////////////
-    //-----------------------------发送数据----------------------------------
-    //-----------------------------接收数据----------------------------------
+    //=====================接收数据======================
     //返回登录成功
     p.revLogin = function (data) {
         var status = data; //  -1 房间已经存在 ， 0 房间错误， 1 开放成功
@@ -93,7 +110,7 @@ var HomeScene = (function (_super) {
         var userVO = new UserVO();
         userVO.uid = uid;
         userVO.name = name;
-        UserManager.getInstance().userList[uid] = userVO;
+        UserManager.getInstance().storeUser(userVO);
         //设置用户名，选取列表靠前的一个空文本。因为可能出现靠前的玩家退出游戏。
         var index = -1;
         var headUI;
@@ -111,12 +128,14 @@ var HomeScene = (function (_super) {
     //倒计时
     p.revCountDown = function (data) {
         var time = data.time;
-        this.timeLimit = time;
+        egret.log("倒计时:" + time);
+        this.timeLimit = time / 1000;
         this.shaLou.visible = false;
         this.startCountDown();
     };
     //清除倒计时
     p.revClearCountDown = function (data) {
+        egret.log("停止倒计时");
         this.stopCountDown();
         this.showShaLou();
     };
@@ -125,9 +144,7 @@ var HomeScene = (function (_super) {
         var uid = data.uid; //用户id
         egret.log("玩家退出:", uid);
         //列表删除用户
-        var userVO = UserManager.getInstance().userList[uid];
-        userVO && userVO.clear();
-        delete UserManager.getInstance().userList[uid];
+        UserManager.getInstance().deleteUser(uid);
         //TODO 游戏中玩家退出，可能是大屏用户
     };
     //游戏开始

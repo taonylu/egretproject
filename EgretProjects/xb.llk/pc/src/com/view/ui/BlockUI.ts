@@ -23,10 +23,9 @@ class BlockUI extends egret.Bitmap{
     public hide(): void {
         var self: BlockUI = this;
         this.touchEnabled = false;
-        egret.Tween.get(this).to({y:(this.y-100),rotation:10,alpha: 0.2 },300,egret.Ease.quadOut).call(function(): void {
+        egret.Tween.get(this).to({alpha: 0.2 },300,egret.Ease.quadOut).call(function(): void {
             self.parent && self.parent.removeChild(self);
             ObjectPool.getPool(BlockUI.NAME).returnObject(self);
-            self.rotation = 0;
             self.alpha = 1;
         });
     }
@@ -36,7 +35,6 @@ class BlockUI extends egret.Bitmap{
         egret.Tween.removeTweens(this);
         this.touchEnabled = false;
         this.parent && this.parent.removeChild(this);
-        this.rotation = 0;
         this.alpha = 1;
     }
     

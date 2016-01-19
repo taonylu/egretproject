@@ -20,10 +20,12 @@ class GameScene extends BaseScene{
     private selectNew:SelectUI = new SelectUI(); //选择框动画，第二个对象
     
     private lineSuPool: ObjectPool = ObjectPool.getPool(LineSu.NAME,10);  //连线
-    private lineZhePool: ObjectPool = ObjectPool.getPool(LineZhe.NAME,2);
-    private lineList: Array<egret.Bitmap> = new Array<egret.Bitmap>();   //保存连线数组
+    private lineZhePool: ObjectPool = ObjectPool.getPool(LineZhe.NAME,4);
     
-    private resultGroup:eui.Group;   //结果Group
+    private resultGroup:eui.Group;     //结果Group
+    private againBtn:eui.Image;        //再斗一次
+    private rankLabel:eui.BitmapLabel; //排名文本
+    private timeLabel:eui.Label;       //时间文本
     
     //------------------[地图数据]--------------------
     private blockGroup: eui.Group;        //方块容器
@@ -52,10 +54,7 @@ class GameScene extends BaseScene{
     private minRoadPoint: number = 10000;               //路径数
     private route: Array<Object> = new Array<Object>(); //记录路径
     private _stage: egret.Stage;                        //舞台stage
-    
-    
-    
-    
+
 	public constructor() {
         super("GameSceneSkin");
  
@@ -63,18 +62,22 @@ class GameScene extends BaseScene{
 	
     public componentCreated(): void {
         super.componentCreated();
-
-        this.initView();        //初始化界面参数
+        this.initView();  
     }
 
-    public onEnable(): void {
-        
+    public onEnable(): void { 
         this.startGame();
     }
 
     public onRemove(): void {
-        //清理地图
-        MapManager.getInstance().level = null;
+        
+    }
+    
+    public reset(){
+        this.resetGame();            //重置方块、寻路等
+        this.deConfigListener();     //清理监听
+        this.hideResult();           //隐藏结果面板
+        MapManager.getInstance().level.length = 0; //清理地图
     }
     
     private startGame(): void {
@@ -166,14 +169,38 @@ class GameScene extends BaseScene{
     }
     
     //显示结果
-    private showResult(){
+    private showResult(data){
+        var rank:number = data.rank;   //排名
+        var spend:number = data.spend; //花费时间
+        
         this.addChild(this.resultGroup);
+        this.rankLabel.text = rank.toString();
+        if(spend > 0){
+            var min:number = Math.floor(spend/1000/60);
+            var sec:number = Math.floor(spend/1000%60);
+            this.timeLabel.text = min + ":" + sec;
+        }else{
+            this.timeLabel.text = "0";
+        }
+        
+        this.againBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAgainBtnTouch, this);
+    }
+    
+    //点击再斗一次按钮
+    private onAgainBtnTouch(){
+        this.reset();
+        LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
+        GameManager.getInstance().homeScene.sendUserReady();
     }
     
     //隐藏结果
     private hideResult(){
+        this.againBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onAgainBtnTouch,this);
         this.resultGroup.parent && this.resultGroup.parent.removeChild(this.resultGroup);
+        
     }
+    
+    
     
     ///////////////////////////////////////////////////
     ///-----------------[游戏逻辑]----------------------
@@ -189,15 +216,6 @@ class GameScene extends BaseScene{
         }
         
         this.tempMap = ArrayTool.copy2DArr(mapData);
-
-        //获得当前地图的方块数量
-//        for(var i: number = 0;i < this.rowMax;i++) {
-//            for(var j: number = 0;j < this.colMax;j++) {
-//                if(this.tempMap[i][j] > 0) {
-//                    this.blockNum++;
-//                }
-//            }
-//        }
 
         //创建方块
         var index: number = 0; //已经生成的方块数
@@ -282,6 +300,7 @@ class GameScene extends BaseScene{
                     //检查地图上是否有能相连的方块，如果没有，则重新排列
                     if(this.bangzhu() == false){
                         this.sortBlock();
+                        this.sendUpMap();
                     }
                     return;
                     //两个相同类型方块不能相连，则取消选择
@@ -482,59 +501,62 @@ class GameScene extends BaseScene{
     //画线函数
     private linkRoad(): void {
         //挨个对比
-        var len: number = this.route.length - 1;
-        
+        var len: number = this.route.length - 1; //倒数第1个不需要判断
+        var lineList: Array<BaseLine> = new Array<BaseLine>();
         for(var i: number = 0;i < len;i++) {   
             //每次取出前两个
             var obj1: Object = this.route[i];
             var obj2: Object = this.route[i + 1];
-            if(i + 2 <= len) {
+            if(i + 2 <= len) { //如果取出的前两个后面还有1个，则取出用于判断折
                 var obj3: Object = this.route[i + 2];
                 var c3: number = obj3["x"];
                 var r3: number = obj3["y"];
+            }
+
+            if(i + 1 == len) {
+                break;
             }
 
             var c1: number = obj1["x"];
             var r1: number = obj1["y"];
             var c2: number = obj2["x"];
             var r2: number = obj2["y"];
-            
-            console.log(r1,c1,r2,c2);
-            
-            if(c1 == c2 && (obj3 ==null || c2==c3)) {  //同列
+
+
+            if(c1 == c2 && (obj3 == null || c2 == c3)) {  //同列
                 var lineSu: LineSu = this.lineSuPool.getObject();
                 lineSu.rotation = 0;
-                lineSu.x = c1 * this.blockWidth + this.blockWidth / 2;
-                lineSu.y =  (r2>r1?r2:r1) * this.blockHeight;
-                this.lineList.push(lineSu);
+                lineSu.x = c2 * this.blockWidth + this.blockWidth / 2;
+                lineSu.y = r2 * this.blockHeight + this.blockHeight / 2;
+                lineList.push(lineSu);
                 this.blockGroup.addChild(lineSu);
-                console.log("同列");
-            } else if(r1 == r2&& (obj3==null || r2 == r3)) {  //同行
+              
+            } else if(r1 == r2 && (obj3 == null || r2 == r3)) {  //同行
                 var lineSu: LineSu = this.lineSuPool.getObject();
                 lineSu.rotation = 90;
-                lineSu.x = (c2>c1?c2:c1) * this.blockWidth
-                lineSu.y = r1 * this.blockHeight + this.blockHeight / 2;
-                this.lineList.push(lineSu);
+                lineSu.x = c2 * this.blockWidth + this.blockWidth / 2;
+                lineSu.y = r2 * this.blockHeight + this.blockHeight / 2;
+                lineList.push(lineSu);
                 this.blockGroup.addChild(lineSu);
-                console.log("同行");
+               
             } else if(obj3) { //折线
                 var lineZhe: LineZhe = this.lineZhePool.getObject();
                 lineZhe.x = c2 * this.blockWidth + this.blockWidth / 2;
                 lineZhe.y = r2 * this.blockHeight + this.blockHeight / 2;
                 this.blockGroup.addChild(lineZhe);
-                this.lineList.push(lineZhe);
-                if((c1 == c2 && r2>r1 && r2==r3 && c3>c2) || (r1==r2 && c1>c2 && c2==c3 && r3 < r2)) {  // L型
+                lineList.push(lineZhe);
+                if((c1 == c2 && r2 > r1 && r2 == r3 && c3 > c2) || (r1 == r2 && c1 > c2 && c2 == c3 && r3 < r2)) {  // L型
                     lineZhe.rotation = 0;
-                    console.log("L");
-                } else if((c1 == c2 && r2<r1 && r2 == r3 && c3>c2) || (r1==r2 && c1>c2 && c2==c3 && r3>r2)) {   //|-型
+                 
+                } else if((c1 == c2 && r2 < r1 && r2 == r3 && c3 > c2) || (r1 == r2 && c1 > c2 && c2 == c3 && r3 > r2)) {   //|-型
                     lineZhe.rotation = 90;
-                    console.log("|-");
-                } else if((r1 == r2 && c2>c1 && c2==c3 &&  r3>r2) || (c1==c2 && r1>r2 && r2==r3 && c3<c2)) {  //-|型
+                  
+                } else if((r1 == r2 && c2 > c1 && c2 == c3 && r3 > r2) || (c1 == c2 && r1 > r2 && r2 == r3 && c3 < c2)) {  //-|型
                     lineZhe.rotation = 180;
-                    console.log("-|");
+                
                 } else {   //_|型
                     lineZhe.rotation = 270;
-                    console.log("_|");
+                  
                 }
             }
 
@@ -542,19 +564,12 @@ class GameScene extends BaseScene{
         //画完线清空路径数组
         this.route.length = 0;
         this.minRoadPoint = 10000;
-        var self:GameScene = this;
-        egret.Tween.get(this).wait(300).call(function(){
-            var len: number = self.lineList.length;
-            var line: egret.Bitmap;
-            for(var i: number = 0;i < len;i++) {
-                line = self.lineList[i];
-                if(line instanceof LineSu) {
-                    (<LineSu>line).recycle();
-                } else {
-                    (<LineZhe>line).recycle();
-                }
-            }
-        });
+        var len: number = lineList.length;
+        for(var i: number = 0;i < len;i++) {
+            lineList[i].recycle();
+        }
+
+
     }
         
     //计算出最短的线路
@@ -574,7 +589,6 @@ class GameScene extends BaseScene{
                this.saveLinePath(r2,c2,r3,c3);
                this.route.pop();
                this.saveLinePath(r3,c3,r4,c4);
-               
             //上一次的数等于当前的数以便下一次计算
             this.minRoadPoint = count;
         }
@@ -630,6 +644,7 @@ class GameScene extends BaseScene{
         this.newTarget && this.selectNew.hide();
         this.oldTarget = null;
         this.newTarget = null;
+        this.isSelect = false;
         if(this.bangzhu()) {
             egret.log("提示方块:" , this.oldTarget.row, this.oldTarget.col, this.newTarget.row, this.newTarget.col);
             this.selectOld.play(this.oldTarget);
@@ -640,6 +655,7 @@ class GameScene extends BaseScene{
     
     //帮助找到两个通路的方块
     private bangzhu(): boolean {
+   
         for(var i: number = 0;i < this.rowMax - 1;i++) {   //i,j当前方块行列
             for(var j: number = 0;j < this.colMax - 1;j++) {
                 if(this.tempMap[i][j] > 0) {
@@ -661,6 +677,7 @@ class GameScene extends BaseScene{
                                     if(this.checkRoad(obj1,obj2)) {
                                         //只提示两个方块不记录线路
                                         this.route.length = 0;
+                                        this.minRoadPoint = 10000;
                                         this.oldTarget = obj1;
                                         this.newTarget = obj2;
                                         return true;
@@ -689,6 +706,7 @@ class GameScene extends BaseScene{
     
     //发送地图
     public sendUpMap(): void {
+        egret.log("无可消除，发送重排");
         var json = { "mapData":this.tempMap};
         this.socket.sendMessage(NetConst.C2S_upMap,json);
     }
@@ -720,7 +738,7 @@ class GameScene extends BaseScene{
     public revGameOver(data): void {
         var rank: number = data.rank;  //前三名玩家ID
         egret.log("游戏结束，排名" + rank);
-        this.showResult();
+        this.showResult(data);
     }
 
     //玩家被使用道具
@@ -742,11 +760,11 @@ class GameScene extends BaseScene{
             case "ice":   //冻结，暂停当前操作，直到冰冻时间结束。可能有多个冰冻连续施放，需要重置冰冻时间。
                 this.deConfigListener();
                 this.skillIce.visible = true;
-                this.addChild(this.skillIce);
+                this.blockGroup.addChild(this.skillIce);
                 var self:GameScene = this;
                 egret.Tween.removeTweens(this.skillIce);
                 egret.Tween.get(this.skillIce).wait(time).call(function(){
-                    self.skillIce.parent && self.removeChild(self.skillIce);
+                    self.skillIce.parent && self.skillIce.parent.removeChild(self.skillIce);
                     self.configListener();
                 });
             break;

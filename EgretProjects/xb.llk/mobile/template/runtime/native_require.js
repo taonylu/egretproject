@@ -26,6 +26,7 @@ var game_file_list = [
 	"bin-debug/com/net/NetConst.js",
 	"bin-debug/com/view/GameScene.js",
 	"bin-debug/com/view/HomeScene.js",
+	"bin-debug/com/view/ui/BaseLine.js",
 	"bin-debug/com/view/ui/BlockUI.js",
 	"bin-debug/com/view/ui/BoomUI.js",
 	"bin-debug/com/view/ui/LineSu.js",

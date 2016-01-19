@@ -3,17 +3,21 @@
  * @author 
  *
  */
-class LineSu extends egret.Bitmap{
-    public static NAME:string = "LineSu";
+class LineSu extends BaseLine{
+    public static NAME: string = "LineSu";
 	public constructor() {
     	super();
     	this.bitmapData = RES.getRes("line_su_png");
     	this.anchorOffsetX = this.width/2;
-    	this.anchorOffsetY =this.height/2;
+    	this.anchorOffsetY = this.height/2;
 	}
 	
-	public recycle(){
-    	this.parent && this.parent.removeChild(this);
-    	ObjectPool.getPool(LineSu.NAME).returnObject(this);
-	}
+    public recycle() {
+        var self: LineSu = this;
+        egret.Tween.get(this).to({ alpha: 0.2 },300).call(function() {
+            self.parent && self.parent.removeChild(self);
+            self.alpha = 1;
+            ObjectPool.getPool(LineSu.NAME).returnObject(self);
+        },this);
+    }
 }

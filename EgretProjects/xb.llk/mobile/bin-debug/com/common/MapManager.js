@@ -24,12 +24,13 @@ var MapManager = (function () {
             var arr = this.level[i];
             for (var j = 0; j < this.rowMax; j++) {
                 for (var k = 0; k < this.colMax; k++) {
-                    if (arr[i][j] > 0) {
+                    if (arr[j][k] > 0) {
                         blockNum++;
                     }
                 }
             }
         }
+        egret.log("方块总数:", blockNum);
         return blockNum;
     };
     return MapManager;

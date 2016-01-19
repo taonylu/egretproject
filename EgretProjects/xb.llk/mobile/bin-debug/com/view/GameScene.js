@@ -12,8 +12,7 @@ var GameScene = (function (_super) {
         this.selectOld = new SelectUI(); //选择框动画，第一个对象
         this.selectNew = new SelectUI(); //选择框动画，第二个对象
         this.lineSuPool = ObjectPool.getPool(LineSu.NAME, 10); //连线
-        this.lineZhePool = ObjectPool.getPool(LineZhe.NAME, 2);
-        this.lineList = new Array(); //保存连线数组
+        this.lineZhePool = ObjectPool.getPool(LineZhe.NAME, 4);
         this.blockTypeNum = 11; //方块的数量种类
         this.blockNum = 0; //当前关卡方块数量
         this.blockData = new Array(); //方块的类型数组，用于判断方块皮肤ID后缀数字,"block" + blockData[i]
@@ -37,14 +36,18 @@ var GameScene = (function (_super) {
     var d = __define,c=GameScene,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
-        this.initView(); //初始化界面参数
+        this.initView();
     };
     p.onEnable = function () {
         this.startGame();
     };
     p.onRemove = function () {
-        //清理地图
-        MapManager.getInstance().level = null;
+    };
+    p.reset = function () {
+        this.resetGame(); //重置方块、寻路等
+        this.deConfigListener(); //清理监听
+        this.hideResult(); //隐藏结果面板
+        MapManager.getInstance().level.length = 0; //清理地图
     };
     p.startGame = function () {
         this.curLevel = 1;
@@ -122,11 +125,30 @@ var GameScene = (function (_super) {
         }
     };
     //显示结果
-    p.showResult = function () {
+    p.showResult = function (data) {
+        var rank = data.rank; //排名
+        var spend = data.spend; //花费时间
         this.addChild(this.resultGroup);
+        this.rankLabel.text = rank.toString();
+        if (spend > 0) {
+            var min = Math.floor(spend / 1000 / 60);
+            var sec = Math.floor(spend / 1000 % 60);
+            this.timeLabel.text = min + ":" + sec;
+        }
+        else {
+            this.timeLabel.text = "0";
+        }
+        this.againBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAgainBtnTouch, this);
+    };
+    //点击再斗一次按钮
+    p.onAgainBtnTouch = function () {
+        this.reset();
+        LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
+        GameManager.getInstance().homeScene.sendUserReady();
     };
     //隐藏结果
     p.hideResult = function () {
+        this.againBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onAgainBtnTouch, this);
         this.resultGroup.parent && this.resultGroup.parent.removeChild(this.resultGroup);
     };
     ///////////////////////////////////////////////////
@@ -140,14 +162,6 @@ var GameScene = (function (_super) {
             return;
         }
         this.tempMap = ArrayTool.copy2DArr(mapData);
-        //获得当前地图的方块数量
-        //        for(var i: number = 0;i < this.rowMax;i++) {
-        //            for(var j: number = 0;j < this.colMax;j++) {
-        //                if(this.tempMap[i][j] > 0) {
-        //                    this.blockNum++;
-        //                }
-        //            }
-        //        }
         //创建方块
         var index = 0; //已经生成的方块数
         for (var i = 0; i < this.rowMax; i++) {
@@ -226,6 +240,7 @@ var GameScene = (function (_super) {
                     //检查地图上是否有能相连的方块，如果没有，则重新排列
                     if (this.bangzhu() == false) {
                         this.sortBlock();
+                        this.sendUpMap();
                     }
                     return;
                 }
@@ -423,7 +438,8 @@ var GameScene = (function (_super) {
     //画线函数
     p.linkRoad = function () {
         //挨个对比
-        var len = this.route.length - 1;
+        var len = this.route.length - 1; //倒数第1个不需要判断
+        var lineList = new Array();
         for (var i = 0; i < len; i++) {
             //每次取出前两个
             var obj1 = this.route[i];
@@ -433,70 +449,56 @@ var GameScene = (function (_super) {
                 var c3 = obj3["x"];
                 var r3 = obj3["y"];
             }
+            if (i + 1 == len) {
+                break;
+            }
             var c1 = obj1["x"];
             var r1 = obj1["y"];
             var c2 = obj2["x"];
             var r2 = obj2["y"];
-            console.log(r1, c1, r2, c2);
             if (c1 == c2 && (obj3 == null || c2 == c3)) {
                 var lineSu = this.lineSuPool.getObject();
                 lineSu.rotation = 0;
-                lineSu.x = c1 * this.blockWidth + this.blockWidth / 2;
-                lineSu.y = (r2 > r1 ? r2 : r1) * this.blockHeight;
-                this.lineList.push(lineSu);
+                lineSu.x = c2 * this.blockWidth + this.blockWidth / 2;
+                lineSu.y = r2 * this.blockHeight + this.blockHeight / 2;
+                lineList.push(lineSu);
                 this.blockGroup.addChild(lineSu);
-                console.log("同列");
             }
             else if (r1 == r2 && (obj3 == null || r2 == r3)) {
                 var lineSu = this.lineSuPool.getObject();
                 lineSu.rotation = 90;
-                lineSu.x = (c2 > c1 ? c2 : c1) * this.blockWidth;
-                lineSu.y = r1 * this.blockHeight + this.blockHeight / 2;
-                this.lineList.push(lineSu);
+                lineSu.x = c2 * this.blockWidth + this.blockWidth / 2;
+                lineSu.y = r2 * this.blockHeight + this.blockHeight / 2;
+                lineList.push(lineSu);
                 this.blockGroup.addChild(lineSu);
-                console.log("同行");
             }
             else if (obj3) {
                 var lineZhe = this.lineZhePool.getObject();
                 lineZhe.x = c2 * this.blockWidth + this.blockWidth / 2;
                 lineZhe.y = r2 * this.blockHeight + this.blockHeight / 2;
                 this.blockGroup.addChild(lineZhe);
-                this.lineList.push(lineZhe);
+                lineList.push(lineZhe);
                 if ((c1 == c2 && r2 > r1 && r2 == r3 && c3 > c2) || (r1 == r2 && c1 > c2 && c2 == c3 && r3 < r2)) {
                     lineZhe.rotation = 0;
-                    console.log("L");
                 }
                 else if ((c1 == c2 && r2 < r1 && r2 == r3 && c3 > c2) || (r1 == r2 && c1 > c2 && c2 == c3 && r3 > r2)) {
                     lineZhe.rotation = 90;
-                    console.log("|-");
                 }
                 else if ((r1 == r2 && c2 > c1 && c2 == c3 && r3 > r2) || (c1 == c2 && r1 > r2 && r2 == r3 && c3 < c2)) {
                     lineZhe.rotation = 180;
-                    console.log("-|");
                 }
                 else {
                     lineZhe.rotation = 270;
-                    console.log("_|");
                 }
             }
         }
         //画完线清空路径数组
         this.route.length = 0;
         this.minRoadPoint = 10000;
-        var self = this;
-        egret.Tween.get(this).wait(300).call(function () {
-            var len = self.lineList.length;
-            var line;
-            for (var i = 0; i < len; i++) {
-                line = self.lineList[i];
-                if (line instanceof LineSu) {
-                    line.recycle();
-                }
-                else {
-                    line.recycle();
-                }
-            }
-        });
+        var len = lineList.length;
+        for (var i = 0; i < len; i++) {
+            lineList[i].recycle();
+        }
     };
     //计算出最短的线路
     p.theShortest = function (r1, c1, r2, c2, r3, c3, r4, c4) {
@@ -566,6 +568,7 @@ var GameScene = (function (_super) {
         this.newTarget && this.selectNew.hide();
         this.oldTarget = null;
         this.newTarget = null;
+        this.isSelect = false;
         if (this.bangzhu()) {
             egret.log("提示方块:", this.oldTarget.row, this.oldTarget.col, this.newTarget.row, this.newTarget.col);
             this.selectOld.play(this.oldTarget);
@@ -595,6 +598,7 @@ var GameScene = (function (_super) {
                                     if (this.checkRoad(obj1, obj2)) {
                                         //只提示两个方块不记录线路
                                         this.route.length = 0;
+                                        this.minRoadPoint = 10000;
                                         this.oldTarget = obj1;
                                         this.newTarget = obj2;
                                         return true;
@@ -619,6 +623,7 @@ var GameScene = (function (_super) {
     };
     //发送地图
     p.sendUpMap = function () {
+        egret.log("无可消除，发送重排");
         var json = { "mapData": this.tempMap };
         this.socket.sendMessage(NetConst.C2S_upMap, json);
     };
@@ -644,7 +649,7 @@ var GameScene = (function (_super) {
     p.revGameOver = function (data) {
         var rank = data.rank; //前三名玩家ID
         egret.log("游戏结束，排名" + rank);
-        this.showResult();
+        this.showResult(data);
     };
     //玩家被使用道具
     p.revPro = function (data) {
@@ -663,11 +668,11 @@ var GameScene = (function (_super) {
             case "ice":
                 this.deConfigListener();
                 this.skillIce.visible = true;
-                this.addChild(this.skillIce);
+                this.blockGroup.addChild(this.skillIce);
                 var self = this;
                 egret.Tween.removeTweens(this.skillIce);
                 egret.Tween.get(this.skillIce).wait(time).call(function () {
-                    self.skillIce.parent && self.removeChild(self.skillIce);
+                    self.skillIce.parent && self.skillIce.parent.removeChild(self.skillIce);
                     self.configListener();
                 });
                 break;

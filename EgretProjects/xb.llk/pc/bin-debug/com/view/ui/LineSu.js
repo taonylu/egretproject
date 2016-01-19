@@ -13,10 +13,14 @@ var LineSu = (function (_super) {
     }
     var d = __define,c=LineSu,p=c.prototype;
     p.recycle = function () {
-        this.parent && this.parent.removeChild(this);
-        ObjectPool.getPool(LineSu.NAME).returnObject(this);
+        var self = this;
+        egret.Tween.get(this).to({ alpha: 0.2 }, 300).call(function () {
+            self.parent && self.parent.removeChild(self);
+            self.alpha = 1;
+            ObjectPool.getPool(LineSu.NAME).returnObject(self);
+        }, this);
     };
     LineSu.NAME = "LineSu";
     return LineSu;
-})(egret.Bitmap);
+})(BaseLine);
 egret.registerClass(LineSu,'LineSu');

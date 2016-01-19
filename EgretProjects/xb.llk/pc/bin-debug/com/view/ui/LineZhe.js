@@ -1,5 +1,5 @@
 /**
- * 连线折
+ * 连线竖
  * @author
  *
  */
@@ -13,10 +13,14 @@ var LineZhe = (function (_super) {
     }
     var d = __define,c=LineZhe,p=c.prototype;
     p.recycle = function () {
-        this.parent && this.parent.removeChild(this);
-        ObjectPool.getPool(LineZhe.NAME).returnObject(this);
+        var self = this;
+        egret.Tween.get(this).to({ alpha: 0.2 }, 300).call(function () {
+            self.parent && self.parent.removeChild(self);
+            self.alpha = 1;
+            ObjectPool.getPool(LineZhe.NAME).returnObject(self);
+        }, this);
     };
     LineZhe.NAME = "LineZhe";
     return LineZhe;
-})(egret.Bitmap);
+})(BaseLine);
 egret.registerClass(LineZhe,'LineZhe');
