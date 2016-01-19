@@ -1,10 +1,11 @@
 /**
- * 游戏管理类
+ * 游戏管理类,单例类
  * @author  陈凯
  *
  */
 var GameManager = (function () {
     function GameManager() {
+        //=============[场景]================
         this.homeScene = new HomeScene(); //主页场景
         this.gameScene = new GameScene(); //游戏场景
     }
@@ -31,7 +32,7 @@ var GameManager = (function () {
     ///////////////////////////////////////////////////
     ///-----------------[网络处理]----------------------
     ///////////////////////////////////////////////////
-    //----------------------[接收数据]--------------------
+    //==================[接收数据]=================
     //连接成功
     p.onConnect = function () {
         this.sendLoginRequest();
@@ -40,7 +41,7 @@ var GameManager = (function () {
     p.revBarrage = function (data) {
         this.barrageUI.showOneMsg(data);
     };
-    //----------------------[发送数据]--------------------
+    //=================[发送数据]=====================
     //发送登录请求
     p.sendLoginRequest = function () {
         var json = { "rid": window["srvConfig"].rid };

@@ -1,15 +1,18 @@
 /**
- * 游戏管理类
+ * 游戏管理类,单例类
  * @author  陈凯
  *
  */
 class GameManager {
+    //=============[场景]================
     public homeScene: HomeScene = new HomeScene();  //主页场景
     public gameScene: GameScene = new GameScene();  //游戏场景
     
-    public barrageUI:BarrageUI;                     //弹幕层
+    //==============[UI]=================
+    public barrageUI:BarrageUI;   //弹幕UI
     
-    public socket:ClientSocket;
+    //==============[其他]==================
+    public socket:ClientSocket;   //ClientSocket                  
     
     //启动游戏框架
     public startup(main: Main): void {
@@ -40,22 +43,20 @@ class GameManager {
     ///-----------------[网络处理]----------------------
     ///////////////////////////////////////////////////
     
-    //----------------------[接收数据]--------------------
+    //==================[接收数据]=================
     
     //连接成功
     public onConnect():void{
         this.sendLoginRequest();
     }
-    
-    
-    
+
     //接收弹幕
     public revBarrage(data){
         this.barrageUI.showOneMsg(data);
     }
     
     
-    //----------------------[发送数据]--------------------
+    //=================[发送数据]=====================
     //发送登录请求
     public sendLoginRequest(){
         var json = {"rid": window["srvConfig"].rid};

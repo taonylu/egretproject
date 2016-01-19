@@ -7,11 +7,11 @@ var HeadUI = (function (_super) {
     __extends(HeadUI, _super);
     function HeadUI() {
         _super.call(this, "HeadUISkin");
-        this.imgX = 10; //图片大小高宽
+        this.imgX = 10; //图片大小高宽和位置
         this.imgY = 17;
         this.imgWidth = 45;
         this.imgHeight = 45;
-        this.imageLoader = new egret.ImageLoader();
+        this.imageLoader = new egret.ImageLoader(); //图片加载器
     }
     var d = __define,c=HeadUI,p=c.prototype;
     p.componentCreated = function () {
@@ -38,7 +38,9 @@ var HeadUI = (function (_super) {
         var imageLoader = event.currentTarget;
         this.headImg.bitmapData = imageLoader.data;
         //保存用户头像数据
-        UserManager.getInstance().userList[this.userID].headBmd = imageLoader.data;
+        if (UserManager.getInstance().isExist(this.userID)) {
+            UserManager.getInstance().getUser(this.userID).headBmd = imageLoader.data;
+        }
     };
     //加载头像错误
     p.onLoadError = function () {
@@ -52,7 +54,7 @@ var HeadUI = (function (_super) {
         return false;
     };
     //清理数据
-    p.clear = function () {
+    p.reset = function () {
         this.nameLabel.text = "";
         this.headImg.bitmapData = null;
         this.userID = "";

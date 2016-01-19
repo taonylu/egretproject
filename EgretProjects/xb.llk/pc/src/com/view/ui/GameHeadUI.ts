@@ -17,6 +17,7 @@ class GameHeadUI extends BaseUI{
         super.componentCreated();
         this.addChild(this.headImg);
         this.addChild(this.headMask);
+        this.anchorOffsetX = this.width/2;
     }
     
     //设置头像

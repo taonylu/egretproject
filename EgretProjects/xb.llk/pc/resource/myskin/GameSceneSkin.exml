@@ -36,15 +36,37 @@
 	</e:Group>
 	<e:Group id="resultGroup" height="848" width="757" x="1020" y="519">
 		<e:Image source="result_bg_png" x="0" y="0"/>
-		<e:Label id="nameLabel0" text="标签" x="248" y="169" textColor="0x300404" width="405" height="59" fontFamily="微软雅黑" size="50"/>
-		<e:Label id="nameLabel1" y="281.5" textColor="0x300404" height="59" text="标签" fontFamily="微软雅黑" width="405" size="50" x="248"/>
-		<e:Label id="nameLabel2" y="394.5" textColor="0x300404" size="50" text="标签" fontFamily="微软雅黑" width="405" height="59" x="248"/>
-		<e:Label id="nameLabel3" y="506.5" textColor="0x300404" height="59" text="标签" fontFamily="微软雅黑" width="405" size="50" x="248"/>
-		<e:Label id="nameLabel4" y="619" textColor="0x300404" size="50" text="标签" fontFamily="微软雅黑" width="405" height="59" x="248"/>
-		<e:Group id="resultHead0" height="80" width="80" x="129" y="155"/>
-		<e:Group id="resultHead1" width="80" y="268" height="80" x="129"/>
-		<e:Group id="resultHead2" width="80" y="382" height="80" x="129"/>
-		<e:Group id="resultHead3" width="80" y="495" height="80" x="129"/>
-		<e:Group id="resultHead4" width="80" y="608" height="80" x="129"/>
+		<e:Label id="nameLabel0" text="标签标签标签标" x="237" y="109" textColor="0x300404" width="311" height="59" fontFamily="微软雅黑" size="40" verticalAlign="middle"/>
+		<e:Label y="199.5" textColor="0x300404" size="40" text="标签标签标签标" fontFamily="微软雅黑" x="237" width="311" verticalAlign="middle" height="59" id="nameLabel1"/>
+		<e:Label y="289.5" textColor="0x300404" height="59" text="标签标签标签标" fontFamily="微软雅黑" id="nameLabel2" width="311" verticalAlign="middle" size="40" x="237"/>
+		<e:Label y="379.5" textColor="0x300404" size="40" text="标签标签标签标" fontFamily="微软雅黑" x="237" width="311" verticalAlign="middle" height="59" id="nameLabel3"/>
+		<e:Label y="469.5" textColor="0x300404" height="59" text="标签标签标签标" fontFamily="微软雅黑" id="nameLabel4" width="311" verticalAlign="middle" size="40" x="237"/>
+		<e:Label y="559.5" textColor="0x300404" size="40" text="标签标签标签标" fontFamily="微软雅黑" x="237" width="311" verticalAlign="middle" height="59" id="nameLabel5"/>
+		<e:Label y="649.5" textColor="0x300404" height="59" text="标签标签标签标" fontFamily="微软雅黑" id="nameLabel6" width="311" verticalAlign="middle" size="40" x="237"/>
+		<e:Label y="739" textColor="0x300404" size="40" text="标签标签标签标" fontFamily="微软雅黑" x="237" width="311" verticalAlign="middle" height="59" id="nameLabel7"/>
+		<e:Group id="resultHead0" height="65" width="65" x="138" y="106"/>
+		<e:Group id="resultHead1" width="65" y="196.5" height="65" x="138"/>
+		<e:Group id="resultHead2" width="65" y="287.5" height="65" x="138"/>
+		<e:Group id="resultHead3" width="65" y="378.5" height="65" x="138"/>
+		<e:Group id="resultHead4" width="65" y="469.5" height="65" x="138"/>
+		<e:Group x="138" width="65" y="560.5" height="65" id="resultHead5"/>
+		<e:Group x="138" width="65" y="651.5" height="65" id="resultHead6"/>
+		<e:Group x="138" width="65" y="742" height="65" id="resultHead7"/>
+		<e:BitmapLabel x="62" y="104" font="countdown_fnt" text="1" scaleX="0.4" scaleY="0.4"/>
+		<e:BitmapLabel y="194" text="2" font="countdown_fnt" scaleX="0.4" scaleY="0.4" x="62"/>
+		<e:BitmapLabel y="284" text="3" font="countdown_fnt" scaleX="0.4" scaleY="0.4" x="62"/>
+		<e:BitmapLabel y="374" text="4" font="countdown_fnt" scaleX="0.4" scaleY="0.4" x="62"/>
+		<e:BitmapLabel y="464" text="5" font="countdown_fnt" scaleX="0.4" scaleY="0.4" x="62"/>
+		<e:BitmapLabel y="554" text="6" font="countdown_fnt" scaleX="0.4" scaleY="0.4" x="62"/>
+		<e:BitmapLabel y="644" text="7" font="countdown_fnt" scaleX="0.4" scaleY="0.4" x="62"/>
+		<e:BitmapLabel y="734" text="8" font="countdown_fnt" scaleX="0.4" scaleY="0.4" x="62"/>
+		<e:Label id="resultTimeLabel0" text="12:32" x="579" y="117" width="142" height="45" size="40" textColor="0xAA2424" verticalAlign="middle"/>
+		<e:Label y="207.5" textColor="0xAA2424" height="45" text="12:32" x="579" width="142" verticalAlign="middle" size="40" id="resultTimeLabel1"/>
+		<e:Label y="297.5" textColor="0xAA2424" size="40" text="12:32" id="resultTimeLabel2" width="142" verticalAlign="middle" height="45" x="579"/>
+		<e:Label y="388.5" textColor="0xAA2424" height="45" text="12:32" x="579" width="142" verticalAlign="middle" size="40" id="resultTimeLabel3"/>
+		<e:Label y="478.5" textColor="0xAA2424" size="40" text="12:32" id="resultTimeLabel4" width="142" verticalAlign="middle" height="45" x="579"/>
+		<e:Label y="569.5" textColor="0xAA2424" height="45" text="12:32" x="579" width="142" verticalAlign="middle" size="40" id="resultTimeLabel5"/>
+		<e:Label y="659.5" textColor="0xAA2424" size="40" text="12:32" id="resultTimeLabel6" width="142" verticalAlign="middle" height="45" x="579"/>
+		<e:Label y="750" textColor="0xAA2424" height="45" text="12:32" x="579" width="142" verticalAlign="middle" size="40" id="resultTimeLabel7"/>
 	</e:Group>
 </e:Skin>

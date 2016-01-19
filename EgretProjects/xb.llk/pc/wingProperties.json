@@ -176,33 +176,8 @@
 				},
 				{
 					"isFolder":false,
-					"key":"game_skill0_0_png",
-					"name":"game_skill0_0_png"
-				},
-				{
-					"isFolder":false,
-					"key":"game_skill1_0_png",
-					"name":"game_skill1_0_png"
-				},
-				{
-					"isFolder":false,
-					"key":"game_skill2_0_png",
-					"name":"game_skill2_0_png"
-				},
-				{
-					"isFolder":false,
 					"key":"skill_ice_png",
 					"name":"skill_ice_png"
-				},
-				{
-					"isFolder":false,
-					"key":"line_su_png",
-					"name":"line_su_png"
-				},
-				{
-					"isFolder":false,
-					"key":"line_zhe_png",
-					"name":"line_zhe_png"
 				},
 				{
 					"isFolder":false,
@@ -213,6 +188,16 @@
 					"isFolder":false,
 					"key":"game_over_png",
 					"name":"game_over_png"
+				},
+				{
+					"isFolder":false,
+					"key":"line_su_png",
+					"name":"line_su_png"
+				},
+				{
+					"isFolder":false,
+					"key":"line_zhe_png",
+					"name":"line_zhe_png"
 				}
 			]
 		}

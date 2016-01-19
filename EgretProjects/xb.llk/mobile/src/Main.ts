@@ -37,14 +37,14 @@ class Main extends eui.UILayer {
         this.stage.registerImplementation("eui.IThemeAdapter",new ThemeAdapter());
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.loadConfig("resource/default.res.json", "resource/");
+        RES.loadConfig("resource/default.res.json?ver=1.0", "resource/");
     }
     
     //配置文件加载完成,开始预加载皮肤主题资源和preload资源组。
     private onConfigComplete(event:RES.ResourceEvent):void {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-        var theme = new eui.Theme("resource/default.thm.json", this.stage);
+        var theme = new eui.Theme("resource/default.thm.json?ver=1.0", this.stage);
         theme.addEventListener(eui.UIEvent.COMPLETE, this.onThemeLoadComplete, this);
     }
 

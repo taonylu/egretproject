@@ -151,6 +151,16 @@
 				},
 				{
 					"isFolder":false,
+					"key":"resutl_bg_png",
+					"name":"resutl_bg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_again_png",
+					"name":"game_again_png"
+				},
+				{
+					"isFolder":false,
 					"key":"line_su_png",
 					"name":"line_su_png"
 				},
@@ -158,11 +168,6 @@
 					"isFolder":false,
 					"key":"line_zhe_png",
 					"name":"line_zhe_png"
-				},
-				{
-					"isFolder":false,
-					"key":"resutl_bg_png",
-					"name":"resutl_bg_png"
 				}
 			]
 		}

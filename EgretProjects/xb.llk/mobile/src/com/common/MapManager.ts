@@ -25,12 +25,13 @@ class MapManager {
             var arr = this.level[i];
             for(var j: number = 0;j < this.rowMax;j++) {
                 for(var k: number = 0;k < this.colMax;k++) {
-                    if(arr[i][j] > 0) {
+                    if(arr[j][k] > 0) {
                         blockNum++;
                     }
                 }
             }
         }
+        egret.log("方块总数:",blockNum);
         return blockNum;
     }
     

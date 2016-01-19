@@ -1,5 +1,26 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="HomeSceneSkin" width="450" height="800" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="bg" source="game_bg_jpg" x="-56"/>
-	<e:Label id="msgLabel" text="标签" y="287" width="323" height="221" verticalAlign="middle" textAlign="center" textColor="0x050000" x="64" size="25"/>
+<e:Skin class="HomeSceneSkin" width="2560" height="1440" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image id="bg" source="homge_bg_png" y="213" x="303"/>
+	<e:Group id="userGroup" height="342" width="448" x="1298" y="1014">
+		<ns1:HeadUI id="headUI0" x="-1" y="0" skinName="HeadUISkin"/>
+		<ns1:HeadUI x="207" y="0" skinName="HeadUISkin" id="headUI1"/>
+		<ns1:HeadUI id="headUI2" y="74" skinName="HeadUISkin" x="-1"/>
+		<ns1:HeadUI x="207" y="74" skinName="HeadUISkin" id="headUI3"/>
+		<ns1:HeadUI id="headUI4" y="149" skinName="HeadUISkin" x="-1"/>
+		<ns1:HeadUI x="207" y="149" skinName="HeadUISkin" id="headUI5"/>
+		<ns1:HeadUI id="headUI6" y="223" skinName="HeadUISkin" x="-1"/>
+		<ns1:HeadUI x="207" y="223" skinName="HeadUISkin" id="headUI7"/>
+	</e:Group>
+	<e:Label id="gameIntroLabel" x="444" y="505" textColor="0x030000" fontFamily="微软雅黑" width="513" height="472" text="游戏介绍..."/>
+	<e:Image id="codebg" source="home_codebg_png" x="971" y="490"/>
+	<e:Group id="qrcodeGroup" height="350" width="350" x="1390" y="534">
+	</e:Group>
+	<e:BitmapLabel id="countDownLabel" x="1067" y="628" font="countdown_fnt" width="285" height="185" text="00"/>
+	<e:Image id="shaLou" source="shalou_png" x="1076" y="548"/>
+	<e:Image source="home_title_png" y="46" x="837"/>
+	<e:Image source="home_entergame_png" x="976" y="358"/>
+	<e:Image source="home_img_jpg" x="406" y="1003"/>
+	<e:Image source="home_thx_png" x="1837" y="358"/>
+	<e:Image source="home_thxbg_png" x="1818" y="507"/>
+	<e:Image source="game_intro_png" x="421" y="358"/>
 </e:Skin>
