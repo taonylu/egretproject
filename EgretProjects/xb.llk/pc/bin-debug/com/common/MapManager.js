@@ -5,8 +5,8 @@
  */
 var MapManager = (function () {
     function MapManager() {
-        this.rowMax = 8;
-        this.colMax = 7;
+        this.rowMax = 10;
+        this.colMax = 9;
         this.level = new Array();
     }
     var d = __define,c=MapManager,p=c.prototype;

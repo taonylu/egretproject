@@ -21,6 +21,7 @@ class HomeScene extends BaseScene{
     private timeLimit:number = 20;           //倒计时时间 
     private countDownTimer:egret.Timer = new egret.Timer(1000);  //计时器
     
+    private gameIntroLabel:eui.Label;  //游戏介绍
     
     public constructor() {
         super("HomeSceneSkin");
@@ -57,6 +58,11 @@ class HomeScene extends BaseScene{
         var qrcdeLoader:QRCodeLoader = new QRCodeLoader();
         qrcdeLoader.load(window["qrcodeUrl"], window["codeWidth"],window["codeHeight"], window["logoUrl"]);
         this.qrcodeGroup.addChild(qrcdeLoader);
+        //游戏规则
+        this.gameIntroLabel.text = "1 扫描二维码，进入房间，点击“加入游戏”开始排队，每局最多8名玩家\n\n" + 
+        "2 当玩家达到4名就开始倒计时，倒计时期间新玩家也可以加入游戏\n\n" +
+        "3 每局游戏有三个关卡，只要有三位玩家完成三关，游戏结束\n\n" +
+        "4 游戏期间借助道具让你更有优势\n";
     }
     
     //显示沙漏

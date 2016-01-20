@@ -87,10 +87,12 @@ var ClientSocket = (function () {
     };
     //连接失败
     p.onError = function (data) {
+        alert("连接失败，请尝试刷新网页");
         egret.log("connenct erro");
     };
     //连接断开
     p.onDisconnect = function () {
+        alert("已与服务器断开连接，请尝试刷新网页");
         egret.log("connenct close");
     };
     //尝试重新连接

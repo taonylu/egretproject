@@ -13,20 +13,21 @@ var GameScene = (function (_super) {
         this.selectNew = new SelectUI(); //选择框动画，第二个对象
         this.lineSuPool = ObjectPool.getPool(LineSu.NAME, 10); //连线
         this.lineZhePool = ObjectPool.getPool(LineZhe.NAME, 4);
-        this.blockTypeNum = 11; //方块的数量种类
+        this.barStart = 0.15; //进度条scaleX
+        this.barEnd = 1.45;
         this.blockNum = 0; //当前关卡方块数量
         this.blockData = new Array(); //方块的类型数组，用于判断方块皮肤ID后缀数字,"block" + blockData[i]
         this.tempMap = new Array(); //临时地图，二维数组，存放本关的地图数据的拷贝
         this.blockArr = new Array(); //方块数组，二维数组，用于存放Block实例
-        this.rowMax = 8; //地图最大行
-        this.colMax = 7; //地图最大列
-        this.blockWidth = 64; //方块宽
-        this.blockHeight = 64; //方块高
+        this.rowMax = 10; //地图最大行
+        this.colMax = 9; //地图最大列
+        this.blockWidth = 60; //方块宽
+        this.blockHeight = 60; //方块高
         this.mapStartY = 0; //方块起始位置
         this.mapStartX = 0;
         //------------------[游戏变量]--------------------
         this.isSelect = false; //是否已经选择了一个方块
-        this.curLevel = 1; //当前关卡
+        this.curLevel = 1; //当前关卡，1-3
         this.cancelBlockNum = 0; //已消除方块
         this.totalBlock = 0; //总方块
         //------------------[寻路数据]--------------------
@@ -52,7 +53,12 @@ var GameScene = (function (_super) {
     p.startGame = function () {
         this.curLevel = 1;
         this.cancelBlockNum = 0;
+        this.progressBar.scaleX = this.barStart;
+        this.waitGroup.visible = false;
         this.totalBlock = MapManager.getInstance().getBlockNum();
+        this.skillLabel0.text = "3";
+        this.skillLabel1.text = "3";
+        this.skillLabel2.text = "3";
         this.hideResult();
         this.createMap();
         this.configListener();
@@ -89,6 +95,11 @@ var GameScene = (function (_super) {
         this.curLevel++;
         this.resetGame();
         this.createMap();
+        //无其他关卡
+        if (MapManager.getInstance().level[this.curLevel - 1] == null) {
+            this.waitGroup.visible = true;
+            this.waitLabel.text = "您已完成游戏\n请等待其他玩家完成游戏";
+        }
         this.configListener();
     };
     p.configListener = function () {
@@ -144,7 +155,6 @@ var GameScene = (function (_super) {
     p.onAgainBtnTouch = function () {
         this.reset();
         LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
-        GameManager.getInstance().homeScene.sendUserReady();
     };
     //隐藏结果
     p.hideResult = function () {
@@ -171,11 +181,11 @@ var GameScene = (function (_super) {
                     block.setSkin(this.tempMap[i][j]);
                     block.row = i;
                     block.col = j;
-                    block.x = this.mapStartX + j * (this.blockWidth + 1);
-                    block.y = this.mapStartY + i * (this.blockHeight + 1) - this._stage.stageHeight;
+                    block.x = this.mapStartX + j * (this.blockWidth);
+                    block.y = this.mapStartY + i * (this.blockHeight) - this._stage.stageHeight;
                     this.blockGroup.addChild(block);
                     this.blockArr[block.row][block.col] = block;
-                    egret.Tween.get(block).to({ y: (this.mapStartY + i * (this.blockHeight + 1)) }, 500);
+                    egret.Tween.get(block).to({ y: (this.mapStartY + i * (this.blockHeight)) }, 500);
                     index++;
                 }
             }
@@ -227,7 +237,8 @@ var GameScene = (function (_super) {
                     //声音
                     //得分
                     this.cancelBlockNum += 2;
-                    //this.cancelBlockNum/this.totalBlock;
+                    // 当前长度 = 初始长度 + 已消除方块数/总方块数*(最长长度-初始长度)
+                    this.progressBar.scaleX = this.barStart + this.cancelBlockNum / this.totalBlock * (this.barEnd - this.barStart);
                     //隐藏选择框
                     this.selectOld.hide();
                     this.selectNew.hide();
@@ -239,6 +250,7 @@ var GameScene = (function (_super) {
                     }
                     //检查地图上是否有能相连的方块，如果没有，则重新排列
                     if (this.bangzhu() == false) {
+                        console.log("重排前数组:", this.tempMap);
                         this.sortBlock();
                         this.sendUpMap();
                     }
@@ -577,11 +589,11 @@ var GameScene = (function (_super) {
     };
     //帮助找到两个通路的方块
     p.bangzhu = function () {
-        for (var i = 0; i < this.rowMax - 1; i++) {
-            for (var j = 0; j < this.colMax - 1; j++) {
+        for (var i = 0; i < this.rowMax; i++) {
+            for (var j = 0; j < this.colMax; j++) {
                 if (this.tempMap[i][j] > 0) {
                     //每一个方块遍历每一个元素
-                    for (var m = i; m < this.rowMax - 1; m++) {
+                    for (var m = i; m < this.rowMax; m++) {
                         var n;
                         if (m == i) {
                             n = j + 1;
@@ -589,7 +601,7 @@ var GameScene = (function (_super) {
                         else {
                             n = 0;
                         }
-                        for (; n < this.colMax - 1; n++) {
+                        for (; n < this.colMax; n++) {
                             if (this.tempMap[m][n] > 0) {
                                 var obj1 = this.blockArr[i][j];
                                 var obj2 = this.blockArr[m][n];
@@ -637,6 +649,26 @@ var GameScene = (function (_super) {
         var json = { "type": type };
         egret.log("使用道具:" + type);
         this.socket.sendMessage(NetConst.C2S_usePro, json, this.CB_userPro, this);
+        switch (type) {
+            case "disturb":
+                var num = parseInt(this.skillLabel0.text);
+                num--;
+                num = num > 0 ? num : 0;
+                this.skillLabel0.text = num.toString();
+                break;
+            case "ice":
+                var num = parseInt(this.skillLabel1.text);
+                num--;
+                num = num > 0 ? num : 0;
+                this.skillLabel1.text = num.toString();
+                break;
+            case "find":
+                var num = parseInt(this.skillLabel2.text);
+                num--;
+                num = num > 0 ? num : 0;
+                this.skillLabel2.text = num.toString();
+                break;
+        }
     };
     //发送道具回调函数
     p.CB_userPro = function (data) {
@@ -656,7 +688,8 @@ var GameScene = (function (_super) {
         var type = data.type; //道具类型
         var mapData = data.mapData; //道具使用后影响的位置
         var time = data.time; //ice时间
-        egret.log("被使用道具:", type, time, mapData);
+        egret.log("被使用道具:", type, time);
+        console.log("被使用道具:", mapData);
         switch (type) {
             case "disturb":
                 this.deConfigListener();

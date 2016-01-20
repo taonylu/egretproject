@@ -13,9 +13,15 @@ var ClientSocket = (function () {
         }
         return this.instance;
     };
-    p.startConnect = function (url) {
+    p.isConnected = function () {
+        if (this.socket && this.socket.connected) {
+            return true;
+        }
+        return false;
+    };
+    p.startConnect = function () {
         //连接socket
-        this.socket = io.connect(url, { reconnection: false });
+        this.socket = io.connect(window["server"], { reconnection: false });
         var self = this;
         //连接成功 
         this.socket.on('connect', function () {
@@ -68,6 +74,7 @@ var ClientSocket = (function () {
     //连接断开
     p.onDisconnect = function () {
         egret.log("connenct close");
+        GameManager.getInstance().onDisconnect();
     };
     //尝试重新连接
     p.onReconnectAttempt = function () {
@@ -77,7 +84,7 @@ var ClientSocket = (function () {
         if (data === void 0) { data = null; }
         if (callBack === void 0) { callBack = null; }
         if (thisObject === void 0) { thisObject = null; }
-        if (this.socket.connected) {
+        if (this.socket && this.socket.connected) {
             this.socket.emit(cmd, data, function (data) {
                 if (callBack && thisObject) {
                     callBack.call(thisObject, data);

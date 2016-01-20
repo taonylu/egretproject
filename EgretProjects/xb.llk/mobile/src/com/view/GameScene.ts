@@ -13,6 +13,10 @@ class GameScene extends BaseScene{
     private skillIceBtn:eui.Image;  //冰冻
     private skillTipBtn:eui.Image;  //提示
     private skillIce:eui.Image;   //冰冻特效
+    private skillLabel0:eui.Label;  //技能次数文本
+    private skillLabel1:eui.Label;
+    private skillLabel2:eui.Label;
+    
     
     private blockPool: ObjectPool = ObjectPool.getPool(BlockUI.NAME,10); //方块对象池
     private boomPool: ObjectPool = ObjectPool.getPool(BoomUI.NAME,10);   //炸弹对象池
@@ -27,17 +31,23 @@ class GameScene extends BaseScene{
     private rankLabel:eui.BitmapLabel; //排名文本
     private timeLabel:eui.Label;       //时间文本
     
+    private progressBar:eui.Image;     //进度条
+    private barStart:number = 0.15;    //进度条scaleX
+    private barEnd:number = 1.45;
+    
+    private waitGroup:eui.Group;       //游戏结束，等待Group
+    private waitLabel:eui.Label;       //等待显示字体
+    
     //------------------[地图数据]--------------------
     private blockGroup: eui.Group;        //方块容器
-    private blockTypeNum: number = 11;    //方块的数量种类
     private blockNum: number = 0;         //当前关卡方块数量
     private blockData: Array<number> = new Array<number>();  //方块的类型数组，用于判断方块皮肤ID后缀数字,"block" + blockData[i]
-    private tempMap: Array<any> = new Array<any>();          //临时地图，二维数组，存放本关的地图数据的拷贝
+    public tempMap: Array<any> = new Array<any>();          //临时地图，二维数组，存放本关的地图数据的拷贝
     private blockArr: Array<any> = new Array<any>();         //方块数组，二维数组，用于存放Block实例
-    private rowMax: number = 8;      //地图最大行
-    private colMax: number = 7;      //地图最大列
-    private blockWidth: number = 64; //方块宽
-    private blockHeight: number = 64;//方块高
+    private rowMax: number = 10;      //地图最大行
+    private colMax: number = 9;      //地图最大列
+    private blockWidth: number = 60; //方块宽
+    private blockHeight: number = 60;//方块高
     private mapStartY: number = 0;   //方块起始位置
     private mapStartX: number = 0;
     
@@ -45,7 +55,7 @@ class GameScene extends BaseScene{
     private isSelect: Boolean = false;      //是否已经选择了一个方块
     private oldTarget: BlockUI;             //第一次点击的方块
     private newTarget: BlockUI;             //第二次点击的方块
-    private curLevel: number = 1;           //当前关卡
+    private curLevel: number = 1;           //当前关卡，1-3
     private cancelBlockNum:number = 0;      //已消除方块
     private totalBlock:number = 0;          //总方块
     
@@ -57,7 +67,7 @@ class GameScene extends BaseScene{
 
 	public constructor() {
         super("GameSceneSkin");
- 
+        
 	}
 	
     public componentCreated(): void {
@@ -83,7 +93,12 @@ class GameScene extends BaseScene{
     private startGame(): void {
         this.curLevel = 1;
         this.cancelBlockNum = 0;
+        this.progressBar.scaleX = this.barStart;
+        this.waitGroup.visible = false;
         this.totalBlock = MapManager.getInstance().getBlockNum();
+        this.skillLabel0.text = "3";
+        this.skillLabel1.text = "3";
+        this.skillLabel2.text = "3";
         this.hideResult();
         this.createMap();
         this.configListener();
@@ -125,6 +140,12 @@ class GameScene extends BaseScene{
         this.curLevel++;
         this.resetGame();
         this.createMap();
+        //无其他关卡
+        if(MapManager.getInstance().level[this.curLevel - 1] == null) {
+            this.waitGroup.visible = true;
+            this.waitLabel.text = "您已完成游戏\n请等待其他玩家完成游戏"
+        }
+        
         this.configListener();
     }
     
@@ -190,7 +211,6 @@ class GameScene extends BaseScene{
     private onAgainBtnTouch(){
         this.reset();
         LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
-        GameManager.getInstance().homeScene.sendUserReady();
     }
     
     //隐藏结果
@@ -216,7 +236,8 @@ class GameScene extends BaseScene{
         }
         
         this.tempMap = ArrayTool.copy2DArr(mapData);
-
+       
+        
         //创建方块
         var index: number = 0; //已经生成的方块数
         for(var i = 0;i < this.rowMax;i++) {
@@ -226,11 +247,11 @@ class GameScene extends BaseScene{
                     block.setSkin(this.tempMap[i][j]);
                     block.row = i;
                     block.col = j;
-                    block.x = this.mapStartX + j * (this.blockWidth + 1);
-                    block.y = this.mapStartY + i * (this.blockHeight + 1) - this._stage.stageHeight;
+                    block.x = this.mapStartX + j * (this.blockWidth);
+                    block.y = this.mapStartY + i * (this.blockHeight) - this._stage.stageHeight;
                     this.blockGroup.addChild(block);
                     this.blockArr[block.row][block.col] = block;
-                    egret.Tween.get(block).to({ y: (this.mapStartY + i * (this.blockHeight + 1)) },500);
+                    egret.Tween.get(block).to({ y: (this.mapStartY + i * (this.blockHeight)) },500);
                     index++;
                 }
             }
@@ -284,8 +305,8 @@ class GameScene extends BaseScene{
                     //声音
                     //得分
                     this.cancelBlockNum += 2;
-                    //this.cancelBlockNum/this.totalBlock;
-                    
+                    // 当前长度 = 初始长度 + 已消除方块数/总方块数*(最长长度-初始长度)
+                    this.progressBar.scaleX = this.barStart + this.cancelBlockNum/this.totalBlock*(this.barEnd - this.barStart);
                     //隐藏选择框
                     this.selectOld.hide();
                     this.selectNew.hide();
@@ -299,6 +320,7 @@ class GameScene extends BaseScene{
                     
                     //检查地图上是否有能相连的方块，如果没有，则重新排列
                     if(this.bangzhu() == false){
+                        console.log("重排前数组:",this.tempMap);
                         this.sortBlock();
                         this.sendUpMap();
                     }
@@ -534,7 +556,7 @@ class GameScene extends BaseScene{
             } else if(r1 == r2 && (obj3 == null || r2 == r3)) {  //同行
                 var lineSu: LineSu = this.lineSuPool.getObject();
                 lineSu.rotation = 90;
-                lineSu.x = c2 * this.blockWidth + this.blockWidth / 2;
+                lineSu.x = c2 * this.blockWidth + this.blockWidth / 2; 
                 lineSu.y = r2 * this.blockHeight + this.blockHeight / 2;
                 lineList.push(lineSu);
                 this.blockGroup.addChild(lineSu);
@@ -654,13 +676,13 @@ class GameScene extends BaseScene{
     }
     
     //帮助找到两个通路的方块
-    private bangzhu(): boolean {
+    public bangzhu(): boolean {
    
-        for(var i: number = 0;i < this.rowMax - 1;i++) {   //i,j当前方块行列
-            for(var j: number = 0;j < this.colMax - 1;j++) {
+        for(var i: number = 0;i < this.rowMax;i++) {   //i,j当前方块行列
+            for(var j: number = 0;j < this.colMax;j++) {
                 if(this.tempMap[i][j] > 0) {
                     //每一个方块遍历每一个元素
-                    for(var m: number = i;m < this.rowMax - 1;m++) {  //m,n检测的方块行列
+                    for(var m: number = i;m < this.rowMax;m++) {  //m,n检测的方块行列
                         var n: number;
                         if(m == i) {   //m=i，同一行，则检查的是自己，所以列+1
                             n = j + 1;
@@ -668,7 +690,7 @@ class GameScene extends BaseScene{
                         else {
                             n = 0;
                         }
-                        for(;n< this.colMax-1;n++) {
+                        for(;n < this.colMax;n++) {
                             if(this.tempMap[m][n] > 0) {
                                 var obj1: BlockUI = this.blockArr[i][j];
                                 var obj2: BlockUI = this.blockArr[m][n];
@@ -723,6 +745,28 @@ class GameScene extends BaseScene{
         var json = {"type": type};
         egret.log("使用道具:" + type);
         this.socket.sendMessage(NetConst.C2S_usePro,json, this.CB_userPro, this);
+        
+        switch(type){
+            case "disturb":   //打乱，暂停当前操作，并重置地图
+                var num:number = parseInt(this.skillLabel0.text);
+                num--;
+                num = num>0?num:0;
+                this.skillLabel0.text = num.toString();
+                break;
+            case "ice":   //冻结，暂停当前操作，直到冰冻时间结束。可能有多个冰冻连续施放，需要重置冰冻时间。
+                var num: number = parseInt(this.skillLabel1.text);
+                num--;
+                num = num > 0 ? num : 0;
+                this.skillLabel1.text = num.toString();
+                break;
+            case "find":   //提示
+                var num: number = parseInt(this.skillLabel2.text);
+                num--;
+                num = num > 0 ? num : 0;
+                this.skillLabel2.text = num.toString();
+                break;
+        }
+        
     }
     
     //发送道具回调函数
@@ -747,7 +791,8 @@ class GameScene extends BaseScene{
         var mapData = data.mapData;    //道具使用后影响的位置
         var time:number = data.time;   //ice时间
         
-        egret.log("被使用道具:",type, time, mapData);
+        egret.log("被使用道具:",type, time);
+        console.log("被使用道具:",mapData);
         
         switch(type){
             case "disturb":   //打乱，暂停当前操作，并重置地图
