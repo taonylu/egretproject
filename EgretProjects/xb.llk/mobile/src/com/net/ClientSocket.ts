@@ -16,11 +16,18 @@ class ClientSocket {
         }
         return this.instance;
     }
+    
+    public isConnected():Boolean{
+        if(this.socket && this.socket.connected){
+            return true;
+        }
+        return false;
+    }
 
-    public startConnect(url:string): void {
+    public startConnect(): void {
 
         //连接socket
-        this.socket = io.connect(url,{ reconnection:false});
+        this.socket = io.connect(window["server"],{ reconnection:false});
         var self: ClientSocket = this;
 
         //连接成功 
@@ -77,8 +84,7 @@ class ClientSocket {
     //连接成功
     private onConnect(): void {
         egret.log("connenct succss");
-        GameManager.getInstance().onConnect();
-        
+        GameManager.getInstance().onConnect(); 
     }
         
     //连接失败
@@ -89,6 +95,7 @@ class ClientSocket {
     //连接断开
     private onDisconnect(): void {
         egret.log("connenct close");
+        GameManager.getInstance().onDisconnect();
     }
         
     //尝试重新连接
@@ -97,7 +104,7 @@ class ClientSocket {
     }
     
     public sendMessage(cmd: string,data = null,callBack: Function = null,thisObject = null): void {
-        if(this.socket.connected) {
+        if(this.socket && this.socket.connected) {
             this.socket.emit(cmd,data,function(data) {
                 if(callBack && thisObject) {
                     callBack.call(thisObject,data);

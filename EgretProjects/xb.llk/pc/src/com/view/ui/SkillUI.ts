@@ -23,6 +23,10 @@ class SkillUI extends BaseUI{
      */ 
     public setSkill(headImg0:egret.Bitmap, headImg1:egret.Bitmap, toolName:string){
         this.toolLabel.text = toolName;
+        headImg0.width = 80;
+        headImg0.height = 80;
+        headImg1.width = 80;
+        headImg1.height = 80;
         this.headGroup0.addChild(headImg0);
         this.headGroup1.addChild(headImg1);
     }
@@ -33,10 +37,12 @@ class SkillUI extends BaseUI{
         var headImg:egret.DisplayObject = this.headGroup0.getChildAt(0);
         if(headImg){
             headImg.parent && headImg.parent.removeChild(headImg);
+            headImg = null;
         }
         headImg = this.headGroup1.getChildAt(0);
         if(headImg) {
             headImg.parent && headImg.parent.removeChild(headImg);
+            headImg = null;
         }
     }
 }

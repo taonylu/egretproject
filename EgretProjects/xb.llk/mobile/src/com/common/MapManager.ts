@@ -5,8 +5,8 @@
  */
 class MapManager {
     private static instance: MapManager;
-    private rowMax: number = 8;
-    private colMax: number = 7;
+    private rowMax: number = 10;
+    private colMax: number = 9;
     
     public static getInstance(): MapManager {
         if(this.instance == null) {

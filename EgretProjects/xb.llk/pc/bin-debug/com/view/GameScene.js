@@ -8,7 +8,6 @@ var GameScene = (function (_super) {
     function GameScene() {
         _super.call(this, "GameSceneSkin");
         //---------------[游戏UI]-----------------
-        this.skillUIList = new Array(); //道具面板列表
         this.blockPool = ObjectPool.getPool(BlockUI.NAME, 10); //方块对象池
         this.boomPool = ObjectPool.getPool(BoomUI.NAME, 10); //炸弹对象池
         this.selectOld = new SelectUI(); //选择框动画，第一个对象
@@ -16,16 +15,17 @@ var GameScene = (function (_super) {
         this.gameHeadUIList = new Array(); //进度头像列表
         this.lineSuPool = ObjectPool.getPool(LineSu.NAME, 10); //连线
         this.lineZhePool = ObjectPool.getPool(LineZhe.NAME, 4);
+        this.skillUIList = new Array(); //道具面板列表
+        this.skillCount = 0; //技能使用次数，用于显示技能面板
         this.nameLabelList = new Array(); //结果面板昵称文本数组
         this.resultHeadList = new Array(); //结果头像Group数组
         this.resultTimeList = new Array(); //结果时间文本
-        this.blockTypeNum = 11; //方块的数量种类
         this.blockNum = 0; //当前关卡方块数量
         this.blockData = new Array(); //方块的类型数组，用于判断方块皮肤ID后缀数字,"block" + blockData[i]
         this.tempMap = new Array(); //临时地图，二维数组，存放本关的地图数据的拷贝
         this.blockArr = new Array(); //方块数组，二维数组，用于存放Block实例
-        this.rowMax = 8; //地图最大行
-        this.colMax = 7; //地图最大列
+        this.rowMax = 10; //地图最大行
+        this.colMax = 9; //地图最大列
         this.blockWidth = 80; //方块宽
         this.blockHeight = 80; //方块高
         this.mapStartY = 0; //方块起始位置
@@ -56,6 +56,7 @@ var GameScene = (function (_super) {
     p.startGame = function () {
         //初始化
         this.curLevel = 1;
+        this.skillCount = 0;
         this.blockTotal = MapManager.getInstance().getBlockNum();
         this.hideResutl();
         this.initGameHead();
@@ -207,11 +208,11 @@ var GameScene = (function (_super) {
                     block.setSkin(this.tempMap[i][j]);
                     block.row = i;
                     block.col = j;
-                    block.x = this.mapStartX + j * (this.blockWidth + 1);
-                    block.y = this.mapStartY + i * (this.blockHeight + 1) - this._stage.stageHeight;
+                    block.x = this.mapStartX + j * (this.blockWidth);
+                    block.y = this.mapStartY + i * (this.blockHeight) - this._stage.stageHeight;
                     this.blockGroup.addChild(block);
                     this.blockArr[block.row][block.col] = block;
-                    egret.Tween.get(block).to({ y: (this.mapStartY + i * (this.blockHeight + 1)) }, 500);
+                    egret.Tween.get(block).to({ y: (this.mapStartY + i * this.blockHeight) }, 500);
                     index++;
                 }
             }
@@ -531,11 +532,11 @@ var GameScene = (function (_super) {
     };
     //帮助找到两个通路的方块
     p.bangzhu = function () {
-        for (var i = 0; i < this.rowMax - 1; i++) {
-            for (var j = 0; j < this.colMax - 1; j++) {
+        for (var i = 0; i < this.rowMax; i++) {
+            for (var j = 0; j < this.colMax; j++) {
                 if (this.tempMap[i][j] > 0) {
                     //每一个方块遍历每一个元素
-                    for (var m = i; m < this.rowMax - 1; m++) {
+                    for (var m = i; m < this.rowMax; m++) {
                         var n;
                         if (m == i) {
                             n = j + 1;
@@ -543,7 +544,7 @@ var GameScene = (function (_super) {
                         else {
                             n = 0;
                         }
-                        for (; n < this.colMax - 1; n++) {
+                        for (; n < this.colMax; n++) {
                             if (this.tempMap[m][n] > 0) {
                                 var obj1 = this.blockArr[i][j];
                                 var obj2 = this.blockArr[m][n];
@@ -609,11 +610,10 @@ var GameScene = (function (_super) {
                 toolName = "冻结";
                 if (UserManager.getInstance().luckyUser == to) {
                     this.skillIce.visible = true;
-                    this.blockGroup.addChild(this.skillIce);
                     var self = this;
                     egret.Tween.removeTweens(this.skillIce);
                     egret.Tween.get(this.skillIce).wait(time).call(function () {
-                        self.skillIce.parent && self.skillIce.parent.removeChild(self.skillIce);
+                        self.skillIce.visible = false;
                     });
                 }
                 break;
@@ -624,10 +624,14 @@ var GameScene = (function (_super) {
                 }
                 break;
         }
-        //大屏幕显示道具信息  暂时用第一栏显示
-        //var img0: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[from]).headImg;
-        //var img1: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[to]).headImg;
-        // this.skillUIList[0].setSkill(img0,img1,toolName);
+        //大屏幕显示道具信息
+        if (toolName != "" && UserManager.getInstance().getUser(from).headBmd && UserManager.getInstance().getUser(to).headBmd) {
+            var img0 = new egret.Bitmap(UserManager.getInstance().getUser(from).headBmd);
+            var img1 = new egret.Bitmap(UserManager.getInstance().getUser(to).headBmd);
+            var index = this.skillCount % 4;
+            this.skillUIList[index].setSkill(img0, img1, toolName);
+            this.skillCount++;
+        }
     };
     //幸运用户的地图因为没有可以消除的，系统自动更换
     p.revLuckyMap = function (data) {

@@ -9,8 +9,8 @@ var BarrageUI = (function (_super) {
         _super.call(this);
         this.textList = new Array(); //弹幕文本数组
         this.textMax = 20; //弹幕最大数量
-        this.width = GameConst.stage.width;
-        this.height = GameConst.stage.height;
+        this.width = GameConst.stage.stageWidth;
+        this.height = GameConst.stage.stageHeight;
         this.touchChildren = false;
         this.touchEnabled = false;
         for (var i = 0; i < this.textMax; i++) {

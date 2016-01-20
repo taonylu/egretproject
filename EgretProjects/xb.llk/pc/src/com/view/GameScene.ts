@@ -9,9 +9,6 @@ class GameScene extends BaseScene{
     public socket: ClientSocket;
 
     //---------------[游戏UI]-----------------
-    private skillUIList:Array<SkillUI> = new Array<SkillUI>();   //道具面板列表
-    private skillIce:eui.Image;    //冰冻特效
-    
     private blockPool: ObjectPool = ObjectPool.getPool(BlockUI.NAME,10); //方块对象池
     private boomPool: ObjectPool = ObjectPool.getPool(BoomUI.NAME,10);   //炸弹对象池
     private selectOld: SelectUI = new SelectUI(); //选择框动画，第一个对象
@@ -23,9 +20,12 @@ class GameScene extends BaseScene{
     private lineSuPool:ObjectPool = ObjectPool.getPool(LineSu.NAME,10);  //连线
     private lineZhePool: ObjectPool = ObjectPool.getPool(LineZhe.NAME,4);
     
-    
+    private skillUIList: Array<SkillUI> = new Array<SkillUI>();   //道具面板列表
+    private skillIce: eui.Image;    //冰冻特效
     private skillGroup:eui.Group;       //技能Group
     private skillIntroGroup:eui.Group;  //技能介绍Group
+    private skillCount:number = 0;      //技能使用次数，用于显示技能面板
+    
     private resultGroup:eui.Group;      //结果Group
     private gameOverBg:eui.Rect;        //游戏结束黑色背景
     private gameOverText:eui.Image;     //游戏结束文字
@@ -36,13 +36,12 @@ class GameScene extends BaseScene{
     
     //------------------[地图数据]--------------------
     private blockGroup: eui.Group;        //方块容器
-    private blockTypeNum: number = 11;    //方块的数量种类
     private blockNum: number = 0;         //当前关卡方块数量
     private blockData: Array<number> = new Array<number>();  //方块的类型数组，用于判断方块皮肤ID后缀数字,"block" + blockData[i]
     private tempMap: Array<any> = new Array<any>();          //临时地图，二维数组，存放本关的地图数据的拷贝
     private blockArr: Array<any> = new Array<any>();         //方块数组，二维数组，用于存放Block实例
-    private rowMax: number = 8;      //地图最大行
-    private colMax: number = 7;      //地图最大列
+    private rowMax: number = 10;      //地图最大行
+    private colMax: number = 9;      //地图最大列
     private blockWidth: number = 80; //方块宽
     private blockHeight: number = 80;//方块高
     private mapStartY: number = 0;   //方块起始位置
@@ -89,6 +88,7 @@ class GameScene extends BaseScene{
     private startGame(): void {
         //初始化
         this.curLevel = 1;
+        this.skillCount = 0;
         this.blockTotal = MapManager.getInstance().getBlockNum();
         this.hideResutl();
         this.initGameHead();
@@ -260,11 +260,11 @@ class GameScene extends BaseScene{
                     block.setSkin(this.tempMap[i][j]);
                     block.row = i;
                     block.col = j;
-                    block.x = this.mapStartX + j * (this.blockWidth + 1);
-                    block.y = this.mapStartY + i * (this.blockHeight + 1) - this._stage.stageHeight;
+                    block.x = this.mapStartX + j * (this.blockWidth);
+                    block.y = this.mapStartY + i * (this.blockHeight) - this._stage.stageHeight;
                     this.blockGroup.addChild(block);
                     this.blockArr[block.row][block.col] = block;
-                    egret.Tween.get(block).to({ y: (this.mapStartY + i * (this.blockHeight + 1)) },500);
+                    egret.Tween.get(block).to({ y: (this.mapStartY + i * this.blockHeight )},500);
                     index++;
                 }
             }
@@ -599,11 +599,11 @@ class GameScene extends BaseScene{
     
     //帮助找到两个通路的方块
     private bangzhu(): boolean {
-        for(var i: number = 0;i < this.rowMax - 1;i++) {   //i,j当前方块行列
-            for(var j: number = 0;j < this.colMax - 1;j++) {
+        for(var i: number = 0;i < this.rowMax;i++) {   //i,j当前方块行列
+            for(var j: number = 0;j < this.colMax;j++) {
                 if(this.tempMap[i][j] > 0) {
                     //每一个方块遍历每一个元素
-                    for(var m: number = i;m < this.rowMax - 1;m++) {  //m,n检测的方块行列
+                    for(var m: number = i;m < this.rowMax;m++) {  //m,n检测的方块行列
                         var n: number;
                         if(m == i) {   //m=i，同一行，则检查的是自己，所以列+1
                             n = j + 1;
@@ -611,7 +611,7 @@ class GameScene extends BaseScene{
                         else {
                             n = 0;
                         }
-                        for(;n < this.colMax - 1;n++) {
+                        for(;n < this.colMax;n++) {
                             if(this.tempMap[m][n] > 0) {
                                 var obj1: BlockUI = this.blockArr[i][j];
                                 var obj2: BlockUI = this.blockArr[m][n];
@@ -661,6 +661,8 @@ class GameScene extends BaseScene{
         
     }
 
+    
+    
     //使用道具(大屏幕)
     public revPro(data): void {
         var from:string = data.from;   //施放道具的玩家uid
@@ -686,11 +688,10 @@ class GameScene extends BaseScene{
                 toolName = "冻结";
                 if(UserManager.getInstance().luckyUser == to){
                     this.skillIce.visible = true;
-                    this.blockGroup.addChild(this.skillIce);
                     var self: GameScene = this;
                     egret.Tween.removeTweens(this.skillIce);
                     egret.Tween.get(this.skillIce).wait(time).call(function() {
-                        self.skillIce.parent && self.skillIce.parent.removeChild(self.skillIce);
+                        self.skillIce.visible = false;
                     });
                 }
             break;
@@ -703,10 +704,15 @@ class GameScene extends BaseScene{
         }
 
         
-        //大屏幕显示道具信息  暂时用第一栏显示
-        //var img0: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[from]).headImg;
-        //var img1: egret.Bitmap = (<UserVO>UserManager.getInstance().userList[to]).headImg;
-       // this.skillUIList[0].setSkill(img0,img1,toolName);
+        //大屏幕显示道具信息
+        if(toolName != "" && UserManager.getInstance().getUser(from).headBmd && UserManager.getInstance().getUser(to).headBmd){
+            var img0: egret.Bitmap = new egret.Bitmap(UserManager.getInstance().getUser(from).headBmd );
+            var img1: egret.Bitmap = new egret.Bitmap(UserManager.getInstance().getUser(to).headBmd);
+            var index:number = this.skillCount%4;
+            this.skillUIList[index].setSkill(img0,img1,toolName);
+            this.skillCount++;
+        }
+        
     }
 
     //幸运用户的地图因为没有可以消除的，系统自动更换

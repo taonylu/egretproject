@@ -11,8 +11,12 @@
 		<ns1:SkillUI x="10" y="296" id="skillUI2" skinName="SkillUISkin"/>
 		<ns1:SkillUI x="10" y="433" skinName="SkillUISkin" id="skillUI3"/>
 	</e:Group>
-	<e:Group id="blockGroup" height="776" width="564" x="410" y="544">
+	<e:Group id="blockFootGroup" height="800" width="580" x="430" y="560">
 		<e:Image id="gamebg" source="game_blockbg_png" y="-11" x="-8"/>
+	</e:Group>
+	<e:Group id="blockGroup" height="855" width="720" x="352" y="485">
+	</e:Group>
+	<e:Group id="blockTopGroup" height="800" width="580" x="430" y="560">
 		<e:Image id="skillIce" source="skill_ice_png" x="4" y="2" width="562" height="760" visible="false"/>
 		<e:Rect id="gameOverBg" height="801" width="583" y="-11" x="-8" fillAlpha="0.8"/>
 		<e:Image id="gameOverText" source="game_over_png" x="65" y="302"/>

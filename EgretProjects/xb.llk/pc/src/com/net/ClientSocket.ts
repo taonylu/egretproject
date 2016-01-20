@@ -111,11 +111,13 @@ class ClientSocket {
         
     //连接失败
     private onError(data): void {
+        alert("连接失败，请尝试刷新网页");
         egret.log("connenct erro");
     }
         
     //连接断开
     private onDisconnect(): void {
+        alert("已与服务器断开连接，请尝试刷新网页");
         egret.log("connenct close");
     }
         

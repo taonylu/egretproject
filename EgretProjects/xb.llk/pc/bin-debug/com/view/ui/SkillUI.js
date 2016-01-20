@@ -19,6 +19,10 @@ var SkillUI = (function (_super) {
      */
     p.setSkill = function (headImg0, headImg1, toolName) {
         this.toolLabel.text = toolName;
+        headImg0.width = 80;
+        headImg0.height = 80;
+        headImg1.width = 80;
+        headImg1.height = 80;
         this.headGroup0.addChild(headImg0);
         this.headGroup1.addChild(headImg1);
     };
@@ -28,10 +32,12 @@ var SkillUI = (function (_super) {
         var headImg = this.headGroup0.getChildAt(0);
         if (headImg) {
             headImg.parent && headImg.parent.removeChild(headImg);
+            headImg = null;
         }
         headImg = this.headGroup1.getChildAt(0);
         if (headImg) {
             headImg.parent && headImg.parent.removeChild(headImg);
+            headImg = null;
         }
     };
     return SkillUI;

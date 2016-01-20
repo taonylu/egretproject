@@ -9,6 +9,9 @@
     <meta name="screen-orientation" content="portrait"/>
     <meta name="x5-fullscreen" content="true"/>
     <meta name="360-fullscreen" content="true"/>
+    <meta http-equiv="Pragma" content="no-cache" />   
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <style>
         html, body {
             -ms-touch-action: none;
@@ -41,7 +44,7 @@
 	<script src="main.min.js"></script>
 	<!--game_files_end-->
 </head>
-<body>
+<body style= "background: url('resource/assets/home_bg.jpg') no-repeat 100% 100%">
 	
 	<script type="text/javascript" src="jquery-1.5.2.min.js"></script> 
 	<script type="text/javascript" src="jquery.qrcode.min.js"></script> 
@@ -72,10 +75,10 @@
     	
 		//------生成二维码 start-------
     	var server = "http://192.168.1.113:3000/screen";
-    	var codeUrl =  server + "?licence=" + Request("licence") + "&rid" + Request("rid");
+    	var codeUrl =  "http://192.168.1.103:3002/index.html" + "?rid=" + srvConfig.rid;
     	var codeWidth = 350;
     	var codeHeight = 350;
-    	var logoUrl = "logo.jpg";
+    	var logoUrl = "";
     	
         $("#code").qrcode({ width: codeWidth, height:codeHeight,text:codeUrl });
         var i=$("#code > canvas");

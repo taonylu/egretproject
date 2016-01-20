@@ -56,13 +56,18 @@ var Main = (function (_super) {
     };
     //preload资源组加载完成
     p.onPreloadComplete = function (event) {
+        this.preloadScene = new PreloadScene();
+        this.addChild(this.preloadScene);
         LoadManager.getInstance().loadGroup("game", this, this.onGameComplete, this.onGameProcess);
     };
     //加载游戏资源进度
     p.onGameProcess = function (event) {
+        this.preloadScene.setProgress(event.itemsLoaded / event.itemsTotal);
     };
     //加载游戏资源完成
     p.onGameComplete = function (event) {
+        this.preloadScene.parent && this.removeChild(this.preloadScene);
+        this.preloadScene = null;
         GameManager.getInstance().startup(this);
     };
     return Main;

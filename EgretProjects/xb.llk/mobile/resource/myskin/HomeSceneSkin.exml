@@ -1,24 +1,30 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="HomeSceneSkin" width="480" height="852" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="bg" source="game_bg_png"/>
-	<e:Image id="title" source="game_title_png" y="15" x="30"/>
-	<e:Group id="contentGroup" height="701" width="480" x="0" bottom="35">
-		<e:Image id="waitBg" source="game_wait_png" x="59" y="14"/>
+	<e:Image id="title" source="game_title_png" y="35" x="38"/>
+	<e:Group id="queueGroup" height="701" width="480" x="0" bottom="45">
+		<e:Image id="waitBg" source="game_wait_png" y="94" x="76"/>
+		<e:BitmapLabel id="queueLabel" y="319" font="countdown_fnt" x="129" width="288" height="159" text="01" scaleX="0.8" scaleY="0.8"/>
+		<e:Label id="tipLabel" text="标签" x="96" y="200" width="270" height="104" textColor="0x030000" fontFamily="微软雅黑" size="20" textAlign="center"/>
+	</e:Group>
+	<e:Group id="btnGroup" bottom="55" width="480" height="701" y="10">
 		<e:Image id="ruleBtn" x="28" y="635" source="game_rulebtn_png"/>
 		<e:Image id="toolBtn" source="game_introbtn_png" x="262" y="634"/>
 		<e:Image id="danmuBtn" source="game_dmbtn_png" y="557" x="164"/>
-		<e:Image id="joinBtn" source="home_join_png" y="461" x="172"/>
-		<e:BitmapLabel id="queueLabel" y="319" font="countdown_fnt" x="122" width="288" height="159" text="01" scaleX="0.8" scaleY="0.8"/>
+		<e:Image id="joinBtn" source="home_join_png" y="465" x="172"/>
 	</e:Group>
-	<e:Group id="ruleGroup" height="852" width="480" x="0" bottom="0" visible="false">
-		<e:Rect id="closeRuleBtn" height="44" width="39" x="401" y="225"/>
-		<e:Image source="game_rulebg_png" x="41" y="217" touchEnabled="false"/>
-		<e:Label text="123" x="89" y="303" width="312" height="386" textColor="0x4F1010" fontFamily="微软雅黑" size="25"/>
+	<e:Group id="ruleGroup" height="852" width="480" x="0" y="0" visible="false">
+		<e:Rect id="closeRuleBtn" height="60" width="54" x="388" y="194"/>
+		<e:Image source="game_rulebg_png" x="61" y="187" touchEnabled="false"/>
 	</e:Group>
-	<e:Group id="dmGroup" height="852" width="480" x="0" bottom="0" visible="false">
-		<e:Rect id="closeDmBtn" height="40" width="37" x="393" y="506"/>
-		<e:Rect id="sendDmBtn" width="77" y="570" height="40" x="333"/>
-		<e:Image source="game_dmbg_png" x="47" y="499" touchEnabled="false"/>
-		<e:EditableText id="dmLabel" width="234" height="56" text="标签" x="89" y="546" textColor="0x581919" fontFamily="微软雅黑" size="22"/>
+	<e:Group id="dmGroup" height="131" width="480" x="0" verticalCenter="-90.5" visible="false">
+		<e:Rect id="closeDmBtn" height="40" width="37" x="393" y="-4"/>
+		<e:Rect id="sendDmBtn" width="77" y="60" height="40" x="333"/>
+		<e:Image source="game_dmbg_png" x="47" y="-11" touchEnabled="false"/>
+		<e:EditableText id="dmLabel" width="231" height="56" x="89" y="36" textColor="0x581919" fontFamily="微软雅黑" size="22" verticalAlign="middle"/>
+	</e:Group>
+	<e:Group id="toolGroup" height="854" width="480" visible="false">
+		<e:Rect id="closeToolBtn" height="46" width="43" x="395" y="183"/>
+		<e:Image source="rule_png" x="61" y="177" touchEnabled="false"/>
 	</e:Group>
 </e:Skin>

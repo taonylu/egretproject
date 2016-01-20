@@ -9,8 +9,8 @@ class BarrageUI extends egret.DisplayObjectContainer{
     
 	public constructor() {
 	    super();
-        this.width = GameConst.stage.width;
-        this.height = GameConst.stage.height;
+        this.width = GameConst.stage.stageWidth;
+        this.height = GameConst.stage.stageHeight;
         this.touchChildren = false;
         this.touchEnabled = false;
         
