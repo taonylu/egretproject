@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="SkillUISkin" width="750" height="120" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="game_skillbg_png" x="4" y="-3"/>
-	<e:Label text="玩家" x="47" y="45" textColor="0x050000"/>
-	<e:Label text="对玩家" x="263" y="45" textColor="0x020101"/>
-	<e:Label text="使用了" x="458" y="45" textColor="0x000000" width="90"/>
+	<e:Label id="staticLabel0" text="玩家" x="47" y="45" textColor="0x050000"/>
+	<e:Label id="staticLabel1" text="对玩家" x="263" y="45" textColor="0x020101"/>
+	<e:Label id="staticLabel2" text="使用了" x="458" y="45" textColor="0x000000" width="90"/>
 	<e:Label id="toolLabel" y="45" x="546" width="90" textColor="0xF60606"/>
 	<e:Group id="headGroup0" height="80" width="80" x="129" y="21"/>
 	<e:Group id="headGroup1" width="80" y="21" height="80" x="362"/>

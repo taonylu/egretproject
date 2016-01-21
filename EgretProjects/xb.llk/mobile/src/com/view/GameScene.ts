@@ -7,6 +7,9 @@ class GameScene extends BaseScene{
     
     //------------------[网络]------------------
     public socket: ClientSocket;
+    
+    //------------------[声音]------------------
+   // public snd:SoundManager = SoundManager.getInstance();
 
     //---------------[游戏UI]-----------------
     private skillResetBtn:eui.Image;  //技能按钮 打乱
@@ -19,7 +22,7 @@ class GameScene extends BaseScene{
     
     
     private blockPool: ObjectPool = ObjectPool.getPool(BlockUI.NAME,10); //方块对象池
-    private boomPool: ObjectPool = ObjectPool.getPool(BoomUI.NAME,10);   //炸弹对象池
+    private boomPool: ObjectPool = ObjectPool.getPool(Boom.NAME,1);   //炸弹对象池
     private selectOld:SelectUI = new SelectUI(); //选择框动画，第一个对象
     private selectNew:SelectUI = new SelectUI(); //选择框动画，第二个对象
     
@@ -31,12 +34,16 @@ class GameScene extends BaseScene{
     private rankLabel:eui.BitmapLabel; //排名文本
     private timeLabel:eui.Label;       //时间文本
     
+    private barGroup:eui.Group;        //进度Group
     private progressBar:eui.Image;     //进度条
     private barStart:number = 0.15;    //进度条scaleX
     private barEnd:number = 1.45;
+    //private star: StarParticle = new StarParticle();  //星星粒子效果
     
     private waitGroup:eui.Group;       //游戏结束，等待Group
     private waitLabel:eui.Label;       //等待显示字体
+    
+    
     
     //------------------[地图数据]--------------------
     private blockGroup: eui.Group;        //方块容器
@@ -80,7 +87,8 @@ class GameScene extends BaseScene{
     }
 
     public onRemove(): void {
-        
+        //this.star.stop();
+        UserManager.getInstance().bLuckUser = false;
     }
     
     public reset(){
@@ -102,6 +110,9 @@ class GameScene extends BaseScene{
         this.hideResult();
         this.createMap();
         this.configListener();
+       // this.setStarPos();
+       // this.star.play();
+       // this.barGroup.addChild(this.star);
     }
     
     private resetGame(): void {
@@ -139,13 +150,13 @@ class GameScene extends BaseScene{
     public nextLevel(): void {
         this.curLevel++;
         this.resetGame();
-        this.createMap();
         //无其他关卡
         if(MapManager.getInstance().level[this.curLevel - 1] == null) {
             this.waitGroup.visible = true;
-            this.waitLabel.text = "您已完成游戏\n请等待其他玩家完成游戏"
+            this.waitLabel.text = "您已完成游戏\n请等待其他玩家"
+            return;
         }
-        
+        this.createMap();
         this.configListener();
     }
     
@@ -199,7 +210,7 @@ class GameScene extends BaseScene{
         if(spend > 0){
             var min:number = Math.floor(spend/1000/60);
             var sec:number = Math.floor(spend/1000%60);
-            this.timeLabel.text = min + ":" + sec;
+            this.timeLabel.text = NumberTool.getTimeString(min) + ":" + NumberTool.getTimeString(sec);
         }else{
             this.timeLabel.text = "0";
         }
@@ -220,6 +231,12 @@ class GameScene extends BaseScene{
         
     }
     
+    //设置星星粒子位置
+    private setStarPos(){
+      //this.star.x = this.progressBar.x + this.progressBar.width * this.progressBar.scaleX;
+      //this.star.y = this.progressBar.y;
+    
+    }
     
     
     ///////////////////////////////////////////////////
@@ -261,6 +278,9 @@ class GameScene extends BaseScene{
     //点击方块
     private onTouchTap(e: egret.TouchEvent): void {
         if(e.target instanceof BlockUI) {
+            //播放声音
+            //this.snd.play(this.snd.click);
+            window["playClick"]();
             //消除方块时，不能进行点击
             this.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouchTap,this);
             this.checkBlock(e.target);
@@ -286,12 +306,12 @@ class GameScene extends BaseScene{
                     //画线
                     this.linkRoad();
                     //爆炸效果
-                    var boom1: BoomUI = this.boomPool.getObject();
-                    var boom2: BoomUI = this.boomPool.getObject();
+                    var boom1: Boom = this.boomPool.getObject();
+                    var boom2: Boom = this.boomPool.getObject();
                     this.addChild(boom1);
                     this.addChild(boom2);
-                    boom1.play(this.newTarget);
-                    boom2.play(this.oldTarget);
+                    boom1.playAnim(this.newTarget);
+                    boom2.playAnim(this.oldTarget);
                     //发送消除信息
                     this.sendEliminate(this.oldTarget, this.newTarget);
                     //两方块的消失
@@ -303,10 +323,13 @@ class GameScene extends BaseScene{
                     this.blockArr[this.newTarget.row][this.newTarget.col] = null;
                     this.oldTarget = this.newTarget = null;
                     //声音
+                    //this.snd.play(this.snd.line);
+                    window["playLine"]();
                     //得分
                     this.cancelBlockNum += 2;
                     // 当前长度 = 初始长度 + 已消除方块数/总方块数*(最长长度-初始长度)
                     this.progressBar.scaleX = this.barStart + this.cancelBlockNum/this.totalBlock*(this.barEnd - this.barStart);
+                    //this.setStarPos();
                     //隐藏选择框
                     this.selectOld.hide();
                     this.selectNew.hide();
@@ -728,9 +751,12 @@ class GameScene extends BaseScene{
     
     //发送地图
     public sendUpMap(): void {
-        egret.log("无可消除，发送重排");
-        var json = { "mapData":this.tempMap};
-        this.socket.sendMessage(NetConst.C2S_upMap,json);
+        
+        if(UserManager.getInstance().bLuckUser){
+            egret.log("发送重排地图");
+            var json = { "mapData": this.tempMap };
+            this.socket.sendMessage(NetConst.C2S_upMap,json);
+        }
     }
     
     //发送消除，pos是二维数组
@@ -797,9 +823,14 @@ class GameScene extends BaseScene{
         switch(type){
             case "disturb":   //打乱，暂停当前操作，并重置地图
                 this.deConfigListener();
-                MapManager.getInstance().level[this.curLevel - 1] = mapData;
-                this.resetGame();
-                this.createMap();
+//                MapManager.getInstance().level[this.curLevel - 1] = mapData;
+//                this.resetGame();
+//                this.createMap();
+                  this.sortBlock();
+                  MapManager.getInstance().level[this.curLevel - 1] = this.tempMap;
+                  this.resetGame();
+                  this.createMap();
+                  this.sendUpMap();
                 this.configListener();
             break;
             case "ice":   //冻结，暂停当前操作，直到冰冻时间结束。可能有多个冰冻连续施放，需要重置冰冻时间。

@@ -8,6 +8,7 @@ var GameManager = (function () {
         this.homeScene = new HomeScene(); //主页场景
         this.gameScene = new GameScene(); //游戏场景
         this.messageBox = new MessageBox(); //消息框
+        this.bReconnect = false; //当次连接是否是重连
     }
     var d = __define,c=GameManager,p=c.prototype;
     p.startup = function (main) {
@@ -35,14 +36,25 @@ var GameManager = (function () {
     //断开链接
     p.onDisconnect = function () {
         //alert("已与服务器断开连接");
+        if (this.gameScene.parent) {
+            this.gameScene.reset();
+        }
         LayerManager.getInstance().runScene(this.homeScene);
+        this.messageBox.showMessage("已与服务器断开连接\n请尝试重新加入游戏");
+    };
+    p.onError = function () {
+        this.messageBox.showMessage("连接错误");
     };
     //接收登录
     p.revLogin = function (data) {
         var status = data; //-1 房间不存在， 0 用户信息错误， 1 进入房间成功
-        egret.log("接收登录,请求准备:" + status);
+        egret.log("接收登录:" + status);
         switch (status) {
             case 1:
+                if (this.bReconnect) {
+                    this.homeScene.sendUserReady();
+                    this.bReconnect = false;
+                }
                 break;
             case -1:
                 this.messageBox.showMessage("房间不存在");

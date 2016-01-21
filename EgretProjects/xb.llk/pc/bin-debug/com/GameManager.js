@@ -39,7 +39,8 @@ var GameManager = (function () {
     };
     //接收弹幕
     p.revBarrage = function (data) {
-        this.barrageUI.showOneMsg(data);
+        var msg = data.msg;
+        this.barrageUI.showOneMsg(msg);
     };
     //=================[发送数据]=====================
     //发送登录请求

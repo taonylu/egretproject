@@ -7,9 +7,11 @@ var GameScene = (function (_super) {
     __extends(GameScene, _super);
     function GameScene() {
         _super.call(this, "GameSceneSkin");
+        //=============[声音]=============
+        this.snd = SoundManager.getInstance();
         //---------------[游戏UI]-----------------
         this.blockPool = ObjectPool.getPool(BlockUI.NAME, 10); //方块对象池
-        this.boomPool = ObjectPool.getPool(BoomUI.NAME, 10); //炸弹对象池
+        this.boomPool = ObjectPool.getPool(Boom.NAME, 10); //炸弹对象池
         this.selectOld = new SelectUI(); //选择框动画，第一个对象
         this.selectNew = new SelectUI(); //选择框动画，第二个对象
         this.gameHeadUIList = new Array(); //进度头像列表
@@ -47,6 +49,7 @@ var GameScene = (function (_super) {
         this.initView();
     };
     p.onEnable = function () {
+        this.snd.playBgm(this.snd.gameBgm);
         this.startGame();
     };
     p.onRemove = function () {
@@ -61,6 +64,7 @@ var GameScene = (function (_super) {
         this.hideResutl();
         this.initGameHead();
         this.createMap();
+        this.setLuckyInfo();
     };
     p.resetGame = function () {
         //清理剩余方块
@@ -164,7 +168,7 @@ var GameScene = (function (_super) {
                     if (spend > 0) {
                         var min = Math.floor(spend / 1000 / 60);
                         var sec = Math.floor(spend / 1000 % 60);
-                        this.resultTimeList[i].text = min + ":" + sec;
+                        this.resultTimeList[i].text = NumberTool.getTimeString(min) + ":" + NumberTool.getTimeString(sec);
                     }
                     else {
                         this.resultTimeList[i].text = "0";
@@ -186,6 +190,25 @@ var GameScene = (function (_super) {
                 var headImg = this.resultHeadList[i].getChildAt(0);
                 headImg && headImg.parent && headImg.parent.removeChild(headImg);
             }
+        }
+    };
+    //设置幸运玩家
+    p.setLuckyInfo = function () {
+        this.luckyGroup.visible = false;
+        if (this.luckyHeadGroup.numChildren > 0) {
+            var headBm = this.luckyHeadGroup.getChildAt(0);
+            headBm && headBm.parent && headBm.parent.removeChild(headBm);
+        }
+        this.luckNameLabel.text = "";
+        var userM = UserManager.getInstance();
+        var userVO = userM.getUser(userM.luckyUser);
+        if (userVO) {
+            this.luckyGroup.visible = true;
+            var bm = new egret.Bitmap(userVO.headBmd);
+            bm.width = 55;
+            bm.height = 55;
+            this.luckyHeadGroup.addChild(bm);
+            this.luckNameLabel.text = userVO.name;
         }
     };
     ///////////////////////////////////////////////////
@@ -491,8 +514,8 @@ var GameScene = (function (_super) {
             //爆炸效果
             var boom1 = this.boomPool.getObject();
             var boom2 = this.boomPool.getObject();
-            boom1.play(blockA);
-            boom2.play(blockB);
+            boom1.playAnim(blockA);
+            boom2.playAnim(blockB);
             //两方块的消失
             blockA.hide();
             blockB.hide();
@@ -582,6 +605,8 @@ var GameScene = (function (_super) {
             var blockA = this.blockArr[pos[0][0]][pos[0][1]];
             var blockB = this.blockArr[pos[1][0]][pos[1][1]];
             if (blockA && blockB) {
+                //播放声音
+                this.snd.play(this.snd.line);
                 this.cancelBlock(blockA, blockB);
             }
         }
@@ -646,6 +671,8 @@ var GameScene = (function (_super) {
         var winners = data.winners; //前三名玩家ID
         var rankLast = data.rankLast; //结果页面显示时间
         egret.log("游戏结束");
+        //播放声音
+        this.snd.play(this.snd.gameOver);
         //TODO 返回首页?还是在游戏界面进行某些显示？
         this.showResult(data);
         var self = this;

@@ -7,6 +7,9 @@ class HomeScene extends BaseScene{
     //=============[ClientSocket]=============
     public socket: ClientSocket;             //socket
     
+    //=============[声音]=============
+    public snd:SoundManager = SoundManager.getInstance();
+    
     //=============[用户头像]=============
     private userGroup:eui.Group;             //用户Group
     private headUIList:Array<HeadUI>;        //头像数组
@@ -33,6 +36,7 @@ class HomeScene extends BaseScene{
     }
 
     public onEnable(): void {
+       this.snd.playBgm(this.snd.homeBgm);
        this.showShaLou();
     }
 
@@ -128,9 +132,9 @@ class HomeScene extends BaseScene{
         egret.log("登录返回，房间状态：",status);
         switch(status){
             case 1:
-                
                 break;
             case 0:
+                
                 break;
             case -1:
                 break;
@@ -143,14 +147,14 @@ class HomeScene extends BaseScene{
         var headimgurl: string = data.headimgurl;  //用户头像
         var nickname: string = data.nickname;      //用户名
         var uid: string = data.uid;                //用户id
-        egret.log("玩家加入,头像:" + headimgurl,"名字:" + nickname,"ID:" + uid);
+        var sex:number = data.sex;                 //用户性别 1男 2女
+        egret.log("玩家加入,头像:" + headimgurl,"名字:" + nickname,"ID:" + uid, "sex:",sex);
         
         //保存用户
         var userVO: UserVO = new UserVO();
         userVO.uid = uid;
-        userVO.name = name;
-        UserManager.getInstance().storeUser(userVO);
-
+        userVO.name = nickname;
+        UserManager.getInstance().storeUser(userVO); 
         
         //设置用户名，选取列表靠前的一个空文本。因为可能出现靠前的玩家退出游戏。
         var index:number = -1;
@@ -162,6 +166,13 @@ class HomeScene extends BaseScene{
                 headUI.userID = uid;
                 headUI.setNameLabel(nickname);
                 headUI.loadImg(headimgurl);
+                
+                //播放用户加入声音
+                if(sex == 1){
+                    this.snd.play(this.snd.enterMan);
+                }else if(sex == 2){
+                    this.snd.play(this.snd.enterWoman);
+                }
                 break;
             }
         }

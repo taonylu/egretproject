@@ -27,7 +27,7 @@ class ClientSocket {
     public startConnect(): void {
 
         //连接socket
-        this.socket = io.connect(window["server"],{ reconnection:false});
+        this.socket = io.connect(window["server"],{ reconnection: false,'force new connection': true});
         var self: ClientSocket = this;
 
         //连接成功 
@@ -50,10 +50,22 @@ class ClientSocket {
             self.onReconnectAttempt();
         }); 
         
+        //连接超时
+        this.socket.on('connect_timeout',function() {
+            //self.onReconnectAttempt();
+        }); 
+        
+        
         //////////////////////////////////////////////////////
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
         
+        //是否被选为大屏幕
+        this.socket.on("chooseForScreen",function(data) {
+            console.log("大屏幕");
+           UserManager.getInstance().bLuckUser = true;
+        });
+
         //排队信息
         this.socket.on("queueInfo",function(data) {
             self.homeScene.revQueue(data);
@@ -90,6 +102,7 @@ class ClientSocket {
     //连接失败
     private onError(data): void {
         egret.log("connenct erro");
+        GameManager.getInstance().onError();
     }
         
     //连接断开

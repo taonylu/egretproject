@@ -7,6 +7,8 @@ var HomeScene = (function (_super) {
     __extends(HomeScene, _super);
     function HomeScene() {
         _super.call(this, "HomeSceneSkin");
+        //=============[声音]=============
+        this.snd = SoundManager.getInstance();
         this.userMax = 8; //用户最大数量
         this.timeLimit = 20; //倒计时时间 
         this.countDownTimer = new egret.Timer(1000); //计时器
@@ -17,6 +19,7 @@ var HomeScene = (function (_super) {
         this.initView();
     };
     p.onEnable = function () {
+        this.snd.playBgm(this.snd.homeBgm);
         this.showShaLou();
     };
     p.onRemove = function () {
@@ -110,11 +113,12 @@ var HomeScene = (function (_super) {
         var headimgurl = data.headimgurl; //用户头像
         var nickname = data.nickname; //用户名
         var uid = data.uid; //用户id
-        egret.log("玩家加入,头像:" + headimgurl, "名字:" + nickname, "ID:" + uid);
+        var sex = data.sex; //用户性别 1男 2女
+        egret.log("玩家加入,头像:" + headimgurl, "名字:" + nickname, "ID:" + uid, "sex:", sex);
         //保存用户
         var userVO = new UserVO();
         userVO.uid = uid;
-        userVO.name = name;
+        userVO.name = nickname;
         UserManager.getInstance().storeUser(userVO);
         //设置用户名，选取列表靠前的一个空文本。因为可能出现靠前的玩家退出游戏。
         var index = -1;
@@ -126,6 +130,13 @@ var HomeScene = (function (_super) {
                 headUI.userID = uid;
                 headUI.setNameLabel(nickname);
                 headUI.loadImg(headimgurl);
+                //播放用户加入声音
+                if (sex == 1) {
+                    this.snd.play(this.snd.enterMan);
+                }
+                else if (sex == 2) {
+                    this.snd.play(this.snd.enterWoman);
+                }
                 break;
             }
         }
