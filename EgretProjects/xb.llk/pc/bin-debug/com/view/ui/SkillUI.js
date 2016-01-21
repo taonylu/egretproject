@@ -11,6 +11,9 @@ var SkillUI = (function (_super) {
     var d = __define,c=SkillUI,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
+        this.staticLabel0.visible = false;
+        this.staticLabel1.visible = false;
+        this.staticLabel2.visible = false;
     };
     /**
      * @headImg0  施放道具玩家头像
@@ -18,6 +21,9 @@ var SkillUI = (function (_super) {
      * @toolName 道具名称
      */
     p.setSkill = function (headImg0, headImg1, toolName) {
+        this.staticLabel0.visible = true;
+        this.staticLabel1.visible = true;
+        this.staticLabel2.visible = true;
         this.toolLabel.text = toolName;
         headImg0.width = 80;
         headImg0.height = 80;
@@ -29,6 +35,9 @@ var SkillUI = (function (_super) {
     //清理文本和移除头像
     p.clear = function () {
         this.toolLabel.text = "";
+        this.staticLabel0.visible = false;
+        this.staticLabel1.visible = false;
+        this.staticLabel2.visible = false;
         var headImg = this.headGroup0.getChildAt(0);
         if (headImg) {
             headImg.parent && headImg.parent.removeChild(headImg);

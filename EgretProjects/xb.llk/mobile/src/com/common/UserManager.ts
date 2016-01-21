@@ -7,6 +7,7 @@ class UserManager {
 	
     public luckyUser:string = "";   //大屏显示用户
     
+    public bLuckUser:Boolean = false;
     
     private static instance:UserManager;
     public static getInstance():UserManager{

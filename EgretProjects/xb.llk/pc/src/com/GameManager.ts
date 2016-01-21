@@ -52,7 +52,8 @@ class GameManager {
 
     //接收弹幕
     public revBarrage(data){
-        this.barrageUI.showOneMsg(data);
+        var msg:string = data.msg;
+        this.barrageUI.showOneMsg(msg);
     }
     
     

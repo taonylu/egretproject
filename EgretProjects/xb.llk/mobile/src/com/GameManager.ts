@@ -8,6 +8,7 @@ class GameManager {
     public gameScene: GameScene = new GameScene();  //游戏场景
     public messageBox:MessageBox = new MessageBox();    //消息框
     private socket:ClientSocket;
+    public bReconnect:Boolean = false;  //当次连接是否是重连
 
     public startup(main: Main): void {
         //配置socket
@@ -40,16 +41,27 @@ class GameManager {
     //断开链接
     public onDisconnect(){
         //alert("已与服务器断开连接");
+        if(this.gameScene.parent){
+            this.gameScene.reset();
+        }
         LayerManager.getInstance().runScene(this.homeScene);
+        this.messageBox.showMessage("已与服务器断开连接\n请尝试重新加入游戏")
+    }
+    
+    public onError(){
+        this.messageBox.showMessage("连接错误");
     }
     
     //接收登录
     public revLogin(data){
         var status: number = data; //-1 房间不存在， 0 用户信息错误， 1 进入房间成功
-        egret.log("接收登录,请求准备:" + status);
+        egret.log("接收登录:" + status);
         switch(status){
             case 1:
-                
+                if(this.bReconnect){  //断线重连
+                    this.homeScene.sendUserReady();
+                    this.bReconnect = false;
+                }
             break;
             case -1:
                 this.messageBox.showMessage("房间不存在");

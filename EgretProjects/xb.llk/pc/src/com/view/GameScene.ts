@@ -7,10 +7,13 @@ class GameScene extends BaseScene{
     
     //------------------[网络]------------------
     public socket: ClientSocket;
+    
+    //=============[声音]=============
+    public snd: SoundManager = SoundManager.getInstance();
 
     //---------------[游戏UI]-----------------
     private blockPool: ObjectPool = ObjectPool.getPool(BlockUI.NAME,10); //方块对象池
-    private boomPool: ObjectPool = ObjectPool.getPool(BoomUI.NAME,10);   //炸弹对象池
+    private boomPool: ObjectPool = ObjectPool.getPool(Boom.NAME,10);   //炸弹对象池
     private selectOld: SelectUI = new SelectUI(); //选择框动画，第一个对象
     private selectNew: SelectUI = new SelectUI(); //选择框动画，第二个对象
     
@@ -33,6 +36,9 @@ class GameScene extends BaseScene{
     private resultHeadList:Array<eui.Group> = new Array<eui.Group>(); //结果头像Group数组
     private resultTimeList:Array<eui.Label> = new Array<eui.Label>(); //结果时间文本
     
+    private luckyGroup:eui.Group;       //幸运Group
+    private luckyHeadGroup:eui.Group;   //幸运头像Group
+    private luckNameLabel:eui.Label;    //幸运名字文本
     
     //------------------[地图数据]--------------------
     private blockGroup: eui.Group;        //方块容器
@@ -74,6 +80,7 @@ class GameScene extends BaseScene{
     }
 
     public onEnable(): void {
+        this.snd.playBgm(this.snd.gameBgm);
         this.startGame();
     }
 
@@ -93,6 +100,7 @@ class GameScene extends BaseScene{
         this.hideResutl();
         this.initGameHead();
         this.createMap();
+        this.setLuckyInfo();
     }
     
     private resetGame(): void {
@@ -207,7 +215,7 @@ class GameScene extends BaseScene{
                     if(spend > 0){
                         var min: number = Math.floor(spend / 1000 / 60);
                         var sec: number = Math.floor(spend / 1000 % 60);
-                        this.resultTimeList[i].text = min + ":" + sec;
+                        this.resultTimeList[i].text = NumberTool.getTimeString(min) + ":" + NumberTool.getTimeString(sec);
                     }else{
                         this.resultTimeList[i].text = "0";
                     }
@@ -233,6 +241,27 @@ class GameScene extends BaseScene{
                 headImg && headImg.parent && headImg.parent.removeChild(headImg);
             }
             
+        }
+    }
+    
+    //设置幸运玩家
+    private setLuckyInfo(){
+        this.luckyGroup.visible = false;
+        if(this.luckyHeadGroup.numChildren > 0) {
+         var headBm: egret.DisplayObject = this.luckyHeadGroup.getChildAt(0);
+         headBm && headBm.parent && headBm.parent.removeChild(headBm);
+        }
+        this.luckNameLabel.text = "";
+        
+        var userM: UserManager = UserManager.getInstance();
+        var userVO: UserVO = userM.getUser(userM.luckyUser);
+        if(userVO){
+            this.luckyGroup.visible = true;
+            var bm:egret.Bitmap = new egret.Bitmap(userVO.headBmd);
+            bm.width = 55;
+            bm.height = 55;
+            this.luckyHeadGroup.addChild(bm);
+            this.luckNameLabel.text = userVO.name;
         }
     }
     
@@ -551,10 +580,10 @@ class GameScene extends BaseScene{
             this.linkRoad();
 
             //爆炸效果
-            var boom1: BoomUI = this.boomPool.getObject();
-            var boom2: BoomUI = this.boomPool.getObject();
-            boom1.play(blockA);
-            boom2.play(blockB);
+            var boom1: Boom = this.boomPool.getObject();
+            var boom2: Boom = this.boomPool.getObject();
+            boom1.playAnim(blockA);
+            boom2.playAnim(blockB);
             //两方块的消失
             blockA.hide();
             blockB.hide();
@@ -655,6 +684,8 @@ class GameScene extends BaseScene{
             var blockA: BlockUI = this.blockArr[pos[0][0]][pos[0][1]];
             var blockB: BlockUI = this.blockArr[pos[1][0]][pos[1][1]];
             if(blockA && blockB) {
+                //播放声音
+                this.snd.play(this.snd.line);
                 this.cancelBlock(blockA,blockB);
             }
         }
@@ -729,6 +760,9 @@ class GameScene extends BaseScene{
         var winners: any = data.winners;  //前三名玩家ID
         var rankLast:number = data.rankLast; //结果页面显示时间
         egret.log("游戏结束");
+        
+        //播放声音
+        this.snd.play(this.snd.gameOver);
         
         //TODO 返回首页?还是在游戏界面进行某些显示？
         this.showResult(data);

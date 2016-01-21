@@ -348,6 +348,16 @@
 					"isFolder":false,
 					"key":"block41_png",
 					"name":"block41_png"
+				},
+				{
+					"isFolder":false,
+					"key":"boom_png",
+					"name":"boom_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_namebg_jpg",
+					"name":"game_namebg_jpg"
 				}
 			]
 		}

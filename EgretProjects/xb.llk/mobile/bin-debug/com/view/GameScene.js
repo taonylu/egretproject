@@ -8,7 +8,7 @@ var GameScene = (function (_super) {
     function GameScene() {
         _super.call(this, "GameSceneSkin");
         this.blockPool = ObjectPool.getPool(BlockUI.NAME, 10); //方块对象池
-        this.boomPool = ObjectPool.getPool(BoomUI.NAME, 10); //炸弹对象池
+        this.boomPool = ObjectPool.getPool(Boom.NAME, 1); //炸弹对象池
         this.selectOld = new SelectUI(); //选择框动画，第一个对象
         this.selectNew = new SelectUI(); //选择框动画，第二个对象
         this.lineSuPool = ObjectPool.getPool(LineSu.NAME, 10); //连线
@@ -43,6 +43,8 @@ var GameScene = (function (_super) {
         this.startGame();
     };
     p.onRemove = function () {
+        //this.star.stop();
+        UserManager.getInstance().bLuckUser = false;
     };
     p.reset = function () {
         this.resetGame(); //重置方块、寻路等
@@ -62,6 +64,9 @@ var GameScene = (function (_super) {
         this.hideResult();
         this.createMap();
         this.configListener();
+        // this.setStarPos();
+        // this.star.play();
+        // this.barGroup.addChild(this.star);
     };
     p.resetGame = function () {
         //清理剩余方块
@@ -94,12 +99,13 @@ var GameScene = (function (_super) {
     p.nextLevel = function () {
         this.curLevel++;
         this.resetGame();
-        this.createMap();
         //无其他关卡
         if (MapManager.getInstance().level[this.curLevel - 1] == null) {
             this.waitGroup.visible = true;
-            this.waitLabel.text = "您已完成游戏\n请等待其他玩家完成游戏";
+            this.waitLabel.text = "您已完成游戏\n请等待其他玩家";
+            return;
         }
+        this.createMap();
         this.configListener();
     };
     p.configListener = function () {
@@ -144,7 +150,7 @@ var GameScene = (function (_super) {
         if (spend > 0) {
             var min = Math.floor(spend / 1000 / 60);
             var sec = Math.floor(spend / 1000 % 60);
-            this.timeLabel.text = min + ":" + sec;
+            this.timeLabel.text = NumberTool.getTimeString(min) + ":" + NumberTool.getTimeString(sec);
         }
         else {
             this.timeLabel.text = "0";
@@ -160,6 +166,11 @@ var GameScene = (function (_super) {
     p.hideResult = function () {
         this.againBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onAgainBtnTouch, this);
         this.resultGroup.parent && this.resultGroup.parent.removeChild(this.resultGroup);
+    };
+    //设置星星粒子位置
+    p.setStarPos = function () {
+        //this.star.x = this.progressBar.x + this.progressBar.width * this.progressBar.scaleX;
+        //this.star.y = this.progressBar.y;
     };
     ///////////////////////////////////////////////////
     ///-----------------[游戏逻辑]----------------------
@@ -194,6 +205,9 @@ var GameScene = (function (_super) {
     //点击方块
     p.onTouchTap = function (e) {
         if (e.target instanceof BlockUI) {
+            //播放声音
+            //this.snd.play(this.snd.click);
+            window["playClick"]();
             //消除方块时，不能进行点击
             this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
             this.checkBlock(e.target);
@@ -222,8 +236,8 @@ var GameScene = (function (_super) {
                     var boom2 = this.boomPool.getObject();
                     this.addChild(boom1);
                     this.addChild(boom2);
-                    boom1.play(this.newTarget);
-                    boom2.play(this.oldTarget);
+                    boom1.playAnim(this.newTarget);
+                    boom2.playAnim(this.oldTarget);
                     //发送消除信息
                     this.sendEliminate(this.oldTarget, this.newTarget);
                     //两方块的消失
@@ -235,10 +249,13 @@ var GameScene = (function (_super) {
                     this.blockArr[this.newTarget.row][this.newTarget.col] = null;
                     this.oldTarget = this.newTarget = null;
                     //声音
+                    //this.snd.play(this.snd.line);
+                    window["playLine"]();
                     //得分
                     this.cancelBlockNum += 2;
                     // 当前长度 = 初始长度 + 已消除方块数/总方块数*(最长长度-初始长度)
                     this.progressBar.scaleX = this.barStart + this.cancelBlockNum / this.totalBlock * (this.barEnd - this.barStart);
+                    //this.setStarPos();
                     //隐藏选择框
                     this.selectOld.hide();
                     this.selectNew.hide();
@@ -635,9 +652,11 @@ var GameScene = (function (_super) {
     };
     //发送地图
     p.sendUpMap = function () {
-        egret.log("无可消除，发送重排");
-        var json = { "mapData": this.tempMap };
-        this.socket.sendMessage(NetConst.C2S_upMap, json);
+        if (UserManager.getInstance().bLuckUser) {
+            egret.log("发送重排地图");
+            var json = { "mapData": this.tempMap };
+            this.socket.sendMessage(NetConst.C2S_upMap, json);
+        }
     };
     //发送消除，pos是二维数组
     p.sendEliminate = function (blockA, blockB) {
@@ -693,9 +712,14 @@ var GameScene = (function (_super) {
         switch (type) {
             case "disturb":
                 this.deConfigListener();
-                MapManager.getInstance().level[this.curLevel - 1] = mapData;
+                //                MapManager.getInstance().level[this.curLevel - 1] = mapData;
+                //                this.resetGame();
+                //                this.createMap();
+                this.sortBlock();
+                MapManager.getInstance().level[this.curLevel - 1] = this.tempMap;
                 this.resetGame();
                 this.createMap();
+                this.sendUpMap();
                 this.configListener();
                 break;
             case "ice":

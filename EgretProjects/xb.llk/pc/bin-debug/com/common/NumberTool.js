@@ -12,10 +12,28 @@ var NumberTool = (function () {
     }
     var d = __define,c=NumberTool,p=c.prototype;
     /**
-     * 获取随机数,(1,3) 返回1 2 3
+     * 获取随机数
+     * getRandomInt(1,3) //返回1-3
      */
     NumberTool.getRandomInt = function (start, end) {
         return Math.round(Math.random() * (end - start)) + start;
+    };
+    /**
+     * 获取时间字符串
+     * @param time 时间数字
+     * @return 补0后的时间字符串
+     * getTimeString(7)  //返回"07"
+     * getTimeString(11) //返回"11"
+     */
+    NumberTool.getTimeString = function (time) {
+        var str = "";
+        if (time < 10) {
+            str = "0" + time;
+        }
+        else {
+            str = time.toString();
+        }
+        return str;
     };
     return NumberTool;
 })();

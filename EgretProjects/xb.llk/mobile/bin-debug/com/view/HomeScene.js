@@ -50,6 +50,7 @@ var HomeScene = (function (_super) {
         }
         else {
             egret.log("请求连接");
+            GameManager.getInstance().bReconnect = true;
             this.socket.startConnect();
         }
     };
@@ -113,11 +114,11 @@ var HomeScene = (function (_super) {
             else {
                 this.queueLabel.text = "99";
             }
-            this.tipLabel.text = "游戏已经开始，请排队等待\n您前面的人数";
+            this.tipLabel.text = "\n\n游戏已经开始,请排队等待\n\n您前面的人数";
         }
         else if (status == "ready") {
             this.queueGroup.visible = true;
-            this.tipLabel.text = "已经加入游戏\n请耐心等待其他玩家";
+            this.tipLabel.text = "\n\n\n已经加入游戏\n\n请耐心等待其他玩家";
         }
         this.joinBtn.visible = false;
     };

@@ -73,4 +73,10 @@
 		<e:Label y="659.5" textColor="0xAA2424" size="40" text="12:32" id="resultTimeLabel6" width="142" verticalAlign="middle" height="45" x="579"/>
 		<e:Label y="750" textColor="0xAA2424" height="45" text="12:32" x="579" width="142" verticalAlign="middle" size="40" id="resultTimeLabel7"/>
 	</e:Group>
+	<e:Group id="luckyGroup" height="123" width="422" x="499" y="1207">
+		<e:Group id="luckyHeadGroup" height="55" width="55" x="17" y="21"/>
+		<e:Image id="luckyHead" source="game_head_png" x="6" y="10"/>
+		<e:Image id="luckNameBg" source="game_namebg_jpg" x="119" y="28"/>
+		<e:Label id="luckNameLabel" text="标签标签标签标" x="122" y="30" textColor="0x030202" fontFamily="微软雅黑" width="298" size="35" height="68" verticalAlign="middle" textAlign="center"/>
+	</e:Group>
 </e:Skin>

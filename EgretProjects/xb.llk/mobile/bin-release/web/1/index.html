@@ -58,7 +58,23 @@
          data-show-fps="false" data-show-log="false"
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
+    
+    <audio id="click" src="resource/assets/sound/click.mp3" preload="auto"></audio>
+    <audio id="line" src="resource/assets/sound/line.mp3" preload="auto"></audio>
+    
     <script>
+    	//----声音start----
+    	var click = document.getElementById("click");
+    	var line = document.getElementById("line");
+    	
+    	function playClick(){
+    		click.play();
+    	}
+    	function playLine(){
+    		line.play();
+    	}
+		//----声音end----
+    	
     	//----------配置信息--------------
     	var srvConfig = {
     		"uid" : (new Date().getTime()).toString(), // 用户ID
