@@ -49,7 +49,7 @@ class GameManager {
     }
     
     public onError(){
-        this.messageBox.showMessage("连接错误");
+        this.messageBox.showMessage("服务器连接错误");
     }
     
     //接收登录
@@ -64,10 +64,10 @@ class GameManager {
                 }
             break;
             case -1:
-                this.messageBox.showMessage("房间不存在");
+                this.messageBox.showMessage("房间不存在\n请重新扫描二维码");
             break;
             case 0:
-                this.messageBox.showMessage("用户信息错误");
+                this.messageBox.showMessage("用户信息错误\n请重新扫描二维码");
             break;
         }
     }

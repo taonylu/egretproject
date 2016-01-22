@@ -2,7 +2,11 @@
 <e:Skin class="GameSceneSkin" width="480" height="852" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="game_bg_png"/>
 	<e:Group id="blockGroup" height="540" width="540" verticalCenter="-40" x="-30">
+	</e:Group>
+	<e:Group id="iceGroup" width="540" height="540" x="-30" verticalCenter="-40" touchThrough="true" touchChildren="false" touchEnabled="false">
 		<e:Image id="skillIce" source="skill_ice_png" y="30" x="42" visible="false"/>
+		<e:Image id="skillWave" source="skill_wave_png" x="270" y="316" anchorOffsetX="205" anchorOffsetY="069" scaleX="0.1" scaleY="0.1" visible="false"/>
+		<e:Image id="skillBang" source="skill_bang_png" x="980" y="-120" anchorOffsetX="48" anchorOffsetY="850" rotation="-120" scaleX="1" scaleY="1" visible="false"/>
 	</e:Group>
 	<e:Group id="skillGroup" height="98" width="480" x="0" bottom="15">
 		<e:Image id="skillResetBtn" source="game_skill0_png" x="50" y="1"/>

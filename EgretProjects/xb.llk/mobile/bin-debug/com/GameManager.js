@@ -43,7 +43,7 @@ var GameManager = (function () {
         this.messageBox.showMessage("已与服务器断开连接\n请尝试重新加入游戏");
     };
     p.onError = function () {
-        this.messageBox.showMessage("连接错误");
+        this.messageBox.showMessage("服务器连接错误");
     };
     //接收登录
     p.revLogin = function (data) {
@@ -57,10 +57,10 @@ var GameManager = (function () {
                 }
                 break;
             case -1:
-                this.messageBox.showMessage("房间不存在");
+                this.messageBox.showMessage("房间不存在\n请重新扫描二维码");
                 break;
             case 0:
-                this.messageBox.showMessage("用户信息错误");
+                this.messageBox.showMessage("用户信息错误\n请重新扫描二维码");
                 break;
         }
     };

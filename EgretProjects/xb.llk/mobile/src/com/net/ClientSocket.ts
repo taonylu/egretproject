@@ -23,6 +23,11 @@ class ClientSocket {
         }
         return false;
     }
+    
+    public closeSocket(){
+        egret.log("主动断开连接");
+        this.socket.disconnect();
+    }
 
     public startConnect(): void {
 

@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"game_bar_png,game_bareffect_png,game_head_png,game_skill0_png,game_skill1_png,game_skill2_png,game_skillbg_png,home_namebg_png,block10_png,block1_png,block2_png,block3_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png,block11_png,select0_png,countdown_fnt,shalou_png,game_blockbg_png,game_intro_png,game_introicon_png,game_showicon_png,home_entergame_png,home_img_jpg,home_thx_png,home_thxbg_png,home_title_png,home_codebg_png,home_headmask_png,skill_ice_png,result_bg_png,game_over_png,line_zhe_png,line_su_png,block27_png,block28_png,block29_png,block30_png,block31_png,block32_png,block33_png,block34_png,block35_png,block36_png,block37_png,block38_png,block39_png,block40_png,block41_png,block12_png,block13_png,block14_png,block15_png,block16_png,block17_png,block18_png,block19_png,block20_png,block21_png,block22_png,block23_png,block24_png,block25_png,block26_png,bgm_game_mp3,bgm_home_mp3,enter_man_mp3,enter_woman_mp3,game_over_mp3,line_mp3,boom_json,boom_png,game_namebg_jpg",
+			"keys":"game_bar_png,game_bareffect_png,game_head_png,game_skill0_png,game_skill1_png,game_skill2_png,game_skillbg_png,home_namebg_png,select0_png,countdown_fnt,shalou_png,game_blockbg_png,game_intro_png,game_introicon_png,game_showicon_png,home_entergame_png,home_img_jpg,home_thx_png,home_thxbg_png,home_title_png,home_codebg_png,home_headmask_png,skill_ice_png,result_bg_png,game_over_png,line_zhe_png,line_su_png,bgm_game_mp3,bgm_home_mp3,enter_man_mp3,enter_woman_mp3,game_over_mp3,line_mp3,boom_json,boom_png,game_namebg_jpg,block_png,block_json",
 			"name":"game"
 		}
 	],
@@ -49,61 +49,6 @@
 			"name":"home_namebg_png",
 			"type":"image",
 			"url":"assets/home_namebg.png"
-		},
-		{
-			"name":"block10_png",
-			"type":"image",
-			"url":"assets/block10.png"
-		},
-		{
-			"name":"block1_png",
-			"type":"image",
-			"url":"assets/block1.png"
-		},
-		{
-			"name":"block2_png",
-			"type":"image",
-			"url":"assets/block2.png"
-		},
-		{
-			"name":"block3_png",
-			"type":"image",
-			"url":"assets/block3.png"
-		},
-		{
-			"name":"block4_png",
-			"type":"image",
-			"url":"assets/block4.png"
-		},
-		{
-			"name":"block5_png",
-			"type":"image",
-			"url":"assets/block5.png"
-		},
-		{
-			"name":"block6_png",
-			"type":"image",
-			"url":"assets/block6.png"
-		},
-		{
-			"name":"block7_png",
-			"type":"image",
-			"url":"assets/block7.png"
-		},
-		{
-			"name":"block8_png",
-			"type":"image",
-			"url":"assets/block8.png"
-		},
-		{
-			"name":"block9_png",
-			"type":"image",
-			"url":"assets/block9.png"
-		},
-		{
-			"name":"block11_png",
-			"type":"image",
-			"url":"assets/block11.png"
 		},
 		{
 			"name":"select0_png",
@@ -206,156 +151,6 @@
 			"url":"assets/line_su.png"
 		},
 		{
-			"name":"block27_png",
-			"type":"image",
-			"url":"assets/block27.png"
-		},
-		{
-			"name":"block28_png",
-			"type":"image",
-			"url":"assets/block28.png"
-		},
-		{
-			"name":"block29_png",
-			"type":"image",
-			"url":"assets/block29.png"
-		},
-		{
-			"name":"block30_png",
-			"type":"image",
-			"url":"assets/block30.png"
-		},
-		{
-			"name":"block31_png",
-			"type":"image",
-			"url":"assets/block31.png"
-		},
-		{
-			"name":"block32_png",
-			"type":"image",
-			"url":"assets/block32.png"
-		},
-		{
-			"name":"block33_png",
-			"type":"image",
-			"url":"assets/block33.png"
-		},
-		{
-			"name":"block34_png",
-			"type":"image",
-			"url":"assets/block34.png"
-		},
-		{
-			"name":"block35_png",
-			"type":"image",
-			"url":"assets/block35.png"
-		},
-		{
-			"name":"block36_png",
-			"type":"image",
-			"url":"assets/block36.png"
-		},
-		{
-			"name":"block37_png",
-			"type":"image",
-			"url":"assets/block37.png"
-		},
-		{
-			"name":"block38_png",
-			"type":"image",
-			"url":"assets/block38.png"
-		},
-		{
-			"name":"block39_png",
-			"type":"image",
-			"url":"assets/block39.png"
-		},
-		{
-			"name":"block40_png",
-			"type":"image",
-			"url":"assets/block40.png"
-		},
-		{
-			"name":"block41_png",
-			"type":"image",
-			"url":"assets/block41.png"
-		},
-		{
-			"name":"block12_png",
-			"type":"image",
-			"url":"assets/block12.png"
-		},
-		{
-			"name":"block13_png",
-			"type":"image",
-			"url":"assets/block13.png"
-		},
-		{
-			"name":"block14_png",
-			"type":"image",
-			"url":"assets/block14.png"
-		},
-		{
-			"name":"block15_png",
-			"type":"image",
-			"url":"assets/block15.png"
-		},
-		{
-			"name":"block16_png",
-			"type":"image",
-			"url":"assets/block16.png"
-		},
-		{
-			"name":"block17_png",
-			"type":"image",
-			"url":"assets/block17.png"
-		},
-		{
-			"name":"block18_png",
-			"type":"image",
-			"url":"assets/block18.png"
-		},
-		{
-			"name":"block19_png",
-			"type":"image",
-			"url":"assets/block19.png"
-		},
-		{
-			"name":"block20_png",
-			"type":"image",
-			"url":"assets/block20.png"
-		},
-		{
-			"name":"block21_png",
-			"type":"image",
-			"url":"assets/block21.png"
-		},
-		{
-			"name":"block22_png",
-			"type":"image",
-			"url":"assets/block22.png"
-		},
-		{
-			"name":"block23_png",
-			"type":"image",
-			"url":"assets/block23.png"
-		},
-		{
-			"name":"block24_png",
-			"type":"image",
-			"url":"assets/block24.png"
-		},
-		{
-			"name":"block25_png",
-			"type":"image",
-			"url":"assets/block25.png"
-		},
-		{
-			"name":"block26_png",
-			"type":"image",
-			"url":"assets/block26.png"
-		},
-		{
 			"name":"bgm_game_mp3",
 			"type":"sound",
 			"url":"assets/sound/bgm_game.mp3"
@@ -399,6 +194,12 @@
 			"name":"game_namebg_jpg",
 			"type":"image",
 			"url":"assets/game_namebg.jpg"
+		},
+		{
+			"name":"block_json",
+			"subkeys":"block10_png,block11_png,block12_png,block13_png,block14_png,block15_png,block16_png,block17_png,block18_png,block19_png,block1_png,block20_png,block21_png,block22_png,block23_png,block24_png,block25_png,block26_png,block27_png,block28_png,block29_png,block2_png,block30_png,block31_png,block32_png,block33_png,block34_png,block35_png,block36_png,block37_png,block38_png,block39_png,block3_png,block40_png,block41_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png",
+			"type":"sheet",
+			"url":"assets/block.json"
 		}
 	]
 }

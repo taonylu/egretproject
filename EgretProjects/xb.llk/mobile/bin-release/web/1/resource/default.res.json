@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"game_bareffect_png,game_dmbtn_png,game_introbtn_png,game_rulebg_png,game_rulebtn_png,game_sendbtn_png,game_title_png,select0_png,game_wait_png,game_dmbg_png,game_skill2_png,game_skill0_png,game_skill1_png,skill_ice_png,home_join_png,resutl_bg_png,game_again_png,line_zhe_png,line_su_png,rule_png,game_bg_png,globe_tip_png,globe_close_png,countdown_fnt,toolNum_fnt,boom_png,boom_json,block_png,block_json,star_png,star_json",
+			"keys":"game_bareffect_png,game_dmbtn_png,game_introbtn_png,game_rulebg_png,game_rulebtn_png,game_sendbtn_png,game_title_png,select0_png,game_wait_png,game_dmbg_png,game_skill2_png,game_skill0_png,game_skill1_png,skill_ice_png,home_join_png,resutl_bg_png,game_again_png,line_zhe_png,line_su_png,rule_png,game_bg_png,globe_tip_png,globe_close_png,countdown_fnt,toolNum_fnt,boom_png,boom_json,block_json,star_png,star_json,skill_bang_png,skill_wave_png,skillBang_json,skillBang_png",
 			"name":"game"
 		}
 	],
@@ -185,6 +185,26 @@
 			"name":"star_json",
 			"type":"json",
 			"url":"assets/particle/star.json"
+		},
+		{
+			"name":"skill_bang_png",
+			"type":"image",
+			"url":"assets/skill_bang.png"
+		},
+		{
+			"name":"skill_wave_png",
+			"type":"image",
+			"url":"assets/skill_wave.png"
+		},
+		{
+			"name":"skillBang_json",
+			"type":"json",
+			"url":"assets/particle/skillBang.json"
+		},
+		{
+			"name":"skillBang_png",
+			"type":"image",
+			"url":"assets/particle/skillBang.png"
 		}
 	]
 }

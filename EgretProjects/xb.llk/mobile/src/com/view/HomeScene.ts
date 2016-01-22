@@ -166,6 +166,7 @@ class HomeScene extends BaseScene{
         }else if(status == "ready"){  //用户准备好，等待游戏开始
             this.queueGroup.visible = true;
             this.tipLabel.text = "\n\n\n已经加入游戏\n\n请耐心等待其他玩家"; 
+            this.queueLabel.text = "";
         }
         this.joinBtn.visible = false;
     }

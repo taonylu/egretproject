@@ -12,6 +12,8 @@ var HomeScene = (function (_super) {
         this.userMax = 8; //用户最大数量
         this.timeLimit = 20; //倒计时时间 
         this.countDownTimer = new egret.Timer(1000); //计时器
+        this.cloudList = new Array();
+        this.flowerPaticle = new FlowerParticle(); //花瓣掉落粒子效果
     }
     var d = __define,c=HomeScene,p=c.prototype;
     p.componentCreated = function () {
@@ -21,8 +23,10 @@ var HomeScene = (function (_super) {
     p.onEnable = function () {
         this.snd.playBgm(this.snd.homeBgm);
         this.showShaLou();
+        this.moveCloud();
     };
     p.onRemove = function () {
+        this.stopCloud();
     };
     p.reset = function () {
     };
@@ -44,6 +48,13 @@ var HomeScene = (function (_super) {
             "2 当玩家达到4名就开始倒计时，倒计时期间新玩家也可以加入游戏\n\n" +
             "3 每局游戏有三个关卡，只要有三位玩家完成三关，游戏结束\n\n" +
             "4 游戏期间借助道具让你更有优势\n";
+        //云朵 共3朵
+        for (var i = 0; i < 3; i++) {
+            this.cloudList.push(this["cloud" + i]);
+        }
+        //花瓣粒子效果
+        LayerManager.getInstance().popLayer.addChild(this.flowerPaticle);
+        this.flowerPaticle.start();
     };
     //显示沙漏
     p.showShaLou = function () {
@@ -90,6 +101,26 @@ var HomeScene = (function (_super) {
         this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
         this.countDownTimer.stop();
     };
+    //移动云朵
+    p.moveCloud = function () {
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onMoveCloud, this);
+    };
+    //移动云朵处理
+    p.onMoveCloud = function () {
+        var len = this.cloudList.length;
+        var cloud;
+        for (var i = 0; i < len; i++) {
+            cloud = this.cloudList[i];
+            cloud.x -= 0.2 + i / 10;
+            if (cloud.x < -55) {
+                cloud.x = this.cloudGroup.width;
+            }
+        }
+    };
+    //停止云朵
+    p.stopCloud = function () {
+        this.removeEventListener(egret.Event.ENTER_FRAME, this.onMoveCloud, this);
+    };
     ///////////////////////////////////////////////////
     ///-----------------[网络处理]----------------------
     ///////////////////////////////////////////////////
@@ -102,8 +133,10 @@ var HomeScene = (function (_super) {
             case 1:
                 break;
             case 0:
+                alert("房间号错误，请尝试修改房间号后刷新网页");
                 break;
             case -1:
+                alert("房间已存在，请尝试修改房间号后刷新网页");
                 break;
             default:
         }
