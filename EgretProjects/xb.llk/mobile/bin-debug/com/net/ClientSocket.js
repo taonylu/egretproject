@@ -19,6 +19,10 @@ var ClientSocket = (function () {
         }
         return false;
     };
+    p.closeSocket = function () {
+        egret.log("主动断开连接");
+        this.socket.disconnect();
+    };
     p.startConnect = function () {
         //连接socket
         this.socket = io.connect(window["server"], { reconnection: false, 'force new connection': true });

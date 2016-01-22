@@ -1,0 +1,12 @@
+{"file":"uiSheet.png","frames":{
+"home_join_png":{"x":284,"y":502,"w":136,"h":52,"offX":0,"offY":0,"sourceW":136,"sourceH":52},
+"game_again_png":{"x":146,"y":502,"w":136,"h":52,"offX":0,"offY":0,"sourceW":136,"sourceH":52},
+"game_bareffect_png":{"x":380,"y":288,"w":128,"h":83,"offX":0,"offY":0,"sourceW":128,"sourceH":83},
+"game_dmbg_png":{"x":1,"y":1,"w":384,"h":146,"offX":8,"offY":2,"sourceW":398,"sourceH":154},
+"game_dmbtn_png":{"x":1,"y":502,"w":143,"h":54,"offX":4,"offY":5,"sourceW":152,"sourceH":63},
+"game_introbtn_png":{"x":199,"y":430,"w":195,"h":70,"offX":4,"offY":2,"sourceW":202,"sourceH":74},
+"game_rulebtn_png":{"x":1,"y":430,"w":196,"h":70,"offX":1,"offY":2,"sourceW":202,"sourceH":74},
+"game_sendbtn_png":{"x":380,"y":373,"w":115,"h":55,"offX":15,"offY":11,"sourceW":146,"sourceH":72},
+"game_title_png":{"x":1,"y":149,"w":392,"h":137,"offX":5,"offY":5,"sourceW":400,"sourceH":150},
+"globe_close_png":{"x":396,"y":430,"w":52,"h":52,"offX":0,"offY":0,"sourceW":52,"sourceH":52},
+"globe_tip_png":{"x":1,"y":288,"w":377,"h":140,"offX":0,"offY":0,"sourceW":377,"sourceH":140}}}

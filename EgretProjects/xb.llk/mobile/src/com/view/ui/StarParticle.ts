@@ -4,22 +4,22 @@
  *
  */
 class StarParticle extends egret.DisplayObjectContainer{
-    //private system: particle.ParticleSystem;
+    private system: particle.ParticleSystem;
 	public constructor() {
     	  super();
-//        var texture = RES.getRes("star_png");
-//        var config = RES.getRes("star_json");
-//        
-//        this.system = new particle.GravityParticleSystem(texture,config);
-//        this.addChild(this.system);
+        var texture = RES.getRes("skillBang_png");
+        var config = RES.getRes("skillBang_json");
         
+        this.system = new particle.GravityParticleSystem(texture,config);
+        this.addChild(this.system);
+       
 	}
 	
 	public play(){
-       // this.system.start();
+        this.system.start();
 	}
 	
 	public stop(){
-    	//this.system.stop();
+    	this.system.stop();
 	}
 }

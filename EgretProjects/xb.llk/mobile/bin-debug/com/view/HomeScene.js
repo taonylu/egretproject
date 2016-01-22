@@ -119,6 +119,7 @@ var HomeScene = (function (_super) {
         else if (status == "ready") {
             this.queueGroup.visible = true;
             this.tipLabel.text = "\n\n\n已经加入游戏\n\n请耐心等待其他玩家";
+            this.queueLabel.text = "";
         }
         this.joinBtn.visible = false;
     };

@@ -1,0 +1,23 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "moveUp1",
+    "texture": "2fbb852c-b18d-459d-b017-25b09ed221f9",
+    "atlas": "",
+    "rect": [
+      2,
+      3,
+      28,
+      42
+    ],
+    "offset": [
+      0,
+      1
+    ],
+    "originalSize": [
+      32,
+      50
+    ],
+    "rotated": 0
+  }
+}

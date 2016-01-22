@@ -27,6 +27,29 @@ class ArrayTool {
         }
     }
     
+    /**选择法随机排序二维数组*/
+    public static random2DArr(srcArr:Array<any>):void{
+        //将二维数组变成1维
+        var tempArr = [];
+        var row:number = srcArr.length;
+        var col:number = srcArr[0].length;
+        for(var i: number = 0;i < row;i++) {
+            for(var j: number = 0;j < col;j++) {
+                tempArr.push(srcArr[i][j]);
+            }
+        }
+        //打乱顺序
+        ArrayTool.randomArr(tempArr);
+        
+        //将1维数组重新赋值给二维数组
+        for(var i: number = 0;i < row;i++) {
+            srcArr[i].length = 0;
+            for(var j: number = 0;j < col;j++) {
+                srcArr[i][j] = tempArr[i*col + j];
+            }
+        }
+    }
+    
     /**浅复制二维数组*/
     public static copy2DArr(arr: Array<any>): Array<any> { 
         var outArr: Array<any> = new Array<any>();

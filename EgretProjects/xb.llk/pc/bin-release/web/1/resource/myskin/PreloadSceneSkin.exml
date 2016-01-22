@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="PreloadSceneSkin" width="2560" height="1440" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="homge_bg_png" x="303" y="142"/>
+</e:Skin>

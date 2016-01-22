@@ -16,9 +16,12 @@ class GameScene extends BaseScene{
     private skillIceBtn:eui.Image;  //冰冻
     private skillTipBtn:eui.Image;  //提示
     private skillIce:eui.Image;   //冰冻特效
+    private skillWave:eui.Image;  //扰乱特效，波纹
+    private skillBang:eui.Image;  //扰乱特效，棒子
     private skillLabel0:eui.Label;  //技能次数文本
     private skillLabel1:eui.Label;
     private skillLabel2:eui.Label;
+    private iceGroup:eui.Group;    //冰冻效果层
     
     
     private blockPool: ObjectPool = ObjectPool.getPool(BlockUI.NAME,10); //方块对象池
@@ -38,7 +41,7 @@ class GameScene extends BaseScene{
     private progressBar:eui.Image;     //进度条
     private barStart:number = 0.15;    //进度条scaleX
     private barEnd:number = 1.45;
-    //private star: StarParticle = new StarParticle();  //星星粒子效果
+    //private bangParticle: StarParticle = new StarParticle();  //棒子敲打星星粒子效果
     
     private waitGroup:eui.Group;       //游戏结束，等待Group
     private waitLabel:eui.Label;       //等待显示字体
@@ -212,7 +215,7 @@ class GameScene extends BaseScene{
             var sec:number = Math.floor(spend/1000%60);
             this.timeLabel.text = NumberTool.getTimeString(min) + ":" + NumberTool.getTimeString(sec);
         }else{
-            this.timeLabel.text = "0";
+            this.timeLabel.text = "未完成";
         }
         
         this.againBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAgainBtnTouch, this);
@@ -238,13 +241,40 @@ class GameScene extends BaseScene{
     
     }
     
+    //播放扰乱特效
+    private playDisturbSkill(){
+        this.deConfigListener();
+        this.skillBang.visible = true;
+        this.skillBang.rotation = -10;
+        this.skillWave.alpha = 1;
+        this.skillWave.scaleX = 0.1;
+        this.skillWave.scaleY = 0.1;
+        var self:GameScene = this;
+        egret.Tween.get(this.skillBang).to({rotation:-120},500);
+        egret.Tween.get(this.skillBang).wait(500).call(function(){
+            ShakeTool.getInstance().shakeObj(self,1,20,20);   
+            self.skillWave.visible = true;
+//            self.bangParticle.x = self.skillWave.x;
+//            self.bangParticle.y = self.skillWave.y;
+//            self.iceGroup.addChild(self.bangParticle);
+//            self.bangParticle.play();
+        });
+        egret.Tween.get(this.skillWave).wait(500).to({alpha:0,scaleX:2,scaleY:2},1000).call(function(){
+            self.configListener();
+            self.skillBang.visible = false;
+            self.skillWave.visible = false;
+//            self.bangParticle.stop();
+//            self.bangParticle.parent && self.iceGroup.removeChild(self.bangParticle);
+        });
+    }
+    
     
     ///////////////////////////////////////////////////
     ///-----------------[游戏逻辑]----------------------
     ///////////////////////////////////////////////////
     
-    //创建地图
-    private createMap(): void {
+    //创建地图 bFall是否有下落效果
+    private createMap(bFall:Boolean = true): void {
         //引用原始地图的数据
         var mapData = MapManager.getInstance().level[this.curLevel-1]; //关卡1-3，数组下标0-2
         
@@ -268,7 +298,8 @@ class GameScene extends BaseScene{
                     block.y = this.mapStartY + i * (this.blockHeight) - this._stage.stageHeight;
                     this.blockGroup.addChild(block);
                     this.blockArr[block.row][block.col] = block;
-                    egret.Tween.get(block).to({ y: (this.mapStartY + i * (this.blockHeight)) },500);
+                    //是否有下落效果
+                    bFall && egret.Tween.get(block).to({ y: (this.mapStartY + i * (this.blockHeight)) },500);
                     index++;
                 }
             }
@@ -641,34 +672,39 @@ class GameScene extends BaseScene{
         
     //点击重新排列
     public sortBlock(): void { 
+        
+        
+        
         //获取现存的方块
-        var tempBlockArr:Array<BlockUI> = new Array<BlockUI>();
-        var block:BlockUI;
-        for(var i: number = 0;i < this.rowMax;i++) {
-            for(var j: number = 0;j < this.colMax;j++) {
-                block = this.blockArr[i][j];
-                if(block != null) {
-                    tempBlockArr.push(block);
-                }
-            }
-        }
+//        var tempBlockArr:Array<BlockUI> = new Array<BlockUI>();
+//        var block:BlockUI;
+//        for(var i: number = 0;i < this.rowMax;i++) {
+//            for(var j: number = 0;j < this.colMax;j++) {
+//                block = this.blockArr[i][j];
+//                if(block != null) {
+//                    tempBlockArr.push(block);
+//                }
+//            }
+//        }
         //打乱顺序
-        ArrayTool.randomArr(tempBlockArr);
+//        ArrayTool.randomArr(tempBlockArr);
+        
+        
         //交换皮肤和tempMap
-        var len:number = tempBlockArr.length/2;
-        var blockA:BlockUI;
-        var blockB:BlockUI;
-        for(var i: number = 0;i < len;i+=2) {
-             blockA = tempBlockArr[i];
-             blockB = tempBlockArr[i+1];
-             var temp = blockA.skinID;
-             blockA.setSkin(blockB.skinID);
-             blockB.setSkin(temp);
-             
-             temp = this.tempMap[blockA.row][blockA.col];
-             this.tempMap[blockA.row][blockA.col] = this.tempMap[blockB.row][blockB.col];
-             this.tempMap[blockB.row][blockB.col] = temp;
-        }
+//        var len:number = tempBlockArr.length/2;
+//        var blockA:BlockUI;
+//        var blockB:BlockUI;
+//        for(var i: number = 0;i < len;i+=2) {
+//             blockA = tempBlockArr[i];
+//             blockB = tempBlockArr[i+1];
+//             var temp = blockA.skinID;
+//             blockA.setSkin(blockB.skinID);
+//             blockB.setSkin(temp);
+//             
+//             temp = this.tempMap[blockA.row][blockA.col];
+//             this.tempMap[blockA.row][blockA.col] = this.tempMap[blockB.row][blockB.col];
+//             this.tempMap[blockB.row][blockB.col] = temp;
+//        }
     }
     
     //检查方块是否消除完毕
@@ -822,16 +858,12 @@ class GameScene extends BaseScene{
         
         switch(type){
             case "disturb":   //打乱，暂停当前操作，并重置地图
-                this.deConfigListener();
-//                MapManager.getInstance().level[this.curLevel - 1] = mapData;
-//                this.resetGame();
-//                this.createMap();
+                  this.playDisturbSkill();          
                   this.sortBlock();
                   MapManager.getInstance().level[this.curLevel - 1] = this.tempMap;
                   this.resetGame();
-                  this.createMap();
+                  this.createMap(false);
                   this.sendUpMap();
-                this.configListener();
             break;
             case "ice":   //冻结，暂停当前操作，直到冰冻时间结束。可能有多个冰冻连续施放，需要重置冰冻时间。
                 this.deConfigListener();

@@ -21,7 +21,7 @@
 		<e:Rect id="closeDmBtn" height="40" width="37" x="393" y="-4"/>
 		<e:Rect id="sendDmBtn" width="77" y="60" height="40" x="333"/>
 		<e:Image source="game_dmbg_png" x="47" y="-11" touchEnabled="false"/>
-		<e:EditableText id="dmLabel" width="231" height="56" x="89" y="36" textColor="0x581919" fontFamily="微软雅黑" size="22"/>
+		<e:EditableText id="dmLabel" width="231" height="56" x="89" y="36" textColor="0x581919" fontFamily="微软雅黑" size="22" multiline="true" maxChars="16"/>
 	</e:Group>
 	<e:Group id="toolGroup" height="854" width="480" verticalCenter="1" visible="false">
 		<e:Rect id="closeToolBtn" height="46" width="43" x="395" y="183"/>

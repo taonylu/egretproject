@@ -217,7 +217,7 @@ class GameScene extends BaseScene{
                         var sec: number = Math.floor(spend / 1000 % 60);
                         this.resultTimeList[i].text = NumberTool.getTimeString(min) + ":" + NumberTool.getTimeString(sec);
                     }else{
-                        this.resultTimeList[i].text = "0";
+                        this.resultTimeList[i].text = "未完成";
                     }
                     
                 }

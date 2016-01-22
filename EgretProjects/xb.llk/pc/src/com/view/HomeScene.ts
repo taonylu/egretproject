@@ -26,6 +26,11 @@ class HomeScene extends BaseScene{
     
     private gameIntroLabel:eui.Label;  //游戏介绍
     
+    private cloudGroup:eui.Group;   //云朵
+    private cloudList:Array<eui.Image> = new Array<eui.Image>();
+    
+    private flowerPaticle:FlowerParticle = new FlowerParticle();  //花瓣掉落粒子效果
+    
     public constructor() {
         super("HomeSceneSkin");
 	}
@@ -33,15 +38,18 @@ class HomeScene extends BaseScene{
     public componentCreated(): void {
         super.componentCreated();
         this.initView();
+        
     }
 
     public onEnable(): void {
        this.snd.playBgm(this.snd.homeBgm);
        this.showShaLou();
+       this.moveCloud();
+       
     }
 
     public onRemove(): void {
-        
+        this.stopCloud();
     }
     
     public reset(){
@@ -67,6 +75,13 @@ class HomeScene extends BaseScene{
         "2 当玩家达到4名就开始倒计时，倒计时期间新玩家也可以加入游戏\n\n" +
         "3 每局游戏有三个关卡，只要有三位玩家完成三关，游戏结束\n\n" +
         "4 游戏期间借助道具让你更有优势\n";
+        //云朵 共3朵
+        for(var i:number=0;i<3;i++){
+            this.cloudList.push(this["cloud" + i]);
+        }
+        //花瓣粒子效果
+        LayerManager.getInstance().popLayer.addChild(this.flowerPaticle);
+        this.flowerPaticle.start();
     }
     
     //显示沙漏
@@ -119,6 +134,29 @@ class HomeScene extends BaseScene{
         this.countDownTimer.stop();
     }
     
+    //移动云朵
+    private moveCloud(){
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onMoveCloud,this); 
+    }
+    
+    //移动云朵处理
+    private onMoveCloud(){
+        var len: number = this.cloudList.length;
+        var cloud:eui.Image;
+        for(var i: number = 0;i <len;i++) {
+            cloud = this.cloudList[i];
+            cloud.x -= 0.2+i/10;
+            if(cloud.x < -55) {
+                cloud.x = this.cloudGroup.width;
+            }
+        }
+    }
+    
+    //停止云朵
+    private stopCloud(){
+        this.removeEventListener(egret.Event.ENTER_FRAME,this.onMoveCloud,this); 
+    }
+    
      ///////////////////////////////////////////////////
     ///-----------------[网络处理]----------------------
     ///////////////////////////////////////////////////
@@ -134,9 +172,10 @@ class HomeScene extends BaseScene{
             case 1:
                 break;
             case 0:
-                
+                alert("房间号错误，请尝试修改房间号后刷新网页");
                 break;
             case -1:
+                alert("房间已存在，请尝试修改房间号后刷新网页");
                 break;
             default:
         }

@@ -19,7 +19,8 @@
             padding: 0;
             border: 0;
             margin: 0;
-            height: 100%;
+    		height:100%;
+    		width:100%;
         }
     </style>
 
@@ -33,6 +34,7 @@
 	<script egret="lib" src="libs/modules/game/game.js" src-release="libs/modules/game/game.min.js"></script>
 	<script egret="lib" src="libs/modules/game/game.web.js" src-release="libs/modules/game/game.web.min.js"></script>
 	<script egret="lib" src="libs/modules/socket.io/socket.io.js" src-release="libs/modules/socket.io/socket.io.min.js"></script>
+	<script egret="lib" src="libs/modules/particle/particle.js" src-release="libs/modules/particle/particle.min.js"></script>
 	<!--modules_files_end-->
 
     <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
@@ -64,6 +66,7 @@
 	<script egret="game" src="bin-debug/com/view/ui/BaseLine.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/BlockUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/Boom.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/FlowerFlowerParticle.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/GameHeadUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/HeadUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/LineSu.js"></script>
@@ -74,14 +77,14 @@
 	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
 	<!--game_files_end-->
 </head>
-<body style= "background: url('resource/assets/home_bg.jpg') no-repeat 100% 100%">
+<body style= "background: url('resource/assets/home_bg.jpg') no-repeat;background-size:100% 100%;">
 	
 	<script type="text/javascript" src="jquery-1.5.2.min.js"></script> 
 	<script type="text/javascript" src="jquery.qrcode.min.js"></script> 
 	
 	<div id="code" style="display:none"></div> 
 	
-    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+    <div style="margin: auto;height: 100%;" class="egret-player"
          data-entry-class="Main"
          data-orientation="landspace"
          data-scale-mode="showAll"
@@ -104,8 +107,8 @@
     	//------配置信息 end------
     	
 		//------生成二维码 start-------
-    	var server = "http://192.168.1.113:3000/screen";
-    	var codeUrl =  "http://192.168.1.103:3002/index.html" + "?rid=" + srvConfig.rid;
+    	var server = "http://192.168.1.105:3000/screen";
+    	var codeUrl =  "http://192.168.1.105:3002/index.html" + "?rid=" + srvConfig.rid;
     	var codeWidth = 350;
     	var codeHeight = 350;
     	var logoUrl = "";

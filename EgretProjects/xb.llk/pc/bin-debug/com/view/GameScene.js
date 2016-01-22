@@ -171,7 +171,7 @@ var GameScene = (function (_super) {
                         this.resultTimeList[i].text = NumberTool.getTimeString(min) + ":" + NumberTool.getTimeString(sec);
                     }
                     else {
-                        this.resultTimeList[i].text = "0";
+                        this.resultTimeList[i].text = "未完成";
                     }
                 }
             }
