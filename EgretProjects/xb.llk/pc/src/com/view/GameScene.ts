@@ -101,6 +101,7 @@ class GameScene extends BaseScene{
         this.initGameHead();
         this.createMap();
         this.setLuckyInfo();
+        this.resetSkillUI();
     }
     
     private resetGame(): void {
@@ -262,6 +263,14 @@ class GameScene extends BaseScene{
             bm.height = 55;
             this.luckyHeadGroup.addChild(bm);
             this.luckNameLabel.text = userVO.name;
+        }
+    }
+    
+    //重置技能面板
+    private resetSkillUI(){
+        var len:number = this.skillUIList.length;
+        for(var i:number=0;i<len;i++){
+            this.skillUIList[i].clear();
         }
     }
     

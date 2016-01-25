@@ -9,8 +9,6 @@
 */
 var LayerManager = (function () {
     function LayerManager() {
-        /**场景动画时间*/
-        this.tweenTime = 500;
     }
     var d = __define,c=LayerManager,p=c.prototype;
     /**初始化*/

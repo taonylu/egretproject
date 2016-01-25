@@ -47,7 +47,7 @@ class LayerManager {
         //隐藏或销毁当前场景
         if(this.curScene != null) {
             if(this.curScene) {
-                this.sceneLayer.removeChild(this.curScene);
+                this.curScene.parent && this.curScene.parent.removeChild(this.curScene);
                 this.curScene.onRemove();
                 if(destroy) {
                     this.curScene.onDestroy();

@@ -65,6 +65,7 @@ var GameScene = (function (_super) {
         this.initGameHead();
         this.createMap();
         this.setLuckyInfo();
+        this.resetSkillUI();
     };
     p.resetGame = function () {
         //清理剩余方块
@@ -209,6 +210,13 @@ var GameScene = (function (_super) {
             bm.height = 55;
             this.luckyHeadGroup.addChild(bm);
             this.luckNameLabel.text = userVO.name;
+        }
+    };
+    //重置技能面板
+    p.resetSkillUI = function () {
+        var len = this.skillUIList.length;
+        for (var i = 0; i < len; i++) {
+            this.skillUIList[i].clear();
         }
     };
     ///////////////////////////////////////////////////

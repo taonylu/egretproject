@@ -38,13 +38,14 @@ var SkillUI = (function (_super) {
         this.staticLabel0.visible = false;
         this.staticLabel1.visible = false;
         this.staticLabel2.visible = false;
-        var headImg = this.headGroup0.getChildAt(0);
-        if (headImg) {
+        var headImg;
+        if (this.headGroup0.numChildren > 0) {
+            headImg = this.headGroup0.getChildAt(0);
             headImg.parent && headImg.parent.removeChild(headImg);
             headImg = null;
         }
-        headImg = this.headGroup1.getChildAt(0);
-        if (headImg) {
+        if (this.headGroup1.numChildren > 0) {
+            headImg = this.headGroup1.getChildAt(0);
             headImg.parent && headImg.parent.removeChild(headImg);
             headImg = null;
         }

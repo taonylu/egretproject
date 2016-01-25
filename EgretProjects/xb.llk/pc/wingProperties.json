@@ -375,6 +375,26 @@
 					"isFolder":false,
 					"key":"flower_png",
 					"name":"flower_png"
+				},
+				{
+					"isFolder":false,
+					"key":"preload_bar_bg_png",
+					"name":"preload_bar_bg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"preload_bar_left_png",
+					"name":"preload_bar_left_png"
+				},
+				{
+					"isFolder":false,
+					"key":"preload_bar_png",
+					"name":"preload_bar_png"
+				},
+				{
+					"isFolder":false,
+					"key":"preload_bar_right_png",
+					"name":"preload_bar_right_png"
 				}
 			]
 		}

@@ -17,8 +17,6 @@ class LayerManager {
     public popLayer: eui.Group;
     /**当前场景*/
     private curScene: BaseScene;
-    /**场景动画时间*/
-    private tweenTime: number = 500;
 
 
     /**初始化*/

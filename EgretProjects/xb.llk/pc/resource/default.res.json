@@ -1,7 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"homge_bg_png",
+			"keys":"homge_bg_png,preload_bar_right_png,preload_bar_png,preload_bar_bg_png,preload_bar_left_png",
 			"name":"preload"
 		},
 		{
@@ -215,6 +215,26 @@
 			"name":"flower_json",
 			"type":"json",
 			"url":"assets/particle/flower.json"
+		},
+		{
+			"name":"preload_bar_right_png",
+			"type":"image",
+			"url":"assets/preload_bar_right.png"
+		},
+		{
+			"name":"preload_bar_png",
+			"type":"image",
+			"url":"assets/preload_bar.png"
+		},
+		{
+			"name":"preload_bar_bg_png",
+			"type":"image",
+			"url":"assets/preload_bar_bg.png"
+		},
+		{
+			"name":"preload_bar_left_png",
+			"type":"image",
+			"url":"assets/preload_bar_left.png"
 		}
 	]
 }

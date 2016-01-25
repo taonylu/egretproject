@@ -8,21 +8,27 @@
 *  修改日志：
 */
 class BaseScene extends eui.Component {
-    /**组件是否初始化完毕*/
-    public inited:boolean = false;
-
-    public constructor() {
+    public inited: Boolean = false;
+    
+    public constructor(skinName:string) {
         super();
         this.percentWidth = 100;
         this.percentHeight = 100;
         this.touchEnabled = false;
-        this.addEventListener(eui.UIEvent.COMPLETE, this.componentCreated, this);
+        this.addEventListener(eui.UIEvent.CREATION_COMPLETE, this.componentCreated, this);
+        this.skinName = skinName;
     }
 
-    /**组件初始化完毕*/
+    /**组件创建完毕并添加到舞台时触发
+     *  组件皮肤在主题json已经加载完毕，所以在this.skinName=skinName时组件是已经创建完毕的
+     *  组件addChild到舞台时，会触发eui.UIEvent.CREATION_COMPLETE，无需等待创建完毕
+     *  触发顺序：Complete，createdChildren,CREATION_COMPLETE，三个都能访问组件，可以获取x，y，但是不能获取width，height
+     *  Complete未添加到舞台也会触发，createdChildren,CREATION_COOMPLETE只有添加到舞台后才触发
+     *  只有CREATION_COOMPLETE后执行this.validateNow()，才能获取组件宽度
+     */
     public componentCreated():void{
+        this.removeEventListener(eui.UIEvent.CREATION_COMPLETE,this.componentCreated,this);
         this.inited = true;
-        this.parent && this.onEnable(); //当组件添加到舞台，组件初始化完成，才能调用onEnable获取到子组件
     }
 
     /**组建创建完毕的情况下，添加到舞台时执行*/

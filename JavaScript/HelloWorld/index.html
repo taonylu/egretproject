@@ -18,12 +18,13 @@
             age:1
         }
         var h = null;    //null
+        var json = {a:1,"b":2}; //json格式 可带引号，其实和object是一样的.
 
         //---------------[错误处理]------------
         try{
             aaa();
         }catch (err){
-            console.log(err);
+            //console.log(err);   //会输出错误，而不会红字报错
         }
 
 
@@ -46,12 +47,7 @@
         var c = new bbb("a",1);
         c.changeName("b");
 
-
-
-
-
-
-
+        
 
 
     </script>

@@ -18,6 +18,7 @@ var HomeScene = (function (_super) {
         this.ruleGroup.visible = false;
         this.dmGroup.visible = false;
         this.queueGroup.visible = false;
+        this.toolGroup.visible = false;
         this.queueLabel.text = "";
         //监听
         this.showJoinBtn();
@@ -36,6 +37,8 @@ var HomeScene = (function (_super) {
     p.reset = function () {
     };
     p.initView = function () {
+        this.initTitleY = this.title.y;
+        this.title.y = this.joinBtn.y - 300;
     };
     //显示加入游戏按钮
     p.showJoinBtn = function () {
@@ -103,6 +106,7 @@ var HomeScene = (function (_super) {
         var status = data.status; //"wait"、"ready"
         var queue = data.queue; //排队位置
         egret.log("排队信息:" + status, queue);
+        this.title.y = this.initTitleY;
         if (status == "wait") {
             this.queueGroup.visible = true;
             if (queue < 10) {
