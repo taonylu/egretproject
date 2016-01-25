@@ -1,11 +1,11 @@
 {
 	"groups":[
 		{
-			"keys":"homge_bg_png",
+			"keys":"homge_bg_png,preload_bar_right_png,preload_bar_png,preload_bar_bg_png,preload_bar_left_png",
 			"name":"preload"
 		},
 		{
-			"keys":"game_bar_png,game_bareffect_png,game_head_png,game_skill0_png,game_skill1_png,game_skill2_png,game_skillbg_png,home_namebg_png,select0_png,countdown_fnt,shalou_png,game_blockbg_png,game_intro_png,game_introicon_png,game_showicon_png,home_entergame_png,home_img_jpg,home_thx_png,home_thxbg_png,home_title_png,home_codebg_png,home_headmask_png,skill_ice_png,result_bg_png,game_over_png,line_zhe_png,line_su_png,bgm_game_mp3,bgm_home_mp3,enter_man_mp3,enter_woman_mp3,game_over_mp3,line_mp3,boom_json,boom_png,game_namebg_jpg,block_png,block_json",
+			"keys":"game_bar_png,game_bareffect_png,game_head_png,game_skill0_png,game_skill1_png,game_skill2_png,game_skillbg_png,home_namebg_png,select0_png,countdown_fnt,shalou_png,game_blockbg_png,game_intro_png,game_introicon_png,game_showicon_png,home_entergame_png,home_img_jpg,home_thx_png,home_thxbg_png,home_title_png,home_codebg_png,home_headmask_png,skill_ice_png,result_bg_png,game_over_png,line_zhe_png,line_su_png,bgm_game_mp3,bgm_home_mp3,enter_man_mp3,enter_woman_mp3,game_over_mp3,line_mp3,boom_json,boom_png,game_namebg_jpg,block_json,home_cloud_png,flower_png,flower_json",
 			"name":"game"
 		}
 	],
@@ -200,6 +200,41 @@
 			"subkeys":"block10_png,block11_png,block12_png,block13_png,block14_png,block15_png,block16_png,block17_png,block18_png,block19_png,block1_png,block20_png,block21_png,block22_png,block23_png,block24_png,block25_png,block26_png,block27_png,block28_png,block29_png,block2_png,block30_png,block31_png,block32_png,block33_png,block34_png,block35_png,block36_png,block37_png,block38_png,block39_png,block3_png,block40_png,block41_png,block4_png,block5_png,block6_png,block7_png,block8_png,block9_png",
 			"type":"sheet",
 			"url":"assets/block.json"
+		},
+		{
+			"name":"home_cloud_png",
+			"type":"image",
+			"url":"assets/home_cloud.png"
+		},
+		{
+			"name":"flower_png",
+			"type":"image",
+			"url":"assets/particle/flower.png"
+		},
+		{
+			"name":"flower_json",
+			"type":"json",
+			"url":"assets/particle/flower.json"
+		},
+		{
+			"name":"preload_bar_right_png",
+			"type":"image",
+			"url":"assets/preload_bar_right.png"
+		},
+		{
+			"name":"preload_bar_png",
+			"type":"image",
+			"url":"assets/preload_bar.png"
+		},
+		{
+			"name":"preload_bar_bg_png",
+			"type":"image",
+			"url":"assets/preload_bar_bg.png"
+		},
+		{
+			"name":"preload_bar_left_png",
+			"type":"image",
+			"url":"assets/preload_bar_left.png"
 		}
 	]
 }

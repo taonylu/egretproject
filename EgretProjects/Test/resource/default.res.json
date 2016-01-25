@@ -1,0 +1,18 @@
+{
+	"groups":[{
+			"keys":"game_bg_png,game_title_png",
+			"name":"preload"
+		}],
+	"resources":[
+		{
+			"name":"game_bg_png",
+			"type":"image",
+			"url":"assets/game_bg.png"
+		},
+		{
+			"name":"game_title_png",
+			"type":"image",
+			"url":"assets/game_title.png"
+		}
+	]
+}

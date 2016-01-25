@@ -43,7 +43,6 @@ class ArrayTool {
         
         //将1维数组重新赋值给二维数组
         for(var i: number = 0;i < row;i++) {
-            srcArr[i].length = 0;
             for(var j: number = 0;j < col;j++) {
                 srcArr[i][j] = tempArr[i*col + j];
             }

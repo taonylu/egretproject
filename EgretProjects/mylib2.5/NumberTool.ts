@@ -15,4 +15,21 @@ class NumberTool {
     public static getRandomInt(start: number,end: number): number {  //1-3
         return Math.round(Math.random() * (end - start)) + start;
     }
+    
+    /**
+     * 获取时间字符串
+     * @param time 时间数字
+     * @return 补0后的时间字符串
+     * getTimeString(7)  //返回"07"
+     * getTimeString(11) //返回"11"
+     */ 
+    public static getTimeString(time:number):string{
+        var str:string = "";
+        if(time < 10){
+            str = "0" + time;
+        }else{
+            str = time.toString();
+        }
+        return str;
+    }
 }

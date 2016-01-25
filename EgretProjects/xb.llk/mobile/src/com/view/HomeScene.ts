@@ -26,6 +26,9 @@ class HomeScene extends BaseScene{
     private joinBtn:eui.Image;    //加入游戏按钮
     private tipLabel:eui.Label;   //提示文本
     
+    private title:eui.Image;   //标题
+    private initTitleY:number;  //标题初始位置
+    
     public constructor() {
         super("HomeSceneSkin");
 	}
@@ -34,8 +37,6 @@ class HomeScene extends BaseScene{
         super.componentCreated();
         
         this.initView();
-        
-        
     }
 
     public onEnable(): void {
@@ -43,6 +44,7 @@ class HomeScene extends BaseScene{
         this.ruleGroup.visible = false;
         this.dmGroup.visible = false;
         this.queueGroup.visible = false;
+        this.toolGroup.visible = false;
         this.queueLabel.text = "";
         
         //监听
@@ -67,7 +69,8 @@ class HomeScene extends BaseScene{
     }
 
     private initView():void{
-      
+        this.initTitleY = this.title.y;
+        this.title.y = this.joinBtn.y - 300;
     }
     
      //显示加入游戏按钮
@@ -153,6 +156,7 @@ class HomeScene extends BaseScene{
         var status:string = data.status; //"wait"、"ready"
         var queue: number = data.queue;  //排队位置
         egret.log("排队信息:" + status, queue);
+        this.title.y = this.initTitleY;
         if(status == "wait"){  //排队
             this.queueGroup.visible = true;
             if(queue < 10){
