@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HomeSceneSkin" width="840" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group y="400" id="clockGroup" width="332" height="229" x="270">
+		<e:Image source="clockbg_png" y="13" x="13"/>
+		<e:BitmapLabel x="249" y="99" text="5" font="clock_fnt" id="progressLabel0"/>
+	</e:Group>
+	<e:Group height="1100" width="840">
+		<e:Image id="guizi0" source="guizi0" x="263" y="159"/>
+		<e:Image id="man0" source="man_0" x="170" y="309"/>
+		<e:Image id="guizi1" source="guizi1" x="370" y="231"/>
+		<e:Image id="guizi2" source="guizi2" x="458" y="303"/>
+	</e:Group>
+</e:Skin>
