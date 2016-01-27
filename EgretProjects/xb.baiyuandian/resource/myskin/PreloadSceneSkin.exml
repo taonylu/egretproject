@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="PreloadSceneSkin" width="840" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="clockGroup" height="229" width="332" x="270" y="400">
+		<e:Image source="clockbg_png" y="13" x="13"/>
+		<e:BitmapLabel id="progressLabel" x="249" y="99" font="clock_fnt" text="5"/>
+	</e:Group>
+</e:Skin>

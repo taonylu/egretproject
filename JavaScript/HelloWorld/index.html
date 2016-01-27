@@ -33,6 +33,10 @@
         var a = new Object();
         a.name = "peter";
         a.age = 12;
+        a.changeName = function(){
+            //console.log(this.name);
+        }
+        a.changeName();
 
         //Function = 对象构造器
         function bbb(name,age){
@@ -43,11 +47,42 @@
                 this.name = name;
 
             }
+            this.sayname = function(){  //该方法代码更少
+                console.log(this.name);
+            }
         }
+
         var c = new bbb("a",1);
         c.changeName("b");
+       // c.sayname();
 
-        
+        //对象字面量
+        var d = {
+            name:"marry",
+            sayName:function(){
+                console.log(this.name);
+            }
+        }
+       //d.sayName();
+       
+       //组合使用构造函数和原型模式
+       function Person(name,age){
+            this.name = name;  //非共享属性
+            this.age = age;
+            this.friends = ["peter","marry"];
+       }
+
+       Person.prototype = {
+        constructor:Person,
+        sayName:function(){  //共享属性
+            console.log(this.name);
+        }
+       }
+
+       var p = new Person("p1",11);
+       var p2 = new Person("p2",22);
+       p.sayName();  //p1
+       p2.sayName(); //p2
 
 
     </script>
