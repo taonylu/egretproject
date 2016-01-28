@@ -1,9 +1,14 @@
 {
   "autoGenerateExmlsList": true,
   "exmls": [
+    "resource/eui_skins/HScrollBarSkin.exml",
+    "resource/eui_skins/ScrollerSkin.exml",
+    "resource/eui_skins/VScrollBarSkin.exml",
     "resource/myskin/GameSceneSkin.exml",
     "resource/myskin/HomeSceneSkin.exml",
-    "resource/myskin/PreloadSceneSkin.exml"
+    "resource/myskin/PreloadSceneSkin.exml",
+    "resource/myskin/ResultSceneSkin.exml",
+    "resource/myskin/ui/ResultUISkin.exml"
   ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",

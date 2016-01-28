@@ -7,10 +7,11 @@ class GameManager {
     public preloadScene:PreloadScene;               //预加载场景
     public homeScene: HomeScene = new HomeScene();  //主页场景
     public gameScene: GameScene = new GameScene();  //游戏场景
+    public resultScene: ResultScene = new ResultScene(); //结果场景
     
     //启动游戏框架
     public startup(main: Main): void {
-
+        
         //配置Layer
         GameConst.stage = main.stage;
         LayerManager.getInstance().initialize(main);
