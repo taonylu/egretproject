@@ -1,11 +1,11 @@
 {
 	"groups":[
 		{
-			"keys":"clockbg_png,clock_png,clock_fnt",
+			"keys":"clockbg_png,clock_fnt",
 			"name":"preload"
 		},
 		{
-			"keys":"countdown_fnt,item_json,item_png,packet_json,packet_png,person_json,person_png,rule_bg_png,scene_json,scene_png",
+			"keys":"countdown_fnt,item_json,person_json,rule_bg_png,scene_json,rank_png,roundthumb_png,packet_json,bag_png",
 			"name":"game"
 		}
 	],
@@ -32,12 +32,6 @@
 			"url":"assets/item.json"
 		},
 		{
-			"name":"packet_json",
-			"subkeys":"bag,packet_10,packet_15,packet_5,packet_write",
-			"type":"sheet",
-			"url":"assets/packet.json"
-		},
-		{
 			"name":"person_json",
 			"subkeys":"god_body,god_hand,god_head,god_text,man_0,man_1,man_text0,man_text1",
 			"type":"sheet",
@@ -53,6 +47,27 @@
 			"subkeys":"door_clip,doorbg,guizi0,guizi1,guizi2,pos",
 			"type":"sheet",
 			"url":"assets/scene.json"
+		},
+		{
+			"name":"rank_png",
+			"type":"image",
+			"url":"assets/rank.png"
+		},
+		{
+			"name":"roundthumb_png",
+			"type":"image",
+			"url":"assets/roundthumb.png"
+		},
+		{
+			"name":"packet_json",
+			"subkeys":"packet10,packet100,packet20,packet50,packet_write,packetbg",
+			"type":"sheet",
+			"url":"assets/packet.json"
+		},
+		{
+			"name":"bag_png",
+			"type":"image",
+			"url":"assets/bag.png"
 		}
 	]
 }

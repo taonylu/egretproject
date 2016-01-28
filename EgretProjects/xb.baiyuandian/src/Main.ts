@@ -38,6 +38,16 @@ class Main extends eui.UILayer {
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
         RES.loadConfig("resource/default.res.json","resource/");
+        
+        this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage22222, this);
+    }
+    
+    private onAddToStage22222(){
+        this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage22222,this);
+//        console.log(this.stage.stageHeight / this.stage.stageWidth);
+//        if(this.stage.stageHeight/this.stage.stageWidth <= 1.6){
+//            this.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
+//        }
     }
     
     //配置文件加载完成,开始预加载皮肤主题资源和preload资源组。
