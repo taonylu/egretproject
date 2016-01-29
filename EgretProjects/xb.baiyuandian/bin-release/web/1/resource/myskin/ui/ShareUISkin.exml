@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="ShareUISkin" width="640" height="1140" xmlns:e="http://ns.egret.com/eui">
+	<e:Rect height="1140" width="640" fillAlpha="0.7"/>
+	<e:Image source="share_png" x="324" y="68"/>
+</e:Skin>

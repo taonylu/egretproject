@@ -14,7 +14,7 @@ var Main = (function (_super) {
         //new Sample_BlendTerrain();
         //new Sample_BlendTerrain();
         //new Sample_AnimationModel();
-        new Sample_3DMaxModel();
+        //new Sample_3DMaxModel();
         //第二部分
         //new Sample_3DMaxModel();
         //new Sample_ModelTexture();

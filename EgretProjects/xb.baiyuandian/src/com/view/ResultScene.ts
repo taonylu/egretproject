@@ -108,7 +108,8 @@ class ResultScene extends BaseScene{
     }
     
     private onShareBtnTouch() {
-
+        console.log("分享");
+        LayerManager.getInstance().popLayer.addChild(GameManager.getInstance().shareUI);
     }
     
     private onLinkBtnTouch(){
@@ -130,7 +131,11 @@ class ResultScene extends BaseScene{
         egret.Tween.get(this.textBg1).wait(1000).to({ alpha: 1 },1000);
         egret.Tween.get(this.historyScoreLabel).wait(1000).to({alpha:1},1000);
         //显示打败了多少人
-        this.rateLabel.text = "99";
+        var rate: number = Math.round(GameConst.historyScore / 2300 * 100);
+        if(rate > 100){
+            rate = 100;
+        }
+        this.rateLabel.text = rate.toString();
         egret.Tween.get(this.textBg2).wait(2000).to({ alpha: 1 },1000);
         egret.Tween.get(this.rateLabel).wait(2000).to({ alpha: 1 },1000);
         

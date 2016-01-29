@@ -57,6 +57,7 @@ class HomeScene extends BaseScene{
     }
 
     public onEnable(): void {
+        SoundManager.getInstance().playBgm();
         this.playAnim();
     }
 

@@ -1,0 +1,23 @@
+{
+	"groups":[
+	{
+		"keys":"texture_png,Robot_json,texture_json",
+		"name":"preload"
+	}],
+	"resources":[
+	{
+		"name":"texture_png",
+		"type":"image",
+		"url":"assets/texture.png"
+	},
+	{
+		"name":"Robot_json",
+		"type":"json",
+		"url":"assets/Robot.json"
+	},
+	{
+		"name":"texture_json",
+		"type":"json",
+		"url":"assets/texture.json"
+	}]
+}

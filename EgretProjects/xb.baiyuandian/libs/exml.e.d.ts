@@ -20,3 +20,5 @@ declare class ResultSceneSkin extends eui.Skin{
 }
 declare class ResultUISkin extends eui.Skin{
 }
+declare class ShareUISkin extends eui.Skin{
+}

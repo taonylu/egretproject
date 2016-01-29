@@ -28,7 +28,7 @@
 //////////////////////////////////////////////////////////////////////////////////////
 
 class Main extends egret.DisplayObjectContainer {
-
+    public static stage:egret.Stage;
     /**
      * 加载进度界面
      * Process interface loading
@@ -45,6 +45,7 @@ class Main extends egret.DisplayObjectContainer {
         //Config to load process interface
         this.loadingView = new LoadingUI();
         this.stage.addChild(this.loadingView);
+        Main.stage = this.stage;
 
         //初始化Resource资源加载库
         //initiate Resource loading library

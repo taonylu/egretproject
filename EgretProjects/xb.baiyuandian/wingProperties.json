@@ -256,6 +256,11 @@
 					"isFolder":false,
 					"key":"packet80_png",
 					"name":"packet80_png"
+				},
+				{
+					"isFolder":false,
+					"key":"share_png",
+					"name":"share_png"
 				}
 			]
 		}
