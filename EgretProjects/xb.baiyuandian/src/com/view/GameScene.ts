@@ -24,8 +24,7 @@ class GameScene extends BaseScene{
     public curTime:number = this.timeLimit;
     
     public bWin:Boolean = false;  //游戏是否胜利
-    
-    public snd:SoundManager = SoundManager.getInstance();
+
     
 	public constructor() {
         super("GameSceneSkin");
@@ -143,7 +142,7 @@ class GameScene extends BaseScene{
     
     //点击红包
     private onPacketTouch(e:egret.TouchEvent){
-        this.snd.play(this.snd.get);
+        window["playGet"]();
         var packet: PacketUI = (<PacketUI>e.target);
         this.score += packet.score;
         packet.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onPacketTouch,this);

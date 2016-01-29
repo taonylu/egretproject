@@ -14,7 +14,6 @@ var GameScene = (function (_super) {
         this.timeLimit = 20;
         this.curTime = this.timeLimit;
         this.bWin = false; //游戏是否胜利
-        this.snd = SoundManager.getInstance();
     }
     var d = __define,c=GameScene,p=c.prototype;
     p.componentCreated = function () {
@@ -111,7 +110,7 @@ var GameScene = (function (_super) {
     };
     //点击红包
     p.onPacketTouch = function (e) {
-        this.snd.play(this.snd.get);
+        window["playGet"]();
         var packet = e.target;
         this.score += packet.score;
         packet.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onPacketTouch, this);

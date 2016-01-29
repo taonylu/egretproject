@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>百元店beta1.0</title>
+    <title>百元店beta1.1</title>
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="full-screen" content="true"/>
@@ -49,12 +49,24 @@
          data-content-height="1140"
          data-show-paint-rect="false"
          data-multi-fingered="2"
-         data-show-fps="false" data-show-log="false"
+         data-show-fps="true" data-show-log="false"
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     
+    <audio id="bgm" src="resource/assets/sound/bgm.mp3" preload="auto" loop="loop"></audio>
+    <audio id="get" src="resource/assets/sound/get.mp3" preload="auto"></audio>
 
     <script>
+    	var bgm = document.getElementById("bgm");
+    	var get = document.getElementById("get");	
+    	function playBGM(){
+	    	bgm.play();
+    	}
+    	
+    	function playGet(){
+    		get.play();
+    	}
+    	
         egret.runEgret();
     </script>
     
