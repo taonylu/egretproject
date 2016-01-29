@@ -14,6 +14,7 @@ var HomeScene = (function (_super) {
         this.initView();
     };
     p.onEnable = function () {
+        SoundManager.getInstance().playBgm();
         this.playAnim();
     };
     p.onRemove = function () {

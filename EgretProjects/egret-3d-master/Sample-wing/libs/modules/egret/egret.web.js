@@ -36,7 +36,7 @@ var egret;
         var WebExternalInterface = (function () {
             function WebExternalInterface() {
             }
-            var d = __define,c=WebExternalInterface;p=c.prototype;
+            var d = __define,c=WebExternalInterface,p=c.prototype;
             /**
              * @private
              * @param functionName
@@ -54,7 +54,7 @@ var egret;
             return WebExternalInterface;
         })();
         web.WebExternalInterface = WebExternalInterface;
-        egret.registerClass(WebExternalInterface,"egret.web.WebExternalInterface",["egret.ExternalInterface"]);
+        egret.registerClass(WebExternalInterface,'egret.web.WebExternalInterface',["egret.ExternalInterface"]);
         egret.ExternalInterface = WebExternalInterface;
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
@@ -189,7 +189,7 @@ var egret;
                  */
                 this.loaded = false;
             }
-            var d = __define,c=HtmlSound;p=c.prototype;
+            var d = __define,c=HtmlSound,p=c.prototype;
             /**
              * @inheritDoc
              */
@@ -202,11 +202,20 @@ var egret;
                 var audio = new Audio(url);
                 audio.addEventListener("canplaythrough", onAudioLoaded);
                 audio.addEventListener("error", onAudioError);
+                var ua = navigator.userAgent.toLowerCase();
+                if (ua.indexOf("firefox") >= 0) {
+                    audio.autoplay = !0;
+                    audio.muted = true;
+                }
                 audio.load();
                 this.originAudio = audio;
                 HtmlSound.$recycle(this.url, audio);
                 function onAudioLoaded() {
                     removeListeners();
+                    if (ua.indexOf("firefox") >= 0) {
+                        audio.pause();
+                        audio.muted = false;
+                    }
                     self.loaded = true;
                     self.dispatchEventWith(egret.Event.COMPLETE);
                 }
@@ -233,7 +242,6 @@ var egret;
                     audio = this.originAudio.cloneNode();
                 }
                 else {
-                    audio.load();
                 }
                 audio.autoplay = true;
                 var channel = new web.HtmlSoundChannel(audio);
@@ -306,7 +314,7 @@ var egret;
             return HtmlSound;
         })(egret.EventDispatcher);
         web.HtmlSound = HtmlSound;
-        egret.registerClass(HtmlSound,"egret.web.HtmlSound",["egret.Sound"]);
+        egret.registerClass(HtmlSound,'egret.web.HtmlSound',["egret.Sound"]);
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -363,6 +371,17 @@ var egret;
                 this.audio = null;
                 //声音是否已经播放完成
                 this.isStopped = false;
+                this.canPlay = function () {
+                    _this.audio.removeEventListener("canplay", _this.canPlay);
+                    try {
+                        _this.audio.currentTime = _this.$startTime;
+                    }
+                    catch (e) {
+                    }
+                    finally {
+                        _this.audio.play();
+                    }
+                };
                 /**
                  * @private
                  */
@@ -376,26 +395,27 @@ var egret;
                         _this.$loops--;
                     }
                     /////////////
-                    _this.audio.load();
+                    //this.audio.load();
                     _this.$play();
                 };
                 audio.addEventListener("ended", this.onPlayEnd);
                 this.audio = audio;
             }
-            var d = __define,c=HtmlSoundChannel;p=c.prototype;
+            var d = __define,c=HtmlSoundChannel,p=c.prototype;
             p.$play = function () {
                 if (this.isStopped) {
                     egret.$error(1036);
                     return;
                 }
                 try {
+                    //this.audio.pause();
                     this.audio.currentTime = this.$startTime;
                 }
                 catch (e) {
+                    this.audio.addEventListener("canplay", this.canPlay);
+                    return;
                 }
-                finally {
-                    this.audio.play();
-                }
+                this.audio.play();
             };
             /**
              * @private
@@ -447,7 +467,7 @@ var egret;
             return HtmlSoundChannel;
         })(egret.EventDispatcher);
         web.HtmlSoundChannel = HtmlSoundChannel;
-        egret.registerClass(HtmlSoundChannel,"egret.web.HtmlSoundChannel",["egret.SoundChannel","egret.IEventDispatcher"]);
+        egret.registerClass(HtmlSoundChannel,'egret.web.HtmlSoundChannel',["egret.SoundChannel","egret.IEventDispatcher"]);
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -499,7 +519,7 @@ var egret;
                  */
                 this.loaded = false;
             }
-            var d = __define,c=QQSound;p=c.prototype;
+            var d = __define,c=QQSound,p=c.prototype;
             /**
              * @inheritDoc
              */
@@ -574,7 +594,7 @@ var egret;
             return QQSound;
         })(egret.EventDispatcher);
         web.QQSound = QQSound;
-        egret.registerClass(QQSound,"egret.web.QQSound",["egret.Sound"]);
+        egret.registerClass(QQSound,'egret.web.QQSound',["egret.Sound"]);
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -647,7 +667,7 @@ var egret;
                  */
                 this._startTime = 0;
             }
-            var d = __define,c=QQSoundChannel;p=c.prototype;
+            var d = __define,c=QQSoundChannel,p=c.prototype;
             p.$play = function () {
                 if (this.isStopped) {
                     egret.$error(1036);
@@ -719,13 +739,13 @@ var egret;
                  * @inheritDoc
                  */
                 ,function () {
-                    return Math.floor((Date.now() - this._startTime));
+                    return (Date.now() - this._startTime) / 1000;
                 }
             );
             return QQSoundChannel;
         })(egret.EventDispatcher);
         web.QQSoundChannel = QQSoundChannel;
-        egret.registerClass(QQSoundChannel,"egret.web.QQSoundChannel",["egret.SoundChannel","egret.IEventDispatcher"]);
+        egret.registerClass(QQSoundChannel,'egret.web.QQSoundChannel',["egret.SoundChannel","egret.IEventDispatcher"]);
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -766,7 +786,7 @@ var egret;
         var WebAudioDecode = (function () {
             function WebAudioDecode() {
             }
-            var d = __define,c=WebAudioDecode;p=c.prototype;
+            var d = __define,c=WebAudioDecode,p=c.prototype;
             /**
              * @private
              *
@@ -788,7 +808,7 @@ var egret;
                     WebAudioDecode.isDecoding = false;
                     WebAudioDecode.decodeAudios();
                 }, function () {
-                    alert(egret.getString(1034, decodeInfo["url"]));
+                    alert("sound decode error: " + decodeInfo["url"] + "！\nsee http://edn.egret.com/cn/docs/page/156");
                     if (decodeInfo["fail"]) {
                         decodeInfo["fail"]();
                     }
@@ -815,7 +835,7 @@ var egret;
             return WebAudioDecode;
         })();
         web.WebAudioDecode = WebAudioDecode;
-        egret.registerClass(WebAudioDecode,"egret.web.WebAudioDecode");
+        egret.registerClass(WebAudioDecode,'egret.web.WebAudioDecode');
         /**
          * @private
          * @inheritDoc
@@ -833,7 +853,7 @@ var egret;
                  */
                 this.loaded = false;
             }
-            var d = __define,c=WebAudioSound;p=c.prototype;
+            var d = __define,c=WebAudioSound,p=c.prototype;
             /**
              * @inheritDoc
              */
@@ -918,7 +938,7 @@ var egret;
             return WebAudioSound;
         })(egret.EventDispatcher);
         web.WebAudioSound = WebAudioSound;
-        egret.registerClass(WebAudioSound,"egret.web.WebAudioSound",["egret.Sound"]);
+        egret.registerClass(WebAudioSound,'egret.web.WebAudioSound',["egret.Sound"]);
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -1013,7 +1033,7 @@ var egret;
                     this.gain = this.context["createGainNode"]();
                 }
             }
-            var d = __define,c=WebAudioSoundChannel;p=c.prototype;
+            var d = __define,c=WebAudioSoundChannel,p=c.prototype;
             p.$play = function () {
                 if (this.isStopped) {
                     egret.$error(1036);
@@ -1078,7 +1098,7 @@ var egret;
                  */
                 ,function () {
                     if (this.bufferSource) {
-                        return Math.floor((Date.now() - this._startTime) / 1000);
+                        return (Date.now() - this._startTime) / 1000 + this.$startTime;
                     }
                     return 0;
                 }
@@ -1086,7 +1106,7 @@ var egret;
             return WebAudioSoundChannel;
         })(egret.EventDispatcher);
         web.WebAudioSoundChannel = WebAudioSoundChannel;
-        egret.registerClass(WebAudioSoundChannel,"egret.web.WebAudioSoundChannel",["egret.SoundChannel","egret.IEventDispatcher"]);
+        egret.registerClass(WebAudioSoundChannel,'egret.web.WebAudioSoundChannel',["egret.SoundChannel","egret.IEventDispatcher"]);
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -1182,7 +1202,7 @@ var egret;
                     this.load();
                 }
             }
-            var d = __define,c=WebVideo;p=c.prototype;
+            var d = __define,c=WebVideo,p=c.prototype;
             /**
              * @inheritDoc
              */
@@ -1537,7 +1557,7 @@ var egret;
             return WebVideo;
         })(egret.DisplayObject);
         web.WebVideo = WebVideo;
-        egret.registerClass(WebVideo,"egret.web.WebVideo",["egret.Video"]);
+        egret.registerClass(WebVideo,'egret.web.WebVideo',["egret.Video"]);
         egret.Video = WebVideo;
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
@@ -1589,7 +1609,7 @@ var egret;
                 this._url = "";
                 this._method = "";
             }
-            var d = __define,c=WebHttpRequest;p=c.prototype;
+            var d = __define,c=WebHttpRequest,p=c.prototype;
             d(p, "response"
                 /**
                  * @private
@@ -1599,13 +1619,13 @@ var egret;
                     if (!this._xhr) {
                         return null;
                     }
-                    if (this._xhr.response) {
+                    if (this._xhr.response != undefined) {
                         return this._xhr.response;
                     }
                     if (this._xhr.responseXML) {
                         return this._xhr.responseXML;
                     }
-                    if (this._xhr.responseText) {
+                    if (this._xhr.responseText != undefined) {
                         return this._xhr.responseText;
                     }
                     return null;
@@ -1679,8 +1699,10 @@ var egret;
                 if (this._withCredentials != null) {
                     this._xhr.withCredentials = this._withCredentials;
                 }
-                if (this.header != null) {
-                    this._xhr.setRequestHeader(this.header, this.headerValue);
+                if (this.headerObj) {
+                    for (var key in this.headerObj) {
+                        this._xhr.setRequestHeader(key, this.headerObj[key]);
+                    }
                 }
                 this._xhr.send(data);
             };
@@ -1711,8 +1733,10 @@ var egret;
              * @param value 给指定的请求头赋的值.
              */
             p.setRequestHeader = function (header, value) {
-                this.header = header;
-                this.headerValue = value;
+                if (!this.headerObj) {
+                    this.headerObj = {};
+                }
+                this.headerObj[header] = value;
             };
             /**
              * @private
@@ -1759,7 +1783,7 @@ var egret;
             return WebHttpRequest;
         })(egret.EventDispatcher);
         web.WebHttpRequest = WebHttpRequest;
-        egret.registerClass(WebHttpRequest,"egret.web.WebHttpRequest",["egret.HttpRequest"]);
+        egret.registerClass(WebHttpRequest,'egret.web.WebHttpRequest',["egret.HttpRequest"]);
         egret.HttpRequest = WebHttpRequest;
         if (DEBUG) {
             egret.$markReadOnly(WebHttpRequest, "response");
@@ -1817,7 +1841,12 @@ var egret;
                  * 当从其他站点加载一个图片时，指定是否启用跨域资源共享(CORS)，默认值为null。
                  * 可以设置为"anonymous","use-credentials"或null,设置为其他值将等同于"anonymous"。
                  */
-                this.crossOrigin = null;
+                this._crossOrigin = null;
+                /**
+                 * @private
+                 * 标记crossOrigin有没有被设置过,设置过之后使用设置的属性
+                 */
+                this._hasCrossOriginSet = false;
                 /**
                  * @private
                  */
@@ -1827,7 +1856,16 @@ var egret;
                  */
                 this.request = null;
             }
-            var d = __define,c=WebImageLoader;p=c.prototype;
+            var d = __define,c=WebImageLoader,p=c.prototype;
+            d(p, "crossOrigin"
+                ,function () {
+                    return this._crossOrigin;
+                }
+                ,function (value) {
+                    this._hasCrossOriginSet = true;
+                    this._crossOrigin = value;
+                }
+            );
             /**
              * @private
              * 启动一次图像加载。注意：若之前已经调用过加载请求，重新调用 load() 将终止先前的请求，并开始新的加载。
@@ -1876,8 +1914,15 @@ var egret;
                 var image = new Image();
                 this.data = null;
                 this.currentImage = image;
-                if (this.crossOrigin) {
-                    image.crossOrigin = this.crossOrigin;
+                if (this._hasCrossOriginSet) {
+                    if (this._crossOrigin) {
+                        image.crossOrigin = this._crossOrigin;
+                    }
+                }
+                else {
+                    if (WebImageLoader.crossOrigin) {
+                        image.crossOrigin = WebImageLoader.crossOrigin;
+                    }
                 }
                 /*else {
                     if (image.hasAttribute("crossOrigin")) {//兼容猎豹
@@ -1943,10 +1988,15 @@ var egret;
                 this.currentImage = null;
                 return image;
             };
+            /**
+             * @private
+             * 指定是否启用跨域资源共享,如果ImageLoader实例有设置过crossOrigin属性将使用设置的属性
+             */
+            WebImageLoader.crossOrigin = null;
             return WebImageLoader;
         })(egret.EventDispatcher);
         web.WebImageLoader = WebImageLoader;
-        egret.registerClass(WebImageLoader,"egret.web.WebImageLoader",["egret.ImageLoader"]);
+        egret.registerClass(WebImageLoader,'egret.web.WebImageLoader',["egret.ImageLoader"]);
         egret.ImageLoader = WebImageLoader;
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
@@ -2031,7 +2081,7 @@ var egret;
                  */
                 this._styleInfoes = {};
             }
-            var d = __define,c=HTML5StageText;p=c.prototype;
+            var d = __define,c=HTML5StageText,p=c.prototype;
             /**
              * @private
              *
@@ -2192,12 +2242,22 @@ var egret;
                         self.textValue = self.inputElement.value;
                         egret.Event.dispatchEvent(self, "updateText", false);
                     }
+                    else {
+                        window.setTimeout(function () {
+                            if (self.inputElement.selectionStart == self.inputElement.selectionEnd) {
+                                self.textValue = self.inputElement.value;
+                                egret.Event.dispatchEvent(self, "updateText", false);
+                            }
+                        }, 0);
+                    }
                 }
                 else {
-                    if (self.inputElement.selectionStart == self.inputElement.selectionEnd) {
-                        self.textValue = self.inputElement.value;
-                        egret.Event.dispatchEvent(self, "updateText", false);
-                    }
+                    window.setTimeout(function () {
+                        if (self.inputElement.selectionStart == self.inputElement.selectionEnd) {
+                            self.textValue = self.inputElement.value;
+                            egret.Event.dispatchEvent(self, "updateText", false);
+                        }
+                    }, 0);
                 }
             };
             p.setAreaHeight = function () {
@@ -2311,7 +2371,7 @@ var egret;
             return HTML5StageText;
         })(egret.EventDispatcher);
         web.HTML5StageText = HTML5StageText;
-        egret.registerClass(HTML5StageText,"egret.web.HTML5StageText",["egret.StageText"]);
+        egret.registerClass(HTML5StageText,'egret.web.HTML5StageText',["egret.StageText"]);
         egret.StageText = HTML5StageText;
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
@@ -2337,7 +2397,7 @@ var egret;
                  */
                 this.$scaleY = 1;
             }
-            var d = __define,c=HTMLInput;p=c.prototype;
+            var d = __define,c=HTMLInput,p=c.prototype;
             /**
              * @private
              *
@@ -2552,7 +2612,7 @@ var egret;
             return HTMLInput;
         })();
         web.HTMLInput = HTMLInput;
-        egret.registerClass(HTMLInput,"egret.web.HTMLInput");
+        egret.registerClass(HTMLInput,'egret.web.HTMLInput');
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
 var egret;
@@ -2635,11 +2695,12 @@ var egret;
              */
             function CanvasFactory() {
                 egret.sys.sharedRenderContext = this.create().renderContext;
+                egret.sys.hitTestRenderContext = this.create().renderContext;
                 for (var i = 0; i < 3; i++) {
                     surfacePool.push(this.create());
                 }
             }
-            var d = __define,c=CanvasFactory;p=c.prototype;
+            var d = __define,c=CanvasFactory,p=c.prototype;
             /**
              * @private
              * 从对象池取出或创建一个新的Surface实例
@@ -2697,7 +2758,7 @@ var egret;
                 canvas["renderContext"] = context;
                 context["surface"] = canvas;
                 egret.$toBitmapData(canvas);
-                if (egret.sys.isUndefined(context["imageSmoothingEnabled"])) {
+                if (context["imageSmoothingEnabled"] === undefined) {
                     var keys = ["webkitImageSmoothingEnabled", "mozImageSmoothingEnabled", "msImageSmoothingEnabled"];
                     for (var i = keys.length - 1; i >= 0; i--) {
                         var key = keys[i];
@@ -2724,7 +2785,7 @@ var egret;
             return CanvasFactory;
         })();
         web.CanvasFactory = CanvasFactory;
-        egret.registerClass(CanvasFactory,"egret.web.CanvasFactory",["egret.sys.SurfaceFactory"]);
+        egret.registerClass(CanvasFactory,'egret.web.CanvasFactory',["egret.sys.SurfaceFactory"]);
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -2807,7 +2868,7 @@ var egret;
                 this.touch = new egret.sys.TouchHandler(stage);
                 this.addListeners();
             }
-            var d = __define,c=WebTouchHandler;p=c.prototype;
+            var d = __define,c=WebTouchHandler,p=c.prototype;
             /**
              * @private
              * 添加事件监听
@@ -2935,7 +2996,7 @@ var egret;
             return WebTouchHandler;
         })(egret.HashObject);
         web.WebTouchHandler = WebTouchHandler;
-        egret.registerClass(WebTouchHandler,"egret.web.WebTouchHandler");
+        egret.registerClass(WebTouchHandler,'egret.web.WebTouchHandler');
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -2987,7 +3048,7 @@ var egret;
                 this.stage = stage;
                 this.registerListener();
             }
-            var d = __define,c=WebHideHandler;p=c.prototype;
+            var d = __define,c=WebHideHandler,p=c.prototype;
             /**
              * @private
              *
@@ -3073,7 +3134,7 @@ var egret;
             return WebHideHandler;
         })(egret.HashObject);
         web.WebHideHandler = WebHideHandler;
-        egret.registerClass(WebHideHandler,"egret.web.WebHideHandler");
+        egret.registerClass(WebHideHandler,'egret.web.WebHideHandler');
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -3114,7 +3175,7 @@ var egret;
         var AudioType = (function () {
             function AudioType() {
             }
-            var d = __define,c=AudioType;p=c.prototype;
+            var d = __define,c=AudioType,p=c.prototype;
             /**
              * @private
              */
@@ -3130,14 +3191,14 @@ var egret;
             return AudioType;
         })();
         web.AudioType = AudioType;
-        egret.registerClass(AudioType,"egret.web.AudioType");
+        egret.registerClass(AudioType,'egret.web.AudioType');
         /**
          * @private
          */
         var SystemOSType = (function () {
             function SystemOSType() {
             }
-            var d = __define,c=SystemOSType;p=c.prototype;
+            var d = __define,c=SystemOSType,p=c.prototype;
             /**
              * @private
              */
@@ -3153,7 +3214,7 @@ var egret;
             return SystemOSType;
         })();
         web.SystemOSType = SystemOSType;
-        egret.registerClass(SystemOSType,"egret.web.SystemOSType");
+        egret.registerClass(SystemOSType,'egret.web.SystemOSType');
         /**
          * html5兼容性配置
          * @private
@@ -3166,7 +3227,7 @@ var egret;
             function Html5Capatibility() {
                 _super.call(this);
             }
-            var d = __define,c=Html5Capatibility;p=c.prototype;
+            var d = __define,c=Html5Capatibility,p=c.prototype;
             /**
              * @private
              *
@@ -3278,7 +3339,7 @@ var egret;
             return Html5Capatibility;
         })(egret.HashObject);
         web.Html5Capatibility = Html5Capatibility;
-        egret.registerClass(Html5Capatibility,"egret.web.Html5Capatibility");
+        egret.registerClass(Html5Capatibility,'egret.web.Html5Capatibility');
         Html5Capatibility._init();
         /**
          * @private
@@ -3384,12 +3445,6 @@ var egret;
                 return;
             }
             isRunning = true;
-            if (DEBUG) {
-                var language = navigator.language || navigator.browserLanguage || "en_US";
-                language = language.replace("-", "_");
-                if (language in egret.$locale_strings)
-                    egret.$language = language;
-            }
             var ticker = egret.sys.$ticker;
             startTicker(ticker);
             var surfaceFactory = new web.CanvasFactory();
@@ -3464,6 +3519,12 @@ var egret;
         });
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
+if (DEBUG) {
+    var language = navigator.language || navigator.browserLanguage || "en_US";
+    language = language.replace("-", "_");
+    if (language in egret.$locale_strings)
+        egret.$language = language;
+}
 //////////////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright (c) 2014-2015, Egret Technology Inc.
@@ -3544,7 +3605,7 @@ var egret;
         var WebCapability = (function () {
             function WebCapability() {
             }
-            var d = __define,c=WebCapability;p=c.prototype;
+            var d = __define,c=WebCapability,p=c.prototype;
             /**
              * @private
              * 检测系统属性
@@ -3582,7 +3643,7 @@ var egret;
             return WebCapability;
         })();
         web.WebCapability = WebCapability;
-        egret.registerClass(WebCapability,"egret.web.WebCapability");
+        egret.registerClass(WebCapability,'egret.web.WebCapability');
         WebCapability.detect();
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
@@ -3686,7 +3747,7 @@ var egret;
                 this.init(container);
                 this.initOrientation();
             }
-            var d = __define,c=WebPlayer;p=c.prototype;
+            var d = __define,c=WebPlayer,p=c.prototype;
             p.init = function (container) {
                 var option = this.readOption(container);
                 var stage = new egret.Stage();
@@ -3845,7 +3906,7 @@ var egret;
             return WebPlayer;
         })(egret.HashObject);
         web.WebPlayer = WebPlayer;
-        egret.registerClass(WebPlayer,"egret.web.WebPlayer",["egret.sys.Screen"]);
+        egret.registerClass(WebPlayer,'egret.web.WebPlayer',["egret.sys.Screen"]);
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -4002,11 +4063,11 @@ var egret;
                 this.nodeType = nodeType;
                 this.parent = parent;
             }
-            var d = __define,c=XMLNode;p=c.prototype;
+            var d = __define,c=XMLNode,p=c.prototype;
             return XMLNode;
         })();
         web.XMLNode = XMLNode;
-        egret.registerClass(XMLNode,"egret.web.XMLNode");
+        egret.registerClass(XMLNode,'egret.web.XMLNode');
         /**
          * @private
          * XML节点对象
@@ -4033,11 +4094,11 @@ var egret;
                 this.namespace = namespace;
                 this.name = name;
             }
-            var d = __define,c=XML;p=c.prototype;
+            var d = __define,c=XML,p=c.prototype;
             return XML;
         })(XMLNode);
         web.XML = XML;
-        egret.registerClass(XML,"egret.web.XML");
+        egret.registerClass(XML,'egret.web.XML');
         /**
          * @private
          * XML文本节点
@@ -4051,11 +4112,11 @@ var egret;
                 _super.call(this, 3, parent);
                 this.text = text;
             }
-            var d = __define,c=XMLText;p=c.prototype;
+            var d = __define,c=XMLText,p=c.prototype;
             return XMLText;
         })(XMLNode);
         web.XMLText = XMLText;
-        egret.registerClass(XMLText,"egret.web.XMLText");
+        egret.registerClass(XMLText,'egret.web.XMLText');
         var parser = new DOMParser();
         /**
          * @private
@@ -4142,7 +4203,7 @@ var egret;
                     _this.dispatchEvent(event);
                 };
             }
-            var d = __define,c=WebDeviceOrientation;p=c.prototype;
+            var d = __define,c=WebDeviceOrientation,p=c.prototype;
             /**
              * @private
              *
@@ -4160,7 +4221,7 @@ var egret;
             return WebDeviceOrientation;
         })(egret.EventDispatcher);
         web.WebDeviceOrientation = WebDeviceOrientation;
-        egret.registerClass(WebDeviceOrientation,"egret.web.WebDeviceOrientation",["egret.DeviceOrientation"]);
+        egret.registerClass(WebDeviceOrientation,'egret.web.WebDeviceOrientation',["egret.DeviceOrientation"]);
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
 egret.DeviceOrientation = egret.web.WebDeviceOrientation;
@@ -4208,7 +4269,7 @@ var egret;
                 };
                 this.geolocation = navigator.geolocation;
             }
-            var d = __define,c=WebGeolocation;p=c.prototype;
+            var d = __define,c=WebGeolocation,p=c.prototype;
             /**
              * @private
              *
@@ -4236,7 +4297,7 @@ var egret;
             return WebGeolocation;
         })(egret.EventDispatcher);
         web.WebGeolocation = WebGeolocation;
-        egret.registerClass(WebGeolocation,"egret.web.WebGeolocation",["egret.Geolocation"]);
+        egret.registerClass(WebGeolocation,'egret.web.WebGeolocation',["egret.Geolocation"]);
         egret.Geolocation = egret.web.WebGeolocation;
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));
@@ -4278,7 +4339,7 @@ var egret;
                     _this.dispatchEvent(event);
                 };
             }
-            var d = __define,c=WebMotion;p=c.prototype;
+            var d = __define,c=WebMotion,p=c.prototype;
             /**
              * @private
              *
@@ -4296,7 +4357,7 @@ var egret;
             return WebMotion;
         })(egret.EventDispatcher);
         web.WebMotion = WebMotion;
-        egret.registerClass(WebMotion,"egret.web.WebMotion",["egret.Motion"]);
+        egret.registerClass(WebMotion,'egret.web.WebMotion',["egret.Motion"]);
         egret.Motion = egret.web.WebMotion;
     })(web = egret.web || (egret.web = {}));
 })(egret || (egret = {}));

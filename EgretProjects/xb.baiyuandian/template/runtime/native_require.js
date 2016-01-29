@@ -24,6 +24,7 @@ var game_file_list = [
 	"bin-debug/com/view/ResultScene.js",
 	"bin-debug/com/view/ui/PacketUI.js",
 	"bin-debug/com/view/ui/ResultUI.js",
+	"bin-debug/com/view/ui/ShareUI.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
 	//----auto game_file_list end----

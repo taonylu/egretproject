@@ -13,7 +13,7 @@
 	<e:Group id="resultGroup" left="0" right="0" top="0" bottom="0">
 		<e:Rect id="titleBg" height="126" width="640" x="0" y="0" fillColor="0xE22B2B"/>
 		<e:Label text="本游戏由西班牙“叫货宝”倾情呈献" x="0" y="34" width="416" height="56" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center" size="23"/>
-		<e:Image id="linkBtn" source="downbtn" x="416" y="22"/>
+		<e:Image id="linkBtn" x="416" y="22" source="downbtn"/>
 		<e:Image id="againBtn" source="againbtn" x="93" bottom="58"/>
 		<e:Image id="shareBtn" source="sharebtn" x="360" bottom="58"/>
 		<e:Scroller id="rankScroller" width="640" height="480" y="330">

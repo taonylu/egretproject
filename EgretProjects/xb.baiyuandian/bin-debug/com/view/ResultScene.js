@@ -73,6 +73,8 @@ var ResultScene = (function (_super) {
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
     };
     p.onShareBtnTouch = function () {
+        console.log("分享");
+        LayerManager.getInstance().popLayer.addChild(GameManager.getInstance().shareUI);
     };
     p.onLinkBtnTouch = function () {
         window.location.href = "http://www.dipo.pro";
@@ -92,7 +94,11 @@ var ResultScene = (function (_super) {
         egret.Tween.get(this.textBg1).wait(1000).to({ alpha: 1 }, 1000);
         egret.Tween.get(this.historyScoreLabel).wait(1000).to({ alpha: 1 }, 1000);
         //显示打败了多少人
-        this.rateLabel.text = "99";
+        var rate = Math.round(GameConst.historyScore / 2300 * 100);
+        if (rate > 100) {
+            rate = 100;
+        }
+        this.rateLabel.text = rate.toString();
         egret.Tween.get(this.textBg2).wait(2000).to({ alpha: 1 }, 1000);
         egret.Tween.get(this.rateLabel).wait(2000).to({ alpha: 1 }, 1000);
         //显示结果

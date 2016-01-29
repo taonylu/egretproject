@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"countdown_fnt,item_json,person_json,rule_bg_png,scene_json,rank_png,roundthumb_png,packet_json,bag_png,packet30_png,packet80_png,get_mp3",
+			"keys":"countdown_fnt,item_json,person_json,rule_bg_png,scene_json,rank_png,roundthumb_png,packet_json,bag_png,packet30_png,packet80_png,get_mp3,bgm_mp3,share_png",
 			"name":"game"
 		}
 	],
@@ -81,8 +81,20 @@
 		},
 		{
 			"name":"get_mp3",
+			"soundType":"effect",
 			"type":"sound",
 			"url":"assets/sound/get.mp3"
+		},
+		{
+			"name":"bgm_mp3",
+			"soundType":"music",
+			"type":"sound",
+			"url":"assets/sound/bgm.mp3"
+		},
+		{
+			"name":"share_png",
+			"type":"image",
+			"url":"assets/share.png"
 		}
 	]
 }

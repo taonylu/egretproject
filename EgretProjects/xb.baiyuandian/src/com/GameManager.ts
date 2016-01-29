@@ -9,6 +9,8 @@ class GameManager {
     public gameScene: GameScene = new GameScene();  //游戏场景
     public resultScene: ResultScene = new ResultScene(); //结果场景
     
+    public shareUI:ShareUI = new ShareUI();  //分享UI
+    
     //启动游戏框架
     public startup(main: Main): void {
         
