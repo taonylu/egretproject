@@ -18,10 +18,12 @@ var PacketUI = (function (_super) {
         this.packet0 = RES.getRes("packet_write");
         this.packet10 = RES.getRes("packet10");
         this.packet20 = RES.getRes("packet20");
+        this.packet30 = RES.getRes("packet30_png");
         this.packet50 = RES.getRes("packet50");
+        this.packet80 = RES.getRes("packet80_png");
         this.packet100 = RES.getRes("packet100");
-        this.texureList.push(this.packet10, this.packet20, this.packet50, this.packet100);
-        this.scoreList.push(0, 10, 20, 50, 100);
+        this.texureList.push(this.packet10, this.packet20, this.packet30, this.packet50, this.packet80, this.packet100);
+        this.scoreList.push(0, 10, 20, 30, 50, 80, 100);
     }
     var d = __define,c=PacketUI,p=c.prototype;
     //随机红包皮肤
@@ -48,7 +50,7 @@ var PacketUI = (function (_super) {
         //随机方向
         this.rotation = NumberTool.getRandomInt(-30, 30);
         //随机飞行时间
-        var flyTime = 1000 + Math.random() * 500; //200-700
+        var flyTime = 1500 + Math.random() * 500; //200-700
         //飞行目的地
         var dist = 1500; //最远飞行距离
         var hudu = this.rotation * Math.PI / 180;

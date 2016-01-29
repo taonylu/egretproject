@@ -12,6 +12,7 @@ class HomeScene extends BaseScene{
     private guizi1:eui.Image;
     private guizi2:eui.Image;
     private man0:eui.Image;    //探出头的人
+    private man_talk1:eui.Image; //人物说话
     private initGuizi0X:number;  //柜子位置
     private initGuizi1X: number;
     private initGuizi2X: number;
@@ -77,6 +78,7 @@ class HomeScene extends BaseScene{
         this.initGuizi1X = this.guizi1.x;
         this.initGuizi2X = this.guizi2.x;
         this.initMan0X = this.man0.x;
+        this.man_talk1.alpha = 0;
         var stageWidth = GameConst.stage.stageWidth;
         this.guizi0.x = stageWidth;
         this.guizi1.x = stageWidth;
@@ -109,7 +111,7 @@ class HomeScene extends BaseScene{
         var self:HomeScene = this;
         
         //钟上移
-        egret.Tween.get(this.clockGroup).to({y:30},300);
+        egret.Tween.get(this.clockGroup).to({y:130,scaleX:0.7, scaleY:0.7},300);
         
         //柜子出来
         egret.Tween.get(this.guizi0).wait(200).to({x:this.initGuizi0X},500,egret.Ease.backOut);
@@ -117,9 +119,12 @@ class HomeScene extends BaseScene{
         egret.Tween.get(this.guizi2).wait(600).to({ x: this.initGuizi2X },500,egret.Ease.backOut);
         
         //人探头
-        egret.Tween.get(this.man0).wait(700).to({x:this.initMan0X},500,egret.Ease.getBackOut(1)).wait(800).call(function(){
+        egret.Tween.get(this.man0).wait(700).to({x:this.initMan0X},500,egret.Ease.getBackOut(1));
+        egret.Tween.get(this.man_talk1).wait(1300).to({ alpha: 1 },1000).
+        to({ alpha: 0 },1000).call(function() {
             self.playGuiZiBack();
         });
+
     }
     
     //播放柜子退出
@@ -129,6 +134,7 @@ class HomeScene extends BaseScene{
         
         //人退出
         egret.Tween.get(this.man0).to({x:this.stageWidth + this.man0.width},300,egret.Ease.getBackIn(1));
+        
         
         //柜子退出
         egret.Tween.get(this.guizi0).wait(200).to({ x:this.stageWidth + this.guizi0.width },500,egret.Ease.backIn);
@@ -186,12 +192,12 @@ class HomeScene extends BaseScene{
     private playStartUIEnter(){
         
         //门和招牌消失
-        egret.Tween.get(this.doorBg).to({alpha:0},1000);
-        egret.Tween.get(this.logo).to({alpha:0},1000);
+        egret.Tween.get(this.doorBg).to({alpha:0},500);
+        egret.Tween.get(this.logo).to({alpha:0},500);
         //游戏开始元素进场
-        egret.Tween.get(this.startBtn).wait(1000).to({alpha:1},1000);
-        egret.Tween.get(this.ruleBtn).wait(1000).to({alpha:1},1000);
-        egret.Tween.get(this.godTalk).wait(1300).to({alpha:1},1000);
+        egret.Tween.get(this.startBtn).wait(500).to({alpha:1},500);
+        egret.Tween.get(this.ruleBtn).wait(500).to({alpha:1},500);
+        egret.Tween.get(this.godTalk).wait(1000).to({alpha:1},500);
         
         this.ruleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRuleBtnTouch, this);
         this.startBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onStartBtnTouch, this);
@@ -212,7 +218,7 @@ class HomeScene extends BaseScene{
     
     //点击叫货宝
     private onJiaoHuoBtnTouch(){
-        window.location.href = "";
+        window.location.href = "http://www.dipo.pro";
     }
     
     //点击开始按钮

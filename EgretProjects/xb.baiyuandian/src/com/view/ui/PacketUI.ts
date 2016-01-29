@@ -12,7 +12,9 @@ class PacketUI extends egret.DisplayObjectContainer{
     public packet0:egret.Texture;
     public packet10: egret.Texture;
     public packet20: egret.Texture;
+    public packet30:egret.Texture;
     public packet50: egret.Texture;
+    public packet80:egret.Texture;
     public packet100:egret.Texture;
     private texureList:Array<egret.Texture> = new Array<egret.Texture>();
     private scoreList:Array<number> = new Array<number>();
@@ -31,10 +33,12 @@ class PacketUI extends egret.DisplayObjectContainer{
       this.packet0 = RES.getRes("packet_write");
     	this.packet10 = RES.getRes("packet10");
       this.packet20 = RES.getRes("packet20");
+      this.packet30 = RES.getRes("packet30_png");
       this.packet50 = RES.getRes("packet50");
+      this.packet80 = RES.getRes("packet80_png");
       this.packet100 = RES.getRes("packet100");
-      this.texureList.push(this.packet10, this.packet20, this.packet50, this.packet100);
-      this.scoreList.push(0,10,20,50,100);
+      this.texureList.push(this.packet10, this.packet20, this.packet30,this.packet50, this.packet80,this.packet100);
+      this.scoreList.push(0,10,20,30,50,80,100);
 	}
 	
 	//随机红包皮肤
@@ -66,7 +70,7 @@ class PacketUI extends egret.DisplayObjectContainer{
         this.rotation = NumberTool.getRandomInt(-30,30);
         
         //随机飞行时间
-        var flyTime: number = 1000 + Math.random() * 500;  //200-700
+        var flyTime: number = 1500 + Math.random() * 500;  //200-700
         //飞行目的地
         var dist: number = 1500;  //最远飞行距离
         var hudu:number = this.rotation*Math.PI/180;
