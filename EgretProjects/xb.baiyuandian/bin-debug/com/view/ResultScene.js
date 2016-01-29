@@ -94,7 +94,7 @@ var ResultScene = (function (_super) {
         egret.Tween.get(this.textBg1).wait(1000).to({ alpha: 1 }, 1000);
         egret.Tween.get(this.historyScoreLabel).wait(1000).to({ alpha: 1 }, 1000);
         //显示打败了多少人
-        var rate = Math.round(GameConst.historyScore / 2300 * 100);
+        var rate = Math.round(GameConst.historyScore / 3000 * 100);
         if (rate > 100) {
             rate = 100;
         }

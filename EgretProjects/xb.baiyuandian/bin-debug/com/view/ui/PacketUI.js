@@ -50,13 +50,16 @@ var PacketUI = (function (_super) {
         //随机方向
         this.rotation = NumberTool.getRandomInt(-30, 30);
         //随机飞行时间
-        var flyTime = 1500 + Math.random() * 500; //200-700
+        var flyTime = 2000 + Math.random() * 500; //200-700
         //飞行目的地
         var dist = 1500; //最远飞行距离
         var hudu = this.rotation * Math.PI / 180;
         var targetX = GameConst.stage.stageWidth / 2 + dist * Math.sin(hudu);
         var targetY = GameConst.stage.stageHeight - dist * Math.cos(hudu);
-        egret.Tween.get(this).to({ x: targetX, y: targetY }, flyTime);
+        var self = this;
+        egret.Tween.get(this).to({ x: targetX, y: targetY }, flyTime).call(function () {
+            self.recycle();
+        });
     };
     //回收
     p.recycle = function () {

@@ -54,10 +54,11 @@ class HomeScene extends BaseScene{
     public componentCreated(): void {
         super.componentCreated();
         this.initView();
+        
     }
 
     public onEnable(): void {
-        SoundManager.getInstance().playBgm();
+        window["playBGM"]();
         this.playAnim();
     }
 
