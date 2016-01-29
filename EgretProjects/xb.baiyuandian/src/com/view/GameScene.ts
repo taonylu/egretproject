@@ -19,11 +19,13 @@ class GameScene extends BaseScene{
     private stageWidth:number;   //舞台高宽
     private stageHeight:number;
     
-    private gameTimer:egret.Timer = new egret.Timer(800);  //计时
+    private gameTimer:egret.Timer = new egret.Timer(1000);  //计时
     public timeLimit:number = 20; 
     public curTime:number = this.timeLimit;
     
     public bWin:Boolean = false;  //游戏是否胜利
+    
+    public snd:SoundManager = SoundManager.getInstance();
     
 	public constructor() {
         super("GameSceneSkin");
@@ -94,7 +96,7 @@ class GameScene extends BaseScene{
     
     private fallBag(){
         this.bag.y = -this.bag.height;
-        egret.Tween.get(this.bag).to({y:(this.stageHeight-this.bag.height/2)},800,egret.Ease.bounceOut).
+        egret.Tween.get(this.bag).to({y:(this.stageHeight-this.bag.height/2 + 100)},800,egret.Ease.bounceOut).
         call(this.countDown, this);
     }
     
@@ -125,9 +127,9 @@ class GameScene extends BaseScene{
         this.packetGroup.addChild(packet);
         
         if(this.curTime >= 10){ //前10秒小额红包，后10秒大额红包
-            packet.randomSkin(0,2);
-        }else{
             packet.randomSkin(0,4);
+        }else{
+            packet.randomSkin(0,6);
         }
         
         packet.shoot();
@@ -141,6 +143,7 @@ class GameScene extends BaseScene{
     
     //点击红包
     private onPacketTouch(e:egret.TouchEvent){
+        this.snd.play(this.snd.get);
         var packet: PacketUI = (<PacketUI>e.target);
         this.score += packet.score;
         packet.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onPacketTouch,this);

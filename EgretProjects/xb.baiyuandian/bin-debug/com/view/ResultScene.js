@@ -8,6 +8,7 @@ var ResultScene = (function (_super) {
     function ResultScene() {
         _super.call(this, "ResultSceneSkin");
         this.resultUIList = new Array();
+        this.resultUILimit = 10;
     }
     var d = __define,c=ResultScene,p=c.prototype;
     p.componentCreated = function () {
@@ -28,20 +29,21 @@ var ResultScene = (function (_super) {
         this.curScoreLabel.alpha = 0;
         this.historyScoreLabel.alpha = 0;
         //移除头像
-        var len = this.resultUIList.length;
-        for (var i = 0; i < len; i++) {
-            var result = this.resultUIList[i];
-            result.clear();
-            result.parent && result.parent.removeChild(result);
+        for (var i = 0; i < this.resultUILimit; i++) {
+            var resultUI = this.resultUIList[i];
+            resultUI.clear();
+            resultUI.parent && this.scrollerGroup.removeChild(resultUI);
         }
-        this.resultUIList.length = 0;
+        this.no1.parent && this.no1.parent.removeChild(this.no1);
+        this.no2.parent && this.no2.parent.removeChild(this.no2);
+        this.no3.parent && this.no3.parent.removeChild(this.no3);
         //根据输赢显示分数
         var bWin = GameManager.getInstance().gameScene.bWin;
         if (bWin == false) {
             this.wrongPacket.visible = true;
             this.wrongPacket.alpha = 1;
             var self = this;
-            egret.Tween.get(this.wrongPacket).to({ alpha: 0 }, 2000).call(function () {
+            egret.Tween.get(this.wrongPacket).wait(1200).to({ alpha: 0 }, 800).call(function () {
                 self.showScore();
             }, this);
         }
@@ -51,18 +53,29 @@ var ResultScene = (function (_super) {
         //监听
         this.againBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAgainBtnTouch, this);
         this.shareBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onShareBtnTouch, this);
+        this.linkBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onLinkBtnTouch, this);
     };
     p.onRemove = function () {
     };
     p.initView = function () {
         this.validateNow();
-        //this.rankScroller.scrollPolicyV = eui.ScrollPolicy.AUTO;
         this.scrollerGroup.y = (GameConst.stage.stageHeight - this.scrollerGroup.height) / 2;
+        //获取结果UI
+        for (var i = 0; i < this.resultUILimit; i++) {
+            var resultUI = new ResultUI();
+            resultUI.x = 0;
+            resultUI.y = resultUI.height * i;
+            this.resultUIList.push(resultUI);
+            this.scrollerGroup.addChild(resultUI);
+        }
     };
     p.onAgainBtnTouch = function () {
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
     };
     p.onShareBtnTouch = function () {
+    };
+    p.onLinkBtnTouch = function () {
+        window.location.href = "http://www.dipo.pro";
     };
     //显示分数
     p.showScore = function () {
@@ -70,20 +83,20 @@ var ResultScene = (function (_super) {
         //显示用了多少时间开了多少红包
         this.secLabel.text = (gameScene.timeLimit - gameScene.curTime).toString();
         this.curScoreLabel.text = gameScene.score.toString();
-        egret.Tween.get(this.textBg0).to({ alpha: 1 }, 500);
-        egret.Tween.get(this.secLabel).to({ alpha: 1 }, 500);
-        egret.Tween.get(this.curScoreLabel).to({ alpha: 1 }, 500);
+        egret.Tween.get(this.textBg0).to({ alpha: 1 }, 1000);
+        egret.Tween.get(this.secLabel).to({ alpha: 1 }, 1000);
+        egret.Tween.get(this.curScoreLabel).to({ alpha: 1 }, 1000);
         //显示历史最高
         GameConst.historyScore = (GameConst.historyScore > gameScene.score) ? GameConst.historyScore : gameScene.score;
         this.historyScoreLabel.text = GameConst.historyScore.toString();
-        egret.Tween.get(this.textBg1).wait(500).to({ alpha: 1 }, 500);
-        egret.Tween.get(this.historyScoreLabel).wait(500).to({ alpha: 1 }, 500);
+        egret.Tween.get(this.textBg1).wait(1000).to({ alpha: 1 }, 1000);
+        egret.Tween.get(this.historyScoreLabel).wait(1000).to({ alpha: 1 }, 1000);
         //显示打败了多少人
         this.rateLabel.text = "99";
-        egret.Tween.get(this.textBg2).wait(1000).to({ alpha: 1 }, 500);
-        egret.Tween.get(this.rateLabel).wait(1000).to({ alpha: 1 }, 500);
+        egret.Tween.get(this.textBg2).wait(2000).to({ alpha: 1 }, 1000);
+        egret.Tween.get(this.rateLabel).wait(2000).to({ alpha: 1 }, 1000);
         //显示结果
-        egret.Tween.get(this).wait(2000).call(this.showResult, this);
+        egret.Tween.get(this).wait(3200).call(this.showResult, this);
         //访问后端，提交积分，获取排行榜
         this.submitScore();
     };
@@ -110,27 +123,32 @@ var ResultScene = (function (_super) {
         var url = "";
         var msg = "money=" + GameManager.getInstance().gameScene.score;
         http.send(url, egret.HttpMethod.POST, msg, this);
-        var rankList = [{ a: "peter", headUrl: "resource/assets/rule_bg.png" },
-            { a: "peter", headUrl: "resource/assets/rule_bg.png" },
-            { a: "peter", headUrl: "resource/assets/rule_bg.png" },
-            { a: "peter", headUrl: "resource/assets/rule_bg.png" },
-            { a: "peter", headUrl: "resource/assets/rule_bg.png" },
-            { a: "peter", headUrl: "resource/assets/rule_bg.png" },
-            { a: "peter", headUrl: "resource/assets/rule_bg.png" },
-            { a: "peter", headUrl: "resource/assets/rule_bg.png" },
-            { a: "peter", headUrl: "resource/assets/rule_bg.png" },
-            { a: "peter", headUrl: "resource/assets/rule_bg.png" }];
+        var rankList = [{ score: 1234, headUrl: "resource/assets/rule_bg.png" },
+            { score: 1234, headUrl: "resource/assets/rule_bg.png" },
+            { score: 1234, headUrl: "resource/assets/rule_bg.png" },
+            { score: 1234, headUrl: "resource/assets/rule_bg.png" },
+            { score: 1234, headUrl: "resource/assets/rule_bg.png" },
+            { score: 1234, headUrl: "resource/assets/rule_bg.png" },
+            { score: 1234, headUrl: "resource/assets/rule_bg.png" }];
         var len = rankList.length;
         var userInfo;
         var resultUI;
         for (var i = 0; i < len; i++) {
             userInfo = rankList[i];
-            resultUI = new ResultUI();
-            resultUI.setLabel(userInfo.nickName);
+            resultUI = this.resultUIList[i];
+            resultUI.setLabel(userInfo.score);
             resultUI.setHead(userInfo.headUrl);
             resultUI.y = i * 110; //resultUI高100
             this.scrollerGroup.addChild(resultUI);
-            this.resultUIList.push(resultUI);
+        }
+        if (len >= 1) {
+            this.scrollerGroup.addChild(this.no1);
+        }
+        if (len >= 2) {
+            this.scrollerGroup.addChild(this.no2);
+        }
+        if (len >= 3) {
+            this.scrollerGroup.addChild(this.no3);
         }
     };
     //获取获奖列表
@@ -142,12 +160,20 @@ var ResultScene = (function (_super) {
             var resultUI;
             for (var i = 0; i < len; i++) {
                 userInfo = rankList[i];
-                resultUI = new ResultUI();
-                resultUI.setLabel(userInfo.nickName);
+                resultUI = this.resultUIList[i];
+                resultUI.setLabel(userInfo.score);
                 resultUI.setHead(userInfo.headUrl);
                 resultUI.y = i * 110; //resultUI高100
                 this.scrollerGroup.addChild(resultUI);
-                this.resultUIList.push(resultUI);
+            }
+            if (len >= 1) {
+                this.scrollerGroup.addChild(this.no1);
+            }
+            if (len >= 2) {
+                this.scrollerGroup.addChild(this.no2);
+            }
+            if (len >= 3) {
+                this.scrollerGroup.addChild(this.no3);
             }
         }
     };

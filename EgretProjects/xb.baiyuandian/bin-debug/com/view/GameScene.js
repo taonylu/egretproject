@@ -10,10 +10,11 @@ var GameScene = (function (_super) {
         this.score = 0; //分数
         this.packetPool = ObjectPool.getPool(PacketUI.NAME, 3); //红包对象池
         this.bFirstGame = true; //是否第一次游戏
-        this.gameTimer = new egret.Timer(800); //计时
+        this.gameTimer = new egret.Timer(1000); //计时
         this.timeLimit = 20;
         this.curTime = this.timeLimit;
         this.bWin = false; //游戏是否胜利
+        this.snd = SoundManager.getInstance();
     }
     var d = __define,c=GameScene,p=c.prototype;
     p.componentCreated = function () {
@@ -69,7 +70,7 @@ var GameScene = (function (_super) {
     };
     p.fallBag = function () {
         this.bag.y = -this.bag.height;
-        egret.Tween.get(this.bag).to({ y: (this.stageHeight - this.bag.height / 2) }, 800, egret.Ease.bounceOut).
+        egret.Tween.get(this.bag).to({ y: (this.stageHeight - this.bag.height / 2 + 100) }, 800, egret.Ease.bounceOut).
             call(this.countDown, this);
     };
     //倒计时
@@ -97,10 +98,10 @@ var GameScene = (function (_super) {
         packet.y = this.bag.y + this.bag.height / 2;
         this.packetGroup.addChild(packet);
         if (this.curTime >= 10) {
-            packet.randomSkin(0, 2);
+            packet.randomSkin(0, 4);
         }
         else {
-            packet.randomSkin(0, 4);
+            packet.randomSkin(0, 6);
         }
         packet.shoot();
         packet.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onPacketTouch, this);
@@ -110,6 +111,7 @@ var GameScene = (function (_super) {
     };
     //点击红包
     p.onPacketTouch = function (e) {
+        this.snd.play(this.snd.get);
         var packet = e.target;
         this.score += packet.score;
         packet.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onPacketTouch, this);

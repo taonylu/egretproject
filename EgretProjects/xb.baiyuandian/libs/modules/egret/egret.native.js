@@ -1812,7 +1812,7 @@ var egret;
                     self.dispatchEventWith(egret.IOErrorEvent.IO_ERROR);
                 }
                 function removeListeners() {
-                    audio.removeEventListener("canplaythrough", onAudioLoaded);
+                    audio.removeEventListener("canplaythrough", onCanPlay);
                     audio.removeEventListener("error", onAudioError);
                 }
             };
@@ -1830,7 +1830,6 @@ var egret;
                     audio = new Audio(this.url);
                 }
                 else {
-                    audio.load();
                 }
                 audio.autoplay = true;
                 var channel = new native.NativeSoundChannel(audio);
@@ -2247,6 +2246,10 @@ var egret;
                 this.$startTime = 0;
                 //声音是否已经播放完成
                 this.isStopped = false;
+                /**
+                 * @private
+                 */
+                this._startTime = 0;
             }
             var d = __define,c=NaSoundChannel,p=c.prototype;
             p.$play = function () {
@@ -2258,6 +2261,7 @@ var egret;
                     NaSoundChannel.currentPath = this.$url;
                     egret_native.Audio.playBackgroundMusic(this.$url, this.$loops != 1);
                 }
+                this._startTime = Date.now();
             };
             /**
              * @private
@@ -2309,7 +2313,7 @@ var egret;
                  * @inheritDoc
                  */
                 ,function () {
-                    return 0;
+                    return (Date.now() - this._startTime) / 1000;
                 }
             );
             return NaSoundChannel;
@@ -2737,6 +2741,7 @@ var egret;
                  * @private
                  */
                 this.urlData = {};
+                this.responseHeader = "";
             }
             var d = __define,c=NativeHttpRequest,p=c.prototype;
             d(p, "response"
@@ -2821,6 +2826,8 @@ var egret;
                         egret.$warn(1019, error_code);
                         egret.Event.dispatchEvent(self, egret.IOErrorEvent.IO_ERROR);
                     };
+                    promise.onResponseHeaderFunc = this.onResponseHeader;
+                    promise.onResponseHeaderThisObject = this;
                     egret_native.requireHttp(self._url, self.urlData, promise);
                 }
                 else if (!egret_native.isFileExists(self._url)) {
@@ -2835,6 +2842,9 @@ var egret;
                         self._response = content;
                         egret.Event.dispatchEvent(self, egret.Event.COMPLETE);
                     };
+                    promise.onErrorFunc = function () {
+                        egret.Event.dispatchEvent(self, egret.IOErrorEvent.IO_ERROR);
+                    };
                     if (self._responseType == egret.HttpResponseType.ARRAY_BUFFER) {
                         egret_native.readFileAsync(self._url, promise, "ArrayBuffer");
                     }
@@ -2848,6 +2858,8 @@ var egret;
                     promise.onErrorFunc = function () {
                         egret.Event.dispatchEvent(self, egret.IOErrorEvent.IO_ERROR);
                     };
+                    promise.onResponseHeaderFunc = this.onResponseHeader;
+                    promise.onResponseHeaderThisObject = this;
                     egret_native.download(self._url, self._url, promise);
                 }
             };
@@ -2857,7 +2869,7 @@ var egret;
              * @returns {boolean}
              */
             p.isNetUrl = function (url) {
-                return url.indexOf("http://") != -1;
+                return url.indexOf("http://") != -1 || url.indexOf("HTTP://") != -1;
             };
             /**
              * @private
@@ -2865,12 +2877,19 @@ var egret;
              */
             p.abort = function () {
             };
+            p.onResponseHeader = function (headers) {
+                this.responseHeader = "";
+                var obj = JSON.parse(headers);
+                for (var key in obj) {
+                    this.responseHeader += key + ": " + obj[key] + "\r\n";
+                }
+            };
             /**
              * @private
              * 返回所有响应头信息(响应头名和值), 如果响应头还没接受,则返回"".
              */
             p.getAllResponseHeaders = function () {
-                return "";
+                return this.responseHeader;
             };
             /**
              * @private
@@ -3013,7 +3032,7 @@ var egret;
              * @returns {boolean}
              */
             p.isNetUrl = function (url) {
-                return url.indexOf("http://") != -1;
+                return url.indexOf("http://") != -1 || url.indexOf("HTTP://") != -1;
             };
             /**
              * @private
