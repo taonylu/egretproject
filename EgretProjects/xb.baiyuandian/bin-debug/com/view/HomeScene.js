@@ -14,7 +14,8 @@ var HomeScene = (function (_super) {
         this.initView();
     };
     p.onEnable = function () {
-        window["playBGM"]();
+        //window["playBGM"]();
+        SoundManager.getInstance().playBGM();
         this.playAnim();
     };
     p.onRemove = function () {
@@ -55,7 +56,7 @@ var HomeScene = (function (_super) {
         this.ruleBtn.alpha = 0;
         this.godTalk.alpha = 0;
         //规则
-        this.ruleGroup.visible = false;
+        //this.ruleGroup.visible = false;
     };
     //开始播放动画
     p.playAnim = function () {
@@ -123,7 +124,7 @@ var HomeScene = (function (_super) {
         var smoke2X = this.smoke2.x; //右下
         egret.Tween.get(this.smoke2, { loop: true }).to({ x: smoke2X + 100, alpha: 0.1 }, 2000).to({ x: smoke2X, alpha: 1 });
         //门帘上卷
-        egret.Tween.get(this.doorClip).to({ y: -this.doorClip.height }, 3000).wait(500).call(this.playStartUIEnter, this);
+        egret.Tween.get(this.doorClip).to({ y: -this.doorClip.height }, 2000).wait(300).call(this.playStartUIEnter, this);
     };
     //播放游戏元素进场
     p.playStartUIEnter = function () {
@@ -139,14 +140,15 @@ var HomeScene = (function (_super) {
     };
     //点击规则按钮
     p.onRuleBtnTouch = function () {
-        this.ruleGroup.visible = true;
-        this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseBtnTouch, this);
-        this.jiaohuoBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onJiaoHuoBtnTouch, this);
+        LayerManager.getInstance().popLayer.addChild(GameManager.getInstance().ruleUI);
+        //this.ruleGroup.visible = true;
+        //this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseBtnTouch, this);
+        //this.jiaohuoBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onJiaoHuoBtnTouch,this);
     };
     //点击关闭按钮
     p.onCloseBtnTouch = function () {
-        this.ruleGroup.visible = false;
-        this.closeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseBtnTouch, this);
+        //this.ruleGroup.visible = false;
+        //this.closeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onCloseBtnTouch,this);
     };
     //点击叫货宝
     p.onJiaoHuoBtnTouch = function () {
@@ -154,6 +156,7 @@ var HomeScene = (function (_super) {
     };
     //点击开始按钮
     p.onStartBtnTouch = function () {
+        egret.Tween.removeAllTweens();
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
     };
     return HomeScene;

@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"countdown_fnt,item_json,person_json,rule_bg_png,scene_json,rank_png,roundthumb_png,packet_json,bag_png,packet30_png,packet80_png,share_png",
+			"keys":"countdown_fnt,item_json,person_json,rule_bg_png,scene_json,rank_png,roundthumb_png,packet_json,bag_png,packet30_png,packet80_png,share_png,packet0_png,result0_png,result1_png,result2_png,result4_png,get_mp3,bgm_mp3",
 			"name":"game"
 		}
 	],
@@ -40,7 +40,7 @@
 		{
 			"name":"rule_bg_png",
 			"type":"image",
-			"url":"assets/rule_bg.png"
+			"url":"assets/rule_bg.png?ver=1.0"
 		},
 		{
 			"name":"scene_json",
@@ -83,6 +83,41 @@
 			"name":"share_png",
 			"type":"image",
 			"url":"assets/share.png"
+		},
+		{
+			"name":"packet0_png",
+			"type":"image",
+			"url":"assets/packet0.png"
+		},
+		{
+			"name":"result0_png",
+			"type":"image",
+			"url":"assets/result0.png"
+		},
+		{
+			"name":"result1_png",
+			"type":"image",
+			"url":"assets/result1.png"
+		},
+		{
+			"name":"result2_png",
+			"type":"image",
+			"url":"assets/result2.png"
+		},
+		{
+			"name":"result4_png",
+			"type":"image",
+			"url":"assets/result4.png"
+		},
+		{
+			"name":"get_mp3",
+			"type":"sound",
+			"url":"assets/sound/get.mp3"
+		},
+		{
+			"name":"bgm_mp3",
+			"type":"sound",
+			"url":"assets/sound/bgm.mp3"
 		}
 	]
 }

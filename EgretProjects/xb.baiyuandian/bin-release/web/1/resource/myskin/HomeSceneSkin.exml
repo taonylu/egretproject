@@ -11,7 +11,7 @@
 			<e:BitmapLabel x="249" y="99" text="5" font="clock_fnt" id="progressLabel0"/>
 		</e:Group>
 	</e:Group>
-	<e:Group id="scene2" height="1140" width="640" touchThrough="true" visible="false">
+	<e:Group id="scene2" height="1140" width="640" touchThrough="true">
 		<e:Group id="godGroup" width="640" height="1140" y="0" x="0">
 			<e:Image id="smoke0" source="smoke0" x="176" y="635"/>
 			<e:Image id="smoke3" source="smoke3" x="168" y="712"/>
@@ -40,11 +40,5 @@
 		<e:Image id="man1" source="man_1" y="606" x="190" touchEnabled="false"/>
 		<e:Image id="logo" source="logo" y="50" x="75" touchEnabled="false"/>
 		<e:Image id="man1_talk" source="man_text0" x="319" y="393" touchEnabled="false"/>
-	</e:Group>
-	<e:Group id="ruleGroup" left="0" right="0" top="0" bottom="0" visible="false">
-		<e:Rect height="1140" width="640" x="0" y="0" fillColor="0xFFD6B8"/>
-		<e:Image source="rule_bg_png" verticalCenter="0.5" x="54"/>
-		<e:Image id="jiaohuoBtn" source="downbtn" x="214" verticalCenter="280"/>
-		<e:Image id="closeBtn" source="close" x="546" verticalCenter="-404"/>
 	</e:Group>
 </e:Skin>

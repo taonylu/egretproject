@@ -10,6 +10,7 @@ class GameManager {
     public resultScene: ResultScene = new ResultScene(); //结果场景
     
     public shareUI:ShareUI = new ShareUI();  //分享UI
+    public ruleUI:RuleUI = new RuleUI();  //规则UI
     
     //启动游戏框架
     public startup(main: Main): void {

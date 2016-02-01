@@ -22,8 +22,16 @@ var game_file_list = [
 	"bin-debug/com/view/HomeScene.js",
 	"bin-debug/com/view/PreloadScene.js",
 	"bin-debug/com/view/ResultScene.js",
-	"bin-debug/com/view/ui/PacketUI.js",
+	"bin-debug/com/view/ui/BasePacket.js",
+	"bin-debug/com/view/ui/Packet0.js",
+	"bin-debug/com/view/ui/Packet10.js",
+	"bin-debug/com/view/ui/Packet100.js",
+	"bin-debug/com/view/ui/Packet20.js",
+	"bin-debug/com/view/ui/Packet30.js",
+	"bin-debug/com/view/ui/Packet50.js",
+	"bin-debug/com/view/ui/Packet80.js",
 	"bin-debug/com/view/ui/ResultUI.js",
+	"bin-debug/com/view/ui/RuleUI.js",
 	"bin-debug/com/view/ui/ShareUI.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
@@ -55,16 +63,16 @@ egret_native.egretStart = function () {
         //以下为自动修改，请勿修改
         //----auto option start----
 		entryClassName: "Main",
-		frameRate: 60,
+		frameRate: 30,
 		scaleMode: "fixedWidth",
 		contentWidth: 640,
 		contentHeight: 1140,
 		showPaintRect: false,
 		showFPS: true,
 		fpsStyles: "x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9",
-		showLog: false,
+		showLog: true,
 		logFilter: "",
-		maxTouches: 2,
+		maxTouches: 1,
 		textureScaleFactor: 1
 		//----auto option end----
     };
