@@ -2,6 +2,6 @@
 <e:Skin class="PreloadSceneSkin" width="640" height="1140" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Group id="clockGroup" height="229" width="332" x="330" y="520" anchorOffsetX="166" anchorOffsetY="114">
 		<e:Image source="clockbg_png" y="13" x="13"/>
-		<e:BitmapLabel id="progressLabel" x="249" y="99" font="clock_fnt" text="5"/>
+		<e:BitmapLabel id="progressLabel" x="249" y="99" font="clock_fnt" text="1"/>
 	</e:Group>
 </e:Skin>

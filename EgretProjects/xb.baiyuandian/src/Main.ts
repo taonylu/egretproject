@@ -44,10 +44,10 @@ class Main extends eui.UILayer {
     
     private onAddToStage22222(){
         this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage22222,this);
-//        console.log(this.stage.stageHeight / this.stage.stageWidth);
-//        if(this.stage.stageHeight/this.stage.stageWidth <= 1.6){
-//            this.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
-//        }
+        console.log(this.stage.stageHeight / this.stage.stageWidth);
+        if(this.stage.stageHeight/this.stage.stageWidth <= 1.5){
+            //this.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
+        }
     }
     
     //配置文件加载完成,开始预加载皮肤主题资源和preload资源组。
@@ -83,7 +83,7 @@ class Main extends eui.UILayer {
     private onGameComplete():void{
        this.removeChild(this.preloadScene);
        this.preloadScene = null;
-        
+       
        GameManager.getInstance().startup(this);
     }
     

@@ -9,6 +9,7 @@
     "resource/myskin/PreloadSceneSkin.exml",
     "resource/myskin/ResultSceneSkin.exml",
     "resource/myskin/ui/ResultUISkin.exml",
+    "resource/myskin/ui/RuleUISkin.exml",
     "resource/myskin/ui/ShareUISkin.exml"
   ],
   "skins": {

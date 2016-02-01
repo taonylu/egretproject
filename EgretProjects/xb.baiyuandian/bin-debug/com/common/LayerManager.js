@@ -19,6 +19,7 @@ var LayerManager = (function () {
         this.sceneLayer = new eui.Group();
         this.sceneLayer.percentWidth = 100;
         this.sceneLayer.percentHeight = 100;
+        this.sceneLayer.touchEnabled = false;
         this.main.addChild(this.sceneLayer);
         this.popLayer = new eui.Group();
         this.popLayer.percentWidth = 100;

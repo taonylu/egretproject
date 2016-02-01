@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="RuleUISkin" width="640" height="1140" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect fillColor="0xFFD6B8" width="640" height="1140"/>
+	<e:Group height="840" width="640" x="0" verticalCenter="2">
+		<e:Image source="rule_bg_png" verticalCenter="0.5" x="54"/>
+		<e:Image id="closeBtn" source="close" x="546" verticalCenter="-404"/>
+		<e:Image id="jiaohuoBtn" source="downbtn" x="214" verticalCenter="280"/>
+	</e:Group>
+</e:Skin>

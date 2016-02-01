@@ -14,6 +14,7 @@ class ResultUI extends BaseUI{
     
 	public constructor() {
         super("ResultUISkin");
+        
 	}
 	
     public componentCreated(): void {

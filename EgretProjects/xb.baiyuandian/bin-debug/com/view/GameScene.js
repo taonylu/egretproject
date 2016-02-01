@@ -8,12 +8,24 @@ var GameScene = (function (_super) {
     function GameScene() {
         _super.call(this, "GameSceneSkin");
         this.score = 0; //分数
-        this.packetPool = ObjectPool.getPool(PacketUI.NAME, 3); //红包对象池
+        //private packetPool:ObjectPool = ObjectPool.getPool(PacketUI.NAME,3);  //红包对象池
+        this.packetPool0 = ObjectPool.getPool("Packet0", 3);
+        this.packetPool10 = ObjectPool.getPool("Packet10", 5);
+        this.packetPool20 = ObjectPool.getPool("Packet20", 5);
+        this.packetPool30 = ObjectPool.getPool("Packet30", 5);
+        this.packetPool50 = ObjectPool.getPool("Packet50", 3);
+        this.packetPool80 = ObjectPool.getPool("Packet80", 3);
+        this.packetPool100 = ObjectPool.getPool("Packet100", 3);
+        this.poolList = [this.packetPool0, this.packetPool10, this.packetPool20, this.packetPool30, this.packetPool50, this.packetPool80, this.packetPool100];
+        this.packetList = [];
         this.bFirstGame = true; //是否第一次游戏
         this.gameTimer = new egret.Timer(1000); //计时
-        this.timeLimit = 20;
+        this.timeLimit = 20; //时间限制
         this.curTime = this.timeLimit;
         this.bWin = false; //游戏是否胜利
+        this.snd = SoundManager.getInstance();
+        this.os = ""; //操作系统
+        this.soundCount = 0; //声音播放次数，超过次数，则不能播放声音，否则会出现异常
     }
     var d = __define,c=GameScene,p=c.prototype;
     p.componentCreated = function () {
@@ -30,6 +42,7 @@ var GameScene = (function (_super) {
         }
     };
     p.onRemove = function () {
+        this.soundCount = 0;
     };
     p.initView = function () {
         this.validateNow();
@@ -37,6 +50,7 @@ var GameScene = (function (_super) {
         this.stageHeight = GameConst.stage.stageHeight;
         this.countDownLabel.parent && this.removeChild(this.countDownLabel);
         this.timeLabel.text = this.timeLimit.toString();
+        this.os = egret.Capabilities.os;
     };
     p.startGame = function () {
         this.resetGame();
@@ -78,45 +92,79 @@ var GameScene = (function (_super) {
         var count = 5;
         this.addChild(this.countDownLabel);
         this.countDownLabel.text = count.toString();
-        egret.Tween.get(this, { loop: true }).wait(1000).call(function () {
+        egret.Tween.get(this, { loop: true }).wait(700).call(function () {
             count--;
             if (count <= 0) {
-                egret.Tween.removeTweens(this);
-                self.removeChild(self.countDownLabel);
-                self.startGameTimer();
-                self.launchPacket(); //开始发射红包
+                self.countDownComplete();
                 return;
             }
             self.countDownLabel.text = count.toString();
         });
     };
-    //倒计时结束，发射红包
+    p.countDownComplete = function () {
+        egret.Tween.removeTweens(this);
+        this.removeChild(this.countDownLabel);
+        this.startGameTimer();
+        this.launchPacket(); //开始发射红包
+        //this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+        this.packetGroup.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onPacketTouch, this);
+    };
+    p.onEnterFrame = function () {
+        var len = this.packetList.length;
+        for (var i = len - 1; i >= 0; i--) {
+            var packet = this.packetList[i];
+            packet.x += packet.speedX;
+            packet.y += packet.speedY;
+            if (packet.y <= -200 || packet.x <= -100 || packet.x >= (this.stageWidth + 100)) {
+                packet.recycle();
+                this.packetList.splice(i, 1);
+            }
+        }
+        return true;
+    };
+    //发射红包
     p.launchPacket = function () {
-        var packet = this.packetPool.getObject();
-        packet.x = this.bag.x + this.bag.width / 2;
-        packet.y = this.bag.y + this.bag.height / 2;
-        this.packetGroup.addChild(packet);
-        if (this.curTime >= 10) {
-            packet.randomSkin(0, 4);
+        var packet;
+        if (Math.random() > 0.2) {
+            //            if(this.curTime >= 15) { //前5秒小额红包，后15秒大额红包
+            //                packet = this.poolList[NumberTool.getRandomInt(0,4)].getObject();
+            //            } else {
+            packet = this.poolList[NumberTool.getRandomInt(0, 6)].getObject();
         }
         else {
-            packet.randomSkin(0, 6);
+            packet = this.poolList[0].getObject();
         }
+        packet.x = this.bag.x + this.bag.width / 2;
+        packet.y = this.bag.y + this.bag.height / 2;
         packet.shoot();
-        packet.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onPacketTouch, this);
+        this.packetGroup.addChild(packet);
         //再次发射红包
-        var time = Math.random() * 400;
+        var time = 250;
         egret.Tween.get(this.bag).wait(time).call(this.launchPacket, this);
     };
     //点击红包
     p.onPacketTouch = function (e) {
-        window["playGet"]();
-        var packet = e.target;
-        this.score += packet.score;
-        packet.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onPacketTouch, this);
-        packet.recycle();
-        if (packet.score <= 0) {
-            this.gameLose(); //游戏失败
+        if (e.target instanceof BasePacket || e.currentTarget instanceof BasePacket) {
+            //window["playGet"]();
+            if (this.os == "Android") {
+                if (this.soundCount < 1) {
+                    this.soundCount++;
+                    this.snd.play(this.snd.get);
+                    var self = this;
+                    egret.Tween.get(this).wait(1500).call(function () {
+                        self.soundCount = 0;
+                    });
+                }
+            }
+            else {
+                this.snd.play(this.snd.get);
+            }
+            var packet = e.target;
+            this.score += packet.score;
+            packet.parent && packet.parent.removeChild(packet);
+            if (packet.score <= 0) {
+                this.gameLose(); //游戏失败
+            }
         }
     };
     //开始游戏计时

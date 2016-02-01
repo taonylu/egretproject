@@ -38,11 +38,7 @@ class HomeScene extends BaseScene{
     private startBtn:eui.Image;      //开始按钮
     private ruleBtn:eui.Image;       //规则按钮
     private godTalk:eui.Image;       //财神说话
-    
-    //---------[规则页面]--------------------
-    private ruleGroup:eui.Group;  //规则容器
-    private closeBtn:eui.Image;   //关闭按钮
-    private jiaohuoBtn:eui.Image; //叫货宝
+
     
     private stageWidth:number;
     private stageHeight:number;
@@ -58,7 +54,8 @@ class HomeScene extends BaseScene{
     }
 
     public onEnable(): void {
-        window["playBGM"]();
+        //window["playBGM"]();
+        SoundManager.getInstance().playBGM();
         this.playAnim();
     }
 
@@ -105,7 +102,7 @@ class HomeScene extends BaseScene{
         this.godTalk.alpha = 0;
         
         //规则
-        this.ruleGroup.visible = false;
+        //this.ruleGroup.visible = false;
     }
     
     //开始播放动画
@@ -187,7 +184,7 @@ class HomeScene extends BaseScene{
         
         
         //门帘上卷
-        egret.Tween.get(this.doorClip).to({y:-this.doorClip.height},3000).wait(500).call(this.playStartUIEnter,this);
+        egret.Tween.get(this.doorClip).to({y:-this.doorClip.height},2000).wait(300).call(this.playStartUIEnter,this);
     }
     
     //播放游戏元素进场
@@ -207,15 +204,16 @@ class HomeScene extends BaseScene{
     
     //点击规则按钮
     private onRuleBtnTouch(){
-        this.ruleGroup.visible = true;
-        this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseBtnTouch, this);
-        this.jiaohuoBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onJiaoHuoBtnTouch,this);
+        LayerManager.getInstance().popLayer.addChild(GameManager.getInstance().ruleUI);
+        //this.ruleGroup.visible = true;
+        //this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseBtnTouch, this);
+        //this.jiaohuoBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onJiaoHuoBtnTouch,this);
     }
     
     //点击关闭按钮
     private onCloseBtnTouch(){
-        this.ruleGroup.visible = false;
-        this.closeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onCloseBtnTouch,this);
+        //this.ruleGroup.visible = false;
+        //this.closeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onCloseBtnTouch,this);
     }
     
     //点击叫货宝
@@ -225,6 +223,7 @@ class HomeScene extends BaseScene{
     
     //点击开始按钮
     private onStartBtnTouch(){
+        egret.Tween.removeAllTweens();
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
     }
     

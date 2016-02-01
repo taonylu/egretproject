@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="GameSceneSkin" width="640" height="1140" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Group id="packetGroup" height="1140" width="640" x="0" y="0">
+	<e:Group id="packetGroup" height="1140" width="640" x="0" y="0" touchChildren="true" touchEnabled="true">
 	</e:Group>
-	<e:Image id="bag" x="18" y="856" source="bag_png"/>
-	<e:Rect id="timeBg" height="50" width="500" y="61" fillColor="0xF93F4D" anchorOffsetX="250" x="320"/>
-	<e:Label id="timeLabel" text="20" y="61" width="100" verticalAlign="middle" textAlign="center" size="40" height="50" x="270"/>
-	<e:BitmapLabel id="countDownLabel" font="countdown_fnt" text="5" x="290" verticalCenter="-93.5"/>
+	<e:Image id="bag" x="18" y="856" source="bag_png" touchEnabled="false"/>
+	<e:Rect id="timeBg" height="50" width="500" y="61" fillColor="0xF93F4D" anchorOffsetX="250" x="320" touchEnabled="false" touchChildren="false"/>
+	<e:Label id="timeLabel" text="20" y="61" width="100" verticalAlign="middle" textAlign="center" size="40" height="50" x="270" touchEnabled="false"/>
+	<e:BitmapLabel id="countDownLabel" font="countdown_fnt" text="5" x="290" verticalCenter="-93.5" touchEnabled="false"/>
 </e:Skin>

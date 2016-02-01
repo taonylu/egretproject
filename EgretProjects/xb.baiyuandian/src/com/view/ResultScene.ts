@@ -8,7 +8,11 @@ class ResultScene extends BaseScene{
     private wrongPacket:eui.Image;  //错误的红包
     
     private scoreGroup:eui.Group;   //分数容器
-    private textBg0:eui.Image;     //分数文本背景
+    private textBg00:eui.Image;     //分数文本背景
+    private textBg01:eui.Image;
+    private textBg02:eui.Image;
+    private textBg0:eui.Image;
+    
     private textBg1:eui.Image;
     private textBg2:eui.Image;
     private secLabel:eui.Label;  //使用了多少秒
@@ -27,6 +31,7 @@ class ResultScene extends BaseScene{
     private resultUIList:Array<ResultUI> = new Array<ResultUI>();
     private resultUILimit:number = 10;
 
+    private ruleBtn:eui.Image;
     
     private no1:eui.Image;  //排名1-3
     private no2:eui.Image;
@@ -47,13 +52,23 @@ class ResultScene extends BaseScene{
         this.scoreGroup.y = (GameConst.stage.stageHeight - this.scoreGroup.height)/2;
         this.wrongPacket.visible = false;
         this.resultGroup.visible = false;
-        this.textBg0.alpha = 0;
+        this.textBg00.alpha = 0;
+        this.textBg01.alpha = 0;
+        this.textBg02.alpha = 0;
         this.textBg1.alpha = 0;
         this.textBg2.alpha = 0;
         this.secLabel.alpha = 0;
+        this.secLabel.text = "";
         this.rateLabel.alpha = 0;
+        this.rateLabel.text = "";
         this.curScoreLabel.alpha = 0;
+        this.curScoreLabel.text = "";
         this.historyScoreLabel.alpha = 0;
+        this.historyScoreLabel.text = "";
+        
+        //随机显示文本
+        
+        this.textBg0 = this["textBg0" + NumberTool.getRandomInt(0,2)];
         
         //移除头像
         for(var i: number = 0;i < this.resultUILimit;i++){
@@ -83,6 +98,7 @@ class ResultScene extends BaseScene{
         this.againBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAgainBtnTouch, this);
         this.shareBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onShareBtnTouch, this);
         this.linkBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onLinkBtnTouch,this);
+        this.ruleBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRuleBtnTouch, this);
     }
 
     public onRemove(): void {
@@ -116,8 +132,15 @@ class ResultScene extends BaseScene{
         window.location.href = "http://www.dipo.pro";
     }
     
+    private onRuleBtnTouch(){
+        LayerManager.getInstance().popLayer.addChild(GameManager.getInstance().ruleUI);
+    }
+    
     //显示分数
     public showScore(){
+        //访问后端，提交积分，获取排行榜
+        this.submitScore();
+        
         var gameScene:GameScene = GameManager.getInstance().gameScene;
         //显示用了多少时间开了多少红包
         this.secLabel.text = (gameScene.timeLimit - gameScene.curTime).toString();
@@ -127,23 +150,23 @@ class ResultScene extends BaseScene{
         egret.Tween.get(this.curScoreLabel).to({alpha:1},1000);
         //显示历史最高
         GameConst.historyScore = (GameConst.historyScore > gameScene.score) ? GameConst.historyScore : gameScene.score;
-        this.historyScoreLabel.text = GameConst.historyScore.toString();
+//        this.historyScoreLabel.text = GameConst.historyScore.toString();
         egret.Tween.get(this.textBg1).wait(1000).to({ alpha: 1 },1000);
         egret.Tween.get(this.historyScoreLabel).wait(1000).to({alpha:1},1000);
         //显示打败了多少人
-        var rate: number = Math.round(GameConst.historyScore / 3000 * 100);
-        if(rate > 100){
-            rate = 100;
-        }
-        this.rateLabel.text = rate.toString();
+        //this.rateLabel.text = "";
+//        var rate: number = Math.round(GameConst.historyScore / 3000 * 100);
+//        if(rate > 100){
+//            rate = 100;
+//        }
+//        this.rateLabel.text = rate.toString();
         egret.Tween.get(this.textBg2).wait(2000).to({ alpha: 1 },1000);
         egret.Tween.get(this.rateLabel).wait(2000).to({ alpha: 1 },1000);
         
         //显示结果
         egret.Tween.get(this).wait(3200).call(this.showResult, this);
         
-        //访问后端，提交积分，获取排行榜
-        this.submitScore();
+        
     }
     
     //显示结果
@@ -167,43 +190,38 @@ class ResultScene extends BaseScene{
         var http:SingleHttp = SingleHttp.getInstance();
         http.completeHandler = this.completeHandler;
         http.errorHandler = this.errorHandler;
-        var url: string = "";
-        var msg: string = "money=" + GameManager.getInstance().gameScene.score;
+        var url: string = "" + window["url"];
+        var score: string = "score=" + GameManager.getInstance().gameScene.score;
+        var csrf: string = "&_csrf=" + window["_csrf"];
+        var sign:string = "&sign=" + window["sign"];
+        var msg: string =  score + csrf + sign;
         http.send(url,egret.HttpMethod.POST,msg,this);
-        
-        var rankList = [{ score:1234,headUrl:"resource/assets/rule_bg.png"},
-            { score: 1234,headUrl: "resource/assets/rule_bg.png" },
-            { score: 1234,headUrl: "resource/assets/rule_bg.png" },
-            { score: 1234,headUrl: "resource/assets/rule_bg.png" },
-            { score: 1234,headUrl: "resource/assets/rule_bg.png" },
-            { score: 1234,headUrl: "resource/assets/rule_bg.png" },
-            { score: 1234,headUrl: "resource/assets/rule_bg.png" }];
-            
-        var len: number = rankList.length;
-        var userInfo;
-        var resultUI: ResultUI;
-        for(var i: number = 0;i < len;i++) {
-            userInfo = rankList[i];
-            resultUI = this.resultUIList[i];
-            resultUI.setLabel(userInfo.score);
-            resultUI.setHead(userInfo.headUrl);
-            resultUI.y = i * 110;  //resultUI高100
-            this.scrollerGroup.addChild(resultUI);
-        }
-        if(len >= 1) {
-            this.scrollerGroup.addChild(this.no1);
-        }
-        if(len >= 2) {
-            this.scrollerGroup.addChild(this.no2);
-        }
-        if(len >= 3) {
-            this.scrollerGroup.addChild(this.no3);
-        }
     }
     
-    //获取获奖列表
+    //返回获奖列表
     private completeHandler(data){
-        var rankList = data.rankList;
+        console.log("接收返回数据:" + data);
+        var json = JSON.parse(data);
+        var rankList = json.rankList;  //获取排行榜列表
+        var success:Boolean = json.success;  //是否成功
+        var historyScore:number = json.historyScore; //历史最高分数
+        var msg:string = json.msg; //错误消息
+        var rank:number = json.rank; //自己排名
+        var count:number = json.count; //总人数
+
+        console.log("rankList:", rankList);
+        console.log("success:",success);
+        console.log("msg:", msg);
+        egret.log("rank:",rank);
+        egret.log("count:",count);
+        egret.log(GameConst.historyScore);
+        
+        if(success != true){
+            alert(msg);
+            return;
+        }
+      
+        
         if(rankList){
             var len: number = rankList.length;
             var userInfo;
@@ -211,11 +229,30 @@ class ResultScene extends BaseScene{
             for(var i: number = 0;i < len;i++) {
                 userInfo = rankList[i];
                 resultUI = this.resultUIList[i];
-                resultUI.setLabel(userInfo.score);
-                resultUI.setHead(userInfo.headUrl);
-                resultUI.y = i * 110;  //resultUI高100
+                resultUI.setLabel(userInfo.score);    //获取玩家分数
+                resultUI.setHead(userInfo.headUrl); //获取玩家头像地址
+                resultUI.y = i * 110;  
                 this.scrollerGroup.addChild(resultUI);
             }
+            
+            //显示打败多少人
+            if(count <= 1){
+                this.rateLabel.text = "100";
+            }else{
+                this.rateLabel.text = Math.round((count-rank)/(count-1)*100) + "";
+            }
+            
+            
+            //显示历史最高
+            if(historyScore < GameConst.historyScore){
+                this.historyScoreLabel.text = GameConst.historyScore + "";
+            }else{
+                GameConst.historyScore = historyScore;
+                this.historyScoreLabel.text = historyScore + "";
+            }
+            
+            
+            //显示no排名小图标
             if(len >= 1) {
                 this.scrollerGroup.addChild(this.no1);
             }
@@ -225,12 +262,21 @@ class ResultScene extends BaseScene{
             if(len >= 3) {
                 this.scrollerGroup.addChild(this.no3);
             }
+
+            //分享文案
+            var str1 = ["太棒了","太厉害了","真行"];
+            var str2 = "!你从财神爷那里开了" + GameConst.historyScore + "个金币,2016年";
+            var str3 = ["财运滚滚","财运亨通","日进斗金","和气生财","招财进宝" ]; 
+            var str4 = "，打败了" + this.rateLabel.text + "%的西班牙同胞";
+            window["shareText"] = str1[NumberTool.getRandomInt(0,2)] + str2 + str3[NumberTool.getRandomInt(0,4)] + str4;
+            window["wxshare"]();
+            egret.log(window["shareText"]);
         }
     }
     
     //获取获奖列表失败
     private errorHandler(){
-        console.log("提交分数错误");
+        alert("提交地址错误");
     }
     
     
