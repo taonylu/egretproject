@@ -2,13 +2,13 @@
 <e:Skin class="SubmitSceneSkin" width="640" height="1140" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Group height="784" width="640" x="0" verticalCenter="-52">
 		<e:Image source="submit_bg_png" x="54" y="27"/>
-		<e:Image source="submit_tel_png" x="112" y="496"/>
+		<e:Image source="submit_tel_png" y="500" width="485" height="50" x="78"/>
 		<e:Image id="textBg0" source="result0_png" y="226" x="74"/>
 		<e:Image id="textBg1" source="result1_png" x="74" y="225"/>
 		<e:Image id="textBg2" source="result2_png" x="74" y="225"/>
-		<e:Label id="secLabel" text="10" x="397" y="218" textColor="0x010201" verticalAlign="middle" textAlign="center" width="57" height="45" size="40"/>
+		<e:Label id="secLabel" text="10" x="397" y="218" verticalAlign="middle" textAlign="center" width="57" height="45" size="40" textColor="0xF3FAF3"/>
 		<e:Label id="curScoreLabel" y="268" textColor="0x010201" height="37" text="10" verticalAlign="middle" textAlign="center" width="123" size="30" x="355"/>
-		<e:EditableText id="telLabel" width="296" height="46" x="240" y="497" verticalAlign="middle" textColor="0x010000" textAlign="left"/>
+		<e:EditableText id="telLabel" width="296" height="46" x="222" y="502" verticalAlign="middle" textColor="0x010000" textAlign="left"/>
 		<e:Image source="result4_png" y="381" x="97"/>
 		<e:Label id="historyScoreLabel" y="378" textColor="0x010201" height="37" text="10" verticalAlign="middle" textAlign="center" width="123" size="30" x="299"/>
 	</e:Group>
