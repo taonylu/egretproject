@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"countdown_fnt,item_json,person_json,rule_bg_png,scene_json,rank_png,roundthumb_png,packet_json,bag_png,packet30_png,packet80_png,share_png,packet0_png,result0_png,result1_png,result2_png,result4_png,get_mp3,bgm_mp3",
+			"keys":"countdown_fnt,item_json,person_json,rule_bg_png,scene_json,rank_png,roundthumb_png,packet_json,bag_png,packet30_png,packet80_png,share_png,packet0_png,result0_png,result1_png,result2_png,result4_png,get_mp3,bgm_mp3,submit_bg_png,submit_btn_png,submit_tel_png,rank_bg_png",
 			"name":"game"
 		}
 	],
@@ -56,7 +56,7 @@
 		{
 			"name":"roundthumb_png",
 			"type":"image",
-			"url":"assets/roundthumb.png"
+			"url":"assets/roundthumb.png?ver=1.0"
 		},
 		{
 			"name":"packet_json",
@@ -118,6 +118,26 @@
 			"name":"bgm_mp3",
 			"type":"sound",
 			"url":"assets/sound/bgm.mp3"
+		},
+		{
+			"name":"submit_bg_png",
+			"type":"image",
+			"url":"assets/submit_bg.png"
+		},
+		{
+			"name":"submit_btn_png",
+			"type":"image",
+			"url":"assets/submit_btn.png"
+		},
+		{
+			"name":"submit_tel_png",
+			"type":"image",
+			"url":"assets/submit_tel.png"
+		},
+		{
+			"name":"rank_bg_png",
+			"type":"image",
+			"url":"assets/rank_bg.png"
 		}
 	]
 }

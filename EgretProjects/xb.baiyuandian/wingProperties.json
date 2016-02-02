@@ -286,6 +286,26 @@
 					"isFolder":false,
 					"key":"result4_png",
 					"name":"result4_png"
+				},
+				{
+					"isFolder":false,
+					"key":"submit_bg_png",
+					"name":"submit_bg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"submit_btn_png",
+					"name":"submit_btn_png"
+				},
+				{
+					"isFolder":false,
+					"key":"submit_tel_png",
+					"name":"submit_tel_png"
+				},
+				{
+					"isFolder":false,
+					"key":"rank_bg_png",
+					"name":"rank_bg_png"
 				}
 			]
 		}

@@ -33,8 +33,6 @@ class GameScene extends BaseScene{
     public timeLimit:number = 20;    //时间限制
     public curTime:number = this.timeLimit;
     
-    public bWin:Boolean = false;  //游戏是否胜利
-    
     private snd:SoundManager = SoundManager.getInstance();
     
     private os: string = ""; //操作系统
@@ -96,7 +94,6 @@ class GameScene extends BaseScene{
     private gameWin(){
         egret.Tween.removeTweens(this.bag);
         this.stopGameTimer();
-        this.bWin = true;
         LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
     }
     
@@ -104,8 +101,7 @@ class GameScene extends BaseScene{
     private gameLose(){
         egret.Tween.removeTweens(this.bag);
         this.stopGameTimer();
-        this.bWin = false;
-        LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
+        LayerManager.getInstance().runScene(GameManager.getInstance().gameLoseScene);
     }
     
     private fallBag(){

@@ -160,7 +160,7 @@ var egret;
      * @extends egret.DisplayObject
      * @event egret.Event.COMPLETE 动画播放完成。
      * @event egret.Event.LOOP_COMPLETE 动画循环播放完成。
-     * @see http://edn.egret.com/cn/index.php/article/index/id/151 MovieClip序列帧动画
+     * @see http://edn.egret.com/cn/docs/page/596 MovieClip序列帧动画
      * @version Egret 2.4
      * @platform Web,Native
      * @includeExample extension/game/display/MovieClip.ts
@@ -178,6 +178,8 @@ var egret;
             _super.call(this);
             //Render Property
             this.$bitmapData = null;
+            //Render Property
+            this.offsetPoint = egret.Point.create(0, 0);
             //Data Property
             this.$movieClipData = null;
             /**
@@ -246,10 +248,36 @@ var egret;
              * @private
              */
             this.lastTime = 0;
+            this.$smoothing = egret.Bitmap.defaultSmoothing;
             this.$renderRegion = new egret.sys.Region();
             this.setMovieClipData(movieClipData);
         }
         var d = __define,c=MovieClip,p=c.prototype;
+        d(p, "smoothing"
+            /**
+             * @language en_US
+             * Whether or not is smoothed when scaled.
+             * @version Egret 3.0
+             * @platform Web
+             */
+            /**
+             * @language zh_CN
+             * 控制在缩放时是否进行平滑处理。
+             * @version Egret 3.0
+             * @platform Web
+             */
+            ,function () {
+                return this.$smoothing;
+            }
+            ,function (value) {
+                value = !!value;
+                if (value == this.$smoothing) {
+                    return;
+                }
+                this.$smoothing = value;
+                this.$invalidate();
+            }
+        );
         /**
          * @private
          *
@@ -297,9 +325,9 @@ var egret;
         p.$render = function (context) {
             var texture = this.$bitmapData;
             if (texture) {
-                context.imageSmoothingEnabled = false;
-                var offsetX = Math.round(texture._offsetX);
-                var offsetY = Math.round(texture._offsetY);
+                context.imageSmoothingEnabled = this.$smoothing;
+                var offsetX = Math.round(this.offsetPoint.x);
+                var offsetY = Math.round(this.offsetPoint.y);
                 var bitmapWidth = texture._bitmapWidth;
                 var bitmapHeight = texture._bitmapHeight;
                 var destW = Math.round(texture.$getScaleBitmapWidth());
@@ -313,8 +341,8 @@ var egret;
         p.$measureContentBounds = function (bounds) {
             var texture = this.$bitmapData;
             if (texture) {
-                var x = texture._offsetX;
-                var y = texture._offsetY;
+                var x = this.offsetPoint.x;
+                var y = this.offsetPoint.y;
                 var w = texture.$getTextureWidth();
                 var h = texture.$getTextureHeight();
                 bounds.setTo(x, y, w, h);
@@ -603,6 +631,7 @@ var egret;
                 return;
             }
             this.$bitmapData = this.$movieClipData.getTextureByFrame(currentFrameNum);
+            this.$movieClipData.$getOffsetByFrame(currentFrameNum, this.offsetPoint);
             this.$invalidateContentBounds();
             this.displayedKeyFrameNum = currentFrameNum;
         };
@@ -801,7 +830,7 @@ var egret;
 (function (egret) {
     /**
      * @classdesc 使用 MovieClipData 类，您可以创建 MovieClip 对象和处理 MovieClip 对象的数据。MovieClipData 一般由MovieClipDataFactory生成
-     * @see http://docs.egret-labs.org/post/manual/displaycon/movieclip.html MovieClip序列帧动画
+     * @see http://edn.egret.com/cn/docs/page/596 MovieClip序列帧动画
      * @version Egret 2.4
      * @platform Web,Native
      */
@@ -900,11 +929,15 @@ var egret;
             var frameData = this.getKeyFrameData(frame);
             if (frameData.res) {
                 var outputTexture = this.getTextureByResName(frameData.res);
-                outputTexture._offsetX = frameData.x | 0;
-                outputTexture._offsetY = frameData.y | 0;
                 return outputTexture;
             }
             return null;
+        };
+        p.$getOffsetByFrame = function (frame, point) {
+            var frameData = this.getKeyFrameData(frame);
+            if (frameData.res) {
+                point.setTo(frameData.x | 0, frameData.y | 0);
+            }
         };
         /**
          * @private
@@ -1867,7 +1900,7 @@ var egret;
         p._appendQueueProps = function (o) {
             var arr, oldValue, i, l, injectProps;
             for (var n in o) {
-                if (egret.sys.isUndefined(this._initQueueProps[n])) {
+                if (this._initQueueProps[n] === undefined) {
                     oldValue = this._target[n];
                     //设置plugins
                     if (arr = ScrollTween._plugins[n]) {

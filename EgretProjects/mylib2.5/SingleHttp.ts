@@ -9,9 +9,14 @@
   var http:SingleHttp = SingleHttp.getInstance();
   http.completeHandler = this.completeHandler;
   http.errorHandler = this.errorHandler;
-  var url:string = "";
-  var msg:string = "";
-  http.send(url, egret.HttpMethod.POST, msg, this);
+  
+  var url: string = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/xbLottery" + "/pass/" + pass;
+  var msg: string = "";
+  http.send(url,egret.HttpMethod.GET,msg, this);
+  
+  var url: string = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/xbLottery" + "/pass/" + pass;
+  var msg: string = "p1=postP1&p2=postP2";
+  http.send(url,egret.HttpMethod.POST,msg, this);
  */ 
 
 class SingleHttp {

@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="GameLoseSceneSkin" width="640" height="1140" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="packet_write" y="20" verticalCenter="-4" id="wrongPacket" x="108"/>
+</e:Skin>

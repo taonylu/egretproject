@@ -4,10 +4,12 @@
     "resource/eui_skins/HScrollBarSkin.exml",
     "resource/eui_skins/ScrollerSkin.exml",
     "resource/eui_skins/VScrollBarSkin.exml",
+    "resource/myskin/GameLoseSceneSkin.exml",
     "resource/myskin/GameSceneSkin.exml",
     "resource/myskin/HomeSceneSkin.exml",
     "resource/myskin/PreloadSceneSkin.exml",
     "resource/myskin/ResultSceneSkin.exml",
+    "resource/myskin/SubmitSceneSkin.exml",
     "resource/myskin/ui/ResultUISkin.exml",
     "resource/myskin/ui/RuleUISkin.exml",
     "resource/myskin/ui/ShareUISkin.exml"

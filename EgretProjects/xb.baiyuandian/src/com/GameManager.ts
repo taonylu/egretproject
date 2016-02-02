@@ -8,6 +8,8 @@ class GameManager {
     public homeScene: HomeScene = new HomeScene();  //主页场景
     public gameScene: GameScene = new GameScene();  //游戏场景
     public resultScene: ResultScene = new ResultScene(); //结果场景
+    public gameLoseScene:GameLoseScene = new GameLoseScene();  //游戏失败场景
+    public submitScene:SubmitScene = new SubmitScene();   //提交场景
     
     public shareUI:ShareUI = new ShareUI();  //分享UI
     public ruleUI:RuleUI = new RuleUI();  //规则UI
