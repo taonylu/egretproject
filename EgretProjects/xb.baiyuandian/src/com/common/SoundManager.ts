@@ -24,19 +24,19 @@ class SoundManager {
     	}
 	}
 	
-	public playBGM(){
-        
+	//播放背景音乐
+	public playBGM(){     
         if(this.bgmChannel != null){ 
             this.bgmChannel.stop();
             this.bgmChannel = null;
-    	  }
-    	  
+    	  } 
         var bgm: egret.Sound = this.soundList[this.bgm]
     	  if(bgm){
         	  this.bgmChannel = bgm.play();
     	  }
 	}
 	
+	//停止背景音乐
 	public stopBGM(){
     	if(this.bgmChannel != null){
         	this.bgmChannel.stop();

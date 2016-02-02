@@ -8,6 +8,8 @@ var GameManager = (function () {
         this.homeScene = new HomeScene(); //主页场景
         this.gameScene = new GameScene(); //游戏场景
         this.resultScene = new ResultScene(); //结果场景
+        this.gameLoseScene = new GameLoseScene(); //游戏失败场景
+        this.submitScene = new SubmitScene(); //提交场景
         this.shareUI = new ShareUI(); //分享UI
         this.ruleUI = new RuleUI(); //规则UI
     }

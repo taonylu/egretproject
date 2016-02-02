@@ -1,22 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="ResultSceneSkin" width="640" height="1140" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
-	<e:Image id="wrongPacket" source="packet_write" x="110" verticalCenter="0" visible="false"/>
-	<e:Group id="scoreGroup" height="322" width="640" y="388">
-		<e:Image id="textBg00" source="result0_png" y="12" x="71"/>
-		<e:Image id="textBg01" source="result2_png" y="13" x="72"/>
-		<e:Image id="textBg02" source="result1_png" x="74" y="13"/>
-		<e:Image id="textBg1" source="result4_png" x="78" y="149"/>
-		<e:Image id="textBg2" source="result_text2" y="195" x="154"/>
-		<e:Label id="secLabel" text="10" x="383" y="7" width="86" height="44" verticalAlign="middle" textAlign="center" textColor="0xF00C0C" size="40"/>
-		<e:Label id="curScoreLabel" text="123456" x="349" y="58" width="114" textColor="0x000000" verticalAlign="middle" textAlign="center"/>
-		<e:Label id="historyScoreLabel" x="245" y="151" textColor="0x000000" text="123456" textAlign="center" width="142" verticalAlign="middle"/>
-		<e:Label id="rateLabel" y="184" textColor="0x000000" text="99" textAlign="center" width="94" verticalAlign="middle" x="255" height="62" size="50"/>
-	</e:Group>
 	<e:Group id="resultGroup" left="0" right="0" top="0" bottom="0">
 		<e:Rect id="titleBg" height="126" width="640" x="0" y="0" fillColor="0xE22B2B"/>
 		<e:Label text="本游戏由西班牙“叫货宝”倾情呈献" x="0" y="34" width="416" height="56" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center" size="23"/>
 		<e:Image id="linkBtn" x="416" y="22" source="downbtn"/>
-		<e:Scroller id="rankScroller" width="640" height="480" y="330">
+		<e:Scroller id="rankScroller" width="640" height="480" y="320">
 			<e:Group id="scrollerGroup">
 				<e:Image id="no1" source="rank1" x="39" y="33"/>
 				<e:Image id="no2" source="rank2" x="39" y="140"/>
@@ -26,8 +14,12 @@
 				</e:layout>
 			</e:Group>
 		</e:Scroller>
-		<e:Image id="againBtn" source="againbtn" x="93" bottom="58"/>
-		<e:Image id="shareBtn" source="sharebtn" x="360" bottom="58"/>
-		<e:Image source="look_rule" id="ruleBtn" x="226" bottom="161"/>
+		<e:Image id="againBtn" source="againbtn" x="93" bottom="38"/>
+		<e:Image id="shareBtn" source="sharebtn" x="360" bottom="38"/>
+		<e:Image source="look_rule" id="ruleBtn" x="226" bottom="141"/>
 	</e:Group>
+	<e:Image source="result_text1" y="155" x="87"/>
+	<e:Image source="result_text2" y="229" x="154"/>
+	<e:Label id="historyScoreLabel" text="123" x="266" y="158" width="138" textColor="0x040000" verticalAlign="middle" textAlign="center"/>
+	<e:Label id="rateLabel" x="258" y="221" textColor="0x040000" text="99" textAlign="center" width="88" verticalAlign="middle" size="50"/>
 </e:Skin>

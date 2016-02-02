@@ -21,6 +21,7 @@ var SoundManager = (function () {
             snd.play(0, loops);
         }
     };
+    //播放背景音乐
     p.playBGM = function () {
         if (this.bgmChannel != null) {
             this.bgmChannel.stop();
@@ -31,6 +32,7 @@ var SoundManager = (function () {
             this.bgmChannel = bgm.play();
         }
     };
+    //停止背景音乐
     p.stopBGM = function () {
         if (this.bgmChannel != null) {
             this.bgmChannel.stop();

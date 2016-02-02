@@ -22,7 +22,6 @@ var GameScene = (function (_super) {
         this.gameTimer = new egret.Timer(1000); //计时
         this.timeLimit = 20; //时间限制
         this.curTime = this.timeLimit;
-        this.bWin = false; //游戏是否胜利
         this.snd = SoundManager.getInstance();
         this.os = ""; //操作系统
         this.soundCount = 0; //声音播放次数，超过次数，则不能播放声音，否则会出现异常
@@ -71,15 +70,13 @@ var GameScene = (function (_super) {
     p.gameWin = function () {
         egret.Tween.removeTweens(this.bag);
         this.stopGameTimer();
-        this.bWin = true;
         LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
     };
     //游戏失败
     p.gameLose = function () {
         egret.Tween.removeTweens(this.bag);
         this.stopGameTimer();
-        this.bWin = false;
-        LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
+        LayerManager.getInstance().runScene(GameManager.getInstance().gameLoseScene);
     };
     p.fallBag = function () {
         this.bag.y = -this.bag.height;
