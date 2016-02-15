@@ -19,11 +19,21 @@ http.listen(3000, function(){
     //event.eventTest();    //测试事件
 
     //测试模块
-    single.setName("abc");   
-    console.log(single.name);  //peter
-    console.log(single.getName()); //abc
-    var single2 =require('./com/module/single.js');
-    console.log(single2.getName()); //abc
+//    single.setName("abc");
+//    console.log(single.name);  //peter
+//    console.log(single.getName()); //abc
+//    var single2 =require('./com/module/single.js');
+//    console.log(single2.getName()); //abc
+
+    //测试模块对象
+//    var Hello = require("./com/module/module.js");
+//    var hello = new Hello();
+//    hello.setName("peter");
+//    console.log(hello.getName()); //peter
+//
+//    var hello2 = new Hello();
+//    hello.setName("peter2");
+//    console.log(hello.getName());  //peter2
 
 });
 
