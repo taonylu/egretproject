@@ -6,9 +6,11 @@ function Hello(){
 		name = _name;
 	}
 
-	getName:funtion(){
+	this.getName = function(){
 		return name;
 	}
 }
 
-module.exports = Hello;
+module.exports = Hello;   //require后， var hello = new Hello ，区别于下方：两次new的不是相同的对象
+//exports.Hello = Hello   //var hello = require(..module.js)，单例
+

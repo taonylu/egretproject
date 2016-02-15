@@ -78,7 +78,7 @@
             console.log(this.name);
         }
        }
-		
+
 	   Person.prototype.showName = function(){
 		   console.log(this.name);
 	   }
