@@ -1,0 +1,13 @@
+{
+	"groups":[
+		{
+			"keys":"",
+			"name":"preload"
+		},
+		{
+			"keys":"",
+			"name":"game"
+		}
+	],
+	"resources":[]
+}

@@ -6,6 +6,10 @@
 *  生成日期：2015/9/10
 *  修改日期：2015/9/10
 *  修改日志：
+*  范例：
+*   var pool:ObjectPool = ObjectPool.getPool("Ball",10);
+*   var ball:Ball = pool.getObject();
+*   pool.returnObject(ball);
 */
 /**对象池*/
 var ObjectPool = (function () {

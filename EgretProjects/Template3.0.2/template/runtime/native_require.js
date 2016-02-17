@@ -7,6 +7,8 @@ var game_file_list = [
 	"libs/modules/eui/eui.js",
 	"libs/modules/res/res.js",
 	"libs/modules/tween/tween.js",
+	"libs/modules/game/game.js",
+	"libs/modules/game/game.native.js",
 	"bin-debug/AssetAdapter.js",
 	"bin-debug/com/common/ArrayTool.js",
 	"bin-debug/com/common/BaseScene.js",
@@ -17,8 +19,9 @@ var game_file_list = [
 	"bin-debug/com/common/MapManager.js",
 	"bin-debug/com/common/NumberTool.js",
 	"bin-debug/com/common/ObjectPool.js",
+	"bin-debug/com/common/QRCodeLoader.js",
 	"bin-debug/com/common/ShakeTool.js",
-	"bin-debug/com/common/SoundManager.js",
+	"bin-debug/com/common/SimpleMC.js",
 	"bin-debug/com/common/StringTool.js",
 	"bin-debug/com/constant/GameConst.js",
 	"bin-debug/com/GameManager.js",
@@ -28,7 +31,6 @@ var game_file_list = [
 	"bin-debug/com/view/PreloadScene.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
-	"bin-debug/com/common/SimpleMC.js",
 	//----auto game_file_list end----
 ];
 
