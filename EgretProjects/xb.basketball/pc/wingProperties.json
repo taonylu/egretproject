@@ -1,0 +1,36 @@
+{
+	"close":false,
+	"natures":["egretProject"],
+	"resourcePlugin":{
+		"configs":[{
+				"configPath":"resource/default.res.json",
+				"relativePath":"resource/"
+			}],
+		"id":"org.egret-labs.resource",
+		"library":{
+			"children":[
+				{
+					"isFolder":false,
+					"key":"bg_jpg",
+					"name":"bg_jpg"
+				},
+				{
+					"isFolder":false,
+					"key":"ballFrame_png",
+					"name":"ballFrame_png"
+				},
+				{
+					"isFolder":false,
+					"key":"ballWang_png",
+					"name":"ballWang_png"
+				},
+				{
+					"isFolder":false,
+					"key":"ball_png",
+					"name":"ball_png"
+				}
+			]
+		}
+	},
+	"theme":"resource/default.thm.json"
+}

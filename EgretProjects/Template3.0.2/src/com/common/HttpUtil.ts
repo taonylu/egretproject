@@ -5,15 +5,17 @@
  */
 
 /**
- * 使用范例
+ * 范例
   var http:HttpUtil = new HttpUtil();
   http.completeHandler = this.completeHandler;
   http.errorHandler = this.errorHandler;
   
+  //GET
   var url: string = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/xbLottery" + "/pass/" + pass;
   var msg: string = "";
   http.send(url,egret.HttpMethod.GET,msg, this);
   
+  //POST
   var url: string = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/xbLottery" + "/pass/" + pass;
   var msg: string = "p1=postP1&p2=postP2";
   http.send(url,egret.HttpMethod.POST,msg, this);

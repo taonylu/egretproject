@@ -12,7 +12,11 @@ var NumberTool = (function () {
     }
     var d = __define,c=NumberTool,p=c.prototype;
     /**
-     * 获取随机数,getRandomInt(1,3) 返回1 2 3
+     * 获取随机数
+     * @param start 起始数字
+     * @param end 终止数字
+     * @return 返回随机数字
+     * Example: getRandomInt(1,3) 返回1 2 3
      */
     NumberTool.getRandomInt = function (start, end) {
         return Math.round(Math.random() * (end - start)) + start;

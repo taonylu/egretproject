@@ -1,0 +1,34 @@
+{
+	"groups":[
+		{
+			"keys":"bg_jpg,ballFrame_png,ballWang_png,ball_png",
+			"name":"preload"
+		},
+		{
+			"keys":"",
+			"name":"game"
+		}
+	],
+	"resources":[
+		{
+			"name":"bg_jpg",
+			"type":"image",
+			"url":"assets/bg.jpg"
+		},
+		{
+			"name":"ballFrame_png",
+			"type":"image",
+			"url":"assets/ballFrame.png"
+		},
+		{
+			"name":"ballWang_png",
+			"type":"image",
+			"url":"assets/ballWang.png"
+		},
+		{
+			"name":"ball_png",
+			"type":"image",
+			"url":"assets/ball.png"
+		}
+	]
+}
