@@ -13,7 +13,7 @@ class GameScene extends BaseScene{
     
     //z=0时，球道宽540，球道y=0
     //z=1000时，球道宽220，球道y=340
-    //当前球所在位置z的球道宽度 540-z*(540-220)/1000
+    //当前球所在位置z的球道宽度 220 + z*(540-220)/1000
     //球在z时，x速度= (1 - (z*(540-220)/1000)/540)*speedX
     //球在z时，y速度 = 同上
     //球在z时，z速度导致的y变化，600 - 340/1000*z
@@ -24,7 +24,7 @@ class GameScene extends BaseScene{
     private stageWidth:number;   //舞台高宽
     private stageHeight:number;
     
-    private gravity:number = 1; //重力
+    private gravity:number = 0.5; //重力
     
     private leftHitArea:eui.Rect;   //篮筐碰撞点
     private rightHitArea:eui.Rect;
@@ -66,24 +66,38 @@ class GameScene extends BaseScene{
         var rate:number;
         for(var i: number = 0;i < len;i++) {
             ball = this.ballList[i];
-            if(ball.z <= 500){
-                //重力
-                //ball.speedY += this.gravity;
-                //x，y，z轴位移
-                rate = (1 - (ball.z * 0.32) / 540);
-                ball.z += ball.speedZ;
-                ball.x += ball.speedX * rate;
-                ball.y += ball.speedY*rate - rate*ball.speedZ;
-                //比例
-                ball.scaleX = 1- 0.0003*ball.z;
-                ball.scaleY = ball.scaleX;
-                //边界检测
-//                if(ball.z >= 1000){
-//                    ball.speedZ = - ball.speedZ;
-//                }
-               
+            //重力
+            ball.speedY += this.gravity;
+            //x，y，z轴位移
+            rate = (1 - (ball.z * 0.32) / 540);
+            ball.z += ball.speedZ;
+            ball.x += ball.speedX * rate;
+            ball.realY += ball.speedY*rate;
+            ball.y = ball.realY + (600 - 0.34 * ball.z );
+            //比例
+            ball.scaleX = 1- 0.0003*ball.z;
+            ball.scaleY = ball.scaleX;
+            //边界检测
+            if(ball.z > 1000){
+                ball.speedZ = - ball.speedZ;
+               ball.z = 1000;
             }
-        }
+            if(ball.realY  > 0){
+                ball.realY = 0;
+                ball.y = ball.realY + (600 - 0.34 * ball.z);
+                ball.speedY = -ball.speedY;
+            }
+            if(ball.x < (162 + ball.z * 0.16)) { // 865/2 - (540 + 0.32*z)/2， 865/2 + (540+0.32*z)/2
+                ball.speedX = - ball.speedX;
+                ball.x = 162 + ball.z * 0.16;
+            } else if(ball.x > (702 - ball.z * 0.16)){
+                ball.speedX = - ball.speedX;
+                ball.x = (702 - ball.z * 0.16);
+            }
+    
+        }       
+
+        
     }
 
     ///////////////////////////////////////////
@@ -100,9 +114,9 @@ class GameScene extends BaseScene{
         this.ballGroup.addChild(ball);
         ball.x = this.stageWidth / 2;
         ball.y = this.stageHeight;
-        ball.speedX = 1;  //角度获取x移动方向
-        ball.speedZ = 1;
-        ball.speedY = 0;
+        ball.speedX = 10;  //角度获取x移动方向
+        ball.speedZ = 5;
+        ball.speedY = -20;
         ball.play();
         this.ballList.push(ball);
         
