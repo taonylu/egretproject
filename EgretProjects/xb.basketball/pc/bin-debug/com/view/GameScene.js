@@ -12,14 +12,14 @@ var GameScene = (function (_super) {
         this.ballList = new Array(); //篮球数组
         //z=0时，球道宽540，球道y=0
         //z=1000时，球道宽220，球道y=340
-        //当前球所在位置z的球道宽度 540-z*(540-220)/1000
+        //当前球所在位置z的球道宽度 220 + z*(540-220)/1000
         //球在z时，x速度= (1 - (z*(540-220)/1000)/540)*speedX
         //球在z时，y速度 = 同上
         //球在z时，z速度导致的y变化，600 - 340/1000*z
         //球在z时，球大小比例，1- (1-0.8)*z 
         this.floorHeight = 1000; //球道长宽
         this.floorWidth = 540;
-        this.gravity = 1; //重力
+        this.gravity = 0.5; //重力
     }
     var d = __define,c=GameScene,p=c.prototype;
     p.componentCreated = function () {
@@ -46,17 +46,34 @@ var GameScene = (function (_super) {
         var rate;
         for (var i = 0; i < len; i++) {
             ball = this.ballList[i];
-            if (ball.z <= 500) {
-                //重力
-                //ball.speedY += this.gravity;
-                //x，y，z轴位移
-                rate = (1 - (ball.z * 0.32) / 540);
-                ball.z += ball.speedZ;
-                ball.x += ball.speedX * rate;
-                ball.y += ball.speedY * rate - rate * ball.speedZ;
-                //比例
-                ball.scaleX = 1 - 0.0003 * ball.z;
-                ball.scaleY = ball.scaleX;
+            //重力
+            ball.speedY += this.gravity;
+            //x，y，z轴位移
+            rate = (1 - (ball.z * 0.32) / 540);
+            ball.z += ball.speedZ;
+            ball.x += ball.speedX * rate;
+            ball.realY += ball.speedY * rate;
+            ball.y = ball.realY + (600 - 0.34 * ball.z);
+            //比例
+            ball.scaleX = 1 - 0.0003 * ball.z;
+            ball.scaleY = ball.scaleX;
+            //边界检测
+            if (ball.z > 1000) {
+                ball.speedZ = -ball.speedZ;
+                ball.z = 1000;
+            }
+            if (ball.realY > 0) {
+                ball.realY = 0;
+                ball.y = ball.realY + (600 - 0.34 * ball.z);
+                ball.speedY = -ball.speedY;
+            }
+            if (ball.x < (162 + ball.z * 0.16)) {
+                ball.speedX = -ball.speedX;
+                ball.x = 162 + ball.z * 0.16;
+            }
+            else if (ball.x > (702 - ball.z * 0.16)) {
+                ball.speedX = -ball.speedX;
+                ball.x = (702 - ball.z * 0.16);
             }
         }
     };
@@ -71,9 +88,9 @@ var GameScene = (function (_super) {
         this.ballGroup.addChild(ball);
         ball.x = this.stageWidth / 2;
         ball.y = this.stageHeight;
-        ball.speedX = 1; //角度获取x移动方向
-        ball.speedZ = 1;
-        ball.speedY = 0;
+        ball.speedX = 10; //角度获取x移动方向
+        ball.speedZ = 5;
+        ball.speedY = -20;
         ball.play();
         this.ballList.push(ball);
     };
