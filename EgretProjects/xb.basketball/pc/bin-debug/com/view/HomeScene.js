@@ -1,5 +1,6 @@
 /**
  * 主页场景
+ * 二维码显示页面
  * @author
  *
  */
@@ -49,9 +50,13 @@ var HomeScene = (function (_super) {
     ///////////////////////////////////////////
     //----------------[接收数据]---------------
     ///////////////////////////////////////////
+    //接收房间号是否正确
     p.revSubmitRid = function (data) {
         var bSuccess = data.bSuccess;
         var msg = data.msg;
+    };
+    //接收开始游戏
+    p.revStartGame = function () {
     };
     return HomeScene;
 })(BaseScene);

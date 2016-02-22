@@ -10,6 +10,7 @@ var FrameMovie = (function (_super) {
         _super.call(this);
         this.textureList = new Array(); //纹理数组
         this.curFrame = 1; //当前帧，从1开始
+        this.delay = 1000 / 20; //计时延迟
         for (var i = 0; i < row; i++) {
             for (var j = 0; j < col; j++) {
                 var rect = new egret.Rectangle(j * cellHeight, i * cellWidth, cellWidth, cellHeight);
@@ -26,18 +27,33 @@ var FrameMovie = (function (_super) {
     p.play = function () {
         this.curFrame = 1;
         this.texture = this.textureList[this.curFrame - 1];
-        this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+        this.startTimer();
     };
-    p.onEnterFrame = function () {
+    p.stop = function () {
+        this.stopTimer();
+    };
+    p.onTimerHandler = function () {
         this.curFrame++;
         if (this.curFrame > this.totalFrame) {
             this.curFrame = 1;
-            this.stop();
+            this.stopTimer();
         }
         this.texture = this.textureList[this.curFrame - 1];
     };
-    p.stop = function () {
-        this.removeEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+    p.startTimer = function () {
+        if (this.timer == null) {
+            this.timer = new egret.Timer(this.delay);
+        }
+        this.timer.delay = this.delay;
+        this.timer.addEventListener(egret.TimerEvent.TIMER, this.onTimerHandler, this);
+        this.timer.reset();
+        this.timer.start();
+    };
+    p.stopTimer = function () {
+        if (this.timer) {
+            this.timer.removeEventListener(egret.TimerEvent.TIMER, this.onTimerHandler, this);
+            this.timer.stop();
+        }
     };
     return FrameMovie;
 })(egret.Bitmap);

@@ -8,6 +8,8 @@ class FrameMovie extends egret.Bitmap{
     protected textureList:Array<egret.Texture> = new Array<egret.Texture>();  //纹理数组
     public curFrame: number = 1;  //当前帧，从1开始
     public totalFrame:number;     //总帧数
+    private timer:egret.Timer;    //计时器
+    public delay:number = 1000/20;//计时延迟
     
 	public constructor(srcBm:egret.Bitmap, row, col, cellWidth, cellHeight) {
     	  super();
@@ -22,24 +24,42 @@ class FrameMovie extends egret.Bitmap{
     	  this.curFrame = 1;
         this.totalFrame = row * col;
     	  this.texture = this.textureList[this.curFrame-1];
+    	  
 	}
 	
 	public play(){
     	this.curFrame = 1;
     	this.texture = this.textureList[this.curFrame-1];
-    	this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+    	this.startTimer();
 	}
 	
-	private onEnterFrame(){
+	public stop(){
+    	this.stopTimer();
+	}
+	
+    private onTimerHandler(){
     	this.curFrame++;
     	if(this.curFrame > this.totalFrame){
         	this.curFrame = 1;
-        	this.stop();
+        	this.stopTimer();
     	}
     	 this.texture = this.textureList[this.curFrame-1];
 	}
 	
-	public stop(){
-        this.removeEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
+	public startTimer(){
+    	if(this.timer == null){
+        	this.timer = new egret.Timer(this.delay);
+    	}
+    	this.timer.delay = this.delay;
+    	this.timer.addEventListener(egret.TimerEvent.TIMER, this.onTimerHandler, this);
+    	this.timer.reset();
+    	this.timer.start();
+	}
+	
+	public stopTimer(){
+        if(this.timer){
+            this.timer.removeEventListener(egret.TimerEvent.TIMER,this.onTimerHandler,this);
+            this.timer.stop();
+        }
 	}
 }
