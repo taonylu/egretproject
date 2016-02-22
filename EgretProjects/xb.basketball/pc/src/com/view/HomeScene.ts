@@ -1,5 +1,6 @@
 /**
  * 主页场景
+ * 二维码显示页面
  * @author 
  *
  */
@@ -65,9 +66,16 @@ class HomeScene extends BaseScene{
     ///////////////////////////////////////////
     //----------------[接收数据]---------------
     ///////////////////////////////////////////
+    
+    //接收房间号是否正确
     private revSubmitRid(data){
         var bSuccess: Boolean = data.bSuccess;
         var msg: string = data.msg;
+        
+    }
+    
+    //接收开始游戏
+    public revStartGame(){
         
     }
 }

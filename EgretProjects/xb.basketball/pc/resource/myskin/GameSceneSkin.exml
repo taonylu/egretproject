@@ -3,6 +3,9 @@
 	<e:Image id="bg" source="bg_jpg"/>
 	<e:Group id="frameGroup" height="600" width="865">
 		<e:Image id="ballFrame" source="ballFrame_png"/>
-		<e:Image id="ballWang" source="ballWang_png" x="389" y="116" anchorOffsetY="0"/>
+		<e:Image id="ballWang" source="ballWang_png" x="389" y="116" anchorOffsetY="0" rotation="0"/>
+		<e:Rect id="leftHitArea" height="10" width="10" x="385" y="108" fillAlpha="0"/>
+		<e:Rect id="rightHitArea" y="108" fillAlpha="0" x="469" width="10" height="10"/>
 	</e:Group>
+	<e:Group id="ballGroup" height="600" width="865"/>
 </e:Skin>

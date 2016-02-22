@@ -68,9 +68,13 @@ class ClientSocket {
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
 
-        this.socket.on("xxx",function(data) {      
-        
+        this.socket.on("startGame",function(data) {      
+            self.homeScene.revStartGame();
         }); 
+        
+        this.socket.on("shoot", function(data){
+            self.gameScene.revShoot(data);
+        });
         
     }
 
