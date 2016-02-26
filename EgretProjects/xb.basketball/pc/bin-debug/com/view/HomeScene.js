@@ -17,8 +17,7 @@ var HomeScene = (function (_super) {
     };
     p.onEnable = function () {
         this.createQRCode();
-        //this.submitRid();
-        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+        this.submitRid();
     };
     p.onRemove = function () {
     };
@@ -46,6 +45,10 @@ var HomeScene = (function (_super) {
             var json = { "rid": this.rid };
             this.socket.sendMessage("submitRid", json, this.revSubmitRid, this);
         }
+        if (GameConst.isDebug) {
+            this.revSubmitRid({ bSuccess: true, msg: "房间已存在" });
+            this.revStartGame();
+        }
     };
     ///////////////////////////////////////////
     //----------------[接收数据]---------------
@@ -54,9 +57,16 @@ var HomeScene = (function (_super) {
     p.revSubmitRid = function (data) {
         var bSuccess = data.bSuccess;
         var msg = data.msg;
+        egret.log("revSubmitRid:", bSuccess, msg);
+        if (bSuccess) {
+        }
+        else {
+            GameManager.getInstance().messageBox.showMessage(msg);
+        }
     };
     //接收开始游戏
     p.revStartGame = function () {
+        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
     };
     return HomeScene;
 })(BaseScene);

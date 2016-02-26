@@ -21,9 +21,7 @@ class HomeScene extends BaseScene{
 
     public onEnable(): void {
         this.createQRCode();
-        //this.submitRid();
-        
-        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+        this.submitRid(); 
     }
 
     public onRemove(): void {
@@ -61,6 +59,11 @@ class HomeScene extends BaseScene{
             var json = {"rid":this.rid};
             this.socket.sendMessage("submitRid", json, this.revSubmitRid,this);
         }
+        
+        if(GameConst.isDebug){
+            this.revSubmitRid({bSuccess:true,msg:"房间已存在"});
+            this.revStartGame();
+        }
     }
     
     ///////////////////////////////////////////
@@ -71,12 +74,17 @@ class HomeScene extends BaseScene{
     private revSubmitRid(data){
         var bSuccess: Boolean = data.bSuccess;
         var msg: string = data.msg;
-        
+        egret.log("revSubmitRid:",bSuccess,msg);
+        if(bSuccess){
+            
+        }else{
+            GameManager.getInstance().messageBox.showMessage(msg);
+        }
     }
     
     //接收开始游戏
     public revStartGame(){
-        
+        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
     }
 }
 

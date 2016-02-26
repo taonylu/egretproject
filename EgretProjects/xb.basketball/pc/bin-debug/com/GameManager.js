@@ -7,6 +7,7 @@ var GameManager = (function () {
     function GameManager() {
         this.homeScene = new HomeScene(); //主页场景
         this.gameScene = new GameScene(); //游戏场景
+        this.messageBox = new MessageBox(); //提示框
         this.socket = ClientSocket.getInstance();
     }
     var d = __define,c=GameManager,p=c.prototype;
@@ -24,7 +25,10 @@ var GameManager = (function () {
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);
         //配置socket
-        //this.socket.startConnect();
+        this.socket.startConnect();
+        if (GameConst.isDebug) {
+            this.onConnect();
+        }
     };
     ///////////////////////////////////////////
     //----------------[发送数据]---------------
@@ -39,8 +43,10 @@ var GameManager = (function () {
     };
     //断开链接
     p.onDisconnect = function () {
+        this.messageBox.showMessage("网页连接已断开");
     };
     p.onError = function () {
+        this.messageBox.showMessage("连接网页错误");
     };
     return GameManager;
 })();

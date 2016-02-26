@@ -7,6 +7,8 @@ class GameManager {
     public homeScene: HomeScene = new HomeScene();  //主页场景
     public gameScene: GameScene = new GameScene();  //游戏场景
     
+    public messageBox:MessageBox = new MessageBox();//提示框
+    
     public socket:ClientSocket = ClientSocket.getInstance();
     
     //获取单例
@@ -29,7 +31,11 @@ class GameManager {
         LayerManager.getInstance().runScene(this.homeScene);
         
         //配置socket
-        //this.socket.startConnect();
+        this.socket.startConnect();
+        
+        if(GameConst.isDebug){
+            this.onConnect();
+        }
     }
     
     ///////////////////////////////////////////
@@ -47,11 +53,11 @@ class GameManager {
     
     //断开链接
     public onDisconnect() {
-        
+        this.messageBox.showMessage("网页连接已断开");
     }
 
     public onError() {
-        
+        this.messageBox.showMessage("连接网页错误");
     }
 }
 

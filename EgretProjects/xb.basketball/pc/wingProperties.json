@@ -28,6 +28,16 @@
 					"isFolder":false,
 					"key":"ball_png",
 					"name":"ball_png"
+				},
+				{
+					"isFolder":false,
+					"key":"shadow_png",
+					"name":"shadow_png"
+				},
+				{
+					"isFolder":false,
+					"key":"messageBox_png",
+					"name":"messageBox_png"
 				}
 			]
 		}
