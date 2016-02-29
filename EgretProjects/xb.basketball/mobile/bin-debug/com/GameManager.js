@@ -6,7 +6,7 @@
 var GameManager = (function () {
     function GameManager() {
         this.homeScene = new HomeScene(); //主页场景
-        this.gameScene = new GameScene(); //游戏场景
+        this.messageBox = new MessageBox(); //提示框
     }
     var d = __define,c=GameManager,p=c.prototype;
     //启动游戏框架
@@ -15,7 +15,7 @@ var GameManager = (function () {
         GameConst.stage = main.stage;
         LayerManager.getInstance().initialize(main);
         //跳转场景
-        LayerManager.getInstance().runScene(this.gameScene);
+        LayerManager.getInstance().runScene(this.homeScene);
     };
     GameManager.getInstance = function () {
         if (this.instance == null) {

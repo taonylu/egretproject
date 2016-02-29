@@ -37,22 +37,22 @@ class ClientSocket {
 
         //连接成功 
         this.socket.on('connect',function() {
-            self.onConnect();
+            egret.log("connenct succss");
         });    
             
         //连接失败    
         this.socket.on('error',function(data) {
-            self.onError(data);
+            egret.log("connenct erro");
         });   
             
         //断开连接    
         this.socket.on('disconnect',function() {
-            self.onDisconnect();
+            egret.log("connenct close");
         });  
         
         //尝试重新连接
         this.socket.on('reconnect_attempt',function() {
-            self.onReconnectAttempt();
+            egret.log("reconnect");
         }); 
         
         //连接超时
@@ -72,28 +72,9 @@ class ClientSocket {
     }
     
     //////////////////////////////////////////////////////
-    /////////////////   事件处理    //////////////////////
+    /////////////////   发送数据    //////////////////////
     //////////////////////////////////////////////////////
-        
-    //连接成功
-    private onConnect(): void {
-        egret.log("connenct succss");
-    }
-        
-    //连接失败
-    private onError(data): void {
-        egret.log("connenct erro");
-    }
-        
-    //连接断开
-    private onDisconnect(): void {
-        egret.log("connenct close");
-    }
-        
-    //尝试重新连接
-    private onReconnectAttempt(): void {
-        egret.log("reconnect");
-    }
+       
     
     public sendMessage(cmd: string,data = null,callBack: Function = null,thisObject = null): void {
         if(this.socket && this.socket.connected) {

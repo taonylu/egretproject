@@ -52,24 +52,10 @@ class Main extends eui.UILayer {
     private onThemeLoadComplete(): void {
         LoadManager.getInstance().loadGroup("preload",this,this.onPreloadComplete);
     }
-    
-    private preloadScene:PreloadScene;
+
 
     //preload资源组加载完成
     private onPreloadComplete(event: RES.ResourceEvent): void {
-        this.preloadScene = new PreloadScene();
-        this.addChild(this.preloadScene);
-        LoadManager.getInstance().loadGroup("game",this,this.onGameComplete,this.onGameProgress);
-    }
-    
-    private onGameProgress(e:RES.ResourceEvent){
-        this.preloadScene.setProgress(Math.round(e.itemsLoaded/e.itemsTotal*100));
-    }
-    
-    private onGameComplete():void{
-        this.removeChild(this.preloadScene);
-        this.preloadScene = null;
-        
         GameManager.getInstance().startup(this);
     }
     

@@ -3,7 +3,7 @@
  * @author 
  *
  */
-class Ball extends FrameMovie{
+class Ball extends SimpleMC{
     public static NAME:string = "Ball";
     public speedX:number = 0;       //x，y，z速度
     public speedY:number = 0;
@@ -14,7 +14,8 @@ class Ball extends FrameMovie{
     public bShoot:Boolean = false;  //是否进球，用于判断该球是否碰撞检测
     
 	public constructor() {
-    	super(new egret.Bitmap(RES.getRes("ball_png")), 1, 50,96,96);
+    	super("ball_png","ball_json","ball");
+    	
     	this.anchorOffsetX = this.width/2;
     	this.anchorOffsetY = this.height/2;
     	
@@ -29,6 +30,7 @@ class Ball extends FrameMovie{
         	gameScene.ballFrontGroup.addChild(this);
     	},this);
 	}
+
 	
 	public recycle(){
     	this.stop();

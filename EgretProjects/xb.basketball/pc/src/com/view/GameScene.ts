@@ -5,22 +5,25 @@
  *
  */
 class GameScene extends BaseScene{
+    private stageWidth: number;   //舞台高宽
+    private stageHeight: number;
+    
     public ballBackGroup:eui.Group;  //球在球网后Group
     public ballFrontGroup:eui.Group; //球在球网前Group
-    private frameGroup:eui.Group;     //球框Group
-    private ballWang:eui.Image;   //球框
-    private ballFrame:eui.Image;  //球网
+    private frameGroup:eui.Group;    //球框Group
+    private ballWang:eui.Image;      //球框
+    private ballFrame:eui.Image;     //球网
+    private leftHitArea: eui.Rect;   //篮筐碰撞点
+    private rightHitArea: eui.Rect;
+    
     private ballPool:ObjectPool = ObjectPool.getPool(Ball.NAME,5); //篮球对象池
-    private ballList:Array<Ball> = new Array<Ball>();  //篮球数组
+    private ballList:Array<Ball> = new Array<Ball>();              //篮球数组
+    private ballRadius:number = 110; //球半径
+    private gravity: number = 0.5;  //重力
     
-    private stageWidth:number;   //舞台高宽
-    private stageHeight:number;
-    
-    private gravity:number = 0.5; //重力
-    
-    private leftHitArea:eui.Rect;   //篮筐碰撞点
-    private rightHitArea:eui.Rect;
-    private ballRadius:number = 32; //球半径
+    private gameTimer:egret.Timer = new egret.Timer(1000);  //游戏计时器
+    private timeLimit:number = 30;  //游戏计时
+    private curTime:number = 0;     //当前计时
     
 	public constructor() {
         super("GameSceneSkin");
@@ -54,6 +57,16 @@ class GameScene extends BaseScene{
         
     }
     
+    private gameOver(){
+        this.stopGameTimer();
+        //TODO 显示游戏结果，返回二维码界面
+        
+    }
+    
+    private resetGame(){
+        
+    }
+    
     
     //z=0时，球道宽540，球道y=0
     //z=1000时，球道宽220，球道y=340
@@ -61,20 +74,23 @@ class GameScene extends BaseScene{
     //球在z时，x速度= (1 - (z*(540-220)/1000)/540)*speedX
     //球在z时，y速度 = 同上
     //球在z时，z速度导致的y变化，600 - 340/1000*z
-    //球在z时，球大小比例，1- (1-0.8)*z 
-    private floorLength: number = 1000;   //球道长宽，虚拟长度
-    private floorMaxWidth: number = 540;  //球道z=0，y=0时，宽度
-    private floorMinWidth:number = 220;   //球道z=1000时宽度
-    private floorHeight:number = 340;     //球道高度，视觉上Y高度
-    private xRate:number = (this.floorMaxWidth - this.floorMinWidth)/this.floorLength; //球x轴速率比例 0.32
-    private yRate:number = this.floorHeight/1000; //z速度导致的y变化比例 0.34
-    private ballScaleRate:number = (1 - 0.7)/this.floorLength; //球缩放比例
-    private leftHitAreaX:number;
-    private leftHitAreaY:number;
-    private rightHitAreaX:number;
-    private rightHitAreaY:number;
-    private wangX:number;
-    private wangY:number;
+    //球在z时，球大小比例，1- (1-0.7)*z 
+    private floorLength: number = 2000;   //球道长宽，虚拟长度
+    private floorMaxWidth: number = 950;  //球道z=0，y=0时，宽度
+    private floorMinWidth:number = 475;   //球道z=1000时宽度
+    private floorHeight:number = 565;     //球道高度，视觉上Y高度
+    private leftHitAreaX:number;          //篮筐坐标
+    private leftHitAreaY: number;
+    private rightHitAreaX: number;
+    private rightHitAreaY: number;
+    private wangX: number;                //篮网坐标
+    private wangY: number;
+    //private xRate:number = (this.floorMaxWidth - this.floorMinWidth)/this.floorLength; //球x轴速率比例 0.32
+    //private yRate:number = this.floorHeight/this.floorLength;                          //z速度导致的y变化比例 0.34
+    private xRate:number = 0.32;
+    private yRate:number = 0.34;
+    private ballScaleRate:number = (1 - 0.7)/this.floorLength;                         //球缩放比例
+    
     
     //移动篮球
     private moveBall(){
@@ -91,13 +107,15 @@ class GameScene extends BaseScene{
             ball.x += ball.speedX * rate;
             ball.realY += ball.speedY*rate;
             ball.y = ball.realY + (this.stageHeight - this.yRate * ball.z );
-            //比例
+            //球比例
             ball.scaleX = 1 - this.ballScaleRate*ball.z;
             ball.scaleY = ball.scaleX;
             //边界检测
             if(ball.z > this.floorLength){
                 ball.speedZ = - ball.speedZ*0.5;
                 ball.z = this.floorLength;
+                
+                //this.removeEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
             }
             if(ball.realY  > 0){
                 ball.realY = 0;
@@ -158,6 +176,7 @@ class GameScene extends BaseScene{
                     ball.setIndex(this);
                     
                     console.log("shoot success");
+                    //this.removeEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
                 }
             }
             
@@ -167,7 +186,7 @@ class GameScene extends BaseScene{
             ball.shadow.scaleX = -ball.realY/this.stageHeight + 0.5;  //影子缩放
             ball.shadow.scaleY = -ball.realY/this.stageHeight + 0.5;
             
-            //超出边界
+            //超出边界,移除篮球
             if(ball.y > this.stageHeight){
                 this.ballList.splice(i,1);
                 ball.recycle();
@@ -201,6 +220,29 @@ class GameScene extends BaseScene{
         egret.Tween.removeTweens(this.frameGroup);
     }
     
+    //开始计时
+    private startGameTimer(){
+        this.gameTimer.addEventListener(egret.TimerEvent.TIMER, this.onTimerHandler, this);
+        this.gameTimer.reset();
+        this.gameTimer.start();
+    }
+    
+    private onTimerHandler(){
+        //TODO 计时
+        this.curTime --;
+        if(this.curTime < 0){
+            egret.log("time over");
+            this.gameOver();
+        }
+    }
+    
+    //停止计时
+    private stopGameTimer(){
+        this.gameTimer.removeEventListener(egret.TimerEvent.TIMER,this.onTimerHandler,this);
+        this.gameTimer.stop();
+    }
+    
+    
     ///////////////////////////////////////////
     //----------------[接收数据]---------------
     ///////////////////////////////////////////
@@ -215,14 +257,14 @@ class GameScene extends BaseScene{
     }
     
     private shoot(){
-        
+        console.log("shoot");
         var ball: Ball = this.ballPool.getObject();
         ball.x = this.stageWidth / 2;
         ball.y = this.stageHeight;
         ball.speedX = 0;  //角度获取x移动方向
-        ball.speedZ = 18;
-        ball.speedY = -17.2;
-        ball.play();
+        ball.speedZ = 40;
+        ball.speedY = -22;
+        ball.gotoAndPlay("label0");
         this.ballList.push(ball);
 
         ball.shadow.x = ball.x;

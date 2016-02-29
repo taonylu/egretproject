@@ -23,6 +23,10 @@
 		},
 		{
 			"name": "game"
+		},
+		{
+			"name": "socket.io",
+			"path": "../socket.io/libsrc"
 		}
 	]
 }

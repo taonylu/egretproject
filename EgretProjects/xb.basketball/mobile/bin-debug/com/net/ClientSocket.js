@@ -25,53 +25,30 @@ var ClientSocket = (function () {
     };
     p.startConnect = function () {
         //连接socket
-        //this.socket = io.connect(window["server"],{ reconnection: false,'force new connection': true});
+        this.socket = io.connect(window["server"], { reconnection: false, 'force new connection': true });
         var self = this;
         //连接成功 
         this.socket.on('connect', function () {
-            self.onConnect();
+            self.homeScene.onConnect();
         });
         //连接失败    
         this.socket.on('error', function (data) {
-            self.onError(data);
+            self.homeScene.onError(data);
         });
         //断开连接    
         this.socket.on('disconnect', function () {
-            self.onDisconnect();
-        });
-        //尝试重新连接
-        this.socket.on('reconnect_attempt', function () {
-            self.onReconnectAttempt();
-        });
-        //连接超时
-        this.socket.on('connect_timeout', function () {
-            //self.onReconnectAttempt();
+            self.homeScene.onDisconnect();
         });
         //////////////////////////////////////////////////////
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
-        this.socket.on("xxx", function (data) {
+        this.socket.on("gameOver", function (data) {
+            self.homeScene.revGameOver(data);
         });
     };
     //////////////////////////////////////////////////////
     /////////////////   事件处理    //////////////////////
     //////////////////////////////////////////////////////
-    //连接成功
-    p.onConnect = function () {
-        egret.log("connenct succss");
-    };
-    //连接失败
-    p.onError = function (data) {
-        egret.log("connenct erro");
-    };
-    //连接断开
-    p.onDisconnect = function () {
-        egret.log("connenct close");
-    };
-    //尝试重新连接
-    p.onReconnectAttempt = function () {
-        egret.log("reconnect");
-    };
     p.sendMessage = function (cmd, data, callBack, thisObject) {
         if (data === void 0) { data = null; }
         if (callBack === void 0) { callBack = null; }
