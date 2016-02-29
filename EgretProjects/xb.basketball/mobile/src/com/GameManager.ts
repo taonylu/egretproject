@@ -5,7 +5,8 @@
  */
 class GameManager {
     public homeScene: HomeScene = new HomeScene();  //主页场景
-    public gameScene: GameScene = new GameScene();  //游戏场景
+    
+    public messageBox:MessageBox = new MessageBox();//提示框
     
     //启动游戏框架
     public startup(main: Main): void {
@@ -15,7 +16,7 @@ class GameManager {
         LayerManager.getInstance().initialize(main);
         
         //跳转场景
-        LayerManager.getInstance().runScene(this.gameScene);  
+        LayerManager.getInstance().runScene(this.homeScene);  
     }
     
 

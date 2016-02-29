@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="GameSceneSkin" width="865" height="600" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="bg" source="bg_jpg"/>
-	<e:Group id="ballBackGroup" height="600" width="865" x="0" y="0"/>
-	<e:Group id="frameGroup" height="600" width="865">
-		<e:Image id="ballFrame" source="ballFrame_png" y="93" x="371"/>
-		<e:Image id="ballWang" source="ballWang_png" x="432" y="116" anchorOffsetY="0" rotation="0" anchorOffsetX="44"/>
-		<e:Rect id="leftHitArea" height="10" width="10" x="390" y="112" fillAlpha="0"/>
-		<e:Rect id="rightHitArea" y="113" fillAlpha="0" x="475" width="10" height="10"/>
+<e:Skin class="GameSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bg" source="bg_jpg" width="1920" height="1080"/>
+	<e:Group id="ballBackGroup" height="1080" width="1920" x="0" y="0"/>
+	<e:Group id="frameGroup" height="1080" width="1920">
+		<e:Image id="ballFrame" source="ballFrame_png" y="123" x="841"/>
+		<e:Image id="ballWang" source="ballWang_png" y="171" anchorOffsetY="0" rotation="0" anchorOffsetX="98" x="967"/>
+		<e:Rect id="leftHitArea" height="10" width="10" x="870" y="163" fillAlpha="0"/>
+		<e:Rect id="rightHitArea" y="163" fillAlpha="0" x="1065" width="10" height="10"/>
 	</e:Group>
-	<e:Group id="ballFrontGroup" height="600" width="865">
+	<e:Group id="ballFrontGroup" height="1080" width="1920">
 	</e:Group>
 </e:Skin>

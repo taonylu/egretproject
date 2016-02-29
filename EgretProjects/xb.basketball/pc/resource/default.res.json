@@ -1,7 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"bg_jpg,ballFrame_png,ballWang_png,ball_png,shadow_png,messageBox_png",
+			"keys":"bg_jpg,ballFrame_png,ballWang_png,ball_png,shadow_png,messageBox_png,ball_json",
 			"name":"preload"
 		},
 		{
@@ -39,6 +39,11 @@
 			"name":"messageBox_png",
 			"type":"image",
 			"url":"assets/messageBox.png"
+		},
+		{
+			"name":"ball_json",
+			"type":"json",
+			"url":"assets/ball.json"
 		}
 	]
 }

@@ -6,7 +6,7 @@
 var Ball = (function (_super) {
     __extends(Ball, _super);
     function Ball() {
-        _super.call(this, new egret.Bitmap(RES.getRes("ball_png")), 1, 50, 96, 96);
+        _super.call(this, "ball_png", "ball_json", "ball");
         this.speedX = 0; //x，y，z速度
         this.speedY = 0;
         this.speedZ = 0;
@@ -35,5 +35,5 @@ var Ball = (function (_super) {
     };
     Ball.NAME = "Ball";
     return Ball;
-})(FrameMovie);
+})(SimpleMC);
 egret.registerClass(Ball,'Ball');
