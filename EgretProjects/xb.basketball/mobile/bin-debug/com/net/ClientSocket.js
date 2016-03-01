@@ -29,14 +29,17 @@ var ClientSocket = (function () {
         var self = this;
         //连接成功 
         this.socket.on('connect', function () {
+            egret.log("connect success");
             self.homeScene.onConnect();
         });
         //连接失败    
         this.socket.on('error', function (data) {
+            egret.log("socket error");
             self.homeScene.onError(data);
         });
         //断开连接    
         this.socket.on('disconnect', function () {
+            egret.log("socket disconnect");
             self.homeScene.onDisconnect();
         });
         //////////////////////////////////////////////////////

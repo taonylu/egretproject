@@ -6,8 +6,16 @@
  */
 class HomeScene extends BaseScene{
     private codeLoader: QRCodeLoader = new QRCodeLoader();  //二维码
+    private codeGroup:eui.Group;                            //二维码容器
+    
     private socket = ClientSocket.getInstance();            //Socket
     private rid:string;                                     //房间号
+    
+    private ball:eui.Image;
+    private hand:eui.Image;
+    private handPosY:number;    //手和球初始坐标
+    private ballPosX:number;
+    private ballPosY:number;
     
     public constructor() {
         super("HomeSceneSkin");
@@ -16,16 +24,20 @@ class HomeScene extends BaseScene{
     public componentCreated(): void {
         super.componentCreated();
         
-        
+        this.handPosY = this.hand.y;
+        this.ballPosX = this.ball.x;
+        this.ballPosY = this.ball.y;  
     }
 
     public onEnable(): void {
         this.createQRCode();
         this.submitRid(); 
+        this.shootAnim();
     }
 
     public onRemove(): void {
-        
+        this.stopShootAnim();
+        this.codeLoader.destroy();
     }
 
     
@@ -44,9 +56,30 @@ class HomeScene extends BaseScene{
         var codeHeight = window["codeHeight"];
         var logoUrl = window["logoUrl"];
         this.codeLoader.load(dataUrl,codeWidth,codeHeight,logoUrl);
-        this.codeLoader.x = (GameConst.stage.stageWidth - codeWidth)/2;
-        this.codeLoader.y = (GameConst.stage.stageHeight - codeHeight) / 2;
-        this.addChild(this.codeLoader);
+        this.codeGroup.addChild(this.codeLoader);
+    }
+    
+    private shootAnim(){
+        egret.Tween.get(this.hand,{ loop: true }).to({ y: this.handPosY - 50 },500).to({ y: this.handPosY},500).wait(500);
+        
+        egret.Tween.get(this.ball,{loop:true}).wait(100).to({y:this.ballPosY-100},100).
+            to({ y: this.ballPosY - 150,x: this.ballPosX - 15 },100).
+            to({ y: this.ballPosY - 200,x: this.ballPosX - 20 },100).
+            to({ y: this.ballPosY - 250,x: this.ballPosX - 25 },100).
+            to({ y: this.ballPosY - 300,x: this.ballPosX - 50 },100).
+            to({ y: this.ballPosY - 350,x: this.ballPosX - 75 },100).
+            to({ y: this.ballPosY - 400,x: this.ballPosX - 100 },100).
+            to({ y: this.ballPosY - 350,x: this.ballPosX - 125 },100).
+            to({ y: this.ballPosY - 300,x: this.ballPosX - 150 },100).
+            wait(500);
+    }
+    
+    private stopShootAnim(){
+        egret.Tween.removeTweens(this.ball);
+        egret.Tween.removeTweens(this.hand);
+        this.ball.x = this.ballPosX;
+        this.ball.y = this.ballPosY;
+        this.hand.y = this.handPosY;
     }
     
     ///////////////////////////////////////////

@@ -74,7 +74,6 @@ class QRCodeLoader  extends egret.DisplayObjectContainer{
             imageLoader.addEventListener(egret.Event.COMPLETE,this.onlogoComplete,this);
             imageLoader.load(this.logoUrl); 
         }
- 
     }
     
     
@@ -88,5 +87,14 @@ class QRCodeLoader  extends egret.DisplayObjectContainer{
         bitmap.y = (this.qrcodeHeight - bitmap.height) / 2;
         this.addChild(bitmap);
        
+    }
+    
+    //销毁二维码
+    public destroy(){
+        var len:number = this.numChildren;
+        for(var i:number=len-1;i>=0;i--){
+            var obj:egret.DisplayObject = this.getChildAt(i);
+            obj.parent && obj.parent.removeChild(obj);
+        }
     }
 }

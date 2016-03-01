@@ -67,7 +67,7 @@
 <body>
 	<!-- 其他变量 -->
 	<script>
-		window["server"] = "http://127.0.0.1:3000";
+		window["server"] = "http://192.168.1.101:3004";
 	</script>
 	<!-- -->
 	
@@ -77,9 +77,9 @@
 	<div id="code" style="display:none"></div>
 	<script>
 		function createQRCode(rid){
-			var codeUrl = "http://192.168.1.105:3002/index.html" + "?rid=" + rid;
-			var codeWidth = 200;
-			var codeHeight = 200;
+			var codeUrl = "http://192.168.1.104/1/index.html" + "?rid=" + rid;
+			var codeWidth = 290;
+			var codeHeight = 290;
 			var logoUrl = "";
 			$("#code").qrcode({ width: codeWidth, height:codeHeight,text:codeUrl });
 			var i=$("#code > canvas");

@@ -5,5 +5,5 @@
  */
 class GameConst {
 	public static stage:egret.Stage;
-	public static isDebug:Boolean = true;
+	public static isDebug:Boolean = false;
 }

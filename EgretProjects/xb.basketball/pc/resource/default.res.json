@@ -1,7 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"bg_jpg,ballFrame_png,ballWang_png,ball_png,shadow_png,messageBox_png,ball_json",
+			"keys":"bg_jpg,ballFrame_png,ballWang_png,ball_png,shadow_png,messageBox_png,ball_json,homebg_jpg,homeball_png,hand_png,scorebg_png",
 			"name":"preload"
 		},
 		{
@@ -44,6 +44,26 @@
 			"name":"ball_json",
 			"type":"json",
 			"url":"assets/ball.json"
+		},
+		{
+			"name":"homebg_jpg",
+			"type":"image",
+			"url":"assets/homebg.jpg"
+		},
+		{
+			"name":"homeball_png",
+			"type":"image",
+			"url":"assets/homeball.png"
+		},
+		{
+			"name":"hand_png",
+			"type":"image",
+			"url":"assets/hand.png"
+		},
+		{
+			"name":"scorebg_png",
+			"type":"image",
+			"url":"assets/scorebg.png"
 		}
 	]
 }

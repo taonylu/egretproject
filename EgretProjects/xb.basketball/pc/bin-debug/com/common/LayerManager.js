@@ -44,13 +44,13 @@ var LayerManager = (function () {
                 }
             }
         }
+        //设置当前场景
+        this.curScene = nextScene;
         //添加下一场景
         this.sceneLayer.addChild(nextScene);
         if (nextScene.inited) {
             nextScene.onEnable();
         }
-        //设置当前场景
-        this.curScene = nextScene;
     };
     LayerManager.getInstance = function () {
         if (this.instance == null) {

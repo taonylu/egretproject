@@ -43,7 +43,7 @@ class LayerManager {
      * @param 运行的场景名                
      * @param 是否销毁上一场景          
      */
-    public runScene(nextScene: BaseScene,destroy: boolean = false): void { 
+    public runScene(nextScene: BaseScene,destroy: boolean = false): void {
         //隐藏或销毁当前场景
         if(this.curScene != null) {
             if(this.curScene) {
@@ -53,7 +53,10 @@ class LayerManager {
                     this.curScene.onDestroy();
                 }
             }
-        }  
+        } 
+        
+        //设置当前场景
+        this.curScene = nextScene;
         
         //添加下一场景
         this.sceneLayer.addChild(nextScene);
@@ -61,8 +64,7 @@ class LayerManager {
             nextScene.onEnable();
         }
         
-        //设置当前场景
-        this.curScene = nextScene;
+        
     }
     
     private static instance: LayerManager;
