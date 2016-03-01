@@ -31,6 +31,8 @@ class GameManager {
         LayerManager.getInstance().runScene(this.homeScene);
         
         //配置socket
+        this.socket.homeScene = this.homeScene;
+        this.socket.gameScene = this.gameScene;
         this.socket.startConnect();
         
         if(GameConst.isDebug){

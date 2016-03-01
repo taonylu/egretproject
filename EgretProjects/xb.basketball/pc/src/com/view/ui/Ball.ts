@@ -21,19 +21,13 @@ class Ball extends SimpleMC{
     	
     	this.shadow = new egret.Bitmap(RES.getRes("shadow_png"));
     	this.shadow.anchorOffsetX = this.shadow.width/2;
-	}
-	
-	//设置深度,GameScene在循环里设置，tween的ball取的不正确
-	public setIndex(gameScene:GameScene){
-    	gameScene.ballBackGroup.addChild(this);
-    	egret.Tween.get(this).wait(500).call(function(){
-        	gameScene.ballFrontGroup.addChild(this);
-    	},this);
+  
 	}
 
 	
 	public recycle(){
-    	this.stop();
+      this.stop();
+    	this.realY = 0;
     	this.bShoot = false;
     	this.shadow.parent && this.shadow.parent.removeChild(this.shadow);
     	this.parent && this.parent.removeChild(this);

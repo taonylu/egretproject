@@ -22,6 +22,7 @@ var game_file_list = [
 	"bin-debug/com/net/ClientSocket.js",
 	"bin-debug/com/view/HomeScene.js",
 	"bin-debug/com/view/ui/MessageBox.js",
+	"bin-debug/com/view/ui/ResultPanel.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
 	//----auto game_file_list end----
@@ -57,9 +58,9 @@ egret_native.egretStart = function () {
 		contentWidth: 480,
 		contentHeight: 800,
 		showPaintRect: false,
-		showFPS: false,
+		showFPS: true,
 		fpsStyles: "x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9",
-		showLog: false,
+		showLog: true,
 		logFilter: "",
 		maxTouches: 2,
 		textureScaleFactor: 1

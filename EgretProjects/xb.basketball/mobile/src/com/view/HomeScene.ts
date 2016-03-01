@@ -5,13 +5,18 @@
  */
 class HomeScene extends BaseScene{
 
+    private resultPanel: ResultPanel = new ResultPanel();  //结算面板
+    
     public socket:ClientSocket;   //socket
     private ball:eui.Image;       //球
     private hand:eui.Image;       //手
     private tipLabel:eui.Label;   //提示文本
     
+    private ballX:number;         //球初始位置
+    private ballY:number;
+    
     private countDownTimer:egret.Timer = new egret.Timer(1000); //倒计时
-    private countDownLimit:number = 1;  //倒计时限制
+    private countDownLimit:number = 3;  //倒计时限制
     
     
     public constructor() {
@@ -21,7 +26,10 @@ class HomeScene extends BaseScene{
     public componentCreated(): void {
         super.componentCreated();
         
+        this.ballX = this.ball.x;
+        this.ballY = this.ball.y;
         this.socket = ClientSocket.getInstance();
+        this.socket.homeScene = this;
     }
 
     public onEnable(): void {
@@ -40,23 +48,59 @@ class HomeScene extends BaseScene{
     
     //开始游戏
     private startGame(){
-        this.ball.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-    }
-    
-    private onTouchBegin(e:egret.TouchEvent){
-        this.ball.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouchBegin,this);
-        this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
-        this.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
-    }
-    
-    private onTouchMove(e:egret.TouchEvent){
-        this.ball.x = e.stageX;
-        this.ball.y = e.stageY;
-        console.log(this.ball.y ,e.stageY);
-    }
-    
-    private onTouchEnd(e:egret.TouchEvent){
+        this.configListeners();
         
+        if(GameConst.isDebug){
+            this.revGameOver({score:100}); 
+        }
+    }
+    
+    //游戏结束
+    private gameOver(){
+        this.deConfigListeners();
+    }
+    
+    private configListeners(){
+        this.ball.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouchBegin,this);
+        
+    }
+    
+    private deConfigListeners(){
+        this.ball.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouchBegin,this);
+        this.removeEventListener(egret.TouchEvent.TOUCH_END,this.onTouchEnd,this);
+    }
+    
+    
+    private startX:number;  //触摸坐标
+    private startY:number;
+    private endX:number;
+    private endY:number;
+    private onTouchBegin(e:egret.TouchEvent){
+        this.addEventListener(egret.TouchEvent.TOUCH_END,this.onTouchEnd,this);
+        this.startX = e.stageX;
+        this.startY = e.stageY;
+    }
+
+    private onTouchEnd(e:egret.TouchEvent){
+        this.removeEventListener(egret.TouchEvent.TOUCH_END,this.onTouchEnd,this);
+        this.endX = e.stageX;
+        this.endY = e.stageY;
+        if((this.startY - this.endY) > 25){  //手指上滑
+            var radian:number = Math.atan2(this.endY - this.startY, this.endX - this.startX);
+            //投球动画
+            this.deConfigListeners();
+            var self:HomeScene = this;
+            var posX:number = Math.cos(radian)*1000;
+            var posY:number = Math.sin(radian)*1000;
+            egret.Tween.get(this.ball).to({x:this.ballX + posX, y:this.ballY + posY},300).call(function(){
+                  self.configListeners();
+                  self.ball.x = self.ballX;
+                  self.ball.y = self.ballY;
+            });
+
+            //发送投球
+            this.sendShoot(radian);
+        }
     }
     
     //介绍界面
@@ -68,7 +112,7 @@ class HomeScene extends BaseScene{
         var handPos: number = this.hand.y;
         egret.Tween.get(this.hand,{ loop: true }).to({ y: handPos - 50 },500).to({ y: handPos },500);
 
-        GameManager.getInstance().messageBox.showMessage("建议在wifi下进行游戏");
+        GameManager.getInstance().messageBox.showMessage("在wifi下游戏更流畅");
     }
     
     //开始倒计时
@@ -101,22 +145,15 @@ class HomeScene extends BaseScene{
     }
     
     
-    
-    
-    
-    
-    
-    
-    
     //////////////////////////////////////////////////////
     /////////////////   网络连接     //////////////////////
     //////////////////////////////////////////////////////
     
     //连接成功
     public onConnect(): void {
-        var json = {rid:egret.getOption("rid")};
+        var json = {"rid":egret.getOption("rid")};
         this.socket.sendMessage("login",json,this.revLogin,this);
-        egret.log("发送登录请求:" + json);
+        egret.log("发送登录请求:" + json.rid);
     }
         
     //连接失败
@@ -126,8 +163,20 @@ class HomeScene extends BaseScene{
         
     //连接断开
     public onDisconnect(): void {
-        GameManager.getInstance().messageBox.showMessage("与网页断开连接");
+        //游戏结算后，不显示断开连接
+        if(!this.resultPanel.parent){
+            GameManager.getInstance().messageBox.showMessage("与网页断开连接");
+        }
     }
+    
+    //////////////////////////////////////////////////////
+    //---------------------[发送数据]----------------------
+    //////////////////////////////////////////////////////
+    private sendShoot(angle:number){
+        this.socket.sendMessage("shoot",{angle:angle});
+        egret.log("shoot:",angle.toFixed(3));
+    }
+    
 
     //////////////////////////////////////////////////////
     //---------------------[接收数据]----------------------
@@ -151,7 +200,13 @@ class HomeScene extends BaseScene{
         var score:number = data.score;
         egret.log("接收游戏结束:",score);
         
+        this.gameOver();
         
+        //显示分数
+        this.resultPanel.showScore(score);
+        this.resultPanel.x = (GameConst.stage.stageWidth - this.resultPanel.width)/2;
+        this.resultPanel.y = (GameConst.stage.stageHeight - this.resultPanel.height) / 2;
+        this.addChild(this.resultPanel);
     }
    
 }

@@ -19,15 +19,9 @@ var Ball = (function (_super) {
         this.shadow.anchorOffsetX = this.shadow.width / 2;
     }
     var d = __define,c=Ball,p=c.prototype;
-    //设置深度,GameScene在循环里设置，tween的ball取的不正确
-    p.setIndex = function (gameScene) {
-        gameScene.ballBackGroup.addChild(this);
-        egret.Tween.get(this).wait(500).call(function () {
-            gameScene.ballFrontGroup.addChild(this);
-        }, this);
-    };
     p.recycle = function () {
         this.stop();
+        this.realY = 0;
         this.bShoot = false;
         this.shadow.parent && this.shadow.parent.removeChild(this.shadow);
         this.parent && this.parent.removeChild(this);

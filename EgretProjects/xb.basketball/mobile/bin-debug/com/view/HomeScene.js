@@ -7,13 +7,17 @@ var HomeScene = (function (_super) {
     __extends(HomeScene, _super);
     function HomeScene() {
         _super.call(this, "HomeSceneSkin");
+        this.resultPanel = new ResultPanel(); //结算面板
         this.countDownTimer = new egret.Timer(1000); //倒计时
-        this.countDownLimit = 1; //倒计时限制
+        this.countDownLimit = 3; //倒计时限制
     }
     var d = __define,c=HomeScene,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
+        this.ballX = this.ball.x;
+        this.ballY = this.ball.y;
         this.socket = ClientSocket.getInstance();
+        this.socket.homeScene = this;
     };
     p.onEnable = function () {
         this.socket.startConnect();
@@ -26,19 +30,46 @@ var HomeScene = (function (_super) {
     };
     //开始游戏
     p.startGame = function () {
+        this.configListeners();
+        if (GameConst.isDebug) {
+            this.revGameOver({ score: 100 });
+        }
+    };
+    //游戏结束
+    p.gameOver = function () {
+        this.deConfigListeners();
+    };
+    p.configListeners = function () {
         this.ball.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
     };
-    p.onTouchBegin = function (e) {
+    p.deConfigListeners = function () {
         this.ball.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-        this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
-        this.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
+        this.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
     };
-    p.onTouchMove = function (e) {
-        this.ball.x = e.stageX;
-        this.ball.y = e.stageY;
-        console.log(this.ball.y, e.stageY);
+    p.onTouchBegin = function (e) {
+        this.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
+        this.startX = e.stageX;
+        this.startY = e.stageY;
     };
     p.onTouchEnd = function (e) {
+        this.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
+        this.endX = e.stageX;
+        this.endY = e.stageY;
+        if ((this.startY - this.endY) > 25) {
+            var radian = Math.atan2(this.endY - this.startY, this.endX - this.startX);
+            //投球动画
+            this.deConfigListeners();
+            var self = this;
+            var posX = Math.cos(radian) * 1000;
+            var posY = Math.sin(radian) * 1000;
+            egret.Tween.get(this.ball).to({ x: this.ballX + posX, y: this.ballY + posY }, 300).call(function () {
+                self.configListeners();
+                self.ball.x = self.ballX;
+                self.ball.y = self.ballY;
+            });
+            //发送投球
+            this.sendShoot(radian);
+        }
     };
     //介绍界面
     p.introduce = function () {
@@ -47,7 +78,7 @@ var HomeScene = (function (_super) {
         this.ball.visible = true;
         var handPos = this.hand.y;
         egret.Tween.get(this.hand, { loop: true }).to({ y: handPos - 50 }, 500).to({ y: handPos }, 500);
-        GameManager.getInstance().messageBox.showMessage("建议在wifi下进行游戏");
+        GameManager.getInstance().messageBox.showMessage("在wifi下游戏更流畅");
     };
     //开始倒计时
     p.startCountDown = function () {
@@ -81,9 +112,9 @@ var HomeScene = (function (_super) {
     //////////////////////////////////////////////////////
     //连接成功
     p.onConnect = function () {
-        var json = { rid: egret.getOption("rid") };
+        var json = { "rid": egret.getOption("rid") };
         this.socket.sendMessage("login", json, this.revLogin, this);
-        egret.log("发送登录请求:" + json);
+        egret.log("发送登录请求:" + json.rid);
     };
     //连接失败
     p.onError = function (data) {
@@ -91,7 +122,17 @@ var HomeScene = (function (_super) {
     };
     //连接断开
     p.onDisconnect = function () {
-        GameManager.getInstance().messageBox.showMessage("与网页断开连接");
+        //游戏结算后，不显示断开连接
+        if (!this.resultPanel.parent) {
+            GameManager.getInstance().messageBox.showMessage("与网页断开连接");
+        }
+    };
+    //////////////////////////////////////////////////////
+    //---------------------[发送数据]----------------------
+    //////////////////////////////////////////////////////
+    p.sendShoot = function (angle) {
+        this.socket.sendMessage("shoot", { angle: angle });
+        egret.log("shoot:", angle.toFixed(3));
     };
     //////////////////////////////////////////////////////
     //---------------------[接收数据]----------------------
@@ -112,6 +153,12 @@ var HomeScene = (function (_super) {
     p.revGameOver = function (data) {
         var score = data.score;
         egret.log("接收游戏结束:", score);
+        this.gameOver();
+        //显示分数
+        this.resultPanel.showScore(score);
+        this.resultPanel.x = (GameConst.stage.stageWidth - this.resultPanel.width) / 2;
+        this.resultPanel.y = (GameConst.stage.stageHeight - this.resultPanel.height) / 2;
+        this.addChild(this.resultPanel);
     };
     return HomeScene;
 })(BaseScene);

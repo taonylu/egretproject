@@ -25,6 +25,8 @@ var GameManager = (function () {
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);
         //配置socket
+        this.socket.homeScene = this.homeScene;
+        this.socket.gameScene = this.gameScene;
         this.socket.startConnect();
         if (GameConst.isDebug) {
             this.onConnect();

@@ -8,6 +8,7 @@ class GameManager {
     
     public messageBox:MessageBox = new MessageBox();//提示框
     
+    
     //启动游戏框架
     public startup(main: Main): void {
 

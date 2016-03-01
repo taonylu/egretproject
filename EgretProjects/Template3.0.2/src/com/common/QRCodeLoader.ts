@@ -7,6 +7,15 @@
     <div id="code" style="display:none"></div> 
     
     <script>
+        var srvConfig = {
+            host : '<%= host %>',
+            port : '<%= port %>',
+    		rid : '<%= rid %>'
+    	}
+        var codeUrl =  "http://"+srvConfig.host+":"+srvConfig.port+ "/mobile?rid=" + srvConfig.rid;
+    	var codeWidth = 350;
+    	var codeHeight = 350;
+    	var logoUrl = "";
         $("#code").qrcode({ width: codeWidth, height:codeHeight,text:codeUrl });
         var i=$("#code > canvas");
         var codeData=i[0].toDataURL();
@@ -65,7 +74,6 @@ class QRCodeLoader  extends egret.DisplayObjectContainer{
             imageLoader.addEventListener(egret.Event.COMPLETE,this.onlogoComplete,this);
             imageLoader.load(this.logoUrl); 
         }
- 
     }
     
     
@@ -79,5 +87,14 @@ class QRCodeLoader  extends egret.DisplayObjectContainer{
         bitmap.y = (this.qrcodeHeight - bitmap.height) / 2;
         this.addChild(bitmap);
        
+    }
+    
+    //销毁二维码
+    private destroy(){
+        var len:number = this.numChildren;
+        for(var i:number=len-1;i>=0;i--){
+            var obj:egret.DisplayObject = this.getChildAt(i);
+            obj.parent && obj.parent.removeChild(obj);
+        }
     }
 }
