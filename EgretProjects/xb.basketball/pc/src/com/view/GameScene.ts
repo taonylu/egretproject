@@ -5,11 +5,14 @@
  *
  */
 class GameScene extends BaseScene{
+    private resultPanel: ResultPanel = new ResultPanel(); //结算框
+    
     private stageWidth: number;   //舞台高宽
     private stageHeight: number;
     
     public ballBackGroup:eui.Group;  //球在球网后Group
     public ballFrontGroup:eui.Group; //球在球网前Group
+    private frameBgGroup:eui.Group;  //球框背景Group
     private frameGroup:eui.Group;    //球框Group
     private ballWang:eui.Image;      //球框
     private ballFrame:eui.Image;     //球网
@@ -24,7 +27,7 @@ class GameScene extends BaseScene{
     
     
     private gameTimer:egret.Timer = new egret.Timer(1000);  //游戏计时器
-    private timeLimit:number = 3;  //游戏计时
+    private timeLimit:number = 30;  //游戏计时
     private curTime:number = 0;     //当前计时
     
     private score:number = 0;      //当前得分
@@ -42,20 +45,29 @@ class GameScene extends BaseScene{
     }
 
     public onEnable(): void {
-        
-        this.startGame();
-        this.revShoot({angle:90});
+        this.startGame(); 
     }
 
     public onRemove(): void {
-        
+        this.hideResult();
     }
     
     
     public startGame(){
         this.resetGame();
-        this.startGameTimer();
+        
+        //为了配合手机端倒计时3秒，pc端延迟一段时间再开始计时
+        if(GameConst.isDebug == false){
+            var self: GameScene = this;
+            egret.Tween.get(this).wait(5000).call(function() {
+                self.startGameTimer();
+            });
+        }
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+        
+        if(GameConst.isDebug) {
+            this.revShoot({ angle: 90 });
+        }
     }
     
     private onEnterFrame(){
@@ -66,26 +78,36 @@ class GameScene extends BaseScene{
     private gameOver(){
         this.stopGameTimer();    //停止游戏计时
         this.stopMoveFrame();    //停止球网移动
-        //TODO 显示游戏结果，返回二维码界面
+        
+        //发送游戏结束
+        this.sendGameOver();
+        
+        //显示游戏结果，返回二维码界面
+        this.showResult();
         
         var self:GameScene = this;
-        egret.Tween.get(this).wait(1000).call(function(){
+        egret.Tween.get(this).wait(5000).call(function(){
             self.resetGame();
             LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
         });
+        
+        
     }
     
     private resetGame(){
         //停止游戏
-        this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
+        this.removeEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
         //重置游戏计时
+        this.stopGameTimer();
         this.curTime = this.timeLimit;
         this.setTimeLabel(this.curTime);
         //重置分数
         this.score = 0;
         this.scoreLabel.text = "0";
         //重置球框
-        this.frameGroup.x = 0;
+        this.stopMoveFrame();
+        this.frameGroup.x = this.frameGroupX;
+        this.frameBgGroup.x = this.frameGroupX;
         //重置球
         var len:number = this.ballList.length;
         for(var i:number=0;i<len;i++){
@@ -93,6 +115,7 @@ class GameScene extends BaseScene{
         }
         this.ballList.length = 0;
         
+        //this.moveFrame();
     }
     
     private stopAllMove(){
@@ -113,9 +136,15 @@ class GameScene extends BaseScene{
     private wangY: number;                       
     private xRate: number = 0.32;           //z轴位置球x轴速率比例 0.32 
     private yRate: number = 0.34;           //z轴位置球y轴速率比例 0.34 
-    private ballRadius: number = 106 * 0.7; //球在球网时半径
-    private gravity: number = 0.5;          //重力
-    private ballScaleRate:number = (1 - 0.7)/this.floorLength;   //球缩放比例, 0.7为球在球网处时缩小比例
+    private ballRadius: number = 106 * 0.6; //球在球网时半径
+    private gravity: number = 1;          //重力
+    private ballScaleRate:number = (1 - 0.6)/this.floorLength;   //球缩放比例, 0.7为球在球网处时缩小比例
+    private frameGroupX:number = 0;
+    
+    //模拟投球
+    private shootTouch() {
+        this.shoot(-90 * Math.PI / 180);
+    }
     
     //移动篮球
     private moveBall(){
@@ -145,14 +174,27 @@ class GameScene extends BaseScene{
         ball.scaleX = 1 - this.ballScaleRate * ball.z;
         ball.scaleY = ball.scaleX;
         //边界检测
-        if(ball.z > this.floorLength) {
-            ball.speedZ = - ball.speedZ * 0.5;
+        if(ball.z >= this.floorLength) {
+            //ball.speedZ = - ball.speedZ * 0.5;
+            //ball.speedY = (ball.speedY >= 0)?15:-15;
             ball.z = this.floorLength;
+            ball.speedZ = 0;
+            this.ballBackGroup.addChild(ball);
+            ball.bTouchWall = true;
+        }else{
+            this.ballFrontGroup.addChild(ball);
         }
         if(ball.realY > 0) {
             ball.realY = 0;
             ball.y = ball.realY + (this.stageHeight - this.yRate * ball.z); //z轴时，球实际y坐标+视觉变化的坐标
             ball.speedY = -ball.speedY * 0.9;
+            
+            //球撞到墙后，下落后滚动回来
+            if(ball.bTouchWall) {
+                ball.bShoot = false;
+                ball.speedZ = -20;
+                ball.speedY = -20;
+            }
         }
         if(ball.x < (this.stageWidth - this.floorMaxWidth + ball.z * this.xRate) / 2) { //z轴时，球道宽度
             ball.speedX = - ball.speedX * 0.9;
@@ -165,24 +207,25 @@ class GameScene extends BaseScene{
     
     //检查是否进球
     private checkShoot(ball:Ball){
-        if((this.floorLength - ball.z) > this.ballRadius){
+//        if((this.floorLength - ball.z) > this.ballRadius){
+//            return;
+//        }
+        if(this.floorLength != ball.z){ //ball.z在一定范围内才检测进球
             return;
         }
         //判断进球
         if(ball.bShoot == false) {
             this.wangX = this.ballWang.x + this.frameGroup.x;
             this.wangY = this.ballWang.y + this.frameGroup.y;
-            if(Math.abs(ball.x - this.wangX) < 25 &&       //球在离球网一定范围以内
+            if(Math.abs(ball.x - this.wangX) < 37 &&       //球在离球网一定范围以内
                 (ball.y < (this.wangY - this.ballRadius))  //球y轴判断
             ) {
                 ball.bShoot = true;
+                ball.bTouchWall = true;
                 ball.speedX = ball.speedX * 0.5; //下落时，将速度减慢，模拟球擦网摩擦力
-                ball.speedZ = -ball.speedZ * 0.1;
-                //ball.speedY = ball.speedY*0.5;
+                ball.speedY = 15;
+                ball.speedZ = 0;
                 this.ballWangAnim();
-                    
-                //球进球时在球网后，下落后在球网前
-                this.ballBackGroup.addChild(ball);
                     
                 //得分
                 this.score += 2;
@@ -198,6 +241,9 @@ class GameScene extends BaseScene{
         if((this.floorLength - ball.z) > this.ballRadius) {
             return;
         }
+        if(this.floorLength != ball.z) { //ball.z在一定范围内才检测进球
+            return;
+        }
         //篮筐碰撞
         this.leftHitAreaX = this.leftHitArea.x + this.frameGroup.x;
         this.leftHitAreaY = this.leftHitArea.y + this.frameGroup.y;
@@ -205,33 +251,33 @@ class GameScene extends BaseScene{
         this.rightHitAreaY = this.rightHitArea.y + this.frameGroup.y;
 
 
-        if(!ball.bShoot && Math.sqrt(Math.pow(this.leftHitAreaX - ball.x,2) + Math.pow(this.leftHitAreaY - ball.y,2)) <= this.ballRadius) {
+        if(Math.sqrt(Math.pow(this.leftHitAreaX - ball.x,2) + Math.pow(this.leftHitAreaY - ball.y,2)) <= this.ballRadius) {
             var angle: number = Math.atan2(ball.y - this.leftHitAreaY,ball.x - this.leftHitAreaX);
             ball.speedX = -angle * 10; //反弹后，x轴速度变化
 
             ball.speedX = (ball.x > this.leftHitAreaX) ? Math.abs(ball.speedX) : -Math.abs(ball.speedX);
-            ball.speedY = (ball.y > this.leftHitAreaY) ? Math.abs(ball.speedY) : -Math.abs(ball.speedY);
-
+            if(!ball.bShoot){
+                ball.speedY = (ball.y > this.leftHitAreaY) ? Math.abs(ball.speedY) : -Math.abs(ball.speedY);
+                ball.speedZ = -5;
+            }
             egret.log("hit left frame");
 
-        } else if(!ball.bShoot && Math.sqrt(Math.pow(this.rightHitAreaX - ball.x,2) + Math.pow(this.rightHitAreaY - ball.y,2)) <= this.ballRadius) {
+        } else if(Math.sqrt(Math.pow(this.rightHitAreaX - ball.x,2) + Math.pow(this.rightHitAreaY - ball.y,2)) <= this.ballRadius) {
             var angle: number = Math.atan2(ball.y - this.rightHitAreaY,ball.x - this.rightHitAreaX);
             ball.speedX = -(angle + 1.57) * 10; //反弹后，x轴速度变化
 
             ball.speedX = (ball.x > this.rightHitAreaX) ? Math.abs(ball.speedX) : -Math.abs(ball.speedX);
-            ball.speedY = (ball.y > this.rightHitAreaY) ? Math.abs(ball.speedY) : -Math.abs(ball.speedY);
-
-
+            if(!ball.bShoot) {
+                ball.speedY = (ball.y > this.rightHitAreaY) ? Math.abs(ball.speedY) : -Math.abs(ball.speedY);
+                ball.speedZ = -5;
+            }
+            
             egret.log("hit right frame");
         }
     }
     
     //其他检测
     private checkOther(ball:Ball,index:number){
-        //深度排序
-        if(ball.bShoot && ball.y > (this.wangY + this.ballWang.height)) {
-            this.ballFrontGroup.addChild(ball);
-        }
 
         //影子
         ball.shadow.x = ball.x;
@@ -256,18 +302,22 @@ class GameScene extends BaseScene{
     //移动球框
     private moveFrame(){
         var self:GameScene = this;
-        var dis:number = 50;
-        egret.Tween.get(this.frameGroup).to({ x: -dis },1000).to({ x: dis},1000).call(function(){
+        var dis:number = 100;
+        egret.Tween.get(this.frameGroup).to({ x: -dis },2000).to({ x: dis },2000).call(function(){
             self.frameGroup.x = dis;
-            egret.Tween.get(self.frameGroup,{loop:true}).to({x:-dis},1000).to({x:dis},1000);
+            egret.Tween.get(self.frameGroup,{ loop: true }).to({ x: -dis },2000).to({ x: dis },2000);
+        });
+        egret.Tween.get(this.frameBgGroup).to({ x: -dis },2000).to({ x: dis },2000).call(function() {
+            self.frameGroup.x = dis;
+            egret.Tween.get(self.frameBgGroup,{ loop: true }).to({ x: -dis },2000).to({ x: dis },2000);
         });
         
     }
     
     //停止移动球框
     private stopMoveFrame(){
-        //this.frameGroup.x = 0;
         egret.Tween.removeTweens(this.frameGroup);
+        egret.Tween.removeTweens(this.frameBgGroup);
     }
     
     //开始计时
@@ -304,28 +354,58 @@ class GameScene extends BaseScene{
         this.timeLabel.text = "00:" + StringTool.getTimeString(time);
     }
     
+    //显示游戏结果
+    private showResult(){
+        this.resultPanel.x = (GameConst.stage.stageWidth - this.resultPanel.width)/2;
+        this.resultPanel.y = (GameConst.stage.stageHeight - this.resultPanel.height) / 2;
+        this.addChild(this.resultPanel);
+        this.resultPanel.setScore(this.score);
+    }
+    
+    private hideResult(){
+        if(this.resultPanel.parent){
+            this.removeChild(this.resultPanel);
+        }
+    }
+    
+    ///////////////////////////////////////////
+    //----------------[发送数据]---------------
+    ///////////////////////////////////////////
+    private sendGameOver(){
+        egret.log("发送游戏结束:",this.score);
+        ClientSocket.getInstance().sendMessage("gameOver",{"score":this.score});
+    }
+    
     ///////////////////////////////////////////
     //----------------[接收数据]---------------
     ///////////////////////////////////////////
     
     //接收房间号是否正确
     public revShoot(data) {
-        var angle:number = data.angle;  //发射角度
+        var angle:number = data.angle;  //发射弧度
         
-        angle = 225*Math.PI/180;
+        if(GameConst.isDebug){
+            this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.shootTouch,this);
+        }else{
+            this.shoot(angle);
+        }
         
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.shoot,this);
     }
     
-    private shoot(){
-        console.log("shoot");
+    //接收用户射击
+    private shoot(angle:number){   //angle = 弧度
+        //egret.log("shoot",angle);
         var ball: Ball = this.ballPool.getObject();
         ball.x = this.stageWidth / 2;
         ball.y = this.stageHeight;
         ball.z = 0;
-        ball.speedX = 0;  //角度获取x移动方向
-        ball.speedZ = 40;
-        ball.speedY = -20;
+        
+        //角度获取x移动方向  -90=-1.57  -100=-1.74  -(angle + 1.57) * 10  -angle*10
+        //var hudu = parseFloat((angle*Math.PI/180).toFixed(2)) + 1.57;
+        
+        ball.speedX = (angle + 1.57)*20;
+        ball.speedZ = 45;
+        ball.speedY = -30;
         ball.gotoAndPlay("label0");
         this.ballList.push(ball);
 
@@ -335,6 +415,15 @@ class GameScene extends BaseScene{
         this.ballFrontGroup.addChild(ball);
     }
     
+    //用户离开
+    public revUserQuit(){
+        egret.log("rev userQuit");
+        if(!this.resultPanel.parent){ //游戏结束，不处理userQuit
+            this.resetGame();
+            LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
+        }
+        
+    }
     
 }
 

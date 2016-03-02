@@ -60,6 +60,7 @@
 	<script egret="game" src="bin-debug/com/view/PreloadScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/Ball.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/MessageBox.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/ResultPanel.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
 	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
 	<!--game_files_end-->
@@ -67,7 +68,7 @@
 <body>
 	<!-- 其他变量 -->
 	<script>
-		window["server"] = "http://192.168.1.101:3004";
+		window["server"] = "http://192.168.1.101:3004/screen";
 	</script>
 	<!-- -->
 	
@@ -89,6 +90,9 @@
 			window["codeHeight"] = codeHeight;
 			window["logoUrl"] = logoUrl;
 			console.log("create code rid:" + rid);
+			//删除所有子节点
+			var codeDiv = document.getElementById("code");
+			codeDiv.innerHTML = "";
 		}
 	</script>
 	<!-- end 二维码 -->

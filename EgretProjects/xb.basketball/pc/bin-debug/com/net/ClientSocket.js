@@ -59,6 +59,9 @@ var ClientSocket = (function () {
         this.socket.on("shoot", function (data) {
             self.gameScene.revShoot(data);
         });
+        this.socket.on("userQuit", function (data) {
+            self.gameScene.revUserQuit();
+        });
     };
     //发送数据
     p.sendMessage = function (cmd, data, callBack, thisObject) {

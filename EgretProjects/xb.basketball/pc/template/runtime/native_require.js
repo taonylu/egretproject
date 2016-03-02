@@ -32,6 +32,7 @@ var game_file_list = [
 	"bin-debug/com/view/PreloadScene.js",
 	"bin-debug/com/view/ui/Ball.js",
 	"bin-debug/com/view/ui/MessageBox.js",
+	"bin-debug/com/view/ui/ResultPanel.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
 	//----auto game_file_list end----
