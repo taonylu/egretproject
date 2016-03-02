@@ -58,6 +58,11 @@
 					"isFolder":false,
 					"key":"scorebg_png",
 					"name":"scorebg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"frame_png",
+					"name":"frame_png"
 				}
 			]
 		}

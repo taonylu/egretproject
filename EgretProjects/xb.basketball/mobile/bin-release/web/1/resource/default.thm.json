@@ -3,7 +3,7 @@
   "exmls": [
     {
       "path": "resource/myskin/HomeSceneSkin.exml",
-      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"HomeSceneSkin\" width=\"480\" height=\"800\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"bg\" source=\"bg_jpg\"/>\n\t<e:Group height=\"769\" width=\"480\" bottom=\"31\">\n\t\t<e:Image id=\"ball\" source=\"ball_png\" y=\"600\" anchorOffsetX=\"48\" x=\"232\" anchorOffsetY=\"48\"/>\n\t\t<e:Image id=\"hand\" source=\"hand_png\" x=\"207\" y=\"532\"/>\n\t\t<e:Label id=\"tipLabel\" text=\"向前滑动投球\" y=\"719\" width=\"241\" height=\"51\" verticalAlign=\"middle\" textAlign=\"center\" x=\"120\"/>\n\t</e:Group>\n</e:Skin>"
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"HomeSceneSkin\" width=\"480\" height=\"800\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"bg\" source=\"bg_jpg\"/>\n\t<e:Group height=\"769\" width=\"480\" bottom=\"31\">\n\t\t<e:Image id=\"ball\" source=\"ball_png\" y=\"561\" anchorOffsetX=\"48\" anchorOffsetY=\"48\" width=\"135\" height=\"135\" x=\"233\"/>\n\t\t<e:Image id=\"hand\" source=\"hand_png\" x=\"207\" y=\"532\"/>\n\t\t<e:Label id=\"tipLabel\" text=\"向前滑动投球\" y=\"719\" width=\"241\" height=\"51\" verticalAlign=\"middle\" textAlign=\"center\" x=\"120\"/>\n\t</e:Group>\n</e:Skin>"
     },
     {
       "path": "resource/myskin/ui/MessageBoxSkin.exml",
@@ -11,7 +11,7 @@
     },
     {
       "path": "resource/myskin/ui/ResultPanelSkin.exml",
-      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultPanelSkin\" width=\"300\" height=\"200\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image source=\"messageBox_png\" y=\"9\" height=\"225\" x=\"5\"/>\n\t<e:Label text=\"游戏结束\" y=\"33\" width=\"179\" textColor=\"0xEF0303\" fontFamily=\"微软雅黑\" verticalAlign=\"middle\" textAlign=\"center\" size=\"40\" horizontalCenter=\"0\"/>\n\t<e:Label text=\"得分：\" x=\"68\" y=\"86\" width=\"90\" height=\"48\" verticalAlign=\"middle\" textAlign=\"center\" fontFamily=\"微软雅黑\"/>\n\t<e:Label id=\"scoreLabel\" text=\"999\" x=\"165\" y=\"96\" width=\"129\" fontFamily=\"微软雅黑\" verticalAlign=\"middle\" textAlign=\"left\"/>\n\t<e:Label text=\"扫描二维码重新开始游戏\" y=\"144\" width=\"249\" size=\"20\" fontFamily=\"微软雅黑\" textColor=\"0xE78F55\" textAlign=\"center\" verticalAlign=\"middle\" x=\"26\"/>\n</e:Skin>"
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultPanelSkin\" width=\"300\" height=\"200\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image source=\"messageBox_png\" y=\"9\" height=\"225\" x=\"5\"/>\n\t<e:Label text=\"游戏结束\" y=\"33\" width=\"179\" textColor=\"0xEF0303\" fontFamily=\"微软雅黑\" verticalAlign=\"middle\" textAlign=\"center\" size=\"40\" horizontalCenter=\"0\"/>\n\t<e:Label text=\"得分：\" x=\"82\" y=\"86\" width=\"90\" height=\"48\" verticalAlign=\"middle\" textAlign=\"center\" fontFamily=\"微软雅黑\"/>\n\t<e:Label id=\"scoreLabel\" text=\"999\" x=\"165\" y=\"96\" width=\"65\" fontFamily=\"微软雅黑\" verticalAlign=\"middle\" textAlign=\"center\"/>\n\t<e:Label text=\"扫描二维码重新开始游戏\" y=\"144\" width=\"249\" size=\"20\" fontFamily=\"微软雅黑\" textColor=\"0xE78F55\" textAlign=\"center\" verticalAlign=\"middle\" x=\"26\"/>\n</e:Skin>"
     }
   ],
   "skins": {

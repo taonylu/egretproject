@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Egret1.2</title>
+    <title>Egret1.5</title>
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="full-screen" content="true"/>
@@ -38,7 +38,7 @@
 
     <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
     <!--game_files_start-->
-	<script src="main.min.js"></script>
+	<script src="main.min.js?ver=1.2"></script>
 	<!--game_files_end-->
 </head>
 <body>
@@ -56,7 +56,7 @@
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>
-    	window["server"] = "http://192.168.1.101:3004";
+    	window["server"] = "http://192.168.1.101:3004/mobile";
     	
         egret.runEgret();
     </script>

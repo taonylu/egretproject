@@ -12,14 +12,13 @@ var MessageBox = (function (_super) {
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
     };
-    p.showMessage = function (msg) {
+    p.showMessage = function (msg, size) {
+        if (size === void 0) { size = 25; }
+        this.msgLabel.size = size;
         this.x = (GameConst.stage.stageWidth - this.width) / 2;
         this.y = (GameConst.stage.stageHeight - this.height) / 2;
         LayerManager.getInstance().popLayer.addChild(this);
         this.msgLabel.text = msg;
-    };
-    p.setFontSize = function (size) {
-        this.msgLabel.size = size;
     };
     p.hide = function () {
         this.parent && this.parent.removeChild(this);

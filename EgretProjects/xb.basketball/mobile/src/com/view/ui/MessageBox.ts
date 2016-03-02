@@ -14,15 +14,12 @@ class MessageBox extends BaseUI{
         super.componentCreated();
     }
     
-    public showMessage(msg:string){
+    public showMessage(msg:string, size:number = 25){
+        this.msgLabel.size = size;
         this.x = (GameConst.stage.stageWidth - this.width)/2;
         this.y = (GameConst.stage.stageHeight - this.height)/2;
         LayerManager.getInstance().popLayer.addChild(this);
         this.msgLabel.text = msg;
-    }
-    
-    public setFontSize(size:number){
-        this.msgLabel.size = size;
     }
     
     public hide(){

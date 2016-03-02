@@ -12,6 +12,7 @@ class Ball extends SimpleMC{
     public realY:number = 0;        //真实y值，不算z距离导致的视差
     public shadow:egret.Bitmap;     //球影子
     public bShoot:Boolean = false;  //是否进球，用于判断该球是否碰撞检测
+    public bTouchWall:Boolean = false; //是否碰撞到墙，用于下落后迅速滚动回来
     
 	public constructor() {
     	super("ball_png","ball_json","ball");
@@ -29,6 +30,7 @@ class Ball extends SimpleMC{
       this.stop();
     	this.realY = 0;
     	this.bShoot = false;
+    	this.bTouchWall = false;
     	this.shadow.parent && this.shadow.parent.removeChild(this.shadow);
     	this.parent && this.parent.removeChild(this);
     	ObjectPool.getPool(Ball.NAME).returnObject(this);

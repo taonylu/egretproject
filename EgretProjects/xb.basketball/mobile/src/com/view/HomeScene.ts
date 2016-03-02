@@ -57,6 +57,10 @@ class HomeScene extends BaseScene{
     
     //游戏结束
     private gameOver(){
+        egret.Tween.removeTweens(this.ball);
+        this.ball.x = this.ballX;
+        this.ball.y = this.ballY;
+
         this.deConfigListeners();
     }
     
@@ -121,8 +125,7 @@ class HomeScene extends BaseScene{
         this.countDownTimer.reset();
         this.countDownTimer.start();
         var messageBox:MessageBox = GameManager.getInstance().messageBox;
-        messageBox.setFontSize(50);
-        messageBox.showMessage(this.countDownLimit + "");
+        messageBox.showMessage(this.countDownLimit + "",50);
     }
     
     //倒计时处理
@@ -130,7 +133,7 @@ class HomeScene extends BaseScene{
         var count:number = this.countDownLimit - this.countDownTimer.currentCount;
         
         if(count > 0){
-            GameManager.getInstance().messageBox.showMessage(count + "");
+            GameManager.getInstance().messageBox.showMessage(count + "",50);
         }else{
             //停止计时
             this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER,this.onCountDownHandler,this);
@@ -151,9 +154,7 @@ class HomeScene extends BaseScene{
     
     //连接成功
     public onConnect(): void {
-        var json = {"rid":egret.getOption("rid")};
-        this.socket.sendMessage("login",json,this.revLogin,this);
-        egret.log("发送登录请求:" + json.rid);
+        this.sendLogin(); 
     }
         
     //连接失败
@@ -165,16 +166,23 @@ class HomeScene extends BaseScene{
     public onDisconnect(): void {
         //游戏结算后，不显示断开连接
         if(!this.resultPanel.parent){
-            GameManager.getInstance().messageBox.showMessage("与网页断开连接");
+            GameManager.getInstance().messageBox.showMessage("网页连接已断开");
         }
     }
     
     //////////////////////////////////////////////////////
     //---------------------[发送数据]----------------------
     //////////////////////////////////////////////////////
+    //发送登录
+    private sendLogin(){
+        var json = { "rid": egret.getOption("rid") };
+        this.socket.sendMessage("login",json,this.revLogin,this);
+        egret.log("发送登录请求:" + json.rid);
+    }
+    
     private sendShoot(angle:number){
-        this.socket.sendMessage("shoot",{angle:angle});
-        egret.log("shoot:",angle.toFixed(3));
+        this.socket.sendMessage("shoot",{ "angle": parseFloat(angle.toFixed(2))});  //弧度
+        egret.log("shoot angle:",parseFloat(angle.toFixed(2)));
     }
     
 

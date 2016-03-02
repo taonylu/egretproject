@@ -7,7 +7,8 @@ class GameManager {
     public homeScene: HomeScene = new HomeScene();  //主页场景
     public gameScene: GameScene = new GameScene();  //游戏场景
     
-    public messageBox:MessageBox = new MessageBox();//提示框
+    public messageBox:MessageBox = new MessageBox();     //提示框
+    
     
     public socket:ClientSocket = ClientSocket.getInstance();
     

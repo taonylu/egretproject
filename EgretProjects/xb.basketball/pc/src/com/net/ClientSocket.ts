@@ -33,6 +33,7 @@ class ClientSocket {
 
         //连接socket
         this.socket = io.connect(window["server"],{ reconnection: false,'force new connection': true});
+        
         var self: ClientSocket = this;
 
         //连接成功 
@@ -76,6 +77,9 @@ class ClientSocket {
             self.gameScene.revShoot(data);
         });
         
+        this.socket.on("userQuit", function(data){
+            self.gameScene.revUserQuit();
+        });
     }
 
     //发送数据

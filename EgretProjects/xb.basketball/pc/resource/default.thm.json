@@ -4,7 +4,8 @@
     "resource/myskin/GameSceneSkin.exml",
     "resource/myskin/HomeSceneSkin.exml",
     "resource/myskin/PreloadSceneSkin.exml",
-    "resource/myskin/ui/MessageBoxSkin.exml"
+    "resource/myskin/ui/MessageBoxSkin.exml",
+    "resource/myskin/ui/ResultPanelSkin.exml"
   ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",

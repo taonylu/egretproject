@@ -90,6 +90,7 @@ var HomeScene = (function (_super) {
     };
     //接收开始游戏
     p.revStartGame = function () {
+        egret.log("rev startGame");
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
     };
     return HomeScene;

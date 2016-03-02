@@ -40,9 +40,6 @@ class HomeScene extends BaseScene{
         this.codeLoader.destroy();
     }
 
-    
-    
-    
     private createQRCode(){
         //随机rid，当前时间加上随机6位数验证码
         this.rid = (new Date()).getTime() + NumberTool.getVerificationCode(6);
@@ -117,6 +114,7 @@ class HomeScene extends BaseScene{
     
     //接收开始游戏
     public revStartGame(){
+        egret.log("rev startGame");
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
     }
 }
