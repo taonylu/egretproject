@@ -11,11 +11,15 @@ class HomeScene extends BaseScene{
     private socket = ClientSocket.getInstance();            //Socket
     private rid:string;                                     //房间号
     
+    private soundManager:SoundManager = SoundManager.getInstance();
+    
     private ball:eui.Image;
     private hand:eui.Image;
     private handPosY:number;    //手和球初始坐标
     private ballPosX:number;
     private ballPosY:number;
+    
+    private arc:ArcMotion;
     
     public constructor() {
         super("HomeSceneSkin");
@@ -27,9 +31,16 @@ class HomeScene extends BaseScene{
         this.handPosY = this.hand.y;
         this.ballPosX = this.ball.x;
         this.ballPosY = this.ball.y;  
+        
+        //初始化篮球弧度动画
+        var p0: egret.Point = new egret.Point(this.ballPosX,this.ballPosY);
+        var p1: egret.Point = new egret.Point(this.ballPosX - 60,this.ballPosY - 480);
+        var p2: egret.Point = new egret.Point(this.ballPosX - 165,this.ballPosY - 250);
+        this.arc = new ArcMotion(this.ball,p0,p1,p2,1500,true);
     }
 
     public onEnable(): void {
+        this.soundManager.playBgm(this.soundManager.bgm_home);
         this.createQRCode();
         this.submitRid(); 
         this.shootAnim();
@@ -57,22 +68,13 @@ class HomeScene extends BaseScene{
     }
     
     private shootAnim(){
-        egret.Tween.get(this.hand,{ loop: true }).to({ y: this.handPosY - 50 },500).to({ y: this.handPosY},500).wait(500);
-        
-        egret.Tween.get(this.ball,{loop:true}).wait(100).to({y:this.ballPosY-100},100).
-            to({ y: this.ballPosY - 150,x: this.ballPosX - 15 },100).
-            to({ y: this.ballPosY - 200,x: this.ballPosX - 20 },100).
-            to({ y: this.ballPosY - 250,x: this.ballPosX - 25 },100).
-            to({ y: this.ballPosY - 300,x: this.ballPosX - 50 },100).
-            to({ y: this.ballPosY - 350,x: this.ballPosX - 75 },100).
-            to({ y: this.ballPosY - 400,x: this.ballPosX - 100 },100).
-            to({ y: this.ballPosY - 350,x: this.ballPosX - 125 },100).
-            to({ y: this.ballPosY - 300,x: this.ballPosX - 150 },100).
-            wait(500);
+        egret.Tween.get(this.hand,{ loop: true }).to({ y: this.handPosY - 50 },300).to({ y: this.handPosY},300).wait(900);
+
+        this.arc.play();
     }
     
     private stopShootAnim(){
-        egret.Tween.removeTweens(this.ball);
+        this.arc.stop();
         egret.Tween.removeTweens(this.hand);
         this.ball.x = this.ballPosX;
         this.ball.y = this.ballPosY;
@@ -115,7 +117,11 @@ class HomeScene extends BaseScene{
     //接收开始游戏
     public revStartGame(){
         egret.log("rev startGame");
-        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+        var gameScene:GameScene = GameManager.getInstance().gameScene;
+        if(!gameScene.parent){
+            LayerManager.getInstance().runScene(gameScene);
+        }
+        
     }
 }
 

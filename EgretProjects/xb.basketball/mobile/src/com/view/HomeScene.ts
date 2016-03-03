@@ -15,7 +15,7 @@ class HomeScene extends BaseScene{
     private ballX:number;         //球初始位置
     private ballY:number;
     
-    private countDownTimer:egret.Timer = new egret.Timer(1000); //倒计时
+    private countDownTimer:egret.Timer = new egret.Timer(650); //倒计时
     private countDownLimit:number = 3;  //倒计时限制
     
     

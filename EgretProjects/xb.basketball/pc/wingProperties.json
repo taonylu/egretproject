@@ -63,6 +63,11 @@
 					"isFolder":false,
 					"key":"frame_png",
 					"name":"frame_png"
+				},
+				{
+					"isFolder":false,
+					"key":"countdown_png",
+					"name":"countdown_png"
 				}
 			]
 		}

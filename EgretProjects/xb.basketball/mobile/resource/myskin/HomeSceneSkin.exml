@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="HomeSceneSkin" width="480" height="800" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="bg" source="bg_jpg"/>
+	<e:Image id="bg" source="bg_jpg" height="800"/>
 	<e:Group height="769" width="480" bottom="31">
 		<e:Image id="ball" source="ball_png" y="561" anchorOffsetX="48" anchorOffsetY="48" width="135" height="135" x="233"/>
 		<e:Image id="hand" source="hand_png" x="207" y="532"/>

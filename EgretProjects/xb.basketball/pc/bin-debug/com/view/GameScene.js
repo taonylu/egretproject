@@ -9,11 +9,15 @@ var GameScene = (function (_super) {
     function GameScene() {
         _super.call(this, "GameSceneSkin");
         this.resultPanel = new ResultPanel(); //结算框
+        this.countDownUI = new CountDownUI(); //倒计时
+        this.soundManager = SoundManager.getInstance();
         this.ballPool = ObjectPool.getPool(Ball.NAME, 5); //篮球对象池
         this.ballList = new Array(); //篮球数组
         this.gameTimer = new egret.Timer(1000); //游戏计时器
         this.timeLimit = 30; //游戏计时
         this.curTime = 0; //当前计时
+        this.countDownTimer = new egret.Timer(1000); //倒计时
+        this.countDownLimit = 3;
         this.score = 0; //当前得分
         this.floorLength = 2000; //球道长宽，虚拟长度
         this.floorMaxWidth = 950; //球道z=0，y=0时，宽度
@@ -33,20 +37,45 @@ var GameScene = (function (_super) {
         this.stageHeight = GameConst.stage.stageHeight;
     };
     p.onEnable = function () {
-        this.startGame();
+        this.soundManager.playBgm(this.soundManager.bgm_game, 0.5);
+        this.resetGame();
+        this.startCountDown();
     };
     p.onRemove = function () {
+        this.soundManager.stopBgm();
         this.hideResult();
+        this.stopCountDown();
+    };
+    p.startCountDown = function () {
+        this.countDownUI.show(this);
+        this.countDownUI.setTimeLabel(this.countDownLimit);
+        this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
+        this.countDownTimer.reset();
+        this.countDownTimer.start();
+    };
+    p.onCountDownHandler = function () {
+        var count = this.countDownLimit - this.countDownTimer.currentCount;
+        if (count <= 0) {
+            this.stopCountDown();
+            this.startGame();
+        }
+        else {
+            this.countDownUI.setTimeLabel(count);
+        }
+    };
+    p.stopCountDown = function () {
+        this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
+        this.countDownTimer.stop();
+        this.countDownUI.hide();
     };
     p.startGame = function () {
-        this.resetGame();
         //为了配合手机端倒计时3秒，pc端延迟一段时间再开始计时
-        if (GameConst.isDebug == false) {
-            var self = this;
-            egret.Tween.get(this).wait(5000).call(function () {
-                self.startGameTimer();
-            });
-        }
+        //if(GameConst.isDebug == false){
+        var self = this;
+        //egret.Tween.get(this).wait(5000).call(function() {
+        self.startGameTimer();
+        //});
+        //}
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
         if (GameConst.isDebug) {
             this.revShoot({ angle: 90 });
@@ -58,10 +87,10 @@ var GameScene = (function (_super) {
     p.gameOver = function () {
         this.stopGameTimer(); //停止游戏计时
         this.stopMoveFrame(); //停止球网移动
-        //发送游戏结束
-        this.sendGameOver();
         //显示游戏结果，返回二维码界面
         this.showResult();
+        //发送游戏结束
+        this.sendGameOver();
         var self = this;
         egret.Tween.get(this).wait(5000).call(function () {
             self.resetGame();
@@ -71,6 +100,7 @@ var GameScene = (function (_super) {
     p.resetGame = function () {
         //停止游戏
         this.removeEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+        this.stopCountDown();
         //重置游戏计时
         this.stopGameTimer();
         this.curTime = this.timeLimit;
@@ -88,7 +118,9 @@ var GameScene = (function (_super) {
             this.ballList[i].recycle();
         }
         this.ballList.length = 0;
-        //this.moveFrame();
+        if (GameConst.isDebug) {
+            this.moveFrame();
+        }
     };
     p.stopAllMove = function () {
         this.removeEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
@@ -124,15 +156,15 @@ var GameScene = (function (_super) {
         ball.scaleX = 1 - this.ballScaleRate * ball.z;
         ball.scaleY = ball.scaleX;
         //边界检测
-        if (ball.z >= this.floorLength) {
-            //ball.speedZ = - ball.speedZ * 0.5;
-            //ball.speedY = (ball.speedY >= 0)?15:-15;
+        if (ball.z > this.floorLength) {
             ball.z = this.floorLength;
             ball.speedZ = 0;
             this.ballBackGroup.addChild(ball);
             ball.bTouchWall = true;
+            ball.gotoAndPlay("label1");
+            this.soundManager.play(this.soundManager.floor);
         }
-        else {
+        else if (ball.z < this.floorLength) {
             this.ballFrontGroup.addChild(ball);
         }
         if (ball.realY > 0) {
@@ -145,14 +177,17 @@ var GameScene = (function (_super) {
                 ball.speedZ = -20;
                 ball.speedY = -20;
             }
+            this.soundManager.play(this.soundManager.floor);
         }
         if (ball.x < (this.stageWidth - this.floorMaxWidth + ball.z * this.xRate) / 2) {
             ball.speedX = -ball.speedX * 0.9;
             ball.x = (this.stageWidth - this.floorMaxWidth + ball.z * this.xRate) / 2;
+            this.soundManager.play(this.soundManager.floor);
         }
         else if (ball.x > (this.stageWidth + this.floorMaxWidth - ball.z * this.xRate) / 2) {
             ball.speedX = -ball.speedX * 0.9;
             ball.x = (this.stageWidth + this.floorMaxWidth - ball.z * this.xRate) / 2;
+            this.soundManager.play(this.soundManager.floor);
         }
     };
     //检查是否进球
@@ -167,8 +202,8 @@ var GameScene = (function (_super) {
         if (ball.bShoot == false) {
             this.wangX = this.ballWang.x + this.frameGroup.x;
             this.wangY = this.ballWang.y + this.frameGroup.y;
-            if (Math.abs(ball.x - this.wangX) < 37 &&
-                (ball.y < (this.wangY - this.ballRadius)) //球y轴判断
+            if (ball.bTouchWall && Math.abs(ball.x - this.wangX) < 37 &&
+                (ball.y < (this.wangY - this.ballRadius + 20)) //球y轴判断 ,+20防止修正球框在移动中球y坐标会比半径小的问题
             ) {
                 ball.bShoot = true;
                 ball.bTouchWall = true;
@@ -176,18 +211,21 @@ var GameScene = (function (_super) {
                 ball.speedY = 15;
                 ball.speedZ = 0;
                 this.ballWangAnim();
-                //得分
-                this.score += 2;
-                this.scoreLabel.text = this.score + "";
+                //游戏未结束时，才计算得分
+                if (!this.resultPanel.parent) {
+                    this.score += 2;
+                    this.scoreLabel.text = this.score + "";
+                }
+                this.soundManager.play(this.soundManager.wang);
                 egret.log("shoot success");
             }
         }
     };
     //检查篮筐碰撞
     p.checkFrameColliose = function (ball) {
-        if ((this.floorLength - ball.z) > this.ballRadius) {
-            return;
-        }
+        //        if((this.floorLength - ball.z) > this.ballRadius) {
+        //            return;
+        //        }
         if (this.floorLength != ball.z) {
             return;
         }
@@ -196,24 +234,41 @@ var GameScene = (function (_super) {
         this.leftHitAreaY = this.leftHitArea.y + this.frameGroup.y;
         this.rightHitAreaX = this.rightHitArea.x + this.frameGroup.x;
         this.rightHitAreaY = this.rightHitArea.y + this.frameGroup.y;
-        if (Math.sqrt(Math.pow(this.leftHitAreaX - ball.x, 2) + Math.pow(this.leftHitAreaY - ball.y, 2)) <= this.ballRadius) {
+        if (Math.sqrt(Math.pow(this.leftHitAreaX - ball.x, 2) + Math.pow(this.leftHitAreaY - ball.y, 2)) < this.ballRadius) {
             var angle = Math.atan2(ball.y - this.leftHitAreaY, ball.x - this.leftHitAreaX);
             ball.speedX = -angle * 10; //反弹后，x轴速度变化
             ball.speedX = (ball.x > this.leftHitAreaX) ? Math.abs(ball.speedX) : -Math.abs(ball.speedX);
+            //防止篮球碰撞后x速度过小，连续多次碰撞篮筐
+            if (Math.abs(ball.speedX) < 5) {
+                ball.speedX = (ball.speedX / Math.abs(ball.speedX)) * 5;
+                ball.speedX += ball.speedX;
+            }
+            else {
+                ball.x += (ball.speedX / Math.abs(ball.speedX)) * 5;
+            }
             if (!ball.bShoot) {
                 ball.speedY = (ball.y > this.leftHitAreaY) ? Math.abs(ball.speedY) : -Math.abs(ball.speedY);
                 ball.speedZ = -5;
             }
+            this.soundManager.play(this.soundManager.frame);
             egret.log("hit left frame");
         }
-        else if (Math.sqrt(Math.pow(this.rightHitAreaX - ball.x, 2) + Math.pow(this.rightHitAreaY - ball.y, 2)) <= this.ballRadius) {
+        else if (Math.sqrt(Math.pow(this.rightHitAreaX - ball.x, 2) + Math.pow(this.rightHitAreaY - ball.y, 2)) < this.ballRadius) {
             var angle = Math.atan2(ball.y - this.rightHitAreaY, ball.x - this.rightHitAreaX);
             ball.speedX = -(angle + 1.57) * 10; //反弹后，x轴速度变化
             ball.speedX = (ball.x > this.rightHitAreaX) ? Math.abs(ball.speedX) : -Math.abs(ball.speedX);
+            if (Math.abs(ball.speedX) < 5) {
+                ball.speedX = (ball.speedX / Math.abs(ball.speedX)) * 5;
+                ball.x += ball.speedX;
+            }
+            else {
+                ball.x += (ball.speedX / Math.abs(ball.speedX)) * 5;
+            }
             if (!ball.bShoot) {
                 ball.speedY = (ball.y > this.rightHitAreaY) ? Math.abs(ball.speedY) : -Math.abs(ball.speedY);
                 ball.speedZ = -5;
             }
+            this.soundManager.play(this.soundManager.frame);
             egret.log("hit right frame");
         }
     };
@@ -311,7 +366,9 @@ var GameScene = (function (_super) {
             this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.shootTouch, this);
         }
         else {
-            this.shoot(angle);
+            if (this.ballList.length <= 7 && !this.countDownUI.parent) {
+                this.shoot(angle);
+            }
         }
     };
     //接收用户射击
