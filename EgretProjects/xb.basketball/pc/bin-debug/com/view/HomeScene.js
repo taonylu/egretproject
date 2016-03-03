@@ -10,6 +10,7 @@ var HomeScene = (function (_super) {
         _super.call(this, "HomeSceneSkin");
         this.codeLoader = new QRCodeLoader(); //二维码
         this.socket = ClientSocket.getInstance(); //Socket
+        this.soundManager = SoundManager.getInstance();
     }
     var d = __define,c=HomeScene,p=c.prototype;
     p.componentCreated = function () {
@@ -17,8 +18,14 @@ var HomeScene = (function (_super) {
         this.handPosY = this.hand.y;
         this.ballPosX = this.ball.x;
         this.ballPosY = this.ball.y;
+        //初始化篮球弧度动画
+        var p0 = new egret.Point(this.ballPosX, this.ballPosY);
+        var p1 = new egret.Point(this.ballPosX - 60, this.ballPosY - 480);
+        var p2 = new egret.Point(this.ballPosX - 165, this.ballPosY - 250);
+        this.arc = new ArcMotion(this.ball, p0, p1, p2, 1500, true);
     };
     p.onEnable = function () {
+        this.soundManager.playBgm(this.soundManager.bgm_home);
         this.createQRCode();
         this.submitRid();
         this.shootAnim();
@@ -41,20 +48,11 @@ var HomeScene = (function (_super) {
         this.codeGroup.addChild(this.codeLoader);
     };
     p.shootAnim = function () {
-        egret.Tween.get(this.hand, { loop: true }).to({ y: this.handPosY - 50 }, 500).to({ y: this.handPosY }, 500).wait(500);
-        egret.Tween.get(this.ball, { loop: true }).wait(100).to({ y: this.ballPosY - 100 }, 100).
-            to({ y: this.ballPosY - 150, x: this.ballPosX - 15 }, 100).
-            to({ y: this.ballPosY - 200, x: this.ballPosX - 20 }, 100).
-            to({ y: this.ballPosY - 250, x: this.ballPosX - 25 }, 100).
-            to({ y: this.ballPosY - 300, x: this.ballPosX - 50 }, 100).
-            to({ y: this.ballPosY - 350, x: this.ballPosX - 75 }, 100).
-            to({ y: this.ballPosY - 400, x: this.ballPosX - 100 }, 100).
-            to({ y: this.ballPosY - 350, x: this.ballPosX - 125 }, 100).
-            to({ y: this.ballPosY - 300, x: this.ballPosX - 150 }, 100).
-            wait(500);
+        egret.Tween.get(this.hand, { loop: true }).to({ y: this.handPosY - 50 }, 300).to({ y: this.handPosY }, 300).wait(900);
+        this.arc.play();
     };
     p.stopShootAnim = function () {
-        egret.Tween.removeTweens(this.ball);
+        this.arc.stop();
         egret.Tween.removeTweens(this.hand);
         this.ball.x = this.ballPosX;
         this.ball.y = this.ballPosY;
@@ -91,7 +89,10 @@ var HomeScene = (function (_super) {
     //接收开始游戏
     p.revStartGame = function () {
         egret.log("rev startGame");
-        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+        var gameScene = GameManager.getInstance().gameScene;
+        if (!gameScene.parent) {
+            LayerManager.getInstance().runScene(gameScene);
+        }
     };
     return HomeScene;
 })(BaseScene);

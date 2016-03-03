@@ -4,6 +4,7 @@
     "resource/myskin/GameSceneSkin.exml",
     "resource/myskin/HomeSceneSkin.exml",
     "resource/myskin/PreloadSceneSkin.exml",
+    "resource/myskin/ui/CountDownUISkin.exml",
     "resource/myskin/ui/MessageBoxSkin.exml",
     "resource/myskin/ui/ResultPanelSkin.exml"
   ],

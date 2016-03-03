@@ -39,6 +39,7 @@
     <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
     <!--game_files_start-->
 	<script egret="game" src="bin-debug/AssetAdapter.js"></script>
+	<script egret="game" src="bin-debug/com/common/ArcMotion.js"></script>
 	<script egret="game" src="bin-debug/com/common/ArrayTool.js"></script>
 	<script egret="game" src="bin-debug/com/common/BaseScene.js"></script>
 	<script egret="game" src="bin-debug/com/common/BaseUI.js"></script>
@@ -51,6 +52,7 @@
 	<script egret="game" src="bin-debug/com/common/QRCodeLoader.js"></script>
 	<script egret="game" src="bin-debug/com/common/ShakeTool.js"></script>
 	<script egret="game" src="bin-debug/com/common/SimpleMC.js"></script>
+	<script egret="game" src="bin-debug/com/common/SoundManager.js"></script>
 	<script egret="game" src="bin-debug/com/common/StringTool.js"></script>
 	<script egret="game" src="bin-debug/com/constant/GameConst.js"></script>
 	<script egret="game" src="bin-debug/com/GameManager.js"></script>
@@ -59,6 +61,7 @@
 	<script egret="game" src="bin-debug/com/view/HomeScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/PreloadScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/Ball.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/CountDownUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/MessageBox.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/ResultPanel.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
@@ -79,8 +82,8 @@
 	<script>
 		function createQRCode(rid){
 			var codeUrl = "http://192.168.1.104/1/index.html" + "?rid=" + rid;
-			var codeWidth = 290;
-			var codeHeight = 290;
+			var codeWidth = 270;
+			var codeHeight = 270;
 			var logoUrl = "";
 			$("#code").qrcode({ width: codeWidth, height:codeHeight,text:codeUrl });
 			var i=$("#code > canvas");

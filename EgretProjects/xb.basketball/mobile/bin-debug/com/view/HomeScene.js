@@ -8,7 +8,7 @@ var HomeScene = (function (_super) {
     function HomeScene() {
         _super.call(this, "HomeSceneSkin");
         this.resultPanel = new ResultPanel(); //结算面板
-        this.countDownTimer = new egret.Timer(1000); //倒计时
+        this.countDownTimer = new egret.Timer(650); //倒计时
         this.countDownLimit = 3; //倒计时限制
     }
     var d = __define,c=HomeScene,p=c.prototype;
