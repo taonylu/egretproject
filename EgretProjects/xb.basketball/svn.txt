@@ -1,0 +1,4 @@
+SVN地址:svn://svn.ekche.com/qd/coolCase/nodeStuff
+用户名：ck
+密码：ck@1234
+
