@@ -1,8 +1,13 @@
 /**
- * 二维码加载器
- * @author  Rikimaru
- * 
- 使用范例
+*  文 件 名：QRCodeLoader.ts
+*  功    能：二维码加载器
+*  内    容：
+*  作    者： Rikiamru
+*  生成日期：2015/9/17
+*  修改日期：2015/9/17
+*  修改日志：
+*
+* Example:
     index.html:
     <div id="code" style="display:none"></div> 
     

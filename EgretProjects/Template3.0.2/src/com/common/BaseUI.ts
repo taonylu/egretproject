@@ -1,5 +1,11 @@
 /**
-*  基础UI组件
+*  文 件 名：BaseUI.ts
+*  功    能：基础组件UI
+*  内    容：
+*  作    者：Rikimaru
+*  生成日期：2015/9/10
+*  修改日期：2015/9/10
+*  修改日志：
 */
 class BaseUI extends eui.Component {
     public inited: Boolean = false;
