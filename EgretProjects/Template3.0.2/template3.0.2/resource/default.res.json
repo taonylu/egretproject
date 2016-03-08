@@ -1,8 +1,14 @@
 {
-	"groups":[{
+	"groups":[
+		{
 			"keys":"home_thxbg_jpg",
 			"name":"preload"
-		}],
+		},
+		{
+			"keys":"home_thxbg_jpg",
+			"name":"game"
+		}
+	],
 	"resources":[{
 			"name":"home_thxbg_jpg",
 			"type":"image",

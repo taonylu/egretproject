@@ -1,6 +1,10 @@
 {
   "autoGenerateExmlsList": true,
-  "exmls": [],
+  "exmls": [
+    "resource/myskin/GameSceneSkin.exml",
+    "resource/myskin/HomeSceneSkin.exml",
+    "resource/myskin/PreloadSceneSkin.exml"
+  ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",
     "eui.CheckBox": "resource/eui_skins/CheckBoxSkin.exml",

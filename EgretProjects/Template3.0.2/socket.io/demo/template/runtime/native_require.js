@@ -4,17 +4,16 @@ var game_file_list = [
     //----auto game_file_list start----
 	"libs/modules/egret/egret.js",
 	"libs/modules/egret/egret.native.js",
-	"libs/modules/eui/eui.js",
+	"libs/modules/game/game.js",
+	"libs/modules/game/game.native.js",
+	"libs/modules/socket.io/socket.io.js",
 	"libs/modules/res/res.js",
-	"libs/modules/tween/tween.js",
-	"bin-debug/AssetAdapter.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
-	"bin-debug/ThemeAdapter.js",
 	//----auto game_file_list end----
 ];
 
-var window = this;
+var window = {};
 
 egret_native.setSearchPaths([""]);
 
@@ -39,13 +38,13 @@ egret_native.egretStart = function () {
         //以下为自动修改，请勿修改
         //----auto option start----
 		entryClassName: "Main",
-		frameRate: 60,
-		scaleMode: "fixedWidth",
+		frameRate: 30,
+		scaleMode: "showAll",
 		contentWidth: 480,
 		contentHeight: 800,
 		showPaintRect: false,
-		showFPS: true,
-		fpsStyles: "x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9",
+		showFPS: false,
+		fpsStyles: "x:0,y:0,size:30",
 		showLog: false,
 		logFilter: "",
 		maxTouches: 2,
