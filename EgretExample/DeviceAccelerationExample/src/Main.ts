@@ -34,7 +34,7 @@ class Main extends egret.Sprite {
     private shakeCount: number = 0;  //摇动次数
     private onOrientation(e: egret.OrientationEvent) {
         this.label.text =
-        "z轴角速度:" + e.alpha    //0~360   手机正前方为180度，向右减少，向左增加
+        "z轴角速度:" + e.alpha    //0~360   北方为0(360)，向左0-360增加，向右360-0减少
         + "\nx轴角速度:" + e.beta  //-90-90 手机平放0度，手机头朝上增加，手机头朝下减少
         + "\ny轴角速度:" + e.gamma; //-90~270 手机平放0度，向右倾斜增加，向左倾斜减少
         

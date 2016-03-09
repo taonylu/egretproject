@@ -159,6 +159,9 @@ var GameScene = (function (_super) {
     };
     //点击再斗一次按钮
     p.onAgainBtnTouch = function () {
+        //统计再来一次
+        var _czc = window["_czc"];
+        _czc.push(['_trackEvent', 'xbFree', '点击', '再来一次', '1', 'play']);
         this.reset();
         LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
     };

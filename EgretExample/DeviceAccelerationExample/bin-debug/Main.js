@@ -23,9 +23,12 @@ var Main = (function (_super) {
         orientation.addEventListener(egret.Event.CHANGE, this.onOrientation, this);
         orientation.start();
     }
-    var d = __define,c=Main;p=c.prototype;
+    var d = __define,c=Main,p=c.prototype;
     p.onOrientation = function (e) {
-        this.label.text = "z轴角速度:" + e.alpha + "\nx轴角速度:" + e.beta + "\ny轴角速度:" + e.gamma; //-90~270 手机平放0度，向右倾斜增加，向左倾斜减少
+        this.label.text =
+            "z轴角速度:" + e.alpha //0~360   手机正前方为180度，向右减少，向左增加
+                + "\nx轴角速度:" + e.beta //-90-90 手机平放0度，手机头朝上增加，手机头朝下减少
+                + "\ny轴角速度:" + e.gamma; //-90~270 手机平放0度，向右倾斜增加，向左倾斜减少
         var curTime = egret.getTimer();
         if ((curTime - this.last_update) > 100) {
             var diffTime = curTime - this.last_update;
@@ -41,7 +44,10 @@ var Main = (function (_super) {
                     this.label.text = "shake";
                 }
             }
-            this.shakeLabel.text = "摇动变化值：" + Math.abs(this.xPos + this.yPos + this.zPos - this.last_x - this.last_y - this.last_z) + "\n时间差:" + diffTime + "\n摇动次数" + this.shakeCount;
+            this.shakeLabel.text = "摇动变化值：" +
+                Math.abs(this.xPos + this.yPos + this.zPos - this.last_x - this.last_y - this.last_z) +
+                "\n时间差:" + diffTime +
+                "\n摇动次数" + this.shakeCount;
             this.last_x = this.xPos;
             this.last_y = this.yPos;
             this.last_z = this.zPos;
@@ -49,4 +55,4 @@ var Main = (function (_super) {
     };
     return Main;
 })(egret.Sprite);
-egret.registerClass(Main,"Main");
+egret.registerClass(Main,'Main');
