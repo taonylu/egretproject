@@ -202,11 +202,20 @@ var egret;
                 var audio = new Audio(url);
                 audio.addEventListener("canplaythrough", onAudioLoaded);
                 audio.addEventListener("error", onAudioError);
+                var ua = navigator.userAgent.toLowerCase();
+                if (ua.indexOf("firefox") >= 0) {
+                    audio.autoplay = !0;
+                    audio.muted = true;
+                }
                 audio.load();
                 this.originAudio = audio;
                 HtmlSound.$recycle(this.url, audio);
                 function onAudioLoaded() {
                     removeListeners();
+                    if (ua.indexOf("firefox") >= 0) {
+                        audio.pause();
+                        audio.muted = false;
+                    }
                     self.loaded = true;
                     self.dispatchEventWith(egret.Event.COMPLETE);
                 }
@@ -233,7 +242,6 @@ var egret;
                     audio = this.originAudio.cloneNode();
                 }
                 else {
-                    audio.load();
                 }
                 audio.autoplay = true;
                 var channel = new web.HtmlSoundChannel(audio);
@@ -363,6 +371,17 @@ var egret;
                 this.audio = null;
                 //声音是否已经播放完成
                 this.isStopped = false;
+                this.canPlay = function () {
+                    _this.audio.removeEventListener("canplay", _this.canPlay);
+                    try {
+                        _this.audio.currentTime = _this.$startTime;
+                    }
+                    catch (e) {
+                    }
+                    finally {
+                        _this.audio.play();
+                    }
+                };
                 /**
                  * @private
                  */
@@ -376,7 +395,7 @@ var egret;
                         _this.$loops--;
                     }
                     /////////////
-                    _this.audio.load();
+                    //this.audio.load();
                     _this.$play();
                 };
                 audio.addEventListener("ended", this.onPlayEnd);
@@ -389,13 +408,14 @@ var egret;
                     return;
                 }
                 try {
+                    //this.audio.pause();
                     this.audio.currentTime = this.$startTime;
                 }
                 catch (e) {
+                    this.audio.addEventListener("canplay", this.canPlay);
+                    return;
                 }
-                finally {
-                    this.audio.play();
-                }
+                this.audio.play();
             };
             /**
              * @private
@@ -719,7 +739,7 @@ var egret;
                  * @inheritDoc
                  */
                 ,function () {
-                    return Math.floor((Date.now() - this._startTime));
+                    return (Date.now() - this._startTime) / 1000;
                 }
             );
             return QQSoundChannel;
@@ -788,7 +808,7 @@ var egret;
                     WebAudioDecode.isDecoding = false;
                     WebAudioDecode.decodeAudios();
                 }, function () {
-                    alert(egret.getString(1034, decodeInfo["url"]));
+                    alert("sound decode error: " + decodeInfo["url"] + "！\nsee http://edn.egret.com/cn/docs/page/156");
                     if (decodeInfo["fail"]) {
                         decodeInfo["fail"]();
                     }
@@ -1078,7 +1098,7 @@ var egret;
                  */
                 ,function () {
                     if (this.bufferSource) {
-                        return (Date.now() - this._startTime) / 1000;
+                        return (Date.now() - this._startTime) / 1000 + this.$startTime;
                     }
                     return 0;
                 }
@@ -1599,13 +1619,13 @@ var egret;
                     if (!this._xhr) {
                         return null;
                     }
-                    if (this._xhr.response) {
+                    if (this._xhr.response != undefined) {
                         return this._xhr.response;
                     }
                     if (this._xhr.responseXML) {
                         return this._xhr.responseXML;
                     }
-                    if (this._xhr.responseText) {
+                    if (this._xhr.responseText != undefined) {
                         return this._xhr.responseText;
                     }
                     return null;
@@ -2222,6 +2242,14 @@ var egret;
                         self.textValue = self.inputElement.value;
                         egret.Event.dispatchEvent(self, "updateText", false);
                     }
+                    else {
+                        window.setTimeout(function () {
+                            if (self.inputElement.selectionStart == self.inputElement.selectionEnd) {
+                                self.textValue = self.inputElement.value;
+                                egret.Event.dispatchEvent(self, "updateText", false);
+                            }
+                        }, 0);
+                    }
                 }
                 else {
                     window.setTimeout(function () {
@@ -2730,7 +2758,7 @@ var egret;
                 canvas["renderContext"] = context;
                 context["surface"] = canvas;
                 egret.$toBitmapData(canvas);
-                if (egret.sys.isUndefined(context["imageSmoothingEnabled"])) {
+                if (context["imageSmoothingEnabled"] === undefined) {
                     var keys = ["webkitImageSmoothingEnabled", "mozImageSmoothingEnabled", "msImageSmoothingEnabled"];
                     for (var i = keys.length - 1; i >= 0; i--) {
                         var key = keys[i];

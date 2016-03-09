@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="GameSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect height="1080" width="1920" x="0" y="0"/>
+	<e:Label id="msgLabel" size="20" fontFamily="微软雅黑" width="1084" height="676" x="311" y="147" verticalAlign="top" textAlign="left" textColor="0xF4F2F0"/>
+</e:Skin>

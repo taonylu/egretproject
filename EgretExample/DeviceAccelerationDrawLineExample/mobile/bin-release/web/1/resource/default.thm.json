@@ -1,0 +1,32 @@
+{
+  "autoGenerateExmlsList": true,
+  "exmls": [
+    {
+      "path": "resource/myskin/GameSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"GameSceneSkin\" width=\"480\" height=\"854\" xmlns:e=\"http://ns.egret.com/eui\"></e:Skin>"
+    },
+    {
+      "path": "resource/myskin/HomeSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"HomeSceneSkin\" width=\"480\" height=\"800\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Group id=\"centerGroup\" height=\"800\" width=\"480\" x=\"0\" y=\"0\">\n\t\t<e:Label id=\"centerLabel\" text=\"对准电脑屏幕红心后按确定\" y=\"202\" width=\"332\" height=\"121\" textColor=\"0x020000\" fontFamily=\"微软雅黑\" verticalAlign=\"middle\" textAlign=\"center\" size=\"18\" x=\"74\"/>\n\t\t<e:Rect id=\"okBtn\" height=\"100\" width=\"100\" fillColor=\"0xF50101\" x=\"190\" y=\"377\"/>\n\t\t<e:Label id=\"deviceLabel\" y=\"523\" textColor=\"0x040000\" size=\"15\" fontFamily=\"微软雅黑\" width=\"364\" height=\"89\" x=\"58\"/>\n\t</e:Group>\n</e:Skin>"
+    },
+    {
+      "path": "resource/myskin/PreloadSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PreloadSceneSkin\" width=\"480\" height=\"854\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Label id=\"progressLabel\" text=\"标签\" x=\"216\" y=\"267\"/>\n</e:Skin>"
+    }
+  ],
+  "skins": {
+    "eui.Button": "resource/eui_skins/ButtonSkin.exml",
+    "eui.CheckBox": "resource/eui_skins/CheckBoxSkin.exml",
+    "eui.HScrollBar": "resource/eui_skins/HScrollBarSkin.exml",
+    "eui.HSlider": "resource/eui_skins/HSliderSkin.exml",
+    "eui.ItemRenderer": "resource/eui_skins/ItemRendererSkin.exml",
+    "eui.Panel": "resource/eui_skins/PanelSkin.exml",
+    "eui.ProgressBar": "resource/eui_skins/ProgressBarSkin.exml",
+    "eui.RadioButton": "resource/eui_skins/RadioButtonSkin.exml",
+    "eui.Scroller": "resource/eui_skins/ScrollerSkin.exml",
+    "eui.TextInput": "resource/eui_skins/TextInputSkin.exml",
+    "eui.ToggleSwitch": "resource/eui_skins/ToggleSwitchSkin.exml",
+    "eui.VScrollBar": "resource/eui_skins/VScrollBarSkin.exml",
+    "eui.VSlider": "resource/eui_skins/VSliderSkin.exml"
+  }
+}
