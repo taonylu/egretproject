@@ -46,8 +46,8 @@ var egret;
             function NativeRenderContext() {
                 _super.apply(this, arguments);
                 this.$matrix = new egret.Matrix();
-                this.$nativeContext = egret_native.Graphics;
-                this.$nativeGraphicsContext = egret_native.rastergl;
+                this.$nativeContext = !egret_native.Canvas ? egret_native.Graphics : null;
+                this.$nativeGraphicsContext = !egret_native.Canvas ? egret_native.rastergl : null;
                 this.$globalCompositeOperation = "source-over";
                 this.$globalAlpha = 1;
                 this.$lineWidth = 0;
@@ -55,13 +55,15 @@ var egret;
                 this.$fillStyle = "#000000";
                 this.$font = "10px sans-serif";
                 this.$fontSize = 10;
+                this.clipRectArray = null;
                 this.$saveList = [];
+                this.$clipRectArray = [];
                 this.$clipRect = new egret.Rectangle();
                 this.$saveCount = 0;
                 this.$clipList = [];
                 this.$hasStrokeText = false;
             }
-            var d = __define,c=NativeRenderContext;p=c.prototype;
+            var d = __define,c=NativeRenderContext,p=c.prototype;
             d(p, "globalCompositeOperation"
                 /**
                  * @private
@@ -76,7 +78,9 @@ var egret;
                     this.$globalCompositeOperation = value;
                     var arr = blendModesForGL[value];
                     if (arr) {
-                        this.checkSurface();
+                        if (!egret_native.Canvas) {
+                            this.checkSurface();
+                        }
                         this.$nativeContext.setBlendArg(arr[0], arr[1]);
                     }
                 }
@@ -93,7 +97,9 @@ var egret;
                 }
                 ,function (value) {
                     this.$globalAlpha = value;
-                    this.checkSurface();
+                    if (!egret_native.Canvas) {
+                        this.checkSurface();
+                    }
                     this.$nativeContext.setGlobalAlpha(value);
                 }
             );
@@ -111,8 +117,14 @@ var egret;
                 ,function (value) {
                     //console.log("set lineWidth" + value);
                     this.$lineWidth = value;
-                    this.checkSurface();
-                    this.$nativeGraphicsContext.lineWidth = value;
+                    this.$nativeContext.lineWidth = value;
+                    if (egret_native.Canvas) {
+                        this.$nativeContext.lineWidth = value;
+                    }
+                    else {
+                        this.checkSurface();
+                        this.$nativeGraphicsContext.lineWidth = value;
+                    }
                 }
             );
             d(p, "strokeStyle"
@@ -137,8 +149,13 @@ var egret;
                         }
                         egret_native.Label.setStrokeColor(parseInt(value.replace("#", "0x")));
                     }
-                    this.checkSurface();
-                    this.$nativeGraphicsContext.strokeStyle = value;
+                    if (egret_native.Canvas) {
+                        this.$nativeContext.strokeStyle = value;
+                    }
+                    else {
+                        this.checkSurface();
+                        this.$nativeGraphicsContext.strokeStyle = value;
+                    }
                 }
             );
             d(p, "fillStyle"
@@ -163,8 +180,13 @@ var egret;
                         }
                         egret_native.Label.setTextColor(parseInt(value.replace("#", "0x")));
                     }
-                    this.checkSurface();
-                    this.$nativeGraphicsContext.fillStyle = value;
+                    if (egret_native.Canvas) {
+                        this.$nativeContext.fillStyle = value;
+                    }
+                    else {
+                        this.checkSurface();
+                        this.$nativeGraphicsContext.fillStyle = value;
+                    }
                 }
             );
             p.$fillColorStr = function (s) {
@@ -231,8 +253,13 @@ var egret;
              * @platform Web,Native
              */
             p.arc = function (x, y, radius, startAngle, endAngle, anticlockwise) {
-                this.checkSurface();
-                this.$nativeGraphicsContext.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+                if (egret_native.Canvas) {
+                    this.$nativeContext.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+                }
             };
             /**
              * @private
@@ -245,8 +272,13 @@ var egret;
              * @platform Web,Native
              */
             p.quadraticCurveTo = function (cpx, cpy, x, y) {
-                this.checkSurface();
-                this.$nativeGraphicsContext.quadraticCurveTo(cpx, cpy, x, y);
+                if (egret_native.Canvas) {
+                    this.$nativeContext.quadraticCurveTo(cpx, cpy, x, y);
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.quadraticCurveTo(cpx, cpy, x, y);
+                }
             };
             /**
              * @private
@@ -257,8 +289,13 @@ var egret;
              * @platform Web,Native
              */
             p.lineTo = function (x, y) {
-                this.checkSurface();
-                this.$nativeGraphicsContext.lineTo(x, y);
+                if (egret_native.Canvas) {
+                    this.$nativeContext.lineTo(x, y);
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.lineTo(x, y);
+                }
             };
             /**
              * @private
@@ -270,8 +307,13 @@ var egret;
              * @platform Web,Native
              */
             p.fill = function (fillRule) {
-                this.checkSurface();
-                this.$nativeGraphicsContext.fill(fillRule);
+                if (egret_native.Canvas) {
+                    this.$nativeContext.fill(fillRule);
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.fill(fillRule);
+                }
             };
             /**
              * @private
@@ -280,8 +322,17 @@ var egret;
              * @platform Web,Native
              */
             p.closePath = function () {
-                this.checkSurface();
-                this.$nativeGraphicsContext.closePath();
+                if (egret_native.Canvas) {
+                    this.$nativeContext.closePath();
+                    if (this.clipRectArray) {
+                        this.$clipRectArray = this.clipRectArray;
+                        this.clipRectArray = null;
+                    }
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.closePath();
+                }
             };
             /**
              * @private
@@ -294,9 +345,15 @@ var egret;
              * @platform Web,Native
              */
             p.rect = function (x, y, w, h) {
-                this.checkSurface();
-                this.$nativeGraphicsContext.rect(x, y, w, h);
-                this.$clipRect.setTo(x, y, w, h);
+                if (egret_native.Canvas) {
+                    this.$nativeContext.rect(x, y, w, h);
+                    this.$clipRectArray.push({ x: x, y: y, w: w, h: h });
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.rect(x, y, w, h);
+                    this.$clipRect.setTo(x, y, w, h);
+                }
             };
             /**
              * @private
@@ -307,8 +364,13 @@ var egret;
              * @platform Web,Native
              */
             p.moveTo = function (x, y) {
-                this.checkSurface();
-                this.$nativeGraphicsContext.moveTo(x, y);
+                if (egret_native.Canvas) {
+                    this.$nativeContext.moveTo(x, y);
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.moveTo(x, y);
+                }
             };
             /**
              * @private
@@ -321,8 +383,13 @@ var egret;
              * @platform Web,Native
              */
             p.fillRect = function (x, y, w, h) {
-                this.checkSurface();
-                this.$nativeGraphicsContext.fillRect(x, y, w, h);
+                if (egret_native.Canvas) {
+                    this.$nativeContext.fillRect(x, y, w, h);
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.fillRect(x, y, w, h);
+                }
             };
             /**
              * @private
@@ -338,8 +405,13 @@ var egret;
              * @platform Web,Native
              */
             p.bezierCurveTo = function (cp1x, cp1y, cp2x, cp2y, x, y) {
-                this.checkSurface();
-                this.$nativeGraphicsContext.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
+                if (egret_native.Canvas) {
+                    this.$nativeContext.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
+                }
             };
             /**
              * @private
@@ -348,8 +420,13 @@ var egret;
              * @platform Web,Native
              */
             p.stroke = function () {
-                this.checkSurface();
-                this.$nativeGraphicsContext.stroke();
+                if (egret_native.Canvas) {
+                    this.$nativeContext.stroke();
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.stroke();
+                }
             };
             /**
              * @private
@@ -363,8 +440,13 @@ var egret;
              */
             p.strokeRect = function (x, y, w, h) {
                 //console.log("strokeRect");
-                this.checkSurface();
-                this.$nativeGraphicsContext.strokeRect(x, y, w, h);
+                if (egret_native.Canvas) {
+                    this.$nativeContext.strokeRect(x, y, w, h);
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.strokeRect(x, y, w, h);
+                }
             };
             /**
              * @private
@@ -373,8 +455,14 @@ var egret;
              * @platform Web,Native
              */
             p.beginPath = function () {
-                this.checkSurface();
-                this.$nativeGraphicsContext.beginPath();
+                if (egret_native.Canvas) {
+                    this.$nativeContext.beginPath();
+                    this.clipRectArray = this.$clipRectArray.concat();
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.beginPath();
+                }
             };
             /**
              * @private
@@ -388,8 +476,13 @@ var egret;
              * @platform Web,Native
              */
             p.arcTo = function (x1, y1, x2, y2, radius) {
-                this.checkSurface();
-                this.$nativeGraphicsContext.arcTo(x1, y1, x2, y2, radius);
+                if (egret_native.Canvas) {
+                    this.$nativeContext.arcTo(x1, y1, x2, y2, radius);
+                }
+                else {
+                    this.checkSurface();
+                    this.$nativeGraphicsContext.arcTo(x1, y1, x2, y2, radius);
+                }
             };
             /**
              * @private
@@ -450,25 +543,37 @@ var egret;
              */
             p.restore = function () {
                 //console.log("restore");
-                if (this.$saveCount > 0) {
+                if (egret_native.Canvas) {
                     if (this.$saveList.length) {
                         var data = this.$saveList.pop();
                         for (var key in data) {
                             this[key] = data[key];
                         }
                         this.setTransformToNative();
+                        this.$nativeContext.restore();
+                        this.clipRectArray = null;
                     }
-                    //console.log("pop clip");
-                    var index = this.$clipList.indexOf(this.$saveCount);
-                    if (index != -1) {
-                        var length = this.$clipList.length;
-                        this.$clipList.splice(index, length - index);
-                        for (; index < length; index++) {
-                            this.checkSurface();
-                            this.$nativeContext.popClip();
+                }
+                else {
+                    if (this.$saveCount > 0) {
+                        if (this.$saveList.length) {
+                            var data = this.$saveList.pop();
+                            for (var key in data) {
+                                this[key] = data[key];
+                            }
+                            this.setTransformToNative();
                         }
+                        var index = this.$clipList.indexOf(this.$saveCount);
+                        if (index != -1) {
+                            var length = this.$clipList.length;
+                            this.$clipList.splice(index, length - index);
+                            for (; index < length; index++) {
+                                this.checkSurface();
+                                this.$nativeContext.popClip();
+                            }
+                        }
+                        this.$saveCount--;
                     }
-                    this.$saveCount--;
                 }
             };
             /**
@@ -481,16 +586,31 @@ var egret;
                 //console.log("save");
                 var transformMatrix = new egret.Matrix();
                 transformMatrix.copyFrom(this.$matrix);
-                this.$saveList.push({
-                    lineWidth: this.$lineWidth,
-                    globalCompositeOperation: this.$globalCompositeOperation,
-                    globalAlpha: this.$globalAlpha,
-                    strokeStyle: this.$strokeStyle,
-                    fillStyle: this.$fillStyle,
-                    font: this.$font,
-                    $matrix: transformMatrix
-                });
-                this.$saveCount++;
+                if (egret_native.Canvas) {
+                    this.$saveList.push({
+                        lineWidth: this.$lineWidth,
+                        globalCompositeOperation: this.$globalCompositeOperation,
+                        globalAlpha: this.$globalAlpha,
+                        strokeStyle: this.$strokeStyle,
+                        fillStyle: this.$fillStyle,
+                        font: this.$font,
+                        $matrix: transformMatrix,
+                        $clipRectArray: this.$clipRectArray.concat()
+                    });
+                    this.$nativeContext.save();
+                }
+                else {
+                    this.$saveList.push({
+                        lineWidth: this.$lineWidth,
+                        globalCompositeOperation: this.$globalCompositeOperation,
+                        globalAlpha: this.$globalAlpha,
+                        strokeStyle: this.$strokeStyle,
+                        fillStyle: this.$fillStyle,
+                        font: this.$font,
+                        $matrix: transformMatrix
+                    });
+                    this.$saveCount++;
+                }
             };
             /**
              * @private
@@ -499,12 +619,28 @@ var egret;
              * @platform Web,Native
              */
             p.clip = function (fillRule) {
-                if (this.$clipRect.width > 0 && this.$clipRect.height > 0) {
-                    //console.log("push clip" + this.$clipRect.x);
-                    this.checkSurface();
-                    this.$nativeContext.pushClip(this.$clipRect.x, this.$clipRect.y, this.$clipRect.width, this.$clipRect.height);
-                    this.$clipRect.setEmpty();
-                    this.$clipList.push(this.$saveCount);
+                if (egret_native.Canvas) {
+                    if (this.$clipRectArray.length > 0) {
+                        var arr = [];
+                        for (var i = 0; i < this.$clipRectArray.length; i++) {
+                            var clipRect = this.$clipRectArray[i];
+                            arr.push(clipRect.x);
+                            arr.push(clipRect.y);
+                            arr.push(clipRect.w);
+                            arr.push(clipRect.h);
+                        }
+                        this.$nativeContext.pushRectStencils(arr);
+                        this.$clipRectArray.length = 0;
+                    }
+                }
+                else {
+                    if (this.$clipRect.width > 0 && this.$clipRect.height > 0) {
+                        //console.log("push clip" + this.$clipRect.x);
+                        this.checkSurface();
+                        this.$nativeContext.pushClip(this.$clipRect.x, this.$clipRect.y, this.$clipRect.width, this.$clipRect.height);
+                        this.$clipRect.setEmpty();
+                        this.$clipList.push(this.$saveCount);
+                    }
                 }
             };
             /**
@@ -518,9 +654,15 @@ var egret;
              * @platform Web,Native
              */
             p.clearRect = function (x, y, width, height) {
-                //console.log("clearScreen");
-                this.checkSurface();
-                this.$nativeContext.clearScreen(0, 0, 0);
+                if (egret_native.Canvas) {
+                    //console.log("clearRect");
+                    this.$nativeContext.clearRect(x, y, width, height);
+                }
+                else {
+                    //console.log("clearScreen");
+                    this.checkSurface();
+                    this.$nativeContext.clearScreen(0, 0, 0);
+                }
             };
             /**
              * @private
@@ -541,7 +683,11 @@ var egret;
             p.setTransformToNative = function () {
                 var m = this.$matrix;
                 //console.log("setTransformToNative::a=" + m.a + " b=" + m.b + " c=" + m.c + " d=" + m.d + " tx=" + m.tx + " ty=" + m.ty);
-                this.checkSurface();
+                if (egret_native.Canvas) {
+                }
+                else {
+                    this.checkSurface();
+                }
                 this.$nativeContext.setTransform(m.a, m.b, m.c, m.d, m.tx, m.ty);
             };
             /**
@@ -555,6 +701,9 @@ var egret;
              * @platform Web,Native
              */
             p.createLinearGradient = function (x0, y0, x1, y1) {
+                if (egret_native.Canvas) {
+                    return this.$nativeContext.createLinearGradient(x0, y0, x1, y1);
+                }
                 this.checkSurface();
                 return this.$nativeGraphicsContext.createLinearGradient(x0, y0, x1, y1);
             };
@@ -571,6 +720,9 @@ var egret;
              * @platform Web,Native
              */
             p.createRadialGradient = function (x0, y0, r0, x1, y1, r1) {
+                if (egret_native.Canvas) {
+                    return this.$nativeContext.createRadialGradient(x0, y0, r0, x1, y1, r1);
+                }
                 this.checkSurface();
                 return this.$nativeGraphicsContext.createRadialGradient(x0, y0, r0, x1, y1, r1);
             };
@@ -583,9 +735,16 @@ var egret;
             p.fillText = function (text, x, y, maxWidth) {
                 //console.log("drawText" + text);
                 var font = egret.TextField.default_fontFamily;
-                egret_native.Label.createLabel(font, this.$fontSize, "", this.$hasStrokeText ? this.$lineWidth : 0);
-                this.$hasStrokeText = false;
-                egret_native.Label.drawText(text, x, y);
+                if (egret_native.Canvas) {
+                    this.$nativeContext.createLabel(font, this.$fontSize, "", this.$hasStrokeText ? this.$lineWidth : 0);
+                    this.$hasStrokeText = false;
+                    this.$nativeContext.drawText(text, x, y);
+                }
+                else {
+                    egret_native.Label.createLabel(font, this.$fontSize, "", this.$hasStrokeText ? this.$lineWidth : 0);
+                    this.$hasStrokeText = false;
+                    egret_native.Label.drawText(text, x, y);
+                }
             };
             p.strokeText = function (text, x, y, maxWidth) {
                 this.$hasStrokeText = true;
@@ -610,11 +769,21 @@ var egret;
              */
             p.drawImage = function (image, offsetX, offsetY, width, height, surfaceOffsetX, surfaceOffsetY, surfaceImageWidth, surfaceImageHeight) {
                 var bitmapData;
-                if (image.$nativeRenderTexture) {
-                    bitmapData = image.$nativeRenderTexture;
+                if (egret_native.Canvas) {
+                    if (image.$nativeCanvas) {
+                        bitmapData = image.$nativeCanvas;
+                    }
+                    else {
+                        bitmapData = image;
+                    }
                 }
                 else {
-                    bitmapData = image;
+                    if (image.$nativeRenderTexture) {
+                        bitmapData = image.$nativeRenderTexture;
+                    }
+                    else {
+                        bitmapData = image;
+                    }
                 }
                 if (!bitmapData) {
                     return;
@@ -638,27 +807,53 @@ var egret;
                     height = image.height;
                 }
                 else {
-                    if (width == void 0) {
-                        width = image.width;
+                    if (egret_native.Canvas) {
+                        if (!width) {
+                            width = image.width;
+                        }
+                        if (!height) {
+                            height = image.height;
+                        }
+                        if (!surfaceOffsetX) {
+                            surfaceOffsetX = 0;
+                        }
+                        if (!surfaceOffsetY) {
+                            surfaceOffsetY = 0;
+                        }
+                        if (!surfaceImageWidth) {
+                            surfaceImageWidth = width;
+                        }
+                        if (!surfaceImageHeight) {
+                            surfaceImageHeight = height;
+                        }
                     }
-                    if (height == void 0) {
-                        height = image.height;
-                    }
-                    if (surfaceOffsetX == void 0) {
-                        surfaceOffsetX = 0;
-                    }
-                    if (surfaceOffsetY == void 0) {
-                        surfaceOffsetY = 0;
-                    }
-                    if (surfaceImageWidth == void 0) {
-                        surfaceImageWidth = width;
-                    }
-                    if (surfaceImageHeight == void 0) {
-                        surfaceImageHeight = height;
+                    else {
+                        if (width == void 0) {
+                            width = image.width;
+                        }
+                        if (height == void 0) {
+                            height = image.height;
+                        }
+                        if (surfaceOffsetX == void 0) {
+                            surfaceOffsetX = 0;
+                        }
+                        if (surfaceOffsetY == void 0) {
+                            surfaceOffsetY = 0;
+                        }
+                        if (surfaceImageWidth == void 0) {
+                            surfaceImageWidth = width;
+                        }
+                        if (surfaceImageHeight == void 0) {
+                            surfaceImageHeight = height;
+                        }
                     }
                 }
                 //console.log("drawImage::" + offsetX + " " + offsetY + " " + width + " " + height + " " + surfaceOffsetX + " " + surfaceOffsetY + " " + surfaceImageWidth + " " + surfaceImageHeight);
-                this.checkSurface();
+                if (egret_native.Canvas) {
+                }
+                else {
+                    this.checkSurface();
+                }
                 this.$nativeContext.drawImage(bitmapData, offsetX, offsetY, width, height, surfaceOffsetX, surfaceOffsetY, surfaceImageWidth, surfaceImageHeight);
             };
             /**
@@ -680,12 +875,30 @@ var egret;
              * @platform Web,Native
              */
             p.getImageData = function (sx, sy, sw, sh) {
-                if (native.$currentSurface == this.surface) {
-                    if (native.$currentSurface != null) {
-                        native.$currentSurface.end();
+                var res;
+                if (egret_native.Canvas) {
+                    if (sx != Math.floor(sx)) {
+                        sx = Math.floor(sx);
+                        sw++;
                     }
+                    if (sy != Math.floor(sy)) {
+                        sy = Math.floor(sy);
+                        sh++;
+                    }
+                    res = this.$nativeContext.getPixels(sx, sy, sw, sh);
                 }
-                return this.surface.getImageData(sx, sy, sw, sh);
+                else {
+                    if (native.$currentSurface == this.surface) {
+                        if (native.$currentSurface != null) {
+                            native.$currentSurface.end();
+                        }
+                    }
+                    res = this.surface.getImageData(sx, sy, sw, sh);
+                }
+                if (res.pixelData) {
+                    res.data = res.pixelData;
+                }
+                return res;
             };
             p.checkSurface = function () {
                 //todo 暂时先写这里
@@ -701,7 +914,7 @@ var egret;
             return NativeRenderContext;
         })(egret.HashObject);
         native.NativeRenderContext = NativeRenderContext;
-        egret.registerClass(NativeRenderContext,"egret.native.NativeRenderContext",["egret.sys.RenderContext"]);
+        egret.registerClass(NativeRenderContext,'egret.native.NativeRenderContext',["egret.sys.RenderContext"]);
     })(native = egret.native || (egret.native = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -736,7 +949,6 @@ var egret;
 (function (egret) {
     var native;
     (function (native) {
-        native.$currentSurface;
         /**
          * @private
          * 呈现最终绘图结果的画布
@@ -748,33 +960,54 @@ var egret;
              */
             function NativeSurface() {
                 _super.call(this);
-                //private id;
-                //private static id = 0;
                 /**
                  * @private
                  * @inheritDoc
                  */
-                this.renderContext = new native.NativeRenderContext();
+                this.renderContext = egret_native.Canvas ? null : new native.NativeRenderContext();
                 this.$widthReadySet = false;
                 this.$heightReadySet = false;
                 this.$isRoot = false;
                 this.$isDispose = false;
-                //this.id = NativeSurface.id++;
+                if (egret_native.Canvas) {
+                    this.init();
+                }
+                else {
+                }
             }
-            var d = __define,c=NativeSurface;p=c.prototype;
+            var d = __define,c=NativeSurface,p=c.prototype;
+            //private id;
+            //private static id = 0;
+            p.init = function () {
+                this.renderContext = new native.NativeRenderContext();
+            };
             p.toDataURL = function (type) {
                 var args = [];
                 for (var _i = 1; _i < arguments.length; _i++) {
                     args[_i - 1] = arguments[_i];
                 }
-                if (this.$nativeRenderTexture) {
-                    return this.$nativeRenderTexture.toDataURL.apply(this, arguments);
+                if (egret_native.Canvas) {
+                    if (this.$nativeCanvas) {
+                        return this.$nativeCanvas.toDataURL.apply(this.$nativeCanvas, arguments);
+                    }
+                }
+                else {
+                    if (this.$nativeRenderTexture) {
+                        return this.$nativeRenderTexture.toDataURL.apply(this.$nativeRenderTexture, arguments);
+                    }
                 }
                 return null;
             };
             p.saveToFile = function (type, filePath) {
-                if (this.$nativeRenderTexture) {
-                    this.$nativeRenderTexture.saveToFile(type, filePath);
+                if (egret_native.Canvas) {
+                    if (this.$nativeCanvas && this.$nativeCanvas.saveToFile) {
+                        this.$nativeCanvas.saveToFile(type, filePath);
+                    }
+                }
+                else {
+                    if (this.$nativeRenderTexture && this.$nativeRenderTexture.saveToFile) {
+                        this.$nativeRenderTexture.saveToFile(type, filePath);
+                    }
                 }
             };
             d(p, "width"
@@ -786,13 +1019,33 @@ var egret;
                     return this.$width;
                 }
                 ,function (value) {
-                    if (this.$width == value) {
-                        return;
+                    if (egret_native.Canvas) {
+                        if (value > 0) {
+                            this.$width = value;
+                            //todo 性能优化
+                            if (!this.$nativeCanvas) {
+                                this.$nativeCanvas = new egret_native.Canvas(value, 1);
+                                if (this.$isRoot) {
+                                    egret_native.setScreenCanvas(this.$nativeCanvas);
+                                }
+                                var context = this.$nativeCanvas.getContext("2d");
+                                context.clearScreen(0, 0, 0, 0);
+                                this.renderContext.$nativeContext = context;
+                            }
+                            else {
+                                this.$nativeCanvas.width = value;
+                            }
+                        }
                     }
-                    this.$width = value;
-                    if (!this.$isDispose) {
-                        this.$widthReadySet = true;
-                        this.createRenderTexture();
+                    else {
+                        if (this.$width == value) {
+                            return;
+                        }
+                        this.$width = value;
+                        if (!this.$isDispose) {
+                            this.$widthReadySet = true;
+                            this.createRenderTexture();
+                        }
                     }
                 }
             );
@@ -805,13 +1058,33 @@ var egret;
                     return this.$height;
                 }
                 ,function (value) {
-                    if (this.$height == value) {
-                        return;
+                    if (egret_native.Canvas) {
+                        if (value > 0) {
+                            this.$height = value;
+                            //todo 性能优化
+                            if (!this.$nativeCanvas) {
+                                this.$nativeCanvas = new egret_native.Canvas(1, value);
+                                if (this.$isRoot) {
+                                    egret_native.setScreenCanvas(this.$nativeCanvas);
+                                }
+                                var context = this.$nativeCanvas.getContext("2d");
+                                context.clearScreen(0, 0, 0, 0);
+                                this.renderContext.$nativeContext = context;
+                            }
+                            else {
+                                this.$nativeCanvas.height = value;
+                            }
+                        }
                     }
-                    this.$height = value;
-                    if (!this.$isDispose) {
-                        this.$heightReadySet = true;
-                        this.createRenderTexture();
+                    else {
+                        if (this.$height == value) {
+                            return;
+                        }
+                        this.$height = value;
+                        if (!this.$isDispose) {
+                            this.$heightReadySet = true;
+                            this.createRenderTexture();
+                        }
                     }
                 }
             );
@@ -867,16 +1140,29 @@ var egret;
                     }
                 }
             };
+            p.setRootCanvas = function () {
+                egret_native.setScreenCanvas(this.$nativeCanvas);
+            };
             p.$dispose = function () {
-                if (this.$nativeRenderTexture) {
-                    if (native.$currentSurface == this) {
-                        native.$currentSurface.end();
-                    }
-                    //console.log("dispose" + this.id);
-                    this.$nativeRenderTexture.dispose();
-                    this.$nativeRenderTexture = null;
+                if (egret_native.Canvas) {
+                    //todo 销毁掉native对象
+                    //if(this.$nativeRenderTexture) {
+                    //    this.$nativeRenderTexture.dispose();
+                    //    this.$nativeRenderTexture = null;
+                    //}
+                    this.$isDispose = true;
                 }
-                this.$isDispose = true;
+                else {
+                    if (this.$nativeRenderTexture) {
+                        if (native.$currentSurface == this) {
+                            native.$currentSurface.end();
+                        }
+                        //console.log("dispose" + this.id);
+                        this.$nativeRenderTexture.dispose();
+                        this.$nativeRenderTexture = null;
+                    }
+                    this.$isDispose = true;
+                }
             };
             p.$reload = function () {
                 this.$isDispose = false;
@@ -884,7 +1170,7 @@ var egret;
             return NativeSurface;
         })(egret.HashObject);
         native.NativeSurface = NativeSurface;
-        egret.registerClass(NativeSurface,"egret.native.NativeSurface",["egret.sys.Surface","egret.BitmapData"]);
+        egret.registerClass(NativeSurface,'egret.native.NativeSurface',["egret.sys.Surface","egret.BitmapData"]);
     })(native = egret.native || (egret.native = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -1035,11 +1321,12 @@ var egret;
              */
             function OpenGLFactory() {
                 egret.sys.sharedRenderContext = this.create().renderContext;
-                for (var i = 0; i < 3; i++) {
-                    surfacePool.push(this.create());
-                }
+                egret.sys.hitTestRenderContext = this.create().renderContext;
+                //for (var i = 0; i < 3; i++) {
+                //    surfacePool.push(this.create());
+                //}
             }
-            var d = __define,c=OpenGLFactory;p=c.prototype;
+            var d = __define,c=OpenGLFactory,p=c.prototype;
             /**
              * @private
              * 从对象池取出或创建一个新的Surface实例
@@ -1062,8 +1349,8 @@ var egret;
                 if (!surface) {
                     return;
                 }
-                //surface.$dispose();
-                //surface.width = surface.height = 1;
+                surface.$dispose();
+                surface.width = surface.height = 1;
                 surfacePool.push(surface);
             };
             /**
@@ -1077,7 +1364,7 @@ var egret;
             return OpenGLFactory;
         })();
         native.OpenGLFactory = OpenGLFactory;
-        egret.registerClass(OpenGLFactory,"egret.native.OpenGLFactory",["egret.sys.SurfaceFactory"]);
+        egret.registerClass(OpenGLFactory,'egret.native.OpenGLFactory',["egret.sys.SurfaceFactory"]);
     })(native = egret.native || (egret.native = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -1121,7 +1408,7 @@ var egret;
                 _super.call(this);
                 this.init(NativePlayer.option);
             }
-            var d = __define,c=NativePlayer;p=c.prototype;
+            var d = __define,c=NativePlayer,p=c.prototype;
             p.init = function (option) {
                 //暂时无法显示重绘区域
                 option.showPaintRect = false;
@@ -1131,35 +1418,34 @@ var egret;
                 stage.$maxTouches = option.maxTouches;
                 stage.textureScaleFactor = option.textureScaleFactor;
                 //设置帧频到native
-                stage.frameRate = 60;
-                egret_native.setFrameRate(option.frameRate > 60 ? 60 : option.frameRate);
-                stage.addEventListener(egret.Event.ENTER_FRAME, function () {
-                    if (native.$currentSurface) {
-                        native.$currentSurface.end();
-                    }
-                }, this);
+                stage.frameRate = option.frameRate;
+                if (!egret_native.Canvas) {
+                    stage.addEventListener(egret.Event.ENTER_FRAME, function () {
+                        if (native.$currentSurface) {
+                            native.$currentSurface.end();
+                        }
+                    }, this);
+                }
                 var surface = egret.sys.surfaceFactory.create();
                 surface.$isRoot = true;
                 var touch = new native.NativeTouchHandler(stage);
                 var player = new egret.sys.Player(surface.renderContext, stage, option.entryClassName);
                 new native.NativeHideHandler(stage);
                 //var nativeInput = new NativeInput();
-                if (DEBUG) {
-                    player.showPaintRect(option.showPaintRect);
-                    if (option.showFPS || option.showLog) {
-                        var styleStr = option.fpsStyles || "";
-                        var stylesArr = styleStr.split(",");
-                        var styles = {};
-                        for (var i = 0; i < stylesArr.length; i++) {
-                            var tempStyleArr = stylesArr[i].split(":");
-                            styles[tempStyleArr[0]] = tempStyleArr[1];
-                        }
-                        option.fpsStyles = styles;
-                        player.displayFPS(option.showFPS, option.showLog, option.logFilter, option.fpsStyles);
+                player.showPaintRect(option.showPaintRect);
+                if (option.showFPS || option.showLog) {
+                    var styleStr = option.fpsStyles || "";
+                    var stylesArr = styleStr.split(",");
+                    var styles = {};
+                    for (var i = 0; i < stylesArr.length; i++) {
+                        var tempStyleArr = stylesArr[i].split(":");
+                        styles[tempStyleArr[0]] = tempStyleArr[1];
                     }
+                    option.fpsStyles = styles;
+                    player.displayFPS(option.showFPS, option.showLog, option.logFilter, option.fpsStyles);
                 }
                 this.playerOption = option;
-                this.stage = stage;
+                this.$stage = stage;
                 this.player = player;
                 this.nativeTouch = touch;
                 //this.nativeInput = nativeInput;
@@ -1171,7 +1457,7 @@ var egret;
                 var option = this.playerOption;
                 var screenWidth = egret_native.EGTView.getFrameWidth();
                 var screenHeight = egret_native.EGTView.getFrameHeight();
-                var stageSize = egret.sys.screenAdapter.calculateStageSize(this.stage.$scaleMode, screenWidth, screenHeight, option.contentWidth, option.contentHeight);
+                var stageSize = egret.sys.screenAdapter.calculateStageSize(this.$stage.$scaleMode, screenWidth, screenHeight, option.contentWidth, option.contentHeight);
                 var stageWidth = stageSize.stageWidth;
                 var stageHeight = stageSize.stageHeight;
                 var displayWidth = stageSize.displayWidth;
@@ -1186,6 +1472,12 @@ var egret;
                 //this.webTouchHandler.updateScaleMode(scalex, scaley, rotation);
                 //this.webInput.$updateSize();
             };
+            p.setContentSize = function (width, height) {
+                var option = this.playerOption;
+                option.contentWidth = width;
+                option.contentHeight = height;
+                this.updateScreenSize();
+            };
             /**
              * @private
              * 更新触摸数量
@@ -1196,7 +1488,7 @@ var egret;
             return NativePlayer;
         })(egret.HashObject);
         native.NativePlayer = NativePlayer;
-        egret.registerClass(NativePlayer,"egret.native.NativePlayer",["egret.sys.Screen"]);
+        egret.registerClass(NativePlayer,'egret.native.NativePlayer',["egret.sys.Screen"]);
     })(native = egret.native || (egret.native = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -1231,7 +1523,28 @@ var egret;
 (function (egret) {
     var native;
     (function (native) {
+        /**
+         * @private
+         */
+        native.$supportCanvas = egret_native.Canvas ? true : false;
+        var isRunning = false;
+        var playerList = [];
         function runEgret() {
+            if (isRunning) {
+                return;
+            }
+            isRunning = true;
+            if (DEBUG) {
+                //todo 获得系统语言版本
+                var language = "zh_CN";
+                if (language in egret.$locale_strings)
+                    egret.$language = language;
+            }
+            try {
+                egret.Capabilities.$setNativeCapabilities(egret_native.getVersion());
+            }
+            catch (e) {
+            }
             var ticker = egret.sys.$ticker;
             var mainLoop = function () {
                 ticker.update();
@@ -1241,7 +1554,21 @@ var egret;
             if (!egret.sys.screenAdapter) {
                 egret.sys.screenAdapter = new egret.sys.ScreenAdapter();
             }
-            new native.NativePlayer();
+            //todo
+            var player = new native.NativePlayer();
+            playerList.push(player);
+            //老版本runtime不支持canvas,关闭脏矩形
+            if (!native.$supportCanvas) {
+                player.$stage.dirtyRegionPolicy = egret.DirtyRegionPolicy.OFF;
+                egret.sys.DisplayList.prototype.setDirtyRegionPolicy = function () {
+                };
+            }
+        }
+        function updateAllScreens() {
+            var length = playerList.length;
+            for (var i = 0; i < length; i++) {
+                playerList[i].updateScreenSize();
+            }
         }
         function toArray(argument) {
             var args = [];
@@ -1278,6 +1605,7 @@ var egret;
             };
         }
         egret.runEgret = runEgret;
+        egret.updateAllScreens = updateAllScreens;
     })(native = egret.native || (egret.native = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -1361,7 +1689,7 @@ var egret;
         var NativeExternalInterface = (function () {
             function NativeExternalInterface() {
             }
-            var d = __define,c=NativeExternalInterface;p=c.prototype;
+            var d = __define,c=NativeExternalInterface,p=c.prototype;
             NativeExternalInterface.call = function (functionName, value) {
                 var data = {};
                 data.functionName = functionName;
@@ -1374,7 +1702,7 @@ var egret;
             return NativeExternalInterface;
         })();
         native.NativeExternalInterface = NativeExternalInterface;
-        egret.registerClass(NativeExternalInterface,"egret.native.NativeExternalInterface",["egret.ExternalInterface"]);
+        egret.registerClass(NativeExternalInterface,'egret.native.NativeExternalInterface',["egret.ExternalInterface"]);
         /**
          * @private
          * @param info
@@ -1444,7 +1772,7 @@ var egret;
                  */
                 this.loaded = false;
             }
-            var d = __define,c=NativeSound;p=c.prototype;
+            var d = __define,c=NativeSound,p=c.prototype;
             /**
              * @inheritDoc
              */
@@ -1484,7 +1812,7 @@ var egret;
                     self.dispatchEventWith(egret.IOErrorEvent.IO_ERROR);
                 }
                 function removeListeners() {
-                    audio.removeEventListener("canplaythrough", onAudioLoaded);
+                    audio.removeEventListener("canplaythrough", onCanPlay);
                     audio.removeEventListener("error", onAudioError);
                 }
             };
@@ -1502,7 +1830,6 @@ var egret;
                     audio = new Audio(this.url);
                 }
                 else {
-                    audio.load();
                 }
                 audio.autoplay = true;
                 var channel = new native.NativeSoundChannel(audio);
@@ -1575,7 +1902,7 @@ var egret;
             return NativeSound;
         })(egret.EventDispatcher);
         native.NativeSound = NativeSound;
-        egret.registerClass(NativeSound,"egret.native.NativeSound",["egret.Sound"]);
+        egret.registerClass(NativeSound,'egret.native.NativeSound',["egret.Sound"]);
         if (__global.Audio) {
             egret.Sound = NativeSound;
         }
@@ -1648,13 +1975,13 @@ var egret;
                         _this.$loops--;
                     }
                     /////////////
-                    _this.audio.load();
+                    //this.audio.load();
                     _this.$play();
                 };
                 audio.addEventListener("ended", this.onPlayEnd);
                 this.audio = audio;
             }
-            var d = __define,c=NativeSoundChannel;p=c.prototype;
+            var d = __define,c=NativeSoundChannel,p=c.prototype;
             p.$play = function () {
                 if (this.isStopped) {
                     egret.$error(1036);
@@ -1719,7 +2046,7 @@ var egret;
             return NativeSoundChannel;
         })(egret.EventDispatcher);
         native.NativeSoundChannel = NativeSoundChannel;
-        egret.registerClass(NativeSoundChannel,"egret.native.NativeSoundChannel",["egret.SoundChannel","egret.IEventDispatcher"]);
+        egret.registerClass(NativeSoundChannel,'egret.native.NativeSoundChannel',["egret.SoundChannel","egret.IEventDispatcher"]);
     })(native = egret.native || (egret.native = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -1771,7 +2098,7 @@ var egret;
                  */
                 this.loaded = false;
             }
-            var d = __define,c=NaSound;p=c.prototype;
+            var d = __define,c=NaSound,p=c.prototype;
             /**
              * @inheritDoc
              */
@@ -1864,7 +2191,7 @@ var egret;
             return NaSound;
         })(egret.EventDispatcher);
         native.NaSound = NaSound;
-        egret.registerClass(NaSound,"egret.native.NaSound",["egret.Sound"]);
+        egret.registerClass(NaSound,'egret.native.NaSound',["egret.Sound"]);
         if (!__global.Audio) {
             egret.Sound = NaSound;
         }
@@ -1919,8 +2246,12 @@ var egret;
                 this.$startTime = 0;
                 //声音是否已经播放完成
                 this.isStopped = false;
+                /**
+                 * @private
+                 */
+                this._startTime = 0;
             }
-            var d = __define,c=NaSoundChannel;p=c.prototype;
+            var d = __define,c=NaSoundChannel,p=c.prototype;
             p.$play = function () {
                 this.isStopped = false;
                 if (this.$type == egret.Sound.EFFECT) {
@@ -1930,6 +2261,7 @@ var egret;
                     NaSoundChannel.currentPath = this.$url;
                     egret_native.Audio.playBackgroundMusic(this.$url, this.$loops != 1);
                 }
+                this._startTime = Date.now();
             };
             /**
              * @private
@@ -1981,13 +2313,13 @@ var egret;
                  * @inheritDoc
                  */
                 ,function () {
-                    return 0;
+                    return (Date.now() - this._startTime) / 1000;
                 }
             );
             return NaSoundChannel;
         })(egret.EventDispatcher);
         native.NaSoundChannel = NaSoundChannel;
-        egret.registerClass(NaSoundChannel,"egret.native.NaSoundChannel",["egret.SoundChannel","egret.IEventDispatcher"]);
+        egret.registerClass(NaSoundChannel,'egret.native.NaSoundChannel',["egret.SoundChannel","egret.IEventDispatcher"]);
     })(native = egret.native || (egret.native = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -2081,7 +2413,12 @@ var egret;
             }
             if (egret_native.isRecordExists(filePath)) {
                 var str = egret_native.loadRecord(filePath);
-                localStorageData = JSON.parse(str);
+                try {
+                    localStorageData = JSON.parse(str);
+                }
+                catch (e) {
+                    localStorageData = {};
+                }
             }
             else {
                 localStorageData = {};
@@ -2145,11 +2482,11 @@ var egret;
                     egret_native.Audio.resumeAllEffects();
                 };
             }
-            var d = __define,c=NativeHideHandler;p=c.prototype;
+            var d = __define,c=NativeHideHandler,p=c.prototype;
             return NativeHideHandler;
         })(egret.HashObject);
         native.NativeHideHandler = NativeHideHandler;
-        egret.registerClass(NativeHideHandler,"egret.native.NativeHideHandler");
+        egret.registerClass(NativeHideHandler,'egret.native.NativeHideHandler');
     })(native = egret.native || (egret.native = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -2204,7 +2541,7 @@ var egret;
              */
             this._bytesTotal = 0;
         }
-        var d = __define,c=NativeResourceLoader;p=c.prototype;
+        var d = __define,c=NativeResourceLoader,p=c.prototype;
         /**
          *
          * @param path
@@ -2276,7 +2613,7 @@ var egret;
         return NativeResourceLoader;
     })(egret.EventDispatcher);
     egret.NativeResourceLoader = NativeResourceLoader;
-    egret.registerClass(NativeResourceLoader,"egret.NativeResourceLoader");
+    egret.registerClass(NativeResourceLoader,'egret.NativeResourceLoader');
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
 //
@@ -2331,7 +2668,7 @@ var egret;
                 egret_native.onTouchesCancel = function (num, ids, xs_array, ys_array) {
                 };
             }
-            var d = __define,c=NativeTouchHandler;p=c.prototype;
+            var d = __define,c=NativeTouchHandler,p=c.prototype;
             p.$executeTouchCallback = function (num, ids, xs_array, ys_array, callback) {
                 for (var i = 0; i < num; i++) {
                     var id = ids[i];
@@ -2350,7 +2687,7 @@ var egret;
             return NativeTouchHandler;
         })(egret.HashObject);
         native.NativeTouchHandler = NativeTouchHandler;
-        egret.registerClass(NativeTouchHandler,"egret.native.NativeTouchHandler");
+        egret.registerClass(NativeTouchHandler,'egret.native.NativeTouchHandler');
     })(native = egret.native || (egret.native = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -2400,8 +2737,13 @@ var egret;
                  */
                 this._url = "";
                 this._method = "";
+                /**
+                 * @private
+                 */
+                this.urlData = {};
+                this.responseHeader = "";
             }
-            var d = __define,c=NativeHttpRequest;p=c.prototype;
+            var d = __define,c=NativeHttpRequest,p=c.prototype;
             d(p, "response"
                 /**
                  * @private
@@ -2453,7 +2795,42 @@ var egret;
              */
             p.send = function (data) {
                 var self = this;
-                if (!egret_native.isFileExists(self._url)) {
+                if (self.isNetUrl(self._url)) {
+                    self.urlData.type = self._method;
+                    //写入POST数据
+                    if (self._method == egret.HttpMethod.POST && data) {
+                        self.urlData.data = data.toString();
+                    }
+                    else {
+                        delete self.urlData["data"];
+                    }
+                    if (self._responseType == egret.HttpResponseType.ARRAY_BUFFER) {
+                        self.urlData.binary = true;
+                    }
+                    else {
+                        self.urlData.header = false;
+                    }
+                    //写入header信息
+                    if (this.headerObj) {
+                        self.urlData.header = JSON.stringify(this.headerObj);
+                    }
+                    else {
+                        delete self.urlData.header;
+                    }
+                    var promise = egret.PromiseObject.create();
+                    promise.onSuccessFunc = function (getted_str) {
+                        self._response = getted_str;
+                        egret.callLater(egret.Event.dispatchEvent, egret.Event, self, egret.Event.COMPLETE);
+                    };
+                    promise.onErrorFunc = function (error_code) {
+                        egret.$warn(1019, error_code);
+                        egret.Event.dispatchEvent(self, egret.IOErrorEvent.IO_ERROR);
+                    };
+                    promise.onResponseHeaderFunc = this.onResponseHeader;
+                    promise.onResponseHeaderThisObject = this;
+                    egret_native.requireHttp(self._url, self.urlData, promise);
+                }
+                else if (!egret_native.isFileExists(self._url)) {
                     download();
                 }
                 else {
@@ -2465,21 +2842,34 @@ var egret;
                         self._response = content;
                         egret.Event.dispatchEvent(self, egret.Event.COMPLETE);
                     };
-                    egret_native.readFileAsync(self._url, promise);
-                }
-                function download() {
-                    var promise = egret.PromiseObject.create();
-                    promise.onSuccessFunc = onLoadComplete;
                     promise.onErrorFunc = function () {
                         egret.Event.dispatchEvent(self, egret.IOErrorEvent.IO_ERROR);
                     };
+                    if (self._responseType == egret.HttpResponseType.ARRAY_BUFFER) {
+                        egret_native.readFileAsync(self._url, promise, "ArrayBuffer");
+                    }
+                    else {
+                        egret_native.readFileAsync(self._url, promise);
+                    }
+                }
+                function download() {
+                    var promise = egret.PromiseObject.create();
+                    promise.onSuccessFunc = readFileAsync;
+                    promise.onErrorFunc = function () {
+                        egret.Event.dispatchEvent(self, egret.IOErrorEvent.IO_ERROR);
+                    };
+                    promise.onResponseHeaderFunc = this.onResponseHeader;
+                    promise.onResponseHeaderThisObject = this;
                     egret_native.download(self._url, self._url, promise);
                 }
-                function onLoadComplete() {
-                    var content = egret_native.readFileSync(self._url);
-                    self._response = content;
-                    egret.Event.dispatchEvent(self, egret.Event.COMPLETE);
-                }
+            };
+            /**
+             * 是否是网络地址
+             * @param url
+             * @returns {boolean}
+             */
+            p.isNetUrl = function (url) {
+                return url.indexOf("http://") != -1 || url.indexOf("HTTP://") != -1;
             };
             /**
              * @private
@@ -2487,12 +2877,19 @@ var egret;
              */
             p.abort = function () {
             };
+            p.onResponseHeader = function (headers) {
+                this.responseHeader = "";
+                var obj = JSON.parse(headers);
+                for (var key in obj) {
+                    this.responseHeader += key + ": " + obj[key] + "\r\n";
+                }
+            };
             /**
              * @private
              * 返回所有响应头信息(响应头名和值), 如果响应头还没接受,则返回"".
              */
             p.getAllResponseHeaders = function () {
-                return "";
+                return this.responseHeader;
             };
             /**
              * @private
@@ -2501,8 +2898,10 @@ var egret;
              * @param value 给指定的请求头赋的值.
              */
             p.setRequestHeader = function (header, value) {
-                this.header = header;
-                this.headerValue = value;
+                if (!this.headerObj) {
+                    this.headerObj = {};
+                }
+                this.headerObj[header] = value;
             };
             /**
              * @private
@@ -2515,7 +2914,7 @@ var egret;
             return NativeHttpRequest;
         })(egret.EventDispatcher);
         native.NativeHttpRequest = NativeHttpRequest;
-        egret.registerClass(NativeHttpRequest,"egret.native.NativeHttpRequest",["egret.HttpRequest"]);
+        egret.registerClass(NativeHttpRequest,'egret.native.NativeHttpRequest',["egret.HttpRequest"]);
         egret.HttpRequest = NativeHttpRequest;
         if (DEBUG) {
             egret.$markReadOnly(NativeHttpRequest, "response");
@@ -2572,9 +2971,17 @@ var egret;
                  * 当从其他站点加载一个图片时，指定是否启用跨域资源共享(CORS)，默认值为null。
                  * 可以设置为"anonymous","use-credentials"或null,设置为其他值将等同于"anonymous"。
                  */
-                this.crossOrigin = null;
+                this._crossOrigin = null;
             }
-            var d = __define,c=NativeImageLoader;p=c.prototype;
+            var d = __define,c=NativeImageLoader,p=c.prototype;
+            d(p, "crossOrigin"
+                ,function () {
+                    return this._crossOrigin;
+                }
+                ,function (value) {
+                    this._crossOrigin = value;
+                }
+            );
             /**
              * @private
              *
@@ -2611,7 +3018,7 @@ var egret;
                 var self = this;
                 var promise = new egret.PromiseObject();
                 promise.onSuccessFunc = function (bitmapData) {
-                    self.data = native.toBitmapData(bitmapData);
+                    self.data = egret.$toBitmapData(bitmapData);
                     self.dispatchEventWith(egret.Event.COMPLETE);
                 };
                 promise.onErrorFunc = function () {
@@ -2625,12 +3032,17 @@ var egret;
              * @returns {boolean}
              */
             p.isNetUrl = function (url) {
-                return url.indexOf("http://") != -1;
+                return url.indexOf("http://") != -1 || url.indexOf("HTTP://") != -1;
             };
+            /**
+             * @private
+             * 指定是否启用跨域资源共享,如果ImageLoader实例有设置过crossOrigin属性将使用设置的属性
+             */
+            NativeImageLoader.crossOrigin = null;
             return NativeImageLoader;
         })(egret.EventDispatcher);
         native.NativeImageLoader = NativeImageLoader;
-        egret.registerClass(NativeImageLoader,"egret.native.NativeImageLoader",["egret.ImageLoader"]);
+        egret.registerClass(NativeImageLoader,'egret.native.NativeImageLoader',["egret.ImageLoader"]);
         egret.ImageLoader = NativeImageLoader;
     })(native = egret.native || (egret.native = {}));
 })(egret || (egret = {}));
@@ -2664,133 +3076,149 @@ var egret;
 //////////////////////////////////////////////////////////////////////////////////////
 var egret;
 (function (egret) {
-    /**
-     * @classdesc
-     * @implements egret.StageText
-     * @private
-     * @version Egret 2.4
-     * @platform Web,Native
-     */
-    var NativeStageText = (function (_super) {
-        __extends(NativeStageText, _super);
+    var native;
+    (function (native) {
         /**
+         * @classdesc
+         * @implements egret.StageText
+         * @private
          * @version Egret 2.4
          * @platform Web,Native
          */
-        function NativeStageText() {
-            _super.call(this);
+        var NativeStageText = (function (_super) {
+            __extends(NativeStageText, _super);
             /**
-             * @private
+             * @version Egret 2.4
+             * @platform Web,Native
              */
-            this.textValue = "";
-            /**
-             * @private
-             */
-            this.isFinishDown = false;
-            this.textValue = "";
-        }
-        var d = __define,c=NativeStageText;p=c.prototype;
-        /**
-         * @private
-         *
-         * @returns
-         */
-        p.$getText = function () {
-            if (!this.textValue) {
+            function NativeStageText() {
+                _super.call(this);
+                /**
+                 * @private
+                 */
+                this.textValue = "";
+                /**
+                 * @private
+                 */
+                this.colorValue = 0xffffff;
+                /**
+                 * @private
+                 */
+                this.isFinishDown = false;
                 this.textValue = "";
             }
-            return this.textValue;
-        };
-        /**
-         * @private
-         *
-         * @param value
-         */
-        p.$setText = function (value) {
-            this.textValue = value;
-            return true;
-        };
-        /**
-         * @private
-         *
-         */
-        p.$onBlur = function () {
-        };
-        //全屏键盘
-        p.showScreenKeyboard = function () {
-            var self = this;
-            self.dispatchEvent(new egret.Event("focus"));
-            egret.Event.dispatchEvent(self, "focus", false, { "showing": true });
-            egret_native.EGT_TextInput = function (appendText) {
-                if (self.$textfield.multiline) {
-                    if (self.isFinishDown) {
-                        self.isFinishDown = false;
+            var d = __define,c=NativeStageText,p=c.prototype;
+            /**
+             * @private
+             *
+             * @returns
+             */
+            p.$getText = function () {
+                if (!this.textValue) {
+                    this.textValue = "";
+                }
+                return this.textValue;
+            };
+            /**
+             * @private
+             *
+             * @param value
+             */
+            p.$setText = function (value) {
+                this.textValue = value;
+                return true;
+            };
+            p.$setColor = function (value) {
+                this.colorValue = value;
+                return true;
+            };
+            /**
+             * @private
+             *
+             */
+            p.$onBlur = function () {
+            };
+            //全屏键盘
+            p.showScreenKeyboard = function () {
+                var self = this;
+                self.dispatchEvent(new egret.Event("focus"));
+                egret.Event.dispatchEvent(self, "focus", false, { "showing": true });
+                egret_native.EGT_TextInput = function (appendText) {
+                    if (self.$textfield.multiline) {
                         self.textValue = appendText;
                         self.dispatchEvent(new egret.Event("updateText"));
+                        if (self.isFinishDown) {
+                            self.isFinishDown = false;
+                            self.dispatchEvent(new egret.Event("blur"));
+                        }
                     }
-                }
-                else {
-                    self.textValue = appendText.replace(/[\n|\r]/, "");
-                    //关闭软键盘
-                    egret_native.TextInputOp.setKeybordOpen(false);
-                    self.dispatchEvent(new egret.Event("updateText"));
-                    self.dispatchEvent(new egret.Event("blur"));
-                }
-            };
-            //点击完成
-            egret_native.EGT_keyboardFinish = function () {
-                if (self.$textfield.multiline) {
-                    self.isFinishDown = true;
-                }
-                self.dispatchEvent(new egret.Event("blur"));
-            };
-        };
-        /**
-         * @private
-         *
-         */
-        p.$show = function () {
-            var self = this;
-            egret_native.EGT_getTextEditerContentText = function () {
-                return self.$getText();
-            };
-            egret_native.EGT_keyboardDidShow = function () {
-                //if (egret_native.TextInputOp.isFullScreenKeyBoard()) {//横屏
-                //}
-                self.showScreenKeyboard();
-                egret_native.EGT_keyboardDidShow = function () {
+                    else {
+                        self.textValue = appendText.replace(/[\n|\r]/, "");
+                        //关闭软键盘
+                        egret_native.TextInputOp.setKeybordOpen(false);
+                        self.dispatchEvent(new egret.Event("updateText"));
+                        self.dispatchEvent(new egret.Event("blur"));
+                    }
+                };
+                //点击完成
+                egret_native.EGT_keyboardFinish = function () {
+                    if (self.$textfield.multiline) {
+                        self.isFinishDown = true;
+                    }
                 };
             };
-            var textfield = this.$textfield;
-            var inputMode = textfield.multiline ? 0 : 6;
-            var inputFlag = -1; //textfield.displayAsPassword ? 0 : -1;
-            var returnType = 1;
-            var maxLength = textfield.maxChars <= 0 ? -1 : textfield.maxChars;
-            egret_native.TextInputOp.setKeybordOpen(true, JSON.stringify({ "inputMode": inputMode, "inputFlag": inputFlag, "returnType": returnType, "maxLength": maxLength }));
-        };
-        /**
-         * @private
-         *
-         */
-        p.$hide = function () {
-            this.dispatchEvent(new egret.Event("blur"));
-            egret_native.TextInputOp.setKeybordOpen(false);
-        };
-        p.$resetStageText = function () {
-        };
-        p.$addToStage = function () {
-        };
-        p.$removeFromStage = function () {
-        };
-        p.$setTextField = function (value) {
-            this.$textfield = value;
-            return true;
-        };
-        return NativeStageText;
-    })(egret.EventDispatcher);
-    egret.NativeStageText = NativeStageText;
-    egret.registerClass(NativeStageText,"egret.NativeStageText",["egret.StageText"]);
-    egret.StageText = NativeStageText;
+            /**
+             * @private
+             *
+             */
+            p.$show = function () {
+                var self = this;
+                egret_native.TextInputOp.setKeybordOpen(false);
+                egret_native.EGT_getTextEditerContentText = function () {
+                    return self.$getText();
+                };
+                egret_native.EGT_keyboardDidShow = function () {
+                    //if (egret_native.TextInputOp.isFullScreenKeyBoard()) {//横屏
+                    //}
+                    self.showScreenKeyboard();
+                    egret_native.EGT_keyboardDidShow = function () {
+                    };
+                };
+                egret_native.EGT_keyboardDidHide = function () {
+                };
+                egret_native.EGT_deleteBackward = function () {
+                };
+                var textfield = this.$textfield;
+                var inputMode = textfield.multiline ? 0 : 6;
+                var inputFlag = -1; //textfield.displayAsPassword ? 0 : -1;
+                var returnType = 1;
+                var maxLength = textfield.maxChars <= 0 ? -1 : textfield.maxChars;
+                egret_native.TextInputOp.setKeybordOpen(true, JSON.stringify({ "inputMode": inputMode, "inputFlag": inputFlag, "returnType": returnType, "maxLength": maxLength }));
+            };
+            /**
+             * @private
+             *
+             */
+            p.$hide = function () {
+                this.dispatchEvent(new egret.Event("blur"));
+                egret_native.TextInputOp.setKeybordOpen(false);
+            };
+            p.$resetStageText = function () {
+            };
+            p.$addToStage = function () {
+            };
+            p.$removeFromStage = function () {
+            };
+            p.$setTextField = function (value) {
+                this.$textfield = value;
+                return true;
+            };
+            return NativeStageText;
+        })(egret.EventDispatcher);
+        native.NativeStageText = NativeStageText;
+        egret.registerClass(NativeStageText,'egret.native.NativeStageText',["egret.StageText"]);
+        egret.StageText = NativeStageText;
+    })(native = egret.native || (egret.native = {}));
 })(egret || (egret = {}));
 //////////////////////////////////////////////////////////////////////////////////////
 //
@@ -2836,11 +3264,11 @@ var egret;
                 this.nodeType = nodeType;
                 this.parent = parent;
             }
-            var d = __define,c=XMLNode;p=c.prototype;
+            var d = __define,c=XMLNode,p=c.prototype;
             return XMLNode;
         })();
         web.XMLNode = XMLNode;
-        egret.registerClass(XMLNode,"egret.web.XMLNode");
+        egret.registerClass(XMLNode,'egret.web.XMLNode');
         /**
          * @private
          * XML节点对象
@@ -2867,11 +3295,11 @@ var egret;
                 this.namespace = namespace;
                 this.name = name;
             }
-            var d = __define,c=XML;p=c.prototype;
+            var d = __define,c=XML,p=c.prototype;
             return XML;
         })(XMLNode);
         web.XML = XML;
-        egret.registerClass(XML,"egret.web.XML");
+        egret.registerClass(XML,'egret.web.XML');
         /**
          * @private
          * XML文本节点
@@ -2885,11 +3313,11 @@ var egret;
                 _super.call(this, 3, parent);
                 this.text = text;
             }
-            var d = __define,c=XMLText;p=c.prototype;
+            var d = __define,c=XMLText,p=c.prototype;
             return XMLText;
         })(XMLNode);
         web.XMLText = XMLText;
-        egret.registerClass(XMLText,"egret.web.XMLText");
+        egret.registerClass(XMLText,'egret.web.XMLText');
         /**
          * @private
          * 解析字符串为XML对象

@@ -1,0 +1,11 @@
+{
+	"groups":[{
+			"keys":"home_jpg",
+			"name":"preload"
+		}],
+	"resources":[{
+			"name":"home_jpg",
+			"type":"image",
+			"url":"assets/home.jpg"
+		}]
+}

@@ -10,6 +10,7 @@ var game_file_list = [
 	"libs/modules/res/res.js",
 	"libs/modules/weixinapi/weixinapi.js",
 	"bin-debug/Example.js",
+	"bin-debug/GameConst.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
 	//----auto game_file_list end----
@@ -45,9 +46,9 @@ egret_native.egretStart = function () {
 		contentWidth: 480,
 		contentHeight: 800,
 		showPaintRect: false,
-		showFPS: false,
+		showFPS: true,
 		fpsStyles: "x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9",
-		showLog: false,
+		showLog: true,
 		logFilter: "",
 		maxTouches: 2,
 		textureScaleFactor: 1
