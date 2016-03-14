@@ -107,6 +107,7 @@ class Main extends egret.DisplayObjectContainer {
      * Create a game scene
      */
     private createGameScene():void {
+        GameConst.stage = this.stage;
         new Example();
     }
 

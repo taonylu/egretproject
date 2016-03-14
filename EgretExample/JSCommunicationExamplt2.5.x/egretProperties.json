@@ -1,16 +1,16 @@
 {
-  "native": {
-    "path_ignore": []
-  },
-  "publish": {
-    "web": 0,
-    "native": 1,
-    "path": "bin-release"
-  },
-  "egret_version": "2.5.2",
-  "modules": [
-    {
-      "name": "egret"
-    }
-  ]
+	"native": {
+		"path_ignore": []
+	},
+	"publish": {
+		"web": 0,
+		"native": 1,
+		"path": "bin-release"
+	},
+	"egret_version": "3.0.2",
+	"modules": [
+		{
+			"name": "egret"
+		}
+	]
 }

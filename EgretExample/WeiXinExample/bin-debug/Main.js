@@ -32,7 +32,7 @@ var Main = (function (_super) {
         _super.call(this);
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
-    var d = __define,c=Main;p=c.prototype;
+    var d = __define,c=Main,p=c.prototype;
     p.onAddToStage = function (event) {
         //设置加载进度界面
         //Config to load process interface
@@ -92,8 +92,9 @@ var Main = (function (_super) {
      * Create a game scene
      */
     p.createGameScene = function () {
+        GameConst.stage = this.stage;
         new Example();
     };
     return Main;
 })(egret.DisplayObjectContainer);
-egret.registerClass(Main,"Main");
+egret.registerClass(Main,'Main');

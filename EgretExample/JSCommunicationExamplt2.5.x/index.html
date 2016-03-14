@@ -51,16 +51,31 @@
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>
+    	//JS函数
+    	function getJS(){
+    	return "I'm js";
+    	}
+    	
+    	//jS变量
+    	var weixinConfig = {
+    	title:"body title",
+    	desc:"body desc"
+    	}
+    	window["weixinConfig"] = weixinConfig;
+    	
+    	
         egret.runEgret();
-
-		function getJS(){
-			return "I'm js";
-		}
-
-		alert(Main.getTS());
 		
-		
+    	
 
+    	//调用egret静态函数
+		console.log("html调用egret静态函数:" ,Main.getTS());
+    	
+    	//调用egret变量
+    	console.log("html调用egret变量:", window["tsValue"]);
+		
+    	//调用egret函数
+    	console.log("html调用eget普通函数:", window["main"].sayHello());
     </script>
 
 

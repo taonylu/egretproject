@@ -10,18 +10,27 @@ class Main extends egret.Sprite {
     public constructor() {
         super();
         
-        //----------------TS调用JS---------------------
-        //1. index.html中定义getJS函数
-        //2. 使用window['函数']调用JS   
-        //3. index.html的getJS函数必须写在 egret.runEgret()中的<script>标签中
-        console.log(window['getJS']());
+       //调用JS函数
+        console.log("egret调用js函数:",window['getJS']());
         
-        //------------------JS调用TS----------------
-        //1. 直接在JS中使用 Main.getTS即可
-        //2. 发布后的代码都是JS，所以可以互相访问?
+        //调用JS变量
+        var weixinConfig = window["weixinConfig"];
+        console.log("egret调用JS变量:",window["weixinConfig"],weixinConfig.desc);
         
+        //定义变量，供html调用
+        var tsValue = "I'm tsValue";
+        window["tsValue"] = tsValue;
+        
+        //定义函数，供html调用，必须传递对象
+        window["main"] = this;
     }
-
+    
+    //被html调用的函数
+    public sayHello():string{
+        return "hello";
+    }
+    
+    //静态函数
     public static getTS(): string {
         return "I'm ts";
     }
