@@ -166,11 +166,35 @@ class Example {
                 infoUrl: 'http://www.baidu.com' // 在查看位置界面底部显示的超链接,可点击跳转（并没有跳转链接）
             });
         },this);
-
 	}
 	
 	//显示图片
 	private showPic(url){
+   
+    	  /*
+    	   //img可以显示，但是img和canvas使用dataURL方法，返回都是null,跨域问题？
+        var img = document.createElement("img");
+        img.src = url;
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img,0,0,img.width,img.height);
+        var dataURL = canvas.toDataURL("image/jpeg");
+        egret.log(dataURL);
+        
+       var imageLoader:egret.ImageLoader = new egret.ImageLoader();
+       imageLoader.addEventListener(egret.Event.COMPLETE, function(){
+           egret.log(3);
+            var bm:egret.Bitmap = new egret.Bitmap(imageLoader.data);
+            GameConst.stage.addChild(bm);
+            egret.log(4);
+       },this);
+       imageLoader.load(dataURL);
+        */
+    	
+    	
     	var imgload:egret.ImageLoader = new egret.ImageLoader();
     	imgload.addEventListener(egret.Event.COMPLETE, function(){
         	var bm:egret.Bitmap = new egret.Bitmap(imgload.data);
@@ -179,13 +203,14 @@ class Example {
         	bm.x = 300;
         	bm.y = 300;
         	GameConst.stage.addChild(bm);
-        	
+
         	
         	//截取图片后保存到本地，然后上传到微信
         	//1. 获取本地相册图片
         	//2. 图片使用ImageLoader加载成Bitmap
         	//3. 使用renderTexture进行截取部分图片
-        	//4. 截取的部分图片无法使用toDataURL，由于跨域问题
+        	//4. 图片无法使用toDataURL，由于跨域问题
+        	//5. 图片无法使用saveFile方法
             /*
             var renderTexture: egret.RenderTexture = new egret.RenderTexture();
             renderTexture.drawToTexture(bm);
@@ -196,15 +221,13 @@ class Example {
             bm2.x = 400;
             bm2.y = 400;
             GameConst.stage.addChild(bm2);
-            
-            
-            
+
             egret.log("绘制纹理:",renderTexture.textureWidth, renderTexture.textureHeight);
             var base64 = renderTexture.toDataURL("image/jpeg");
             egret.log("base64:",base64);
             
             //弹出提示框。
-            renderTexture.saveToFile("image/jpeg","down.jpeg",new egret.Rectangle(20,20,20,20));
+            //renderTexture.saveToFile("image/jpeg","down.jpeg",new egret.Rectangle(20,20,20,20));
             
             wx.uploadImage({
                 localId: "down.jpeg", // 需要上传的图片的本地ID，由chooseImage接口获得
