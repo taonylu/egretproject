@@ -1,8 +1,3 @@
-<?php
-require_once "jssdk.php";
-$jssdk = new JSSDK("wx4a14bf95e973b059", "af99ce68694f39e2712e7cf7c22fe224");
-$signPackage = $jssdk->GetSignPackage();
-?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -25,14 +20,13 @@ $signPackage = $jssdk->GetSignPackage();
         }
     </style>
 
-    <!--这个标签为通过egret提供的第三方库的方式生成的 javascript 文件-->
+    <!--这个标签为通过egret提供的第三方库的方式生成的 javascript 文件。删除 modules_files 标签后，库文件加载列表将不会变化，请谨慎操作！-->
     <!--modules_files_start-->
 	<script egret="lib" src="libs/modules/egret/egret.js" src-release="libs/modules/egret/egret.min.js"></script>
 	<script egret="lib" src="libs/modules/egret/egret.web.js" src-release="libs/modules/egret/egret.web.min.js"></script>
-	<script egret="lib" src="libs/modules/game/game.js" src-release="libs/modules/game/game.min.js"></script>
-	<script egret="lib" src="libs/modules/game/game.web.js" src-release="libs/modules/game/game.web.min.js"></script>
-	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
+	<script egret="lib" src="libs/modules/eui/eui.js" src-release="libs/modules/eui/eui.min.js"></script>
 	<script egret="lib" src="libs/modules/res/res.js" src-release="libs/modules/res/res.min.js"></script>
+	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
 	<script egret="lib" src="libs/modules/weixinapi/weixinapi.js" src-release="libs/modules/weixinapi/weixinapi.min.js"></script>
 	<!--modules_files_end-->
 
@@ -40,21 +34,35 @@ $signPackage = $jssdk->GetSignPackage();
     <!--other_libs_files_start-->
     <!--other_libs_files_end-->
 
-    <!--这个标签会被替换为项目中所有的 javascript 文件-->
+    <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
     <!--game_files_start-->
-	<script egret="game" src="bin-debug/Example.js"></script>
-	<script egret="game" src="bin-debug/GameConst.js"></script>
-	<script egret="game" src="bin-debug/LoadingUI.js"></script>
+	<script egret="game" src="bin-debug/AssetAdapter.js"></script>
+	<script egret="game" src="bin-debug/com/common/BaseScene.js"></script>
+	<script egret="game" src="bin-debug/com/common/BaseUI.js"></script>
+	<script egret="game" src="bin-debug/com/common/HttpUtil.js"></script>
+	<script egret="game" src="bin-debug/com/common/LayerManager.js"></script>
+	<script egret="game" src="bin-debug/com/common/LoadManager.js"></script>
+	<script egret="game" src="bin-debug/com/constant/GameConst.js"></script>
+	<script egret="game" src="bin-debug/com/event/MyEvent.js"></script>
+	<script egret="game" src="bin-debug/com/GameManager.js"></script>
+	<script egret="game" src="bin-debug/com/gesture/GestureDrag.js"></script>
+	<script egret="game" src="bin-debug/com/gesture/GesturePinch.js"></script>
+	<script egret="game" src="bin-debug/com/view/EditFaceScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/HomeScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/MyTeamScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/PreloadScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/RankScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/ResultScene.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
+	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
 	<!--game_files_end-->
 </head>
 <body>
 
-    <div id="gameDiv" style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
          data-entry-class="Main"
          data-orientation="portrait"
          data-scale-mode="fixedWidth"
-         data-resolution-mode="retina"
          data-frame-rate="30"
          data-content-width="480"
          data-content-height="800"
@@ -63,28 +71,17 @@ $signPackage = $jssdk->GetSignPackage();
          data-show-fps="true" data-show-log="true"
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
-
     <script>
+    	//变量设置
     	window["wx_debug"] = true;
     	window["wx_appid"] = '<?php echo $signPackage["appId"];?>';
     	window["wx_timestamp"] = '<?php echo $signPackage["timestamp"];?>';
     	window["wx_nonceStr"] = '<?php echo $signPackage["nonceStr"];?>';
     	window["wx_signature"] = '<?php echo $signPackage["signature"];?>';
+    	window["_csrf"] = "";
     	
+    	//启动游戏
         egret.runEgret();
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

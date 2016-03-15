@@ -1,0 +1,17 @@
+{
+	"groups":[
+		{
+			"keys":"btn_jpg",
+			"name":"preload"
+		},
+		{
+			"keys":"btn_jpg",
+			"name":"game"
+		}
+	],
+	"resources":[{
+			"name":"btn_jpg",
+			"type":"image",
+			"url":"assets/btn.jpg"
+		}]
+}
