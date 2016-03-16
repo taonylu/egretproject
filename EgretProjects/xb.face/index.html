@@ -47,6 +47,9 @@
 	<script egret="game" src="bin-debug/com/GameManager.js"></script>
 	<script egret="game" src="bin-debug/com/gesture/GestureDrag.js"></script>
 	<script egret="game" src="bin-debug/com/gesture/GesturePinch.js"></script>
+	<script egret="game" src="bin-debug/com/model/Member.js"></script>
+	<script egret="game" src="bin-debug/com/model/MyTeam.js"></script>
+	<script egret="game" src="bin-debug/com/model/Team.js"></script>
 	<script egret="game" src="bin-debug/com/view/EditFaceScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/HomeScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/MyTeamScene.js"></script>
@@ -74,14 +77,15 @@
     <script>
     	//变量设置
     	window["wx_debug"] = true;
-    	window["wx_appid"] = '<?php echo $signPackage["appId"];?>';
-    	window["wx_timestamp"] = '<?php echo $signPackage["timestamp"];?>';
-    	window["wx_nonceStr"] = '<?php echo $signPackage["nonceStr"];?>';
-    	window["wx_signature"] = '<?php echo $signPackage["signature"];?>';
+    	window["wx_appid"] = '<?= $js_sign['appId']; ?>';
+    	window["wx_timestamp"] = <?= $js_sign['timestamp']; ?>;
+    	window["wx_nonceStr"] = '<?= $js_sign['nonceStr']; ?>';
+    	window["wx_signature"] = '<?= $js_sign['signature']; ?>';
     	window["_csrf"] = "";
     	
+    	
     	//启动游戏
-        egret.runEgret();
+      egret.runEgret();
     </script>
 </body>
 </html>
