@@ -52,7 +52,7 @@ class HomeScene extends BaseScene{
         egret.log("send new team");
         this.http.completeHandler = this.revNewTeam;
         this.http.httpMethod = egret.HttpMethod.POST;
-        this.http.send("http://local.yii.com/zhongchouf4/createteam","_csrf=" + GameConst.csrf,this);
+        this.http.send("http://wx.mcw9.com/face360/createteam","_csrf=" + GameConst.csrf,this);
     }
     
     private revNewTeam(res){
@@ -65,8 +65,9 @@ class HomeScene extends BaseScene{
         if(code == 200){
             var data = json.data;
             var teamName = data.teamName;
-            //TODO 
-            
+            MyTeam.getInstance().myTeamName = teamName;
+            //TODO 跳转到上传图片页面
+            LayerManager.getInstance().runScene(GameManager.getInstance().editFaceScene);
         }else{
            //TODO show error msg   
         }
@@ -77,7 +78,7 @@ class HomeScene extends BaseScene{
         egret.log("send rank");
         this.http.completeHandler = this.revRank;
         this.http.httpMethod = egret.HttpMethod.POST;
-        this.http.send("http://local.yii.com/zhongchouf4/gamerank","_csrf=" + GameConst.csrf,this);
+        this.http.send("http://wx.mcw9.com/face360/gamerank","_csrf=" + GameConst.csrf,this);
     }
     
     private revRank(res){
@@ -108,7 +109,7 @@ class HomeScene extends BaseScene{
         egret.log("send winners");
         this.http.completeHandler = this.revWinner;
         this.http.httpMethod = egret.HttpMethod.POST;
-        this.http.send("http://local.yii.com/zhongchouf4/gamerank","_csrf=" + GameConst.csrf,this);
+        this.http.send("http://wx.mcw9.com/face360/winners","_csrf=" + GameConst.csrf,this);
     }
     
     private revWinner(res){
@@ -141,7 +142,7 @@ class HomeScene extends BaseScene{
         egret.log("send myTeam");
         this.http.completeHandler = this.revMyTeam;
         this.http.httpMethod = egret.HttpMethod.GET;
-        this.http.send("http://local.yii.com/zhongchouf4/teammembers","_csrf=" + GameConst.csrf,this);
+        this.http.send("http://wx.mcw9.com/face360/teammembers","_csrf=" + GameConst.csrf,this);
     }
     
     private revMyTeam(res){
@@ -153,9 +154,11 @@ class HomeScene extends BaseScene{
         
         if(code == 200){
             var data = json.data;
-            for(var key in data) {
-                // key， data[key]  
+            
+            for(var teamName in data){
+                MyTeam.getInstance().myTeamName = teamName;    
             }
+            
             //TODO goto myteam scene
             //LayerManager.getInstance().runScene(GameManager.getInstance().myTeamScene);
             LayerManager.getInstance().runScene(GameManager.getInstance().editFaceScene);

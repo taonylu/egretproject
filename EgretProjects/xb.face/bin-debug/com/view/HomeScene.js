@@ -40,7 +40,7 @@ var HomeScene = (function (_super) {
         egret.log("send new team");
         this.http.completeHandler = this.revNewTeam;
         this.http.httpMethod = egret.HttpMethod.POST;
-        this.http.send("http://local.yii.com/zhongchouf4/createteam", "_csrf=" + GameConst.csrf, this);
+        this.http.send("http://wx.mcw9.com/face360/createteam", "_csrf=" + GameConst.csrf, this);
     };
     p.revNewTeam = function (res) {
         egret.log("rev new team:", res);
@@ -51,6 +51,9 @@ var HomeScene = (function (_super) {
         if (code == 200) {
             var data = json.data;
             var teamName = data.teamName;
+            MyTeam.getInstance().myTeamName = teamName;
+            //TODO 跳转到上传图片页面
+            LayerManager.getInstance().runScene(GameManager.getInstance().editFaceScene);
         }
         else {
         }
@@ -60,7 +63,7 @@ var HomeScene = (function (_super) {
         egret.log("send rank");
         this.http.completeHandler = this.revRank;
         this.http.httpMethod = egret.HttpMethod.POST;
-        this.http.send("http://local.yii.com/zhongchouf4/gamerank", "_csrf=" + GameConst.csrf, this);
+        this.http.send("http://wx.mcw9.com/face360/gamerank", "_csrf=" + GameConst.csrf, this);
     };
     p.revRank = function (res) {
         egret.log("rev rank:", res);
@@ -85,7 +88,7 @@ var HomeScene = (function (_super) {
         egret.log("send winners");
         this.http.completeHandler = this.revWinner;
         this.http.httpMethod = egret.HttpMethod.POST;
-        this.http.send("http://local.yii.com/zhongchouf4/gamerank", "_csrf=" + GameConst.csrf, this);
+        this.http.send("http://wx.mcw9.com/face360/winners", "_csrf=" + GameConst.csrf, this);
     };
     p.revWinner = function (res) {
         egret.log("rev winners:", res);
@@ -112,7 +115,7 @@ var HomeScene = (function (_super) {
         egret.log("send myTeam");
         this.http.completeHandler = this.revMyTeam;
         this.http.httpMethod = egret.HttpMethod.GET;
-        this.http.send("http://local.yii.com/zhongchouf4/teammembers", "_csrf=" + GameConst.csrf, this);
+        this.http.send("http://wx.mcw9.com/face360/teammembers", "_csrf=" + GameConst.csrf, this);
     };
     p.revMyTeam = function (res) {
         egret.log("rev myTeam:", res);
@@ -122,7 +125,8 @@ var HomeScene = (function (_super) {
         var msg = json.msg;
         if (code == 200) {
             var data = json.data;
-            for (var key in data) {
+            for (var teamName in data) {
+                MyTeam.getInstance().myTeamName = teamName;
             }
             //TODO goto myteam scene
             //LayerManager.getInstance().runScene(GameManager.getInstance().myTeamScene);

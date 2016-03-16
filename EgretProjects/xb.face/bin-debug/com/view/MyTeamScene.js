@@ -16,6 +16,16 @@ var MyTeamScene = (function (_super) {
     };
     p.onRemove = function () {
     };
+    p.showTeam = function () {
+        wx.downloadImage({
+            serverId: "",
+            isShowProgressTips: 1,
+            success: function (res) {
+                var localId = res.localId; // 返回图片下载后的本地ID
+                //self.showPic(localId);
+            }
+        });
+    };
     return MyTeamScene;
 })(BaseScene);
 egret.registerClass(MyTeamScene,'MyTeamScene');

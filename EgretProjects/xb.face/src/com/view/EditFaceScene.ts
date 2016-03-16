@@ -60,6 +60,7 @@ class EditFaceScene extends BaseScene{
     
     //测颜值，上传图片到微信服务端，将返回的图片ID传递给信步服务端对接face++，再传数据回来
     private onTestBtnTouch(){
+        egret.log("上传图片:",this.selectID);
         var self:EditFaceScene = this;
         wx.uploadImage({
             localId:this.selectID, // 需要上传的图片的本地ID，由chooseImage接口获得
@@ -76,13 +77,14 @@ class EditFaceScene extends BaseScene{
         });
     }
     
+    //图片上传微信服务端后，发消息给xb服务端
     private uploadImageToXB(){
         this.http.completeHandler = this.revUploadImageToXB;
         this.http.httpMethod = egret.HttpMethod.POST;
-        var data = "mediaId=" + this.selectID 
-                    + "&teamName=" + "" 
+        var data = "mediaId=" + this.serverID 
+                    + "&teamName=" +  MyTeam.getInstance().myTeamName
                     + "&_csrf=" + GameConst.csrf;
-        this.http.send("http://local.yii.com/zhongchouf4/upload",data,this);
+        this.http.send("http://wx.mcw9.com/face360/upload",data,this);
     }
     
     private revUploadImageToXB(data){
@@ -91,6 +93,12 @@ class EditFaceScene extends BaseScene{
         var status = json.status;
         var code = json.code;
         var msg = json.msg;
+        var face_width = json.width;
+        var face_height = json.height;
+        var face_center = json.center;
+        egret.log(msg);
+
+        
         if(code == 200){
             var data = json.data;
             var age = data.age;
@@ -102,6 +110,7 @@ class EditFaceScene extends BaseScene{
         }
     }
     
+    //显示图片
     private showPic(url){
         var imgload: egret.ImageLoader = new egret.ImageLoader();
         imgload.addEventListener(egret.Event.COMPLETE,function() {
