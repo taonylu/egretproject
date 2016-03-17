@@ -13067,11 +13067,9 @@ var eui;
                     break;
                 case "on":
                     vCanScroll = true;
-					this.verticalScrollBar.visible = true;
                     break;
                 case "off":
                     vCanScroll = false;
-					this.verticalScrollBar.visible = false;
                     break;
             }
             values[7 /* verticalCanScroll */] = vCanScroll;
@@ -13122,15 +13120,15 @@ var eui;
                 values[5 /* touchMoved */] = true;
                 var horizontalBar = this.horizontalScrollBar;
                 var verticalBar = this.verticalScrollBar;
-               // if (horizontalBar && values[6 /* horizontalCanScroll */]) {
-                //    horizontalBar.visible = true;
-               // }
-               // if (verticalBar && values[7 /* verticalCanScroll */]) {
-               //     verticalBar.visible = true;
-               // }
-               // if (values[2 /* autoHideTimer */]) {
-               //     values[2 /* autoHideTimer */].reset();
-               // }
+                if (horizontalBar && values[6 /* horizontalCanScroll */]) {
+                    horizontalBar.visible = true;
+                }
+                if (verticalBar && values[7 /* verticalCanScroll */]) {
+                    verticalBar.visible = true;
+                }
+                if (values[2 /* autoHideTimer */]) {
+                    values[2 /* autoHideTimer */].reset();
+                }
             }
             eui.UIEvent.dispatchUIEvent(this, eui.UIEvent.CHANGE_START);
             if (values[11 /* delayTouchEvent */]) {
@@ -13210,11 +13208,11 @@ var eui;
             var verticalBar = this.verticalScrollBar;
             if (horizontalBar && horizontalBar.visible || verticalBar && verticalBar.visible) {
                 if (!values[2 /* autoHideTimer */]) {
-                    //values[2 /* autoHideTimer */] = new egret.Timer(200, 1);
-                    //values[2 /* autoHideTimer */].addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.onAutoHideTimer, this);
+                    values[2 /* autoHideTimer */] = new egret.Timer(200, 1);
+                    values[2 /* autoHideTimer */].addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.onAutoHideTimer, this);
                 }
-               // values[2 /* autoHideTimer */].reset();
-                //values[2 /* autoHideTimer */].start();
+                values[2 /* autoHideTimer */].reset();
+                values[2 /* autoHideTimer */].start();
             }
             eui.UIEvent.dispatchUIEvent(this, eui.UIEvent.CHANGE_END);
         };
