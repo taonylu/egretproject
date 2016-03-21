@@ -1,0 +1,8 @@
+{"file":"luckSheet.png","frames":{
+"luck_bg01":{"x":95,"y":104,"w":90,"h":90,"offX":3,"offY":4,"sourceW":97,"sourceH":97},
+"luck_bg02":{"x":0,"y":0,"w":104,"h":102,"offX":0,"offY":0,"sourceW":104,"sourceH":102},
+"luckBg_03":{"x":106,"y":0,"w":90,"h":90,"offX":3,"offY":5,"sourceW":98,"sourceH":97},
+"luckBtn":{"x":0,"y":104,"w":93,"h":93,"offX":0,"offY":2,"sourceW":95,"sourceH":95},
+"prize01":{"x":198,"y":165,"w":67,"h":68,"offX":6,"offY":7,"sourceW":79,"sourceH":85},
+"prize02":{"x":267,"y":165,"w":54,"h":71,"offX":10,"offY":3,"sourceW":76,"sourceH":79},
+"prize03":{"x":187,"y":92,"w":67,"h":71,"offX":8,"offY":9,"sourceW":83,"sourceH":88}}}

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="LuckFormSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group height="480" width="800" horizontalCenter="0">
+		<e:Rect height="480" width="1500" y="0" fillAlpha="0.7" horizontalCenter="0"/>
+		<e:Image source="ruleBg" y="42" x="131"/>
+		<e:Image id="closeBtn" source="xBtn" x="629" y="25"/>
+		<e:Image source="luckText" y="61" x="349"/>
+		<e:Label text="恭喜你获得幸运大奖！" y="97" fontFamily="微软雅黑" textColor="0x010000" width="333" verticalAlign="middle" textAlign="center" height="46" size="25" x="234"/>
+		<e:Image id="submitBtn" source="submitBtn" y="379" x="328"/>
+		<e:Label y="135" textColor="0x030000" verticalAlign="middle" text="姓名" fontFamily="微软雅黑" textAlign="left" width="47" height="42" size="20" x="200"/>
+		<e:Label y="181" textColor="0x030000" verticalAlign="middle" text="电话" fontFamily="微软雅黑" textAlign="left" width="44" size="20" height="42" x="200"/>
+		<e:Label y="226" textColor="0x030000" verticalAlign="middle" text="地址" fontFamily="微软雅黑" textAlign="left" width="50" size="20" height="42" x="200"/>
+		<e:Label y="323" textColor="0x020000" verticalAlign="middle" text="请确保你的信息完整以便于奖品寄送" fontFamily="微软雅黑" textAlign="center" width="309" size="15" height="31" x="245"/>
+		<e:Label y="350" verticalAlign="middle" text="呼唤朋友组队，共赢千元大奖" fontFamily="微软雅黑" textAlign="center" width="309" size="18" height="31" x="250" textColor="0x8DF81B" bold="true"/>
+		<e:Rect width="283" y="139" height="35" fillColor="0xFAF7F7" x="263"/>
+		<e:Rect width="282" y="185" height="37" fillColor="0xFAF7F7" x="263"/>
+		<e:Rect width="283" y="230" height="94" fillColor="0xFAF7F7" x="263"/>
+		<e:EditableText x="273" y="135" textColor="0x020101" verticalAlign="middle" text="姓名" fontFamily="微软雅黑" textAlign="left" width="265" size="20" height="43" id="nameLabel"/>
+		<e:EditableText id="telLabel" y="180" textColor="0x020101" verticalAlign="middle" text="电话" fontFamily="微软雅黑" textAlign="left" width="267" height="43" size="20" x="274"/>
+		<e:EditableText width="264" y="235" textColor="0x020101" verticalAlign="top" text="地址" fontFamily="微软雅黑" id="addressLabel" multiline="true" size="20" height="83" x="275"/>
+	</e:Group>
+</e:Skin>

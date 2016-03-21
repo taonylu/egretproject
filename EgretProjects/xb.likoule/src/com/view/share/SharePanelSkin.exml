@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="SharePanelSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group height="480" width="800" horizontalCenter="0">
+		<e:Rect height="480" width="1500" y="0" fillAlpha="0.7" horizontalCenter="0"/>
+		<e:Image source="shareSheet_json.prize0" x="168" y="196"/>
+		<e:Image source="shareSheet_json.prize1" x="444" y="196"/>
+		<e:Group id="arrowGroup" height="200" width="700" y="-3" x="410" anchorOffsetX="350" scaleX="1">
+			<e:Image source="shareSheet_json.shareArrow" x="430" y="34"/>
+		</e:Group>
+		<e:Image source="share" y="36" x="188"/>
+	</e:Group>
+</e:Skin>

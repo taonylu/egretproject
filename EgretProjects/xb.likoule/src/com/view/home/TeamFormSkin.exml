@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="TeamFormSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group height="480" width="800" y="0" horizontalCenter="0">
+		<e:Rect height="480" width="1500" fillAlpha="0.7" x="-200"/>
+		<e:Image source="ruleBg" horizontalCenter="0" verticalCenter="0"/>
+		<e:Image id="closeBtn" source="xBtn" x="628" y="25"/>
+		<e:Label text="姓名" x="201" y="84" size="25" fontFamily="微软雅黑" textColor="0x030000" height="42" width="81" verticalAlign="middle" textAlign="left"/>
+		<e:Label y="149" textColor="0x030000" size="25" text="电话" fontFamily="微软雅黑" textAlign="left" width="81" verticalAlign="middle" height="42" x="202"/>
+		<e:Label y="217" textColor="0x030000" size="25" text="地址" fontFamily="微软雅黑" textAlign="left" width="81" verticalAlign="middle" height="42" x="199"/>
+		<e:Label y="314" size="18" text="请确保你的信息完整以便于奖品寄送（此信息仅限队长填写）" fontFamily="微软雅黑" textAlign="center" width="564" verticalAlign="middle" height="54" textColor="0x020000" x="118"/>
+		<e:Rect height="43" width="308" x="293" y="86" fillColor="0xFAF7F7"/>
+		<e:Rect width="309" y="148" height="45" fillColor="0xFAF7F7" x="293"/>
+		<e:Rect width="309" y="220" height="94" fillColor="0xFAF7F7" x="293"/>
+		<e:EditableText id="nameLabel" width="276" height="43" text="姓名" x="305" y="85" fontFamily="微软雅黑" size="25" textColor="0x020101" verticalAlign="middle" textAlign="left"/>
+		<e:EditableText id="telLabel" x="304" y="149" textColor="0x020101" height="43" text="电话" fontFamily="微软雅黑" textAlign="left" width="284" verticalAlign="middle" size="25"/>
+		<e:EditableText id="addressLabel" y="225" textColor="0x020101" size="25" text="地址" fontFamily="微软雅黑" width="277" verticalAlign="top" height="81" x="305" multiline="true"/>
+		<e:Image id="submitBtn" source="submitBtn" y="368" x="310"/>
+	</e:Group>
+</e:Skin>
