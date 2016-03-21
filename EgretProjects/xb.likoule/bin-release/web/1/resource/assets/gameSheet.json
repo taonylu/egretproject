@@ -1,0 +1,7 @@
+{"file":"gameSheet.png","frames":{
+"item00":{"x":169,"y":50,"w":74,"h":65,"offX":0,"offY":0,"sourceW":75,"sourceH":65},
+"item01":{"x":92,"y":50,"w":75,"h":65,"offX":0,"offY":0,"sourceW":75,"sourceH":65},
+"num2":{"x":92,"y":117,"w":51,"h":36,"offX":2,"offY":6,"sourceW":58,"sourceH":47},
+"num5":{"x":145,"y":117,"w":52,"h":35,"offX":3,"offY":8,"sourceW":62,"sourceH":47},
+"scoreBg":{"x":92,"y":0,"w":128,"h":48,"offX":0,"offY":0,"sourceW":128,"sourceH":48},
+"scrollBtn":{"x":0,"y":0,"w":90,"h":494,"offX":0,"offY":0,"sourceW":90,"sourceH":494}}}

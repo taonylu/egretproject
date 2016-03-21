@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="RankPanelSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group height="480" width="800" y="0" horizontalCenter="0" touchThrough="false" touchEnabled="true" touchChildren="true">
+		<e:Rect height="480" width="1500" y="0" fillAlpha="0.7" horizontalCenter="0"/>
+		<e:Image source="rankBg" x="169" y="30"/>
+		<e:Image id="closeBtn" source="xBtn" x="584" y="21"/>
+		<e:Label text="我的团队" x="198" y="95" width="129" textColor="0x050000" size="25" fontFamily="微软雅黑" verticalAlign="middle" textAlign="left" height="32"/>
+		<e:Label y="227" textColor="0x050000" size="25" text="排名" fontFamily="微软雅黑" textAlign="left" width="74" verticalAlign="middle" height="32" x="217"/>
+		<e:Label y="227" textColor="0x050000" height="32" text="队名" fontFamily="微软雅黑" textAlign="left" width="74" verticalAlign="middle" size="25" x="377"/>
+		<e:Label y="228" textColor="0x050000" size="25" text="得分" fontFamily="微软雅黑" textAlign="left" width="74" verticalAlign="middle" height="32" x="515"/>
+		<e:Label y="95" textColor="0x050000" size="25" text="团队排名" fontFamily="微软雅黑" textAlign="left" width="129" verticalAlign="middle" height="32" x="354"/>
+		<e:Label y="94" textColor="0x050000" height="32" text="团队得分" fontFamily="微软雅黑" textAlign="left" width="129" verticalAlign="middle" size="25" x="496"/>
+	</e:Group>
+</e:Skin>

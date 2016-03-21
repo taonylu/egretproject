@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="PrizeGridSkin" width="120" height="120" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="light" source="luck_bg02" x="9" y="10"/>
+	<e:Image id="resultBg" source="luck_bg01" x="11" y="14"/>
+	<e:Image id="thx" source="prize01" x="21" y="22"/>
+	<e:Image id="luck" source="prize02" x="23" y="25"/>
+	<e:Image id="bigLuck" source="prize03" x="17" y="19"/>
+	<e:Image id="back" source="luckBg_03" x="11" y="12"/>
+</e:Skin>

@@ -1,0 +1,11 @@
+{"file":"panelSheet.png","frames":{
+"knowBtn":{"x":0,"y":513,"w":175,"h":59,"offX":6,"offY":6,"sourceW":188,"sourceH":68},
+"leaderBtn":{"x":177,"y":513,"w":175,"h":59,"offX":3,"offY":5,"sourceW":181,"sourceH":64},
+"luckText":{"x":0,"y":574,"w":112,"h":38,"offX":10,"offY":5,"sourceW":136,"sourceH":49},
+"prizeTitle":{"x":531,"y":513,"w":153,"h":38,"offX":13,"offY":9,"sourceW":177,"sourceH":57},
+"rankBg":{"x":696,"y":0,"w":579,"h":535,"offX":17,"offY":9,"sourceW":608,"sourceH":554},
+"rankTitle":{"x":531,"y":553,"w":114,"h":38,"offX":15,"offY":6,"sourceW":144,"sourceH":51},
+"ruleBg":{"x":0,"y":0,"w":694,"h":511,"offX":10,"offY":6,"sourceW":709,"sourceH":522},
+"ruleText":{"x":686,"y":537,"w":151,"h":37,"offX":9,"offY":9,"sourceW":169,"sourceH":55},
+"submitBtn":{"x":354,"y":513,"w":175,"h":59,"offX":7,"offY":6,"sourceW":191,"sourceH":68},
+"arrow":{"x":114,"y":574,"w":58,"h":40,"offX":12,"offY":10,"sourceW":82,"sourceH":68}}}

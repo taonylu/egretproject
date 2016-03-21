@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="GameBgSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group width="800" height="480" id="bgGroup">
+		<e:Image id="sky" source="bg_sky" y="0"/>
+		<e:Image source="bg_sky" id="sky0"/>
+		<e:Image id="hill" source="bg_wall" y="130"/>
+		<e:Image source="bg_wall" y="130" id="hill0"/>
+		<e:Image id="grass" source="bg_grass" y="262"/>
+		<e:Image source="bg_grass" id="grass0" y="262"/>
+	</e:Group>
+</e:Skin>

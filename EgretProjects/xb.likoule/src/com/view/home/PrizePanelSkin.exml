@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="PrizePanelSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group height="480" width="800" y="0" horizontalCenter="0">
+		<e:Rect height="480" width="1500" fillAlpha="0.7" x="-200"/>
+		<e:Image source="ruleBg" x="131" y="42"/>
+		<e:Image source="prizeTitle" y="58" x="333"/>
+		<e:Label id="prizeLabel" text="标签" y="109" width="480" height="249" size="25" textColor="0x070000" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" x="160"/>
+		<e:Image id="closeBtn" source="xBtn" x="630" y="28"/>
+		<e:Image id="leaderBtn" source="leaderBtn" y="369" x="332"/>
+	</e:Group>
+</e:Skin>

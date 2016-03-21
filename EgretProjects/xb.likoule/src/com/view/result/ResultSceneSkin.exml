@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="ResultSceneSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:GameBg skinName="GameBgSkin"/>
+	<e:Group id="scoreGroup" height="480" width="800" y="0" horizontalCenter="0">
+		<e:Image y="67" height="74" width="359" x="221" source="ruleBg"/>
+		<e:Label y="74" verticalAlign="middle" text="您一共采集了" fontFamily="微软雅黑" textAlign="center" bold="true" width="170" size="20" x="237" textColor="0x000000"/>
+		<e:Label y="111" textColor="0x000000" verticalAlign="middle" text="得分为" fontFamily="微软雅黑" textAlign="center" bold="true" width="110" size="20" x="290"/>
+		<e:Label y="104" textColor="0x000000" verticalAlign="middle" text="分" fontFamily="微软雅黑" textAlign="center" bold="true" width="55" size="20" x="447" height="31"/>
+		<e:Label y="72" textColor="0x000000" verticalAlign="middle" text="个香草元素" fontFamily="微软雅黑" textAlign="center" bold="true" width="113" size="20" x="440" height="25"/>
+		<e:Label id="grassLabel" y="67" verticalAlign="middle" text="58" fontFamily="微软雅黑" textAlign="center" bold="true" width="58" size="30" x="385" height="32" textColor="0xE9EC3A"/>
+		<e:Label id="totalScoreLabel" y="104" verticalAlign="middle" text="999" fontFamily="微软雅黑" textAlign="center" bold="true" width="83" size="30" height="32" x="377" textColor="0xE39013"/>
+		<e:Image id="scoreBg" source="scoreBg" y="20" x="684"/>
+		<e:Label id="scoreLabel" y="22" textColor="0xF1944E" verticalAlign="middle" text="999" fontFamily="微软雅黑" textAlign="center" bold="true" width="105" size="30" x="680"/>
+		<e:Image id="timeBg" source="scoreBg" y="21" x="352"/>
+		<e:Label id="timeLabel" y="24" textColor="0xF9F660" verticalAlign="middle" text="30s" fontFamily="微软雅黑" textAlign="center" bold="true" width="90" size="30" x="355"/>
+	</e:Group>
+	<e:Group id="btnGroup" height="480" width="800" y="0" horizontalCenter="0" visible="false">
+		<e:Image source="resultBg" y="196" x="284" width="514" height="285"/>
+		<e:Image id="againBtn" source="againBtn" x="321" y="263"/>
+		<e:Image id="rankBtn" source="rankBtn2" x="320" y="340"/>
+		<e:Image id="teamBtn" source="resultSheet_json.teamBtn2" y="187" x="328"/>
+		<e:Image source="winText" x="464" y="157"/>
+	</e:Group>
+	<e:Group id="luckGroup" height="480" width="800" y="0" horizontalCenter="0" visible="false">
+		<e:Image source="ruleBg" y="148" width="343" height="328" x="229"/>
+		<e:Image id="luckBtn" source="luckBtn" y="266" x="356"/>
+		<ns1:PrizeGrid id="grid0" x="236" y="150" skinName="PrizeGridSkin"/>
+		<ns1:PrizeGrid id="grid1" y="150" skinName="PrizeGridSkin" x="344"/>
+		<ns1:PrizeGrid id="grid2" y="150" skinName="PrizeGridSkin" x="448"/>
+		<ns1:PrizeGrid id="grid3" y="255" skinName="PrizeGridSkin" x="448"/>
+		<ns1:PrizeGrid id="grid4" y="356" skinName="PrizeGridSkin" x="448"/>
+		<ns1:PrizeGrid id="grid5" y="356" skinName="PrizeGridSkin" x="342"/>
+		<ns1:PrizeGrid id="grid6" y="356" skinName="PrizeGridSkin" x="236"/>
+		<ns1:PrizeGrid id="grid7" y="254" skinName="PrizeGridSkin" x="236"/>
+	</e:Group>
+</e:Skin>

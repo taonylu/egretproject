@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="GameSceneSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:GameBg id="gameBg" skinName="GameBgSkin"/>
+	<e:Group id="uiGroup" height="480" width="800" x="0" y="0">
+		<e:Image source="scrollBtn" left="52" y="53"/>
+		<e:Rect id="controlBtn" height="480" width="269" x="0" y="-1" fillAlpha="0"/>
+	</e:Group>
+	<e:Group id="timeGroup" height="43" width="152" y="18" horizontalCenter="0">
+		<e:Image id="timeBg" source="scoreBg" horizontalCenter="0" verticalCenter="0"/>
+		<e:Label id="timeLabel" text="30s" fontFamily="微软雅黑" width="90" size="30" verticalAlign="middle" textAlign="center" textColor="0xF9F660" bold="true" horizontalCenter="0" verticalCenter="0"/>
+	</e:Group>
+	<e:Group id="scoreGroup" height="42" width="153" y="20" right="28">
+		<e:Image id="scoreBg" source="scoreBg" horizontalCenter="0" verticalCenter="0"/>
+		<e:Label id="scoreLabel" verticalAlign="middle" text="999" fontFamily="微软雅黑" textAlign="center" bold="true" width="105" size="30" textColor="0xF1944E" horizontalCenter="0" verticalCenter="0"/>
+	</e:Group>
+</e:Skin>
