@@ -1,7 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"gameSheet_json,bee_png,bee_json",
+			"keys":"gameSheet_json,bee_png,bee_json,ball_png,ball_json",
 			"name":"game"
 		},
 		{
@@ -13,7 +13,7 @@
 			"name":"share"
 		},
 		{
-			"keys":"homeSheet_json,config_json,track_sb_png,roundthumb_png",
+			"keys":"homeSheet_json,track_sb_png,roundthumb_png",
 			"name":"home"
 		},
 		{
@@ -46,20 +46,15 @@
 		},
 		{
 			"name":"shareSheet_json",
-			"subkeys":"share,shareBg",
+			"subkeys":"prize0,prize1,share,shareArrow",
 			"type":"sheet",
 			"url":"assets/shareSheet.json"
 		},
 		{
 			"name":"resultSheet_json",
-			"subkeys":"againBtn,rankBtn2,resultBg,winText",
+			"subkeys":"againBtn,rankBtn2,resultBg,teamBtn2,winText",
 			"type":"sheet",
 			"url":"assets/resultSheet.json"
-		},
-		{
-			"name":"config_json",
-			"type":"json",
-			"url":"assets/config.json"
 		},
 		{
 			"name":"track_sb_png",
@@ -73,7 +68,7 @@
 		},
 		{
 			"name":"panelSheet_json",
-			"subkeys":"arrow,knowBtn,leaderBtn,luckText,prizeTitle,rankBg,rankTitle,ruleBg,ruleText,submitBtn",
+			"subkeys":"arrow,knowBtn,leaderBtn,line,luckText,myTeamBtn,prizeTitle,rankBg,rankTitle,ruleBg,ruleText,submitBtn",
 			"type":"sheet",
 			"url":"assets/panelSheet.json"
 		},
@@ -86,6 +81,16 @@
 			"name":"bee_json",
 			"type":"json",
 			"url":"assets/game/bee.json"
+		},
+		{
+			"name":"ball_png",
+			"type":"image",
+			"url":"assets/game/ball.png"
+		},
+		{
+			"name":"ball_json",
+			"type":"json",
+			"url":"assets/game/ball.json"
 		}
 	]
 }

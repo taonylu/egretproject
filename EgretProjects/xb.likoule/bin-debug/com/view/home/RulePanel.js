@@ -13,10 +13,6 @@ var RulePanel = (function (_super) {
     var d = __define,c=RulePanel,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
-        this.label0.text = GameConst.config.rule0;
-        this.label1.text = GameConst.config.rule1;
-        this.label2.text = GameConst.config.rule2;
-        this.label2.height = (this.label2.size + this.label2.lineSpacing) * this.label2.maxScrollV;
         this.scroller.scrollPolicyV = eui.ScrollPolicy.AUTO;
         this.scroller.verticalScrollBar.autoVisibility = false;
     };

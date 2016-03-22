@@ -43,7 +43,7 @@ var WeiXin = (function () {
                 wx.onMenuShareTimeline(body);
                 body.title = weixin.title;
                 body.imgUrl = weixin.imgUrl;
-                body.link = weixin.link;
+                body.link = weixin.link + "?teamName=" + GameConst.teamName;
                 body.success = function () {
                 };
                 //分享好友
@@ -51,7 +51,7 @@ var WeiXin = (function () {
                 wx.onMenuShareAppMessage(bodyFriend);
                 bodyFriend.title = weixin.title;
                 bodyFriend.imgUrl = weixin.imgUrl;
-                bodyFriend.link = weixin.link;
+                bodyFriend.link = weixin.link + "?teamName=" + GameConst.teamName;
                 bodyFriend.desc = weixin.desc;
                 bodyFriend.success = function () {
                     egret.log("分享好友");

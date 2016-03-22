@@ -7,23 +7,32 @@ var GameManager = (function () {
     function GameManager() {
         this.homeScene = new HomeScene(); //主页场景
         this.gameScene = new GameScene(); //游戏场景
+        this.resultScene = new ResultScene(); //结算页面
         this.rulePanel = new RulePanel(); //游戏规则
         this.prizePanel = new PrizePanel(); //获奖名单
-        this.rankPanle = new RankPanel(); //排行榜
+        this.rankPanel = new RankPanel(); //排行榜
         this.teamForm = new TeamForm(); //创建团队
         this.sharePanel = new SharePanel(); //分享
+        this.myTeamPanel = new MyTeamPanel(); //我的团队
+        this.luckForm = new LuckForm(); //中奖页面
     }
     var d = __define,c=GameManager,p=c.prototype;
     //启动游戏框架
     p.startup = function (main) {
         //配置全局变量
-        GameConst.csrf = window["_csrf"];
+        GameConst.csrf = window["csrf"]; //验证码
         //配置微信
-        WeiXin.start();
+        //WeiXin.start();
+        //是否被邀请组队
+        if (GameConst.debug) {
+            GameConst.invitInfo.isInvit = false;
+            GameConst.invitInfo.name = "XXXX";
+            GameConst.invitInfo.teamName = "XXXX";
+        }
+        else {
+        }
         //配置重力感应
         window["GM"] = this;
-        //获取配置文件
-        GameConst.config = RES.getRes("config_json");
         //配置Layer
         GameConst.stage = main.stage;
         LayerManager.getInstance().initialize(main);

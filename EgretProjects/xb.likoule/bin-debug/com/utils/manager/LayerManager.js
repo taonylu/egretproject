@@ -52,6 +52,14 @@ var LayerManager = (function () {
             nextScene.onEnable();
         }
     };
+    p.clearPopLayer = function () {
+        var num = this.popLayer.numChildren;
+        if (num > 0) {
+            for (var i = 0; i < num; i++) {
+                this.popLayer.removeChildAt(i);
+            }
+        }
+    };
     LayerManager.getInstance = function () {
         if (this.instance == null) {
             this.instance = new LayerManager();

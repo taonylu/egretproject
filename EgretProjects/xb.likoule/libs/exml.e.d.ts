@@ -24,6 +24,8 @@ declare class GameBgSkin extends eui.Skin{
 }
 declare class HomeSceneSkin extends eui.Skin{
 }
+declare class MyTeamPanelSkin extends eui.Skin{
+}
 declare class PrizePanelSkin extends eui.Skin{
 }
 declare class RankPanelSkin extends eui.Skin{
