@@ -67,6 +67,15 @@ class LayerManager {
         
     }
     
+    public clearPopLayer(){
+        var num = this.popLayer.numChildren;
+        if( num > 0){
+            for(var i=0;i<num;i++){
+                this.popLayer.removeChildAt(i);
+            }
+        }
+    }
+    
     private static instance: LayerManager;
     public static getInstance(): LayerManager {
         if(this.instance == null) {

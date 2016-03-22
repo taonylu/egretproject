@@ -8,31 +8,32 @@
 *  修改日志：
 *
 * Example:
-* var http:HttpUtil = new HttpUtil();
-* http.completeHandler = this.completeHandler;
-* http.errorHandler = this.errorHandler;
-*
-* //GET
-* var url: string = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/xbLottery" + "/pass/" + pass;
-* var msg: string = "";
-* http.send(url,egret.HttpMethod.GET,msg, this);
-*
-* //POST
-* var url: string = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/xbLottery" + "/pass/" + pass;
-* var msg: string = "p1=postP1&p2=postP2";
-* http.send(url,egret.HttpMethod.POST,msg, this);
+ var http:HttpUtil = new HttpUtil();
+ this.http.completeHandler = this.completeHandler;
+ this.http.errorHandler = this.errorHandler;
+  
+ //GET
+ var url: string = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/xbLottery" + "/pass/" + pass;
+ var msg: string = "";
+ this.http.send(url,msg, this);
+  
+ //POST
+ var url: string = "http://www.cisigo.com/index.php?s=/addon/Newspaper/Newspaper/xbLottery" + "/pass/" + pass;
+ var msg: string = "p1=postP1&p2=postP2";
+ this.http.send(url,msg, this);
 */
 var HttpUtil = (function () {
     function HttpUtil() {
+        this.httpMethod = egret.HttpMethod.GET; //发送方式POST or GET
         this.request = new egret.HttpRequest();
         this.request.responseType = egret.HttpResponseType.TEXT;
         this.request.addEventListener(egret.Event.COMPLETE, this.onPostComplete, this);
         this.request.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onPostIOError, this);
     }
     var d = __define,c=HttpUtil,p=c.prototype;
-    p.send = function (url, httpMethod, msg, obj) {
+    p.send = function (url, msg, obj) {
         this.thisObject = obj;
-        this.request.open(url, httpMethod);
+        this.request.open(url, this.httpMethod);
         this.request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         if (msg != "") {
             this.request.send(msg);
@@ -47,6 +48,8 @@ var HttpUtil = (function () {
         }
     };
     p.onPostIOError = function (e) {
+        egret.log("http error");
+        alert("链接失效");
         if (this.errorHandler) {
             this.errorHandler.call(this.thisObject, e);
         }

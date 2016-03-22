@@ -4,11 +4,13 @@
  *
  */
 class TeamForm extends BaseUI{
-    private closeBtn:eui.Image;
-    private submitBtn:eui.Image;
-    private nameLabel:eui.EditableText;
-    private telLabel:eui.EditableText;
-    private addressLabel:eui.EditableText;
+    private closeBtn:eui.Image;            //关闭
+    private submitBtn:eui.Image;           //提交
+    private nameLabel:eui.EditableText;    //名字
+    private telLabel:eui.EditableText;     //电话
+    private addressLabel:eui.EditableText; //地址
+    
+    private http:HttpUtil = new HttpUtil();//http请求
     
 	public constructor() {
         super("TeamFormSkin");
@@ -37,8 +39,33 @@ class TeamForm extends BaseUI{
         this.hide();
     }
     
+    //提交
     private onSubmitBtnTouch(){
         //TPDO 提交信息
+        if(GameConst.debug){
+            var json = {status:true,code:200,msg:"abc"};
+            this.revSubmit(JSON.stringify(json));
+        }else{
+            this.http.completeHandler = this.revSubmit;
+            this.http.httpMethod = egret.HttpMethod.POST;
+            var url: string = "http://wx.mcw9.com/ricolazt/saveinfo";
+            var csrf: string = "_csrf=" + GameConst.csrf;
+            var tel:string = "&tel=" + this.telLabel.text;
+            var name:string = "&name=" + this.nameLabel.text;
+            var addr:string = "&addr=" + this.addressLabel.text; 
+            var msg:string = csrf + tel + name + addr;
+            this.http.send(url,msg,this); 
+        }
+    }
+    
+    private revSubmit(res){
+        egret.log("revSubmit:",res);
+        var json = JSON.parse(res);
+        var status = json.status;
+        var code = json.code;
+        var msg = json.msg;
+        this.hide();
+        alert(msg);
     }
 }
 

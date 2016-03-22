@@ -8,6 +8,10 @@ class PrizePanel extends BaseUI{
     private closeBtn:eui.Image;     //关闭
     private leaderBtn:eui.Image;    //队长来领
     
+    private fourLabel:eui.Label;    //四强
+    private weekLabelList:Array<eui.Label> = new Array<eui.Label>(); //周榜
+    private weekNum:number = 6;    //周榜显示数量
+    private weekLabel0:eui.Label;
 	public constructor() {
     	super("PrizePanelSkin");
         this.percentWidth = 100;
@@ -16,6 +20,12 @@ class PrizePanel extends BaseUI{
 	
     protected componentCreated(): void {
         super.componentCreated();
+        
+        for(var i=0;i<this.weekNum;i++){
+            console.log(this["weekLabel" + 0]);
+            console.log(this.weekLabel0);
+            this.weekLabelList.push(this["weekLabel" + i]);
+        }
     }
 
     public onEnable() {
@@ -33,7 +43,34 @@ class PrizePanel extends BaseUI{
     }
     
     private onLeaderBtnTouch(){
-        //TODO 队长来领奖
+        this.hide();
+        LayerManager.getInstance().popLayer.addChild(GameManager.getInstance().teamForm);
+    }
+    
+    public setView(data){
+        //清零显示
+        for(var i = 0;i < this.weekNum;i++) {
+            this.weekLabelList[i].text = "";
+        }
+        this.fourLabel.text = "";
+        
+        //显示周榜和四强
+        var weekRank = data.weekRank;
+        var rankWin = data.rankWin;
+        
+        var len = weekRank.length;
+        len = (len>this.weekNum)?this.weekNum:len;
+        for(var i=0;i<len;i++){
+            var teamName = weekRank[i].teamName;
+            var teamScore = weekRank[i].teamScore;
+            this.weekLabelList[i].text = "第" + (i+1) + "周最高奖：" + teamName;
+        }
+        
+        len = rankWin.length;
+        for(var i=0;i<len;i++){
+            this.fourLabel.text += rankWin[i].teamName + " ";
+        }
+        
     }
 }
 

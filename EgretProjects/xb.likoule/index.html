@@ -46,20 +46,25 @@
 	<script egret="game" src="bin-debug/com/utils/manager/MapManager.js"></script>
 	<script egret="game" src="bin-debug/com/utils/scene/BaseScene.js"></script>
 	<script egret="game" src="bin-debug/com/utils/scene/BaseUI.js"></script>
+	<script egret="game" src="bin-debug/com/utils/tool/CImageLoader.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/DateTimer.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/HttpUtil.js"></script>
+	<script egret="game" src="bin-debug/com/utils/tool/LabelFactory.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/ObjectPool.js"></script>
 	<script egret="game" src="bin-debug/com/utils/ui/SimpleMC.js"></script>
 	<script egret="game" src="bin-debug/com/utils/weixin/WeiXin.js"></script>
-	<script egret="game" src="bin-debug/com/view/game/BaseItem.js"></script>
-	<script egret="game" src="bin-debug/com/view/game/Bee.js"></script>
 	<script egret="game" src="bin-debug/com/view/game/GameScene.js"></script>
-	<script egret="game" src="bin-debug/com/view/game/Item2.js"></script>
-	<script egret="game" src="bin-debug/com/view/game/Item5.js"></script>
-	<script egret="game" src="bin-debug/com/view/game/Score2.js"></script>
-	<script egret="game" src="bin-debug/com/view/game/Score5.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/ui/Ball.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/ui/BaseItem.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/ui/Bee.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/ui/Item2.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/ui/Item5.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/ui/Score2.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/ui/Score20.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/ui/Score5.js"></script>
 	<script egret="game" src="bin-debug/com/view/home/GameBg.js"></script>
 	<script egret="game" src="bin-debug/com/view/home/HomeScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/home/MyTeamPanel.js"></script>
 	<script egret="game" src="bin-debug/com/view/home/PrizePanel.js"></script>
 	<script egret="game" src="bin-debug/com/view/home/RankPanel.js"></script>
 	<script egret="game" src="bin-debug/com/view/home/RulePanel.js"></script>
@@ -88,20 +93,22 @@
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>
-    	//微信分享
-    	var weixinCongif = {
+    	//微信配置
+    	/*
+    	var weixinConfig = {
     		"debug":true,
     		"appId":'<?= $js_sign['appId']; ?>',
-    		"timestamp":<?= $js_sign['timestamp']; ?>,
+    		"timestamp":'<?= $js_sign['timestamp']; ?>',
     		"nonceStr":'<?= $js_sign['nonceStr']; ?>',
     		"signature":'<?= $js_sign['signature']; ?>',
     		"title":"",
     		"desc":"",
     		"link":"",
     		"imgUrl":""
-    	}
-
-    	window["_csrf"] = '<?= $_csrf; ?>';
+    	}*/
+    	
+    	//验证码
+    	var csrf = '<?= $_csrf; ?>';
     	
     	//重力感应
     	window.onorientationchange = function(){

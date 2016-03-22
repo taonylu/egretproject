@@ -5,22 +5,26 @@
  */
 class GameScene extends BaseScene{
     private gameBg: GameBg;         //游戏地图
-    private controlBtn: eui.Rect;  //上下滑动的控制按钮
+    private controlBtn: eui.Rect;   //上下滑动的控制按钮
     private bee: Bee = new Bee();   //蜜蜂
     
     private scoreLabel: eui.Label;  //分数文本
     private score: number;          //获得分数
     
+    private grass:number = 0;       //获取香草数
+    
     private timeLabel: eui.Label;   //时间文本
     private curTime: number;        //当前时间
-    private timeLimit: number = 30; //时间限制
+    private timeLimit: number = 2; //时间限制
     private gameTimer:DateTimer = new DateTimer(1000); //游戏计时器
     
-    private itemList:Array<BaseItem> = new Array<BaseItem>();           //item数组
-    private item2Pool:ObjectPool = ObjectPool.getPool(Item2.NAME,5);    //item5对象池
-    private item5Pool:ObjectPool = ObjectPool.getPool(Item5.NAME, 5);   //item10对象池
-    private score2Pool:ObjectPool = ObjectPool.getPool(Score2.NAME, 5); //score5对象池
-    private score5Pool:ObjectPool = ObjectPool.getPool(Score5.NAME,5);  //score10对象池
+    private itemList: Array<any> = new Array<any>();           //item数组
+    private item2Pool:ObjectPool = ObjectPool.getPool(Item2.NAME,5);    //item2对象池
+    private item5Pool:ObjectPool = ObjectPool.getPool(Item5.NAME, 5);   //item5对象池
+    private score2Pool:ObjectPool = ObjectPool.getPool(Score2.NAME, 5); //score2对象池
+    private score5Pool:ObjectPool = ObjectPool.getPool(Score5.NAME,5);  //score5对象池
+    private score20Pool: ObjectPool = ObjectPool.getPool(Score20.NAME,3);//score20对象池
+    private ballPool:ObjectPool = ObjectPool.getPool(Ball.NAME,3);      //20分球
     
     private stageWidth: number;     //舞台高宽
     private stageHeight: number;
@@ -34,8 +38,6 @@ class GameScene extends BaseScene{
         
         this.stageWidth = GameConst.stage.stageWidth;
         this.stageHeight = GameConst.stage.stageHeight;
-        
-        
     }
 
     public onEnable(): void {
@@ -77,6 +79,7 @@ class GameScene extends BaseScene{
         this.scoreLabel.text = this.score + "";
         this.curTime = this.timeLimit;
         this.timeLabel.text = this.curTime + "s";
+        this.grass = 0;
         
         //重置蜜蜂
         this.bee.play(-1);
@@ -88,12 +91,27 @@ class GameScene extends BaseScene{
         
         //重置游戏背景
         this.gameBg.reset();
+        
+        //重置获球
+        var len:number = this.itemList.length;
+        for(var i:number=0;i<len;i++){
+            var item = this.itemList[i];
+            item.recycle();
+        }
+        this.itemList.length = 0;
+        
+        //重置其他参数
+        this.curFingerPos = this.bee.y;
     }
     
     //游戏结束
     private gameOver(){
         this.deConfigListeners();
         this.stopGameTimer();
+        
+        var resultScene: ResultScene = GameManager.getInstance().resultScene;
+        LayerManager.getInstance().runScene(resultScene);
+        resultScene.setSceneValue(0, this.score,this.grass);
     }
     
     private curFingerPos:number;  //当前手指位置
@@ -114,7 +132,7 @@ class GameScene extends BaseScene{
     
     private moveItem(){
         var len:number = this.itemList.length;
-        var item:BaseItem;
+        var item;
         for(var i:number= len-1;i>=0;i--){
             item = this.itemList[i];
             item.x -= this.bee.speedX;
@@ -130,37 +148,47 @@ class GameScene extends BaseScene{
                     this.itemList.splice(i,1);
                     this.score+=item.score;
                     this.scoreLabel.text = this.score + "";
+                    this.grass ++;
                 }
             }
         }
+        
     }
     
     private itemCount = 0;
     private createItem(){
         this.itemCount++;
-        if(this.itemCount > 20){
+        if(this.itemCount > 10){
             this.itemCount = 0;
             var rand: number = Math.random();
-            var item: BaseItem;
-            if(rand < 0.5) {
+            var item;
+            if(rand > 0.5) {
                 item = ObjectPool.getPool(Item2.NAME).getObject();
-            } else {
+            } else if(rand>0.1){
                 item = ObjectPool.getPool(Item5.NAME).getObject();
+            }else{
+                //临时增加MC
+                item = ObjectPool.getPool(Ball.NAME).getObject();
+                (<SimpleMC>item).play(1000);
             }
+            this.itemList.push(item);
             item.x = this.stageWidth + item.width;
             item.y = 50 + (this.stageHeight - 100) * Math.random();
-            this.addChild(item);
-            this.itemList.push(item);
+            this.addChild(item);  
         }
         
     }
     
-    private createScoreText(target:BaseItem){
+    private createScoreText(target){
         var scoreItem;
-        if(target.score == 2){
+        var score = target.score;
+
+        if(score == 2){
             scoreItem = ObjectPool.getPool(Score2.NAME).getObject();
-        }else if(target.score == 5){
+        }else if(score == 5){
             scoreItem = ObjectPool.getPool(Score5.NAME).getObject();   
+        }else{
+            scoreItem = ObjectPool.getPool(Score20.NAME).getObject();
         }
         scoreItem.x = target.x;
         scoreItem.y = target.y;

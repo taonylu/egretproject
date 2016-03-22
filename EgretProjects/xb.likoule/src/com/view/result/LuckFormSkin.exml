@@ -5,7 +5,7 @@
 		<e:Image source="ruleBg" y="42" x="131"/>
 		<e:Image id="closeBtn" source="xBtn" x="629" y="25"/>
 		<e:Image source="luckText" y="61" x="349"/>
-		<e:Label text="恭喜你获得幸运大奖！" y="97" fontFamily="微软雅黑" textColor="0x010000" width="333" verticalAlign="middle" textAlign="center" height="46" size="25" x="234"/>
+		<e:Label id="prizeLabel" text="恭喜你获得幸运大奖！" y="89" fontFamily="微软雅黑" textColor="0x010000" width="333" verticalAlign="middle" textAlign="center" height="46" size="25" x="234"/>
 		<e:Image id="submitBtn" source="submitBtn" y="379" x="328"/>
 		<e:Label y="135" textColor="0x030000" verticalAlign="middle" text="姓名" fontFamily="微软雅黑" textAlign="left" width="47" height="42" size="20" x="200"/>
 		<e:Label y="181" textColor="0x030000" verticalAlign="middle" text="电话" fontFamily="微软雅黑" textAlign="left" width="44" size="20" height="42" x="200"/>

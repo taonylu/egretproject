@@ -13,6 +13,11 @@
 					"children":[
 						{
 							"isFolder":false,
+							"key":"gameSheet_json.num20",
+							"name":"gameSheet_json.num20"
+						},
+						{
+							"isFolder":false,
 							"key":"item00",
 							"name":"item00"
 						},
@@ -184,8 +189,8 @@
 						},
 						{
 							"isFolder":false,
-							"key":"resultSheet_json.teamBtn2",
-							"name":"resultSheet_json.teamBtn2"
+							"key":"teamBtn2",
+							"name":"teamBtn2"
 						},
 						{
 							"isFolder":false,
@@ -201,28 +206,23 @@
 					"children":[
 						{
 							"isFolder":false,
+							"key":"prize0",
+							"name":"prize0"
+						},
+						{
+							"isFolder":false,
+							"key":"prize1",
+							"name":"prize1"
+						},
+						{
+							"isFolder":false,
 							"key":"share",
 							"name":"share"
 						},
 						{
 							"isFolder":false,
-							"key":"shareBg",
-							"name":"shareBg"
-						},
-						{
-							"isFolder":false,
-							"key":"shareSheet_json.prize0",
-							"name":"shareSheet_json.prize0"
-						},
-						{
-							"isFolder":false,
-							"key":"shareSheet_json.prize1",
-							"name":"shareSheet_json.prize1"
-						},
-						{
-							"isFolder":false,
-							"key":"shareSheet_json.shareArrow",
-							"name":"shareSheet_json.shareArrow"
+							"key":"shareArrow",
+							"name":"shareArrow"
 						}
 					],
 					"isFolder":false,
@@ -258,8 +258,18 @@
 						},
 						{
 							"isFolder":false,
+							"key":"line",
+							"name":"line"
+						},
+						{
+							"isFolder":false,
 							"key":"luckText",
 							"name":"luckText"
+						},
+						{
+							"isFolder":false,
+							"key":"myTeamBtn",
+							"name":"myTeamBtn"
 						},
 						{
 							"isFolder":false,
@@ -300,6 +310,11 @@
 					"isFolder":false,
 					"key":"bee_png",
 					"name":"bee_png"
+				},
+				{
+					"isFolder":false,
+					"key":"ball_png",
+					"name":"ball_png"
 				}
 			]
 		}

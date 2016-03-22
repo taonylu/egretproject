@@ -9,6 +9,7 @@
     "src/com/view/home/GameBgSkin.exml",
     "src/com/view/game/GameSceneSkin.exml",
     "src/com/view/home/HomeSceneSkin.exml",
+    "src/com/view/home/MyTeamPanelSkin.exml",
     "src/com/view/home/PrizePanelSkin.exml",
     "src/com/view/home/RankPanelSkin.exml",
     "src/com/view/home/RulePanelSkin.exml",

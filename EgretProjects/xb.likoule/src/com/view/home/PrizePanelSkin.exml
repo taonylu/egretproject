@@ -2,10 +2,17 @@
 <e:Skin class="PrizePanelSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Group height="480" width="800" y="0" horizontalCenter="0">
 		<e:Rect height="480" width="1500" fillAlpha="0.7" x="-200"/>
-		<e:Image source="ruleBg" x="131" y="42"/>
-		<e:Image source="prizeTitle" y="58" x="333"/>
-		<e:Label id="prizeLabel" text="标签" y="109" width="480" height="249" size="25" textColor="0x070000" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" x="160"/>
-		<e:Image id="closeBtn" source="xBtn" x="630" y="28"/>
-		<e:Image id="leaderBtn" source="leaderBtn" y="369" x="332"/>
+		<e:Image source="ruleBg" height="355" width="481" horizontalCenter="0" verticalCenter="0"/>
+		<e:Image source="prizeTitle" y="71" x="333"/>
+		<e:Image id="closeBtn" source="xBtn" x="599" y="54"/>
+		<e:Image id="leaderBtn" source="leaderBtn" y="359" x="332"/>
+		<e:Label id="weekLabel0" text="第一周最高奖：" y="110" size="20" fontFamily="微软雅黑" textColor="0x030000" width="233" height="28" textAlign="left" verticalAlign="middle" horizontalCenter="0.5"/>
+		<e:Label id="weekLabel1" y="140" textColor="0x030000" verticalAlign="middle" text="第一周最高奖：" fontFamily="微软雅黑" textAlign="left" width="233" height="28" size="20" horizontalCenter="0.5"/>
+		<e:Label id="weekLabel2" y="171" textColor="0x030000" verticalAlign="middle" text="第一周最高奖：" fontFamily="微软雅黑" textAlign="left" width="233" height="28" size="20" horizontalCenter="0.5"/>
+		<e:Label id="weekLabel3" y="201" textColor="0x030000" verticalAlign="middle" text="第一周最高奖：" fontFamily="微软雅黑" textAlign="left" width="233" height="28" size="20" horizontalCenter="0.5"/>
+		<e:Label id="weekLabel4" y="232" textColor="0x030000" verticalAlign="middle" text="第一周最高奖：" fontFamily="微软雅黑" textAlign="left" width="233" height="28" size="20" horizontalCenter="0.5"/>
+		<e:Label id="weekLabel5" y="262" textColor="0x030000" verticalAlign="middle" text="第一周最高奖：" fontFamily="微软雅黑" textAlign="left" width="233" height="28" size="20" horizontalCenter="0.5"/>
+		<e:Label y="293" textColor="0x030000" verticalAlign="middle" text="四强队伍：" fontFamily="微软雅黑" textAlign="left" width="233" height="28" size="20" horizontalCenter="-0.5" x="10"/>
+		<e:Label id="fourLabel" y="321" textColor="0x030000" verticalAlign="middle" text="四强队伍：" fontFamily="微软雅黑" textAlign="center" width="439" height="28" size="20" horizontalCenter="-1.5" x="20"/>
 	</e:Group>
 </e:Skin>

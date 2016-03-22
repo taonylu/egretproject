@@ -21,7 +21,7 @@
 		<e:Image id="teamBtn" source="resultSheet_json.teamBtn2" y="187" x="328"/>
 		<e:Image source="winText" x="464" y="157"/>
 	</e:Group>
-	<e:Group id="luckGroup" height="480" width="800" y="0" horizontalCenter="0" visible="false">
+	<e:Group id="luckGroup" height="480" width="800" y="0" horizontalCenter="0">
 		<e:Image source="ruleBg" y="148" width="343" height="328" x="229"/>
 		<e:Image id="luckBtn" source="luckBtn" y="266" x="356"/>
 		<ns1:PrizeGrid id="grid0" x="236" y="150" skinName="PrizeGridSkin"/>

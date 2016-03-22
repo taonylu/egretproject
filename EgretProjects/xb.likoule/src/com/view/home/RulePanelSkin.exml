@@ -7,9 +7,6 @@
 		<e:Image id="knowBtn" source="knowBtn" y="382" x="329"/>
 		<e:Scroller id="scroller" width="483" height="286" y="96" x="159">
 			<e:Group>
-				<e:Label id="label0" text="本活动开展时间为：" width="277" height="38" textColor="0x030000" fontFamily="微软雅黑" size="20" x="29" y="20" verticalAlign="middle" textAlign="left"/>
-				<e:Label id="label2" y="75" textColor="0x030000" verticalAlign="top" text="本活动开展时间为：" fontFamily="微软雅黑" width="432" size="20" height="172" multiline="false" lineSpacing="2" x="28"/>
-				<e:Label id="label1" y="21" height="38" text="2012" fontFamily="微软雅黑" width="267" size="20" x="212" textColor="0x7AE8EC" verticalAlign="middle" textAlign="center"/>
 			</e:Group>
 		</e:Scroller>
 		<e:Image id="arrow" source="arrow" y="341" x="369"/>

@@ -3,12 +3,15 @@
  * @author 
  *
  */
-class LuckFormPanel extends BaseUI{
+class LuckForm extends BaseUI{
     private submitBtn:eui.Image;               //提交
     private closeBtn:eui.Image;                //关闭
     private nameLabel:eui.EditableText;        //名字
     private telLabel:eui.EditableText;         //电话
     private addressLabel:eui.EditableText;     //地址
+    private prizeLabel:eui.Label;              //中的什么奖
+    
+    private http:HttpUtil = new HttpUtil();   
     
 	public constructor() {
         super("LuckFormSkin");
@@ -46,14 +49,52 @@ class LuckFormPanel extends BaseUI{
     }
     
     private onSubmitTouch(){
-        //TODO 提交表格
+        this.sendSubmitRequest();
     }
     
     private onCloseTouch(){
         this.hide();
     }
+    
+    public setView(prizeName:string){
+        this.prizeLabel.text = "恭喜你获得" + prizeName;
+    }
 	
+	private sendSubmitRequest(){
+        egret.log("sendSubmit");
+        if(GameConst.debug) {
+            var json = {
+                status: true,
+                code: 200,
+                msg: "aa"
+            }
+            this.revSubmit(JSON.stringify(json));
+        } else {
+            this.http.completeHandler = this.revSubmit;
+            this.http.httpMethod = egret.HttpMethod.POST;
+            var url: string = "http://wx.mcw9.com/ricolazt/lottery";
+            var msg: string = "_csrf=" + GameConst.csrf;
+            this.http.send(url,msg,this);
+        }
+	}
 	
+	private revSubmit(res){
+        egret.log("revSubmit:",res);
+        var json = JSON.parse(res);
+        var status = json.status; //true , false
+        var code = json.code;     //200成功
+        var msg = json.msg;       //描述消息
+        var data = json.data; 
+        
+        //信息填写成功
+        if(status == true && code == 200) {
+            this.hide();
+        } else {
+            alert(msg);
+        }
+        this.hide();
+        GameManager.getInstance().resultScene.btnGroup.visible = true;
+	}
 }
 
 
