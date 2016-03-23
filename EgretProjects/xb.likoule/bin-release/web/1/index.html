@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Egret1</title>
+    <title>利口乐香草大作战</title>
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="full-screen" content="true"/>
@@ -41,11 +41,11 @@
 	<!--game_files_end-->
 </head>
 <body>
-
-    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+		
+    <div id="gameDiv" style="margin: auto;width: 100%;height: 100%;" class="egret-player"
          data-entry-class="Main"
-         data-orientation="landSpace"
-         data-scale-mode="noBorder"
+         data-orientation="landscape"
+         data-scale-mode="fixedHeight"
          data-frame-rate="60"
          data-content-width="800"
          data-content-height="480"
@@ -55,7 +55,63 @@
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>
+    	//微信配置
+    	/*
+    	var weixinConfig = {
+    		"debug":true,
+    		"appId":'<?= $js_sign['appId']; ?>',
+    		"timestamp":'<?= $js_sign['timestamp']; ?>',
+    		"nonceStr":'<?= $js_sign['nonceStr']; ?>',
+    		"signature":'<?= $js_sign['signature']; ?>',
+    		"title":"",
+    		"desc":"",
+    		"link":"",
+    		"imgUrl":""
+    	}*/
+
+    	var weixinConfig = {
+    	"debug":false,
+    	"appId":"",
+    	"timestamp":"",
+    	"nonceStr":"",
+    	"signature":"",
+    	"title":"",
+    	"desc":"",
+    	"link":"",
+    	"imgUrl":""
+    	}
+    	
+    	//验证码
+    	var csrf = '<?= $_csrf; ?>';
+    	
+    	//重力感应
+    	window.onorientationchange = function(){
+    			window["GM"].onOrientation(window.orientation);
+    	}
+    	
+    	//是否接受邀请
+    	var invitInfo = {
+    		isInvit:0,  //是否被邀请
+    		nickName:"",//发出邀请人的名字
+    		teamName:"" //组建的队伍名字
+    	};
+    	
+    	function wxshare(){}
+    	
+    	//运行游戏
         egret.runEgret();
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

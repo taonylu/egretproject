@@ -46,6 +46,7 @@ var RankPanel = (function (_super) {
     };
     //获奖名单
     p.onPrizeTouch = function () {
+        GameConst.prizeLastView = this;
         GameManager.getInstance().homeScene.sendPrizeRequest();
     };
     p.setView = function (data) {

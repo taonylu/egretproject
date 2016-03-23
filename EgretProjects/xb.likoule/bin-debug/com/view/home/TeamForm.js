@@ -28,9 +28,11 @@ var TeamForm = (function (_super) {
     };
     p.onCloseBtnTouch = function () {
         this.hide();
+        GameManager.getInstance().homeScene.rankGroup.visible = true;
     };
     //提交
     p.onSubmitBtnTouch = function () {
+        egret.log("sendSubmit");
         //TPDO 提交信息
         if (GameConst.debug) {
             var json = { status: true, code: 200, msg: "abc" };
@@ -54,8 +56,12 @@ var TeamForm = (function (_super) {
         var status = json.status;
         var code = json.code;
         var msg = json.msg;
+        if (status == true && code == 200) {
+        }
+        else {
+            alert(msg);
+        }
         this.hide();
-        alert(msg);
     };
     return TeamForm;
 }(BaseUI));

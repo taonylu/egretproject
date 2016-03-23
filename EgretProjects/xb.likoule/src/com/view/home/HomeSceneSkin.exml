@@ -14,7 +14,7 @@
 	</e:Group>
 	<e:Group id="invitFailGroup" y="219" width="477" height="300" horizontalCenter="-0.5">
 		<e:Image source="home_bg" y="38" x="8"/>
-		<e:Label id="invitFailLabel" width="404" y="68" textColor="0x050000" verticalAlign="middle" text="游戏队伍已满。可以自己组队游戏。赢取千元大奖。" fontFamily="微软雅黑" multiline="true" height="106" size="25" x="32"/>
+		<e:Label id="invitFailLabel" width="404" y="68" textColor="0x050000" verticalAlign="middle" text="游戏队伍已满。可以自己组队游戏。赢取千元大奖。" fontFamily="微软雅黑" multiline="true" height="106" size="25" x="32" textAlign="center"/>
 		<e:Image id="closeInvitBtn" source="xBtn" x="417" y="22"/>
 	</e:Group>
 	<e:Group id="beginGroup" height="200" width="759" y="257" horizontalCenter="0.5" visible="false">

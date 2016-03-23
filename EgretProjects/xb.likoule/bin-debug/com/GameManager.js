@@ -21,16 +21,19 @@ var GameManager = (function () {
     p.startup = function (main) {
         //配置全局变量
         GameConst.csrf = window["csrf"]; //验证码
-        //配置微信
-        //WeiXin.start();
+        GameConst.myName = window["nickName"]; //我自己名字
+        egret.log("myName:", GameConst.myName);
         //是否被邀请组队
         if (GameConst.debug) {
-            GameConst.invitInfo.isInvit = false;
-            GameConst.invitInfo.name = "XXXX";
+            GameConst.invitInfo.isInvit = 1;
+            GameConst.invitInfo.nickName = "XXXX";
             GameConst.invitInfo.teamName = "XXXX";
         }
         else {
+            //TODO获取实际参数
+            GameConst.invitInfo = window["invitInfo"];
         }
+        egret.log("invitInfo:", GameConst.invitInfo.isInvit, GameConst.invitInfo.nickName, GameConst.invitInfo.teamName);
         //配置重力感应
         window["GM"] = this;
         //配置Layer
@@ -43,6 +46,9 @@ var GameManager = (function () {
         //重力感应  0竖屏 90 -90横屏
         egret.log(orientation);
         GameConst.orientation = orientation;
+        if (GameManager.getInstance().resultScene.parent) {
+            GameManager.getInstance().resultScene.reSizeCode();
+        }
     };
     GameManager.getInstance = function () {
         if (this.instance == null) {

@@ -12,6 +12,8 @@ var MyTeamPanel = (function (_super) {
         this.memberScoreList = new Array();
         this.memberNum = 6;
         this.imageLoaderList = new Array();
+        this.percentWidth = 100;
+        this.percentHeight = 100;
     }
     var d = __define,c=MyTeamPanel,p=c.prototype;
     p.componentCreated = function () {
@@ -31,7 +33,7 @@ var MyTeamPanel = (function (_super) {
     };
     p.onCloseTouch = function () {
         this.hide();
-        GameManager.getInstance().homeScene.rankGroup.visible = true;
+        LayerManager.getInstance().popLayer.addChild(GameManager.getInstance().rankPanel);
     };
     p.setView = function (data) {
         //清理
@@ -45,16 +47,20 @@ var MyTeamPanel = (function (_super) {
             this.memberScoreList[i].text = "";
         }
         //设置新的
-        if (data[0] != undefined) {
-            var team = data[0];
-            this.teamLabel0.text = team.teamName;
+        var teamLen = data.length;
+        for (var i = 0; i < teamLen; i++) {
+            var team = data[i];
+            this["teamLabel" + i].text = team.teamName;
             var member = team.member;
-            for (var i = 0; i < team.totalScore; i++) {
-                this.memberNameList[i].text = member[i].nickName;
-                this.memberScoreList[i].text = member[i].score;
-                var imageLoader = this.imageLoaderList[i];
-                imageLoader.id = i;
+            for (var j = 0; j < member.length; j++) {
+                var index = j + 3 * i; //ui组件的数组下标
+                this.memberNameList[index].text = member[j].nickName;
+                this.memberScoreList[index].text = member[j].score;
+                var imageLoader = this.imageLoaderList[index];
+                imageLoader.id = index;
                 imageLoader.addEventListener(egret.Event.COMPLETE, this.loadCompleteHandler, this);
+                imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onLoadError, this);
+                imageLoader.load(member[j].headImg);
             }
         }
     };
@@ -62,6 +68,9 @@ var MyTeamPanel = (function (_super) {
         var imageLoader = event.currentTarget;
         var bitmap = new egret.Bitmap(imageLoader.data);
         this.memberHeadList[imageLoader.id].addChild(bitmap);
+    };
+    p.onLoadError = function () {
+        alert("加载头像错误");
     };
     return MyTeamPanel;
 }(BaseUI));

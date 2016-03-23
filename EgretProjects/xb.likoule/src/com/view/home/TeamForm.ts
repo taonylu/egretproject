@@ -37,10 +37,12 @@ class TeamForm extends BaseUI{
     
     private onCloseBtnTouch(){
         this.hide();
+        GameManager.getInstance().homeScene.rankGroup.visible = true;
     }
     
     //提交
     private onSubmitBtnTouch(){
+        egret.log("sendSubmit");
         //TPDO 提交信息
         if(GameConst.debug){
             var json = {status:true,code:200,msg:"abc"};
@@ -64,8 +66,14 @@ class TeamForm extends BaseUI{
         var status = json.status;
         var code = json.code;
         var msg = json.msg;
+        
+        
+        if(status == true && code == 200){
+            
+        }else{
+            alert(msg);
+        }
         this.hide();
-        alert(msg);
     }
 }
 

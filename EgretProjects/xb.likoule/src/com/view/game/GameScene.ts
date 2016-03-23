@@ -15,7 +15,7 @@ class GameScene extends BaseScene{
     
     private timeLabel: eui.Label;   //时间文本
     private curTime: number;        //当前时间
-    private timeLimit: number = 2; //时间限制
+    private timeLimit: number = 15; //时间限制
     private gameTimer:DateTimer = new DateTimer(1000); //游戏计时器
     
     private itemList: Array<any> = new Array<any>();           //item数组
@@ -28,6 +28,8 @@ class GameScene extends BaseScene{
     
     private stageWidth: number;     //舞台高宽
     private stageHeight: number;
+    
+    private http:HttpUtil = new HttpUtil();
     
 	public constructor() {
         super("GameSceneSkin");
@@ -112,6 +114,43 @@ class GameScene extends BaseScene{
         var resultScene: ResultScene = GameManager.getInstance().resultScene;
         LayerManager.getInstance().runScene(resultScene);
         resultScene.setSceneValue(0, this.score,this.grass);
+        
+        this.sendSaveScoreRequeset();
+    }
+    
+    //发送保存分数请求
+    private sendSaveScoreRequeset(){
+        egret.log("sendSaveScore");
+        if(GameConst.debug) {
+            var json = {
+                status: true,code: 200,msg: "",
+            };
+            this.revSaveScore(JSON.stringify(json));
+        } else {
+            this.http.completeHandler = this.revSaveScore;
+            this.http.httpMethod = egret.HttpMethod.POST;
+            var url: string = "http://wx.mcw9.com/ricolazt/gamescore";
+            var csrf: string = "_csrf=" + GameConst.csrf;
+            var score:string = "&score=" + this.score;
+            var teamName: string = "&teamName=" + GameConst.teamName;  //怎么知道当前是哪只队伍？
+            var msg = csrf + score + teamName;
+            this.http.send(url,msg,this);
+        }
+    }
+    
+    private revSaveScore(res) {
+        egret.log("revSaveScore:",res);
+        var json = JSON.parse(res);
+        var status = json.status;
+        var code = json.code;
+        var msg = json.msg;
+        
+        if(status == true && code == 200) {
+            
+            
+        } else {
+            alert(msg);
+        }
     }
     
     private curFingerPos:number;  //当前手指位置
