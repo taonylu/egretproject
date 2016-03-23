@@ -9,7 +9,7 @@ var GameScene = (function (_super) {
         _super.call(this, "GameSceneSkin");
         this.bee = new Bee(); //蜜蜂
         this.grass = 0; //获取香草数
-        this.timeLimit = 2; //时间限制
+        this.timeLimit = 15; //时间限制
         this.gameTimer = new DateTimer(1000); //游戏计时器
         this.itemList = new Array(); //item数组
         this.item2Pool = ObjectPool.getPool(Item2.NAME, 5); //item2对象池
@@ -18,6 +18,7 @@ var GameScene = (function (_super) {
         this.score5Pool = ObjectPool.getPool(Score5.NAME, 5); //score5对象池
         this.score20Pool = ObjectPool.getPool(Score20.NAME, 3); //score20对象池
         this.ballPool = ObjectPool.getPool(Ball.NAME, 3); //20分球
+        this.http = new HttpUtil();
         this.itemCount = 0;
     }
     var d = __define,c=GameScene,p=c.prototype;
@@ -86,6 +87,39 @@ var GameScene = (function (_super) {
         var resultScene = GameManager.getInstance().resultScene;
         LayerManager.getInstance().runScene(resultScene);
         resultScene.setSceneValue(0, this.score, this.grass);
+        this.sendSaveScoreRequeset();
+    };
+    //发送保存分数请求
+    p.sendSaveScoreRequeset = function () {
+        egret.log("sendSaveScore");
+        if (GameConst.debug) {
+            var json = {
+                status: true, code: 200, msg: "",
+            };
+            this.revSaveScore(JSON.stringify(json));
+        }
+        else {
+            this.http.completeHandler = this.revSaveScore;
+            this.http.httpMethod = egret.HttpMethod.POST;
+            var url = "http://wx.mcw9.com/ricolazt/gamescore";
+            var csrf = "_csrf=" + GameConst.csrf;
+            var score = "&score=" + this.score;
+            var teamName = "&teamName=" + GameConst.teamName; //怎么知道当前是哪只队伍？
+            var msg = csrf + score + teamName;
+            this.http.send(url, msg, this);
+        }
+    };
+    p.revSaveScore = function (res) {
+        egret.log("revSaveScore:", res);
+        var json = JSON.parse(res);
+        var status = json.status;
+        var code = json.code;
+        var msg = json.msg;
+        if (status == true && code == 200) {
+        }
+        else {
+            alert(msg);
+        }
     };
     p.onControlTouch = function (e) {
         this.curFingerPos = e.stageY;

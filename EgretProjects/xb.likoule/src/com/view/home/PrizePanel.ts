@@ -22,8 +22,6 @@ class PrizePanel extends BaseUI{
         super.componentCreated();
         
         for(var i=0;i<this.weekNum;i++){
-            console.log(this["weekLabel" + 0]);
-            console.log(this.weekLabel0);
             this.weekLabelList.push(this["weekLabel" + i]);
         }
     }
@@ -40,6 +38,11 @@ class PrizePanel extends BaseUI{
     
     private onCloseBtnTouch(){
         this.hide();
+        if(GameConst.prizeLastView == GameManager.getInstance().homeScene){
+            GameManager.getInstance().homeScene.rankGroup.visible = true; 
+        }else{
+            LayerManager.getInstance().popLayer.addChild(GameManager.getInstance().rankPanel);
+        }
     }
     
     private onLeaderBtnTouch(){

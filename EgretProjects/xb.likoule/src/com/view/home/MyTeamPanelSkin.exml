@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="MyTeamPanelSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Group height="480" width="800" y="0" horizontalCenter="0">
+		<e:Rect height="480" width="1500" y="0" fillAlpha="0.7" x="-350"/>
 		<e:Image source="ruleBg" horizontalCenter="0" verticalCenter="0"/>
-		<e:Image id="closeBtn" source="xBtn" x="624" y="32"/>
+		<e:Image id="closeBtn" source="xBtn" x="629" y="28"/>
 		<e:Label text="团队：" x="191" y="83" size="25" textColor="0x050000" fontFamily="微软雅黑"/>
 		<e:Label id="teamLabel0" y="85" textColor="0x050000" text="111" fontFamily="微软雅黑" size="25" x="277" width="142"/>
 		<e:Label y="253" textColor="0x050000" text="团队：" fontFamily="微软雅黑" size="25" x="191"/>

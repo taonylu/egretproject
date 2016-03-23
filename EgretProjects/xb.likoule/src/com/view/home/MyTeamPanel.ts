@@ -18,7 +18,8 @@ class MyTeamPanel extends BaseUI{
     
 	public constructor() {
     	super("MyTeamPanelSkin");
-    	
+        this.percentWidth = 100;
+        this.percentHeight = 100;
 	}
 	
     protected componentCreated(): void {
@@ -41,7 +42,7 @@ class MyTeamPanel extends BaseUI{
     
     private onCloseTouch(){
         this.hide();
-        GameManager.getInstance().homeScene.rankGroup.visible = true;
+        LayerManager.getInstance().popLayer.addChild(GameManager.getInstance().rankPanel);
     }
     
     public setView(data){
@@ -57,27 +58,32 @@ class MyTeamPanel extends BaseUI{
         }
 
         //设置新的
-        if(data[0] != undefined){
-            var team = data[0];
-            this.teamLabel0.text = team.teamName;
+        var teamLen = data.length;
+        for(var i=0;i<teamLen;i++){
+            var team = data[i];
+            this["teamLabel" + i].text = team.teamName;
             var member = team.member;
-            for(var i = 0;i < team.totalScore;i++){
-                this.memberNameList[i].text = member[i].nickName;
-                this.memberScoreList[i].text = member[i].score;
-                var imageLoader:CImageLoader= this.imageLoaderList[i];
-                imageLoader.id = i;
-                imageLoader.addEventListener(egret.Event.COMPLETE,this.loadCompleteHandler, this); 
-                //imageLoader.load(member[i].headImg);
+            for(var j = 0;j < member.length;j++) {
+                var index = j+3*i;  //ui组件的数组下标
+                this.memberNameList[index].text = member[j].nickName;
+                this.memberScoreList[index].text = member[j].score;
+                var imageLoader: CImageLoader = this.imageLoaderList[index];
+                imageLoader.id = index;
+                imageLoader.addEventListener(egret.Event.COMPLETE,this.loadCompleteHandler,this);
+                imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onLoadError, this);
+                imageLoader.load(member[j].headImg);
             }
-        }
-       
+        }  
     }
     
     private loadCompleteHandler(event: egret.Event): void {
         var imageLoader = <CImageLoader>event.currentTarget;
         var bitmap: egret.Bitmap = new egret.Bitmap(imageLoader.data);
         this.memberHeadList[imageLoader.id].addChild(bitmap);
-
+    }
+    
+    private onLoadError(){
+        alert("加载头像错误");
     }
 }
 

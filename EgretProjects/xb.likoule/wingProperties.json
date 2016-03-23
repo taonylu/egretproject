@@ -13,11 +13,6 @@
 					"children":[
 						{
 							"isFolder":false,
-							"key":"gameSheet_json.num20",
-							"name":"gameSheet_json.num20"
-						},
-						{
-							"isFolder":false,
 							"key":"item00",
 							"name":"item00"
 						},
@@ -30,6 +25,11 @@
 							"isFolder":false,
 							"key":"num2",
 							"name":"num2"
+						},
+						{
+							"isFolder":false,
+							"key":"num20",
+							"name":"num20"
 						},
 						{
 							"isFolder":false,
@@ -315,6 +315,11 @@
 					"isFolder":false,
 					"key":"ball_png",
 					"name":"ball_png"
+				},
+				{
+					"isFolder":false,
+					"key":"rule_png",
+					"name":"rule_png"
 				}
 			]
 		}

@@ -20,7 +20,11 @@ class ResultScene extends BaseScene{
     private gridList:Array<PrizeGrid> = new Array<PrizeGrid>();  //抽奖格子列表
     private gridNum:number = 8;         //格子数量
     
-    private timer:egret.Timer = new egret.Timer(300);
+    private timer:egret.Timer = new egret.Timer(200); //抽奖格子滚动速度
+    
+    private codeGroup:eui.Group;  //二维码定位用
+    
+    private code:QRCode = new QRCode(); //二维码图片
     
     private http:HttpUtil = new HttpUtil();
     
@@ -36,6 +40,7 @@ class ResultScene extends BaseScene{
             this.gridList.push(this["grid" + i]); 
         }
         
+        
     }
 
     public onEnable(): void {
@@ -45,10 +50,18 @@ class ResultScene extends BaseScene{
         this.configListeners();
         this.reset();
         
+        //显示二维码
+        this.btnGroup.visible = true;
+        this.code.createCode();
+        this.code.showCode();
+        this.code.setPosition(this.codeGroup.x,this.codeGroup.y);
+        
     }
 
     public onRemove(): void {
         this.deConfigListeners();
+        //隐藏二维码
+        this.code.hideCode();
     }
     
     private configListeners(){
@@ -70,7 +83,7 @@ class ResultScene extends BaseScene{
     }
     
     private onAgainBtnTouch() {
-        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+        LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
     }
     
     private onRankBtnTouch() {
@@ -84,13 +97,19 @@ class ResultScene extends BaseScene{
     }
     
     //设置场景
+    private bLottery:boolean = false; //是否抽奖过，因为只能抽一次
     public setSceneValue(time:number,score:number,grass:number){
         this.setTimeLabel(time);
         this.setScoreLabel(score);
         this.setGrasslabel(grass);
         
-        //TODO 什么情况显示抽奖
-        this.luckGroup.visible = true;
+        if(this.bLottery == false){   //如果已经抽过奖，则不显示抽奖界面
+            this.bLottery = true;
+            this.luckGroup.visible = true;
+        }else{
+            this.btnGroup.visible = true;
+        }
+        
     }
 
     private setTimeLabel(time:number){
@@ -116,7 +135,7 @@ class ResultScene extends BaseScene{
         }
     }
     
-    
+    //发送抽奖
     private sendLuckRequest(){
         egret.log("sendLuck");
         if(GameConst.debug) {
@@ -146,13 +165,15 @@ class ResultScene extends BaseScene{
         var msg = json.msg;       //描述消息
         var data = json.data; 
         
-        //接收邀请成功
+        //
         if(status == true && code == 200) {
             this.prizeName = data.prizeName;
             this.winMark = data.winMark;
             this.startPlayLuck(data);
         } else {
             alert(msg);
+            this.luckGroup.visible = false;
+            this.btnGroup.visible = true;
         }
     }
     
@@ -213,7 +234,11 @@ class ResultScene extends BaseScene{
             this.btnGroup.visible = true;
         }
     }
-
+    
+    //重置二维码
+    public reSizeCode(){
+        this.code.setPosition(this.codeGroup.x, this.codeGroup.y);
+    }
 
 }
 

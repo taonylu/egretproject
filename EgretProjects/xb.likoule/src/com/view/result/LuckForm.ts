@@ -54,6 +54,7 @@ class LuckForm extends BaseUI{
     
     private onCloseTouch(){
         this.hide();
+        GameManager.getInstance().resultScene.btnGroup.visible = true;
     }
     
     public setView(prizeName:string){
@@ -72,10 +73,15 @@ class LuckForm extends BaseUI{
         } else {
             this.http.completeHandler = this.revSubmit;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url: string = "http://wx.mcw9.com/ricolazt/lottery";
-            var msg: string = "_csrf=" + GameConst.csrf;
+            var url: string = "http://wx.mcw9.com/ricolazt/prizeinfo";
+            var csrf = "_csrf=" + GameConst.csrf;
+            var tel = "&tel=" + this.telLabel.text;
+            var name = "&name=" + this.nameLabel.text;
+            var addr = "&addr=" + this.addressLabel.text;
+            var msg: string = csrf + tel + name + addr;
             this.http.send(url,msg,this);
         }
+        egret.log(url);
 	}
 	
 	private revSubmit(res){
@@ -88,7 +94,7 @@ class LuckForm extends BaseUI{
         
         //信息填写成功
         if(status == true && code == 200) {
-            this.hide();
+           
         } else {
             alert(msg);
         }

@@ -40,6 +40,7 @@ var LuckForm = (function (_super) {
     };
     p.onCloseTouch = function () {
         this.hide();
+        GameManager.getInstance().resultScene.btnGroup.visible = true;
     };
     p.setView = function (prizeName) {
         this.prizeLabel.text = "恭喜你获得" + prizeName;
@@ -57,10 +58,15 @@ var LuckForm = (function (_super) {
         else {
             this.http.completeHandler = this.revSubmit;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url = "http://wx.mcw9.com/ricolazt/lottery";
-            var msg = "_csrf=" + GameConst.csrf;
+            var url = "http://wx.mcw9.com/ricolazt/prizeinfo";
+            var csrf = "_csrf=" + GameConst.csrf;
+            var tel = "&tel=" + this.telLabel.text;
+            var name = "&name=" + this.nameLabel.text;
+            var addr = "&addr=" + this.addressLabel.text;
+            var msg = csrf + tel + name + addr;
             this.http.send(url, msg, this);
         }
+        egret.log(url);
     };
     p.revSubmit = function (res) {
         egret.log("revSubmit:", res);
@@ -71,7 +77,6 @@ var LuckForm = (function (_super) {
         var data = json.data;
         //信息填写成功
         if (status == true && code == 200) {
-            this.hide();
         }
         else {
             alert(msg);

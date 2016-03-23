@@ -65,6 +65,7 @@ class RankPanel extends BaseUI{
     
     //获奖名单
     private onPrizeTouch(){
+        GameConst.prizeLastView = this;
         GameManager.getInstance().homeScene.sendPrizeRequest();
     }
     

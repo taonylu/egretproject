@@ -1,7 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"gameSheet_json,bee_png,bee_json,ball_png,ball_json",
+			"keys":"gameSheet_json,ball_json,ball_png,bee_json,bee_png",
 			"name":"game"
 		},
 		{
@@ -21,7 +21,7 @@
 			"name":"luck"
 		},
 		{
-			"keys":"panelSheet_json",
+			"keys":"panelSheet_json,rule_png",
 			"name":"panel"
 		}
 	],
@@ -34,7 +34,7 @@
 		},
 		{
 			"name":"gameSheet_json",
-			"subkeys":"item00,item01,num2,num5,scoreBg,scrollBtn",
+			"subkeys":"item00,item01,num2,num20,num5,scoreBg,scrollBtn",
 			"type":"sheet",
 			"url":"assets/gameSheet.json"
 		},
@@ -73,24 +73,29 @@
 			"url":"assets/panelSheet.json"
 		},
 		{
-			"name":"bee_png",
+			"name":"rule_png",
 			"type":"image",
-			"url":"assets/game/bee.png"
-		},
-		{
-			"name":"bee_json",
-			"type":"json",
-			"url":"assets/game/bee.json"
-		},
-		{
-			"name":"ball_png",
-			"type":"image",
-			"url":"assets/game/ball.png"
+			"url":"assets/rule.png"
 		},
 		{
 			"name":"ball_json",
 			"type":"json",
-			"url":"assets/game/ball.json"
+			"url":"assets/ball.json"
+		},
+		{
+			"name":"ball_png",
+			"type":"image",
+			"url":"assets/ball.png"
+		},
+		{
+			"name":"bee_json",
+			"type":"json",
+			"url":"assets/bee.json"
+		},
+		{
+			"name":"bee_png",
+			"type":"image",
+			"url":"assets/bee.png"
 		}
 	]
 }

@@ -66,6 +66,10 @@ var Main = (function (_super) {
     p.onGameComplete = function () {
         this.removeChild(this.preloadScene);
         this.preloadScene = null;
+        LoadManager.getInstance().loadGroup("panel", this);
+        LoadManager.getInstance().loadGroup("result", this);
+        LoadManager.getInstance().loadGroup("luck", this);
+        LoadManager.getInstance().loadGroup("share", this);
         GameManager.getInstance().startup(this);
     };
     return Main;

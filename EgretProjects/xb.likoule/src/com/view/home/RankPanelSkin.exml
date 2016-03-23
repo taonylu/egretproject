@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="RankPanelSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Group height="480" width="800" y="0" horizontalCenter="0">
+		<e:Rect fillAlpha="0.7" width="1500" height="480" y="0" x="-350"/>
 		<e:Image source="rankBg" x="175" y="31"/>
 		<e:Image id="closeBtn" source="xBtn" x="586" y="19"/>
 		<e:Label text="我的团队" x="214" y="100" textColor="0x030000" fontFamily="微软雅黑" size="20"/>
@@ -15,7 +16,7 @@
 		<e:Label id="myNameLabel1" y="161" textColor="0x030000" size="20" text="我的团队" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" width="137" height="29" x="187"/>
 		<e:Label y="100" textColor="0x030000" text="团队排名" fontFamily="微软雅黑" size="20" x="357"/>
 		<e:Label y="100" textColor="0x030000" text="团队得分" fontFamily="微软雅黑" size="20" x="502"/>
-		<e:Scroller width="408" height="200" y="230" x="196">
+		<e:Scroller width="408" height="200" y="230" x="196" scrollPolicyH="off" scrollPolicyV="auto">
 			<e:Group>
 				<e:Group id="rankGroup0" height="32" width="412" x="18" y="7">
 					<e:Label id="rankLabel0" y="22" text="团队得分" fontFamily="微软雅黑" size="20" x="72" height="26" verticalAlign="middle" textAlign="center" width="133" textColor="0xF0F01D"/>
@@ -136,14 +137,6 @@
 					<e:Label id="rankLabel14" y="22" textColor="0x030000" height="26" text="团队得分" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" width="133" size="20" x="72"/>
 					<e:Label id="nameLabel14" y="32" textColor="0x030000" size="20" text="团队得分" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" width="133" height="26" x="82"/>
 					<e:Label id="scoreLabel14" y="42" textColor="0x030000" height="26" text="团队得分" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" width="133" size="20" x="92"/>
-				</e:Group>
-				<e:Group y="157" id="rankGroup15" width="412" height="32" x="168">
-					<e:layout>
-						<e:HorizontalLayout/>
-					</e:layout>
-					<e:Label x="72" y="22" textColor="0x030000" size="20" text="团队得分" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" width="133" height="26" id="rankLabel15"/>
-					<e:Label x="82" y="32" textColor="0x030000" height="26" text="团队得分" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" width="133" size="20" id="nameLabel15"/>
-					<e:Label x="92" y="42" textColor="0x030000" size="20" text="团队得分" fontFamily="微软雅黑" textAlign="center" verticalAlign="middle" width="133" height="26" id="scoreLabel15"/>
 				</e:Group>
 				<e:layout>
 					<e:VerticalLayout gap="1"/>
