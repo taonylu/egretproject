@@ -46,8 +46,11 @@ var GameManager = (function () {
         //重力感应  0竖屏 90 -90横屏
         egret.log(orientation);
         GameConst.orientation = orientation;
-        if (GameManager.getInstance().resultScene.parent) {
-            GameManager.getInstance().resultScene.reSizeCode();
+        if (this.resultScene.parent) {
+            this.resultScene.showCode();
+        }
+        if (this.sharePanel.parent) {
+            this.sharePanel.onEnable();
         }
     };
     GameManager.getInstance = function () {

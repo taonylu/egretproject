@@ -55,6 +55,8 @@ class MyTeamPanel extends BaseUI{
             }
             this.memberNameList[i].text = "";
             this.memberScoreList[i].text = "";
+            
+            this.imageLoaderList[i].clear();
         }
 
         //设置新的
@@ -68,23 +70,12 @@ class MyTeamPanel extends BaseUI{
                 this.memberNameList[index].text = member[j].nickName;
                 this.memberScoreList[index].text = member[j].score;
                 var imageLoader: CImageLoader = this.imageLoaderList[index];
-                imageLoader.id = index;
-                imageLoader.addEventListener(egret.Event.COMPLETE,this.loadCompleteHandler,this);
-                imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onLoadError, this);
+                imageLoader.doc = this.memberHeadList[index];
                 imageLoader.load(member[j].headImg);
             }
         }  
     }
-    
-    private loadCompleteHandler(event: egret.Event): void {
-        var imageLoader = <CImageLoader>event.currentTarget;
-        var bitmap: egret.Bitmap = new egret.Bitmap(imageLoader.data);
-        this.memberHeadList[imageLoader.id].addChild(bitmap);
-    }
-    
-    private onLoadError(){
-        alert("加载头像错误");
-    }
+
 }
 
 

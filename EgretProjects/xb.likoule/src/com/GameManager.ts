@@ -51,8 +51,11 @@ class GameManager {
         //重力感应  0竖屏 90 -90横屏
         egret.log(orientation);
         GameConst.orientation = orientation;
-        if(GameManager.getInstance().resultScene.parent){
-            GameManager.getInstance().resultScene.reSizeCode();
+        if(this.resultScene.parent){   //旋转后，更改二维码点击范围图片的位置
+            this.resultScene.showCode();
+        }
+        if(this.sharePanel.parent){   //旋转后，更改分享的箭头位置
+            this.sharePanel.onEnable();
         }
     }
     

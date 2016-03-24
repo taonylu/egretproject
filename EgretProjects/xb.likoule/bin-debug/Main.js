@@ -52,19 +52,20 @@ var Main = (function (_super) {
     };
     //主题文件加载完成,开始预加载
     p.onThemeLoadComplete = function () {
-        LoadManager.getInstance().loadGroup("home", this, this.onPreloadComplete);
+        LoadManager.getInstance().loadGroup("preload", this, this.onPreloadComplete);
     };
     //preload资源组加载完成
     p.onPreloadComplete = function (event) {
         this.preloadScene = new PreloadScene();
         this.addChild(this.preloadScene);
-        LoadManager.getInstance().loadGroup("game", this, this.onGameComplete, this.onGameProgress);
+        LoadManager.getInstance().loadGroup("home", this, this.onGameComplete, this.onGameProgress);
     };
     p.onGameProgress = function (e) {
         this.preloadScene.setProgress(Math.round(e.itemsLoaded / e.itemsTotal * 100));
     };
     p.onGameComplete = function () {
         this.removeChild(this.preloadScene);
+        this.preloadScene.destroy();
         this.preloadScene = null;
         LoadManager.getInstance().loadGroup("panel", this);
         LoadManager.getInstance().loadGroup("result", this);

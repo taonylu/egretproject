@@ -13,6 +13,26 @@
 					"children":[
 						{
 							"isFolder":false,
+							"key":"countdown1",
+							"name":"countdown1"
+						},
+						{
+							"isFolder":false,
+							"key":"countdown2",
+							"name":"countdown2"
+						},
+						{
+							"isFolder":false,
+							"key":"countdown3",
+							"name":"countdown3"
+						},
+						{
+							"isFolder":false,
+							"key":"hand",
+							"name":"hand"
+						},
+						{
+							"isFolder":false,
 							"key":"item00",
 							"name":"item00"
 						},
@@ -320,6 +340,33 @@
 					"isFolder":false,
 					"key":"rule_png",
 					"name":"rule_png"
+				},
+				{
+					"children":[
+						{
+							"isFolder":false,
+							"key":"preload_bar",
+							"name":"preload_bar"
+						},
+						{
+							"isFolder":false,
+							"key":"preload_bg",
+							"name":"preload_bg"
+						},
+						{
+							"isFolder":false,
+							"key":"preload_dialog",
+							"name":"preload_dialog"
+						}
+					],
+					"isFolder":false,
+					"key":"preloadSheet_json",
+					"name":"preloadSheet_json"
+				},
+				{
+					"isFolder":false,
+					"key":"code_jpg",
+					"name":"code_jpg"
 				}
 			]
 		}

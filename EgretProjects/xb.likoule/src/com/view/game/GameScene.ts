@@ -29,6 +29,15 @@ class GameScene extends BaseScene{
     private stageWidth: number;     //舞台高宽
     private stageHeight: number;
     
+    private countDownGroup: eui.Group;
+    private countDown1:eui.Image;
+    private countDown2:eui.Image;
+    private countDown3:eui.Image;
+    private countDownTimer:egret.Timer = new egret.Timer(1000);
+    private countDownLimit = 3;
+    private hand:eui.Image;
+    private initHandY:number;
+    
     private http:HttpUtil = new HttpUtil();
     
 	public constructor() {
@@ -40,10 +49,13 @@ class GameScene extends BaseScene{
         
         this.stageWidth = GameConst.stage.stageWidth;
         this.stageHeight = GameConst.stage.stageHeight;
+        
+        this.initHandY = this.hand.y;
     }
 
     public onEnable(): void {
-        this.startGame();
+        this.reset();
+        this.startCountDown();
     }
 
     public onRemove(): void {
@@ -69,9 +81,9 @@ class GameScene extends BaseScene{
     
     //开始游戏
     private startGame(){
-        this.reset();
         this.startGameTimer();
         this.configListeners();
+        this.addChild(this.bee);
     }
     
     //重置游戏
@@ -89,7 +101,7 @@ class GameScene extends BaseScene{
         this.bee.y = (this.stageHeight - this.bee.height) / 2;
         //this.bee.x = 0;
        // this.bee.y = 0;
-        this.addChild(this.bee); 
+        this.bee.parent && this.removeChild(this.bee); 
         
         //重置游戏背景
         this.gameBg.reset();
@@ -197,7 +209,7 @@ class GameScene extends BaseScene{
     private itemCount = 0;
     private createItem(){
         this.itemCount++;
-        if(this.itemCount > 10){
+        if(this.itemCount > 8){
             this.itemCount = 0;
             var rand: number = Math.random();
             var item;
@@ -257,7 +269,36 @@ class GameScene extends BaseScene{
         this.gameTimer.removeEventListener(egret.TimerEvent.TIMER,this.onGameTimerHandler,this);
     }
 
+    private startCountDown(){
+            this.countDownGroup.visible = true;
+            this.countDown1.visible = false;
+            this.countDown2.visible = false;
+            this.countDown3.visible = true;
+            this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onCountDown, this);
+            this.countDownTimer.reset();
+            this.countDownTimer.start();
+            
+            this.hand.y = this.initHandY;
+            egret.Tween.get(this.hand,{loop:3}).to({y:this.initHandY+100},500).to({y:this.initHandY},500);
+    }
     
+    private onCountDown(){
+        var count = this.countDownLimit - this.countDownTimer.currentCount;
+        if(count == 2){
+            this.countDown3.visible = false;
+            this.countDown2.visible = true;
+        }else if(count == 1){
+            this.countDown2.visible = false;
+            this.countDown1.visible = true;
+        }else{
+            this.countDownGroup.visible = false;
+            this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER,this.onCountDown,this);
+            this.countDownTimer.stop();
+            egret.Tween.removeTweens(this.hand);
+            this.startGame();
+            
+        }
+    }
     
     
 }

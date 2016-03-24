@@ -22,7 +22,6 @@ class SharePanel extends BaseUI{
         }else{
             this.arrowGroup.scaleX = 1;
         }
-        
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouch, this);
     }
 

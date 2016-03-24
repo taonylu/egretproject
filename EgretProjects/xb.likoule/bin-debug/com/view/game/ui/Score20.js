@@ -6,7 +6,7 @@
 var Score20 = (function (_super) {
     __extends(Score20, _super);
     function Score20() {
-        _super.call(this, "gameSheet_json.num20");
+        _super.call(this, "num20");
     }
     var d = __define,c=Score20,p=c.prototype;
     p.recycle = function () {

@@ -1,5 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="PreloadSceneSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Rect height="480" width="1500" fillColor="0xD41919" horizontalCenter="0"/>
-	<e:Label id="progressLabel" text="99" horizontalCenter="0" verticalCenter="0" width="210" verticalAlign="middle" textAlign="center" rotation="0"/>
+	<e:Group height="480" width="800" y="0" horizontalCenter="0">
+		<e:Rect height="480" width="1500" horizontalCenter="0" fillColor="0x09521C"/>
+		<e:Image id="loadBg" source="preload_bg" y="209" x="134"/>
+		<e:Image id="loadBar" source="preload_bar" y="210" width="531" x="134" scaleX="1"/>
+		<e:Group id="beeGroup" height="100" width="100" x="76" y="114">
+			<e:Image source="preload_dialog" x="98" y="-10"/>
+			<e:Label id="progressLabel" text="999%" x="111" y="0" size="18" fontFamily="微软雅黑" textColor="0x000000" verticalAlign="middle" textAlign="center"/>
+		</e:Group>
+		<e:Rect id="barMask" height="24" width="535" x="131" y="214"/>
+	</e:Group>
 </e:Skin>

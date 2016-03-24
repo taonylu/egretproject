@@ -5,7 +5,7 @@
  */
 class Bee extends SimpleMC{
     public direction:number = 0;  //0停 -1上 1下 
-    public speedX:number = 5;
+    public speedX:number = 8;
     public speedY:number = 8;
     
 	public constructor() {

@@ -13,7 +13,7 @@ class QRCode {
             egret.log("create");
             var gameDiv = document.getElementById("gameDiv");
             this.myImg = document.createElement("img");
-            this.myImg.src = "resource/assets/code.jpg";
+            this.myImg.src = "resource/assets/codeHitArea.png";
             this.myImg.style.position = "absolute";
             this.myImg.style.display = "none";
             //this.myImg.style.width = window.screen.height*150 / GameConst.stage.stageHeight + "px";
@@ -47,12 +47,20 @@ class QRCode {
             var rate;
             
             
+            if(screenWidth > screenHeight){
+                rate = screenHeight / stageHeight;
+                this.myImg.style.width = rate * 150 + "px";
+                this.myImg.style.height = rate * 150 * 248 / 215 + "px";
+                this.myImg.style.top = _y * rate + "px";
+                this.myImg.style.left = _x * rate + "px";
+            }else{
+                rate = screenWidth / stageHeight;
+                this.myImg.style.width = rate * 150 + "px";
+                this.myImg.style.height = rate * 150 * 248 / 215 + "px";
+                this.myImg.style.right = rate * _y + "px";
+                this.myImg.style.top = rate * _x + "px";
+            }
             
-            rate = screenHeight / stageHeight;
-            this.myImg.style.width = rate*180 + "px";
-            this.myImg.style.height =  rate*180*248/215 + "px";
-            this.myImg.style.top =   _y*rate + "px";
-            this.myImg.style.left =  _x*rate + "px";
             
             
 //            if(screenWidth > screenHeight){ //手机横着

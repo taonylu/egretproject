@@ -18,6 +18,8 @@ var GameScene = (function (_super) {
         this.score5Pool = ObjectPool.getPool(Score5.NAME, 5); //score5对象池
         this.score20Pool = ObjectPool.getPool(Score20.NAME, 3); //score20对象池
         this.ballPool = ObjectPool.getPool(Ball.NAME, 3); //20分球
+        this.countDownTimer = new egret.Timer(1000);
+        this.countDownLimit = 3;
         this.http = new HttpUtil();
         this.itemCount = 0;
     }
@@ -26,9 +28,11 @@ var GameScene = (function (_super) {
         _super.prototype.componentCreated.call(this);
         this.stageWidth = GameConst.stage.stageWidth;
         this.stageHeight = GameConst.stage.stageHeight;
+        this.initHandY = this.hand.y;
     };
     p.onEnable = function () {
-        this.startGame();
+        this.reset();
+        this.startCountDown();
     };
     p.onRemove = function () {
         this.bee.stop();
@@ -49,9 +53,9 @@ var GameScene = (function (_super) {
     };
     //开始游戏
     p.startGame = function () {
-        this.reset();
         this.startGameTimer();
         this.configListeners();
+        this.addChild(this.bee);
     };
     //重置游戏
     p.reset = function () {
@@ -67,7 +71,7 @@ var GameScene = (function (_super) {
         this.bee.y = (this.stageHeight - this.bee.height) / 2;
         //this.bee.x = 0;
         // this.bee.y = 0;
-        this.addChild(this.bee);
+        this.bee.parent && this.removeChild(this.bee);
         //重置游戏背景
         this.gameBg.reset();
         //重置获球
@@ -160,7 +164,7 @@ var GameScene = (function (_super) {
     };
     p.createItem = function () {
         this.itemCount++;
-        if (this.itemCount > 10) {
+        if (this.itemCount > 8) {
             this.itemCount = 0;
             var rand = Math.random();
             var item;
@@ -216,6 +220,35 @@ var GameScene = (function (_super) {
     p.stopGameTimer = function () {
         this.gameTimer.stop();
         this.gameTimer.removeEventListener(egret.TimerEvent.TIMER, this.onGameTimerHandler, this);
+    };
+    p.startCountDown = function () {
+        this.countDownGroup.visible = true;
+        this.countDown1.visible = false;
+        this.countDown2.visible = false;
+        this.countDown3.visible = true;
+        this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onCountDown, this);
+        this.countDownTimer.reset();
+        this.countDownTimer.start();
+        this.hand.y = this.initHandY;
+        egret.Tween.get(this.hand, { loop: 3 }).to({ y: this.initHandY + 100 }, 500).to({ y: this.initHandY }, 500);
+    };
+    p.onCountDown = function () {
+        var count = this.countDownLimit - this.countDownTimer.currentCount;
+        if (count == 2) {
+            this.countDown3.visible = false;
+            this.countDown2.visible = true;
+        }
+        else if (count == 1) {
+            this.countDown2.visible = false;
+            this.countDown1.visible = true;
+        }
+        else {
+            this.countDownGroup.visible = false;
+            this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER, this.onCountDown, this);
+            this.countDownTimer.stop();
+            egret.Tween.removeTweens(this.hand);
+            this.startGame();
+        }
     };
     return GameScene;
 }(BaseScene));

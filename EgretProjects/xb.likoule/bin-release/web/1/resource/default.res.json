@@ -1,11 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"gameSheet_json,ball_json,ball_png,bee_json,bee_png",
-			"name":"game"
-		},
-		{
-			"keys":"resultSheet_json",
+			"keys":"resultSheet_json,code_jpg",
 			"name":"result"
 		},
 		{
@@ -13,7 +9,7 @@
 			"name":"share"
 		},
 		{
-			"keys":"homeSheet_json,track_sb_png,roundthumb_png",
+			"keys":"homeSheet_json,track_sb_png,roundthumb_png,gameSheet_json,ball_json,ball_png",
 			"name":"home"
 		},
 		{
@@ -23,6 +19,10 @@
 		{
 			"keys":"panelSheet_json,rule_png",
 			"name":"panel"
+		},
+		{
+			"keys":"bee_json,bee_png,preloadSheet_json,preloadSheet_png",
+			"name":"preload"
 		}
 	],
 	"resources":[
@@ -34,7 +34,7 @@
 		},
 		{
 			"name":"gameSheet_json",
-			"subkeys":"item00,item01,num2,num20,num5,scoreBg,scrollBtn",
+			"subkeys":"countdown1,countdown2,countdown3,hand,item00,item01,num2,num20,num5,scoreBg,scrollBtn",
 			"type":"sheet",
 			"url":"assets/gameSheet.json"
 		},
@@ -96,6 +96,17 @@
 			"name":"bee_png",
 			"type":"image",
 			"url":"assets/bee.png"
+		},
+		{
+			"name":"preloadSheet_json",
+			"subkeys":"preload_bar,preload_bg,preload_dialog",
+			"type":"sheet",
+			"url":"assets/preloadSheet.json"
+		},
+		{
+			"name":"code_jpg",
+			"type":"image",
+			"url":"assets/code.jpg"
 		}
 	]
 }
