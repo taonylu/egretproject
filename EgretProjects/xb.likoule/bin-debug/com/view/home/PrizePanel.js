@@ -50,6 +50,7 @@ var PrizePanel = (function (_super) {
         var weekRank = data.weekRank;
         var rankWin = data.rankWin;
         var len = weekRank.length;
+        len = (len > 6) ? 6 : len;
         len = (len > this.weekNum) ? this.weekNum : len;
         for (var i = 0; i < len; i++) {
             var teamName = weekRank[i].teamName;
@@ -57,6 +58,7 @@ var PrizePanel = (function (_super) {
             this.weekLabelList[i].text = "第" + (i + 1) + "周最高奖：" + teamName;
         }
         len = rankWin.length;
+        len = (len > 4) ? 4 : len;
         for (var i = 0; i < len; i++) {
             this.fourLabel.text += rankWin[i].teamName + " ";
         }

@@ -40,22 +40,16 @@ class ResultScene extends BaseScene{
             this.gridList.push(this["grid" + i]); 
         }
         
-        
+        this.code.createCode();
     }
 
     public onEnable(): void {
+        this.scoreGroup.visible = true;
         this.btnGroup.visible = false;
         this.luckGroup.visible = false;
         
         this.configListeners();
         this.reset();
-        
-        //显示二维码
-        this.btnGroup.visible = true;
-        this.code.createCode();
-        this.code.showCode();
-        this.code.setPosition(this.codeGroup.x,this.codeGroup.y);
-        
     }
 
     public onRemove(): void {
@@ -97,17 +91,17 @@ class ResultScene extends BaseScene{
     }
     
     //设置场景
-    private bLottery:boolean = false; //是否抽奖过，因为只能抽一次
     public setSceneValue(time:number,score:number,grass:number){
         this.setTimeLabel(time);
         this.setScoreLabel(score);
         this.setGrasslabel(grass);
         
-        if(this.bLottery == false){   //如果已经抽过奖，则不显示抽奖界面
-            this.bLottery = true;
-            this.luckGroup.visible = true;
-        }else{
+        var luckTime = egret.localStorage.getItem("lkl_luckTime");
+        if(luckTime == "true"){   //如果已经抽过奖，则不显示抽奖界面
             this.btnGroup.visible = true;
+            this.showCode();
+        }else{
+            this.luckGroup.visible = true;
         }
         
     }
@@ -170,11 +164,17 @@ class ResultScene extends BaseScene{
             this.prizeName = data.prizeName;
             this.winMark = data.winMark;
             this.startPlayLuck(data);
+            
+            
+            
         } else {
             alert(msg);
             this.luckGroup.visible = false;
             this.btnGroup.visible = true;
+            this.showCode();
         }
+        //本地缓存抽奖
+        egret.localStorage.setItem("lkl_luckTime","true");
     }
     
     private timeLimit;
@@ -232,13 +232,17 @@ class ResultScene extends BaseScene{
         }else{
             this.luckGroup.visible = false;
             this.btnGroup.visible = true;
+            this.showCode();
         }
     }
     
-    //重置二维码
-    public reSizeCode(){
-        this.code.setPosition(this.codeGroup.x, this.codeGroup.y);
+
+    //显示二维码
+    public showCode(){
+        this.code.showCode();
+        this.code.setPosition(this.codeGroup.x,this.codeGroup.y);
     }
+        
 
 }
 

@@ -49,7 +49,6 @@ var HttpUtil = (function () {
     };
     p.onPostIOError = function (e) {
         egret.log("http error");
-        alert("链接失效");
         if (this.errorHandler) {
             this.errorHandler.call(this.thisObject, e);
         }

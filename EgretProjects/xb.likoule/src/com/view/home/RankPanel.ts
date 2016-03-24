@@ -45,6 +45,9 @@ class RankPanel extends BaseUI{
         this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseBtnTouch, this);
         this.myTeamBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.myTeamTouch, this);
         this.prizeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPrizeTouch, this);
+        
+        this.isClickMyTeam = false;
+        this.sendMyTeamRequest();
     }   
 
     public onRemove() {
@@ -59,8 +62,17 @@ class RankPanel extends BaseUI{
     }
     
     //我的团队
+    private isClickMyTeam:boolean;  //是否点击我的团队
+    private myTeamData ;            //我的团队数据
+    
     private myTeamTouch(){
-        this.sendMyTeamRequest();
+        this.isClickMyTeam = true;
+        if(this.myTeamData){
+            this.showMyTeam(this.myTeamData);
+        }else{
+            this.sendMyTeamRequest();
+        }
+        
     }
     
     //获奖名单
@@ -85,6 +97,7 @@ class RankPanel extends BaseUI{
         
         //显示新的
         var len = data.length;
+        len = (len > 15)?15:len;
         for(var i=0;i<len;i++){
             var teamName = data[i].teamName;
             var teamScore = data[i].teamScore;
@@ -103,10 +116,24 @@ class RankPanel extends BaseUI{
                 status: true,
                 code: 200,
                 msg: "a",
-                data:[{teamName:"A",totalScore:"1",member:[{headImg:"",nickName:"A",score:"1"}]}]
+                data:[
+                    {teamName:"A",totalScore:"1",member:[
+                                                            {headImg:"",nickName:"A",score:"1"},
+                                                            { headImg: "",nickName: "A",score: "1" },
+                                                            { headImg: "",nickName: "A",score: "1" }
+                                                        ]},
+                    {teamName: "B",totalScore: "1",member: [
+                                                            { headImg: "",nickName: "A",score: "1" },
+                                                            { headImg: "",nickName: "A",score: "1" },
+                                                            { headImg: "",nickName: "A",score: "1" }
+                                                            ]}
+                ]
             }
             this.revMyTeam(JSON.stringify(json));
         } else {
+            //清理之前数据
+            this.myTeamData = null;
+            
             this.http.completeHandler = this.revMyTeam;
             this.http.httpMethod = egret.HttpMethod.POST;
             var url: string = "http://wx.mcw9.com/ricolazt/teammembers";
@@ -121,15 +148,42 @@ class RankPanel extends BaseUI{
         var status = json.status; //true , false
         var code = json.code;     //200成功
         var msg = json.msg;       //描述消息
+        var data = json.data;
         if(status == true && code == 200){
-            this.hide();
-            var myTeamPanel: MyTeamPanel = GameManager.getInstance().myTeamPanel;
-            LayerManager.getInstance().clearPopLayer();
-            LayerManager.getInstance().popLayer.addChild(myTeamPanel);
-            myTeamPanel.setView(json.data);
+            
+            this.myTeamData = data;  //保存我的团队信息
+            
+            if(this.isClickMyTeam){   //点击我的团队，则跳转页面
+               this.showMyTeam(data);
+            }else{
+                var team;
+                if(data[0]){
+                    team = data[0];
+                    this.myNameLabel0.text = team.teamName;
+                    this.myRankLabel0.text = team.rank;
+                    this.myScoreLabel0.text = team.totalScore; 
+                }
+                if(data[1]) {
+                    team = data[1];
+                    this.myNameLabel1.text = team.teamName;
+                    this.myRankLabel1.text = team.rank;
+                    this.myScoreLabel1.text = team.totalScore;
+                }
+                
+            }
+            
         }else{
             alert(msg);
         }
+    }
+    
+    //显示我的团队面板
+    public showMyTeam(data){
+        this.hide();
+        var myTeamPanel: MyTeamPanel = GameManager.getInstance().myTeamPanel;
+        LayerManager.getInstance().clearPopLayer();
+        LayerManager.getInstance().popLayer.addChild(myTeamPanel);
+        myTeamPanel.setView(data);
     }
     
 }

@@ -32,9 +32,12 @@ class HomeScene extends BaseScene{
 	
     public componentCreated(): void {
         super.componentCreated();
+        
+        window["playBGM"]();
     }
     
     public onEnable(): void {
+        
         //隐藏
         this.acceptGroup.visible = false;
         this.invitFailGroup.visible = false;
@@ -217,7 +220,24 @@ class HomeScene extends BaseScene{
         
         egret.log("sendRank");
         if(GameConst.debug){
-            var json = { status: true,code: 200,data: [{ teamName: "队名1",teamScore: '分数' },{ teamName: "队名2",teamScore: '分数' }]};
+            var json = { status: true,code: 200,data: [
+                { teamName: "队名1",teamScore: '分数' },
+                { teamName: "队名2",teamScore: '分数' },
+                { teamName: "队名3",teamScore: '分数' },
+                { teamName: "队名4",teamScore: '分数' },
+                { teamName: "队名5",teamScore: '分数' },
+                { teamName: "队名6",teamScore: '分数' },
+                { teamName: "队名7",teamScore: '分数' },
+                { teamName: "队名8",teamScore: '分数' },
+                { teamName: "队名9",teamScore: '分数' },
+                { teamName: "队名10",teamScore: '分数' },
+                { teamName: "队名11",teamScore: '分数' },
+                { teamName: "队名12",teamScore: '分数' },
+                { teamName: "队名13",teamScore: '分数' },
+                { teamName: "队名14",teamScore: '分数' },
+                { teamName: "队名15",teamScore: '分数' },
+                { teamName: "队名16",teamScore: '分数' }
+            ]};
             this.revRank(JSON.stringify(json));
         }else{
             this.http.completeHandler = this.revRank;
@@ -255,8 +275,24 @@ class HomeScene extends BaseScene{
         egret.log("sendPrize");
         if(GameConst.debug){
             var json = {status:true,code:200,msg:"", 
-                data:{weekRank:[{teamName:"ABCD",teamScore:123},{teamName:"BCDE",teamScore:321}],
-                rankWin:[{teamName:"EEEE",teamScore:111},{teamName:"BBBB",teamScore:222}]}};
+                data:{
+                    weekRank:[
+                        {teamName:"ABCD",teamScore:123},
+                        {teamName:"BCDE",teamScore:321},
+                        { teamName: "BCDE",teamScore: 321 },
+                        { teamName: "BCDE",teamScore: 321 },
+                        { teamName: "BCDE",teamScore: 321 },
+                        { teamName: "BCDE",teamScore: 321 },
+                        { teamName: "ECDE",teamScore: 321 }
+                    ],
+                    rankWin:[
+                        {teamName:"EEEE",teamScore:111},
+                        {teamName:"BBBB",teamScore:222},
+                        { teamName: "BBBB",teamScore: 222 },
+                        { teamName: "CBBB",teamScore: 222 },
+                        { teamName: "ABBB",teamScore: 222 },
+                    ]
+                }};
                 this.revPrize(JSON.stringify(json));
         }else{
             this.http.completeHandler = this.revPrize;

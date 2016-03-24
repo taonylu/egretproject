@@ -45,6 +45,7 @@ var MyTeamPanel = (function (_super) {
             }
             this.memberNameList[i].text = "";
             this.memberScoreList[i].text = "";
+            this.imageLoaderList[i].clear();
         }
         //设置新的
         var teamLen = data.length;
@@ -57,20 +58,10 @@ var MyTeamPanel = (function (_super) {
                 this.memberNameList[index].text = member[j].nickName;
                 this.memberScoreList[index].text = member[j].score;
                 var imageLoader = this.imageLoaderList[index];
-                imageLoader.id = index;
-                imageLoader.addEventListener(egret.Event.COMPLETE, this.loadCompleteHandler, this);
-                imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onLoadError, this);
+                imageLoader.doc = this.memberHeadList[index];
                 imageLoader.load(member[j].headImg);
             }
         }
-    };
-    p.loadCompleteHandler = function (event) {
-        var imageLoader = event.currentTarget;
-        var bitmap = new egret.Bitmap(imageLoader.data);
-        this.memberHeadList[imageLoader.id].addChild(bitmap);
-    };
-    p.onLoadError = function () {
-        alert("加载头像错误");
     };
     return MyTeamPanel;
 }(BaseUI));

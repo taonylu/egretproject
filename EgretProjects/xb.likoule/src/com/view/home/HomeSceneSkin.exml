@@ -23,5 +23,4 @@
 		<e:Image id="teamBtn" source="teamBtn" x="291" y="75"/>
 		<e:Image id="ruleBtn2" source="ruleBtn" x="536" y="74"/>
 	</e:Group>
-	<e:Image id="logo" source="logo" y="423" left="42"/>
 </e:Skin>

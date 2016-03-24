@@ -50,7 +50,7 @@ class Main extends eui.UILayer {
 
     //主题文件加载完成,开始预加载
     private onThemeLoadComplete(): void {
-        LoadManager.getInstance().loadGroup("home",this,this.onPreloadComplete);
+        LoadManager.getInstance().loadGroup("preload",this,this.onPreloadComplete);
     }
     
     private preloadScene:PreloadScene;
@@ -59,7 +59,7 @@ class Main extends eui.UILayer {
     private onPreloadComplete(event: RES.ResourceEvent): void {
         this.preloadScene = new PreloadScene();
         this.addChild(this.preloadScene);
-        LoadManager.getInstance().loadGroup("game",this,this.onGameComplete,this.onGameProgress);
+        LoadManager.getInstance().loadGroup("home",this,this.onGameComplete,this.onGameProgress);
     }
     
     private onGameProgress(e:RES.ResourceEvent){
@@ -68,8 +68,9 @@ class Main extends eui.UILayer {
     
     private onGameComplete():void{
         this.removeChild(this.preloadScene);
+        this.preloadScene.destroy();
         this.preloadScene = null;
-        
+
         LoadManager.getInstance().loadGroup("panel",this);
         LoadManager.getInstance().loadGroup("result",this);
         LoadManager.getInstance().loadGroup("luck",this);

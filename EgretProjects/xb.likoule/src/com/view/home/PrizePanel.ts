@@ -62,6 +62,7 @@ class PrizePanel extends BaseUI{
         var rankWin = data.rankWin;
         
         var len = weekRank.length;
+        len = (len>6)?6:len;
         len = (len>this.weekNum)?this.weekNum:len;
         for(var i=0;i<len;i++){
             var teamName = weekRank[i].teamName;
@@ -70,6 +71,7 @@ class PrizePanel extends BaseUI{
         }
         
         len = rankWin.length;
+        len = (len>4)?4:len;
         for(var i=0;i<len;i++){
             this.fourLabel.text += rankWin[i].teamName + " ";
         }

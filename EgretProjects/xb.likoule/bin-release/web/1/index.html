@@ -12,7 +12,7 @@
     <style>
         html, body {
             -ms-touch-action: none;
-            background: #888888;
+            background: #333333;
             padding: 0;
             border: 0;
             margin: 0;
@@ -42,6 +42,10 @@
 </head>
 <body>
 		
+	<img id="oimg" src="resource/assets/oimg.png">
+		
+	</img>
+	
     <div id="gameDiv" style="margin: auto;width: 100%;height: 100%;" class="egret-player"
          data-entry-class="Main"
          data-orientation="landscape"
@@ -54,6 +58,10 @@
          data-show-fps="true" data-show-log="true"
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
+    
+    <audio id="bgm" src="resource/assets/bgm.mp3" preload="load" loop="loop"/>
+
+    
     <script>
     	//微信配置
     	/*
@@ -84,11 +92,6 @@
     	//验证码
     	var csrf = '<?= $_csrf; ?>';
     	
-    	//重力感应
-    	window.onorientationchange = function(){
-    			window["GM"].onOrientation(window.orientation);
-    	}
-    	
     	//是否接受邀请
     	var invitInfo = {
     		isInvit:0,  //是否被邀请
@@ -98,8 +101,53 @@
     	
     	function wxshare(){}
     	
-    	//运行游戏
-        egret.runEgret();
+    	
+    	var gameRuning = false;
+    	if(window.orientation == 0){
+	    	var screenWidth = document.body.clientWidth;
+	    	var screenHeight = document.body.clientHeight;
+	    	var oimg = document.getElementById("oimg");
+	    	oimg.style.position = "absolute";
+    		oimg.style.display = "inline";
+	    	oimg.style.left = (screenWidth - 198)/2 + "px";
+	    	oimg.style.top = (screenHeight - 215)/2 + "px";
+    	}else{
+    		//运行游戏
+    		startGame();
+    	}
+    	
+
+    	//重力感应
+    	window.onorientationchange = function(){
+    		//游戏尚未运行，并且手机横置，则开始游戏
+    		if(gameRuning == false && (window.orientation == 90 || window.orientation == -90)){
+    				startGame();
+    		}
+    		//window["GM"].onOrientation(window.orientation);
+    	}
+    	
+    	function startGame(){
+	    	gameRuning = true;
+	    	var oimg = document.getElementById("oimg");
+	    	oimg.style.display = "none";
+	    	egret.runEgret();
+    	}
+    	
+    	function playBGM(){
+    		var bgm = document.getElementById("bgm");
+    		bgm.play();
+    	}
+    	
+    	//playBGM();
+    	
+    	var body = document.body;
+    	body.onclick = onBodyClick;
+    	
+    	function onBodyClick(){
+    		console.log("click");
+    		startGame();
+    	}
+
     </script>
 </body>
 </html>

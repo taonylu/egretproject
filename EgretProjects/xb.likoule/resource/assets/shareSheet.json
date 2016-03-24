@@ -1,5 +1,5 @@
 {"file":"shareSheet.png","frames":{
-"shareArrow":{"x":209,"y":355,"w":262,"h":127,"offX":0,"offY":0,"sourceW":262,"sourceH":127},
-"prize0":{"x":0,"y":132,"w":207,"h":235,"offX":0,"offY":0,"sourceW":207,"sourceH":235},
-"prize1":{"x":209,"y":132,"w":204,"h":221,"offX":0,"offY":0,"sourceW":204,"sourceH":221},
-"share":{"x":0,"y":0,"w":470,"h":130,"offX":6,"offY":12,"sourceW":484,"sourceH":142}}}
+"shareArrow":{"x":206,"y":357,"w":262,"h":127,"offX":0,"offY":0,"sourceW":262,"sourceH":127},
+"share":{"x":0,"y":0,"w":470,"h":130,"offX":6,"offY":12,"sourceW":484,"sourceH":142},
+"prize1":{"x":0,"y":132,"w":204,"h":233,"offX":0,"offY":0,"sourceW":204,"sourceH":233},
+"prize0":{"x":206,"y":132,"w":207,"h":223,"offX":0,"offY":0,"sourceW":207,"sourceH":223}}}

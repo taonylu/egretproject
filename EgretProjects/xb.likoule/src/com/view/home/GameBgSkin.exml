@@ -8,4 +8,5 @@
 		<e:Image id="grass" source="bg_grass" y="262"/>
 		<e:Image source="bg_grass" id="grass0" y="262"/>
 	</e:Group>
+	<e:Image source="logo" y="433" left="42" id="logo" x="10"/>
 </e:Skin>

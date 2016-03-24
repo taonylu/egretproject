@@ -1,0 +1,4 @@
+{"file":"preloadSheet.png","frames":{
+"preload_dialog":{"x":531,"y":21,"w":53,"h":31,"offX":10,"offY":6,"sourceW":72,"sourceH":37},
+"preload_bg":{"x":0,"y":0,"w":531,"h":19,"offX":0,"offY":8,"sourceW":532,"sourceH":33},
+"preload_bar":{"x":0,"y":21,"w":529,"h":17,"offX":1,"offY":8,"sourceW":531,"sourceH":33}}}
