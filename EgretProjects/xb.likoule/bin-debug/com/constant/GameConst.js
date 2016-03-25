@@ -16,6 +16,11 @@ var GameConst = (function () {
         nickName: "",
         teamName: "" //组建的队伍名字
     };
+    GameConst.validSigne = {
+        keyword: "",
+        timestamp: 0,
+        signature: ""
+    };
     return GameConst;
 }());
 egret.registerClass(GameConst,'GameConst');

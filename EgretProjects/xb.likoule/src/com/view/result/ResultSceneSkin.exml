@@ -11,19 +11,16 @@
 		<e:Label id="totalScoreLabel" y="110" verticalAlign="middle" text="9" fontFamily="微软雅黑" textAlign="center" bold="true" width="83" size="30" height="32" x="375" textColor="0xE39013"/>
 		<e:Image id="scoreBg" source="scoreBg" y="20" right="49"/>
 		<e:Label id="scoreLabel" y="22" textColor="0xF1944E" verticalAlign="middle" text="999" fontFamily="微软雅黑" textAlign="center" bold="true" width="105" size="30" right="45"/>
-		<e:Image id="timeBg" source="scoreBg" y="21" x="352"/>
-		<e:Label id="timeLabel" y="24" textColor="0xF9F660" verticalAlign="middle" text="30s" fontFamily="微软雅黑" textAlign="center" bold="true" width="90" size="30" x="355"/>
 	</e:Group>
 	<e:Group id="btnGroup" height="480" y="0" left="0" right="0">
-		<e:Image source="resultBg" y="196" width="514" height="285" right="2"/>
-		<e:Group height="480" width="800" y="10" horizontalCenter="0">
+		<e:Image source="resultBg" y="196" width="514" height="285" right="-6"/>
+		<e:Group id="btnMidGroup" height="480" width="800" y="10" x="0">
 			<e:Image id="againBtn" source="againBtn" x="321" y="263"/>
 			<e:Image id="rankBtn" source="rankBtn2" x="320" y="340"/>
 			<e:Image id="teamBtn" source="resultSheet_json.teamBtn2" y="187" x="328"/>
 			<e:Image source="winText" x="464" y="157"/>
 		</e:Group>
 		<e:Group id="codeGroup" height="160" width="160" y="235" x="97">
-			<e:Image source="code_jpg" x="0" y="0"/>
 		</e:Group>
 	</e:Group>
 	<e:Group id="luckGroup" height="480" width="800" y="0" horizontalCenter="0" visible="false">

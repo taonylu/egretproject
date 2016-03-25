@@ -1,7 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"resultSheet_json,code_jpg",
+			"keys":"resultSheet_json",
 			"name":"result"
 		},
 		{
@@ -9,7 +9,7 @@
 			"name":"share"
 		},
 		{
-			"keys":"homeSheet_json,track_sb_png,roundthumb_png,gameSheet_json,ball_json,ball_png",
+			"keys":"homeSheet_json,track_sb_png,roundthumb_png,gameSheet_json,ball_json,ball_png,ruleBtn2_png",
 			"name":"home"
 		},
 		{
@@ -104,9 +104,9 @@
 			"url":"assets/preloadSheet.json"
 		},
 		{
-			"name":"code_jpg",
+			"name":"ruleBtn2_png",
 			"type":"image",
-			"url":"assets/code.jpg"
+			"url":"assets/home/ruleBtn2.png"
 		}
 	]
 }

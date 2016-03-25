@@ -11,6 +11,7 @@ class ResultScene extends BaseScene{
     private grassLabel:eui.Label;       //获得香草
     
     public btnGroup:eui.Group;         //按钮Group
+    private btnMidGroup:eui.Group;     //按钮中间部分，需要背景过长时居中，背景过短时靠右约束，以免挡住商品
     private teamBtn:eui.Label;          //组队比拼
     private againBtn:eui.Label;         //再玩一次
     private rankBtn:eui.Label;          //排行榜
@@ -24,7 +25,7 @@ class ResultScene extends BaseScene{
     
     private codeGroup:eui.Group;  //二维码定位用
     
-    private code:QRCode = new QRCode(); //二维码图片
+    private code:QRCode; //二维码图片
     
     private http:HttpUtil = new HttpUtil();
     
@@ -40,7 +41,7 @@ class ResultScene extends BaseScene{
             this.gridList.push(this["grid" + i]); 
         }
         
-        this.code.createCode();
+        //this.code.createCode();
     }
 
     public onEnable(): void {
@@ -50,12 +51,21 @@ class ResultScene extends BaseScene{
         
         this.configListeners();
         this.reset();
+        
+        var stageWidth = GameConst.stage.stageWidth;
+        var btnMidWidth = this.btnMidGroup.width;
+        if(stageWidth >= btnMidWidth){ //背景长时居中
+            this.btnMidGroup.x = (stageWidth - btnMidWidth)/2;
+        }else{  //背景短时靠右
+            this.btnMidGroup.x = stageWidth - btnMidWidth;
+        }
+        
     }
 
     public onRemove(): void {
         this.deConfigListeners();
         //隐藏二维码
-        this.code.hideCode();
+        //this.code.hideCode();
     }
     
     private configListeners(){
@@ -92,14 +102,14 @@ class ResultScene extends BaseScene{
     
     //设置场景
     public setSceneValue(time:number,score:number,grass:number){
-        this.setTimeLabel(time);
+        //this.setTimeLabel(time);
         this.setScoreLabel(score);
         this.setGrasslabel(grass);
         
         var luckTime = egret.localStorage.getItem("lkl_luckTime");
         if(luckTime == "true"){   //如果已经抽过奖，则不显示抽奖界面
             this.btnGroup.visible = true;
-            this.showCode();
+            //this.showCode();
         }else{
             this.luckGroup.visible = true;
         }
@@ -107,7 +117,7 @@ class ResultScene extends BaseScene{
     }
 
     private setTimeLabel(time:number){
-        this.timeLabel.text = time + "s";
+        //this.timeLabel.text = time + "s";
     }
     
     private setScoreLabel(score:number){
@@ -171,7 +181,7 @@ class ResultScene extends BaseScene{
             alert(msg);
             this.luckGroup.visible = false;
             this.btnGroup.visible = true;
-            this.showCode();
+            //this.showCode();
         }
         //本地缓存抽奖
         egret.localStorage.setItem("lkl_luckTime","true");
@@ -232,7 +242,7 @@ class ResultScene extends BaseScene{
         }else{
             this.luckGroup.visible = false;
             this.btnGroup.visible = true;
-            this.showCode();
+           //this.showCode();
         }
     }
     

@@ -10,7 +10,6 @@ var ResultScene = (function (_super) {
         this.gridList = new Array(); //抽奖格子列表
         this.gridNum = 8; //格子数量
         this.timer = new egret.Timer(200); //抽奖格子滚动速度
-        this.code = new QRCode(); //二维码图片
         this.http = new HttpUtil();
     }
     var d = __define,c=ResultScene,p=c.prototype;
@@ -19,7 +18,7 @@ var ResultScene = (function (_super) {
         for (var i = 0; i < this.gridNum; i++) {
             this.gridList.push(this["grid" + i]);
         }
-        this.code.createCode();
+        //this.code.createCode();
     };
     p.onEnable = function () {
         this.scoreGroup.visible = true;
@@ -27,11 +26,19 @@ var ResultScene = (function (_super) {
         this.luckGroup.visible = false;
         this.configListeners();
         this.reset();
+        var stageWidth = GameConst.stage.stageWidth;
+        var btnMidWidth = this.btnMidGroup.width;
+        if (stageWidth >= btnMidWidth) {
+            this.btnMidGroup.x = (stageWidth - btnMidWidth) / 2;
+        }
+        else {
+            this.btnMidGroup.x = stageWidth - btnMidWidth;
+        }
     };
     p.onRemove = function () {
         this.deConfigListeners();
         //隐藏二维码
-        this.code.hideCode();
+        //this.code.hideCode();
     };
     p.configListeners = function () {
         this.teamBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTeamBtnTouch, this);
@@ -60,20 +67,19 @@ var ResultScene = (function (_super) {
     };
     //设置场景
     p.setSceneValue = function (time, score, grass) {
-        this.setTimeLabel(time);
+        //this.setTimeLabel(time);
         this.setScoreLabel(score);
         this.setGrasslabel(grass);
         var luckTime = egret.localStorage.getItem("lkl_luckTime");
         if (luckTime == "true") {
             this.btnGroup.visible = true;
-            this.showCode();
         }
         else {
             this.luckGroup.visible = true;
         }
     };
     p.setTimeLabel = function (time) {
-        this.timeLabel.text = time + "s";
+        //this.timeLabel.text = time + "s";
     };
     p.setScoreLabel = function (score) {
         this.scoreLabel.text = score + "";
@@ -128,7 +134,6 @@ var ResultScene = (function (_super) {
             alert(msg);
             this.luckGroup.visible = false;
             this.btnGroup.visible = true;
-            this.showCode();
         }
         //本地缓存抽奖
         egret.localStorage.setItem("lkl_luckTime", "true");
@@ -181,7 +186,6 @@ var ResultScene = (function (_super) {
         else {
             this.luckGroup.visible = false;
             this.btnGroup.visible = true;
-            this.showCode();
         }
     };
     //显示二维码

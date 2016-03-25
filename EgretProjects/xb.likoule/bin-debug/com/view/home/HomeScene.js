@@ -55,12 +55,11 @@ var HomeScene = (function (_super) {
                 this.beginGroup.visible = true;
                 break;
             case this.beginBtn:
-                if (GameConst.teamName == "") {
-                    this.sendStartGame();
-                }
-                else {
-                    LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
-                }
+                //if(GameConst.teamName == ""){ //没有队伍时，会发送组队请求
+                this.sendStartGame();
+                //}else{
+                //  LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+                //}
                 break;
             case this.teamBtn:
                 this.sendTeamRequest();
@@ -137,6 +136,10 @@ var HomeScene = (function (_super) {
         if (status == true && code == 200) {
             //获取队伍名
             GameConst.teamName = data.teamName;
+            //获取验证信息
+            GameConst.validSigne.keyword = data.validSigne.keyword;
+            GameConst.validSigne.timestamp = data.validSigne.timestamp;
+            GameConst.validSigne.signature = data.validSigne.signature;
             //开始游戏
             LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
             window["tn"] = GameConst.teamName;
