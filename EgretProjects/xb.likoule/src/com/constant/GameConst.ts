@@ -18,4 +18,10 @@ class GameConst {
             nickName:"",     //发发出邀请人的名字
             teamName:""  //组建的队伍名字
        };  
+         
+    public static validSigne = {  //验证信息
+        keyword:"",
+        timestamp:0,
+        signature:""
+    }
 }

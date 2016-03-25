@@ -33,7 +33,7 @@ class GameScene extends BaseScene{
     private countDown1:eui.Image;
     private countDown2:eui.Image;
     private countDown3:eui.Image;
-    private countDownTimer:egret.Timer = new egret.Timer(1000);
+    private countDownTimer:egret.Timer = new egret.Timer(600);
     private countDownLimit = 3;
     private hand:eui.Image;
     private initHandY:number;
@@ -83,6 +83,7 @@ class GameScene extends BaseScene{
     private startGame(){
         this.startGameTimer();
         this.configListeners();
+        this.bee.play(10000);
         this.addChild(this.bee);
     }
     
@@ -96,7 +97,7 @@ class GameScene extends BaseScene{
         this.grass = 0;
         
         //重置蜜蜂
-        this.bee.play(-1);
+        this.bee.play(10000);
         this.bee.x = this.controlBtn.x + this.controlBtn.width;
         this.bee.y = (this.stageHeight - this.bee.height) / 2;
         //this.bee.x = 0;
@@ -145,7 +146,11 @@ class GameScene extends BaseScene{
             var csrf: string = "_csrf=" + GameConst.csrf;
             var score:string = "&score=" + this.score;
             var teamName: string = "&teamName=" + GameConst.teamName;  //怎么知道当前是哪只队伍？
-            var msg = csrf + score + teamName;
+            var validSigna = GameConst.validSigne;
+            var keyword: string = "&keyword=" +  validSigna.keyword;
+            var timestamp: string = "&timestamp=" + validSigna.timestamp;
+            var signature: string = "&signature=" + validSigna.signature;
+            var msg = csrf + score + teamName + keyword + timestamp + signature;
             this.http.send(url,msg,this);
         }
     }

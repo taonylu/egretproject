@@ -10,7 +10,7 @@
 		<e:Image source="home_bg" x="8" y="38"/>
 		<e:Label id="acceptLabel" text="小红帽邀请你加入xxxxx队伍" x="32" y="48" fontFamily="微软雅黑" size="25" textColor="0x050000" width="405" height="106" verticalAlign="middle" textAlign="center" multiline="true"/>
 		<e:Image id="acceptBtn" source="acceptBtn" x="63" y="142" width="164" height="63"/>
-		<e:Image id="ruleBtn" source="ruleBtn" x="251" y="145"/>
+		<e:Image id="ruleBtn" x="255" y="144" source="ruleBtn2_png" width="159" height="61"/>
 	</e:Group>
 	<e:Group id="invitFailGroup" y="219" width="477" height="300" horizontalCenter="-0.5">
 		<e:Image source="home_bg" y="38" x="8"/>
