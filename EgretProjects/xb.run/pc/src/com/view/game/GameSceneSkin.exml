@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="GameSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image source="ground_png" x="294" y="239" width="1330" height="848"/>
+	<e:Group id="potGroup" height="1080" width="1920">
+		<e:Rect id="far00" height="10" width="10" x="908" y="217" anchorOffsetX="5" anchorOffsetY="5"/>
+		<e:Rect id="far01" y="217" anchorOffsetY="5" anchorOffsetX="5" width="10" height="10" x="954"/>
+		<e:Rect id="far02" y="217" anchorOffsetY="5" anchorOffsetX="5" width="10" height="10" x="1004"/>
+		<e:Rect id="near00" y="916" anchorOffsetY="50" anchorOffsetX="50" width="100" height="100" x="549"/>
+		<e:Rect id="near01" y="916" anchorOffsetY="50" anchorOffsetX="50" width="100" height="100" x="954"/>
+		<e:Rect id="near02" y="916" anchorOffsetY="50" anchorOffsetX="50" width="100" height="100" x="1311"/>
+	</e:Group>
+	<e:Group id="itemGroup" x="10" width="1920" y="10" height="1080"/>
+	<e:Group id="playerGroup" height="1080" width="1920" x="0" y="0"/>
+</e:Skin>
