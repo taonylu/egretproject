@@ -23,6 +23,16 @@
 					"isFolder":false,
 					"key":"carrot_png",
 					"name":"carrot_png"
+				},
+				{
+					"isFolder":false,
+					"key":"player_png",
+					"name":"player_png"
+				},
+				{
+					"isFolder":false,
+					"key":"stone_png",
+					"name":"stone_png"
 				}
 			]
 		}

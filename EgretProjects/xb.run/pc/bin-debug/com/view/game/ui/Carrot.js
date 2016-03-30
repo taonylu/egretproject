@@ -14,10 +14,12 @@ var Carrot = (function (_super) {
     }
     var d = __define,c=Carrot,p=c.prototype;
     p.recycle = function () {
+        _super.prototype.recycle.call(this);
         this.parent && this.parent.removeChild(this);
+        this.alpha = 1;
         ObjectPool.getPool(Carrot.NAME).returnObject(this);
     };
     Carrot.NAME = "Carrot";
     return Carrot;
-}(BaseFruit));
+}(BaseItem));
 egret.registerClass(Carrot,'Carrot');

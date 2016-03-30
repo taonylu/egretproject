@@ -41,7 +41,7 @@ var TeamForm = (function (_super) {
         else {
             this.http.completeHandler = this.revSubmit;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url = "http://wx.mcw9.com/ricolazt/saveinfo";
+            var url = window["httpUrl"] + "saveinfo";
             var csrf = "_csrf=" + GameConst.csrf;
             var tel = "&tel=" + this.telLabel.text;
             var name = "&name=" + this.nameLabel.text;

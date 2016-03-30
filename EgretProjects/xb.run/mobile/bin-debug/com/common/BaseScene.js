@@ -13,8 +13,6 @@ var BaseScene = (function (_super) {
         _super.call(this);
         //other
         this.inited = false; //组件初始化完毕
-        this.$allowUpdate = false; //允许使用update
-        this.$allowFixedUpdate = false; //允许使用fixedUpdate
         this.percentWidth = 100;
         this.percentHeight = 100;
         this.touchEnabled = false;
@@ -36,60 +34,11 @@ var BaseScene = (function (_super) {
     /**组建创建完毕的情况下，添加到舞台时执行*/
     p.onEnable = function () {
     };
-    /**每帧执行，基于当前帧率*/
-    p.update = function () {
-    };
-    /**每帧执行，基于当前系统时间*/
-    p.fixedUpdate = function () {
-    };
     /**移除界面时执行*/
     p.onRemove = function () {
-        this.allowUpdate = false;
     };
     /**销毁界面时执行*/
     p.onDestroy = function () {
-    };
-    d(p, "allowUpdate"
-        ,function () {
-            return this.$allowUpdate;
-        }
-        //设置允许update
-        ,function (bUpdate) {
-            this.$allowUpdate = bUpdate;
-            if (bUpdate) {
-                this.$previous = egret.getTimer();
-                this.$accTime = 0;
-                this.$dt = 1000 / GameConst.stage.frameRate;
-                this.addEventListener(egret.Event.ENTER_FRAME, this.onUpdateHandler, this);
-            }
-            else {
-                this.removeEventListener(egret.Event.ENTER_FRAME, this.onUpdateHandler, this);
-            }
-        }
-    );
-    d(p, "allowFixedUpdate"
-        ,function () {
-            return this.$allowFixedUpdate;
-        }
-        //设置允许fixedUpdate
-        ,function (bFixedUpdate) {
-            this.$allowFixedUpdate = bFixedUpdate;
-        }
-    );
-    //每帧执行
-    p.onUpdateHandler = function () {
-        this.update();
-        //基于时间片的更新
-        if (this.$allowFixedUpdate) {
-            this.$curTime = egret.getTimer();
-            this.$passTime = this.$curTime - this.$previous;
-            this.$previous = this.$curTime;
-            this.$accTime += this.$passTime;
-            while (this.$accTime >= this.$dt) {
-                this.fixedUpdate();
-                this.$accTime -= this.$dt;
-            }
-        }
     };
     return BaseScene;
 }(eui.Component));

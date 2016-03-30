@@ -53,7 +53,16 @@ var ClientSocket = (function () {
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
         this.socket.on("userJoin", function (data) {
-            self.homeScene.revUserJoin();
+            self.homeScene.revUserJoin(data);
+        });
+        this.socket.on("lock", function (data) {
+            self.lockScene.revLock(data);
+        });
+        this.socket.on("action", function (data) {
+            self.gameScene.revAction(data);
+        });
+        this.socket.on("userQuit", function (data) {
+            self.homeScene.revUserQuit(data);
         });
     };
     //////////////////////////////////////////////////////

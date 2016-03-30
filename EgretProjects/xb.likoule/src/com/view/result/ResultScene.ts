@@ -153,7 +153,7 @@ class ResultScene extends BaseScene{
         } else {
             this.http.completeHandler = this.revLuck;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url: string = "http://wx.mcw9.com/ricolazt/lottery";
+            var url: string = window["httpUrl"] + "lottery";
             var msg: string = "_csrf=" + GameConst.csrf;
             this.http.send(url,msg,this);
         }

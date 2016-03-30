@@ -112,7 +112,7 @@ var ResultScene = (function (_super) {
         else {
             this.http.completeHandler = this.revLuck;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url = "http://wx.mcw9.com/ricolazt/lottery";
+            var url = window["httpUrl"] + "lottery";
             var msg = "_csrf=" + GameConst.csrf;
             this.http.send(url, msg, this);
         }

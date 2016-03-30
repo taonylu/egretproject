@@ -50,7 +50,7 @@ class TeamForm extends BaseUI{
         }else{
             this.http.completeHandler = this.revSubmit;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url: string = "http://wx.mcw9.com/ricolazt/saveinfo";
+            var url: string = window["httpUrl"] + "saveinfo";
             var csrf: string = "_csrf=" + GameConst.csrf;
             var tel:string = "&tel=" + this.telLabel.text;
             var name:string = "&name=" + this.nameLabel.text;

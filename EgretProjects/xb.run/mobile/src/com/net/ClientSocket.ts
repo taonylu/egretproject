@@ -8,6 +8,8 @@ class ClientSocket {
     private socket;                         //socket.io
     
     public gameManager:GameManager;
+    public homeScene:HomeScene;
+    public gameScene:GameScene;
     
     public static getInstance(): ClientSocket {
         if(this.instance == null) {
@@ -66,9 +68,13 @@ class ClientSocket {
         //////////////////////////////////////////////////////
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
-
-        this.socket.on("xxx",function(data) {      
         
+        this.socket.on("startLock",function(data) {
+            self.homeScene.revStartLock();
+        }); 
+        
+        this.socket.on("startGame",function(data) {      
+            self.gameScene.revStartGame();
         }); 
         
     }

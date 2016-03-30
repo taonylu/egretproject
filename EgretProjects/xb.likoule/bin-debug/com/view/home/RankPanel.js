@@ -108,7 +108,7 @@ var RankPanel = (function (_super) {
             this.myTeamData = null;
             this.http.completeHandler = this.revMyTeam;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url = "http://wx.mcw9.com/ricolazt/teammembers";
+            var url = window["httpUrl"] + "teammembers";
             var msg = "_csrf=" + GameConst.csrf;
             this.http.send(url, msg, this);
         }

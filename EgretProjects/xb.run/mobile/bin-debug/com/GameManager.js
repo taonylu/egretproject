@@ -21,25 +21,15 @@ var GameManager = (function () {
         //启动Socket
         this.socket = ClientSocket.getInstance();
         this.socket.gameManager = this;
+        this.socket.homeScene = this.homeScene;
+        this.socket.gameScene = this.gameScene;
         this.socket.startConnect();
     };
     //------------------------【socket事件】-------------------------
     p.connect = function () {
-        this.sendLogin();
+        this.homeScene.sendLogin();
     };
     p.disconnect = function () {
-    };
-    //------------------------【发送】-------------------------
-    //发送登录
-    p.sendLogin = function () {
-        var rid = window["gameConfig"].rid;
-        egret.log("send login:", rid, "userType:mobile");
-        this.socket.sendMessage("login", { rid: rid, userType: "mobile" }, this.revLogin, this);
-    };
-    //接收登录
-    p.revLogin = function (data) {
-        egret.log("rev login");
-        this.homeScene.openDevice();
     };
     GameManager.getInstance = function () {
         if (this.instance == null) {

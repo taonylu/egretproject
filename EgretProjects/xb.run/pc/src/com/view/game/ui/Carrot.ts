@@ -3,7 +3,7 @@
  * @author 
  *
  */
-class Carrot extends BaseFruit{
+class Carrot extends BaseItem{
     public static NAME:string = "Carrot";
 	public constructor() {
     	super();
@@ -14,7 +14,9 @@ class Carrot extends BaseFruit{
 	}
 	
 	public recycle(){
+    	super.recycle();
     	this.parent && this.parent.removeChild(this);
+    	this.alpha = 1;
     	ObjectPool.getPool(Carrot.NAME).returnObject(this);
 	}
 }

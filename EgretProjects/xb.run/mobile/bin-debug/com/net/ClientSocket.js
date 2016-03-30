@@ -52,7 +52,11 @@ var ClientSocket = (function () {
         //////////////////////////////////////////////////////
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
-        this.socket.on("xxx", function (data) {
+        this.socket.on("startLock", function (data) {
+            self.homeScene.revStartLock();
+        });
+        this.socket.on("startGame", function (data) {
+            self.gameScene.revStartGame();
         });
     };
     //////////////////////////////////////////////////////

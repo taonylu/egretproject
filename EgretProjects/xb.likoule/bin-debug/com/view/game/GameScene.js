@@ -106,7 +106,7 @@ var GameScene = (function (_super) {
         else {
             this.http.completeHandler = this.revSaveScore;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url = "http://wx.mcw9.com/ricolazt/gamescore";
+            var url = window["httpUrl"] + "gamescore";
             var csrf = "_csrf=" + GameConst.csrf;
             var score = "&score=" + this.score;
             var teamName = "&teamName=" + GameConst.teamName; //怎么知道当前是哪只队伍？

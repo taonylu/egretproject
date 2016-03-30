@@ -24,6 +24,8 @@ class GameManager {
         //启动Socket
         this.socket = ClientSocket.getInstance();
         this.socket.gameManager = this;
+        this.socket.homeScene = this.homeScene;
+        this.socket.gameScene = this.gameScene;
         this.socket.startConnect();
     }
     
@@ -31,7 +33,7 @@ class GameManager {
     //------------------------【socket事件】-------------------------
     
     public connect(){
-        this.sendLogin();
+        this.homeScene.sendLogin();
     }
     
     public disconnect(){
@@ -40,18 +42,7 @@ class GameManager {
     
     //------------------------【发送】-------------------------
     
-    //发送登录
-    public sendLogin() {
-        var rid = window["gameConfig"].rid;
-        egret.log("send login:",rid,"userType:mobile");
-        this.socket.sendMessage("login",{ rid: rid,userType: "mobile" },this.revLogin,this);
-    }
     
-    //接收登录
-    private revLogin(data) {
-        egret.log("rev login");
-        this.homeScene.openDevice();
-    }
     
     
     

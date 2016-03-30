@@ -115,7 +115,7 @@ class HomeScene extends BaseScene{
         }else{
             this.http.completeHandler = this.revAccept;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url: string = "http://wx.mcw9.com/ricolazt/acceptinvitation";
+            var url: string = window["httpUrl"] + "acceptinvitation";
             var msg: string = "_csrf=" + GameConst.csrf + "&teamName=" + GameConst.invitInfo.teamName;
             this.http.send(url,msg,this);
         }
@@ -152,7 +152,7 @@ class HomeScene extends BaseScene{
         } else {
             this.http.completeHandler = this.revStartGame;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url: string = "http://wx.mcw9.com/ricolazt/createteam ";
+            var url: string = window["httpUrl"] + "createteam ";
             var msg: string = "_csrf=" + GameConst.csrf;
             this.http.send(url,msg,this);
         }
@@ -191,7 +191,7 @@ class HomeScene extends BaseScene{
         }else{
             this.http.completeHandler = this.revTeam;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url: string = "http://wx.mcw9.com/ricolazt/createteam ";
+            var url: string = window["httpUrl"] +  "createteam ";
             var msg: string = "_csrf=" + GameConst.csrf;
             this.http.send(url,msg,this);
         }
@@ -246,7 +246,7 @@ class HomeScene extends BaseScene{
         }else{
             this.http.completeHandler = this.revRank;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url: string = "http://wx.mcw9.com/ricolazt/gamerank";
+            var url: string = window["httpUrl"] + "gamerank";
             var msg: string = "_csrf=" + GameConst.csrf;
             this.http.send(url,msg,this);
         }
@@ -301,7 +301,7 @@ class HomeScene extends BaseScene{
         }else{
             this.http.completeHandler = this.revPrize;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url: string = "http://wx.mcw9.com/ricolazt/winners";
+            var url: string = window["httpUrl"] + "winners";
             var msg: string = "_csrf=" + GameConst.csrf;
             this.http.send(url,msg,this); 
         }

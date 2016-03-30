@@ -142,7 +142,7 @@ class GameScene extends BaseScene{
         } else {
             this.http.completeHandler = this.revSaveScore;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url: string = "http://wx.mcw9.com/ricolazt/gamescore";
+            var url: string = window["httpUrl"] + "gamescore";
             var csrf: string = "_csrf=" + GameConst.csrf;
             var score:string = "&score=" + this.score;
             var teamName: string = "&teamName=" + GameConst.teamName;  //怎么知道当前是哪只队伍？

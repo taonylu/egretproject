@@ -73,7 +73,7 @@ class LuckForm extends BaseUI{
         } else {
             this.http.completeHandler = this.revSubmit;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url: string = "http://wx.mcw9.com/ricolazt/prizeinfo";
+            var url: string = window["httpUrl"] + "prizeinfo";
             var csrf = "_csrf=" + GameConst.csrf;
             var tel = "&tel=" + this.telLabel.text;
             var name = "&name=" + this.nameLabel.text;
