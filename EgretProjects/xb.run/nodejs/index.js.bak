@@ -106,7 +106,7 @@ function initMobile(socket){
     socket.on('lock',function(data){
     	if(mobileUser[socket.name]){
 			if(pcUser[socket.name]){
-				pcUser[socket.name].emit('lock');
+				pcUser[socket.name].emit('lock',{openid:"1"});
 			}
     	}
     });

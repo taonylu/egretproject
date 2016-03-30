@@ -1,4 +1,4 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="PreloadSceneSkin" width="480" height="854" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Label id="progressLabel" text="标签" x="216" y="267"/>
+<e:Skin class="PreloadSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Label id="progressLabel" text="标签" x="825" y="473"/>
 </e:Skin>

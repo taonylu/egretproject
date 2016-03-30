@@ -10,6 +10,7 @@ class ClientSocket {
     public gameManager:GameManager;
     public homeScene:HomeScene;
     public gameScene:GameScene;
+    public lockScene:LockScene;
     
     public static getInstance(): ClientSocket {
         if(this.instance == null) {
@@ -70,9 +71,20 @@ class ClientSocket {
         //////////////////////////////////////////////////////
 
         this.socket.on("userJoin",function(data) {
-            self.homeScene.revUserJoin();
+            self.homeScene.revUserJoin(data);
         }); 
         
+        this.socket.on("lock",function(data) {
+            self.lockScene.revLock(data);
+        }); 
+        
+        this.socket.on("action", function(data){
+           self.gameScene.revAction(data); 
+        });
+        
+        this.socket.on("userQuit",function(data) {
+            self.homeScene.revUserQuit(data);
+        });
     }
     
     //////////////////////////////////////////////////////

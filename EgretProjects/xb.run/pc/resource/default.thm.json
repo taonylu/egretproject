@@ -2,8 +2,9 @@
   "autoGenerateExmlsList": true,
   "exmls": [
     "src/com/view/game/GameSceneSkin.exml",
-    "src/com/view/game/ui/PlayerSkin.exml",
+    "src/com/view/game/ui/HeadUISkin.exml",
     "src/com/view/HomeSceneSkin.exml",
+    "src/com/view/LockSceneSkin.exml",
     "src/com/view/PreloadSceneSkin.exml"
   ],
   "skins": {

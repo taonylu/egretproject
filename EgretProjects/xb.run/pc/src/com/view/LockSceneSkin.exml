@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="LockSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui">
+	<e:Rect height="250" width="247" x="752" y="194" fillColor="0xF80404"/>
+</e:Skin>

@@ -136,7 +136,7 @@ class RankPanel extends BaseUI{
             
             this.http.completeHandler = this.revMyTeam;
             this.http.httpMethod = egret.HttpMethod.POST;
-            var url: string = "http://wx.mcw9.com/ricolazt/teammembers";
+            var url: string = window["httpUrl"] + "teammembers";
             var msg: string = "_csrf=" + GameConst.csrf;
             this.http.send(url,msg,this);
         }

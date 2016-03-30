@@ -1,7 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"home_thxbg_jpg,carrot_png",
+			"keys":"home_thxbg_jpg,carrot_png,player_png,player_json,stone_png",
 			"name":"preload"
 		},
 		{
@@ -24,6 +24,21 @@
 			"name":"carrot_png",
 			"type":"image",
 			"url":"assets/carrot.png"
+		},
+		{
+			"name":"player_png",
+			"type":"image",
+			"url":"assets/player.png"
+		},
+		{
+			"name":"player_json",
+			"type":"json",
+			"url":"assets/player.json"
+		},
+		{
+			"name":"stone_png",
+			"type":"image",
+			"url":"assets/stone.png"
 		}
 	]
 }

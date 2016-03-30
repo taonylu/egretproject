@@ -17,22 +17,30 @@ var HomeScene = (function (_super) {
     };
     p.onRemove = function () {
     };
-    //---------------测试目的-------------------
-    //1. 重力感应x,y,z轴值变化
-    //2. 摇一摇功能
-    p.openDevice = function () {
-        var orientation = new egret.DeviceOrientation();
-        orientation.addEventListener(egret.Event.CHANGE, this.onOrientation, this);
-        orientation.start();
+    ////////////////////////////////////////////////////////////
+    //------------------------[Socket通讯]----------------------
+    ////////////////////////////////////////////////////////////
+    //发送登录
+    p.sendLogin = function () {
+        var rid = window["gameConfig"].rid;
+        egret.log("send login:", rid, "userType:mobile");
+        this.socket.sendMessage("login", { rid: rid, userType: "mobile" }, this.revLogin, this);
     };
-    p.onOrientation = function (e) {
-        this.deviceX = parseFloat(e.beta.toFixed(2));
-        this.deviceY = parseFloat(e.gamma.toFixed(2));
-        this.deviceZ = parseFloat(e.alpha.toFixed(2));
-        this.deviceLabel.text =
-            "x轴角速度:" + this.deviceX //-90-90 手机平放0度，手机头朝上增加，手机头朝下减少
-                + "\ny轴角速度:" + this.deviceY //-90~270 手机平放0度，向右倾斜增加，向左倾斜减少
-                + "\nz轴角速度:" + this.deviceZ; //0~360   北方为0(360)，向左0-360增加，向右360-0减少
+    //接收登录
+    p.revLogin = function (data) {
+        egret.log("rev login1");
+        var success = data.success;
+        var msg = data.msg;
+        if (success) {
+        }
+        else {
+        }
+    };
+    //接收开始校准
+    p.revStartLock = function () {
+        egret.log("revStartLock");
+        //TODO 显示校准按钮,校准后开始游戏
+        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
     };
     return HomeScene;
 }(BaseScene));

@@ -12,8 +12,9 @@ var GameScene = (function (_super) {
         this.trackXList = []; //赛道X轴偏移量
         this.trackYList = []; //赛道y轴偏移量
         this.playerList = new Array(); //玩家列表
-        this.carrotPool = ObjectPool.getPool(Carrot.NAME, 20); //胡萝卜对象池
-        this.fruitList = []; //二维数组，[赛道][水果]
+        this.carrotPool = ObjectPool.getPool(Carrot.NAME, 1); //胡萝卜对象池
+        this.stonePool = ObjectPool.getPool(Stone.NAME, 1); //石头对象池
+        this.itemList = []; //物品
         this.isSingleMode = true; //是否单人模式
         this.singleTrackNum = 3; //单人赛道数量
         this.multiTrackNum = 7; //多人赛道
@@ -25,6 +26,9 @@ var GameScene = (function (_super) {
     var d = __define,c=GameScene,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
+        this.socket = ClientSocket.getInstance();
+        this.stageWidth = GameConst.stage.stageWidth;
+        this.stageHeight = GameConst.stage.stageHeight;
     };
     p.onEnable = function () {
         this.resetGame(); //重置游戏
@@ -85,21 +89,27 @@ var GameScene = (function (_super) {
     };
     //重置玩家
     p.resetPlayer = function () {
-        this.myHero = new Player();
+        if (this.myHero == null) {
+            this.myHero = new Player();
+        }
         this.myHero.anchorOffsetX = this.myHero.width / 2;
         this.myHero.anchorOffsetY = this.myHero.height / 2;
         this.myHero.x = this.nearPotList[1].x;
         this.myHero.y = this.nearPotList[1].y;
+        this.myHero.z = this.trackLenth;
+        this.myHero.track = Math.floor(this.trackNum / 2);
+        this.myHero.isJumping = false;
         this.playerGroup.addChild(this.myHero);
+        this.myHero.gotoAndPlay("run", -1);
     };
     //重置物体
     p.resetItem = function () {
-        var len = this.fruitList.length;
+        var len = this.itemList.length;
         for (var i = 0; i < len; i++) {
-            var fruit = this.fruitList[i];
+            var fruit = this.itemList[i];
             fruit.recycle();
         }
-        this.fruitList.length = 0;
+        this.itemList.length = 0;
     };
     //重置赛道
     p.resetTrack = function () {
@@ -107,31 +117,117 @@ var GameScene = (function (_super) {
     };
     p.createItem = function () {
         this.count++;
+        var rand;
+        var item;
         if (this.count % 30 == 0) {
             for (var i = 0; i < this.trackNum; i++) {
-                var rand = Math.random();
-                //if(rand > 0.8) {
-                var carrot = this.carrotPool.getObject();
-                carrot.x = this.farPotList[i].x;
-                carrot.y = this.farPotList[i].y;
-                carrot.track = i;
-                carrot.scaleX = carrot.scaleY = 0;
-                this.itemGroup.addChild(carrot);
-                this.fruitList.push(carrot);
+                rand = Math.random();
+                if (rand > 0.2) {
+                    item = this.carrotPool.getObject();
+                }
+                else {
+                    item = this.stonePool.getObject();
+                }
+                item.x = this.farPotList[i].x;
+                item.y = this.farPotList[i].y;
+                item.z = 0;
+                item.track = i;
+                item.scaleX = 0;
+                item.scaleY = 0;
+                this.itemGroup.addChild(item);
+                this.itemList.push(item);
             }
         }
     };
     //移动地图
     p.moveItem = function () {
-        var len = this.fruitList.length;
-        for (var i = 0; i < len; i++) {
-            var fruit = this.fruitList[i];
-            var track = fruit.track;
-            fruit.z += this.moveSpeed;
-            fruit.y = this.farPotList[track].y + fruit.z / this.trackLenth * this.trackYList[track];
-            fruit.x = this.farPotList[track].x + fruit.z / this.trackLenth * this.trackXList[track];
-            fruit.scaleX = fruit.scaleY = fruit.z / this.trackLenth;
+        var len = this.itemList.length;
+        var item;
+        var track;
+        for (var i = len - 1; i >= 0; i--) {
+            item = this.itemList[i];
+            track = item.track;
+            //移动
+            item.z += this.moveSpeed;
+            item.x = this.farPotList[track].x + item.z / this.trackLenth * this.trackXList[track];
+            item.y = this.farPotList[track].y + item.z / this.trackLenth * this.trackYList[track];
+            item.scaleX = item.z / this.trackLenth;
+            item.scaleY = item.scaleX;
+            //碰撞检测
+            if (this.myHero.track == item.track) {
+                if (Math.abs(this.myHero.z - item.z) < 100) {
+                    var self = this;
+                    if (item instanceof Carrot) {
+                        item.changeAlpha();
+                        this.itemList.splice(i, 1);
+                    }
+                    else if (item instanceof Stone) {
+                        egret.log("hit stone:", item.x, item.y, item.z, item.scaleX);
+                        this.myHero.gotoAndPlay("jump");
+                        this.myHero.z = -200;
+                        egret.Tween.get(this.myHero).to({ y: -200, x: Math.random() * this.stageWidth, rotation: 360 * 3 }, 500).call(function () {
+                            self.resetPlayer();
+                        });
+                    }
+                }
+            }
+            //边界检测
+            if (item.y > (this.stageHeight + item.height)) {
+                item.recycle();
+                this.itemList.splice(i, 1);
+            }
         }
+    };
+    //////////////////////////////////////////////////////
+    //------------------Socket数据处理---------------------
+    //////////////////////////////////////////////////////
+    //跳跃
+    p.revAction = function (data) {
+        egret.log("revAction:", data);
+        var actionType = data.actionType;
+        var myTrack = this.myHero.track;
+        var self = this;
+        if (actionType == "left") {
+            if (myTrack > 0) {
+                myTrack--;
+                egret.Tween.get(this.myHero).to({ x: this.nearPotList[myTrack].x }, 300);
+                this.myHero.track = myTrack;
+            }
+        }
+        else if (actionType == "right") {
+            if (myTrack < (this.trackNum - 1)) {
+                myTrack++;
+                egret.Tween.get(this.myHero).to({ x: this.nearPotList[myTrack].x }, 300);
+                this.myHero.track = myTrack;
+            }
+        }
+        else if (actionType == "up") {
+            if (this.myHero.isJumping == false) {
+                this.myHero.isJumping = true;
+                var myHeroY = this.myHero.y;
+                this.myHero.gotoAndPlay("jump");
+                this.myHero.z = 0;
+                egret.Tween.get(this.myHero).to({ y: this.myHero.y - 500 }, 300).to({ y: myHeroY }, 300).
+                    call(function () {
+                    self.myHero.isJumping = false;
+                    self.myHero.gotoAndPlay("run", -1);
+                    self.myHero.z = self.trackLenth;
+                }, this);
+            }
+        }
+    };
+    //发送游戏结束
+    p.sendGameOver = function () {
+        egret.log("sendGameOver");
+        var json;
+        if (GameConst.debug) {
+            json = {
+                scoreList: [{ openid: "ABC", score: 999 }]
+            };
+        }
+        else {
+        }
+        this.socket.sendMessage("gameOver", json);
     };
     return GameScene;
 }(BaseScene));
