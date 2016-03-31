@@ -107,6 +107,11 @@ class ResultScene extends BaseScene{
         this.setGrasslabel(grass);
         
         var luckTime = egret.localStorage.getItem("lkl_luckTime");
+        
+        if(GameConst.debug){
+            luckTime = "false";
+        }
+        
         if(luckTime == "true"){   //如果已经抽过奖，则不显示抽奖界面
             this.btnGroup.visible = true;
             //this.showCode();
@@ -147,7 +152,7 @@ class ResultScene extends BaseScene{
                 status: true,
                 code: 200,
                 msg: "aa",
-                data: { prizeName:"幸运奖",prizeIndex:5, winMark:"N"}
+                data: { prizeName:"幸运奖",prizeIndex:5, winMark:"Y"}
             }
             this.revLuck(JSON.stringify(json));
         } else {

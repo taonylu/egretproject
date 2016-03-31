@@ -10,6 +10,7 @@ class LuckForm extends BaseUI{
     private telLabel:eui.EditableText;         //电话
     private addressLabel:eui.EditableText;     //地址
     private prizeLabel:eui.Label;              //中的什么奖
+    private submitBtn_Black:eui.Image;         //提交黑色按钮
     
     private http:HttpUtil = new HttpUtil();   
     
@@ -36,16 +37,30 @@ class LuckForm extends BaseUI{
         this.nameLabel.text = "";
         this.telLabel.text = "";
         this.addressLabel.text = "";
+        this.submitBtn.visible = false;
+        this.submitBtn_Black.visible = true;
     }
     
     private configListeners(){
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
         this.submitBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onSubmitTouch,this);
         this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onCloseTouch,this);
     }
     
     private deConfigListeners(){
+        this.removeEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
         this.submitBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onSubmitTouch,this);
         this.closeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onCloseTouch,this);
+    }
+    
+    private onEnterFrame(){
+        if(this.nameLabel.text =="" || this.telLabel.text == "" || this.addressLabel.text == ""){
+            this.submitBtn.visible = false;
+            this.submitBtn_Black.visible = true;
+        }else{
+            this.submitBtn.visible = true;
+            this.submitBtn_Black.visible = false;
+        }
     }
     
     private onSubmitTouch(){

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<actionScriptProperties analytics="false" mainApplicationPath="Box2DSimple.as" projectUUID="410a71bb-95ff-4102-89ac-a60b91abab2a" version="11">
+  <compiler additionalCompilerArguments="-locale en_US" advancedTelemetry="false" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" useFlashSDK="true" verifyDigests="true" warn="true">
+    <compilerSourcePath>
+      <compilerSourcePathEntry kind="1" linkType="1" path="${DOCUMENTS}/Foundation_of_Box2D/lib"/>
+    </compilerSourcePath>
+    <libraryPath defaultLinkType="0">
+      <libraryPathEntry kind="4" path="">
+        <excludedEntries>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_charts.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="1" linkType="1" path="${PROJECT_FRAMEWORKS}/locale/{locale}"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/advancedgrids.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/qtp.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_air.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/charts.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/mx/mx.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/netmon.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/spark.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/sparkskins.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/rpc.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/videoPlayer.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/qtp_air.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/datavisualization.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/spark_dmv.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flash-integration.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_dmv.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_flashflexkit.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
+        </excludedEntries>
+      </libraryPathEntry>
+      <libraryPathEntry kind="3" linkType="1" path="${DOCUMENTS}/Foundation_of_Box2D/lib/MinimalComps.swc" useDefaultLinkType="false"/>
+    </libraryPath>
+    <sourceAttachmentPath/>
+  </compiler>
+  <applications>
+    <application path="Whatis/WhatIsGetAABB.as"/>
+    <application path="Whatis/WhatIsGetAABB2.as"/>
+    <application path="DemoCreateFixture2.as"/>
+    <application path="DemoSplit.as"/>
+    <application path="DemoQueryAABB.as"/>
+    <application path="DemoSetMassData.as"/>
+    <application path="Whatis/WhatIsQueryShape.as"/>
+    <application path="DemoRaycast.as"/>
+    <application path="DemoGetMass.as"/>
+    <application path="DemoApplyForce.as"/>
+    <application path="DemoGetAABB.as"/>
+    <application path="Whatis/WhatIsCreateFixture.as"/>
+    <application path="Whatis/WhatIsQueryAABB.as"/>
+    <application path="DemoCreateFixture.as"/>
+    <application path="DemoApplyImpulse.as"/>
+    <application path="Whatis/WhatIsRayCast.as"/>
+    <application path="DemoDestroyFixture.as"/>
+    <application path="DemoApplyTorque.as"/>
+    <application path="DemoQueryShape.as"/>
+  </applications>
+  <modules/>
+  <workers/>
+  <buildCSSFiles/>
+  <flashCatalyst validateFlashCatalystCompatibility="false"/>
+</actionScriptProperties>

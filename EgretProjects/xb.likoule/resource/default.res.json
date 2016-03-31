@@ -17,7 +17,7 @@
 			"name":"luck"
 		},
 		{
-			"keys":"panelSheet_json,rule_png",
+			"keys":"panelSheet_json,rule_png,submit_black_png",
 			"name":"panel"
 		},
 		{
@@ -107,6 +107,11 @@
 			"name":"ruleBtn2_png",
 			"type":"image",
 			"url":"assets/home/ruleBtn2.png"
+		},
+		{
+			"name":"submit_black_png",
+			"type":"image",
+			"url":"assets/submit_black.png"
 		}
 	]
 }

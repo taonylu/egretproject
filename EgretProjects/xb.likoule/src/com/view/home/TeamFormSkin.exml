@@ -15,5 +15,6 @@
 		<e:EditableText id="telLabel" x="304" y="149" textColor="0x020101" height="43" text="电话" fontFamily="微软雅黑" textAlign="left" width="284" verticalAlign="middle" size="25"/>
 		<e:EditableText id="addressLabel" y="225" textColor="0x020101" size="25" text="地址" fontFamily="微软雅黑" width="277" verticalAlign="top" height="81" x="305" multiline="true"/>
 		<e:Image id="submitBtn" source="submitBtn" y="368" x="310"/>
+		<e:Image id="submitBtn_Black" source="submit_black_png" x="310" y="368"/>
 	</e:Group>
 </e:Skin>

@@ -18,5 +18,6 @@
 		<e:EditableText x="273" y="135" textColor="0x020101" verticalAlign="middle" text="姓名" fontFamily="微软雅黑" textAlign="left" width="265" size="20" height="43" id="nameLabel"/>
 		<e:EditableText id="telLabel" y="180" textColor="0x020101" verticalAlign="middle" text="电话" fontFamily="微软雅黑" textAlign="left" width="267" height="43" size="20" x="274"/>
 		<e:EditableText width="264" y="235" textColor="0x020101" verticalAlign="top" text="地址" fontFamily="微软雅黑" id="addressLabel" multiline="true" size="20" height="83" x="275"/>
+		<e:Image id="submitBtn_Black" source="submit_black_png" x="328" y="379"/>
 	</e:Group>
 </e:Skin>

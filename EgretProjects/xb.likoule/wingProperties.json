@@ -367,6 +367,11 @@
 					"isFolder":false,
 					"key":"ruleBtn2_png",
 					"name":"ruleBtn2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"submit_black_png",
+					"name":"submit_black_png"
 				}
 			]
 		}

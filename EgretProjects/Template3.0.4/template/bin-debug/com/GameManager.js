@@ -11,6 +11,8 @@ var GameManager = (function () {
     var d = __define,c=GameManager,p=c.prototype;
     //启动游戏框架
     p.startup = function (main) {
+        //获取配置信息
+        GameConst.gameConfig = window["gameConfig"];
         //配置Layer
         GameConst.stage = main.stage;
         LayerManager.getInstance().initialize(main);

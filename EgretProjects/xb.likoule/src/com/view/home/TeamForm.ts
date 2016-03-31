@@ -6,6 +6,7 @@
 class TeamForm extends BaseUI{
     private closeBtn:eui.Image;            //关闭
     private submitBtn:eui.Image;           //提交
+    private submitBtn_Black:eui.Image;     //提交黑色按钮
     private nameLabel:eui.EditableText;    //名字
     private telLabel:eui.EditableText;     //电话
     private addressLabel:eui.EditableText; //地址
@@ -26,13 +27,28 @@ class TeamForm extends BaseUI{
         this.nameLabel.text = "";
         this.telLabel.text = "";
         this.addressLabel.text = "";
+        this.submitBtn.visible = false;
+        this.submitBtn_Black.visible = true;
         this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onCloseBtnTouch,this);
         this.submitBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onSubmitBtnTouch,this);
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
     }
 
     public onRemove() {
         this.closeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onCloseBtnTouch,this);
         this.submitBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onSubmitBtnTouch,this);
+        this.removeEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
+    }
+    
+    private onEnterFrame(){
+        //检查文本是否填满
+        if(this.nameLabel.text == "" || this.telLabel.text == "" || this.addressLabel.text == "" ){
+            this.submitBtn_Black.visible = true;
+            this.submitBtn.visible = false;
+        }else{
+            this.submitBtn.visible = true;
+            this.submitBtn_Black.visible = false;
+        }
     }
     
     private onCloseBtnTouch(){

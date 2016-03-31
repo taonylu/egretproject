@@ -32,7 +32,7 @@ class ClientSocket {
     public startConnect(): void {
 
         //连接socket
-        //this.socket = io.connect(window["server"],{ reconnection: false,'force new connection': true});
+        //this.socket = io.connect(GameConst.gameConfig.server,{ reconnection: false,'force new connection': true});
         var self: ClientSocket = this;
 
         //连接成功 
