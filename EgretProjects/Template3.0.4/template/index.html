@@ -52,12 +52,14 @@
 	<script egret="game" src="bin-debug/com/utils/scene/BaseScene.js"></script>
 	<script egret="game" src="bin-debug/com/utils/scene/BaseUI.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/ArrayTool.js"></script>
+	<script egret="game" src="bin-debug/com/utils/tool/DateTimer.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/HttpUtil.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/NumberTool.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/ObjectPool.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/QRCodeLoader.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/ShakeTool.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/StringTool.js"></script>
+	<script egret="game" src="bin-debug/com/utils/ui/HeadUI.js"></script>
 	<script egret="game" src="bin-debug/com/utils/ui/ItemScroll.js"></script>
 	<script egret="game" src="bin-debug/com/utils/ui/SimpleMC.js"></script>
 	<script egret="game" src="bin-debug/com/view/GameScene.js"></script>
@@ -82,6 +84,12 @@
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>
+    	//游戏配置信息
+    	var gameConfig = {
+    		server:""
+    	}
+    	
+    	//运行游戏
         egret.runEgret();
     </script>
 </body>

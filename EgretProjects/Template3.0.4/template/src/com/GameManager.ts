@@ -9,7 +9,9 @@ class GameManager {
     
     //启动游戏框架
     public startup(main: Main): void {
-
+        //获取配置信息
+        GameConst.gameConfig = window["gameConfig"];
+        
         //配置Layer
         GameConst.stage = main.stage;
         LayerManager.getInstance().initialize(main);

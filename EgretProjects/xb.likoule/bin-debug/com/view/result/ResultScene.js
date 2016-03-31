@@ -71,6 +71,9 @@ var ResultScene = (function (_super) {
         this.setScoreLabel(score);
         this.setGrasslabel(grass);
         var luckTime = egret.localStorage.getItem("lkl_luckTime");
+        if (GameConst.debug) {
+            luckTime = "false";
+        }
         if (luckTime == "true") {
             this.btnGroup.visible = true;
         }
@@ -105,7 +108,7 @@ var ResultScene = (function (_super) {
                 status: true,
                 code: 200,
                 msg: "aa",
-                data: { prizeName: "幸运奖", prizeIndex: 5, winMark: "N" }
+                data: { prizeName: "幸运奖", prizeIndex: 5, winMark: "Y" }
             };
             this.revLuck(JSON.stringify(json));
         }

@@ -114,7 +114,8 @@ var HomeScene = (function (_super) {
     p.sendStartGame = function () {
         egret.log("sendStartGame");
         if (GameConst.debug) {
-            var json = { status: true, code: 200, msg: "aa", data: { teamName: "ABCD" } };
+            var json = { status: true, code: 200, msg: "aa", data: { teamName: "ABCD", validSigne: {
+                        keyword: "", timestamp: 123, signature: "" } } };
             this.revStartGame(JSON.stringify(json));
         }
         else {

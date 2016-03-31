@@ -26,14 +26,28 @@ var LuckForm = (function (_super) {
         this.nameLabel.text = "";
         this.telLabel.text = "";
         this.addressLabel.text = "";
+        this.submitBtn.visible = false;
+        this.submitBtn_Black.visible = true;
     };
     p.configListeners = function () {
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
         this.submitBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSubmitTouch, this);
         this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseTouch, this);
     };
     p.deConfigListeners = function () {
+        this.removeEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
         this.submitBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onSubmitTouch, this);
         this.closeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseTouch, this);
+    };
+    p.onEnterFrame = function () {
+        if (this.nameLabel.text == "" || this.telLabel.text == "" || this.addressLabel.text == "") {
+            this.submitBtn.visible = false;
+            this.submitBtn_Black.visible = true;
+        }
+        else {
+            this.submitBtn.visible = true;
+            this.submitBtn_Black.visible = false;
+        }
     };
     p.onSubmitTouch = function () {
         this.sendSubmitRequest();
