@@ -1,7 +1,7 @@
 /**
 *  文 件 名：QRCodeLoader.ts
 *  功    能：二维码加载器
-*  内    容：
+*  内    容：加载qrcode.js生成的img标签图片，生成egret的Bitmap
 *  作    者： Rikiamru
 *  生成日期：2015/9/17
 *  修改日期：2015/9/17

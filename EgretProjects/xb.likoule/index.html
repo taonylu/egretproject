@@ -151,6 +151,7 @@
     		//oimg.style.display = "inline";
 	    	//oimg.style.left = (screenWidth - 198)/2 + "px";
 	    	//oimg.style.top = (screenHeight - 215)/2 + "px";
+			startGame();
     	}else{
     		//运行游戏
     		startGame();
@@ -161,7 +162,7 @@
     	window.onorientationchange = function(){
     		//游戏尚未运行，并且手机横置，则开始游戏
     		if(gameRuning == false && (window.orientation == 90 || window.orientation == -90)){
-    				startGame();
+    				//startGame();
     		}
     		//window["GM"].onOrientation(window.orientation);
     	}
@@ -180,13 +181,14 @@
     	
     	//playBGM();
     	
+		/*
     	var body = document.body;
     	body.onclick = onBodyClick;
     	
     	function onBodyClick(){
     		console.log("click");
     		startGame();
-    	}
+    	}*/
 
     </script>
 </body>
