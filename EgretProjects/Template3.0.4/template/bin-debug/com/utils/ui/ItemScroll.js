@@ -8,9 +8,10 @@
 *  修改日志：
 *
 * Example:
-* 1. exml里从自定义组件中找到ItemScroller，并拖动到exml上
-* 2. 将需要显示对象(图片或场景等)拖动到ItemScroller的Group下
+* 1. 从自定义组件中找到ItemScroller，并拖动到exml上
+* 2. 将需要显示对象(图片等)拖动到ItemScroller的Group下
 * 3. 设置Group的布局为垂直or水平
+* 4. 即可
 */
 var ItemScroller = (function (_super) {
     __extends(ItemScroller, _super);
