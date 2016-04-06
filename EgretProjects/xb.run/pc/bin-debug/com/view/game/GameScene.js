@@ -18,8 +18,7 @@ var GameScene = (function (_super) {
         this.isSingleMode = true; //是否单人模式
         this.singleTrackNum = 3; //单人赛道数量
         this.multiTrackNum = 7; //多人赛道
-        this.trackLenth = 3000; //赛道长度
-        this.moveSpeed = 20; //移动速度
+        this.moveSpeed = 10; //移动速度
         //创建地图，算法以单赛道创建为主，每隔一段距离创建一次
         this.count = 0;
     }
@@ -96,7 +95,6 @@ var GameScene = (function (_super) {
         this.myHero.anchorOffsetY = this.myHero.height / 2;
         this.myHero.x = this.nearPotList[1].x;
         this.myHero.y = this.nearPotList[1].y;
-        this.myHero.z = this.trackLenth;
         this.myHero.track = Math.floor(this.trackNum / 2);
         this.myHero.isJumping = false;
         this.playerGroup.addChild(this.myHero);
@@ -139,7 +137,7 @@ var GameScene = (function (_super) {
             }
         }
     };
-    //移动地图
+    //移动物体
     p.moveItem = function () {
         var len = this.itemList.length;
         var item;
@@ -148,23 +146,22 @@ var GameScene = (function (_super) {
             item = this.itemList[i];
             track = item.track;
             //移动
-            item.z += this.moveSpeed;
-            item.x = this.farPotList[track].x + item.z / this.trackLenth * this.trackXList[track];
-            item.y = this.farPotList[track].y + item.z / this.trackLenth * this.trackYList[track];
-            item.scaleX = item.z / this.trackLenth;
-            item.scaleY = item.scaleX;
+            item.y += this.moveSpeed;
+            var rate = (item.y - this.farPotList[track].y) / this.trackYList[track]; //所在y轴位置比例
+            item.x = this.farPotList[track].x + rate * this.trackXList[track];
+            item.scaleX = rate;
+            item.scaleY = rate;
             //碰撞检测
             if (this.myHero.track == item.track) {
-                if (Math.abs(this.myHero.z - item.z) < 100) {
+                if (Math.abs(this.myHero.y - item.y) < 100) {
                     var self = this;
                     if (item instanceof Carrot) {
                         item.changeAlpha();
                         this.itemList.splice(i, 1);
                     }
                     else if (item instanceof Stone) {
-                        egret.log("hit stone:", item.x, item.y, item.z, item.scaleX);
+                        egret.log("hit stone:", item.x, item.y, item.scaleX);
                         this.myHero.gotoAndPlay("jump");
-                        this.myHero.z = -200;
                         egret.Tween.get(this.myHero).to({ y: -200, x: Math.random() * this.stageWidth, rotation: 360 * 3 }, 500).call(function () {
                             self.resetPlayer();
                         });
@@ -206,12 +203,10 @@ var GameScene = (function (_super) {
                 this.myHero.isJumping = true;
                 var myHeroY = this.myHero.y;
                 this.myHero.gotoAndPlay("jump");
-                this.myHero.z = 0;
                 egret.Tween.get(this.myHero).to({ y: this.myHero.y - 500 }, 300).to({ y: myHeroY }, 300).
                     call(function () {
                     self.myHero.isJumping = false;
                     self.myHero.gotoAndPlay("run", -1);
-                    self.myHero.z = self.trackLenth;
                 }, this);
             }
         }

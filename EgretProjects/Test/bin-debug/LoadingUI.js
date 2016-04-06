@@ -45,5 +45,5 @@ var LoadingUI = (function (_super) {
         this.textField.text = "Loading..." + current + "/" + total;
     };
     return LoadingUI;
-})(egret.Sprite);
+}(egret.Sprite));
 egret.registerClass(LoadingUI,'LoadingUI');

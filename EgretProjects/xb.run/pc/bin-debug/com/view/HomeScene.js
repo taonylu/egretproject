@@ -35,17 +35,21 @@ var HomeScene = (function (_super) {
         codeLoader.y = (GameConst.stage.stageHeight - gameConfig.codeHeight) / 2;
         this.addChild(codeLoader);
     };
+    //开始倒计时
     p.startCountDown = function () {
         this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
         this.countDownTimer.reset();
         this.countDownTimer.start();
     };
+    //倒计时处理
     p.onCountDownHandler = function () {
         var count = this.countDownLimit - this.countDownTimer.currentCount;
+        //TODO 显示倒计时
         //倒计时结束，开始校准
         if (count < 0) {
             this.countDownTimer.stop();
             this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
+            LayerManager.getInstance().runScene(GameManager.getInstance().lockScene);
             this.sendStartLock();
         }
     };
@@ -56,7 +60,12 @@ var HomeScene = (function (_super) {
     p.sendLogin = function () {
         egret.log("sendLogin：", this.rid);
         var rid = this.rid;
-        this.socket.sendMessage("login", { rid: rid, userType: "pc" }, this.revLogin, this);
+        if (GameConst.debug) {
+            this.socket.sendMessage("login", { rid: rid, userType: "pc" }, this.revLogin, this);
+        }
+        else {
+            this.socket.sendMessage("login", { rid: rid }, this.revLogin, this);
+        }
     };
     //接收登录
     p.revLogin = function (data) {
@@ -76,12 +85,14 @@ var HomeScene = (function (_super) {
             LayerManager.getInstance().runScene(GameManager.getInstance().lockScene);
         }
         else {
+            //TODO 显示用户信息，第一人进入，则开始倒计时
+            this.startCountDown();
         }
     };
     //用户离开
     p.revUserQuit = function (data) {
         egret.log("rev userQuit:", data);
-        //TODO 删除用户
+        //TODO 删除用户，如果首页所有用户离开，则停止倒计时；如果游戏页面所有玩家离开，则结束游戏
     };
     //发送开始校准
     p.sendStartLock = function () {

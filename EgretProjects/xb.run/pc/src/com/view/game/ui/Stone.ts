@@ -13,7 +13,6 @@ class Stone extends BaseItem{
     }
 
     public recycle() {
-        console.log("st");
         super.recycle();
         this.parent && this.parent.removeChild(this);
         ObjectPool.getPool(Stone.NAME).returnObject(this);

@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="GameSceneSkin" width="1500" height="768" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
-	<e:Group id="bgGroup" height="768" width="1500">
-		<e:Rect y="-1" id="grassLand0" width="1500" height="400" x="1" fillColor="0xABEDDF"/>
-		<e:Rect id="grassLand" height="400" width="1500" x="1" y="368" fillColor="0x469F5F"/>
-	</e:Group>
-	<e:Group id="treeGroup" height="400" width="1500" y="368">
-	</e:Group>
-</e:Skin>

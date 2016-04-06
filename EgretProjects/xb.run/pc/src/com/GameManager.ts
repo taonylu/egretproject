@@ -11,16 +11,15 @@ class GameManager {
     //启动游戏框架
     public startup(main: Main): void {
         
-        //配置Layer
+        //初始化配置
         GameConst.stage = main.stage;
         GameConst.debug = window["gameConfig"].debug;
         LayerManager.getInstance().initialize(main);
         
-        
         //显示主页
         LayerManager.getInstance().runScene(this.homeScene); 
         
-        //配置Socket
+        //socket
         var socket:ClientSocket = ClientSocket.getInstance();
         socket.gameManager = this;
         socket.homeScene = this.homeScene;
