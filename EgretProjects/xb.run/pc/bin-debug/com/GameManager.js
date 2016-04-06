@@ -12,13 +12,13 @@ var GameManager = (function () {
     var d = __define,c=GameManager,p=c.prototype;
     //启动游戏框架
     p.startup = function (main) {
-        //配置Layer
+        //初始化配置
         GameConst.stage = main.stage;
         GameConst.debug = window["gameConfig"].debug;
         LayerManager.getInstance().initialize(main);
         //显示主页
         LayerManager.getInstance().runScene(this.homeScene);
-        //配置Socket
+        //socket
         var socket = ClientSocket.getInstance();
         socket.gameManager = this;
         socket.homeScene = this.homeScene;

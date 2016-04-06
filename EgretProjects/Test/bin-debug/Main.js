@@ -131,5 +131,5 @@ var Main = (function (_super) {
         console.log(p.getName());
     };
     return Main;
-})(eui.UILayer);
+}(eui.UILayer));
 egret.registerClass(Main,'Main');

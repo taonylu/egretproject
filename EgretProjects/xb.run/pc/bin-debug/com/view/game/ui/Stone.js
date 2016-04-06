@@ -13,7 +13,6 @@ var Stone = (function (_super) {
     }
     var d = __define,c=Stone,p=c.prototype;
     p.recycle = function () {
-        console.log("st");
         _super.prototype.recycle.call(this);
         this.parent && this.parent.removeChild(this);
         ObjectPool.getPool(Stone.NAME).returnObject(this);

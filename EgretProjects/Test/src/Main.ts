@@ -131,6 +131,7 @@ class Main extends eui.UILayer {
         var p:TestInterface = new People();
         p.name = "123";
         console.log(p.getName());
+       
         
     }
 

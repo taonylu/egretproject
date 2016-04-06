@@ -5,7 +5,6 @@
  */
 class Player extends SimpleMC{
     public track:number;   //当前所处的赛道
-    public z:number;          //虚拟z轴
     public isJumping:boolean = false; //是否跳跃
     
 	public constructor() {

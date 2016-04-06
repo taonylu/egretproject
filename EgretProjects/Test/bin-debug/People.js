@@ -11,5 +11,5 @@ var People = (function () {
         return this.name;
     };
     return People;
-})();
+}());
 egret.registerClass(People,'People',["TestInterface"]);
