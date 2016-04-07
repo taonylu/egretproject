@@ -6,17 +6,18 @@
 class HeadUI extends BaseUI{
     
     private nameLabel:eui.Label;    //名字文本
-    public  headImg:egret.Bitmap;   //头像图片
-    public  userID:string;          //用户ID
+    public infoLabel:eui.Label;    //选择信息文本
+    private headImg:egret.Bitmap;   //头像图片
+    private openid:string;          //用户ID
     private headMask:eui.Image;     //头像遮罩
-    private imgX:number = 10;       //图片大小高宽和位置
-    private imgY:number = 17;
-    private imgWidth:number = 45;
-    private imgHeight:number = 45;
+    private imgX:number = 8;        //图片大小高宽和位置
+    private imgY:number = 7;
+    private imgWidth:number = 75;
+    private imgHeight:number = 75;
     private imageLoader: egret.ImageLoader = new egret.ImageLoader(); //图片加载器
     
 	public constructor() {
-    	super("HeadUISkin");
+    	super("HeadUI2Skin");
 	}
 	
     public componentCreated(): void {
@@ -32,11 +33,20 @@ class HeadUI extends BaseUI{
         this.addChild(this.headImg);
     }
     
-    public setNameLabel(_name:string):void{
+    public setUserInfo(userVO:UserVO){
+        if(this.isEmpty() == false){
+            this.clear();
+        }
+        this.setNameLabel(userVO.nickName);
+        this.loadImg(userVO.headUrl);
+        this.openid = userVO.openid; 
+    }
+    
+    private setNameLabel(_name:string):void{
         this.nameLabel.text = _name;
     }
     
-    public loadImg(imgUrl:string){
+    private loadImg(imgUrl:string){
         this.imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onLoadError,this);
         this.imageLoader.addEventListener(egret.Event.COMPLETE,this.loadCompleteHandler,this);
         this.imageLoader.load(imgUrl);
@@ -54,7 +64,7 @@ class HeadUI extends BaseUI{
     }
     
     //是否为空
-    public isEmpty():Boolean{
+    private isEmpty():Boolean{
         if(this.nameLabel.text == ""){
             return true;
         }
@@ -62,10 +72,10 @@ class HeadUI extends BaseUI{
     }
     
     //清理数据
-    public reset():void{
+    public clear():void{
         this.nameLabel.text = "";
         this.headImg.bitmapData = null;
-        this.userID = "";
+        this.openid = "";
     }
     
     

@@ -21,12 +21,14 @@ var game_file_list = [
 	"bin-debug/com/view/GameScene.js",
 	"bin-debug/com/view/HomeScene.js",
 	"bin-debug/com/view/PreloadScene.js",
+	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
+	"bin-debug/com/view/LockScene.js",
 	//----auto game_file_list end----
 ];
 
-var window = {};
+var window = this;
 
 egret_native.setSearchPaths([""]);
 
@@ -53,8 +55,8 @@ egret_native.egretStart = function () {
 		entryClassName: "Main",
 		frameRate: 30,
 		scaleMode: "fixedWidth",
-		contentWidth: 480,
-		contentHeight: 800,
+		contentWidth: 640,
+		contentHeight: 1136,
 		showPaintRect: false,
 		showFPS: true,
 		fpsStyles: "x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9",

@@ -57,15 +57,17 @@ var Main = (function (_super) {
     //preload资源组加载完成
     p.onPreloadComplete = function (event) {
         this.preloadScene = new PreloadScene();
+        this.preloadScene.setProgress(0);
         this.addChild(this.preloadScene);
-        LoadManager.getInstance().loadGroup("game", this, this.onGameComplete, this.onGameProgress);
+        LoadManager.getInstance().loadGroup("home", this, this.onHomeComplete, this.onHomeProgress);
     };
-    p.onGameProgress = function (e) {
+    p.onHomeProgress = function (e) {
         this.preloadScene.setProgress(Math.round(e.itemsLoaded / e.itemsTotal * 100));
     };
-    p.onGameComplete = function () {
+    p.onHomeComplete = function () {
         this.removeChild(this.preloadScene);
         this.preloadScene = null;
+        LoadManager.getInstance().loadGroup("game", this);
         GameManager.getInstance().startup(this);
     };
     return Main;

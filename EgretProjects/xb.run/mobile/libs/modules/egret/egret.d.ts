@@ -901,6 +901,10 @@ declare module egret {
         anchorOffsetX: number;
         /**
          * @private
+         */
+        $getAnchorOffsetX(): boolean;
+        /**
+         * @private
          *
          * @param value
          * @returns
@@ -921,6 +925,10 @@ declare module egret {
          * @platform Web,Native
          */
         anchorOffsetY: number;
+        /**
+         * @private
+         */
+        $getAnchorOffsetY(): boolean;
         /**
          * @private
          *
@@ -2835,6 +2843,9 @@ declare module egret {
          * @private
          */
         private maxY;
+        /**
+         * @private
+         */
         private extendBoundsByPoint(x, y);
         /**
          * @private
@@ -2845,11 +2856,16 @@ declare module egret {
          */
         private extendBoundsByY(y);
         /**
+         * @private
+         */
+        private updateNodeBounds();
+        /**
          * 是否已经包含上一次moveTo的坐标点
          */
         private includeLastPosition;
         /**
          * 更新当前的lineX和lineY值，并标记尺寸失效。
+         * @private
          */
         private updatePosition(x, y);
         /**
@@ -3120,7 +3136,7 @@ declare module egret {
          * @version Egret 2.4
          * @platform Web
          */
-        getPixel32(x: number, y: number): Uint8ClampedArray;
+        getPixel32(x: number, y: number): number[];
         /**
          * @language en_US
          * Convert base64 string, if the picture (or pictures included) cross-border or null
@@ -3219,7 +3235,7 @@ declare module egret {
          * @platform Web,Native
          */
         drawToTexture(displayObject: egret.DisplayObject, clipBounds?: Rectangle, scale?: number): boolean;
-        getPixel32(x: number, y: number): Uint8ClampedArray;
+        getPixel32(x: number, y: number): number[];
         dispose(): void;
     }
 }
@@ -9202,7 +9218,7 @@ declare module egret.sys {
         /**
          * 获取指定坐标的像素
          */
-        getPixel(x: number, y: number): Uint8ClampedArray;
+        getPixel(x: number, y: number): number[];
         /**
          * 转换成base64字符串，如果图片（或者包含的图片）跨域，则返回null
          * @param type 转换的类型，如: "image/png","image/jpeg"
@@ -9740,6 +9756,7 @@ declare module egret.sys {
          * 控制在缩放时是否对位图进行平滑处理。
          */
         smoothing: boolean;
+        matrix: egret.Matrix;
         /**
          * 绘制一次位图
          */
@@ -9793,6 +9810,29 @@ declare module egret.sys {
          * 覆盖父类方法，不自动清空缓存的绘图数据，改为手动调用clear()方法清空。
          */
         cleanBeforeRender(): void;
+        /**
+         * 绘制x偏移
+         */
+        x: number;
+        /**
+         * 绘制y偏移
+         */
+        y: number;
+        /**
+         * 绘制宽度
+         */
+        width: number;
+        /**
+         * 绘制高度
+         */
+        height: number;
+        /**
+         * 脏渲染标记
+         * 暂时调用lineStyle,beginFill,beginGradientFill标记,实际应该draw时候标记在Path2D
+         */
+        dirtyRender: boolean;
+        $canvasRenderer: any;
+        $canvasRenderBuffer: any;
     }
 }
 declare module egret.sys {
@@ -9916,6 +9956,28 @@ declare module egret.sys {
          * 在显示对象的$render()方法被调用前，自动清空自身的drawData数据。
          */
         cleanBeforeRender(): void;
+        /**
+         * 绘制x偏移
+         */
+        x: number;
+        /**
+         * 绘制y偏移
+         */
+        y: number;
+        /**
+         * 绘制宽度
+         */
+        width: number;
+        /**
+         * 绘制高度
+         */
+        height: number;
+        /**
+         * 脏渲染标记
+         */
+        dirtyRender: boolean;
+        $canvasRenderer: any;
+        $canvasRenderBuffer: any;
     }
 }
 declare module egret.sys {
@@ -12484,6 +12546,7 @@ declare module egret {
          */
         $invalidateTextField(): void;
         $update(bounds?: Rectangle): boolean;
+        $getRenderBounds(): Rectangle;
         /**
          * @private
          */
@@ -14280,9 +14343,9 @@ declare module egret {
      * @example
      * <pre>
      *     var instance = new egret.Sprite();
-     *     egret.log(egret.is(instance,egret.Types.Sprite))  //true
-     *     egret.log(egret.is(instance,egret.Types.DisplayObjectContainer))  //true
-     *     egret.log(egret.is(instance,egret.Types.Bitmap))  //false
+     *     egret.log(egret.is(instance,"egret.Sprite"))  //true
+     *     egret.log(egret.is(instance,"egret.DisplayObjectContainer"))  //true
+     *     egret.log(egret.is(instance,"egret.Bitmap"))  //false
      * </pre>
      * @see egret.registerClass()
      * @version Egret 2.4
@@ -14297,9 +14360,9 @@ declare module egret {
      * @example
      * <pre>
      *     var instance = new egret.Sprite();
-     *     egret.log(egret.is(instance,egret.Types.Sprite))  //true
-     *     egret.log(egret.is(instance,egret.Types.DisplayObjectContainer))  //true
-     *     egret.log(egret.is(instance,egret.Types.Bitmap))  //false
+     *     egret.log(egret.is(instance,"egret.Sprite"))  //true
+     *     egret.log(egret.is(instance,"egret.DisplayObjectContainer"))  //true
+     *     egret.log(egret.is(instance,"egret.Bitmap"))  //false
      * </pre>
      * @see egret.registerClass()
      * @version Egret 2.4

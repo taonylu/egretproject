@@ -6,6 +6,7 @@
 var GameManager = (function () {
     function GameManager() {
         this.homeScene = new HomeScene(); //主页场景
+        this.lockScene = new LockScene(); //校准场景
         this.gameScene = new GameScene(); //游戏场景
     }
     var d = __define,c=GameManager,p=c.prototype;
@@ -16,8 +17,6 @@ var GameManager = (function () {
         //配置Layer
         GameConst.stage = main.stage;
         LayerManager.getInstance().initialize(main);
-        //显示首页
-        LayerManager.getInstance().runScene(this.homeScene);
         //启动Socket
         this.socket = ClientSocket.getInstance();
         this.socket.gameManager = this;
@@ -27,9 +26,31 @@ var GameManager = (function () {
     };
     //------------------------【socket事件】-------------------------
     p.connect = function () {
-        this.homeScene.sendLogin();
+        this.sendLogin();
     };
     p.disconnect = function () {
+    };
+    //发送登录
+    p.sendLogin = function () {
+        var rid = window["gameConfig"].rid;
+        egret.log("send login:", rid, "userType:mobile");
+        this.socket.sendMessage("login", { rid: rid, userType: "mobile" }, this.revLogin, this);
+    };
+    //接收登录
+    p.revLogin = function (data) {
+        egret.log("rev login1");
+        var success = data.success;
+        var msg = data.msg;
+        if (success) {
+        }
+        else {
+            alert(msg);
+        }
+    };
+    //接收开始校准
+    p.revStartLock = function () {
+        egret.log("revStartLock");
+        LayerManager.getInstance().runScene(GameManager.getInstance().lockScene);
     };
     GameManager.getInstance = function () {
         if (this.instance == null) {

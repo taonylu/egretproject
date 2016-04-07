@@ -42,13 +42,10 @@
 	<script egret="game" src="bin-debug/com/constant/GameConst.js"></script>
 	<script egret="game" src="bin-debug/com/GameManager.js"></script>
 	<script egret="game" src="bin-debug/com/net/ClientSocket.js"></script>
-	<script egret="game" src="bin-debug/com/utils/gesture/GestureDrag.js"></script>
-	<script egret="game" src="bin-debug/com/utils/gesture/GesturePinch.js"></script>
 	<script egret="game" src="bin-debug/com/utils/manager/LayerManager.js"></script>
 	<script egret="game" src="bin-debug/com/utils/manager/LoadManager.js"></script>
-	<script egret="game" src="bin-debug/com/utils/manager/MapManager.js"></script>
-	<script egret="game" src="bin-debug/com/utils/motion/ArcMotion.js"></script>
-	<script egret="game" src="bin-debug/com/utils/motion/CircleMotion.js"></script>
+	<script egret="game" src="bin-debug/com/utils/manager/UserManager.js"></script>
+	<script egret="game" src="bin-debug/com/utils/manager/UserVO.js"></script>
 	<script egret="game" src="bin-debug/com/utils/scene/BaseScene.js"></script>
 	<script egret="game" src="bin-debug/com/utils/scene/BaseUI.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/ArrayTool.js"></script>
@@ -58,14 +55,19 @@
 	<script egret="game" src="bin-debug/com/utils/tool/QRCodeLoader.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/ShakeTool.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/StringTool.js"></script>
-	<script egret="game" src="bin-debug/com/utils/ui/ItemScroll.js"></script>
 	<script egret="game" src="bin-debug/com/utils/ui/SimpleMC.js"></script>
 	<script egret="game" src="bin-debug/com/view/game/GameScene.js"></script>
-	<script egret="game" src="bin-debug/com/view/game/ui/BaseItem.js"></script>
-	<script egret="game" src="bin-debug/com/view/game/ui/Carrot.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/item/BaseItem.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/item/Banana.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/item/Carrot.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/item/HighWood.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/item/LowWood.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/item/Mice.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/item/Stone.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/item/Water.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/ui/Grass.js"></script>
 	<script egret="game" src="bin-debug/com/view/game/ui/HeadUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/game/ui/Player.js"></script>
-	<script egret="game" src="bin-debug/com/view/game/ui/Stone.js"></script>
 	<script egret="game" src="bin-debug/com/view/HomeScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/LockScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/PreloadScene.js"></script>
@@ -98,8 +100,8 @@
     	//游戏配置
     	var gameConfig = {
     		debug:true,                                   //是否本地调试模式
-    		codeWidth:270,                                //二维码宽
-    		codeHeight:270,                               //二维码高
+    		codeWidth:250,                                //二维码宽
+    		codeHeight:250,                               //二维码高
     		codeData:"",                                  //二维码数据
     		logoUrl:"",                                   //二维码中心图片地址
     		needfollow : '<%= needfollow %>',             //是否需要关注公众号

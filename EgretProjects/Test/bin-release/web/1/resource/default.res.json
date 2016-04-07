@@ -1,0 +1,11 @@
+{
+	"groups":[{
+			"keys":"home_thxbg_jpg",
+			"name":"preload"
+		}],
+	"resources":[{
+			"name":"home_thxbg_jpg",
+			"type":"image",
+			"url":"assets/home_thxbg.jpg"
+		}]
+}

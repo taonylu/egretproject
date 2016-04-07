@@ -129,6 +129,12 @@ var Main = (function (_super) {
         var p = new People();
         p.name = "123";
         console.log(p.getName());
+        for (var i = 0; i < 150; i++) {
+            var bm = new egret.Bitmap(RES.getRes("home_thxbg_jpg"));
+            this.addChild(bm);
+            egret.Tween.get(bm, { loop: true }).to({ x: Math.random() * 480 }, 500).to({ x: Math.random() * 480 }, 500);
+        }
+        egret.log(4);
     };
     return Main;
 }(eui.UILayer));

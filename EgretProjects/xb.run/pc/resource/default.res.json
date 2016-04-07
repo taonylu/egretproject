@@ -1,44 +1,163 @@
 {
 	"groups":[
 		{
-			"keys":"home_thxbg_jpg,carrot_png,player_png,player_json,stone_png",
+			"keys":"home_logo_png",
 			"name":"preload"
 		},
 		{
-			"keys":"home_thxbg_jpg",
+			"keys":"game_bg1_png,game_grass2_png,game_sky_jpg,game_tree0_png,game_tree1_png,game_tree3_png,game_grass0_png,game_grass1_png,item_banana_png,item_carrot_png,item_highwood_png,item_lowwood_png,item_mice_png,item_stone_png,item_water_png",
 			"name":"game"
+		},
+		{
+			"keys":"home_demo_png,home_footbg_png,home_headbg_png,home_logo_png,home_msgbx_png,home_panel_png,home_phone_png,home_player_png,homg_bg_jpg,home_arrow0_png,home_arrow1_png,home_codebg_png,home_headmask_png,home_title_png",
+			"name":"home"
 		}
 	],
 	"resources":[
 		{
-			"name":"home_thxbg_jpg",
+			"name":"home_demo_png",
 			"type":"image",
-			"url":"assets/home_thxbg.jpg"
+			"url":"assets/home/home_demo.png"
 		},
 		{
-			"name":"ground_png",
+			"name":"home_footbg_png",
 			"type":"image",
-			"url":"assets/ground.png"
+			"url":"assets/home/home_footbg.png"
 		},
 		{
-			"name":"carrot_png",
+			"name":"home_headbg_png",
 			"type":"image",
-			"url":"assets/carrot.png"
+			"url":"assets/home/home_headbg.png"
 		},
 		{
-			"name":"player_png",
+			"name":"home_logo_png",
 			"type":"image",
-			"url":"assets/player.png"
+			"url":"assets/home/home_logo.png"
 		},
 		{
-			"name":"player_json",
-			"type":"json",
-			"url":"assets/player.json"
+			"name":"home_msgbx_png",
+			"type":"image",
+			"url":"assets/home/home_msgbx.png"
 		},
 		{
-			"name":"stone_png",
+			"name":"home_panel_png",
 			"type":"image",
-			"url":"assets/stone.png"
+			"url":"assets/home/home_panel.png"
+		},
+		{
+			"name":"home_phone_png",
+			"type":"image",
+			"url":"assets/home/home_phone.png"
+		},
+		{
+			"name":"home_player_png",
+			"type":"image",
+			"url":"assets/home/home_player.png"
+		},
+		{
+			"name":"homg_bg_jpg",
+			"type":"image",
+			"url":"assets/home/homg_bg.jpg"
+		},
+		{
+			"name":"home_arrow0_png",
+			"type":"image",
+			"url":"assets/home/home_arrow0.png"
+		},
+		{
+			"name":"home_arrow1_png",
+			"type":"image",
+			"url":"assets/home/home_arrow1.png"
+		},
+		{
+			"name":"home_codebg_png",
+			"type":"image",
+			"url":"assets/home/home_codebg.png"
+		},
+		{
+			"name":"home_headmask_png",
+			"type":"image",
+			"url":"assets/home/home_headmask.png"
+		},
+		{
+			"name":"home_title_png",
+			"type":"image",
+			"url":"assets/home/home_title.png"
+		},
+		{
+			"name":"game_bg1_png",
+			"type":"image",
+			"url":"assets/game/game_bg1.png"
+		},
+		{
+			"name":"game_grass2_png",
+			"type":"image",
+			"url":"assets/game/game_grass2.png"
+		},
+		{
+			"name":"game_sky_jpg",
+			"type":"image",
+			"url":"assets/game/game_sky.jpg"
+		},
+		{
+			"name":"game_tree0_png",
+			"type":"image",
+			"url":"assets/game/game_tree0.png"
+		},
+		{
+			"name":"game_tree1_png",
+			"type":"image",
+			"url":"assets/game/game_tree1.png"
+		},
+		{
+			"name":"game_tree3_png",
+			"type":"image",
+			"url":"assets/game/game_tree3.png"
+		},
+		{
+			"name":"game_grass0_png",
+			"type":"image",
+			"url":"assets/game/game_grass0.png"
+		},
+		{
+			"name":"game_grass1_png",
+			"type":"image",
+			"url":"assets/game/game_grass1.png"
+		},
+		{
+			"name":"item_banana_png",
+			"type":"image",
+			"url":"assets/game/item_banana.png"
+		},
+		{
+			"name":"item_carrot_png",
+			"type":"image",
+			"url":"assets/game/item_carrot.png"
+		},
+		{
+			"name":"item_highwood_png",
+			"type":"image",
+			"url":"assets/game/item_highwood.png"
+		},
+		{
+			"name":"item_lowwood_png",
+			"type":"image",
+			"url":"assets/game/item_lowwood.png"
+		},
+		{
+			"name":"item_mice_png",
+			"type":"image",
+			"url":"assets/game/item_mice.png"
+		},
+		{
+			"name":"item_stone_png",
+			"type":"image",
+			"url":"assets/game/item_stone.png"
+		},
+		{
+			"name":"item_water_png",
+			"type":"image",
+			"url":"assets/game/item_water.png"
 		}
 	]
 }

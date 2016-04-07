@@ -58,14 +58,15 @@ var Main = (function (_super) {
     p.onPreloadComplete = function (event) {
         this.preloadScene = new PreloadScene();
         this.addChild(this.preloadScene);
-        LoadManager.getInstance().loadGroup("game", this, this.onGameComplete, this.onGameProgress);
+        LoadManager.getInstance().loadGroup("home", this, this.onGameComplete, this.onGameProgress);
     };
     p.onGameProgress = function (e) {
         this.preloadScene.setProgress(Math.round(e.itemsLoaded / e.itemsTotal * 100));
     };
     p.onGameComplete = function () {
-        this.removeChild(this.preloadScene);
-        this.preloadScene = null;
+        //this.removeChild(this.preloadScene);
+        //this.preloadScene = null;
+        this.preloadScene.progressLabel.text = "请等待大屏幕倒计时结束\n游戏即将开始";
         GameManager.getInstance().startup(this);
     };
     return Main;

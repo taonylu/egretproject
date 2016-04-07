@@ -1,32 +1,32 @@
 {
-	"native": {
-		"path_ignore": []
+  "native": {
+    "path_ignore": []
+  },
+  "publish": {
+    "web": 0,
+    "native": 1,
+    "path": "bin-release"
+  },
+  "egret_version": "3.0.6",
+  "modules": [
+    {
+		"name": "egret"
 	},
-	"publish": {
-		"web": 0,
-		"native": 1,
-		"path": "bin-release"
+	{
+		"name": "eui"
 	},
-	"egret_version": "3.0.5",
-	"modules": [
-		{
-			"name": "egret"
-		},
-		{
-			"name": "eui"
-		},
-		{
-			"name": "res"
-		},
-		{
-			"name": "tween"
-		},
-		{
-			"name": "game"
-		},
-		{
-			"name": "socket.io",
-			"path": "../socket.io/libsrc"
-		}
-	]
+	{
+		"name": "res"
+	},
+	{
+		"name": "tween"
+	},
+	{
+		"name": "game"
+	},
+	{
+		"name": "socket.io",
+		"path": "../socket.io/libsrc"
+	}
+  ]
 }

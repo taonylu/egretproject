@@ -8,11 +8,43 @@
 			}],
 		"id":"org.egret-labs.resource",
 		"library":{
-			"children":[{
+			"children":[
+				{
 					"isFolder":false,
-					"key":"home_thxbg_jpg",
-					"name":"home_thxbg_jpg"
-				}]
+					"key":"preload_foot_png",
+					"name":"preload_foot_png"
+				},
+				{
+					"isFolder":false,
+					"key":"preload_logo_png",
+					"name":"preload_logo_png"
+				},
+				{
+					"isFolder":false,
+					"key":"preload_title_png",
+					"name":"preload_title_png"
+				},
+				{
+					"isFolder":false,
+					"key":"head0_png",
+					"name":"head0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"head1_png",
+					"name":"head1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"head2_png",
+					"name":"head2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"ok_png",
+					"name":"ok_png"
+				}
+			]
 		}
 	},
 	"theme":"resource/default.thm.json"

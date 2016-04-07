@@ -17,31 +17,6 @@ var HomeScene = (function (_super) {
     };
     p.onRemove = function () {
     };
-    ////////////////////////////////////////////////////////////
-    //------------------------[Socket通讯]----------------------
-    ////////////////////////////////////////////////////////////
-    //发送登录
-    p.sendLogin = function () {
-        var rid = window["gameConfig"].rid;
-        egret.log("send login:", rid, "userType:mobile");
-        this.socket.sendMessage("login", { rid: rid, userType: "mobile" }, this.revLogin, this);
-    };
-    //接收登录
-    p.revLogin = function (data) {
-        egret.log("rev login1");
-        var success = data.success;
-        var msg = data.msg;
-        if (success) {
-        }
-        else {
-        }
-    };
-    //接收开始校准
-    p.revStartLock = function () {
-        egret.log("revStartLock");
-        //TODO 显示校准按钮,校准后开始游戏
-        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
-    };
     return HomeScene;
 }(BaseScene));
 egret.registerClass(HomeScene,'HomeScene');

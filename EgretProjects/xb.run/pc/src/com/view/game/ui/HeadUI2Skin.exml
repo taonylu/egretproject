@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HeadUI2Skin" width="220" height="100" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="home_headbg_png" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image source="home_headmask_png" y="8" id="headMask" x="9"/>
+	<e:Label y="9" textColor="0x000000" height="40" text="标签标签标签标签" fontFamily="微软雅黑" x="85" width="128" size="18" id="nameLabel" verticalAlign="middle" textAlign="left"/>
+	<e:Label y="54" textColor="0x000000" height="23" text="标签标签标签标" fontFamily="微软雅黑" x="85" width="130" size="18" id="infoLabel" textAlign="center" verticalAlign="middle"/>
+</e:Skin>
