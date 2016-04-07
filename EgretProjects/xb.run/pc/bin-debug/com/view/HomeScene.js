@@ -9,11 +9,16 @@ var HomeScene = (function (_super) {
         _super.call(this, "HomeSceneSkin");
         this.codeLoader = new QRCodeLoader(); //二维码
         this.countDownTimer = new egret.Timer(1000); //倒计时计时器
-        this.countDownLimit = 20; //倒计时限制
+        this.countDownLimit = 15; //倒计时限制
+        this.headList = new Array(); //头像UI
     }
     var d = __define,c=HomeScene,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
+        this.headList.push(this.head0, this.head1, this.head2);
+        this.head0.infoLabel.text = "选择暴躁鹿";
+        this.head1.infoLabel.text = "选择嘻哈兔";
+        this.head2.infoLabel.text = "选择悠悠熊猫";
         this.socket = ClientSocket.getInstance();
         this.createQRCode();
     };
@@ -31,9 +36,7 @@ var HomeScene = (function (_super) {
         var codeLoader = new QRCodeLoader();
         var gameConfig = window["gameConfig"];
         codeLoader.load(gameConfig.codeData, gameConfig.codeWidth, gameConfig.codeHeight, gameConfig.logoUrl);
-        codeLoader.x = (GameConst.stage.stageWidth - gameConfig.codeWidth) / 2;
-        codeLoader.y = (GameConst.stage.stageHeight - gameConfig.codeHeight) / 2;
-        this.addChild(codeLoader);
+        this.codeGroup.addChild(codeLoader);
     };
     //开始倒计时
     p.startCountDown = function () {
@@ -47,10 +50,24 @@ var HomeScene = (function (_super) {
         //TODO 显示倒计时
         //倒计时结束，开始校准
         if (count < 0) {
-            this.countDownTimer.stop();
-            this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
+            this.stopCountDown();
             LayerManager.getInstance().runScene(GameManager.getInstance().lockScene);
             this.sendStartLock();
+        }
+    };
+    //停止倒计时
+    p.stopCountDown = function () {
+        this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
+        this.countDownTimer.stop();
+    };
+    //删除用户
+    p.deleteUser = function (openid) {
+        //清理用户列表
+        var userManager = UserManager.getInstance();
+        var index = userManager.deleteUser(openid);
+        //清理用户头像
+        if (index != -1) {
+            this.headList[index].clear();
         }
     };
     /////////////////////////////////////////////////////////
@@ -85,14 +102,44 @@ var HomeScene = (function (_super) {
             LayerManager.getInstance().runScene(GameManager.getInstance().lockScene);
         }
         else {
-            //TODO 显示用户信息，第一人进入，则开始倒计时
-            this.startCountDown();
+            //判断当前人数
+            var userManager = UserManager.getInstance();
+            if (userManager.isOverUserLimit()) {
+                egret.log("超出人数");
+                return;
+            }
+            //添加用户信息
+            var userVO = new UserVO();
+            userVO.openid = data.openid;
+            userVO.headUrl = data.headUrl;
+            userVO.nickName = data.nickName;
+            userManager.addUser(userVO);
+            //添加用户头像
+            this.headList[userManager.userList.length - 1].setUserInfo(userVO);
+            //如果是第一个人进入，则开始倒计时
+            if (UserManager.getInstance().userList.length == 1) {
+                this.startCountDown();
+            }
+            else {
+            }
         }
     };
     //用户离开
     p.revUserQuit = function (data) {
         egret.log("rev userQuit:", data);
-        //TODO 删除用户，如果首页所有用户离开，则停止倒计时；如果游戏页面所有玩家离开，则结束游戏
+        var openid = data.openid;
+        var gameScene = GameManager.getInstance().gameScene;
+        //如果是home场景
+        if (this.parent) {
+            //删除用户
+            this.deleteUser(openid);
+            //TODO 如果没人则停止计时
+            if (UserManager.getInstance().userList.length == 0) {
+                this.stopCountDown();
+            }
+        }
+        else if (gameScene.parent) {
+        }
     };
     //发送开始校准
     p.sendStartLock = function () {

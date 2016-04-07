@@ -4,7 +4,7 @@
  *
  */
 class PreloadScene extends BaseScene{
-    private progressLabel:eui.Label;
+    public progressLabel:eui.Label;
     
 	public constructor() {
         super("PreloadSceneSkin");

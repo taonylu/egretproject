@@ -59,7 +59,7 @@ class Main extends eui.UILayer {
     private onPreloadComplete(event: RES.ResourceEvent): void {
         this.preloadScene = new PreloadScene();
         this.addChild(this.preloadScene);
-        LoadManager.getInstance().loadGroup("game",this,this.onGameComplete,this.onGameProgress); 
+        LoadManager.getInstance().loadGroup("home",this,this.onGameComplete,this.onGameProgress); 
     }
     
     private onGameProgress(e:RES.ResourceEvent){
@@ -67,8 +67,10 @@ class Main extends eui.UILayer {
     }
     
     private onGameComplete():void{
-        this.removeChild(this.preloadScene);
-        this.preloadScene = null;
+        //this.removeChild(this.preloadScene);
+        //this.preloadScene = null;
+        
+        this.preloadScene.progressLabel.text = "请等待大屏幕倒计时结束\n游戏即将开始";
         
         GameManager.getInstance().startup(this);
     }

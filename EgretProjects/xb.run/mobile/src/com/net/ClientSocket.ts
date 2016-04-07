@@ -70,7 +70,7 @@ class ClientSocket {
         //////////////////////////////////////////////////////
         
         this.socket.on("startLock",function(data) {
-            self.homeScene.revStartLock();
+            self.gameManager.revStartLock();
         }); 
         
         this.socket.on("startGame",function(data) {      

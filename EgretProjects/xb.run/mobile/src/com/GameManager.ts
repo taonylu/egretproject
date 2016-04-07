@@ -5,6 +5,7 @@
  */
 class GameManager {
     public homeScene: HomeScene = new HomeScene();  //主页场景
+    public lockScene: LockScene = new LockScene();  //校准场景
     public gameScene: GameScene = new GameScene();  //游戏场景
     
     private socket:ClientSocket;
@@ -18,37 +19,51 @@ class GameManager {
         GameConst.stage = main.stage;
         LayerManager.getInstance().initialize(main);
         
-        //显示首页
-        LayerManager.getInstance().runScene(this.homeScene);  
-        
         //启动Socket
         this.socket = ClientSocket.getInstance();
         this.socket.gameManager = this;
         this.socket.homeScene = this.homeScene;
         this.socket.gameScene = this.gameScene;
         this.socket.startConnect();
+
     }
     
     
     //------------------------【socket事件】-------------------------
     
     public connect(){
-        this.homeScene.sendLogin();
+        this.sendLogin();
     }
     
     public disconnect(){
         
     }
+    //发送登录
+    public sendLogin() {
+        var rid = window["gameConfig"].rid;
+        egret.log("send login:",rid,"userType:mobile");
+        this.socket.sendMessage("login",{ rid: rid,userType: "mobile" },this.revLogin,this);
+    }
     
-    //------------------------【发送】-------------------------
+    //接收登录
+    private revLogin(data) {
+        egret.log("rev login1");
+        var success: boolean = data.success;
+        var msg: string = data.msg;
+
+        if(success) {
+            //TODO 
+        } else {
+            alert(msg);
+        }
+    }
     
-    
-    
-    
-    
-    //------------------------【接收】-------------------------
-    
-    
+    //接收开始校准
+    public revStartLock() {
+        egret.log("revStartLock");
+        LayerManager.getInstance().runScene(GameManager.getInstance().lockScene);
+    }
+
 
     
     //获取单例

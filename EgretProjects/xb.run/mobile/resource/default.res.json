@@ -1,17 +1,49 @@
 {
 	"groups":[
 		{
-			"keys":"home_thxbg_jpg",
+			"keys":"preload_logo_png,preload_title_png,preload_foot_png",
 			"name":"preload"
 		},
 		{
-			"keys":"home_thxbg_jpg",
-			"name":"game"
+			"keys":"head0_png,head1_png,head2_png,ok_png",
+			"name":"home"
 		}
 	],
-	"resources":[{
-			"name":"home_thxbg_jpg",
+	"resources":[
+		{
+			"name":"preload_logo_png",
 			"type":"image",
-			"url":"assets/home_thxbg.jpg"
-		}]
+			"url":"assets/preload/preload_logo.png"
+		},
+		{
+			"name":"preload_title_png",
+			"type":"image",
+			"url":"assets/preload/preload_title.png"
+		},
+		{
+			"name":"preload_foot_png",
+			"type":"image",
+			"url":"assets/preload/preload_foot.png"
+		},
+		{
+			"name":"head0_png",
+			"type":"image",
+			"url":"assets/home/head0.png"
+		},
+		{
+			"name":"head1_png",
+			"type":"image",
+			"url":"assets/home/head1.png"
+		},
+		{
+			"name":"head2_png",
+			"type":"image",
+			"url":"assets/home/head2.png"
+		},
+		{
+			"name":"ok_png",
+			"type":"image",
+			"url":"assets/home/ok.png"
+		}
+	]
 }

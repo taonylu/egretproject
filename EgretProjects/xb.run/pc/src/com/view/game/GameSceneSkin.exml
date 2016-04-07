@@ -1,14 +1,42 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="GameSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
-	<e:Image source="ground_png" x="294" y="239" width="1330" height="848"/>
-	<e:Group id="potGroup" height="1080" width="1920">
-		<e:Rect id="far00" height="10" width="10" x="908" y="217" anchorOffsetX="5" anchorOffsetY="5"/>
-		<e:Rect id="far01" y="217" anchorOffsetY="5" anchorOffsetX="5" width="10" height="10" x="954"/>
-		<e:Rect id="far02" y="217" anchorOffsetY="5" anchorOffsetX="5" width="10" height="10" x="1004"/>
-		<e:Rect id="near00" y="916" anchorOffsetY="50" anchorOffsetX="50" width="100" height="100" x="549"/>
-		<e:Rect id="near01" y="916" anchorOffsetY="50" anchorOffsetX="50" width="100" height="100" x="954"/>
-		<e:Rect id="near02" y="916" anchorOffsetY="50" anchorOffsetX="50" width="100" height="100" x="1311"/>
+	<e:Group id="skyGroup" width="1920" height="1080">
+		<e:Image source="game_sky_jpg"/>
 	</e:Group>
-	<e:Group id="itemGroup" x="10" width="1920" y="10" height="1080"/>
-	<e:Group id="playerGroup" height="1080" width="1920" x="0" y="0"/>
+	<e:Group id="treeGroup" height="1080" width="1920">
+		<e:Image source="game_tree0_png" x="417" y="-1"/>
+		<e:Image source="game_tree1_png" x="285" y="35"/>
+		<e:Image source="game_tree3_png" x="119" y="19"/>
+		<e:Image source="game_tree0_png" y="-1" x="1737"/>
+		<e:Image source="game_tree1_png" y="45" x="1475"/>
+		<e:Image source="game_tree1_png" y="45" x="1655"/>
+		<e:Image source="game_tree3_png" y="9" x="1379"/>
+		<e:Image source="game_tree3_png" y="29" x="19"/>
+	</e:Group>
+	<e:Group id="bgGroup" height="1080" width="1920">
+		<e:Image source="game_bg1_png" bottom="0"/>
+	</e:Group>
+	<e:Group id="potGroup" height="1080" width="1920">
+		<e:Rect id="far00" height="10" width="10" x="617" y="217" anchorOffsetX="5" anchorOffsetY="5"/>
+		<e:Rect id="far01" y="217" anchorOffsetY="5" anchorOffsetX="5" width="10" height="10" x="721"/>
+		<e:Rect id="far02" y="217" anchorOffsetY="5" anchorOffsetX="5" width="10" height="10" x="836"/>
+		<e:Rect id="far03" anchorOffsetX="5" y="217" anchorOffsetY="5" width="10" height="10" x="968"/>
+		<e:Rect id="far04" x="1094" y="217" anchorOffsetY="5" width="10" height="10" anchorOffsetX="5"/>
+		<e:Rect id="far05" anchorOffsetX="5" y="217" anchorOffsetY="5" width="10" height="10" x="1210"/>
+		<e:Rect id="far06" x="1311" y="217" anchorOffsetY="5" width="10" height="10" anchorOffsetX="5"/>
+		<e:Rect id="near00" y="936" anchorOffsetY="50" anchorOffsetX="50" width="100" height="100" x="355"/>
+		<e:Rect id="near01" y="936" anchorOffsetY="50" anchorOffsetX="50" width="100" height="100" x="574"/>
+		<e:Rect id="near02" y="936" anchorOffsetY="50" anchorOffsetX="50" width="100" height="100" x="780"/>
+		<e:Rect id="near03" anchorOffsetX="50" y="936" anchorOffsetY="50" width="100" height="100" x="970"/>
+		<e:Rect id="near04" x="1162" y="936" anchorOffsetY="50" width="100" height="100" anchorOffsetX="50"/>
+		<e:Rect id="near05" anchorOffsetX="50" y="936" anchorOffsetY="50" width="100" height="100" x="1356"/>
+		<e:Rect id="near06" x="1578" y="936" anchorOffsetY="50" width="100" height="100" anchorOffsetX="50"/>
+	</e:Group>
+	<e:Group id="itemGroup" width="1920" height="1080"/>
+	<e:Group id="playerGroup" height="1080" width="1920">
+	</e:Group>
+	<e:Group id="grassGroup" width="1920" height="1080">
+		<e:Rect id="grassPot0" y="106" x="370" anchorOffsetY="50" width="100" height="100" anchorOffsetX="50"/>
+		<e:Rect id="grassPot1" anchorOffsetX="50" y="96" x="1480" anchorOffsetY="50" width="100" height="100"/>
+	</e:Group>
 </e:Skin>

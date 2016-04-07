@@ -29,32 +29,7 @@ class HomeScene extends BaseScene{
     //------------------------[Socket通讯]----------------------
     ////////////////////////////////////////////////////////////
     
-    //发送登录
-    public sendLogin() {
-        var rid = window["gameConfig"].rid;
-        egret.log("send login:",rid,"userType:mobile");
-        this.socket.sendMessage("login",{ rid: rid,userType: "mobile" },this.revLogin,this);
-    }
     
-    //接收登录
-    private revLogin(data) {
-        egret.log("rev login1");
-        var success:boolean = data.success;
-        var msg:string = data.msg;
-        
-        if(success){
-            //TODO 
-        }else{
-            //TODO 输出错误信息
-        }
-    }
-    
-    //接收开始校准
-    public revStartLock(){
-        egret.log("revStartLock");
-        //TODO 显示校准按钮,校准后开始游戏
-        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);  
-    }
     
     
 
