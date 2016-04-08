@@ -3,15 +3,27 @@
   "exmls": [
     {
       "path": "src/com/view/GameSceneSkin.exml",
-      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"GameSceneSkin\" width=\"480\" height=\"854\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Label y=\"223\" textColor=\"0x040000\" size=\"15\" fontFamily=\"微软雅黑\" id=\"deviceLabel\" width=\"364\" height=\"221\" x=\"68\" textAlign=\"right\"/>\n\t<e:Image id=\"lockBtn\" source=\"home_thxbg_jpg\" x=\"174\" y=\"406\" height=\"173\" width=\"133\"/>\n</e:Skin>"
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"GameSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Label y=\"223\" textColor=\"0x040000\" size=\"15\" fontFamily=\"微软雅黑\" id=\"deviceLabel\" width=\"364\" height=\"221\" x=\"68\" textAlign=\"right\"/>\n\t<e:Image id=\"lockBtn\" source=\"home_thxbg_jpg\" x=\"174\" y=\"406\" height=\"173\" width=\"133\"/>\n</e:Skin>"
     },
     {
       "path": "src/com/view/HomeSceneSkin.exml",
-      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"HomeSceneSkin\" width=\"480\" height=\"800\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n</e:Skin>"
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"HomeSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/LockSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"LockSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect width=\"640\" height=\"1136\" fillColor=\"0x6FEAEA\"/>\n\t<e:Rect width=\"550\" height=\"232\" y=\"178\" fillColor=\"0xF5FAFA\" horizontalCenter=\"0\"/>\n\t<e:Image id=\"okBtn\" source=\"ok_png\" y=\"804\" x=\"321\" anchorOffsetX=\"100\" anchorOffsetY=\"100\"/>\n\t<e:Image id=\"headImg\" source=\"head0_png\" x=\"70\" y=\"228\"/>\n\t<e:Label text=\"我是\" x=\"222\" y=\"226\" textColor=\"0x030000\" width=\"68\" height=\"42\" fontFamily=\"微软雅黑\"/>\n\t<e:Label y=\"266\" textColor=\"0x030000\" text=\"根据大屏幕提示，完成校准，一起游戏吧！\" fontFamily=\"微软雅黑\" width=\"350\" height=\"128\" x=\"222\"/>\n\t<e:Label id=\"nameLabel\" y=\"226\" text=\"悠悠熊猫\" fontFamily=\"微软雅黑\" width=\"148\" height=\"42\" x=\"290\" textAlign=\"center\" textColor=\"0xF90101\"/>\n\t<e:Label id=\"msgLabel\" text=\"校准完成请等待游戏开始\" y=\"922\" width=\"410\" textColor=\"0x030000\" fontFamily=\"微软雅黑\" verticalAlign=\"middle\" textAlign=\"center\" height=\"110\" x=\"115\"/>\n</e:Skin>"
     },
     {
       "path": "src/com/view/PreloadSceneSkin.exml",
-      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PreloadSceneSkin\" width=\"480\" height=\"800\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Label id=\"progressLabel\" text=\"标签\" x=\"216\" y=\"267\"/>\n</e:Skin>"
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PreloadSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect height=\"1136\" width=\"640\" fillColor=\"0x6FEAEA\"/>\n\t<e:Label id=\"progressLabel\" text=\"标签\" y=\"705\" textColor=\"0x020000\" size=\"30\" width=\"424\" horizontalCenter=\"0\" verticalAlign=\"middle\" textAlign=\"center\" height=\"128\"/>\n\t<e:Image source=\"preload_title_png\" width=\"516\" height=\"150\" horizontalCenter=\"0\" top=\"40\"/>\n\t<e:Image source=\"preload_foot_png\" bottom=\"0\"/>\n\t<e:Image source=\"preload_logo_png\" verticalCenter=\"-81.5\" horizontalCenter=\"0\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/ResultSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\"></e:Skin>"
+    },
+    {
+      "path": "src/com/view/ui/HeadUISkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"HeadUISkin\" width=\"220\" height=\"100\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Label y=\"9\" textColor=\"0x000000\" height=\"40\" text=\"标签标签标签标签\" fontFamily=\"微软雅黑\" x=\"85\" width=\"128\" size=\"18\" id=\"nameLabel\" verticalAlign=\"middle\" textAlign=\"left\"/>\n\t<e:Label id=\"rankLabel\" y=\"54\" textColor=\"0x000000\" height=\"23\" text=\"标签标签标签标\" fontFamily=\"微软雅黑\" x=\"85\" width=\"130\" size=\"18\" textAlign=\"center\" verticalAlign=\"middle\"/>\n</e:Skin>"
     }
   ],
   "skins": {

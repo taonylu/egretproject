@@ -49,6 +49,7 @@ var RES;
          * @param type Type of resource term.
          * @version Egret 2.4
          * @platform Web,Native
+         * @private
          */
         /**
          * @language zh_CN
@@ -58,6 +59,7 @@ var RES;
          * @param type 加载项文件类型。
          * @version Egret 2.4
          * @platform Web,Native
+         * @private
          */
         function ResourceItem(name, url, type) {
             /**
@@ -65,12 +67,14 @@ var RES;
              * Name of the resource term group.
              * @version Egret 2.4
              * @platform Web,Native
+             * @private
              */
             /**
              * @language zh_CN
              * 资源所属的组名。
              * @version Egret 2.4
              * @platform Web,Native
+             * @private
              */
             this.groupName = "";
             /**
@@ -78,12 +82,14 @@ var RES;
              * The raw data object to be referenced.
              * @version Egret 2.4
              * @platform Web,Native
+             * @private
              */
             /**
              * @language zh_CN
              * 被引用的原始数据对象。
              * @version Egret 2.4
              * @platform Web,Native
+             * @private
              */
             this.data = null;
             this._loaded = false;
@@ -98,12 +104,14 @@ var RES;
              * Load complete flag.
              * @version Egret 2.4
              * @platform Web,Native
+             * @private
              */
             /**
              * @language zh_CN
              * 加载完成的标志。
              * @version Egret 2.4
              * @platform Web,Native
+             * @private
              */
             ,function () {
                 return this.data ? this.data.loaded : this._loaded;
@@ -119,16 +127,33 @@ var RES;
          * Turn into a string.
          * @version Egret 2.4
          * @platform Web,Native
+         * @private
          */
         /**
          * @language zh_CN
          * 转成字符串。
          * @version Egret 2.4
          * @platform Web,Native
+         * @private
          */
         p.toString = function () {
             return "[ResourceItem name=\"" + this.name + "\" url=\"" + this.url + "\" type=\"" + this.type + "\"]";
         };
+        /**
+         * @language en_US
+         * Animation configuration file. Currently supports Egret MovieClip file format.
+         * @version Egret 2.4
+         * @platform Web,Native
+         * @private
+         */
+        /**
+         * @language zh_CN
+         * Animation 配置文件。目前支持 Egret MovieClip 文件格式。
+         * @version Egret 2.4
+         * @platform Web,Native
+         * @private
+         */
+        ResourceItem.TYPE_ANIMATION = "animation";
         /**
          * @language en_US
          * XML file.
@@ -1190,7 +1215,7 @@ var RES;
          */
         p.analyzeData = function (resItem, data) {
             var name = resItem.name;
-            if (this.fileDic[name] || (data != "" && !data)) {
+            if (this.fileDic[name] || !data) {
                 return;
             }
             this.fileDic[name] = data;
@@ -2319,39 +2344,13 @@ var RES;
     }
     RES.registerAnalyzer = registerAnalyzer;
     /**
-     * @language en_US
-     * Register the VersionController
-     * @param vcs The VersionController to register.
-     * @version Egret 2.5
-     * @platform Web,Native
-     */
-    /**
-     * @language zh_CN
-     * 注册版本控制器,通过RES模块加载资源时会从版本控制器获取真实url
-     * @param vcs 注入的版本控制器。
-     * @version Egret 2.5
-     * @platform Web,Native
+     * 根据url返回实际加载url地址
+     * @param call
      */
     function registerVersionController(vcs) {
         instance.$registerVersionController(vcs);
     }
     RES.registerVersionController = registerVersionController;
-    /**
-     * @language en_US
-     * Returns the VersionController
-     * @version Egret 2.5
-     * @platform Web,Native
-     */
-    /**
-     * @language zh_CN
-     * 获得版本控制器.
-     * @version Egret 2.5
-     * @platform Web,Native
-     */
-    function getVersionController() {
-        return instance.vcs;
-    }
-    RES.getVersionController = getVersionController;
     /**
      * @language en_US
      * Load configuration file and parse.
@@ -2525,6 +2524,7 @@ var RES;
      * @language en_US
      * The synchronization method for obtaining the cache has been loaded with the success of the resource.
      * <br>The type of resource and the corresponding return value types are as follows:
+     * <br>RES.ResourceItem.TYPE_ANIMATION : (egret.Bitmap|egret.Texture)[]
      * <br>RES.ResourceItem.TYPE_BIN : ArrayBuffer JavaScript primary object
      * <br>RES.ResourceItem.TYPE_IMAGE : img Html Object，or egret.BitmapData interface。
      * <br>RES.ResourceItem.TYPE_JSON : Object
@@ -2545,6 +2545,7 @@ var RES;
      * @language zh_CN
      * 同步方式获取缓存的已经加载成功的资源。
      * <br>资源类型和对应的返回值类型关系如下：
+     * <br>RES.ResourceItem.TYPE_ANIMATION : (egret.Bitmap|egret.Texture)[]
      * <br>RES.ResourceItem.TYPE_BIN : ArrayBuffer JavaScript 原生对象
      * <br>RES.ResourceItem.TYPE_IMAGE : img Html 对象，或者 egret.BitmapData 接口。
      * <br>RES.ResourceItem.TYPE_JSON : Object
@@ -2824,6 +2825,7 @@ var RES;
         p.init = function () {
             this.vcs = new RES.VersionController();
             var analyzerClassMap = this.analyzerClassMap;
+            //analyzerClassMap[ResourceItem.TYPE_ANIMATION] = AnimationAnalyzer;
             analyzerClassMap[RES.ResourceItem.TYPE_BIN] = RES.BinAnalyzer;
             analyzerClassMap[RES.ResourceItem.TYPE_IMAGE] = RES.ImageAnalyzer;
             analyzerClassMap[RES.ResourceItem.TYPE_TEXT] = RES.TextAnalyzer;

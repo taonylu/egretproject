@@ -1,4 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="LockSceneSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui">
-	<e:Image source="ok_png" y="584" x="221"/>
+<e:Skin class="LockSceneSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="640" height="1136" fillColor="0x6FEAEA"/>
+	<e:Rect width="550" height="232" y="178" fillColor="0xF5FAFA" horizontalCenter="0"/>
+	<e:Image id="okBtn" source="ok_png" y="804" x="321" anchorOffsetX="100" anchorOffsetY="100"/>
+	<e:Image id="headImg" source="head0_png" x="70" y="228"/>
+	<e:Label text="我是" x="222" y="226" textColor="0x030000" width="68" height="42" fontFamily="微软雅黑"/>
+	<e:Label y="266" textColor="0x030000" text="根据大屏幕提示，完成校准，一起游戏吧！" fontFamily="微软雅黑" width="350" height="128" x="222"/>
+	<e:Label id="nameLabel" y="226" text="悠悠熊猫" fontFamily="微软雅黑" width="148" height="42" x="290" textAlign="center" textColor="0xF90101"/>
+	<e:Label id="msgLabel" text="校准完成请等待游戏开始" y="922" width="410" textColor="0x030000" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center" height="110" x="115"/>
 </e:Skin>

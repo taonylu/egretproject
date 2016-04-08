@@ -6,10 +6,14 @@
 class GameScene extends BaseScene{
     
     private socket:ClientSocket; //socket
+    private orientation:egret.DeviceOrientation; //重力感应
     private centerZ:number;      //中心z位置
     private centerX:number;      //中心x位置
-    private lockBtn:eui.Image;   //校准按钮
-    private isLocked:boolean;    //是否已经校准
+    private leftBtn:SimpleButton; //左、右、上箭头
+    private rightBtn:SimpleButton;
+    private upBtn:SimpleButton;
+    private headImg:eui.Image;   //头像
+    private nameLabel:eui.Label; //文本
     
 	public constructor() {
         super("GameSceneSkin");
@@ -27,20 +31,12 @@ class GameScene extends BaseScene{
     }
 
     public onRemove(): void {
-        
+        this.stopDevice();
     }
-    
-    private configListeners(){
-        this.lockBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onLockBtnTouch ,this);
-    }
-    
-    private deConfigListeners(){
-        this.lockBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onLockBtnTouch,this);
-    }
+
     
     private startGame(){
         this.openDevice();
-        this.configListeners();
     }
     
     private resetGame(){
@@ -48,19 +44,56 @@ class GameScene extends BaseScene{
         this.gestureUp = false;
         this.gestureR = false;
         this.gestureL = false;
-        this.centerZ = 0;
-        this.centerX = 0;
-        this.isLocked = false;
+        this.centerZ = GameConst.centerZ;
+        this.centerX = GameConst.centerX;
+        //头像、名称
+        this.setRoleImg();
+        this.setRoleName();
     }
     
     private gameOver(){
         this.resetGame();
     }
     
+    private configListeners(){
+        this.leftBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onLeftBtnTouch, this);
+        this.rightBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onRightBtnTouch,this);
+        this.upBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onUpBtnTouch,this);
+    }
+    
+    private onLeftBtnTouch(){
+        this.sendLeftAction();
+    }
+    
+    private onRightBtnTouch() {
+        this.sendRightAction();
+    }
+    
+    private onUpBtnTouch() {
+        this.sendUpAction();
+    }
+    
+    //设置角色头像
+    private setRoleImg() {
+        var role: number = UserManager.getInstance().roleID;
+        this.headImg.texture = RES.getRes("head" + role + "_png");
+    }
+    
+    //设置角色名字
+    private setRoleName() {
+        var role: number = UserManager.getInstance().roleID;
+        this.nameLabel.text = UserManager.getInstance().roleNameList[role];
+    }
+    
     public openDevice() {
-        var orientation = new egret.DeviceOrientation();
-        orientation.addEventListener(egret.Event.CHANGE,this.onOrientation,this);
-        orientation.start();
+        this.orientation = new egret.DeviceOrientation();
+        this.orientation.addEventListener(egret.Event.CHANGE,this.onOrientation,this);
+        this.orientation.start();
+    }
+    
+    private stopDevice(){
+        this.orientation.stop();
+        this.orientation.removeEventListener(egret.Event.CHANGE,this.onOrientation,this);
     }
 
     private deviceLabel: eui.Label;
@@ -76,18 +109,14 @@ class GameScene extends BaseScene{
         this.deviceZ = parseFloat(e.alpha.toFixed(2));
         this.deviceLabel.text =
             "x轴角速度:" + this.deviceX  //-90-90 手机平放0度，手机头朝上增加，手机头朝下减少
-            + "\nz轴角速度:" + this.deviceZ;    //0~360   北方为0(360)，向左0-360增加，向右360-0减少
-            
-        if(this.isLocked == false){
-            return;
-        }    
+            + "\nz轴角速度:" + this.deviceZ;    //0~360   北方为0(360)，向左0-360增加，向右360-0减少 
             
         //向上超过n度，则判定为跳跃
         this.deviceLabel.text += "\naccX:" + this.deviceX.toFixed(2);
         if(this.deviceX >= this.angleLimit && this.gestureUp == false) {
             this.gestureUp = true;
-            this.socket.sendMessage("action",{actionType:"up"});
-            egret.log("sendAction:up");
+            this.sendUpAction();
+            this.upBtn.devieceDown();
         } else if(this.deviceX <= this.angleReturn){
             this.gestureUp = false;
         }
@@ -112,47 +141,52 @@ class GameScene extends BaseScene{
         if((dist >= this.angleLimit && dist < 180) || dist < -180){
             if(this.gestureL == false && this.gestureR == false){
                 this.gestureL = true;
-                this.socket.sendMessage("action",{ actionType: "left" });
-                egret.log("sendAction:left", this.deviceZ,"-",this.centerZ,"=",this.deviceZ - this.centerZ);
+                this.sendLeftAction();
+                this.leftBtn.devieceDown();
             } 
         //判断右    
         } else if((dist <= -this.angleLimit && dist > -180) || dist > 180){
             if(this.gestureR == false && this.gestureL == false){
                 this.gestureR = true;
-                this.socket.sendMessage("action",{ actionType: "right" });
-                egret.log("sendAction:14right",this.deviceZ,"-",this.centerZ,"=",this.deviceZ - this.centerZ);
+                this.sendRightAction();
+                this.rightBtn.devieceDown();
             } 
         } 
     }
     
-    //点击校准按钮
-    private onLockBtnTouch(){
-        egret.log("lock:",this.deviceZ);
-        this.centerZ = this.deviceZ;
-        this.centerX = this.deviceX;
-        //校准一次后，第二次校准不需要发送到服务端，因为校准的结果本来就跟pc和服务端无关
-        if(this.isLocked == false){  
-            this.sendLock();  
-        }
-        this.isLocked = true;
+    private sendRightAction(){
+        this.socket.sendMessage("action",{ actionType: "right",openid: GameConst.gameConfig.openid });
+        egret.log("sendAction:right",this.deviceZ,"-",this.centerZ,"=",this.deviceZ - this.centerZ);
     }
     
-    //接收开始游戏
-    public revStartGame(){
-        egret.log("revStartGame");
-        this.startGame();
+    private sendLeftAction() {
+        this.socket.sendMessage("action",{ actionType: "left",openid: GameConst.gameConfig.openid });
+        egret.log("sendAction:left",this.deviceZ,"-",this.centerZ,"=",this.deviceZ - this.centerZ);
     }
     
-    //发送校准
-    public sendLock(){
-        egret.log("sendLock");
-        this.socket.sendMessage("lock");
+    private sendUpAction() {
+        this.socket.sendMessage("action",{ actionType: "up",openid: GameConst.gameConfig.openid });
+        egret.log("sendAction:up");
     }
     
     //接收游戏结束
+    public resultData;
     public revGameOver(data){
         egret.log("revGameOver");
+        if(GameConst.debug == true){
+            data = {
+                scoreList:[{headUrl:"", nickName:"A"}],
+                rankList:[
+                            {headUrl:"",nickName:"B",score:99},
+                            { headUrl: "",nickName: "B",score: 99 },
+                            { headUrl: "",nickName: "B",score: 99 }
+                        ]
+            }
+        }else{
+            this.resultData = data;
+        }
         
+        LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
     }
 }
 

@@ -67,7 +67,6 @@ var Main = (function (_super) {
     p.onHomeComplete = function () {
         this.removeChild(this.preloadScene);
         this.preloadScene = null;
-        LoadManager.getInstance().loadGroup("game", this);
         GameManager.getInstance().startup(this);
     };
     return Main;

@@ -42,7 +42,7 @@ io.on('connection', function(socket){
         if(userType == "mobile"){
         	var pcSocket = pcUser[rid];
         	if(pcSocket){
-        		pcSocket.emit('userJoin');
+        		pcSocket.emit('userJoin', {openid:"123",headUrl:"",nickName:""});
         	}
         }
 
@@ -106,7 +106,7 @@ function initMobile(socket){
     socket.on('lock',function(data){
     	if(mobileUser[socket.name]){
 			if(pcUser[socket.name]){
-				pcUser[socket.name].emit('lock',{openid:"1"});
+				pcUser[socket.name].emit('lock',{openid:"123"});
 			}
     	}
     });

@@ -42,7 +42,7 @@ io.on('connection', function(socket){
         if(userType == "mobile"){
         	var pcSocket = pcUser[rid];
         	if(pcSocket){
-        		pcSocket.emit('userJoin');
+        		pcSocket.emit('userJoin', {openid:"123",headUrl:"",nickName:""});
         	}
         }
 
@@ -97,7 +97,7 @@ function initMobile(socket){
     	if(mobileUser[socket.name]){
     		var actionType = data.actionType;
 			if(pcUser[socket.name]){
-				pcUser[socket.name].emit('action',{actionType:actionType});
+				pcUser[socket.name].emit('action',{actionType:actionType,openid:"123"});
 			}
     	}
     });
@@ -106,7 +106,7 @@ function initMobile(socket){
     socket.on('lock',function(data){
     	if(mobileUser[socket.name]){
 			if(pcUser[socket.name]){
-				pcUser[socket.name].emit('lock');
+				pcUser[socket.name].emit('lock',{openid:"123"});
 			}
     	}
     });

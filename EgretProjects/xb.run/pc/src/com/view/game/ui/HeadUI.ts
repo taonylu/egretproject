@@ -8,7 +8,7 @@ class HeadUI extends BaseUI{
     private nameLabel:eui.Label;    //名字文本
     public infoLabel:eui.Label;    //选择信息文本
     private headImg:egret.Bitmap;   //头像图片
-    private openid:string;          //用户ID
+    public openid:string;          //用户ID
     private headMask:eui.Image;     //头像遮罩
     private imgX:number = 8;        //图片大小高宽和位置
     private imgY:number = 7;
@@ -64,7 +64,7 @@ class HeadUI extends BaseUI{
     }
     
     //是否为空
-    private isEmpty():Boolean{
+    public isEmpty():Boolean{
         if(this.nameLabel.text == ""){
             return true;
         }

@@ -5,11 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"game_bg1_png,game_grass2_png,game_sky_jpg,game_tree0_png,game_tree1_png,game_tree3_png,game_grass0_png,game_grass1_png,item_banana_png,item_carrot_png,item_highwood_png,item_lowwood_png,item_mice_png,item_stone_png,item_water_png",
-			"name":"game"
-		},
-		{
-			"keys":"home_demo_png,home_footbg_png,home_headbg_png,home_logo_png,home_msgbx_png,home_panel_png,home_phone_png,home_player_png,homg_bg_jpg,home_arrow0_png,home_arrow1_png,home_codebg_png,home_headmask_png,home_title_png",
+			"keys":"home_demo_png,home_footbg_png,home_headbg_png,home_logo_png,home_msgbx_png,home_panel_png,home_phone_png,home_player_png,homg_bg_jpg,home_arrow0_png,home_arrow1_png,home_codebg_png,home_headmask_png,home_title_png,game_bg1_png,game_grass2_png,game_sky_jpg,game_tree0_png,game_tree1_png,game_tree3_png,game_grass0_png,game_grass1_png,item_banana_png,item_carrot_png,item_highwood_png,item_lowwood_png,item_mice_png,item_stone_png,item_water_png,player0_json,player0_png,lock_center_png,lock_msg_png,lock_phone_png,lock_bg_png,countDownFont_png,countDownFont_fnt",
 			"name":"home"
 		}
 	],
@@ -158,6 +154,41 @@
 			"name":"item_water_png",
 			"type":"image",
 			"url":"assets/game/item_water.png"
+		},
+		{
+			"name":"player0_json",
+			"type":"json",
+			"url":"assets/game/player0.json"
+		},
+		{
+			"name":"player0_png",
+			"type":"image",
+			"url":"assets/game/player0.png"
+		},
+		{
+			"name":"lock_center_png",
+			"type":"image",
+			"url":"assets/game/lock_center.png"
+		},
+		{
+			"name":"lock_msg_png",
+			"type":"image",
+			"url":"assets/game/lock_msg.png"
+		},
+		{
+			"name":"lock_phone_png",
+			"type":"image",
+			"url":"assets/game/lock_phone.png"
+		},
+		{
+			"name":"lock_bg_png",
+			"type":"image",
+			"url":"assets/game/lock_bg.png"
+		},
+		{
+			"name":"countDownFont_fnt",
+			"type":"font",
+			"url":"assets/game/countDownFont.fnt"
 		}
 	]
 }

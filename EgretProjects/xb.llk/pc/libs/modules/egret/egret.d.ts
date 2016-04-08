@@ -1591,31 +1591,20 @@ declare module egret {
         fillMode: string;
         $setFillMode(value: string): boolean;
         /**
-         * @language en_US
-         * The default value of whether or not is smoothed when scaled.
-         * When object such as Bitmap is created,smoothing property will be set to this value.
-         * @default true。
-         * @version Egret 3.0
-         * @platform Web
+         * @private
          */
-        /**
-         * @language zh_CN
-         * 控制在缩放时是否进行平滑处理的默认值。
-         * 在 Bitmap 等对象创建时,smoothing 属性会被设置为该值。
-         * @default true。
-         * @version Egret 3.0
-         * @platform Web
-         */
-        static defaultSmoothing: boolean;
+        $smoothing: boolean;
         /**
          * @language en_US
          * Whether or not the bitmap is smoothed when scaled.
+         * @default true。
          * @version Egret 2.4
          * @platform Web
          */
         /**
          * @language zh_CN
          * 控制在缩放时是否对位图进行平滑处理。
+         * @default true。
          * @version Egret 2.4
          * @platform Web
          */
@@ -3531,10 +3520,10 @@ declare module egret {
          */
         dispose(): void;
         private static _displayList;
-        static $addDisplayObject(displayObject: DisplayObject, bitmapData: BitmapData | Texture): void;
-        static $removeDisplayObject(displayObject: DisplayObject, bitmapData: BitmapData | Texture): void;
-        static $invalidate(bitmapData: BitmapData | Texture): void;
-        static $dispose(bitmapData: BitmapData | Texture): void;
+        static $addDisplayObject(displayObject: DisplayObject, bitmapDataHashCode: number): void;
+        static $removeDisplayObject(displayObject: DisplayObject, bitmapDataHashCode: number): void;
+        static $invalidate(bitmapDataHashCode: number): void;
+        static $dispose(bitmapDataHashCode: number): void;
     }
 }
 declare module egret {
@@ -6329,20 +6318,6 @@ declare module egret {
         static TOUCH_END: string;
         /**
          * @language en_US
-         * Dispatched when an event of some kind occurred that canceled the touch.
-         * Such as the eui.Scroller will dispatch 'TOUCH_CANCEL' when it start move, the 'TOUCH_END' and 'TOUCH_TAP' will not be triggered.
-         * @version Egret 3.0.1
-         * @platform Web,Native
-         */
-        /**
-         * @language zh_CN
-         * 由于某个事件取消了触摸时触发。比如 eui.Scroller 在开始滚动后会触发 'TOUCH_CANCEL' 事件，不再触发后续的 'TOUCH_END' 和 'TOUCH_TAP' 事件
-         * @version Egret 3.0.1
-         * @platform Web,Native
-         */
-        static TOUCH_CANCEL: string;
-        /**
-         * @language en_US
          * Dispatched when the user lifts the point of contact over the same DisplayObject instance on which the contact
          * was initiated on a touch-enabled device.
          * @version Egret 2.4
@@ -7955,7 +7930,7 @@ declare module egret {
      * @language zh_CN
      * Sound 允许您在应用程序中使用声音。使用 Sound 类可以创建 Sound 对象、将外部音频文件加载到该对象并播放该文件。
      * 可通过 SoundChannel 对声音执行更精细的控制，如控制音量和监控播放进度。
-     * @see http://edn.egret.com/cn/docs/page/156 音频系统
+     * @see http://edn.egret.com/cn/index.php/article/index/id/156 音频系统
      *
      * @event egret.Event.COMPLETE 音频加载完成时抛出
      * @event egret.IOErrorEvent.IO_ERROR 音频加载失败时抛出
@@ -8454,9 +8429,6 @@ declare module egret_native {
         function setVisibleRect(x: number, y: number, w: number, h: number): number;
         function setDesignSize(w: number, h: number): number;
     }
-    /**
-     * @private
-     */
     class RenderTexture {
         constructor(width: number, height: number);
         begin(): any;
@@ -8487,26 +8459,14 @@ declare module egret_native {
         function restore(): void;
         function createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient;
         function createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): CanvasGradient;
-        /**
-         * @private
-         */
         var lineWidth: number;
-        /**
-         * @private
-         */
         var strokeStyle: any;
-        /**
-         * @private
-         */
         var fillStyle: any;
     }
     module Game {
         function listResource(root: any, promise: any): any;
         function listUpdate(root: any, promise: any): any;
     }
-    /**
-     * @private
-     */
     class RenderContext {
         clearScreen(r: number, g: number, b: number): void;
         drawImage(texture: any, sourceX: any, sourceY: any, sourceWidth: any, sourceHeight: any, destX: any, destY: any, destWidth: any, destHeight: any): void;
@@ -8515,9 +8475,6 @@ declare module egret_native {
         pushClip(x: number, y: number, w: number, h: number): void;
         popClip(): void;
     }
-    /**
-     * @private
-     */
     class Canvas {
         constructor(width: number, height: number);
         width: number;
@@ -8570,16 +8527,6 @@ declare module egret {
          * @version Egret 2.4
          * @platform Web,Native
          */
-        onResponseHeaderFunc: Function;
-        /**
-         * @version Egret 2.4
-         * @platform Web,Native
-         */
-        onResponseHeaderThisObject: any;
-        /**
-         * @version Egret 2.4
-         * @platform Web,Native
-         */
         constructor();
         /**
          *
@@ -8605,12 +8552,6 @@ declare module egret {
          * @param args
          */
         private downloadingSize(...args);
-        /**
-         * @private
-         *
-         * @param args
-         */
-        private onResponseHeader(...args);
         /**
          * @private
          *
@@ -9193,7 +9134,6 @@ declare module egret.sys {
          * @private
          */
         needRedraw: boolean;
-        needUpdateRegions: boolean;
         /**
          * @private
          */
@@ -9333,6 +9273,24 @@ declare module egret.sys {
          */
         displayHeight: number;
     }
+}
+declare module egret.sys {
+    /**
+     * @private
+     * @param value
+     * @returns
+     * @version Egret 2.4
+     * @platform Web,Native
+     */
+    function isUndefined(value: any): boolean;
+    /**
+     * @private
+     * @param value
+     * @returns
+     * @version Egret 2.4
+     * @platform Web,Native
+     */
+    function getNumber(value: number): number;
 }
 declare module egret {
     /**
@@ -11097,10 +11055,6 @@ declare module egret.sys {
          * @private
          */
         verticalAlign = 11,
-        /**
-         * @private
-         */
-        smoothing = 12,
     }
 }
 declare module egret {
@@ -11132,21 +11086,6 @@ declare module egret {
          * @platform Web,Native
          */
         constructor();
-        /**
-         * @language en_US
-         * Whether or not is smoothed when scaled.
-         * @default true。
-         * @version Egret 3.0
-         * @platform Web
-         */
-        /**
-         * @language zh_CN
-         * 控制在缩放时是否进行平滑处理。
-         * @default true。
-         * @version Egret 3.0
-         * @platform Web
-         */
-        smoothing: boolean;
         /**
          * @private
          */
