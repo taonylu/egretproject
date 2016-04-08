@@ -23,20 +23,14 @@ var UserManager = (function () {
         }
         return false;
     };
-    /**
-     * 删除用户
-     * @param openid
-     * @return 用户在数组中的索引
-     */
+    //删除用户
     p.deleteUser = function (openid) {
         var len = this.userList.length;
         for (var i = 0; i < len; i++) {
             if (this.userList[i].openid == openid) {
                 this.userList.splice(i, 1);
-                return i;
             }
         }
-        return -1;
     };
     //获取用户
     p.getUser = function (openid) {
@@ -68,6 +62,10 @@ var UserManager = (function () {
     //获取用户人数
     p.getUserNum = function () {
         return this.userList.length;
+    };
+    //清理所有用户
+    p.clearAllUser = function () {
+        this.userList.length = 0;
     };
     UserManager.getInstance = function () {
         if (this.instance == null) {

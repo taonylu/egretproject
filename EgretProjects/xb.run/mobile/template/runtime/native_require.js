@@ -15,16 +15,22 @@ var game_file_list = [
 	"bin-debug/com/common/BaseUI.js",
 	"bin-debug/com/common/LayerManager.js",
 	"bin-debug/com/common/LoadManager.js",
+	"bin-debug/com/common/UserManager.js",
 	"bin-debug/com/constant/GameConst.js",
 	"bin-debug/com/GameManager.js",
 	"bin-debug/com/net/ClientSocket.js",
 	"bin-debug/com/view/GameScene.js",
 	"bin-debug/com/view/HomeScene.js",
+	"bin-debug/com/view/LockScene.js",
 	"bin-debug/com/view/PreloadScene.js",
+	"bin-debug/com/view/ResultScene.js",
+	"bin-debug/com/view/ui/HeadUI.js",
+	"bin-debug/com/view/ui/RankHead.js",
+	"bin-debug/com/view/ui/ResultHead.js",
+	"bin-debug/com/view/ui/SimpleButton.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
-	"bin-debug/com/view/LockScene.js",
 	//----auto game_file_list end----
 ];
 

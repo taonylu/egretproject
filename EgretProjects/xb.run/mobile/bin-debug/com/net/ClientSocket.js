@@ -56,7 +56,7 @@ var ClientSocket = (function () {
             self.gameManager.revStartLock();
         });
         this.socket.on("startGame", function (data) {
-            self.gameScene.revStartGame();
+            self.lockScene.revStartGame();
         });
     };
     //////////////////////////////////////////////////////

@@ -43,16 +43,22 @@
 	<script egret="game" src="bin-debug/com/common/BaseUI.js"></script>
 	<script egret="game" src="bin-debug/com/common/LayerManager.js"></script>
 	<script egret="game" src="bin-debug/com/common/LoadManager.js"></script>
+	<script egret="game" src="bin-debug/com/common/UserManager.js"></script>
 	<script egret="game" src="bin-debug/com/constant/GameConst.js"></script>
 	<script egret="game" src="bin-debug/com/GameManager.js"></script>
 	<script egret="game" src="bin-debug/com/net/ClientSocket.js"></script>
 	<script egret="game" src="bin-debug/com/view/GameScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/HomeScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/LockScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/PreloadScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/ResultScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/HeadUI.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/RankHead.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/ResultHead.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/SimpleButton.js"></script>
 	<script egret="game" src="bin-debug/LoadingUI.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
 	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
-	<script egret="game" src="bin-debug/com/view/LockScene.js"></script>
 	<!--game_files_end-->
 </head>
 <body>
@@ -87,10 +93,14 @@
     	var gameConfig = {
     		debug:true,                    //是否本地调试模式
     		subscribe:'<%= subscribe %>',  //是否需要关注公众号才能游戏  0不需要 1需要
-    		picture: '<%= picture %>',     //二维码图片地址
+    		picture: '<%= picture %>',     //关注的公众号二维码图片地址
+    		openid:'<%= openid %>',        //用户openid
+    		headimgurl:'<%= headimgurl %>',//用户头像
+    		nickname:'<%= nickname %>',    //用户昵称
     		server:"http://" + '<%= host %>' + ":" + '<%= port %>' + "/mobile",  //服务器地址
     		rid:'<%= rid %>'               //房间号 
     	}
+    	
     	if(gameConfig.debug == true){
     			gameConfig.subscribe = 1;
     			gameConfig.picture = "";
@@ -98,7 +108,7 @@
     			gameConfig.rid = Request("rid");
     	}		
     	
-
+    	
     	//是否需要关注公众号
         if(gameConfig.subscribe == 1){
     		egret.runEgret();			

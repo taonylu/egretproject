@@ -9,6 +9,7 @@ class ClientSocket {
     
     public gameManager:GameManager;
     public homeScene:HomeScene;
+    public lockScene:LockScene;
     public gameScene:GameScene;
     
     public static getInstance(): ClientSocket {
@@ -74,7 +75,7 @@ class ClientSocket {
         }); 
         
         this.socket.on("startGame",function(data) {      
-            self.gameScene.revStartGame();
+            self.lockScene.revStartGame();
         }); 
         
     }

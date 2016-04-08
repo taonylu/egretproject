@@ -5,6 +5,9 @@
  */
 class LockScene extends BaseScene{
     private socket:ClientSocket;
+    private countDownLabel:eui.BitmapLabel;  //倒计时
+    private countDownTimer:egret.Timer = new egret.Timer(1000);
+    private countDownLimit:number = 15;
     
 	public constructor() {
     	super("LockSceneSkin");
@@ -12,15 +15,51 @@ class LockScene extends BaseScene{
 	
     public componentCreated(): void {
         super.componentCreated();
-        this.socket = ClientSocket.getInstance();        
+        this.socket = ClientSocket.getInstance();      
+        if(GameConst.debug){
+            this.countDownLimit = 5;
+        }
     }
 
     public onEnable(): void {
-        
+        this.resetScene();
+        this.startCountDown();
     }
 
     public onRemove(): void {
 
+    }
+    
+    private resetScene(){
+        this.lockNum = 0;
+    }
+    
+    private startCountDown(){
+        this.countDownLabel.text = this.countDownLimit + "";
+        this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onTimerHandler, this);
+        this.countDownTimer.reset();
+        this.countDownTimer.start();
+    }
+    
+    private onTimerHandler(){
+        var count = this.countDownLimit - this.countDownTimer.currentCount;
+        if(count <= 0){
+            if(this.parent){
+                this.startGame();
+            }
+        }
+        this.countDownLabel.text = count + "";
+    }
+    
+    private stopCountDown(){
+        this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER,this.onTimerHandler,this);
+        this.countDownTimer.stop();
+    }
+    
+    private startGame(){
+        this.stopCountDown();
+        this.sendStartGame();
+        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
     }
     
     /////////////////////////////////////////////////////////
@@ -28,15 +67,21 @@ class LockScene extends BaseScene{
     /////////////////////////////////////////////////////////
     
     //接收锁定
+    private lockNum:number = 0;  //已校准人数
     public revLock(data) {
         egret.log("rev lock:",data);
-        
-        //TODO 所有人锁定完成，则开始游戏
-        if(GameConst.debug){
-            this.sendStartGame();
-            LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
-        }else{
-            //TODO 显示校准玩家
+        var openid:string = data.openid;
+        this.lockNum++;
+        if(this.parent){
+            if(GameConst.debug) {
+                this.startGame();
+            } else {
+                //所有人校准完成
+                var len = UserManager.getInstance().getUserNum();
+                if(this.lockNum >= len) {
+                    this.startGame();
+                }
+            }
         }
     }
     

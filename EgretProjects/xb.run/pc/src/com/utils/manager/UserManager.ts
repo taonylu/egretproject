@@ -23,20 +23,14 @@ class UserManager {
         return false;
     }
     
-    /**
-     * 删除用户
-     * @param openid
-     * @return 用户在数组中的索引
-     */ 
-    public deleteUser(openid:string):number{
+    //删除用户
+    public deleteUser(openid:string){
         var len = this.userList.length;
         for(var i = 0;i < len;i++) {
             if(this.userList[i].openid == openid) {
                 this.userList.splice(i,1);
-                return i;
             }
         }
-        return -1;
     }
     
     //获取用户
@@ -74,7 +68,10 @@ class UserManager {
         return this.userList.length;
     }
     
-    
+    //清理所有用户
+    public clearAllUser(){
+        this.userList.length = 0;
+    }
     
     
     

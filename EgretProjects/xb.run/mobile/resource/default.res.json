@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"head0_png,head1_png,head2_png,ok_png",
+			"keys":"head0_png,head1_png,head2_png,ok_png,right0_png,right1_png,up0_png,up1_png,left0_png,left1_png,panel_png,result_no1_png,result_no2_png,result_no3_png,result_title_png,rankbg1_png,rankbg0_png,result_again_png,rankFont_fnt",
 			"name":"home"
 		}
 	],
@@ -44,6 +44,81 @@
 			"name":"ok_png",
 			"type":"image",
 			"url":"assets/home/ok.png"
+		},
+		{
+			"name":"right0_png",
+			"type":"image",
+			"url":"assets/home/right0.png"
+		},
+		{
+			"name":"right1_png",
+			"type":"image",
+			"url":"assets/home/right1.png"
+		},
+		{
+			"name":"up0_png",
+			"type":"image",
+			"url":"assets/home/up0.png"
+		},
+		{
+			"name":"up1_png",
+			"type":"image",
+			"url":"assets/home/up1.png"
+		},
+		{
+			"name":"left0_png",
+			"type":"image",
+			"url":"assets/home/left0.png"
+		},
+		{
+			"name":"left1_png",
+			"type":"image",
+			"url":"assets/home/left1.png"
+		},
+		{
+			"name":"panel_png",
+			"type":"image",
+			"url":"assets/home/panel.png"
+		},
+		{
+			"name":"result_no1_png",
+			"type":"image",
+			"url":"assets/home/result_no1.png"
+		},
+		{
+			"name":"result_no2_png",
+			"type":"image",
+			"url":"assets/home/result_no2.png"
+		},
+		{
+			"name":"result_no3_png",
+			"type":"image",
+			"url":"assets/home/result_no3.png"
+		},
+		{
+			"name":"result_title_png",
+			"type":"image",
+			"url":"assets/home/result_title.png"
+		},
+		{
+			"name":"rankbg1_png",
+			"type":"image",
+			"url":"assets/home/rankbg1.png"
+		},
+		{
+			"name":"rankbg0_png",
+			"type":"image",
+			"url":"assets/home/rankbg0.png"
+		},
+		{
+			"name":"result_again_png",
+			"type":"image",
+			"url":"assets/home/result_again.png"
+		},
+		{
+			"name":"rankFont_fnt",
+			"type":"font",
+			"url":"assets/home/rankFont.fnt"
 		}
 	]
 }

@@ -43,6 +43,76 @@
 					"isFolder":false,
 					"key":"ok_png",
 					"name":"ok_png"
+				},
+				{
+					"isFolder":false,
+					"key":"left0_png",
+					"name":"left0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"left1_png",
+					"name":"left1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"right0_png",
+					"name":"right0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"right1_png",
+					"name":"right1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"up0_png",
+					"name":"up0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"up1_png",
+					"name":"up1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"panel_png",
+					"name":"panel_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_no1_png",
+					"name":"result_no1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_no2_png",
+					"name":"result_no2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_no3_png",
+					"name":"result_no3_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_title_png",
+					"name":"result_title_png"
+				},
+				{
+					"isFolder":false,
+					"key":"rankbg1_png",
+					"name":"rankbg1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"rankbg0_png",
+					"name":"rankbg0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_again_png",
+					"name":"result_again_png"
 				}
 			]
 		}

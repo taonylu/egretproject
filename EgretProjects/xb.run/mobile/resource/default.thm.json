@@ -1,9 +1,17 @@
 {
   "autoGenerateExmlsList": true,
   "exmls": [
+    "src/com/view/ui/UpArrowSkin.exml",
+    "src/com/view/ui/RightArrowSkin.exml",
+    "src/com/view/ui/LeftArrowSkin.exml",
     "src/com/view/GameSceneSkin.exml",
     "src/com/view/HomeSceneSkin.exml",
-    "src/com/view/PreloadSceneSkin.exml"
+    "src/com/view/LockSceneSkin.exml",
+    "src/com/view/PreloadSceneSkin.exml",
+    "src/com/view/ResultSceneSkin.exml",
+    "src/com/view/ui/HeadUISkin.exml",
+    "src/com/view/ui/RankHeadSkin.exml",
+    "src/com/view/ui/ResultHeadSkin.exml"
   ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",
