@@ -7,17 +7,23 @@ class GameScene extends BaseScene{
     
     private socket:ClientSocket;
     
+    private bg0Group:eui.Group;  //单人赛道
+    private bg1Group:eui.Group;  //多人赛道
     private farPotList: Array<egret.Point> = new Array < egret.Point>();    //远点列表
     private nearPotList: Array<egret.Point> = new Array < egret.Point>();   //进点列表
     private trackXList = [];   //赛道X轴偏移量
     private trackYList = [];   //赛道y轴偏移量
-    private roleList:Array<Player> = new Array<Player>();    //角色列表，保存3个角色
+    private roleList:Array<Player> = new Array<Player>();    //角色列表，保存3个角色。按数组下标0兔子 1熊猫 2鹿
     private playerGroup:eui.Group;   //玩家Group
     private playerLimit:number = 3;  //玩家人数限制
     private playerList: Array<Player> = new Array<Player>(); //当前玩家列表
     
+    private gameHeadList:Array<GameHead> = new Array<GameHead>(); //游戏中头像
+    private gameHeadPosList = [];  //游戏中头像的y位置，用于排名变化
+    private scoreGroup:eui.Group;  //游戏中头像分数容器
+    
     private carrotPool:ObjectPool = ObjectPool.getPool(Carrot.NAME,1); //胡萝卜对象池
-    private bananaPool: ObjectPool = ObjectPool.getPool(Banana.NAME,1);     //香蕉对象池
+    private bananaPool: ObjectPool = ObjectPool.getPool(Banana.NAME,1);//香蕉对象池
     private stonePool:ObjectPool = ObjectPool.getPool(Stone.NAME,1);   //石头对象池
     private micePool:ObjectPool = ObjectPool.getPool(Mice.NAME);       //地鼠对象池
     private highWoodPool:ObjectPool = ObjectPool.getPool(HighWood.NAME,1); //高木桩对象池
@@ -28,13 +34,16 @@ class GameScene extends BaseScene{
     private itemList = [];           //物品列表(水果、障碍物)
     private itemGroup:eui.Group;     //物品Group
     
-    private isSingleMode:boolean = false;  //是否单人模式
+    private isSingleMode:boolean = true; //是否单人模式
     private singleTrackNum:number = 3;    //单人赛道数量
     private multiTrackNum:number = 7;     //多人赛道
     private trackNum:number;              //赛道数量
     
+    private progressBar:eui.Image;        //进度条
+    private progressSlider:eui.Image;
+    
     private moveSpeed: number = 4;   //移动速度
-    private stageWidth:number;        //舞台高宽
+    private stageWidth:number;       //舞台高宽
     private stageHeight:number;
     
     private grassGroup:eui.Group;    //草地Group
@@ -45,7 +54,7 @@ class GameScene extends BaseScene{
     private grassList:Array<Grass> = new Array<Grass>(); //草地数组 
     
     private gameTimer:egret.Timer = new egret.Timer(1000); //游戏计时器
-    private gameTimeLimit:number = 10;  //游戏时间限制
+    private gameTimeLimit:number = 60;  //游戏时间限制
     
     private countDownTimer:egret.Timer = new egret.Timer(1000);  //倒计时
     private countDownLimit:number = 1;  //倒计时限制
@@ -74,9 +83,13 @@ class GameScene extends BaseScene{
     }
     
     private resetGame(){
+        this.initMap();         //初始化地图
+        this.initFarAndNear();  //初始化远点和近点
         this.resetAllPlayer();  //重置所有玩家
         this.clearItem();       //清理移动物体
         this.clearGrass();      //清理草地
+        this.resetProgressBar();//重置进度条
+        this.resetGameHead();   //重置用户头像
     }
     
     private gameOver(){
@@ -89,12 +102,11 @@ class GameScene extends BaseScene{
     private initView(){
         this.socket = ClientSocket.getInstance();
         this.stageWidth = GameConst.stage.stageWidth;
-        this.stageHeight = GameConst.stage.stageHeight;
-
-        this.initRole();        //初始化角色
-        this.initFarAndNear();  //初始化远点和近点
-        this.initGrass();       //初始化草地
+        this.stageHeight = GameConst.stage.stageHeight; 
         
+        this.initRole();        //初始化角色
+        this.initGrass();       //初始化草地
+        this.initGameHead();    //初始化用户头像
     }
     
     private configListeners(){
@@ -116,25 +128,51 @@ class GameScene extends BaseScene{
     private initRole(){
         for(var i = 0;i < this.playerLimit;i++){
             var player: Player = new Player("player" + i + "_png","player" + i + "_json", "player" + i);
-            player.anchorOffsetX = player.width;
-            player.anchorOffsetY = player.height;
             this.roleList.push(player);
+            
+            if(i==0){
+                player.offerX = -90;   //mc中心位置不准确，修正值
+                player.offerY = -250;
+            }
         }
+    }
+    
+    //初始化地图
+    private initMap(){
+        //模式选择
+        var userNum = UserManager.getInstance().getUserNum();
+        if(userNum <= 1){
+            this.isSingleMode = true;
+            this.bg0Group.visible = true;
+            this.bg1Group.visible = false;
+        }else{
+            this.isSingleMode = false;
+            this.bg0Group.visible = false;
+            this.bg1Group.visible = true;
+        }
+        //赛道数量
+        this.trackNum = this.isSingleMode ? this.singleTrackNum : this.multiTrackNum;
     }
     
     //初始化远点和进点列表
     private initFarAndNear(){
-        //赛道数量
-        this.trackNum = this.isSingleMode ? this.singleTrackNum : this.multiTrackNum;
         //清理数组
         this.farPotList.length = 0;
         this.nearPotList.length = 0;
         this.trackXList.length = 0;
         //获取赛道近点和远点
         var len = this.trackNum;
+        var far: eui.Rect;
+        var near: eui.Rect;
         for(var i=0;i<len;i++){
-            var far: eui.Rect = this["far0" + i];
-            var near: eui.Rect = this["near0" + i];
+            if(this.isSingleMode){
+                far = this["singleFar" + i];
+                near = this["singleNear" + i];
+            }else{
+                far = this["far0" + i];
+                near = this["near0" + i];
+            }
+            
             var farPot: egret.Point = new egret.Point(far.x,far.y);
             var nearPot:egret.Point = new egret.Point(near.x, near.y);
             this.farPotList.push(farPot);
@@ -152,12 +190,49 @@ class GameScene extends BaseScene{
             this.trackXList.push(xOffset);
             this.trackYList.push(near.y - farPot.y);
         }
+        
+        
+        
     }
     
     //初始化草地
     private initGrass(){
         this.grassPot0.parent && this.grassGroup.removeChild(this.grassPot0);
         this.grassPot1.parent && this.grassGroup.removeChild(this.grassPot1);
+    }
+    
+    //初始化用户头像
+    private initGameHead(){
+        for(var i=0;i<this.playerLimit;i++){
+            var gameHead: GameHead = this["gameHead" + i];
+            this.gameHeadList.push(gameHead);
+            gameHead.bg.texture = RES.getRes("scoreBg" + i + "_png");
+            this.gameHeadPosList.push(gameHead.y);
+        }
+    }
+    
+    //重置用户头像
+    private resetGameHead(){
+        //清理头像
+        var len = this.gameHeadList.length;
+        for(var i=0;i<len;i++){
+            var gameHead:GameHead = this.gameHeadList[i];
+            gameHead.clear();
+            gameHead.hide();
+        }
+        //将分数头像UI  绑定到玩家对象上
+        len = this.playerList.length;
+        for(var i = 0;i < len;i++){
+            var player:Player = this.playerList[i];
+            var gameHead:GameHead = this.gameHeadList[player.roleID];
+            player.gameHead = gameHead;
+            var userVO: UserVO = UserManager.getInstance().getUser(player.openid);
+            gameHead.loadImg(userVO.headUrl);
+            gameHead.setNameLabel(userVO.nickName);
+            gameHead.openid = userVO.openid;
+            gameHead.y = this.gameHeadPosList[i];
+            this.scoreGroup.addChild(gameHead);
+        }
     }
     
     //重置所有玩家
@@ -174,20 +249,32 @@ class GameScene extends BaseScene{
         for(var i=0;i<userNum;i++){
             var userVO:UserVO = userList[i];
             var player: Player = this.roleList[userVO.role];
+            player.roleID = userVO.role;
             player.openid = userVO.openid;
             this.playerList.push(player);
         }
         //放置用户
-        if(userNum == 1){
-            var player0:Player = this.playerList[0];
-            player0.track = Math.floor(this.trackNum / 2);
-            player0.x = this.nearPotList[player0.track].x;
-            player0.y = this.nearPotList[player0.track].y;
-            player0.hitY = player0.y;
-            player0.isJumping = false;
-            player0.run();
-            this.playerGroup.addChild(player0);
-        }   
+        for(var i=0;i<userNum;i++){
+            var player: Player = this.playerList[i];
+            if(i==0){
+                player.track = Math.floor(this.trackNum / 2);
+            }else if(i==1){
+                player.track = Math.floor(this.trackNum / 2) - 2;
+            } else if(i == 2) {
+                player.track = Math.floor(this.trackNum / 2) + 2;
+            }
+            player.x = this.nearPotList[player.track].x;
+            player.y = this.nearPotList[player.track].y;
+            player.shadow.x = player.x;
+            player.shadow.y = player.y;
+            player.modifyPos();
+            player.clearStatus();
+            player.score = 0;
+            player.gameHead = null;
+            player.run();
+            this.playerGroup.addChild(player.shadow);
+            this.playerGroup.addChild(player);
+        }
     }
     
     //根据openid获取Player
@@ -207,9 +294,11 @@ class GameScene extends BaseScene{
         player.track = Math.floor(this.trackNum / 2);
         player.x = this.nearPotList[player.track].x;
         player.y = this.nearPotList[player.track].y;
-        player.isJumping = false;
+        player.shadow.x = player.x;
+        player.shadow.y = player.y;
+        player.modifyPos();
         player.run();
-        this.playerGroup.addChild(player);
+        player.clearStatus();
     }
 
     //创建地图，算法以单赛道创建为主，每隔一段距离创建一次
@@ -217,20 +306,17 @@ class GameScene extends BaseScene{
     private createItem(){
         this.count ++;
         var rand;
-        var item;
+        var item:BaseItem;
         if(this.count %40 == 0){
             for(var i = 0;i < this.trackNum;i++) {
                 rand = Math.random();
                 if(rand <0.7) {  //创建得分物品
                     item = this.scorePoolList[NumberTool.getRandomInt(0,1)].getObject();
-                }else if(rand <0.9){    //创建障碍物
+                }else{    //创建障碍物
                     item= this.zhangAiPoolList[NumberTool.getRandomInt(0,4)].getObject();   
-                }else{  //不创建
-                    return;
                 }
                 item.x = this.farPotList[i].x;
                 item.y = this.farPotList[i].y;
-                item.z = 0;
                 item.track = i;
                 item.scaleX = 0.4;
                 item.scaleY = 0.4;
@@ -249,11 +335,11 @@ class GameScene extends BaseScene{
             item = this.itemList[i];
             track = item.track;
             //移动
-            item.y += this.moveSpeed;
+            item.y += this.moveSpeed + this.moveSpeed*item.scaleX;
             var rate = (item.y - this.farPotList[track].y) / this.trackYList[track]; //所在y轴位置比例
             item.x = this.farPotList[track].x +  rate* this.trackXList[track];
-            //item.scaleX = 0.4 + rate*0.1;
-            //item.scaleY = 0.4 + rate*0.1;
+            item.scaleX = 0.4 + rate*0.3;
+            item.scaleY = 0.4 + rate*0.3;
             
             //边界检测
             if(item.y > (this.stageHeight + item.height)) {
@@ -266,15 +352,29 @@ class GameScene extends BaseScene{
             var playerLen = this.playerList.length;
             for(var j=0;j<playerLen;j++){
                 var player = this.playerList[j];
-                if(player.track == item.track){
-                    if(Math.abs(player.hitY - item.y) < player.width){
+                if(player.track == item.track && player.isDie == false){
+                    var dist = player.shadow.y - item.y; //玩家和物体的距离，简略判断，因为取不了物体影子范围
+                    if(dist >0 && dist < item.height/2){
                         var self:GameScene = this;
                         if(item.type == 0){  //得分物品
-                            item.changeAlpha();
-                            this.itemList.splice(i,1);
-                        }else if(item.type == 1){ //不可跨越障碍
+                            if( player.isJumping && ((item.y - player.y) > player.height/2)){
+                                //TODO 跳跃，且不触碰物品
+                            }else if(player.isDie){
+                                //TODO 玩家死亡
+                            }else{
+                                item.changeAlpha();
+                                this.itemList.splice(i,1);
+                                player.score += item.score;
+                                player.gameHead.setScoreLabel(player.score);
+                            } 
+                        }else if(item.type == 1){ //可跨越障碍
+                            if(player.isJumping && ((item.y -player.y)> player.height/2)) {
+                                //TODO 跳跃，且不触碰物品
+                            } else {
+                                player.die();
+                            }
+                        }else if(item.type == 2){ //不可跨越障碍物
                             player.die();
-                        }else if(item.type == 2){ //可跨越障碍物
                             
                         }
                     }
@@ -348,6 +448,12 @@ class GameScene extends BaseScene{
         this.grassList.length = 0;
     }
     
+    //重置进度条
+    private resetProgressBar(){
+        this.progressSlider.x = this.progressBar.x;
+        this.progressBar.scaleX = 0;
+    }
+    
     //开始游戏计时
     private startGameTimer(){
         this.gameTimer.addEventListener(egret.TimerEvent.TIMER, this.onGameTimerHandler, this);
@@ -358,6 +464,9 @@ class GameScene extends BaseScene{
     //游戏计时处理
     private onGameTimerHandler(){
         var count = this.gameTimeLimit - this.gameTimer.currentCount;
+        this.progressBar.scaleX = this.gameTimer.currentCount/this.gameTimeLimit;
+        this.progressSlider.x = this.progressBar.x + this.progressBar.width*this.progressBar.scaleX;
+        
         if(count <= 0){
             this.gameOver();
         }
@@ -406,19 +515,32 @@ class GameScene extends BaseScene{
             egret.log("行动的Player为null");
             return;
         }
+        if(player.isMoving || player.isDie || player.isJumping){
+            return;
+        }
         
         var myTrack = player.track;
         var self: GameScene = this;
         if(actionType == "left"){
             if(myTrack > 0){
                 myTrack--;
-                egret.Tween.get(player).to({x:this.nearPotList[myTrack].x},300);
+                player.isMoving = true;
+                var dist = this.nearPotList[myTrack].x - this.nearPotList[myTrack+1].x;
+                egret.Tween.get(player).to({x:player.x + dist},300);
+                egret.Tween.get(player.shadow).to({ x: player.shadow.x + dist},300).call(function(){
+                       player.isMoving = false;
+                });
                 player.track = myTrack;
             }
         }else if(actionType == "right"){
             if(myTrack < (this.trackNum-1)){
                 myTrack++;
-                egret.Tween.get(player).to({ x: this.nearPotList[myTrack].x},300);
+                player.isMoving = true;
+                var dist = this.nearPotList[myTrack].x - this.nearPotList[myTrack - 1].x;
+                egret.Tween.get(player).to({ x: player.x + dist},300);
+                egret.Tween.get(player.shadow).to({ x: player.shadow.x + dist },300).call(function() {
+                    player.isMoving = false;
+                });;
                 player.track = myTrack;
             }
         }else if(actionType == "up"){

@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"home_demo_png,home_footbg_png,home_headbg_png,home_logo_png,home_msgbx_png,home_panel_png,home_phone_png,home_player_png,homg_bg_jpg,home_arrow0_png,home_arrow1_png,home_codebg_png,home_headmask_png,home_title_png,game_bg1_png,game_grass2_png,game_sky_jpg,game_tree0_png,game_tree1_png,game_tree3_png,game_grass0_png,game_grass1_png,item_banana_png,item_carrot_png,item_highwood_png,item_lowwood_png,item_mice_png,item_stone_png,item_water_png,player0_json,player0_png,lock_center_png,lock_msg_png,lock_phone_png,lock_bg_png,countDownFont_png,countDownFont_fnt",
+			"keys":"home_demo_png,home_footbg_png,home_headbg_png,home_logo_png,home_msgbx_png,home_panel_png,home_phone_png,home_player_png,homg_bg_jpg,home_arrow0_png,home_arrow1_png,home_codebg_png,home_headmask_png,home_title_png,game_bg1_png,game_grass2_png,game_sky_jpg,game_tree0_png,game_tree1_png,game_tree3_png,game_grass0_png,game_grass1_png,item_banana_png,item_carrot_png,item_highwood_png,item_lowwood_png,item_mice_png,item_stone_png,item_water_png,player0_json,player0_png,lock_center_png,lock_msg_png,lock_phone_png,lock_bg_png,countDownFont_fnt,game_bg0_png,shadow_png,progress_bar0_png,progress_bar1_png,progress_bg_png,progress_slider_png,scoreBg0_png,scoreBg1_png,scoreBg2_png",
 			"name":"home"
 		}
 	],
@@ -189,6 +189,56 @@
 			"name":"countDownFont_fnt",
 			"type":"font",
 			"url":"assets/game/countDownFont.fnt"
+		},
+		{
+			"name":"game_bg0_png",
+			"type":"image",
+			"url":"assets/game/game_bg0.png"
+		},
+		{
+			"name":"shadow_png",
+			"type":"image",
+			"url":"assets/game/shadow.png"
+		},
+		{
+			"name":"progress_bar0_png",
+			"type":"image",
+			"url":"assets/game/progress_bar0.png"
+		},
+		{
+			"name":"progress_bar1_png",
+			"type":"image",
+			"url":"assets/game/progress_bar1.png"
+		},
+		{
+			"name":"progress_bg_png",
+			"type":"image",
+			"url":"assets/game/progress_bg.png"
+		},
+		{
+			"name":"progress_slider_png",
+			"type":"image",
+			"url":"assets/game/progress_slider.png"
+		},
+		{
+			"name":"default.res_json",
+			"type":"json",
+			"url":"default.res.json"
+		},
+		{
+			"name":"scoreBg0_png",
+			"type":"image",
+			"url":"assets/game/scoreBg0.png"
+		},
+		{
+			"name":"scoreBg1_png",
+			"type":"image",
+			"url":"assets/game/scoreBg1.png"
+		},
+		{
+			"name":"scoreBg2_png",
+			"type":"image",
+			"url":"assets/game/scoreBg2.png"
 		}
 	]
 }

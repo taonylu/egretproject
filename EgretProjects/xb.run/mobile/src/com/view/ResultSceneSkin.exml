@@ -6,9 +6,9 @@
 		<e:Image source="result_no1_png" y="114" x="245"/>
 		<e:Image source="result_no2_png" x="46" y="186"/>
 		<e:Image source="result_no3_png" x="434" y="194"/>
-		<ns1:ResultHead id="head0" x="248" y="249" width="120" height="110"/>
-		<ns1:ResultHead x="61" width="120" y="292" height="110" id="head1"/>
-		<ns1:ResultHead id="head2" width="120" y="270" height="110" x="449"/>
+		<ns1:ResultHead id="head0" x="259" y="248" width="120" height="110" skinName="ResultHeadSkin"/>
+		<ns1:ResultHead x="61" width="120" y="290" height="110" id="head1" skinName="ResultHeadSkin"/>
+		<ns1:ResultHead id="head2" width="120" y="268" height="110" x="449" skinName="ResultHeadSkin"/>
 	</e:Group>
 	<e:Group id="rankGroup" height="1136" width="640">
 		<e:Image source="rankbg1_png" y="428" x="11"/>

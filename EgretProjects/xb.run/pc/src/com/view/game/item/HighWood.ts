@@ -8,8 +8,8 @@ class HighWood extends BaseItem{
     public constructor() {
         super();
         this.bitmapData = RES.getRes("item_highwood_png");
+        this.type = 2;
         this.anchorOffsetX = this.width / 2;
-        this.anchorOffsetY = this.height;
-        this.type = 1;
+        this.anchorOffsetY = this.height / 2;
     }
 }

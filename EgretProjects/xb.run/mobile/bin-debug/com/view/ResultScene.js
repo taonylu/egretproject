@@ -35,7 +35,7 @@ var ResultScene = (function (_super) {
         //显示本次游戏玩家分数
         len = scoreList.length;
         for (var i = 0; i < len; i++) {
-            this.headList[i].setNameLabel(scoreList[i].nickname);
+            this.headList[i].setNameLabel(scoreList[i].nickName);
             this.headList[i].loadImg(scoreList[i].headUrl);
         }
         //清理历史排行

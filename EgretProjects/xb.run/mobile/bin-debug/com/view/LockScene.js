@@ -16,8 +16,6 @@ var LockScene = (function (_super) {
     };
     p.onEnable = function () {
         this.msgLabel.text = "";
-        this.setRoleImg();
-        this.setRoleName();
         this.openDevice();
         this.okBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOkBtnTouch, this);
     };
@@ -74,6 +72,14 @@ var LockScene = (function (_super) {
     p.revStartGame = function () {
         egret.log("revStartGame");
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+    };
+    //接收分配角色
+    p.revAssignRole = function (data) {
+        egret.log("revAssignRole");
+        var roleID = data.roleType;
+        UserManager.getInstance().roleID = roleID;
+        this.setRoleImg();
+        this.setRoleName();
     };
     return LockScene;
 }(BaseScene));

@@ -45,6 +45,7 @@ var game_file_list = [
 	"bin-debug/com/view/PreloadScene.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
+	"bin-debug/com/view/game/ui/GameHead.js",
 	//----auto game_file_list end----
 ];
 

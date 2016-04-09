@@ -13,10 +13,17 @@
 		<e:Image source="game_tree3_png" y="9" x="1379"/>
 		<e:Image source="game_tree3_png" y="29" x="19"/>
 	</e:Group>
-	<e:Group id="bgGroup" height="1080" width="1920">
-		<e:Image source="game_bg1_png" bottom="0"/>
+	<e:Group id="bg0Group" height="1080" width="1920">
+		<e:Image source="game_bg0_png" bottom="0"/>
+		<e:Rect id="singleFar0" anchorOffsetY="50" y="196" anchorOffsetX="50" width="100" height="100" x="880"/>
+		<e:Rect id="singleNear0" x="630" width="100" y="946" anchorOffsetX="50" anchorOffsetY="50" height="100"/>
+		<e:Rect id="singleNear1" anchorOffsetY="50" y="946" anchorOffsetX="50" width="100" height="100" x="990"/>
+		<e:Rect x="1336" width="100" y="946" anchorOffsetX="50" anchorOffsetY="50" height="100" id="singleNear2"/>
+		<e:Rect x="991" width="100" y="196" anchorOffsetX="50" anchorOffsetY="50" height="100" id="singleFar1"/>
+		<e:Rect id="singleFar2" anchorOffsetY="50" y="196" anchorOffsetX="50" width="100" height="100" x="1102"/>
 	</e:Group>
-	<e:Group id="potGroup" height="1080" width="1920">
+	<e:Group id="bg1Group" width="1920" height="1080" visible="false">
+		<e:Image source="game_bg1_png" bottom="0"/>
 		<e:Rect id="far00" height="10" width="10" x="617" y="217" anchorOffsetX="5" anchorOffsetY="5"/>
 		<e:Rect id="far01" y="217" anchorOffsetY="5" anchorOffsetX="5" width="10" height="10" x="721"/>
 		<e:Rect id="far02" y="217" anchorOffsetY="5" anchorOffsetX="5" width="10" height="10" x="836"/>
@@ -38,5 +45,16 @@
 	<e:Group id="grassGroup" width="1920" height="1080">
 		<e:Rect id="grassPot0" y="106" x="370" anchorOffsetY="50" width="100" height="100" anchorOffsetX="50"/>
 		<e:Rect id="grassPot1" anchorOffsetX="50" y="96" x="1480" anchorOffsetY="50" width="100" height="100"/>
+	</e:Group>
+	<e:Group id="progressGroup" width="1920" height="1080">
+		<e:Image id="progressBg" source="progress_bg_png" y="57" horizontalCenter="0.5"/>
+		<e:Image source="progress_bar1_png" y="86" width="1100" height="20" x="410"/>
+		<e:Image id="progressBar" source="progress_bar0_png" y="86" width="1110" height="20" anchorOffsetX="0" x="405"/>
+		<e:Image id="progressSlider" source="progress_slider_png" x="383" y="98" anchorOffsetX="31" anchorOffsetY="31"/>
+	</e:Group>
+	<e:Group id="scoreGroup" width="1920" height="1080">
+		<ns1:GameHead id="gameHead0" x="-6" y="150" skinName="GameHeadSkin"/>
+		<ns1:GameHead id="gameHead1" y="305" skinName="GameHeadSkin" x="-6"/>
+		<ns1:GameHead id="gameHead2" y="460" skinName="GameHeadSkin" x="-6"/>
 	</e:Group>
 </e:Skin>

@@ -2,12 +2,20 @@
   "autoGenerateExmlsList": true,
   "exmls": [
     {
-      "path": "src/com/view/GameSceneSkin.exml",
-      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"GameSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Label y=\"223\" textColor=\"0x040000\" size=\"15\" fontFamily=\"微软雅黑\" id=\"deviceLabel\" width=\"364\" height=\"221\" x=\"68\" textAlign=\"right\"/>\n\t<e:Image id=\"lockBtn\" source=\"home_thxbg_jpg\" x=\"174\" y=\"406\" height=\"173\" width=\"133\"/>\n</e:Skin>"
+      "path": "src/com/view/ui/UpArrowSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"UpArrowSkin\" width=\"180\" height=\"180\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"up\" source=\"up0_png\"/>\n\t<e:Image id=\"down\" source=\"up1_png\"/>\n</e:Skin>"
     },
     {
-      "path": "src/com/view/HomeSceneSkin.exml",
-      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"HomeSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n</e:Skin>"
+      "path": "src/com/view/ui/RightArrowSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"RightArrowSkin\" width=\"180\" height=\"180\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"up\" source=\"right0_png\"/>\n\t<e:Image id=\"down\" source=\"right1_png\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/ui/LeftArrowSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"LeftArrowSkin\" width=\"180\" height=\"180\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"up\" source=\"left0_png\"/>\n\t<e:Image id=\"down\" source=\"left1_png\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/GameSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"GameSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\" xmlns:ns1=\"*\">\n\t<e:Rect width=\"640\" height=\"1136\" fillColor=\"0x6FEAEA\"/>\n\t<e:Group id=\"arrowGroup\" height=\"744\" width=\"640\" bottom=\"0\">\n\t\t<ns1:SimpleButton id=\"upBtn\" y=\"231\" skinName=\"UpArrowSkin\" x=\"230\"/>\n\t\t<ns1:SimpleButton id=\"rightBtn\" y=\"422\" x=\"412\" skinName=\"RightArrowSkin\"/>\n\t\t<ns1:SimpleButton id=\"leftBtn\" x=\"42\" y=\"422\" skinName=\"LeftArrowSkin\"/>\n\t\t<e:Image source=\"panel_png\" x=\"120\" y=\"26\"/>\n\t\t<e:Label text=\"重力感应不好使？可以试试点击操作！\" x=\"144\" y=\"83\" textColor=\"0x030000\" fontFamily=\"微软雅黑\" width=\"322\" height=\"102\" verticalAlign=\"middle\" textAlign=\"center\"/>\n\t</e:Group>\n\t<e:Rect fillColor=\"0xF5FAFA\" width=\"550\" y=\"98\" height=\"232\" horizontalCenter=\"0\" x=\"10\"/>\n\t<e:Image source=\"head0_png\" y=\"148\" x=\"80\" id=\"headImg\"/>\n\t<e:Label y=\"146\" textColor=\"0x030000\" text=\"您当前使用的角色是：\" fontFamily=\"微软雅黑\" width=\"326\" height=\"42\" x=\"232\" verticalAlign=\"middle\"/>\n\t<e:Label id=\"nameLabel\" y=\"196\" textColor=\"0xF90101\" text=\"悠悠熊猫\" fontFamily=\"微软雅黑\" textAlign=\"center\" width=\"148\" height=\"42\" x=\"220\" verticalAlign=\"middle\"/>\n</e:Skin>"
     },
     {
       "path": "src/com/view/LockSceneSkin.exml",
@@ -18,8 +26,16 @@
       "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PreloadSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect height=\"1136\" width=\"640\" fillColor=\"0x6FEAEA\"/>\n\t<e:Label id=\"progressLabel\" text=\"标签\" y=\"705\" textColor=\"0x020000\" size=\"30\" width=\"424\" horizontalCenter=\"0\" verticalAlign=\"middle\" textAlign=\"center\" height=\"128\"/>\n\t<e:Image source=\"preload_title_png\" width=\"516\" height=\"150\" horizontalCenter=\"0\" top=\"40\"/>\n\t<e:Image source=\"preload_foot_png\" bottom=\"0\"/>\n\t<e:Image source=\"preload_logo_png\" verticalCenter=\"-81.5\" horizontalCenter=\"0\"/>\n</e:Skin>"
     },
     {
+      "path": "src/com/view/ui/ResultHeadSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultHeadSkin\" width=\"120\" height=\"110\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Group id=\"imgGroup\" height=\"75\" width=\"75\" y=\"0\" x=\"23\"/>\n\t<e:Label id=\"nameLabel\" text=\"标签标签标签标签\" y=\"74\" width=\"118\" size=\"16\" textColor=\"0x060000\" fontFamily=\"微软雅黑\" verticalAlign=\"middle\" textAlign=\"center\" height=\"35\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/ui/RankHeadSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"RankHeadSkin\" width=\"300\" height=\"90\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image source=\"rankbg0_png\" horizontalCenter=\"0\" verticalCenter=\"0\"/>\n\t<e:Group id=\"imgGroup\" height=\"50\" width=\"50\" x=\"59\" y=\"23\"/>\n\t<e:BitmapLabel id=\"rankLabel\" x=\"21\" y=\"28\" font=\"rankFont_fnt\" text=\"1\"/>\n\t<e:Label id=\"nameLabel\" text=\"标签\" x=\"114\" y=\"26\" width=\"180\" fontFamily=\"微软雅黑\" verticalAlign=\"middle\" size=\"20\" textAlign=\"left\" textColor=\"0x040000\"/>\n\t<e:Label id=\"scoreLabel\" y=\"53\" textColor=\"0x040000\" verticalAlign=\"middle\" fontFamily=\"微软雅黑\" textAlign=\"left\" width=\"101\" size=\"20\" text=\"标签\" x=\"188\"/>\n</e:Skin>"
+    },
+    {
       "path": "src/com/view/ResultSceneSkin.exml",
-      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\"></e:Skin>"
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:ns1=\"*\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect width=\"640\" height=\"1136\" fillColor=\"0x6FEAEA\"/>\n\t<e:Group id=\"resultGroup\" height=\"1136\" width=\"640\">\n\t\t<e:Image source=\"result_title_png\" y=\"20\" x=\"104\"/>\n\t\t<e:Image source=\"result_no1_png\" y=\"114\" x=\"245\"/>\n\t\t<e:Image source=\"result_no2_png\" x=\"46\" y=\"186\"/>\n\t\t<e:Image source=\"result_no3_png\" x=\"434\" y=\"194\"/>\n\t\t<ns1:ResultHead id=\"head0\" x=\"259\" y=\"248\" width=\"120\" height=\"110\" skinName=\"ResultHeadSkin\"/>\n\t\t<ns1:ResultHead x=\"61\" width=\"120\" y=\"290\" height=\"110\" id=\"head1\" skinName=\"ResultHeadSkin\"/>\n\t\t<ns1:ResultHead id=\"head2\" width=\"120\" y=\"268\" height=\"110\" x=\"449\" skinName=\"ResultHeadSkin\"/>\n\t</e:Group>\n\t<e:Group id=\"rankGroup\" height=\"1136\" width=\"640\">\n\t\t<e:Image source=\"rankbg1_png\" y=\"428\" x=\"11\"/>\n\t\t<ns1:RankHead id=\"rank0\" x=\"20\" y=\"480\" skinName=\"RankHeadSkin\"/>\n\t\t<ns1:RankHead x=\"20\" y=\"565\" skinName=\"RankHeadSkin\" id=\"rank1\"/>\n\t\t<ns1:RankHead id=\"rank2\" y=\"650\" skinName=\"RankHeadSkin\" x=\"20\"/>\n\t\t<ns1:RankHead x=\"20\" y=\"735\" skinName=\"RankHeadSkin\" id=\"rank3\"/>\n\t\t<ns1:RankHead id=\"rank4\" y=\"820\" skinName=\"RankHeadSkin\" x=\"20\"/>\n\t\t<ns1:RankHead x=\"323\" y=\"480\" skinName=\"RankHeadSkin\" id=\"rank5\"/>\n\t\t<ns1:RankHead id=\"rank6\" y=\"565\" skinName=\"RankHeadSkin\" x=\"323\"/>\n\t\t<ns1:RankHead x=\"323\" y=\"650\" skinName=\"RankHeadSkin\" id=\"rank7\"/>\n\t\t<ns1:RankHead id=\"rank8\" y=\"735\" skinName=\"RankHeadSkin\" x=\"323\"/>\n\t\t<ns1:RankHead x=\"323\" y=\"820\" skinName=\"RankHeadSkin\" id=\"rank9\"/>\n\t</e:Group>\n\t<e:Image source=\"result_again_png\" x=\"112\" bottom=\"35\"/>\n</e:Skin>"
     },
     {
       "path": "src/com/view/ui/HeadUISkin.exml",

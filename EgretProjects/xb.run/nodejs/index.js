@@ -42,7 +42,7 @@ io.on('connection', function(socket){
         if(userType == "mobile"){
         	var pcSocket = pcUser[rid];
         	if(pcSocket){
-        		pcSocket.emit('userJoin', {openid:"123",headUrl:"",nickName:""});
+        		pcSocket.emit('userJoin', {openid:"123",headUrl:"",nickName:"ABC"});
         	}
         }
 
@@ -54,7 +54,7 @@ io.on('connection', function(socket){
     socket.on('disconnect', function(){
 		var pcSocket = pcUser[socket.name];
 		if(pcSocket){
-			pcSocket.emit('userQuit');
+			pcSocket.emit('userQuit',{openid:"1"});
 		}
     	delete pcUser[socket.name];
     	delete mobileUser[socket.name];
@@ -68,6 +68,15 @@ function initPC(socket){
     	if(pcUser[socket.name]){
 			if(mobileUser[socket.name]){
 				mobileUser[socket.name].emit('startLock');
+			}
+    	}
+    });
+
+	//分配角色
+    socket.on('assignRole',function(data){
+    	if(pcUser[socket.name]){
+			if(mobileUser[socket.name]){
+				mobileUser[socket.name].emit('assignRole',{roleType:1});
 			}
     	}
     });

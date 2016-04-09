@@ -61,7 +61,7 @@ class HomeScene extends BaseScene{
     
     //初始化倒计时相关
     private initCountDown(){
-        this.countDownLimit = (GameConst.debug)?1:15;
+        this.countDownLimit = (GameConst.debug)?3:15;
     }
     
     //清理头像
@@ -80,6 +80,10 @@ class HomeScene extends BaseScene{
     private createQRCode(){
         //随机房间号
         this.rid = (new Date()).getTime() + NumberTool.getVerificationCode(6);
+        if(GameConst.debug == true){
+            this.rid = "1";  
+        }
+        
         //index创建二维码图片
         window["createQRCode"](this.rid);
         
@@ -151,6 +155,12 @@ class HomeScene extends BaseScene{
             egret.log("超出人数");
             return;
         }
+        
+        if(GameConst.debug){
+            data.headUrl = "resource/assets/home/home_player.png";
+            data.nickName = "ABC";
+        }
+        
         //添加用户信息
         var userVO:UserVO = new UserVO();
         userVO.openid = data.openid;
@@ -165,7 +175,7 @@ class HomeScene extends BaseScene{
                 headUI.setUserInfo(userVO);
                 userVO.role = i;
                  //发送用户角色
-                this.sendRole(i);
+                this.sendRole(i,userVO.openid);
                 break;
             }
         }
@@ -214,9 +224,9 @@ class HomeScene extends BaseScene{
     }
    
     //发送分配角色
-    private sendRole(roleType:number){
+    private sendRole(roleType:number, openid:string){
         egret.log("assignRole");
-        this.socket.sendMessage("assignRole",{ roleType:roleType});
+        this.socket.sendMessage("assignRole",{ roleType:roleType, openid:openid});
     }
 }
 

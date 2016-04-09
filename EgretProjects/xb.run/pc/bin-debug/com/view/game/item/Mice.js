@@ -8,9 +8,9 @@ var Mice = (function (_super) {
     function Mice() {
         _super.call(this);
         this.bitmapData = RES.getRes("item_mice_png");
-        this.anchorOffsetX = this.width / 2;
-        this.anchorOffsetY = this.height;
         this.type = 1;
+        this.anchorOffsetX = this.width / 2;
+        this.anchorOffsetY = this.height / 2;
     }
     var d = __define,c=Mice,p=c.prototype;
     Mice.NAME = "Mice";

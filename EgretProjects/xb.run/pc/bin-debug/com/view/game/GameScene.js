@@ -11,9 +11,11 @@ var GameScene = (function (_super) {
         this.nearPotList = new Array(); //进点列表
         this.trackXList = []; //赛道X轴偏移量
         this.trackYList = []; //赛道y轴偏移量
-        this.roleList = new Array(); //角色列表，保存3个角色
+        this.roleList = new Array(); //角色列表，保存3个角色。按数组下标0兔子 1熊猫 2鹿
         this.playerLimit = 3; //玩家人数限制
         this.playerList = new Array(); //当前玩家列表
+        this.gameHeadList = new Array(); //游戏中头像
+        this.gameHeadPosList = []; //游戏中头像的y位置，用于排名变化
         this.carrotPool = ObjectPool.getPool(Carrot.NAME, 1); //胡萝卜对象池
         this.bananaPool = ObjectPool.getPool(Banana.NAME, 1); //香蕉对象池
         this.stonePool = ObjectPool.getPool(Stone.NAME, 1); //石头对象池
@@ -24,7 +26,7 @@ var GameScene = (function (_super) {
         this.scorePoolList = [this.carrotPool, this.bananaPool]; //得分物品对象池数组
         this.zhangAiPoolList = [this.stonePool, this.micePool, this.highWoodPool, this.lowWoodPool, this.waterPool]; //障碍物对象池数组
         this.itemList = []; //物品列表(水果、障碍物)
-        this.isSingleMode = false; //是否单人模式
+        this.isSingleMode = true; //是否单人模式
         this.singleTrackNum = 3; //单人赛道数量
         this.multiTrackNum = 7; //多人赛道
         this.moveSpeed = 4; //移动速度
@@ -32,7 +34,7 @@ var GameScene = (function (_super) {
         this.grassPool = ObjectPool.getPool(Grass.NAME); //草地对象池
         this.grassList = new Array(); //草地数组 
         this.gameTimer = new egret.Timer(1000); //游戏计时器
-        this.gameTimeLimit = 10; //游戏时间限制
+        this.gameTimeLimit = 60; //游戏时间限制
         this.countDownTimer = new egret.Timer(1000); //倒计时
         this.countDownLimit = 1; //倒计时限制
         //创建地图，算法以单赛道创建为主，每隔一段距离创建一次
@@ -56,9 +58,13 @@ var GameScene = (function (_super) {
         this.startGameTimer();
     };
     p.resetGame = function () {
+        this.initMap(); //初始化地图
+        this.initFarAndNear(); //初始化远点和近点
         this.resetAllPlayer(); //重置所有玩家
         this.clearItem(); //清理移动物体
         this.clearGrass(); //清理草地
+        this.resetProgressBar(); //重置进度条
+        this.resetGameHead(); //重置用户头像
     };
     p.gameOver = function () {
         this.stopGameTimer(); //停止游戏计时
@@ -71,8 +77,8 @@ var GameScene = (function (_super) {
         this.stageWidth = GameConst.stage.stageWidth;
         this.stageHeight = GameConst.stage.stageHeight;
         this.initRole(); //初始化角色
-        this.initFarAndNear(); //初始化远点和近点
         this.initGrass(); //初始化草地
+        this.initGameHead(); //初始化用户头像
     };
     p.configListeners = function () {
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
@@ -90,24 +96,49 @@ var GameScene = (function (_super) {
     p.initRole = function () {
         for (var i = 0; i < this.playerLimit; i++) {
             var player = new Player("player" + i + "_png", "player" + i + "_json", "player" + i);
-            player.anchorOffsetX = player.width;
-            player.anchorOffsetY = player.height;
             this.roleList.push(player);
+            if (i == 0) {
+                player.offerX = -90; //mc中心位置不准确，修正值
+                player.offerY = -250;
+            }
         }
+    };
+    //初始化地图
+    p.initMap = function () {
+        //模式选择
+        var userNum = UserManager.getInstance().getUserNum();
+        if (userNum <= 1) {
+            this.isSingleMode = true;
+            this.bg0Group.visible = true;
+            this.bg1Group.visible = false;
+        }
+        else {
+            this.isSingleMode = false;
+            this.bg0Group.visible = false;
+            this.bg1Group.visible = true;
+        }
+        //赛道数量
+        this.trackNum = this.isSingleMode ? this.singleTrackNum : this.multiTrackNum;
     };
     //初始化远点和进点列表
     p.initFarAndNear = function () {
-        //赛道数量
-        this.trackNum = this.isSingleMode ? this.singleTrackNum : this.multiTrackNum;
         //清理数组
         this.farPotList.length = 0;
         this.nearPotList.length = 0;
         this.trackXList.length = 0;
         //获取赛道近点和远点
         var len = this.trackNum;
+        var far;
+        var near;
         for (var i = 0; i < len; i++) {
-            var far = this["far0" + i];
-            var near = this["near0" + i];
+            if (this.isSingleMode) {
+                far = this["singleFar" + i];
+                near = this["singleNear" + i];
+            }
+            else {
+                far = this["far0" + i];
+                near = this["near0" + i];
+            }
             var farPot = new egret.Point(far.x, far.y);
             var nearPot = new egret.Point(near.x, near.y);
             this.farPotList.push(farPot);
@@ -130,6 +161,38 @@ var GameScene = (function (_super) {
         this.grassPot0.parent && this.grassGroup.removeChild(this.grassPot0);
         this.grassPot1.parent && this.grassGroup.removeChild(this.grassPot1);
     };
+    //初始化用户头像
+    p.initGameHead = function () {
+        for (var i = 0; i < this.playerLimit; i++) {
+            var gameHead = this["gameHead" + i];
+            this.gameHeadList.push(gameHead);
+            gameHead.bg.texture = RES.getRes("scoreBg" + i + "_png");
+            this.gameHeadPosList.push(gameHead.y);
+        }
+    };
+    //重置用户头像
+    p.resetGameHead = function () {
+        //清理头像
+        var len = this.gameHeadList.length;
+        for (var i = 0; i < len; i++) {
+            var gameHead = this.gameHeadList[i];
+            gameHead.clear();
+            gameHead.hide();
+        }
+        //将分数头像UI  绑定到玩家对象上
+        len = this.playerList.length;
+        for (var i = 0; i < len; i++) {
+            var player = this.playerList[i];
+            var gameHead = this.gameHeadList[player.roleID];
+            player.gameHead = gameHead;
+            var userVO = UserManager.getInstance().getUser(player.openid);
+            gameHead.loadImg(userVO.headUrl);
+            gameHead.setNameLabel(userVO.nickName);
+            gameHead.openid = userVO.openid;
+            gameHead.y = this.gameHeadPosList[i];
+            this.scoreGroup.addChild(gameHead);
+        }
+    };
     //重置所有玩家
     p.resetAllPlayer = function () {
         //隐藏所有玩家
@@ -144,19 +207,33 @@ var GameScene = (function (_super) {
         for (var i = 0; i < userNum; i++) {
             var userVO = userList[i];
             var player = this.roleList[userVO.role];
+            player.roleID = userVO.role;
             player.openid = userVO.openid;
             this.playerList.push(player);
         }
         //放置用户
-        if (userNum == 1) {
-            var player0 = this.playerList[0];
-            player0.track = Math.floor(this.trackNum / 2);
-            player0.x = this.nearPotList[player0.track].x;
-            player0.y = this.nearPotList[player0.track].y;
-            player0.hitY = player0.y;
-            player0.isJumping = false;
-            player0.run();
-            this.playerGroup.addChild(player0);
+        for (var i = 0; i < userNum; i++) {
+            var player = this.playerList[i];
+            if (i == 0) {
+                player.track = Math.floor(this.trackNum / 2);
+            }
+            else if (i == 1) {
+                player.track = Math.floor(this.trackNum / 2) - 2;
+            }
+            else if (i == 2) {
+                player.track = Math.floor(this.trackNum / 2) + 2;
+            }
+            player.x = this.nearPotList[player.track].x;
+            player.y = this.nearPotList[player.track].y;
+            player.shadow.x = player.x;
+            player.shadow.y = player.y;
+            player.modifyPos();
+            player.clearStatus();
+            player.score = 0;
+            player.gameHead = null;
+            player.run();
+            this.playerGroup.addChild(player.shadow);
+            this.playerGroup.addChild(player);
         }
     };
     //根据openid获取Player
@@ -175,9 +252,11 @@ var GameScene = (function (_super) {
         player.track = Math.floor(this.trackNum / 2);
         player.x = this.nearPotList[player.track].x;
         player.y = this.nearPotList[player.track].y;
-        player.isJumping = false;
+        player.shadow.x = player.x;
+        player.shadow.y = player.y;
+        player.modifyPos();
         player.run();
-        this.playerGroup.addChild(player);
+        player.clearStatus();
     };
     p.createItem = function () {
         this.count++;
@@ -189,15 +268,11 @@ var GameScene = (function (_super) {
                 if (rand < 0.7) {
                     item = this.scorePoolList[NumberTool.getRandomInt(0, 1)].getObject();
                 }
-                else if (rand < 0.9) {
-                    item = this.zhangAiPoolList[NumberTool.getRandomInt(0, 4)].getObject();
-                }
                 else {
-                    return;
+                    item = this.zhangAiPoolList[NumberTool.getRandomInt(0, 4)].getObject();
                 }
                 item.x = this.farPotList[i].x;
                 item.y = this.farPotList[i].y;
-                item.z = 0;
                 item.track = i;
                 item.scaleX = 0.4;
                 item.scaleY = 0.4;
@@ -215,11 +290,11 @@ var GameScene = (function (_super) {
             item = this.itemList[i];
             track = item.track;
             //移动
-            item.y += this.moveSpeed;
+            item.y += this.moveSpeed + this.moveSpeed * item.scaleX;
             var rate = (item.y - this.farPotList[track].y) / this.trackYList[track]; //所在y轴位置比例
             item.x = this.farPotList[track].x + rate * this.trackXList[track];
-            //item.scaleX = 0.4 + rate*0.1;
-            //item.scaleY = 0.4 + rate*0.1;
+            item.scaleX = 0.4 + rate * 0.3;
+            item.scaleY = 0.4 + rate * 0.3;
             //边界检测
             if (item.y > (this.stageHeight + item.height)) {
                 item.recycle();
@@ -230,17 +305,31 @@ var GameScene = (function (_super) {
             var playerLen = this.playerList.length;
             for (var j = 0; j < playerLen; j++) {
                 var player = this.playerList[j];
-                if (player.track == item.track) {
-                    if (Math.abs(player.hitY - item.y) < player.width) {
+                if (player.track == item.track && player.isDie == false) {
+                    var dist = player.shadow.y - item.y; //玩家和物体的距离，简略判断，因为取不了物体影子范围
+                    if (dist > 0 && dist < item.height / 2) {
                         var self = this;
                         if (item.type == 0) {
-                            item.changeAlpha();
-                            this.itemList.splice(i, 1);
+                            if (player.isJumping && ((item.y - player.y) > player.height / 2)) {
+                            }
+                            else if (player.isDie) {
+                            }
+                            else {
+                                item.changeAlpha();
+                                this.itemList.splice(i, 1);
+                                player.score += item.score;
+                                player.gameHead.setScoreLabel(player.score);
+                            }
                         }
                         else if (item.type == 1) {
-                            player.die();
+                            if (player.isJumping && ((item.y - player.y) > player.height / 2)) {
+                            }
+                            else {
+                                player.die();
+                            }
                         }
                         else if (item.type == 2) {
+                            player.die();
                         }
                     }
                 }
@@ -303,6 +392,11 @@ var GameScene = (function (_super) {
         }
         this.grassList.length = 0;
     };
+    //重置进度条
+    p.resetProgressBar = function () {
+        this.progressSlider.x = this.progressBar.x;
+        this.progressBar.scaleX = 0;
+    };
     //开始游戏计时
     p.startGameTimer = function () {
         this.gameTimer.addEventListener(egret.TimerEvent.TIMER, this.onGameTimerHandler, this);
@@ -312,6 +406,8 @@ var GameScene = (function (_super) {
     //游戏计时处理
     p.onGameTimerHandler = function () {
         var count = this.gameTimeLimit - this.gameTimer.currentCount;
+        this.progressBar.scaleX = this.gameTimer.currentCount / this.gameTimeLimit;
+        this.progressSlider.x = this.progressBar.x + this.progressBar.width * this.progressBar.scaleX;
         if (count <= 0) {
             this.gameOver();
         }
@@ -353,19 +449,33 @@ var GameScene = (function (_super) {
             egret.log("行动的Player为null");
             return;
         }
+        if (player.isMoving || player.isDie || player.isJumping) {
+            return;
+        }
         var myTrack = player.track;
         var self = this;
         if (actionType == "left") {
             if (myTrack > 0) {
                 myTrack--;
-                egret.Tween.get(player).to({ x: this.nearPotList[myTrack].x }, 300);
+                player.isMoving = true;
+                var dist = this.nearPotList[myTrack].x - this.nearPotList[myTrack + 1].x;
+                egret.Tween.get(player).to({ x: player.x + dist }, 300);
+                egret.Tween.get(player.shadow).to({ x: player.shadow.x + dist }, 300).call(function () {
+                    player.isMoving = false;
+                });
                 player.track = myTrack;
             }
         }
         else if (actionType == "right") {
             if (myTrack < (this.trackNum - 1)) {
                 myTrack++;
-                egret.Tween.get(player).to({ x: this.nearPotList[myTrack].x }, 300);
+                player.isMoving = true;
+                var dist = this.nearPotList[myTrack].x - this.nearPotList[myTrack - 1].x;
+                egret.Tween.get(player).to({ x: player.x + dist }, 300);
+                egret.Tween.get(player.shadow).to({ x: player.shadow.x + dist }, 300).call(function () {
+                    player.isMoving = false;
+                });
+                ;
                 player.track = myTrack;
             }
         }

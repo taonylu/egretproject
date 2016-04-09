@@ -9,6 +9,7 @@ var BaseItem = (function (_super) {
         _super.call(this);
         this.score = 0; //分值
         this.track = 0; //赛道
+        this.className = egret.getQualifiedClassName(this);
     }
     var d = __define,c=BaseItem,p=c.prototype;
     p.changeAlpha = function () {
@@ -18,9 +19,9 @@ var BaseItem = (function (_super) {
         });
     };
     p.recycle = function () {
+        this.alpha = 1;
         this.parent && this.parent.removeChild(this);
-        var className = egret.getQualifiedClassName(this);
-        ObjectPool.getPool(className).returnObject(this);
+        ObjectPool.getPool(this.className).returnObject(this);
     };
     return BaseItem;
 }(egret.Bitmap));

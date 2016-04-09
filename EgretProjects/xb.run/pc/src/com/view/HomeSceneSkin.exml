@@ -3,16 +3,16 @@
 	<e:Group id="bgGroup" height="1080" width="1920">
 		<e:Image source="homg_bg_jpg"/>
 		<e:Image source="home_panel_png" x="304" y="149"/>
-		<e:Image source="home_demo_png" x="1118" y="147"/>
 		<e:Image source="home_codebg_png" x="356" y="178"/>
 		<e:Image source="home_footbg_png" y="990" x="0"/>
 		<e:Image source="home_logo_png" y="994" x="879"/>
 		<e:Image source="home_player_png" x="327" y="540"/>
 	</e:Group>
 	<e:Group id="animGroup" width="1920" height="1080">
-		<e:Image source="home_phone_png" x="1309" y="797"/>
-		<e:Image source="home_arrow0_png" x="1421" y="839"/>
-		<e:Image source="home_arrow1_png" x="1227" y="848"/>
+		<e:Image source="home_demo_png" x="1118" y="147"/>
+		<e:Image source="home_phone_png" x="1289" y="597"/>
+		<e:Image source="home_arrow0_png" x="1371" y="609"/>
+		<e:Image source="home_arrow1_png" x="1197" y="608"/>
 	</e:Group>
 	<e:Group id="codeGroup" width="250" height="250" x="800" y="184">
 		<e:Label text="微信扫码 加入游戏" x="0" y="268" width="250" textAlign="center" verticalAlign="middle" fontFamily="微软雅黑"/>
