@@ -44,7 +44,7 @@ class ResultScene extends BaseScene{
         //显示本次游戏玩家分数
         len = scoreList.length;
         for(var i = 0;i < len;i++) {
-            this.headList[i].setNameLabel(scoreList[i].nickname);
+            this.headList[i].setNameLabel(scoreList[i].nickName);
             this.headList[i].loadImg(scoreList[i].headUrl);
         }
         

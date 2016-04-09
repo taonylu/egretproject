@@ -10,8 +10,8 @@ class Carrot extends BaseItem{
     	this.bitmapData = RES.getRes("item_carrot_png");
     	this.score = 10;
       this.type = 0;
-    	this.anchorOffsetX = this.width/2;
-    	this.anchorOffsetY = this.height;
+      this.anchorOffsetX = this.width / 2;
+      this.anchorOffsetY = this.height / 2;
 	}
 	
 	

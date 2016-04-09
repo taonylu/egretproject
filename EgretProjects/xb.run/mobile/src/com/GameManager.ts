@@ -5,7 +5,6 @@
  */
 class GameManager {
     public preloadScene:PreloadScene;               //加载场景
-    public homeScene: HomeScene = new HomeScene();  //主页场景
     public lockScene: LockScene = new LockScene();  //校准场景
     public gameScene: GameScene = new GameScene();  //游戏场景
     public resultScene:ResultScene = new ResultScene(); //结果场景
@@ -25,7 +24,6 @@ class GameManager {
         //启动Socket
         this.socket = ClientSocket.getInstance();
         this.socket.gameManager = this;
-        this.socket.homeScene = this.homeScene;
         this.socket.lockScene = this.lockScene;
         this.socket.gameScene = this.gameScene;
         this.socket.startConnect();
@@ -53,6 +51,10 @@ class GameManager {
             headimgurl: gameConfig.headimgurl,
             nickname: gameConfig.nickname,
             userType:"mobile"
+        }
+        
+        if(GameConst.debug){
+            json.rid = "1";
         }
         
         this.socket.sendMessage("login",json,this.revLogin,this);

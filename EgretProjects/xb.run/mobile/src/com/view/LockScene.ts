@@ -22,8 +22,6 @@ class LockScene extends BaseScene{
 
     public onEnable(): void {
         this.msgLabel.text = "";
-        this.setRoleImg();
-        this.setRoleName();
         this.openDevice();
         this.okBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOkBtnTouch, this);
     }
@@ -94,6 +92,15 @@ class LockScene extends BaseScene{
     public revStartGame() {
         egret.log("revStartGame");
         LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+    }
+    
+    //接收分配角色
+    public revAssignRole(data){
+        egret.log("revAssignRole");
+        var roleID = data.roleType;
+        UserManager.getInstance().roleID = roleID;
+        this.setRoleImg();
+        this.setRoleName();
     }
 }
 

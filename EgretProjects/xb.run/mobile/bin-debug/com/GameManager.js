@@ -5,7 +5,6 @@
  */
 var GameManager = (function () {
     function GameManager() {
-        this.homeScene = new HomeScene(); //主页场景
         this.lockScene = new LockScene(); //校准场景
         this.gameScene = new GameScene(); //游戏场景
         this.resultScene = new ResultScene(); //结果场景
@@ -22,7 +21,6 @@ var GameManager = (function () {
         //启动Socket
         this.socket = ClientSocket.getInstance();
         this.socket.gameManager = this;
-        this.socket.homeScene = this.homeScene;
         this.socket.lockScene = this.lockScene;
         this.socket.gameScene = this.gameScene;
         this.socket.startConnect();
@@ -44,6 +42,9 @@ var GameManager = (function () {
             nickname: gameConfig.nickname,
             userType: "mobile"
         };
+        if (GameConst.debug) {
+            json.rid = "1";
+        }
         this.socket.sendMessage("login", json, this.revLogin, this);
     };
     //接收登录

@@ -8,7 +8,6 @@ class ClientSocket {
     private socket;                         //socket.io
     
     public gameManager:GameManager;
-    public homeScene:HomeScene;
     public lockScene:LockScene;
     public gameScene:GameScene;
     
@@ -74,8 +73,16 @@ class ClientSocket {
             self.gameManager.revStartLock();
         }); 
         
+        this.socket.on("assignRole",function(data) {
+            self.lockScene.revAssignRole(data);
+        });
+        
         this.socket.on("startGame",function(data) {      
             self.lockScene.revStartGame();
+        });
+        
+        this.socket.on("gameOver",function(data) {
+            self.gameScene.revGameOver(data);
         }); 
         
     }

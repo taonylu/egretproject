@@ -55,8 +55,14 @@ var ClientSocket = (function () {
         this.socket.on("startLock", function (data) {
             self.gameManager.revStartLock();
         });
+        this.socket.on("assignRole", function (data) {
+            self.lockScene.revAssignRole(data);
+        });
         this.socket.on("startGame", function (data) {
             self.lockScene.revStartGame();
+        });
+        this.socket.on("gameOver", function (data) {
+            self.gameScene.revGameOver(data);
         });
     };
     //////////////////////////////////////////////////////

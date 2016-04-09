@@ -8,9 +8,9 @@ var Water = (function (_super) {
     function Water() {
         _super.call(this);
         this.bitmapData = RES.getRes("item_water_png");
-        this.anchorOffsetX = this.width / 2 - 15;
-        this.anchorOffsetY = this.height;
-        this.type = 2;
+        this.type = 1;
+        this.anchorOffsetX = this.width / 2;
+        this.anchorOffsetY = this.height / 2;
     }
     var d = __define,c=Water,p=c.prototype;
     Water.NAME = "Water";

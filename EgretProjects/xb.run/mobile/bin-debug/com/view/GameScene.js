@@ -28,9 +28,11 @@ var GameScene = (function (_super) {
         this.stopDevice();
     };
     p.startGame = function () {
+        this.configListeners();
         this.openDevice();
     };
     p.resetGame = function () {
+        egret.log("resetGame1");
         //重置感应
         this.gestureUp = false;
         this.gestureR = false;
@@ -45,11 +47,12 @@ var GameScene = (function (_super) {
         this.resetGame();
     };
     p.configListeners = function () {
-        this.leftBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onLeftBtnTouch, this);
-        this.rightBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRightBtnTouch, this);
-        this.upBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onUpBtnTouch, this);
+        this.leftBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onLeftBtnTouch, this);
+        this.rightBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onRightBtnTouch, this);
+        this.upBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onUpBtnTouch, this);
     };
     p.onLeftBtnTouch = function () {
+        egret.log("left touch");
         this.sendLeftAction();
     };
     p.onRightBtnTouch = function () {
@@ -80,11 +83,12 @@ var GameScene = (function (_super) {
     p.onOrientation = function (e) {
         this.deviceX = parseFloat(e.beta.toFixed(2));
         this.deviceZ = parseFloat(e.alpha.toFixed(2));
-        this.deviceLabel.text =
-            "x轴角速度:" + this.deviceX //-90-90 手机平放0度，手机头朝上增加，手机头朝下减少
-                + "\nz轴角速度:" + this.deviceZ; //0~360   北方为0(360)，向左0-360增加，向右360-0减少 
+        //        this.deviceLabel.text =
+        //            "x轴角速度:" + this.deviceX  //-90-90 手机平放0度，手机头朝上增加，手机头朝下减少
+        //            + "\nz轴角速度:" + this.deviceZ;    //0~360   北方为0(360)，向左0-360增加，向右360-0减少 
+        //            
         //向上超过n度，则判定为跳跃
-        this.deviceLabel.text += "\naccX:" + this.deviceX.toFixed(2);
+        // this.deviceLabel.text += "\naccX:" + this.deviceX.toFixed(2);
         if (this.deviceX >= this.angleLimit && this.gestureUp == false) {
             this.gestureUp = true;
             this.sendUpAction();
@@ -136,17 +140,19 @@ var GameScene = (function (_super) {
         egret.log("revGameOver");
         if (GameConst.debug == true) {
             data = {
-                scoreList: [{ headUrl: "", nickName: "A" }],
+                scoreList: [
+                    { headUrl: "resource/assets/home/head0.png", nickName: "A" },
+                    { headUrl: "resource/assets/home/head0.png", nickName: "B" },
+                    { headUrl: "resource/assets/home/head0.png", nickName: "C" },
+                ],
                 rankList: [
-                    { headUrl: "", nickName: "B", score: 99 },
-                    { headUrl: "", nickName: "B", score: 99 },
-                    { headUrl: "", nickName: "B", score: 99 }
+                    { headUrl: "resource/assets/home/head0.png", nickName: "A", score: 99 },
+                    { headUrl: "resource/assets/home/head0.png", nickName: "B", score: 99 },
+                    { headUrl: "resource/assets/home/head0.png", nickName: "C", score: 99 }
                 ]
             };
         }
-        else {
-            this.resultData = data;
-        }
+        this.resultData = data;
         LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
     };
     return GameScene;

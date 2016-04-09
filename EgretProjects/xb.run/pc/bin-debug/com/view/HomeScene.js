@@ -43,7 +43,7 @@ var HomeScene = (function (_super) {
     };
     //初始化倒计时相关
     p.initCountDown = function () {
-        this.countDownLimit = (GameConst.debug) ? 1 : 15;
+        this.countDownLimit = (GameConst.debug) ? 3 : 15;
     };
     //清理头像
     p.clearHead = function () {
@@ -59,6 +59,9 @@ var HomeScene = (function (_super) {
     p.createQRCode = function () {
         //随机房间号
         this.rid = (new Date()).getTime() + NumberTool.getVerificationCode(6);
+        if (GameConst.debug == true) {
+            this.rid = "1";
+        }
         //index创建二维码图片
         window["createQRCode"](this.rid);
         //加载二维码图片
@@ -122,6 +125,10 @@ var HomeScene = (function (_super) {
             egret.log("超出人数");
             return;
         }
+        if (GameConst.debug) {
+            data.headUrl = "resource/assets/home/home_player.png";
+            data.nickName = "ABC";
+        }
         //添加用户信息
         var userVO = new UserVO();
         userVO.openid = data.openid;
@@ -135,7 +142,7 @@ var HomeScene = (function (_super) {
                 headUI.setUserInfo(userVO);
                 userVO.role = i;
                 //发送用户角色
-                this.sendRole(i);
+                this.sendRole(i, userVO.openid);
                 break;
             }
         }
@@ -177,9 +184,9 @@ var HomeScene = (function (_super) {
         this.socket.sendMessage("startLock");
     };
     //发送分配角色
-    p.sendRole = function (roleType) {
+    p.sendRole = function (roleType, openid) {
         egret.log("assignRole");
-        this.socket.sendMessage("assignRole", { roleType: roleType });
+        this.socket.sendMessage("assignRole", { roleType: roleType, openid: openid });
     };
     return HomeScene;
 }(BaseScene));
