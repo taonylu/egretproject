@@ -6,8 +6,6 @@ declare class PreloadSceneSkin extends eui.Skin{
 }
 declare class ResultSceneSkin extends eui.Skin{
 }
-declare class HeadUISkin extends eui.Skin{
-}
 declare class LeftArrowSkin extends eui.Skin{
 }
 declare class RankHeadSkin extends eui.Skin{

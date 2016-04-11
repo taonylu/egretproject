@@ -45,7 +45,9 @@ class ResultScene extends BaseScene{
         len = scoreList.length;
         for(var i = 0;i < len;i++) {
             this.headList[i].setNameLabel(scoreList[i].nickName);
+            this.headList[i].setScoreLabel(scoreList[i].score);
             this.headList[i].loadImg(scoreList[i].headUrl);
+            this.headList[i].setRankLabel(scoreList[i].rank);
         }
         
         //清理历史排行

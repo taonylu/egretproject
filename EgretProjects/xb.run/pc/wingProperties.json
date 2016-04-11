@@ -223,6 +223,61 @@
 					"isFolder":false,
 					"key":"scoreBg2_png",
 					"name":"scoreBg2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_bg_jpg",
+					"name":"result_bg_jpg"
+				},
+				{
+					"isFolder":false,
+					"key":"result_no1_png",
+					"name":"result_no1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_no2_png",
+					"name":"result_no2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_no3_png",
+					"name":"result_no3_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_rankbg_png",
+					"name":"result_rankbg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_scorebg_png",
+					"name":"result_scorebg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_title_png",
+					"name":"result_title_png"
+				},
+				{
+					"isFolder":false,
+					"key":"player1_png",
+					"name":"player1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"player2_png",
+					"name":"player2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"lock_hand_png",
+					"name":"lock_hand_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_fengche_png",
+					"name":"home_fengche_png"
 				}
 			]
 		}

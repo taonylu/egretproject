@@ -24,7 +24,13 @@ var ResultHead = (function (_super) {
         this.imgGroup.addChild(this.headImg);
     };
     p.setNameLabel = function (_name) {
-        this.nameLabel.text = _name;
+        this.nameLabel.text = "昵称：" + _name;
+    };
+    p.setScoreLabel = function (score) {
+        this.scoreLabel.text = "得分：" + score;
+    };
+    p.setRankLabel = function (rank) {
+        this.rankLabel.text = rank + "";
     };
     p.loadImg = function (imgUrl) {
         this.imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onLoadError, this);

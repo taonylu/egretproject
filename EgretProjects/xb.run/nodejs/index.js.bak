@@ -42,7 +42,7 @@ io.on('connection', function(socket){
         if(userType == "mobile"){
         	var pcSocket = pcUser[rid];
         	if(pcSocket){
-        		pcSocket.emit('userJoin', {openid:"123",headUrl:"resource/home/home_player.png",nickName:"ABC"});
+        		pcSocket.emit('userJoin', {openid:Math.random(),headUrl:"",nickName:"ABC"});
         	}
         }
 
@@ -56,7 +56,9 @@ io.on('connection', function(socket){
 		if(pcSocket){
 			pcSocket.emit('userQuit',{openid:"1"});
 		}
-    	delete pcUser[socket.name];
+		if(socket == pcSocket){
+			delete pcUser[socket.name];
+		}
     	delete mobileUser[socket.name];
     });
    
@@ -67,7 +69,7 @@ function initPC(socket){
     socket.on('startLock',function(data){
     	if(pcUser[socket.name]){
 			if(mobileUser[socket.name]){
-				mobileUser[socket.name].emit('startLock');
+				io.emit('startLock');
 			}
     	}
     });
@@ -85,18 +87,19 @@ function initPC(socket){
     socket.on('startGame',function(data){
     	if(pcUser[socket.name]){
 			if(mobileUser[socket.name]){
-				mobileUser[socket.name].emit('startGame');
+				io.emit('startGame');
 			}
     	}
     });
 
 	//游戏结束
-    socket.on('gameOver',function(data){
+    socket.on('gameOver',function(data,callback){
     	if(pcUser[socket.name]){
 			if(mobileUser[socket.name]){
-				mobileUser[socket.name].emit('gameOver');
+				io.emit('gameOver');
 			}
     	}
+		callback();
     });
 }
 

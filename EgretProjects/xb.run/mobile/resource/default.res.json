@@ -1,11 +1,11 @@
 {
 	"groups":[
 		{
-			"keys":"preload_logo_png,preload_title_png,preload_foot_png",
+			"keys":"preload_logo_png,preload_title_png,preload_foot_png,preload_feng_png",
 			"name":"preload"
 		},
 		{
-			"keys":"head0_png,head1_png,head2_png,ok_png,right0_png,right1_png,up0_png,up1_png,left0_png,left1_png,panel_png,result_no1_png,result_no2_png,result_no3_png,result_title_png,rankbg1_png,rankbg0_png,result_again_png,rankFont_fnt",
+			"keys":"head0_png,head1_png,head2_png,ok_png,right0_png,right1_png,up0_png,up1_png,left0_png,left1_png,panel_png,result_no1_png,result_no2_png,result_no3_png,result_title_png,rankbg1_png,rankbg0_png,result_again_png,rankFont_fnt,ok2_png",
 			"name":"home"
 		}
 	],
@@ -119,6 +119,16 @@
 			"name":"rankFont_fnt",
 			"type":"font",
 			"url":"assets/home/rankFont.fnt"
+		},
+		{
+			"name":"ok2_png",
+			"type":"image",
+			"url":"assets/home/ok2.png"
+		},
+		{
+			"name":"preload_feng_png",
+			"type":"image",
+			"url":"assets/preload/preload_feng.png"
 		}
 	]
 }

@@ -37,15 +37,18 @@ var game_file_list = [
 	"bin-debug/com/view/game/item/Mice.js",
 	"bin-debug/com/view/game/item/Stone.js",
 	"bin-debug/com/view/game/item/Water.js",
+	"bin-debug/com/view/game/ui/GameHead.js",
 	"bin-debug/com/view/game/ui/Grass.js",
 	"bin-debug/com/view/game/ui/HeadUI.js",
 	"bin-debug/com/view/game/ui/Player.js",
-	"bin-debug/com/view/HomeScene.js",
-	"bin-debug/com/view/LockScene.js",
-	"bin-debug/com/view/PreloadScene.js",
+	"bin-debug/com/view/home/HomeScene.js",
+	"bin-debug/com/view/lock/LockScene.js",
+	"bin-debug/com/view/preload/PreloadScene.js",
+	"bin-debug/com/view/result/ResultScene.js",
+	"bin-debug/com/view/result/ui/RankHead.js",
+	"bin-debug/com/view/result/ui/ScoreHead.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
-	"bin-debug/com/view/game/ui/GameHead.js",
 	//----auto game_file_list end----
 ];
 

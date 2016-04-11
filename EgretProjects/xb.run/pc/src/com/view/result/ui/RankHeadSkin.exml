@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="RankHeadSkin" width="300" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="result_scorebg_png" horizontalCenter="0" verticalCenter="0"/>
+	<e:Group id="headGroup" height="50" width="50" y="28" x="59">
+	</e:Group>
+	<e:Label id="nameLabel" text="标签" y="30" width="180" size="20" fontFamily="微软雅黑" textColor="0x010000" verticalAlign="middle" textAlign="left" horizontalCenter="56" height="25"/>
+	<e:Label id="scoreLabel" y="56" textColor="0x010000" text="标签" fontFamily="微软雅黑" textAlign="center" width="96" verticalAlign="middle" size="20" horizontalCenter="84"/>
+	<e:Group height="64" width="55" x="0" y="20">
+		<e:BitmapLabel id="rankLabel" font="countDownFont_fnt" text="10" scaleX="0.4" scaleY="0.4" horizontalCenter="0" verticalCenter="0"/>
+	</e:Group>
+</e:Skin>

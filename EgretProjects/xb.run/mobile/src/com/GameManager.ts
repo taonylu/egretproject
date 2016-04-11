@@ -43,19 +43,17 @@ class GameManager {
     //发送登录
     public sendLogin() {
         var gameConfig = GameConst.gameConfig;
-        egret.log("send login");
+        
         
         var json ={
             rid:gameConfig.rid,
             openid: gameConfig.openid,
             headimgurl: gameConfig.headimgurl,
             nickname: gameConfig.nickname,
-            userType:"mobile"
+            //userType:"mobile"
         }
         
-        if(GameConst.debug){
-            json.rid = "1";
-        }
+        egret.log("send login:","rid:",json.rid,"openid:",json.openid);
         
         this.socket.sendMessage("login",json,this.revLogin,this);
     }

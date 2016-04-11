@@ -78,6 +78,7 @@ class GameScene extends BaseScene{
     
     //设置角色头像
     private setRoleImg() {
+        this.headImg.texture = null;
         var role: number = UserManager.getInstance().roleID;
         this.headImg.texture = RES.getRes("head" + role + "_png");
     }
@@ -159,29 +160,30 @@ class GameScene extends BaseScene{
     
     private sendRightAction(){
         this.socket.sendMessage("action",{ actionType: "right",openid: GameConst.gameConfig.openid });
-        egret.log("sendAction:right",this.deviceZ,"-",this.centerZ,"=",this.deviceZ - this.centerZ);
+        //egret.log("sendAction:right",this.deviceZ,"-",this.centerZ,"=",this.deviceZ - this.centerZ);
     }
     
     private sendLeftAction() {
         this.socket.sendMessage("action",{ actionType: "left",openid: GameConst.gameConfig.openid });
-        egret.log("sendAction:left",this.deviceZ,"-",this.centerZ,"=",this.deviceZ - this.centerZ);
+        //egret.log("sendAction:left",this.deviceZ,"-",this.centerZ,"=",this.deviceZ - this.centerZ);
     }
     
     private sendUpAction() {
         this.socket.sendMessage("action",{ actionType: "up",openid: GameConst.gameConfig.openid });
-        egret.log("sendAction:up");
+        //egret.log("sendAction:up");
     }
     
     //接收游戏结束
     public resultData;
     public revGameOver(data){
         egret.log("revGameOver");
+        console.log("revGameOver",data);
         if(GameConst.debug == true){
             data = {
                 scoreList: [
-                                { headUrl:"resource/assets/home/head0.png", nickName:"A"},
-                                { headUrl: "resource/assets/home/head0.png",nickName: "B" },
-                                { headUrl: "resource/assets/home/head0.png",nickName: "C" },
+                                { headUrl:"resource/assets/home/head0.png", nickName:"A",score:999},
+                                { headUrl: "resource/assets/home/head0.png",nickName: "B",score: 999},
+                                { headUrl: "resource/assets/home/head0.png",nickName: "C",score: 999},
                             ],
                 rankList:[
                             {headUrl:"resource/assets/home/head0.png",nickName:"A",score:99},

@@ -72,12 +72,7 @@ class UserManager {
     public clearAllUser(){
         this.userList.length = 0;
     }
-    
-    
-    
-    
-    
-    
+
     
     private static instance: UserManager;
     public static getInstance(): UserManager {

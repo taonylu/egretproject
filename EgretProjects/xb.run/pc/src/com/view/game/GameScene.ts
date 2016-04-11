@@ -25,7 +25,7 @@ class GameScene extends BaseScene{
     private carrotPool:ObjectPool = ObjectPool.getPool(Carrot.NAME,1); //胡萝卜对象池
     private bananaPool: ObjectPool = ObjectPool.getPool(Banana.NAME,1);//香蕉对象池
     private stonePool:ObjectPool = ObjectPool.getPool(Stone.NAME,1);   //石头对象池
-    private micePool:ObjectPool = ObjectPool.getPool(Mice.NAME);       //地鼠对象池
+    private micePool:ObjectPool = ObjectPool.getPool(Mice.NAME,1);       //地鼠对象池
     private highWoodPool:ObjectPool = ObjectPool.getPool(HighWood.NAME,1); //高木桩对象池
     private lowWoodPool:ObjectPool = ObjectPool.getPool(LowWood.NAME,1);   //矮木桩对象池
     private waterPool:ObjectPool = ObjectPool.getPool(Water.NAME,1);       //水池对象池
@@ -54,10 +54,10 @@ class GameScene extends BaseScene{
     private grassList:Array<Grass> = new Array<Grass>(); //草地数组 
     
     private gameTimer:egret.Timer = new egret.Timer(1000); //游戏计时器
-    private gameTimeLimit:number = 60;  //游戏时间限制
+    private gameTimeLimit:number = 15;  //游戏时间限制
     
     private countDownTimer:egret.Timer = new egret.Timer(1000);  //倒计时
-    private countDownLimit:number = 1;  //倒计时限制
+    private countDownLimit:number = 3;  //倒计时限制
     
 	public constructor() {
         super("GameSceneSkin");
@@ -78,11 +78,13 @@ class GameScene extends BaseScene{
     }
     
     private startGame(){
-        this.configListeners();
-        this.startGameTimer();
+        this.configListeners();  //每帧更新
+        this.startGameTimer();   //开始游戏计时
+        this.runAllPlayer();     //所有玩家跑动
     }
     
     private resetGame(){
+        this.clearPlayerList(); //重置用户列表
         this.initMap();         //初始化地图
         this.initFarAndNear();  //初始化远点和近点
         this.resetAllPlayer();  //重置所有玩家
@@ -95,6 +97,7 @@ class GameScene extends BaseScene{
     private gameOver(){
         this.stopGameTimer();      //停止游戏计时
         this.deConfigListeners();  //停止物体移动
+        this.stopAllPlayer();      //停止玩家动作
         this.sendGameOver();       //发送游戏结束
     }
     
@@ -129,11 +132,8 @@ class GameScene extends BaseScene{
         for(var i = 0;i < this.playerLimit;i++){
             var player: Player = new Player("player" + i + "_png","player" + i + "_json", "player" + i);
             this.roleList.push(player);
-            
-            if(i==0){
-                player.offerX = -90;   //mc中心位置不准确，修正值
-                player.offerY = -250;
-            }
+            player.offerX = -90;   //mc中心位置不准确，修正值
+            player.offerY = -250;  
         }
     }
     
@@ -235,6 +235,11 @@ class GameScene extends BaseScene{
         }
     }
     
+    //清理玩家列表
+    private clearPlayerList(){
+        this.playerList.length = 0;
+    }
+    
     //重置所有玩家
     private resetAllPlayer(){
         //隐藏所有玩家
@@ -249,6 +254,7 @@ class GameScene extends BaseScene{
         for(var i=0;i<userNum;i++){
             var userVO:UserVO = userList[i];
             var player: Player = this.roleList[userVO.role];
+            //player.reset();
             player.roleID = userVO.role;
             player.openid = userVO.openid;
             this.playerList.push(player);
@@ -271,7 +277,7 @@ class GameScene extends BaseScene{
             player.clearStatus();
             player.score = 0;
             player.gameHead = null;
-            player.run();
+            player.stand();
             this.playerGroup.addChild(player.shadow);
             this.playerGroup.addChild(player);
         }
@@ -299,6 +305,24 @@ class GameScene extends BaseScene{
         player.modifyPos();
         player.run();
         player.clearStatus();
+    }
+    
+    //停止用户跑步动作
+    public stopAllPlayer(){
+        var len = this.playerList.length;
+        for(var i=0;i<len;i++){
+            var player:Player = this.playerList[i];
+            player.stand();
+        }
+    }
+    
+    //用户跑动
+    public runAllPlayer(){
+        var len = this.playerList.length;
+        for(var i = 0;i < len;i++) {
+            var player: Player = this.playerList[i];
+            player.run();
+        }
     }
 
     //创建地图，算法以单赛道创建为主，每隔一段距离创建一次
@@ -366,6 +390,7 @@ class GameScene extends BaseScene{
                                 this.itemList.splice(i,1);
                                 player.score += item.score;
                                 player.gameHead.setScoreLabel(player.score);
+                                break; //该物品已移除，则不需要继续判断
                             } 
                         }else if(item.type == 1){ //可跨越障碍
                             if(player.isJumping && ((item.y -player.y)> player.height/2)) {
@@ -389,7 +414,7 @@ class GameScene extends BaseScene{
     private clearItem() {
         var len = this.itemList.length;
         for(var i = 0;i < len;i++) {
-            var item: BaseItem = this.itemList[i];
+            var item = this.itemList[i];
             item.recycle();
         }
         this.itemList.length = 0;
@@ -500,6 +525,17 @@ class GameScene extends BaseScene{
         this.countDownTimer.stop();
     }
     
+    //删除用户
+    public deleteUser(openid:string){
+        //清理用户列表
+        var userManager: UserManager = UserManager.getInstance();
+        userManager.deleteUser(openid);
+        //所有人退出，则游戏结束
+        if(userManager.getUserNum() == 0){
+            this.gameOver();
+        }
+    }
+    
     //////////////////////////////////////////////////////
     //------------------Socket数据处理---------------------
     //////////////////////////////////////////////////////
@@ -551,21 +587,64 @@ class GameScene extends BaseScene{
     
     //发送游戏结束
     public sendGameOver(){
-        egret.log("sendGameOver");
-        var json;
-        if(GameConst.debug){
-            json = {
-                scoreList:[{openid:"ABC",score:999 }]
-            }
-        }else{
-            //TODO 实际数据
+        console.log("sendGameOver");
+        
+        //将本次游戏用户数据打包
+        var json = {scoreList:[]};
+        var len = this.playerList.length;
+        for(var i=0;i<len;i++){
+            var obj = {openid:"", score:0};
+            obj.openid = this.playerList[i].openid;
+            obj.score = this.playerList[i].score;
+            json.scoreList.push(obj);
         }
+        
+        //排序本次用户数据
+        for(var i=0;i<len;i++){
+            for(var j=i+1;j<len;j++){
+                var objA = json.scoreList[i];
+                var objB = json.scoreList[j];
+                if(objA.score < objB.score){
+                    var temp = objA.openid;
+                    objA.openid = objB.openid;
+                    objB.openid = temp;
+                    
+                    temp = objA.score;
+                    objA.score = objB.score;
+                    objB.score = temp;
+                }
+            }
+        }
+        
+        //保存本次游戏用户数据
+        this.resultData.scoreList = json.scoreList;
+        //发送
         this.socket.sendMessage("gameOver",json, this.revGameOver, this);
     }
     
+    //结果数据，临时保存本地玩家分数和服务器返回分数，用于结果场景显示
+    public resultData = {scoreList:[], rankList:[], gameRankList:[]};  
     //接收游戏结束
     private revGameOver(data){
-        //LayerManager.getInstance().runScene(GameManager.getInstance().)
+        console.log("revGameOver",data);
+        if(GameConst.debug){
+            this.resultData.rankList = [
+                  { nickName: "AA",headUrl: "resource/assets/home/home_arrow0.png",score: 999 },
+                  { nickName: "AA",headUrl: "resource/assets/home/home_arrow0.png",score: 999 },
+                  { nickName: "AA",headUrl: "resource/assets/home/home_arrow0.png",score: 999 },
+                  { nickName: "AA",headUrl: "resource/assets/home/home_arrow0.png",score: 999 },
+                  { nickName: "AA",headUrl: "resource/assets/home/home_arrow0.png",score: 999 },
+                  { nickName: "AA",headUrl: "resource/assets/home/home_arrow0.png",score: 999 },
+                  { nickName: "AA",headUrl: "resource/assets/home/home_arrow0.png",score: 999 },
+                  { nickName: "AA",headUrl: "resource/assets/home/home_arrow0.png",score: 999 },
+                  { nickName: "AA",headUrl: "resource/assets/home/home_arrow0.png",score: 999 },
+                  { nickName: "AA",headUrl: "resource/assets/home/home_arrow0.png",score: 999 }
+              ]
+        }else{
+            this.resultData.rankList = data.rankList;
+            this.resultData.gameRankList = data.gameRankList;
+        }
+        LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
     }
 }
 

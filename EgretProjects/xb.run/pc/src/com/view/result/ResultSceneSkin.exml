@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="ResultSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image source="result_bg_jpg"/>
+	<e:Image source="result_title_png" y="52" x="694"/>
+	<e:Group id="scoreGroup" height="1080" width="1920">
+		<ns1:ScoreHead id="scoreHead0" y="220" skinName="No1Skin" x="810"/>
+		<ns1:ScoreHead x="360" y="280" id="scoreHead1" skinName="No2Skin"/>
+		<ns1:ScoreHead id="scoreHead2" y="315" x="1270" skinName="No3Skin"/>
+	</e:Group>
+	<e:Group id="rankGroup" width="1920" height="1080">
+		<e:Image source="result_rankbg_png" y="710" x="119"/>
+		<ns1:RankHead id="rankHead0" x="144" y="770" skinName="RankHeadSkin"/>
+		<ns1:RankHead x="477" y="770" skinName="RankHeadSkin" id="rankHead1"/>
+		<ns1:RankHead id="rankHead2" y="770" skinName="RankHeadSkin" x="809"/>
+		<ns1:RankHead x="1142" y="770" skinName="RankHeadSkin" id="rankHead3"/>
+		<ns1:RankHead id="rankHead4" y="770" skinName="RankHeadSkin" x="1474"/>
+		<ns1:RankHead x="144" y="860" skinName="RankHeadSkin" id="rankHead5"/>
+		<ns1:RankHead id="rankHead6" y="860" skinName="RankHeadSkin" x="477"/>
+		<ns1:RankHead x="809" y="860" skinName="RankHeadSkin" id="rankHead7"/>
+		<ns1:RankHead id="rankHead8" y="860" skinName="RankHeadSkin" x="1142"/>
+		<ns1:RankHead x="1474" y="860" skinName="RankHeadSkin" id="rankHead9"/>
+	</e:Group>
+</e:Skin>

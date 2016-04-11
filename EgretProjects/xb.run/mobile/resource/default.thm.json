@@ -9,8 +9,7 @@
     "src/com/view/PreloadSceneSkin.exml",
     "src/com/view/ui/ResultHeadSkin.exml",
     "src/com/view/ui/RankHeadSkin.exml",
-    "src/com/view/ResultSceneSkin.exml",
-    "src/com/view/ui/HeadUISkin.exml"
+    "src/com/view/ResultSceneSkin.exml"
   ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",
