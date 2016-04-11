@@ -23,7 +23,6 @@ var game_file_list = [
 	"bin-debug/com/view/LockScene.js",
 	"bin-debug/com/view/PreloadScene.js",
 	"bin-debug/com/view/ResultScene.js",
-	"bin-debug/com/view/ui/HeadUI.js",
 	"bin-debug/com/view/ui/RankHead.js",
 	"bin-debug/com/view/ui/ResultHead.js",
 	"bin-debug/com/view/ui/SimpleButton.js",

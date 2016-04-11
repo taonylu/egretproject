@@ -2,14 +2,14 @@
 <e:Skin class="GameSceneSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
 	<e:Rect width="640" height="1136" fillColor="0x6FEAEA"/>
 	<e:Group id="arrowGroup" height="744" width="640" bottom="0">
-		<ns1:SimpleButton id="upBtn" y="231" skinName="UpArrowSkin" x="230"/>
-		<ns1:SimpleButton id="rightBtn" y="422" x="412" skinName="RightArrowSkin"/>
-		<ns1:SimpleButton id="leftBtn" x="42" y="422" skinName="LeftArrowSkin"/>
-		<e:Image source="panel_png" x="120" y="26"/>
-		<e:Label text="重力感应不好使？可以试试点击操作！" x="144" y="83" textColor="0x030000" fontFamily="微软雅黑" width="322" height="102" verticalAlign="middle" textAlign="center"/>
+		<ns1:SimpleButton id="upBtn" y="321" skinName="UpArrowSkin" x="230"/>
+		<ns1:SimpleButton id="rightBtn" y="512" x="412" skinName="RightArrowSkin"/>
+		<ns1:SimpleButton id="leftBtn" x="42" y="512" skinName="LeftArrowSkin"/>
+		<e:Image source="panel_png" y="96" horizontalCenter="0.5"/>
+		<e:Label text="重力感应不好使？可以试试点击操作！" y="153" textColor="0x030000" fontFamily="微软雅黑" width="322" height="102" verticalAlign="middle" textAlign="center" horizontalCenter="0"/>
 	</e:Group>
-	<e:Rect fillColor="0xF5FAFA" width="550" y="98" height="232" horizontalCenter="0" x="10"/>
-	<e:Image source="head0_png" y="148" x="80" id="headImg"/>
-	<e:Label y="146" textColor="0x030000" text="您当前使用的角色是：" fontFamily="微软雅黑" width="326" height="42" x="232" verticalAlign="middle"/>
-	<e:Label id="nameLabel" y="196" textColor="0xF90101" text="悠悠熊猫" fontFamily="微软雅黑" textAlign="center" width="148" height="42" x="220" verticalAlign="middle"/>
+	<e:Rect fillColor="0xF5FAFA" width="550" y="24" height="232" horizontalCenter="0" x="10"/>
+	<e:Image source="head0_png" y="78" x="80" id="headImg"/>
+	<e:Label y="76" textColor="0x030000" text="您当前使用的角色是：" fontFamily="微软雅黑" width="326" height="42" x="232" verticalAlign="middle"/>
+	<e:Label id="nameLabel" y="126" textColor="0xF90101" text="悠悠熊猫" fontFamily="微软雅黑" textAlign="center" width="148" height="42" x="220" verticalAlign="middle"/>
 </e:Skin>

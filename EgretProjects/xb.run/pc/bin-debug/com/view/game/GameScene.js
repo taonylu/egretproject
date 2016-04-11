@@ -19,7 +19,7 @@ var GameScene = (function (_super) {
         this.carrotPool = ObjectPool.getPool(Carrot.NAME, 1); //胡萝卜对象池
         this.bananaPool = ObjectPool.getPool(Banana.NAME, 1); //香蕉对象池
         this.stonePool = ObjectPool.getPool(Stone.NAME, 1); //石头对象池
-        this.micePool = ObjectPool.getPool(Mice.NAME); //地鼠对象池
+        this.micePool = ObjectPool.getPool(Mice.NAME, 1); //地鼠对象池
         this.highWoodPool = ObjectPool.getPool(HighWood.NAME, 1); //高木桩对象池
         this.lowWoodPool = ObjectPool.getPool(LowWood.NAME, 1); //矮木桩对象池
         this.waterPool = ObjectPool.getPool(Water.NAME, 1); //水池对象池
@@ -34,13 +34,15 @@ var GameScene = (function (_super) {
         this.grassPool = ObjectPool.getPool(Grass.NAME); //草地对象池
         this.grassList = new Array(); //草地数组 
         this.gameTimer = new egret.Timer(1000); //游戏计时器
-        this.gameTimeLimit = 60; //游戏时间限制
+        this.gameTimeLimit = 15; //游戏时间限制
         this.countDownTimer = new egret.Timer(1000); //倒计时
-        this.countDownLimit = 1; //倒计时限制
+        this.countDownLimit = 3; //倒计时限制
         //创建地图，算法以单赛道创建为主，每隔一段距离创建一次
         this.count = 0;
         //创建草地
         this.grassCount = 0;
+        //结果数据，临时保存本地玩家分数和服务器返回分数，用于结果场景显示
+        this.resultData = { scoreList: [], rankList: [], gameRankList: [] };
     }
     var d = __define,c=GameScene,p=c.prototype;
     p.componentCreated = function () {
@@ -54,10 +56,12 @@ var GameScene = (function (_super) {
     p.onRemove = function () {
     };
     p.startGame = function () {
-        this.configListeners();
-        this.startGameTimer();
+        this.configListeners(); //每帧更新
+        this.startGameTimer(); //开始游戏计时
+        this.runAllPlayer(); //所有玩家跑动
     };
     p.resetGame = function () {
+        this.clearPlayerList(); //重置用户列表
         this.initMap(); //初始化地图
         this.initFarAndNear(); //初始化远点和近点
         this.resetAllPlayer(); //重置所有玩家
@@ -69,6 +73,7 @@ var GameScene = (function (_super) {
     p.gameOver = function () {
         this.stopGameTimer(); //停止游戏计时
         this.deConfigListeners(); //停止物体移动
+        this.stopAllPlayer(); //停止玩家动作
         this.sendGameOver(); //发送游戏结束
     };
     //初始化场景
@@ -97,10 +102,8 @@ var GameScene = (function (_super) {
         for (var i = 0; i < this.playerLimit; i++) {
             var player = new Player("player" + i + "_png", "player" + i + "_json", "player" + i);
             this.roleList.push(player);
-            if (i == 0) {
-                player.offerX = -90; //mc中心位置不准确，修正值
-                player.offerY = -250;
-            }
+            player.offerX = -90; //mc中心位置不准确，修正值
+            player.offerY = -250;
         }
     };
     //初始化地图
@@ -193,6 +196,10 @@ var GameScene = (function (_super) {
             this.scoreGroup.addChild(gameHead);
         }
     };
+    //清理玩家列表
+    p.clearPlayerList = function () {
+        this.playerList.length = 0;
+    };
     //重置所有玩家
     p.resetAllPlayer = function () {
         //隐藏所有玩家
@@ -207,6 +214,7 @@ var GameScene = (function (_super) {
         for (var i = 0; i < userNum; i++) {
             var userVO = userList[i];
             var player = this.roleList[userVO.role];
+            //player.reset();
             player.roleID = userVO.role;
             player.openid = userVO.openid;
             this.playerList.push(player);
@@ -231,7 +239,7 @@ var GameScene = (function (_super) {
             player.clearStatus();
             player.score = 0;
             player.gameHead = null;
-            player.run();
+            player.stand();
             this.playerGroup.addChild(player.shadow);
             this.playerGroup.addChild(player);
         }
@@ -257,6 +265,22 @@ var GameScene = (function (_super) {
         player.modifyPos();
         player.run();
         player.clearStatus();
+    };
+    //停止用户跑步动作
+    p.stopAllPlayer = function () {
+        var len = this.playerList.length;
+        for (var i = 0; i < len; i++) {
+            var player = this.playerList[i];
+            player.stand();
+        }
+    };
+    //用户跑动
+    p.runAllPlayer = function () {
+        var len = this.playerList.length;
+        for (var i = 0; i < len; i++) {
+            var player = this.playerList[i];
+            player.run();
+        }
     };
     p.createItem = function () {
         this.count++;
@@ -319,6 +343,7 @@ var GameScene = (function (_super) {
                                 this.itemList.splice(i, 1);
                                 player.score += item.score;
                                 player.gameHead.setScoreLabel(player.score);
+                                break; //该物品已移除，则不需要继续判断
                             }
                         }
                         else if (item.type == 1) {
@@ -436,6 +461,16 @@ var GameScene = (function (_super) {
         this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
         this.countDownTimer.stop();
     };
+    //删除用户
+    p.deleteUser = function (openid) {
+        //清理用户列表
+        var userManager = UserManager.getInstance();
+        userManager.deleteUser(openid);
+        //所有人退出，则游戏结束
+        if (userManager.getUserNum() == 0) {
+            this.gameOver();
+        }
+    };
     //////////////////////////////////////////////////////
     //------------------Socket数据处理---------------------
     //////////////////////////////////////////////////////
@@ -485,20 +520,58 @@ var GameScene = (function (_super) {
     };
     //发送游戏结束
     p.sendGameOver = function () {
-        egret.log("sendGameOver");
-        var json;
-        if (GameConst.debug) {
-            json = {
-                scoreList: [{ openid: "ABC", score: 999 }]
-            };
+        console.log("sendGameOver");
+        //将本次游戏用户数据打包
+        var json = { scoreList: [] };
+        var len = this.playerList.length;
+        for (var i = 0; i < len; i++) {
+            var obj = { openid: "", score: 0 };
+            obj.openid = this.playerList[i].openid;
+            obj.score = this.playerList[i].score;
+            json.scoreList.push(obj);
         }
-        else {
+        //排序本次用户数据
+        for (var i = 0; i < len; i++) {
+            for (var j = i + 1; j < len; j++) {
+                var objA = json.scoreList[i];
+                var objB = json.scoreList[j];
+                if (objA.score < objB.score) {
+                    var temp = objA.openid;
+                    objA.openid = objB.openid;
+                    objB.openid = temp;
+                    temp = objA.score;
+                    objA.score = objB.score;
+                    objB.score = temp;
+                }
+            }
         }
+        //保存本次游戏用户数据
+        this.resultData.scoreList = json.scoreList;
+        //发送
         this.socket.sendMessage("gameOver", json, this.revGameOver, this);
     };
     //接收游戏结束
     p.revGameOver = function (data) {
-        //LayerManager.getInstance().runScene(GameManager.getInstance().)
+        console.log("revGameOver", data);
+        if (GameConst.debug) {
+            this.resultData.rankList = [
+                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 }
+            ];
+        }
+        else {
+            this.resultData.rankList = data.rankList;
+            this.resultData.gameRankList = data.gameRankList;
+        }
+        LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
     };
     return GameScene;
 }(BaseScene));

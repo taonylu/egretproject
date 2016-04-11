@@ -6,7 +6,7 @@
 class LockScene extends BaseScene{
     private nameLabel:eui.Label;  //名字文本
     private headImg:eui.Image;    //头像图片
-    private okBtn:eui.Image;      //ok按钮
+    private okBtn:eui.Button;      //ok按钮
     private socket:ClientSocket;  //socket
     private msgLabel:eui.Label;   //消息文本
     private orientation: egret.DeviceOrientation;  //重力感应
@@ -45,7 +45,6 @@ class LockScene extends BaseScene{
     
     //点击ok按钮
     private onOkBtnTouch(){
-        egret.Tween.get(this.okBtn).to({ scaleX: 1.2,scaleY: 1.2 },200).to({ scaleX: 1,scaleY: 1 },200);
         this.msgLabel.text = "校准完成\n请等待游戏开始";
         GameConst.centerZ = this.deviceZ;
         GameConst.centerX = this.deviceX;
@@ -96,7 +95,7 @@ class LockScene extends BaseScene{
     
     //接收分配角色
     public revAssignRole(data){
-        egret.log("revAssignRole");
+        egret.log("revAssignRole:", data.roleType);
         var roleID = data.roleType;
         UserManager.getInstance().roleID = roleID;
         this.setRoleImg();

@@ -4,14 +4,14 @@
 		<e:Image source="game_sky_jpg"/>
 	</e:Group>
 	<e:Group id="treeGroup" height="1080" width="1920">
-		<e:Image source="game_tree0_png" x="417" y="-1"/>
-		<e:Image source="game_tree1_png" x="285" y="35"/>
-		<e:Image source="game_tree3_png" x="119" y="19"/>
-		<e:Image source="game_tree0_png" y="-1" x="1737"/>
-		<e:Image source="game_tree1_png" y="45" x="1475"/>
-		<e:Image source="game_tree1_png" y="45" x="1655"/>
-		<e:Image source="game_tree3_png" y="9" x="1379"/>
-		<e:Image source="game_tree3_png" y="29" x="19"/>
+		<e:Image source="game_tree0_png" x="531" y="-1" width="140" height="250"/>
+		<e:Image source="game_tree1_png" x="371" y="15" width="166" height="223"/>
+		<e:Image source="game_tree3_png" x="219" y="19" width="171" height="264"/>
+		<e:Image source="game_tree0_png" y="9" x="1711" width="170" height="306"/>
+		<e:Image source="game_tree1_png" y="4" x="1577" width="172" height="231"/>
+		<e:Image source="game_tree1_png" y="-5" x="1229" width="190" height="255"/>
+		<e:Image source="game_tree3_png" y="9" x="1437" width="161" height="250"/>
+		<e:Image source="game_tree3_png" y="19" x="41" width="157" height="242"/>
 	</e:Group>
 	<e:Group id="bg0Group" height="1080" width="1920">
 		<e:Image source="game_bg0_png" bottom="0"/>

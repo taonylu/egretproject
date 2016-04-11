@@ -35,8 +35,10 @@ class ClientSocket {
 
         //连接socket
         this.socket = io.connect(window["gameConfig"].server,{ reconnection: false,'force new connection': true});
+        console.log("connect:",window["gameConfig"].server);
+        
         var self: ClientSocket = this;
-
+        
         //连接成功 
         this.socket.on('connect',function() {
             egret.log("connenct succss");

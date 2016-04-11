@@ -1,12 +1,17 @@
 {
   "autoGenerateExmlsList": true,
   "exmls": [
-    "src/com/view/game/GameSceneSkin.exml",
     "src/com/view/game/ui/GameHeadSkin.exml",
+    "src/com/view/game/GameSceneSkin.exml",
     "src/com/view/game/ui/HeadUI2Skin.exml",
-    "src/com/view/HomeSceneSkin.exml",
-    "src/com/view/LockSceneSkin.exml",
-    "src/com/view/PreloadSceneSkin.exml"
+    "src/com/view/home/HomeSceneSkin.exml",
+    "src/com/view/lock/LockSceneSkin.exml",
+    "src/com/view/preload/PreloadSceneSkin.exml",
+    "src/com/view/result/ui/No1Skin.exml",
+    "src/com/view/result/ui/No2Skin.exml",
+    "src/com/view/result/ui/No3Skin.exml",
+    "src/com/view/result/ui/RankHeadSkin.exml",
+    "src/com/view/result/ResultSceneSkin.exml"
   ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",

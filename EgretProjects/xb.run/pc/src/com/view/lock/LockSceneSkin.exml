@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="LockSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="homg_bg_jpg"/>
+	<e:Image source="lock_bg_png" y="110" x="501"/>
+	<e:Image source="lock_msg_png" y="126" x="593"/>
+	<e:Image source="lock_center_png" y="464" horizontalCenter="0"/>
+	<e:Image source="lock_phone_png" y="614" x="899"/>
+	<e:Rect height="72" width="602" y="354" fillColor="0xFFFFFF" x="653"/>
+	<e:Label text="手机对准屏幕按下OK键" x="672" y="360" textColor="0x030000" fontFamily="微软雅黑" width="566" height="60" verticalAlign="middle" textAlign="center" size="40"/>
+	<e:BitmapLabel id="countDownLabel" x="1222" y="768" font="countDownFont_fnt" text="1"/>
+	<e:Image id="hand" source="lock_hand_png" x="948" y="796"/>
+</e:Skin>

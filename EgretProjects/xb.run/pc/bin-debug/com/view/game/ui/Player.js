@@ -19,6 +19,9 @@ var Player = (function (_super) {
         this.x += this.offerX;
         this.y += this.offerY;
     };
+    p.stand = function () {
+        this.gotoAndStop(4);
+    };
     p.run = function () {
         this.gotoAndPlay("run", -1);
     };
@@ -28,7 +31,7 @@ var Player = (function (_super) {
             this.gotoAndPlay("jump", 1);
             this.initY = this.y;
             var self = this;
-            egret.Tween.get(this).to({ y: this.y - this.height * 2 }, 300).to({ y: this.initY }, 300).
+            egret.Tween.get(this).to({ y: this.y - 200 }, 300).to({ y: this.initY }, 300).
                 call(function () {
                 self.isJumping = false;
                 self.run();
@@ -56,6 +59,14 @@ var Player = (function (_super) {
         this.isJumping = false;
         this.isMoving = false;
         this.isDie = false;
+    };
+    p.reset = function () {
+        this.clearStatus();
+        this.gameHead = null;
+        this.score = 0;
+        this.track = 0;
+        this.roleID = 0;
+        this.openid = "";
     };
     return Player;
 }(SimpleMC));

@@ -35,7 +35,6 @@ var LockScene = (function (_super) {
     };
     //点击ok按钮
     p.onOkBtnTouch = function () {
-        egret.Tween.get(this.okBtn).to({ scaleX: 1.2, scaleY: 1.2 }, 200).to({ scaleX: 1, scaleY: 1 }, 200);
         this.msgLabel.text = "校准完成\n请等待游戏开始";
         GameConst.centerZ = this.deviceZ;
         GameConst.centerX = this.deviceX;
@@ -75,7 +74,7 @@ var LockScene = (function (_super) {
     };
     //接收分配角色
     p.revAssignRole = function (data) {
-        egret.log("revAssignRole");
+        egret.log("revAssignRole:", data.roleType);
         var roleID = data.roleType;
         UserManager.getInstance().roleID = roleID;
         this.setRoleImg();

@@ -8,6 +8,7 @@ var GameManager = (function () {
         this.homeScene = new HomeScene(); //主页场景
         this.gameScene = new GameScene(); //游戏场景
         this.lockScene = new LockScene(); //校准场景
+        this.resultScene = new ResultScene(); //结算场景
     }
     var d = __define,c=GameManager,p=c.prototype;
     //启动游戏框架

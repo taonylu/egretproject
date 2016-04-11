@@ -28,6 +28,10 @@ class Player extends SimpleMC{
     	this.y += this.offerY;
 	}
 	
+	public stand(){
+    	this.gotoAndStop(4);
+	}
+	
 	public run(){
     	this.gotoAndPlay("run",-1);
 	}
@@ -39,7 +43,7 @@ class Player extends SimpleMC{
             this.gotoAndPlay("jump",1);
             this.initY = this.y;
             var self = this;
-            egret.Tween.get(this).to({ y: this.y - this.height * 2 },300).to({ y: this.initY },300).
+            egret.Tween.get(this).to({ y: this.y - 200},300).to({ y: this.initY },300).
                 call(function() {
                     self.isJumping = false;
                     self.run();
@@ -72,6 +76,15 @@ class Player extends SimpleMC{
         this.isJumping = false;
         this.isMoving = false;
         this.isDie = false;
+	}
+	
+	public reset(){
+    	this.clearStatus();
+    	this.gameHead = null;
+    	this.score = 0;
+    	this.track = 0;
+    	this.roleID = 0;
+    	this.openid = "";
 	}
    
 }

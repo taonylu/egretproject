@@ -7,6 +7,7 @@ class GameManager {
     public homeScene: HomeScene = new HomeScene();  //主页场景
     public gameScene: GameScene = new GameScene();  //游戏场景
     public lockScene:LockScene = new LockScene();   //校准场景
+    public resultScene:ResultScene = new ResultScene(); //结算场景
     
     //启动游戏框架
     public startup(main: Main): void {

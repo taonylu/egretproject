@@ -1,5 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="HeadUISkin" width="220" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Label y="9" textColor="0x000000" height="40" text="标签标签标签标签" fontFamily="微软雅黑" x="85" width="128" size="18" id="nameLabel" verticalAlign="middle" textAlign="left"/>
-	<e:Label id="rankLabel" y="54" textColor="0x000000" height="23" text="标签标签标签标" fontFamily="微软雅黑" x="85" width="130" size="18" textAlign="center" verticalAlign="middle"/>
-</e:Skin>

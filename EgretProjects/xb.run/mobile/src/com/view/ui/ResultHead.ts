@@ -6,10 +6,12 @@
 class ResultHead extends BaseUI{
     
     private nameLabel:eui.Label;    //名字文本
+    private scoreLabel:eui.Label;   //积分文本
     private headImg:egret.Bitmap;   //头像图片
     private openid:string;          //用户ID
     private headMask:eui.Image;     //头像遮罩
     private imgGroup:eui.Group;     //头像容器
+    private rankLabel:eui.Label;    //排行文本
     private imgWidth:number = 75;
     private imgHeight:number = 75;
     private imageLoader: egret.ImageLoader = new egret.ImageLoader(); //图片加载器
@@ -32,7 +34,15 @@ class ResultHead extends BaseUI{
     }
     
     public setNameLabel(_name:string):void{
-        this.nameLabel.text = _name;
+        this.nameLabel.text = "昵称：" + _name;
+    }
+    
+    public setScoreLabel(score:number){
+        this.scoreLabel.text = "得分：" + score;
+    }
+    
+    public setRankLabel(rank:number){
+        this.rankLabel.text = rank + "";
     }
     
     public loadImg(imgUrl:string){
