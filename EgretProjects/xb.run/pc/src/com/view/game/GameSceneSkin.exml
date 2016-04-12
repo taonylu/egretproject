@@ -1,26 +1,28 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="GameSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
 	<e:Group id="skyGroup" width="1920" height="1080">
-		<e:Image source="game_sky_jpg"/>
+		<e:Image id="sky" source="game_sky_jpg" y="0"/>
 	</e:Group>
-	<e:Group id="treeGroup" height="1080" width="1920">
-		<e:Image source="game_tree0_png" x="531" y="-1" width="140" height="250"/>
-		<e:Image source="game_tree1_png" x="371" y="15" width="166" height="223"/>
-		<e:Image source="game_tree3_png" x="219" y="19" width="171" height="264"/>
-		<e:Image source="game_tree0_png" y="9" x="1711" width="170" height="306"/>
-		<e:Image source="game_tree1_png" y="4" x="1577" width="172" height="231"/>
-		<e:Image source="game_tree1_png" y="-5" x="1229" width="190" height="255"/>
-		<e:Image source="game_tree3_png" y="9" x="1437" width="161" height="250"/>
-		<e:Image source="game_tree3_png" y="19" x="41" width="157" height="242"/>
+	<e:Group id="treeLeftGroup" height="1080" width="1920">
+		<e:Image source="game_tree0_png" x="661" y="9" width="140" height="250"/>
+		<e:Image source="game_tree1_png" x="531" y="35" width="166" height="223"/>
+		<e:Image source="game_tree3_png" x="339" y="-1" width="171" height="264"/>
+		<e:Image source="game_tree3_png" y="19" x="161" width="157" height="242"/>
+	</e:Group>
+	<e:Group id="treeRightGroup" width="1920" height="1080">
+		<e:Image source="game_tree0_png" width="170" y="9" height="306" x="1711"/>
+		<e:Image source="game_tree1_png" width="172" y="44" height="231" x="1577"/>
+		<e:Image source="game_tree1_png" width="190" y="-5" height="255" x="1229"/>
+		<e:Image source="game_tree3_png" width="161" y="9" height="250" x="1437"/>
 	</e:Group>
 	<e:Group id="bg0Group" height="1080" width="1920">
 		<e:Image source="game_bg0_png" bottom="0"/>
-		<e:Rect id="singleFar0" anchorOffsetY="50" y="196" anchorOffsetX="50" width="100" height="100" x="880"/>
-		<e:Rect id="singleNear0" x="630" width="100" y="946" anchorOffsetX="50" anchorOffsetY="50" height="100"/>
-		<e:Rect id="singleNear1" anchorOffsetY="50" y="946" anchorOffsetX="50" width="100" height="100" x="990"/>
+		<e:Rect id="singleFar0" anchorOffsetY="50" y="196" anchorOffsetX="50" width="100" height="100" x="850"/>
+		<e:Rect id="singleNear0" x="600" width="100" y="946" anchorOffsetX="50" anchorOffsetY="50" height="100"/>
+		<e:Rect id="singleNear1" anchorOffsetY="50" y="946" anchorOffsetX="50" width="100" height="100" x="970"/>
 		<e:Rect x="1336" width="100" y="946" anchorOffsetX="50" anchorOffsetY="50" height="100" id="singleNear2"/>
-		<e:Rect x="991" width="100" y="196" anchorOffsetX="50" anchorOffsetY="50" height="100" id="singleFar1"/>
-		<e:Rect id="singleFar2" anchorOffsetY="50" y="196" anchorOffsetX="50" width="100" height="100" x="1102"/>
+		<e:Rect x="961" width="100" y="196" anchorOffsetX="50" anchorOffsetY="50" height="100" id="singleFar1"/>
+		<e:Rect id="singleFar2" anchorOffsetY="50" y="196" anchorOffsetX="50" width="100" height="100" x="1072"/>
 	</e:Group>
 	<e:Group id="bg1Group" width="1920" height="1080" visible="false">
 		<e:Image source="game_bg1_png" bottom="0"/>

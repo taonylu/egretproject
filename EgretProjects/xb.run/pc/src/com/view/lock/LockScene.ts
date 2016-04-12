@@ -5,10 +5,15 @@
  */
 class LockScene extends BaseScene{
     private socket:ClientSocket;
+    
+    private countDownGroup:eui.Group;
     private countDownLabel:eui.BitmapLabel;  //倒计时
     private countDownTimer:egret.Timer = new egret.Timer(1000);
-    private countDownLimit:number = 5;
-    private hand:eui.Image;
+    private countDownLimit:number = 10;
+    
+    private goImg:eui.Image;  //Let' Go 字样
+    
+    private hand:eui.Image;  //手
     
 	public constructor() {
     	super("LockSceneSkin");
@@ -18,9 +23,7 @@ class LockScene extends BaseScene{
         super.componentCreated();
         this.socket = ClientSocket.getInstance();      
         this.initHandY = this.hand.y;
-        if(GameConst.debug){
-            this.countDownLimit = 5;
-        }
+        this.countDownLimit = window["gameConfig"].lockTime;
     }
 
     public onEnable(): void {
@@ -48,6 +51,8 @@ class LockScene extends BaseScene{
     }
     
     private startCountDown(){
+        this.countDownGroup.visible = true;
+        this.goImg.visible = false;
         this.countDownLabel.text = this.countDownLimit + "";
         this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onTimerHandler, this);
         this.countDownTimer.reset();
@@ -65,14 +70,23 @@ class LockScene extends BaseScene{
     }
     
     private stopCountDown(){
+        this.countDownGroup.visible = false;
         this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER,this.onTimerHandler,this);
         this.countDownTimer.stop();
     }
     
     private startGame(){
         this.stopCountDown();
-        this.sendStartGame();
-        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+        
+        //播放let's go 动画
+        var self:LockScene = this;
+        this.goImg.scaleX = 0.1;
+        this.goImg.scaleY = 0.1;
+        this.goImg.visible = true;
+        egret.Tween.get(this.goImg).to({scaleX:1.2,scaleY:1.2},1200,egret.Ease.elasticOut).call(function(){
+            self.sendStartGame();
+            LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+        });
     }
     
     /////////////////////////////////////////////////////////
@@ -101,6 +115,10 @@ class LockScene extends BaseScene{
     //发送开始游戏
     public sendStartGame(){
         console.log("sendStartGame");
+        
+        //cnzz记录
+        window["czcStartGame"](UserManager.getInstance().getUserNum());
+        
         this.socket.sendMessage("startGame");
     }
 }

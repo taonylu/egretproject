@@ -15,6 +15,11 @@ class GameScene extends BaseScene{
     private headImg:eui.Image;   //头像
     private nameLabel:eui.Label; //文本
     
+    private centerLabel:eui.Label;  //中心位置，调试用文本
+    private deviceLabel:eui.Label;  //当前设备角度
+    private actionLabel:eui.Label;  //动作文本
+    private statusLabel:eui.Label;  //手势状态
+    
 	public constructor() {
         super("GameSceneSkin");
 	}
@@ -48,6 +53,7 @@ class GameScene extends BaseScene{
         this.gestureL = false;
         this.centerZ = GameConst.centerZ;
         this.centerX = GameConst.centerX;
+        this.centerLabel.text = "centerZ:" + this.centerZ + "  centerX:" + this.centerX;
         //头像、名称
         this.setRoleImg();
         this.setRoleName();
@@ -100,27 +106,27 @@ class GameScene extends BaseScene{
         this.orientation.removeEventListener(egret.Event.CHANGE,this.onOrientation,this);
     }
 
-    private deviceLabel: eui.Label;
     private deviceX: number = 0;
     private deviceZ: number = 0;
     private gestureUp:boolean = false;
     private gestureR:boolean = false;
     private gestureL:boolean = false;
-    private angleLimit = 45;   //角度限制
-    private angleReturn = 30;  //回复手势角度
+    private angleLimit = 30;   //角度限制
+    private angleReturn = 25;  //回复手势角度
     private onOrientation(e: egret.OrientationEvent) {
         this.deviceX = parseFloat(e.beta.toFixed(2));
         this.deviceZ = parseFloat(e.alpha.toFixed(2));
-//        this.deviceLabel.text =
-//            "x轴角速度:" + this.deviceX  //-90-90 手机平放0度，手机头朝上增加，手机头朝下减少
-//            + "\nz轴角速度:" + this.deviceZ;    //0~360   北方为0(360)，向左0-360增加，向右360-0减少 
-//            
+        this.deviceLabel.text =
+            "x轴角速度:" + this.deviceX  //-90-90 手机平放0度，手机头朝上增加，手机头朝下减少
+            + "\nz轴角速度:" + this.deviceZ;    //0~360   北方为0(360)，向左0-360增加，向右360-0减少 
+        this.statusLabel.text = "up:" + this.gestureUp + " R:" + this.gestureR  + " L:" + this.gestureL;
         //向上超过n度，则判定为跳跃
        // this.deviceLabel.text += "\naccX:" + this.deviceX.toFixed(2);
         if(this.deviceX >= this.angleLimit && this.gestureUp == false) {
             this.gestureUp = true;
             this.sendUpAction();
             this.upBtn.devieceDown();
+            this.actionLabel.text = "Up:" + this.deviceX;
         } else if(this.deviceX <= this.angleReturn){
             this.gestureUp = false;
         }
@@ -138,22 +144,27 @@ class GameScene extends BaseScene{
         if((dist < this.angleReturn && dist > -this.angleReturn)) {
             this.gestureR = false;
             this.gestureL = false;
+        }else if((dist > 180 && (360-dist)<this.angleReturn) || (dist<-180 && (360+dist)<this.angleReturn)){
+            this.gestureR = false;
+            this.gestureL = false;
         }
 
         
         //判断左
-        if((dist >= this.angleLimit && dist < 180) || dist < -180){
+        if((dist >= this.angleLimit && dist < 180) || (dist >= (this.angleLimit - 360) && dist < -180)){
             if(this.gestureL == false && this.gestureR == false){
                 this.gestureL = true;
                 this.sendLeftAction();
                 this.leftBtn.devieceDown();
+                this.actionLabel.text = "L:" + this.deviceZ;
             } 
         //判断右    
-        } else if((dist <= -this.angleLimit && dist > -180) || dist > 180){
+        } else if((dist <= -this.angleLimit && dist > -180) || (dist < (360-this.angleLimit) && dist > 180 )){
             if(this.gestureR == false && this.gestureL == false){
                 this.gestureR = true;
                 this.sendRightAction();
                 this.rightBtn.devieceDown();
+                this.actionLabel.text = "R:" + this.deviceZ;
             } 
         } 
     }
@@ -180,10 +191,10 @@ class GameScene extends BaseScene{
         console.log("revGameOver",data);
         if(GameConst.debug == true){
             data = {
-                scoreList: [
-                                { headUrl:"resource/assets/home/head0.png", nickName:"A",score:999},
-                                { headUrl: "resource/assets/home/head0.png",nickName: "B",score: 999},
-                                { headUrl: "resource/assets/home/head0.png",nickName: "C",score: 999},
+                gameRankList: [
+                                { headUrl:"resource/assets/home/head0.png", nickName:"A",score:999,rank:1},
+                                { headUrl: "resource/assets/home/head0.png",nickName: "B",score: 999,rank: 1},
+                                { headUrl: "resource/assets/home/head0.png",nickName: "C",score: 999,rank: 1},
                             ],
                 rankList:[
                             {headUrl:"resource/assets/home/head0.png",nickName:"A",score:99},

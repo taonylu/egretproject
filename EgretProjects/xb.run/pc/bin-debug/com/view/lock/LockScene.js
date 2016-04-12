@@ -8,7 +8,7 @@ var LockScene = (function (_super) {
     function LockScene() {
         _super.call(this, "LockSceneSkin");
         this.countDownTimer = new egret.Timer(1000);
-        this.countDownLimit = 5;
+        this.countDownLimit = 10;
         /////////////////////////////////////////////////////////
         //-----------------[Socket 数据]-------------------------
         /////////////////////////////////////////////////////////
@@ -20,9 +20,7 @@ var LockScene = (function (_super) {
         _super.prototype.componentCreated.call(this);
         this.socket = ClientSocket.getInstance();
         this.initHandY = this.hand.y;
-        if (GameConst.debug) {
-            this.countDownLimit = 5;
-        }
+        this.countDownLimit = window["gameConfig"].lockTime;
     };
     p.onEnable = function () {
         this.resetScene();
@@ -43,6 +41,8 @@ var LockScene = (function (_super) {
         this.hand.y = this.initHandY;
     };
     p.startCountDown = function () {
+        this.countDownGroup.visible = true;
+        this.goImg.visible = false;
         this.countDownLabel.text = this.countDownLimit + "";
         this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onTimerHandler, this);
         this.countDownTimer.reset();
@@ -58,13 +58,21 @@ var LockScene = (function (_super) {
         this.countDownLabel.text = count + "";
     };
     p.stopCountDown = function () {
+        this.countDownGroup.visible = false;
         this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER, this.onTimerHandler, this);
         this.countDownTimer.stop();
     };
     p.startGame = function () {
         this.stopCountDown();
-        this.sendStartGame();
-        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+        //播放let's go 动画
+        var self = this;
+        this.goImg.scaleX = 0.1;
+        this.goImg.scaleY = 0.1;
+        this.goImg.visible = true;
+        egret.Tween.get(this.goImg).to({ scaleX: 1.2, scaleY: 1.2 }, 1200, egret.Ease.elasticOut).call(function () {
+            self.sendStartGame();
+            LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+        });
     };
     p.revLock = function (data) {
         console.log("revLock:", data);
@@ -86,6 +94,8 @@ var LockScene = (function (_super) {
     //发送开始游戏
     p.sendStartGame = function () {
         console.log("sendStartGame");
+        //cnzz记录
+        window["czcStartGame"](UserManager.getInstance().getUserNum());
         this.socket.sendMessage("startGame");
     };
     return LockScene;

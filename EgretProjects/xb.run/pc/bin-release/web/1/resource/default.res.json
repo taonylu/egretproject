@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"home_demo_png,home_footbg_png,home_headbg_png,home_logo_png,home_msgbx_png,home_panel_png,home_phone_png,home_player_png,homg_bg_jpg,home_arrow0_png,home_arrow1_png,home_codebg_png,home_headmask_png,home_title_png,game_bg1_png,game_grass2_png,game_sky_jpg,game_tree0_png,game_tree1_png,game_tree3_png,game_grass0_png,game_grass1_png,item_banana_png,item_carrot_png,item_highwood_png,item_lowwood_png,item_mice_png,item_stone_png,item_water_png,player0_json,player0_png,lock_center_png,lock_msg_png,lock_phone_png,lock_bg_png,countDownFont_fnt,game_bg0_png,shadow_png,progress_bar0_png,progress_bar1_png,progress_bg_png,progress_slider_png,scoreBg0_png,scoreBg1_png,scoreBg2_png,result_bg_jpg,result_no1_png,result_no2_png,result_no3_png,result_rankbg_png,result_scorebg_png,result_title_png,player1_json,player1_png,player2_json,player2_png,lock_hand_png,home_fengche_png",
+			"keys":"home_demo_png,home_footbg_png,home_headbg_png,home_logo_png,home_msgbx_png,home_panel_png,homg_bg_jpg,home_arrow0_png,home_arrow1_png,home_codebg_png,home_headmask_png,home_title_png,game_bg1_png,game_grass2_png,game_sky_jpg,game_tree0_png,game_tree1_png,game_tree3_png,game_grass0_png,game_grass1_png,item_banana_png,item_carrot_png,item_highwood_png,item_lowwood_png,item_mice_png,item_stone_png,item_water_png,player0_json,player0_png,lock_center_png,lock_msg_png,lock_phone_png,lock_bg_png,countDownFont_fnt,game_bg0_png,shadow_png,progress_bar0_png,progress_bar1_png,progress_bg_png,progress_slider_png,scoreBg0_png,scoreBg1_png,scoreBg2_png,result_bg_jpg,result_no1_png,result_no2_png,result_no3_png,result_rankbg_png,result_scorebg_png,result_title_png,player1_json,player1_png,player2_json,player2_png,lock_hand_png,home_fengche_png,home_player0_png,home_player1_png,home_player2_png,home_xiongtext_png,home_bird_png,home_lutext_png,home_mice_png,home_tutext_png,home_wa_png,home_phone0_png,home_phone1_png",
 			"name":"home"
 		}
 	],
@@ -39,16 +39,6 @@
 			"name":"home_panel_png",
 			"type":"image",
 			"url":"assets/home/home_panel.png"
-		},
-		{
-			"name":"home_phone_png",
-			"type":"image",
-			"url":"assets/home/home_phone.png"
-		},
-		{
-			"name":"home_player_png",
-			"type":"image",
-			"url":"assets/home/home_player.png"
 		},
 		{
 			"name":"homg_bg_jpg",
@@ -304,6 +294,61 @@
 			"name":"home_fengche_png",
 			"type":"image",
 			"url":"assets/home/home_fengche.png"
+		},
+		{
+			"name":"home_player0_png",
+			"type":"image",
+			"url":"assets/home/home_player0.png"
+		},
+		{
+			"name":"home_player1_png",
+			"type":"image",
+			"url":"assets/home/home_player1.png"
+		},
+		{
+			"name":"home_player2_png",
+			"type":"image",
+			"url":"assets/home/home_player2.png"
+		},
+		{
+			"name":"home_xiongtext_png",
+			"type":"image",
+			"url":"assets/home/home_xiongtext.png"
+		},
+		{
+			"name":"home_bird_png",
+			"type":"image",
+			"url":"assets/home/home_bird.png"
+		},
+		{
+			"name":"home_lutext_png",
+			"type":"image",
+			"url":"assets/home/home_lutext.png"
+		},
+		{
+			"name":"home_mice_png",
+			"type":"image",
+			"url":"assets/home/home_mice.png"
+		},
+		{
+			"name":"home_tutext_png",
+			"type":"image",
+			"url":"assets/home/home_tutext.png"
+		},
+		{
+			"name":"home_wa_png",
+			"type":"image",
+			"url":"assets/home/home_wa.png"
+		},
+		{
+			"name":"home_phone0_png",
+			"type":"image",
+			"url":"assets/home/home_phone0.png"
+		},
+		{
+			"name":"home_phone1_png",
+			"type":"image",
+			"url":"assets/home/home_phone1.png"
 		}
 	]
 }

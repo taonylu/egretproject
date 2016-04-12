@@ -32,7 +32,7 @@ class ResultScene extends BaseScene{
     }
     
     public showResult(data){
-        var scoreList = data.scoreList;
+        var gameRankList = data.gameRankList;
         var rankList = data.rankList;
         
         //清理头像
@@ -42,12 +42,12 @@ class ResultScene extends BaseScene{
             head.clear();
         }
         //显示本次游戏玩家分数
-        len = scoreList.length;
+        len = gameRankList.length;
         for(var i = 0;i < len;i++) {
-            this.headList[i].setNameLabel(scoreList[i].nickName);
-            this.headList[i].setScoreLabel(scoreList[i].score);
-            this.headList[i].loadImg(scoreList[i].headUrl);
-            this.headList[i].setRankLabel(scoreList[i].rank);
+            this.headList[i].setNameLabel(gameRankList[i].nickName);
+            this.headList[i].setScoreLabel(gameRankList[i].score);
+            this.headList[i].loadImg(gameRankList[i].headUrl);
+            this.headList[i].setRankLabel(gameRankList[i].rank);
         }
         
         //清理历史排行

@@ -11,16 +11,29 @@ class HomeScene extends BaseScene{
     private codeGroup: eui.Group;                           //二维码容器
     private rid: string;                                    //房间号
     
+    private countDownGroup: eui.Group;  //倒计时Group
     private countDownTimer:egret.Timer = new egret.Timer(1000); //倒计时计时器
-    private countDownLimit = 8;   //倒计时限制
+    private countDownLimit = 15;   //倒计时限制
     private countDownLabel:eui.EditableText; //倒计时文本
+
+    private introduceGroup: eui.Group;  //简介Group
+    private introduceLabel: eui.Label;  //简介文本
     
     private headList: Array<HeadUI> = new Array<HeadUI>();   //头像UI
     private head0:HeadUI;
     private head1:HeadUI;
     private head2:HeadUI;
     
-    private fengChe:eui.Image;  //风车
+    //private fengChe:eui.Image;  //风车
+    
+    private playerGroup: eui.Group; //演示动画用人物的Group
+    private player:Player;          //演示动画用的人物
+    private phone0:eui.Image;        //手机0
+    private phone1:eui.Image;        //手机1 跳跃时
+    private leftArrow:eui.Image;    //左箭头
+    private rightArrow:eui.Image;   //右箭头
+    
+    
     
     public constructor() {
         super("HomeSceneSkin");
@@ -29,6 +42,7 @@ class HomeScene extends BaseScene{
     public componentCreated(): void {
         super.componentCreated();
         this.socket = ClientSocket.getInstance();
+        this.countDownLimit = window["gameConfig"].homeTime;
         this.initView();  
     }
 
@@ -37,12 +51,17 @@ class HomeScene extends BaseScene{
     }
 
     public onRemove(): void {
-        this.stopFengAnim();
+        //this.stopFengAnim();
     }
     
     //初始化视图
     private initView(){
         this.initHead();     //初始化头像相关
+        
+        //初始化倒计时和简介
+        this.introduceGroup.visible = true;
+        this.countDownGroup.visible = false;
+        this.introduceLabel.text = GameConst.gameCofig.introduceText;
     }
     
     //重置场景
@@ -51,23 +70,62 @@ class HomeScene extends BaseScene{
         this.createQRCode();      //创建二维码
         this.clearHead();         //清理头像
         this.clearUserManager();  //清理用户列表
-        this.startFengAnim();     //开始风车动画
+        //this.startFengAnim();     //开始风车动画
+        this.startPlayerAnim();   //播放人物动画
     }
     
     //风车动画
-    private startFengAnim(){
-        egret.Tween.get(this.fengChe,{loop:true}).to({rotation:360*5},2000*5)
-             .to({rotation:360*7},1000*2)
-            .to({ rotation: 360*8},1500);
+//    private startFengAnim(){
+//        egret.Tween.get(this.fengChe,{loop:true}).to({rotation:360*5},2000*5)
+//             .to({rotation:360*7},1000*2)
+//            .to({ rotation: 360*8},1500);
+//    }
+    
+    //停止风车动画
+//    private stopFengAnim(){
+//        egret.Tween.removeTweens(this.fengChe);
+//    }
+    
+    //开始人物动画
+    private startPlayerAnim(){
+        if(this.player == null){
+            this.player = new Player("player0_png","player0_json","player0");
+            this.player.scaleX = 0.5;
+            this.player.scaleY = 0.5;
+            this.playerGroup.addChild(this.player);
+        }
+        var centerX: number = this.playerGroup.width / 2 - this.player.width / 2;
+        var centerY: number = this.playerGroup.height / 2 - this.player.height / 2;
+        this.player.x = centerX;
+        this.player.y = centerY;
+        this.player.run();
+        egret.Tween.get(this.player,{ loop: true }).wait(1500).to({ x: - 80 },100).wait(1500) //左移
+            .to({ x: centerX },100).wait(1500) //右移
+            .to({ y: - 100 },200).to({ y: centerY},200); //跳跃 
+        
+        this.phone0.rotation = 0;
+        this.phone0.visible = true;
+        this.phone1.visible = false;
+        var self:HomeScene = this;
+        egret.Tween.get(this.phone0,{ loop: true }).wait(1500).to({ rotation: -30 },200).to({ rotation: 0 },200).wait(1200) //左移
+        .to({rotation:30},200).to({rotation:0},200).wait(1200) //右移
+        .call(function(){
+            self.phone0.visible = false;
+            self.phone1.visible = true;
+        }).wait(200).call(function(){
+            self.phone0.visible = true;
+            self.phone1.visible = false;
+        }).wait(200);
     }
     
-    private stopFengAnim(){
-        egret.Tween.removeTweens(this.fengChe);
+    //停止人物动画
+    private stopPlayerAnim(){
+        
     }
     
     //初始化头像相关
     private initHead(){
-        this.headList.push(this.head0,this.head1,this.head2);
+        this.headList.push(this.head1,this.head2,this.head0);
         this.head0.infoLabel.text = "选择暴躁鹿";
         this.head1.infoLabel.text = "选择嘻哈兔";
         this.head2.infoLabel.text = "选择悠悠熊猫";
@@ -88,20 +146,22 @@ class HomeScene extends BaseScene{
     //生成二维码
     private createQRCode(){
         //随机房间号
-        this.rid = (new Date()).getTime() + NumberTool.getVerificationCode(6);
+        //this.rid = (new Date()).getTime() + NumberTool.getVerificationCode(6);
         
         //index创建二维码图片
-        window["createQRCode"](this.rid);
+        this.rid = window["createQRCode"]();
         
         //加载二维码图片
         var codeLoader: QRCodeLoader = new QRCodeLoader();
-        var gameConfig = window["gameConfig"];
+        var gameConfig = GameConst.gameCofig;
         codeLoader.load(gameConfig.codeData,gameConfig.codeWidth,gameConfig.codeHeight,gameConfig.logoUrl);
         this.codeGroup.addChild(codeLoader);
     }
     
     //开始倒计时
     private startCountDown(){
+        this.countDownGroup.visible = true;
+        this.introduceGroup.visible = false;
         this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
         this.countDownTimer.reset();
         this.countDownTimer.start();
@@ -124,6 +184,8 @@ class HomeScene extends BaseScene{
     
     //停止倒计时
     private stopCountDown(){
+        this.countDownGroup.visible = false;
+        this.introduceGroup.visible = true;
         this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER,this.onCountDownHandler,this);
         this.countDownTimer.stop();
     }
@@ -192,14 +254,7 @@ class HomeScene extends BaseScene{
             var headUI: HeadUI = this.headList[i];
             if(headUI.isEmpty()){
                 headUI.setUserInfo(userVO);
-                if(i==0){  //因为首页头像的顺序是0鹿 1兔子 2熊猫，和roleID 0兔子 1熊猫 2鹿顺序不一致
-                    userVO.role = 2;
-                }else if(i==1){
-                    userVO.role = 0;
-                }else if(i==2){
-                    userVO.role = 1;
-                }
-                
+                userVO.role = i;
                  //发送用户角色
                 this.sendRole(userVO.role,userVO.openid);
                 break;

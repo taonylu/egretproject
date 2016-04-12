@@ -4,7 +4,7 @@
  *
  */
 class PreloadScene extends BaseScene{
-    private fengChe:eui.Image;
+    //private fengChe:eui.Image;
     public progressLabel:eui.Label;
     
 	public constructor() {
@@ -13,8 +13,8 @@ class PreloadScene extends BaseScene{
 	
     public componentCreated(): void {
         super.componentCreated();
-        this.startFengAnim();
-        this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemoveStage, this);
+        //this.startFengAnim();
+       // this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemoveStage, this);
     }
     
     public setProgress(process:number){
@@ -23,12 +23,12 @@ class PreloadScene extends BaseScene{
         }    
     }
     
-    private startFengAnim(){
-        egret.Tween.get(this.fengChe,{ loop: true }).to({ rotation: 1800 },10000).to({ rotation: 1800 },3000);
-    }
-    
-    private onRemoveStage(){
-        this.removeEventListener(egret.Event.REMOVED_FROM_STAGE,this.onRemoveStage,this);
-        egret.Tween.removeTweens(this.fengChe);
-    }
+//    private startFengAnim(){
+//        egret.Tween.get(this.fengChe,{ loop: true }).to({ rotation: 1800 },10000).to({ rotation: 1800 },3000);
+//    }
+//    
+//    private onRemoveStage(){
+//        this.removeEventListener(egret.Event.REMOVED_FROM_STAGE,this.onRemoveStage,this);
+//        egret.Tween.removeTweens(this.fengChe);
+//    }
 }

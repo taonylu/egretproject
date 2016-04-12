@@ -15,8 +15,10 @@ var GameManager = (function () {
     p.startup = function (main) {
         //初始化配置
         GameConst.stage = main.stage;
-        GameConst.debug = window["gameConfig"].debug;
+        GameConst.gameCofig = window["gameConfig"];
+        GameConst.debug = GameConst.gameCofig.debug;
         LayerManager.getInstance().initialize(main);
+        console.log("调试模式:", GameConst.debug);
         //显示主页
         LayerManager.getInstance().runScene(this.homeScene);
         //socket

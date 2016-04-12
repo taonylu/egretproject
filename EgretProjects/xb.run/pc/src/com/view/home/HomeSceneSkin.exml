@@ -2,29 +2,48 @@
 <e:Skin class="HomeSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
 	<e:Group id="bgGroup" height="1080" width="1920">
 		<e:Image source="homg_bg_jpg"/>
-		<e:Image source="home_panel_png" x="304" y="149"/>
-		<e:Image source="home_codebg_png" x="356" y="178"/>
-		<e:Image source="home_footbg_png" y="990" x="0"/>
-		<e:Image source="home_logo_png" y="994" x="879"/>
-		<e:Image source="home_player_png" x="327" y="540"/>
+		<e:Image source="home_panel_png" x="304" y="191"/>
+		<e:Image source="home_footbg_png" x="0" bottom="0"/>
+		<e:Image source="home_logo_png" x="879" bottom="0"/>
+		<e:Image source="home_title_png" y="14" width="594" height="172" x="663"/>
+		<e:Image source="home_wa_png" x="236" y="99"/>
 	</e:Group>
 	<e:Group id="animGroup" width="1920" height="1080">
-		<e:Image source="home_demo_png" x="1118" y="147"/>
-		<e:Image source="home_phone_png" x="1289" y="597"/>
-		<e:Image source="home_arrow0_png" x="1371" y="609"/>
-		<e:Image source="home_arrow1_png" x="1197" y="608"/>
+		<e:Image source="home_demo_png" x="1108" y="191"/>
+		<e:Image id="rightArrow" source="home_arrow0_png" x="1391" y="549"/>
+		<e:Image id="leftArrow" source="home_arrow1_png" x="1177" y="548"/>
+		<e:Image id="phone0" source="home_phone0_png" x="1325" y="667" anchorOffsetX="37" anchorOffsetY="101"/>
+		<e:Image id="phone1" source="home_phone1_png" x="1323" y="666" anchorOffsetX="37" anchorOffsetY="112"/>
+		<e:Image source="home_mice_png" x="1420" y="866"/>
+		<e:Image source="home_msgbx_png" x="1124" y="668"/>
+		<e:Image source="home_bird_png" x="1422" y="144"/>
+		<e:Label text="通过手机摆动控制你的角色，获取高分闯关吧！" x="1146" y="722" textColor="0x030000" width="334" height="124" fontFamily="微软雅黑" verticalAlign="middle"/>
+		<e:Image source="game_sky_jpg" x="1124" y="282" width="380" height="70"/>
+		<e:Image source="game_tree1_png" x="1137" y="281" width="48" height="65"/>
+		<e:Image source="game_tree3_png" x="1382" y="282" width="37" height="60"/>
+		<e:Image source="game_tree3_png" width="37" y="284" height="60" x="1182"/>
+		<e:Image source="game_tree1_png" width="48" y="281" height="65" x="1447"/>
+		<e:Image source="game_tree0_png" x="1357" y="281" width="36" height="64"/>
+		<e:Image source="game_tree1_png" width="48" y="281" height="65" x="1227"/>
+		<e:Image source="game_bg0_png" x="1124" y="334" width="380" height="168"/>
+		<e:Group id="playerGroup" height="70" width="70" x="1280" y="397"/>
 	</e:Group>
-	<e:Group id="codeGroup" width="250" height="250" x="800" y="184">
+	<e:Group id="codeGroup" width="250" height="250" x="800" y="199">
 		<e:Label text="微信扫码 加入游戏" x="0" y="268" width="250" textAlign="center" verticalAlign="middle" fontFamily="微软雅黑"/>
 	</e:Group>
 	<e:Group id="userGroup" width="1920" height="1080">
 		<ns1:HeadUI id="head0" x="343" y="543" skinName="HeadUI2Skin"/>
 		<ns1:HeadUI skinName="HeadUI2Skin" y="543" x="598" id="head1"/>
 		<ns1:HeadUI skinName="HeadUI2Skin" y="543" id="head2" x="852"/>
+		<e:Image source="home_player2_png" x="348" y="639"/>
+		<e:Image source="home_player0_png" x="597" y="631"/>
+		<e:Image source="home_player1_png" x="820" y="637"/>
 	</e:Group>
-	<e:Group id="countDownGroup" width="1920" height="1080" x="-2">
-		<e:Image source="home_title_png" y="46" width="456" height="132" x="732"/>
-		<e:Image id="fengChe" source="home_fengche_png" x="1095" y="56" width="80" height="80" anchorOffsetX="40" anchorOffsetY="40"/>
-		<e:BitmapLabel id="countDownLabel" x="1290" y="800" font="countDownFont_fnt" text="1"/>
+	<e:Group id="introduceGroup" width="1920" height="1080">
+		<e:Image source="home_codebg_png" x="342" y="208"/>
+		<e:Label id="introduceLabel" text="标签" x="357" y="259" width="380" height="220" fontFamily="微软雅黑" textColor="0x010000"/>
+	</e:Group>
+	<e:Group id="countDownGroup" width="440" height="320" x="325" y="192">
+		<e:BitmapLabel id="countDownLabel" font="countDownFont_fnt" text="1" scaleX="1.2" scaleY="1.2" horizontalCenter="0" verticalCenter="0"/>
 	</e:Group>
 </e:Skin>

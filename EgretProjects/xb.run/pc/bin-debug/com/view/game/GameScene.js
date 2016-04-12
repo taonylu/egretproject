@@ -14,6 +14,7 @@ var GameScene = (function (_super) {
         this.roleList = new Array(); //角色列表，保存3个角色。按数组下标0兔子 1熊猫 2鹿
         this.playerLimit = 3; //玩家人数限制
         this.playerList = new Array(); //当前玩家列表
+        this.trackDataList = new Array(); //赛道信息列表
         this.gameHeadList = new Array(); //游戏中头像
         this.gameHeadPosList = []; //游戏中头像的y位置，用于排名变化
         this.carrotPool = ObjectPool.getPool(Carrot.NAME, 1); //胡萝卜对象池
@@ -34,11 +35,14 @@ var GameScene = (function (_super) {
         this.grassPool = ObjectPool.getPool(Grass.NAME); //草地对象池
         this.grassList = new Array(); //草地数组 
         this.gameTimer = new egret.Timer(1000); //游戏计时器
-        this.gameTimeLimit = 15; //游戏时间限制
+        this.gameTimeLimit = 60; //游戏时间限制
         this.countDownTimer = new egret.Timer(1000); //倒计时
-        this.countDownLimit = 3; //倒计时限制
+        this.countDownLimit = 1; //倒计时限制
         //创建地图，算法以单赛道创建为主，每隔一段距离创建一次
-        this.count = 0;
+        this.curTimeCount = 0; //当前时间间隔计数
+        this.curTimeLimit = 0; //当前时间间隔限制时间
+        this.levelList = [30, 20, 15]; //随着时间进行，关卡难度递增
+        this.curLevel = 1; //当前关卡
         //创建草地
         this.grassCount = 0;
         //结果数据，临时保存本地玩家分数和服务器返回分数，用于结果场景显示
@@ -48,6 +52,7 @@ var GameScene = (function (_super) {
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
         this.initView();
+        this.gameTimeLimit = window["gameConfig"].gameTime;
     };
     p.onEnable = function () {
         this.resetGame(); //重置游戏
@@ -59,6 +64,8 @@ var GameScene = (function (_super) {
         this.configListeners(); //每帧更新
         this.startGameTimer(); //开始游戏计时
         this.runAllPlayer(); //所有玩家跑动
+        this.startBgAnim(); //背景动画
+        this.startProgressAnim(); //开始进度条动画
     };
     p.resetGame = function () {
         this.clearPlayerList(); //重置用户列表
@@ -74,6 +81,8 @@ var GameScene = (function (_super) {
         this.stopGameTimer(); //停止游戏计时
         this.deConfigListeners(); //停止物体移动
         this.stopAllPlayer(); //停止玩家动作
+        this.stopBgAnim(); //停止背景动画
+        this.stopProgressAnim(); //停止进度条动画
         this.sendGameOver(); //发送游戏结束
     };
     //初始化场景
@@ -84,6 +93,7 @@ var GameScene = (function (_super) {
         this.initRole(); //初始化角色
         this.initGrass(); //初始化草地
         this.initGameHead(); //初始化用户头像
+        this.initTrackData(); //初始化赛道信息
     };
     p.configListeners = function () {
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
@@ -122,6 +132,14 @@ var GameScene = (function (_super) {
         }
         //赛道数量
         this.trackNum = this.isSingleMode ? this.singleTrackNum : this.multiTrackNum;
+        //关卡难度
+        this.curTimeCount = 0;
+        this.curTimeLimit = this.levelList[0];
+        this.curLevel = 1;
+        //赛道信息
+        for (var i = 0; i < this.multiTrackNum; i++) {
+            this.trackDataList[i].clear();
+        }
     };
     //初始化远点和进点列表
     p.initFarAndNear = function () {
@@ -171,6 +189,12 @@ var GameScene = (function (_super) {
             this.gameHeadList.push(gameHead);
             gameHead.bg.texture = RES.getRes("scoreBg" + i + "_png");
             this.gameHeadPosList.push(gameHead.y);
+        }
+    };
+    //初始化赛道信息
+    p.initTrackData = function () {
+        for (var i = 0; i < this.multiTrackNum; i++) {
+            this.trackDataList.push(new TrackData());
         }
     };
     //重置用户头像
@@ -282,28 +306,112 @@ var GameScene = (function (_super) {
             player.run();
         }
     };
+    //开始背景动画
+    p.startBgAnim = function () {
+        var tweenTime = this.gameTimeLimit * 1000;
+        this.sky.y = 0;
+        egret.Tween.get(this.sky).to({ y: this.sky.y - 70 }, tweenTime);
+        this.treeLeftGroup.x = 0;
+        this.treeLeftGroup.y = 0;
+        this.treeRightGroup.x = 0;
+        this.treeRightGroup.y = 0;
+        egret.Tween.get(this.treeLeftGroup).to({ x: -100, y: -10 }, tweenTime);
+        egret.Tween.get(this.treeRightGroup).to({ x: 100, y: -10 }, tweenTime);
+    };
+    //停止背景动画
+    p.stopBgAnim = function () {
+        egret.Tween.removeTweens(this.sky);
+        egret.Tween.removeTweens(this.treeLeftGroup);
+        egret.Tween.removeTweens(this.treeRightGroup);
+    };
+    //进度条动画
+    p.startProgressAnim = function () {
+        //进度条
+        this.progressBar.scaleX = 0;
+        egret.Tween.get(this.progressBar).to({ scaleX: 1 }, this.gameTimeLimit * 1000);
+        this.progressSlider.x = this.progressBar.x;
+        this.progressSlider.scaleX = 1;
+        this.progressSlider.scaleY = 1;
+        egret.Tween.get(this.progressSlider).to({ x: this.progressBar.x + this.progressBar.width }, this.gameTimeLimit * 1000);
+        egret.Tween.get(this.progressSlider, { loop: true }).to({ scaleX: 1.2, scaleY: 1.2 }, 300).to({ scaleX: 1, scaleY: 1 }, 300);
+    };
+    p.stopProgressAnim = function () {
+        egret.Tween.removeTweens(this.progressBar);
+        egret.Tween.removeTweens(this.progressSlider);
+    };
     p.createItem = function () {
-        this.count++;
+        this.curTimeCount++;
         var rand;
         var item;
-        if (this.count % 40 == 0) {
+        if (this.curTimeCount % this.curTimeLimit == 0) {
             for (var i = 0; i < this.trackNum; i++) {
                 rand = Math.random();
-                if (rand < 0.7) {
-                    item = this.scorePoolList[NumberTool.getRandomInt(0, 1)].getObject();
+                var trackData = this.trackDataList[i];
+                //上一次创建水果
+                if (trackData.lastItemType == 1) {
+                    if (trackData.fruitNum < trackData.shouldCreate) {
+                        item = this.getRandomFruit();
+                        trackData.fruitNum++;
+                    }
+                    else {
+                        if (rand > this.curLevel * 0.4) {
+                            item = this.getRandomFruit();
+                            trackData.shouldCreate = NumberTool.getRandomInt(1, 3);
+                            trackData.fruitNum = 0;
+                        }
+                        else {
+                            item = this.getRandomBarrior();
+                            trackData.lastItemType = 2;
+                        }
+                    }
                 }
-                else {
-                    item = this.zhangAiPoolList[NumberTool.getRandomInt(0, 4)].getObject();
+                else if (trackData.lastItemType == 2) {
+                    if (rand > this.curLevel * 0.25) {
+                        item = this.getRandomFruit();
+                        trackData.lastItemType = 1;
+                        trackData.shouldCreate = NumberTool.getRandomInt(3, 5);
+                        trackData.fruitNum = 0;
+                    }
+                    else {
+                        item = null;
+                        trackData.lastItemType = 0;
+                    }
+                }
+                else if (trackData.lastItemType == 0) {
+                    if (rand > 0.6) {
+                        item = this.getRandomFruit();
+                        trackData.lastItemType = 1;
+                        trackData.shouldCreate = NumberTool.getRandomInt(3, 5);
+                        trackData.fruitNum = 0;
+                    }
+                    else if (rand > 0.1) {
+                        item = this.getRandomBarrior();
+                        trackData.lastItemType = 2;
+                    }
+                    else {
+                        item = null;
+                        trackData.lastItemType = 0;
+                    }
+                }
+                if (item == null) {
+                    continue;
                 }
                 item.x = this.farPotList[i].x;
                 item.y = this.farPotList[i].y;
                 item.track = i;
-                item.scaleX = 0.4;
-                item.scaleY = 0.4;
+                item.scaleX = 0.2;
+                item.scaleY = 0.2;
                 this.itemGroup.addChild(item);
                 this.itemList.push(item);
+                this.itemGroup.setChildIndex(item, 1);
             }
         }
+    };
+    p.getRandomFruit = function () {
+        return this.scorePoolList[NumberTool.getRandomInt(0, 1)].getObject();
+    };
+    p.getRandomBarrior = function () {
+        return this.zhangAiPoolList[NumberTool.getRandomInt(0, 4)].getObject();
     };
     //移动物体
     p.moveItem = function () {
@@ -317,8 +425,8 @@ var GameScene = (function (_super) {
             item.y += this.moveSpeed + this.moveSpeed * item.scaleX;
             var rate = (item.y - this.farPotList[track].y) / this.trackYList[track]; //所在y轴位置比例
             item.x = this.farPotList[track].x + rate * this.trackXList[track];
-            item.scaleX = 0.4 + rate * 0.3;
-            item.scaleY = 0.4 + rate * 0.3;
+            item.scaleX = 0.2 + rate * 0.4;
+            item.scaleY = 0.2 + rate * 0.4;
             //边界检测
             if (item.y > (this.stageHeight + item.height)) {
                 item.recycle();
@@ -430,10 +538,19 @@ var GameScene = (function (_super) {
     };
     //游戏计时处理
     p.onGameTimerHandler = function () {
-        var count = this.gameTimeLimit - this.gameTimer.currentCount;
-        this.progressBar.scaleX = this.gameTimer.currentCount / this.gameTimeLimit;
-        this.progressSlider.x = this.progressBar.x + this.progressBar.width * this.progressBar.scaleX;
-        if (count <= 0) {
+        var curCount = this.gameTimer.currentCount;
+        //难度递增
+        this.curLevel = Math.ceil(curCount / (this.gameTimeLimit / this.levelList.length));
+        if (this.curLevel < this.levelList.length) {
+            this.curTimeCount = 0;
+            this.curTimeLimit = this.levelList[this.curLevel - 1];
+            console.log("当前关卡等级:", this.curLevel);
+        }
+        else {
+            this.curLevel = this.levelList.length;
+        }
+        //游戏结束判断
+        if (curCount >= this.gameTimeLimit) {
             this.gameOver();
         }
     };

@@ -25,8 +25,8 @@ var ClientSocket = (function () {
     };
     p.startConnect = function () {
         //连接socket
-        this.socket = io.connect(window["gameConfig"].server, { reconnection: false, 'force new connection': true });
-        console.log("connect:", window["gameConfig"].server);
+        this.socket = io.connect(GameConst.gameCofig.server, { reconnection: false, 'force new connection': true });
+        console.log("connect:", GameConst.gameCofig.server);
         var self = this;
         //连接成功 
         this.socket.on('connect', function () {
