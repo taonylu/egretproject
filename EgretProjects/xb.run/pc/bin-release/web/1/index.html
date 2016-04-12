@@ -64,29 +64,43 @@
     
     <script>
     	//游戏配置
-    	var gameConfig = {
-    		debug:false,                                   //是否本地调试模式
-    		codeWidth:250,                                //二维码宽
-    		codeHeight:250,                               //二维码高
-    		codeData:"",                                  //二维码数据
-    		logoUrl:"",                                   //二维码中心图片地址
-    		needfollow : '<%= needfollow %>',             //是否需要关注公众号
-    		pictrue : '<%= picture %>',                   //公众号图片地址                 
-    		server:"http://" + "<%= host %>" + ":" +  "<%= port %>" + "/screen", //服务器地址
-    		codeUrl:"http://"+ "<%= host %>" + ":" + "<%= port %>" + "/mobile?needfollow=" + 
-    		"<%= needfollow %>" + "&picture=" + "<%= picture %>",  //二维码地址 
-    	}
-    	
-    	//调试模式		    
+    	//-------------【游戏配置】---------------
+    	var gameConfig = {};
+    	gameConfig.debug = false;      //是否本地调试模式
+    	gameConfig.codeWidth = 250;    //二维码宽
+    	gameConfig.codeHeight = 250;   //二维码高
+    	gameConfig.codeData = "";      //二维码数据，用于加载为egret.Image     
+    	gameConfig.logoUrl = "";       //二维码中心图片
+    	gameConfig.needfollow = 0;     //是否需要关注公众号
+    	gameConfig.picture = "";       //公众号图片地址
+    	gameConfig.server = "http://node.ekche.com:4300/screen";         //服务器地址
+    	gameConfig.codeUrl = "http://node.ekche.com/game/paoku/mobile?"; //二维码地址
+    	gameConfig.homeTime = 10;  //主页倒计时时间
+    	gameConfig.lockTime = 5;   //校准页倒计时时间
+    	gameConfig.gameTime = 15;  //游戏时长
+    	//---------------end 游戏配置----------------
+    		    
+    		   
+    		    
+        //测试代码
+    	gameConfig.homeTime = 5; //主页开始游戏倒计时
+    	gameConfig.lockTime = 1; //校准页倒计时
+        gameConfig.gameTime = 20; //游戏时长
+    	gameConfig.resultTime = 10; //显示结果倒计时
+    	gameConfig.introduceText = "";  //游戏简介
+    		        
+    	gameConfig.server = "http://192.168.1.124:4300/screen";
+    	gameConfig.codeUrl = "http://192.168.1.124/1/index.html";	    
     	if(gameConfig.debug == true){
-    		//gameConfig.server = "http://192.168.1.111:3000";
+    		gameConfig.server = "http://192.168.1.111:3000";
     		gameConfig.codeUrl = "http://192.168.1.111/1/index.html";
     	}    
-        gameConfig.server = "http://192.168.1.114:4000/screen";
-        gameConfig.codeUrl = "http://192.168.1.111/1/index.html";
+        
 		
     	//创建二维码图片，提供图片dataUrl给egret创建Image
-    	function createQRCode(rid){
+    	function createQRCode(){
+    		var rid = new Date().getTime();
+    		rid = "1";
 	    	var codeUrl = gameConfig.codeUrl + "?rid=" + rid;
 	    	var codeWidth = gameConfig.codeWidth;
 	    	var codeHeight = gameConfig.codeHeight;
@@ -94,13 +108,17 @@
 	    	var i=$("#code > canvas");
 	    	var codeData=i[0].toDataURL();
 	    	gameConfig.codeData = codeData;
-    		    gameConfig.rid = rid;
+    		gameConfig.rid = rid;
 	    	//删除所有子节点
 	    	var codeDiv = document.getElementById("code");
 	    	codeDiv.innerHTML = "";
     		console.log("createQRCode Complete:",codeUrl);
+    		return rid;
     	}
     	
+    	function czcStartGame(playerNum){
+    	
+    	}
     	
     	
         //运行游戏

@@ -16,6 +16,7 @@ var GameManager = (function () {
         GameConst.gameConfig = window["gameConfig"];
         GameConst.debug = GameConst.gameConfig.debug;
         GameConst.stage = main.stage;
+        console.log("调试模式:", GameConst.debug);
         //配置Layer
         LayerManager.getInstance().initialize(main);
         //启动Socket
@@ -39,6 +40,7 @@ var GameManager = (function () {
             openid: gameConfig.openid,
             headimgurl: gameConfig.headimgurl,
             nickname: gameConfig.nickname,
+            userType: "mobile"
         };
         egret.log("send login:", "rid:", json.rid, "openid:", json.openid);
         this.socket.sendMessage("login", json, this.revLogin, this);

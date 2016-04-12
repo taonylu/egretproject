@@ -12,4 +12,8 @@
 	<e:Image source="head0_png" y="78" x="80" id="headImg"/>
 	<e:Label y="76" textColor="0x030000" text="您当前使用的角色是：" fontFamily="微软雅黑" width="326" height="42" x="232" verticalAlign="middle"/>
 	<e:Label id="nameLabel" y="126" textColor="0xF90101" text="悠悠熊猫" fontFamily="微软雅黑" textAlign="center" width="148" height="42" x="220" verticalAlign="middle"/>
+	<e:Label id="centerLabel" text="标签" x="50" y="284" width="532" fontFamily="微软雅黑" textColor="0x030000"/>
+	<e:Label id="deviceLabel" y="334" textColor="0x030000" text="标签" fontFamily="微软雅黑" width="532" x="49" height="76"/>
+	<e:Label id="actionLabel" y="421" textColor="0x030000" text="标签" fontFamily="微软雅黑" width="532" x="49"/>
+	<e:Label id="statusLabel" y="461" textColor="0x030000" text="标签" fontFamily="微软雅黑" width="532" x="49"/>
 </e:Skin>

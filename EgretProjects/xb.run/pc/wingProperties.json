@@ -56,16 +56,6 @@
 				},
 				{
 					"isFolder":false,
-					"key":"home_phone_png",
-					"name":"home_phone_png"
-				},
-				{
-					"isFolder":false,
-					"key":"home_player_png",
-					"name":"home_player_png"
-				},
-				{
-					"isFolder":false,
 					"key":"homg_bg_jpg",
 					"name":"homg_bg_jpg"
 				},
@@ -278,6 +268,61 @@
 					"isFolder":false,
 					"key":"home_fengche_png",
 					"name":"home_fengche_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_player0_png",
+					"name":"home_player0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_player1_png",
+					"name":"home_player1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_player2_png",
+					"name":"home_player2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_bird_png",
+					"name":"home_bird_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_lutext_png",
+					"name":"home_lutext_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_mice_png",
+					"name":"home_mice_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_tutext_png",
+					"name":"home_tutext_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_wa_png",
+					"name":"home_wa_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_xiongtext_png",
+					"name":"home_xiongtext_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_phone0_png",
+					"name":"home_phone0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_phone1_png",
+					"name":"home_phone1_png"
 				}
 			]
 		}

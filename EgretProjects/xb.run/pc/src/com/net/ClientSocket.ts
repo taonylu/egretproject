@@ -34,8 +34,8 @@ class ClientSocket {
     public startConnect(): void {
 
         //连接socket
-        this.socket = io.connect(window["gameConfig"].server,{ reconnection: false,'force new connection': true});
-        console.log("connect:",window["gameConfig"].server);
+        this.socket = io.connect(GameConst.gameCofig.server,{ reconnection: false,'force new connection': true});
+        console.log("connect:",GameConst.gameCofig.server);
         
         var self: ClientSocket = this;
         

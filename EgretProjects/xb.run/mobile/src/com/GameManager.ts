@@ -17,7 +17,7 @@ class GameManager {
         GameConst.gameConfig = window["gameConfig"];
         GameConst.debug = GameConst.gameConfig.debug;
         GameConst.stage = main.stage;
-        
+        console.log("调试模式:",GameConst.debug);
         //配置Layer
         LayerManager.getInstance().initialize(main);
         
@@ -50,7 +50,7 @@ class GameManager {
             openid: gameConfig.openid,
             headimgurl: gameConfig.headimgurl,
             nickname: gameConfig.nickname,
-            //userType:"mobile"
+            userType:"mobile"
         }
         
         egret.log("send login:","rid:",json.rid,"openid:",json.openid);

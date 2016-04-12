@@ -9,24 +9,29 @@ var HomeScene = (function (_super) {
         _super.call(this, "HomeSceneSkin");
         this.codeLoader = new QRCodeLoader(); //二维码
         this.countDownTimer = new egret.Timer(1000); //倒计时计时器
-        this.countDownLimit = 8; //倒计时限制
+        this.countDownLimit = 15; //倒计时限制
         this.headList = new Array(); //头像UI
     }
     var d = __define,c=HomeScene,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
         this.socket = ClientSocket.getInstance();
+        this.countDownLimit = window["gameConfig"].homeTime;
         this.initView();
     };
     p.onEnable = function () {
         this.resetScene(); //重置场景
     };
     p.onRemove = function () {
-        this.stopFengAnim();
+        //this.stopFengAnim();
     };
     //初始化视图
     p.initView = function () {
         this.initHead(); //初始化头像相关
+        //初始化倒计时和简介
+        this.introduceGroup.visible = true;
+        this.countDownGroup.visible = false;
+        this.introduceLabel.text = GameConst.gameCofig.introduceText;
     };
     //重置场景
     p.resetScene = function () {
@@ -34,20 +39,55 @@ var HomeScene = (function (_super) {
         this.createQRCode(); //创建二维码
         this.clearHead(); //清理头像
         this.clearUserManager(); //清理用户列表
-        this.startFengAnim(); //开始风车动画
+        //this.startFengAnim();     //开始风车动画
+        this.startPlayerAnim(); //播放人物动画
     };
     //风车动画
-    p.startFengAnim = function () {
-        egret.Tween.get(this.fengChe, { loop: true }).to({ rotation: 360 * 5 }, 2000 * 5)
-            .to({ rotation: 360 * 7 }, 1000 * 2)
-            .to({ rotation: 360 * 8 }, 1500);
+    //    private startFengAnim(){
+    //        egret.Tween.get(this.fengChe,{loop:true}).to({rotation:360*5},2000*5)
+    //             .to({rotation:360*7},1000*2)
+    //            .to({ rotation: 360*8},1500);
+    //    }
+    //停止风车动画
+    //    private stopFengAnim(){
+    //        egret.Tween.removeTweens(this.fengChe);
+    //    }
+    //开始人物动画
+    p.startPlayerAnim = function () {
+        if (this.player == null) {
+            this.player = new Player("player0_png", "player0_json", "player0");
+            this.player.scaleX = 0.5;
+            this.player.scaleY = 0.5;
+            this.playerGroup.addChild(this.player);
+        }
+        var centerX = this.playerGroup.width / 2 - this.player.width / 2;
+        var centerY = this.playerGroup.height / 2 - this.player.height / 2;
+        this.player.x = centerX;
+        this.player.y = centerY;
+        this.player.run();
+        egret.Tween.get(this.player, { loop: true }).wait(1500).to({ x: -80 }, 100).wait(1500) //左移
+            .to({ x: centerX }, 100).wait(1500) //右移
+            .to({ y: -100 }, 200).to({ y: centerY }, 200); //跳跃 
+        this.phone0.rotation = 0;
+        this.phone0.visible = true;
+        this.phone1.visible = false;
+        var self = this;
+        egret.Tween.get(this.phone0, { loop: true }).wait(1500).to({ rotation: -30 }, 200).to({ rotation: 0 }, 200).wait(1200) //左移
+            .to({ rotation: 30 }, 200).to({ rotation: 0 }, 200).wait(1200) //右移
+            .call(function () {
+            self.phone0.visible = false;
+            self.phone1.visible = true;
+        }).wait(200).call(function () {
+            self.phone0.visible = true;
+            self.phone1.visible = false;
+        }).wait(200);
     };
-    p.stopFengAnim = function () {
-        egret.Tween.removeTweens(this.fengChe);
+    //停止人物动画
+    p.stopPlayerAnim = function () {
     };
     //初始化头像相关
     p.initHead = function () {
-        this.headList.push(this.head0, this.head1, this.head2);
+        this.headList.push(this.head1, this.head2, this.head0);
         this.head0.infoLabel.text = "选择暴躁鹿";
         this.head1.infoLabel.text = "选择嘻哈兔";
         this.head2.infoLabel.text = "选择悠悠熊猫";
@@ -65,17 +105,19 @@ var HomeScene = (function (_super) {
     //生成二维码
     p.createQRCode = function () {
         //随机房间号
-        this.rid = (new Date()).getTime() + NumberTool.getVerificationCode(6);
+        //this.rid = (new Date()).getTime() + NumberTool.getVerificationCode(6);
         //index创建二维码图片
-        window["createQRCode"](this.rid);
+        this.rid = window["createQRCode"]();
         //加载二维码图片
         var codeLoader = new QRCodeLoader();
-        var gameConfig = window["gameConfig"];
+        var gameConfig = GameConst.gameCofig;
         codeLoader.load(gameConfig.codeData, gameConfig.codeWidth, gameConfig.codeHeight, gameConfig.logoUrl);
         this.codeGroup.addChild(codeLoader);
     };
     //开始倒计时
     p.startCountDown = function () {
+        this.countDownGroup.visible = true;
+        this.introduceGroup.visible = false;
         this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
         this.countDownTimer.reset();
         this.countDownTimer.start();
@@ -95,6 +137,8 @@ var HomeScene = (function (_super) {
     };
     //停止倒计时
     p.stopCountDown = function () {
+        this.countDownGroup.visible = false;
+        this.introduceGroup.visible = true;
         this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler, this);
         this.countDownTimer.stop();
     };
@@ -156,15 +200,7 @@ var HomeScene = (function (_super) {
             var headUI = this.headList[i];
             if (headUI.isEmpty()) {
                 headUI.setUserInfo(userVO);
-                if (i == 0) {
-                    userVO.role = 2;
-                }
-                else if (i == 1) {
-                    userVO.role = 0;
-                }
-                else if (i == 2) {
-                    userVO.role = 1;
-                }
+                userVO.role = i;
                 //发送用户角色
                 this.sendRole(userVO.role, userVO.openid);
                 break;

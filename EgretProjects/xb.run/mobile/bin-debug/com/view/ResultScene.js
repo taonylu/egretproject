@@ -24,7 +24,7 @@ var ResultScene = (function (_super) {
     p.onRemove = function () {
     };
     p.showResult = function (data) {
-        var scoreList = data.scoreList;
+        var gameRankList = data.gameRankList;
         var rankList = data.rankList;
         //清理头像
         var len = this.headList.length;
@@ -33,12 +33,12 @@ var ResultScene = (function (_super) {
             head.clear();
         }
         //显示本次游戏玩家分数
-        len = scoreList.length;
+        len = gameRankList.length;
         for (var i = 0; i < len; i++) {
-            this.headList[i].setNameLabel(scoreList[i].nickName);
-            this.headList[i].setScoreLabel(scoreList[i].score);
-            this.headList[i].loadImg(scoreList[i].headUrl);
-            this.headList[i].setRankLabel(scoreList[i].rank);
+            this.headList[i].setNameLabel(gameRankList[i].nickName);
+            this.headList[i].setScoreLabel(gameRankList[i].score);
+            this.headList[i].loadImg(gameRankList[i].headUrl);
+            this.headList[i].setRankLabel(gameRankList[i].rank);
         }
         //清理历史排行
         for (var i = 0; i < 10; i++) {

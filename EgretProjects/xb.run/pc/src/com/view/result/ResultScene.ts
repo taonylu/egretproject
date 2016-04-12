@@ -6,7 +6,9 @@
 class ResultScene extends BaseScene{
     private scoreHeadList:Array<ScoreHead> = new Array<ScoreHead>();  //排名123头像
     private rankHeadList:Array<RankHead> = new Array<RankHead>();     //排名1-10头像
-    
+    private countDownLabel:eui.EditableText;
+    private countDownTimer:egret.Timer = new egret.Timer(1000);
+    private countDownLimit:number = 0;
     
 	public constructor() {
     	super("ResultSceneSkin");
@@ -23,6 +25,8 @@ class ResultScene extends BaseScene{
         for(var i=0;i<10;i++){
             this.rankHeadList.push(this["rankHead" + i]);
         }
+        
+        this.countDownLimit = GameConst.gameCofig.resultTime;
     }
 
     public onEnable(): void {
@@ -31,7 +35,7 @@ class ResultScene extends BaseScene{
     
     public showResult(){
         var data = GameManager.getInstance().gameScene.resultData;
-        var scoreList = data.scoreList;
+        var gameRankList = data.gameRankList;
         var rankList = data.rankList;
         var gameRankList = data.gameRankList;
         
@@ -40,13 +44,12 @@ class ResultScene extends BaseScene{
             this.scoreHeadList[i].clear();
         }
         //显示123排名
-        var len = scoreList.length;
+        var len = gameRankList.length;
         for(var i=0;i<len;i++){
             var scoreHead:ScoreHead = this.scoreHeadList[i];
-            var userVO:UserVO = UserManager.getInstance().getUser(scoreList[i].openid);
-            scoreHead.setNameLabel(userVO.nickName);
-            scoreHead.loadImg(userVO.headUrl);
-            scoreHead.setScoreLabel("得分：" + scoreList[i].score + " 排名：" + gameRankList[i]);
+            scoreHead.setNameLabel(gameRankList[i].nickName);
+            scoreHead.loadImg(gameRankList[i].headUrl);
+            scoreHead.setScoreLabel("得分：" + gameRankList[i].score + " 排名：" + gameRankList[i].rank);
         }
         //清理1-10排名
         for(var i=0;i<10;i++){
@@ -63,14 +66,24 @@ class ResultScene extends BaseScene{
         }
         
         //倒计时
-        egret.setTimeout(this.onTimerOut,this, 8000);
+        this.countDownLabel.text = "";
+        this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onTimerHander, this);
+        this.countDownTimer.reset();
+        this.countDownTimer.start();
     }
     
-    private onTimerOut(){
-        //清理用户列表
-        UserManager.getInstance().clearAllUser();
-        //跳转场景
-        LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
+    private onTimerHander(){
+        var count = this.countDownLimit - this.countDownTimer.currentCount; 
+        
+        if(count <=0){
+            this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER,this.onTimerHander,this);
+            this.countDownTimer.stop();
+            //清理用户列表
+            UserManager.getInstance().clearAllUser();
+            //跳转场景
+            LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
+        }
+        this.countDownLabel.text = count + "";
     }
 }
 
