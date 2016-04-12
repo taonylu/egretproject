@@ -104,8 +104,6 @@ var HomeScene = (function (_super) {
     };
     //生成二维码
     p.createQRCode = function () {
-        //随机房间号
-        //this.rid = (new Date()).getTime() + NumberTool.getVerificationCode(6);
         //index创建二维码图片
         this.rid = window["createQRCode"]();
         //加载二维码图片
@@ -113,6 +111,9 @@ var HomeScene = (function (_super) {
         var gameConfig = GameConst.gameCofig;
         codeLoader.load(gameConfig.codeData, gameConfig.codeWidth, gameConfig.codeHeight, gameConfig.logoUrl);
         this.codeGroup.addChild(codeLoader);
+        //更新rid
+        egret.log("upRid:", this.rid);
+        this.socket.sendMessage("upRid ", { rid: this.rid });
     };
     //开始倒计时
     p.startCountDown = function () {

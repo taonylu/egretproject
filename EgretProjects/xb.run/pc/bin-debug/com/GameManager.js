@@ -17,9 +17,9 @@ var GameManager = (function () {
         GameConst.stage = main.stage;
         GameConst.gameCofig = window["gameConfig"];
         GameConst.debug = GameConst.gameCofig.debug;
-        LayerManager.getInstance().initialize(main);
         console.log("调试模式:", GameConst.debug);
         //显示主页
+        LayerManager.getInstance().initialize(main);
         LayerManager.getInstance().runScene(this.homeScene);
         //socket
         var socket = ClientSocket.getInstance();
