@@ -41,6 +41,7 @@ var game_file_list = [
 	"bin-debug/com/view/game/ui/Grass.js",
 	"bin-debug/com/view/game/ui/HeadUI.js",
 	"bin-debug/com/view/game/ui/Player.js",
+	"bin-debug/com/view/game/ui/TrackData.js",
 	"bin-debug/com/view/home/HomeScene.js",
 	"bin-debug/com/view/lock/LockScene.js",
 	"bin-debug/com/view/preload/PreloadScene.js",
@@ -49,7 +50,6 @@ var game_file_list = [
 	"bin-debug/com/view/result/ui/ScoreHead.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
-	"bin-debug/com/view/game/ui/TrackData.js",
 	//----auto game_file_list end----
 ];
 

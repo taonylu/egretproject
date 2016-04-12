@@ -22,6 +22,14 @@ class GameScene extends BaseScene{
     private playerLimit:number = 3;  //玩家人数限制
     private playerList: Array<Player> = new Array<Player>(); //当前玩家列表
     private trackDataList:Array<TrackData> = new Array<TrackData>();  //赛道信息列表
+    private curTimeCount: number = 0; //生成地图物品，当前时间间隔计数
+    private curTimeLimit: number = 0;  //生成地图物品，时间间隔限制时间
+    public mapCreateTimeList = [30,20,15];           //生成物品时间间隔列表，随着游戏时间，关卡等级增加，生成物品时间缩短
+    public mapFruitList = [5,4,3];                            //水果概率
+    public mapBarrList = [3,2,1];                             //障碍物概率
+    public mapMultiFruit = [1,3];                            //当生成水果时，可以生成一串连续的水果，随机  n~m个
+    private curLevel: number = 1;         //当前关卡
+    public moveSpeed: number = 4;   //移动速度
     
     private gameHeadList:Array<GameHead> = new Array<GameHead>(); //游戏中头像
     private gameHeadPosList = [];  //游戏中头像的y位置，用于排名变化
@@ -47,7 +55,7 @@ class GameScene extends BaseScene{
     private progressBar:eui.Image;        //进度条
     private progressSlider:eui.Image;
     
-    private moveSpeed: number = 4;   //移动速度
+    
     private stageWidth:number;       //舞台高宽
     private stageHeight:number;
     
@@ -119,6 +127,13 @@ class GameScene extends BaseScene{
         this.stageWidth = GameConst.stage.stageWidth;
         this.stageHeight = GameConst.stage.stageHeight; 
         
+        //配置
+        this.mapCreateTimeList = GameConst.gameCofig.mapCreateTimeList;
+        this.mapFruitList = GameConst.gameCofig.mapFruitList;
+        this.mapBarrList = GameConst.gameCofig.mapBarrList;
+        this.moveSpeed = GameConst.gameCofig.moveSpeed;
+        this.mapMultiFruit = GameConst.gameCofig.mapMultiFruit;
+        
         this.initRole();        //初始化角色
         this.initGrass();       //初始化草地
         this.initGameHead();    //初始化用户头像
@@ -167,7 +182,7 @@ class GameScene extends BaseScene{
         this.trackNum = this.isSingleMode ? this.singleTrackNum : this.multiTrackNum;
         //关卡难度
         this.curTimeCount =0;
-        this.curTimeLimit = this.levelList[0];
+        this.curTimeLimit = this.mapCreateTimeList[0];
         this.curLevel = 1;
         //赛道信息
         for(var i=0;i<this.multiTrackNum;i++){
@@ -393,57 +408,32 @@ class GameScene extends BaseScene{
     }
 
     //创建地图，算法以单赛道创建为主，每隔一段距离创建一次
-    private curTimeCount:number = 0; //当前时间间隔计数
-    private curTimeLimit:number = 0; //当前时间间隔限制时间
-    private levelList = [30,20,15]; //随着时间进行，关卡难度递增
-    private curLevel:number = 1;     //当前关卡
     private createItem(){
         this.curTimeCount ++;
         var rand;
         var item:BaseItem;
         if(this.curTimeCount % this.curTimeLimit == 0){
             for(var i = 0;i < this.trackNum;i++) {
-                rand = Math.random();
+                rand = Math.random()*100;
                 var trackData:TrackData = this.trackDataList[i];
-                //上一次创建水果
-                if(trackData.lastItemType == 1){  
-                    if(trackData.fruitNum < trackData.shouldCreate){ //小于应该创建的数量
+                //上一次创建水果，并且小于连续创建值，则继续创建水果
+                if(trackData.lastItemType == 1 && trackData.fruitNum < trackData.shouldCreate){  
                         item = this.getRandomFruit();
                         trackData.fruitNum++;
-                    }else{  //大于应该创建的数量
-                        if(rand > this.curLevel*0.4){ //继续生成水果
-                            item = this.getRandomFruit();
-                            trackData.shouldCreate = NumberTool.getRandomInt(1,3);
-                            trackData.fruitNum = 0;
-                        }else{ //生成障碍物
-                            item = this.getRandomBarrior();
-                            trackData.lastItemType = 2;
-                        }
-                    }
-                }
-                //上一次创建障碍物
-                else if(trackData.lastItemType == 2){
-                    if(rand > this.curLevel*0.25){  //创建水果
+                //上一次创建的不是水果，则根据概率创建
+                }else{
+                    //创建水果
+                    if(rand < this.mapFruitList[this.curLevel]){
                         item = this.getRandomFruit();
                         trackData.lastItemType = 1;
-                        trackData.shouldCreate = NumberTool.getRandomInt(3,5);
+                        trackData.shouldCreate = NumberTool.getRandomInt(this.mapMultiFruit[0],this.mapMultiFruit[1]);
                         trackData.fruitNum = 0;
-                    }else{  //什么也不创建
-                        item = null;
-                        trackData.lastItemType = 0;
-                    }
-                }
-                //什么也没创建
-                else if(trackData.lastItemType == 0){
-                    if(rand > 0.6) {  //创建水果
-                        item = this.getRandomFruit();
-                        trackData.lastItemType = 1;
-                        trackData.shouldCreate = NumberTool.getRandomInt(3,5);
-                        trackData.fruitNum = 0;
-                    } else if(rand > 0.1){  //创建障碍
+                    //创建障碍物
+                    }else if(rand < (this.mapFruitList[this.curLevel] + this.mapBarrList[this.curLevel])){
                         item = this.getRandomBarrior();
                         trackData.lastItemType = 2;
-                    }else{ //什么也不创建
+                    //创建为空
+                    }else{
                         item = null;
                         trackData.lastItemType = 0;
                     }
@@ -614,13 +604,13 @@ class GameScene extends BaseScene{
     private onGameTimerHandler(){
         var curCount = this.gameTimer.currentCount;
         //难度递增
-        this.curLevel = Math.ceil(curCount / (this.gameTimeLimit / this.levelList.length));
-        if(this.curLevel < this.levelList.length){
+        this.curLevel = Math.ceil(curCount / (this.gameTimeLimit / this.mapCreateTimeList.length));
+        if(this.curLevel < this.mapCreateTimeList.length){
             this.curTimeCount = 0;
-            this.curTimeLimit = this.levelList[this.curLevel-1];
+            this.curTimeLimit = this.mapCreateTimeList[this.curLevel-1];
             console.log("当前关卡等级:",this.curLevel);
         }else{
-            this.curLevel = this.levelList.length;
+            this.curLevel = this.mapCreateTimeList.length;
         }
         //游戏结束判断
         if(curCount >= this.gameTimeLimit){

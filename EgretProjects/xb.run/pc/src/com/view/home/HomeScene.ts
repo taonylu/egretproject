@@ -145,9 +145,6 @@ class HomeScene extends BaseScene{
     
     //生成二维码
     private createQRCode(){
-        //随机房间号
-        //this.rid = (new Date()).getTime() + NumberTool.getVerificationCode(6);
-        
         //index创建二维码图片
         this.rid = window["createQRCode"]();
         
@@ -156,6 +153,10 @@ class HomeScene extends BaseScene{
         var gameConfig = GameConst.gameCofig;
         codeLoader.load(gameConfig.codeData,gameConfig.codeWidth,gameConfig.codeHeight,gameConfig.logoUrl);
         this.codeGroup.addChild(codeLoader);
+        
+        //更新rid
+        egret.log("upRid:",this.rid);
+        this.socket.sendMessage("upRid ", {rid:this.rid});
     }
     
     //开始倒计时
