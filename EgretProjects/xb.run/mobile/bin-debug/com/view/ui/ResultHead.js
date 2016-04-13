@@ -30,7 +30,7 @@ var ResultHead = (function (_super) {
         this.scoreLabel.text = "得分：" + score;
     };
     p.setRankLabel = function (rank) {
-        this.rankLabel.text = rank + "";
+        this.rankLabel.text = "排名：" + rank;
     };
     p.loadImg = function (imgUrl) {
         this.imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onLoadError, this);

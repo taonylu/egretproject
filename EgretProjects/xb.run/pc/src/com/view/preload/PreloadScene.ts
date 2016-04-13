@@ -12,6 +12,7 @@ class PreloadScene extends BaseScene{
 	
     public componentCreated(): void {
         super.componentCreated();
+        this.progressLabel.text = "0%";
     }
     
     public setProgress(process:number){

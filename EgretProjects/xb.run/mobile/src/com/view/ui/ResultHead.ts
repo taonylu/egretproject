@@ -42,7 +42,7 @@ class ResultHead extends BaseUI{
     }
     
     public setRankLabel(rank:number){
-        this.rankLabel.text = rank + "";
+        this.rankLabel.text = "排名：" + rank;
     }
     
     public loadImg(imgUrl:string){

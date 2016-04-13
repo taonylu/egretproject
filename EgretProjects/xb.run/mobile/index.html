@@ -41,6 +41,7 @@
 	<script egret="game" src="bin-debug/AssetAdapter.js"></script>
 	<script egret="game" src="bin-debug/com/common/BaseScene.js"></script>
 	<script egret="game" src="bin-debug/com/common/BaseUI.js"></script>
+	<script egret="game" src="bin-debug/com/common/HttpUtil.js"></script>
 	<script egret="game" src="bin-debug/com/common/LayerManager.js"></script>
 	<script egret="game" src="bin-debug/com/common/LoadManager.js"></script>
 	<script egret="game" src="bin-debug/com/common/UserManager.js"></script>
@@ -50,7 +51,9 @@
 	<script egret="game" src="bin-debug/com/view/GameScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/LockScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/PreloadScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/PrizeScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/ResultScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/MessageBox.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/RankHead.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/ResultHead.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/SimpleButton.js"></script>
@@ -96,7 +99,8 @@
     		headimgurl:'<%= headimgurl %>',//用户头像
     		nickname:'<%= nickname %>',    //用户昵称
     		server:"http://" + '<%= host %>' + ":" + '<%= port %>' + "/mobile",  //服务器地址
-    		rid:'<%= rid %>'               //房间号 
+    		rid:'<%= rid %>',               //房间号 
+    		isGetPrie:0   //0没领过，1领过，发送成功，2领过，发送不成功
     	}
     	
     	//测试
@@ -104,7 +108,9 @@
     	gameConfig.rid = "1";
     	gameConfig.subscribe = 1;
     	gameConfig.picture = "";
-    	gameConfig.openid = new Date().getTime();
+    	var rand = Math.round(Math.random()*5);
+    	var idList = ["aaaaaaa" ,"bbbbbbb", "ccccccc", "ddddddd", "eeeeeee"];
+    	gameConfig.openid = idList[rand];
     	gameConfig.headimgurl = "";
     	gameConfig.nickname = gameConfig.openid;
     	

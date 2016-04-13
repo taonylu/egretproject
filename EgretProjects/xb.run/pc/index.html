@@ -114,30 +114,26 @@
     	gameConfig.picture = "";       //公众号图片地址
     	gameConfig.server = "http://node.ekche.com:4300/screen";         //服务器地址
     	gameConfig.codeUrl = "http://node.ekche.com/game/paoku/mobile?"; //二维码地址
-    	gameConfig.homeTime = 10;  //主页倒计时时间
-    	gameConfig.lockTime = 5;      //校准页倒计时时间
-    	gameConfig.gameTime = 15;  //游戏进行时长
-    	gameConfig.resultTime = 10;  //结果页倒计时时间
-    	gameConfig.moveSpeed = 4;  //地图上物品移动速度
-    	gameConfig.mapCreateTimeList = [30,20,15];    //地图生成时间间隔，游戏时间分成3段，随着游戏时间增加，地图概率调整
-    	gameConfig.mapFruitList = [50,40,30];                //水果生成概率, 50表示50%几率生成水果
-    	gameConfig.mapBarrList = [30,30,30];                 //障碍物生成概率 
-    	gameConfig.mapMultiFruit = [1,3];                       //当生成水果时，可以生成一串连续的水果，随机  n~m个。
-
     	
+    	gameConfig.introduceText = "";  //游戏简介
+    	gameConfig.homeTime = 1;  //主页倒计时时间
+    	gameConfig.lockTime = 1;      //校准页倒计时时间
+    	gameConfig.gameTime = 30;  //游戏进行时长
+    	gameConfig.resultTime = 5;  //结果页倒计时时间
+    	gameConfig.moveSpeed = 1;  //地图上物品移动速度
+    	gameConfig.mapCreateTimeList = [20,15,15];    //地图生成时间间隔，游戏时间分成3段，随着游戏时间增加，地图概率调整
+    	gameConfig.mapFruitList = [30,30,30];         //水果生成概率, 50表示50%几率生成水果
+    	gameConfig.mapBarrList = [30,30,30];             //障碍物生成概率 
+    	gameConfig.mapMultiFruit = [1,5];             //当生成水果时，可以生成一串连续的水果，随机  n~m个。
     	//---------------end 游戏配置----------------
     		    
     		   
     		    
         //测试代码
-    	gameConfig.homeTime = 5; //主页开始游戏倒计时
-    	gameConfig.lockTime = 1; //校准页倒计时
-        gameConfig.gameTime = 20; //游戏时长
-    	gameConfig.resultTime = 10; //显示结果倒计时
-    	gameConfig.introduceText = "";  //游戏简介
+    	
     		        
     	gameConfig.server = "http://192.168.1.124:4300/screen";
-    	gameConfig.codeUrl = "http://192.168.1.124/1/index.html";	    
+    	gameConfig.codeUrl = "http://192.168.1.111/1/index.html";	    
     	if(gameConfig.debug == true){
     		gameConfig.server = "http://192.168.1.111:3000";
     		gameConfig.codeUrl = "http://192.168.1.111/1/index.html";

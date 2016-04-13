@@ -17,6 +17,10 @@ class GameManager {
         GameConst.gameCofig = window["gameConfig"];
         GameConst.debug = GameConst.gameCofig.debug;
         console.log("调试模式:",GameConst.debug);
+        console.log("主页倒计时:",GameConst.gameCofig.homeTime);
+        console.log("校准倒计时:",GameConst.gameCofig.lockTime);
+        console.log("游戏计时:",GameConst.gameCofig.gameTime);
+        console.log("结果倒计时:",GameConst.gameCofig.resultTime);
         
         //显示主页
         LayerManager.getInstance().initialize(main);

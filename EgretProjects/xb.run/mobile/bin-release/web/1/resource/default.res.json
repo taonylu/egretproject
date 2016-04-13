@@ -1,134 +1,47 @@
 {
 	"groups":[
 		{
-			"keys":"preload_logo_png,preload_title_png,preload_foot_png,preload_feng_png",
+			"keys":"preload_json,preload_png",
 			"name":"preload"
 		},
 		{
-			"keys":"head0_png,head1_png,head2_png,ok_png,right0_png,right1_png,up0_png,up1_png,left0_png,left1_png,panel_png,result_no1_png,result_no2_png,result_no3_png,result_title_png,rankbg1_png,rankbg0_png,result_again_png,rankFont_fnt,ok2_png",
+			"keys":"home_json,home_png",
 			"name":"home"
+		},
+		{
+			"keys":"common_json,common_png,result_json,result_png,rankFont_png,rankFont_fnt",
+			"name":"result"
 		}
 	],
 	"resources":[
 		{
-			"name":"preload_logo_png",
-			"type":"image",
-			"url":"assets/preload/preload_logo.png"
+			"name":"preload_json",
+			"subkeys":"preload_feng_png,preload_foot_png,preload_logo_png,preload_title_png",
+			"type":"sheet",
+			"url":"assets/preload/preload.json"
 		},
 		{
-			"name":"preload_title_png",
-			"type":"image",
-			"url":"assets/preload/preload_title.png"
+			"name":"home_json",
+			"subkeys":"head0_png,head1_png,head2_png,left0_png,left1_png,ok2_png,ok_png,panel_png,rankbg0_png,rankbg1_png,result_again_png,result_no1_png,result_no2_png,result_no3_png,result_title_png,right0_png,right1_png,up0_png,up1_png",
+			"type":"sheet",
+			"url":"assets/home/home.json"
 		},
 		{
-			"name":"preload_foot_png",
-			"type":"image",
-			"url":"assets/preload/preload_foot.png"
+			"name":"common_json",
+			"subkeys":"closeBtn_png,messageBoxBg_png",
+			"type":"sheet",
+			"url":"assets/common/common.json"
 		},
 		{
-			"name":"head0_png",
-			"type":"image",
-			"url":"assets/home/head0.png"
-		},
-		{
-			"name":"head1_png",
-			"type":"image",
-			"url":"assets/home/head1.png"
-		},
-		{
-			"name":"head2_png",
-			"type":"image",
-			"url":"assets/home/head2.png"
-		},
-		{
-			"name":"ok_png",
-			"type":"image",
-			"url":"assets/home/ok.png"
-		},
-		{
-			"name":"right0_png",
-			"type":"image",
-			"url":"assets/home/right0.png"
-		},
-		{
-			"name":"right1_png",
-			"type":"image",
-			"url":"assets/home/right1.png"
-		},
-		{
-			"name":"up0_png",
-			"type":"image",
-			"url":"assets/home/up0.png"
-		},
-		{
-			"name":"up1_png",
-			"type":"image",
-			"url":"assets/home/up1.png"
-		},
-		{
-			"name":"left0_png",
-			"type":"image",
-			"url":"assets/home/left0.png"
-		},
-		{
-			"name":"left1_png",
-			"type":"image",
-			"url":"assets/home/left1.png"
-		},
-		{
-			"name":"panel_png",
-			"type":"image",
-			"url":"assets/home/panel.png"
-		},
-		{
-			"name":"result_no1_png",
-			"type":"image",
-			"url":"assets/home/result_no1.png"
-		},
-		{
-			"name":"result_no2_png",
-			"type":"image",
-			"url":"assets/home/result_no2.png"
-		},
-		{
-			"name":"result_no3_png",
-			"type":"image",
-			"url":"assets/home/result_no3.png"
-		},
-		{
-			"name":"result_title_png",
-			"type":"image",
-			"url":"assets/home/result_title.png"
-		},
-		{
-			"name":"rankbg1_png",
-			"type":"image",
-			"url":"assets/home/rankbg1.png"
-		},
-		{
-			"name":"rankbg0_png",
-			"type":"image",
-			"url":"assets/home/rankbg0.png"
-		},
-		{
-			"name":"result_again_png",
-			"type":"image",
-			"url":"assets/home/result_again.png"
+			"name":"result_json",
+			"subkeys":"result_bag0_png,result_bag1_png,result_okbtn_png,result_prizebg_png,result_prizetitle_png,result_textbg_png",
+			"type":"sheet",
+			"url":"assets/result/result.json"
 		},
 		{
 			"name":"rankFont_fnt",
 			"type":"font",
-			"url":"assets/home/rankFont.fnt"
-		},
-		{
-			"name":"ok2_png",
-			"type":"image",
-			"url":"assets/home/ok2.png"
-		},
-		{
-			"name":"preload_feng_png",
-			"type":"image",
-			"url":"assets/preload/preload_feng.png"
+			"url":"assets/result/font/rankFont.fnt"
 		}
 	]
 }

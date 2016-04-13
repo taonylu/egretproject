@@ -8,10 +8,13 @@ var Grass = (function (_super) {
     function Grass(value) {
         _super.call(this);
         this.speedX = 3;
+        this.speedY = 1;
     }
     var d = __define,c=Grass,p=c.prototype;
     p.randomSkin = function () {
         this.texture = RES.getRes("game_grass" + NumberTool.getRandomInt(0, 2) + "_png");
+        this.anchorOffsetX = this.width / 2;
+        this.anchorOffsetY = this.height / 2;
     };
     p.recycle = function () {
         this.parent && this.parent.removeChild(this);

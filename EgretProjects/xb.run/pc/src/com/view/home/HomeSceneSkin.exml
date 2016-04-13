@@ -32,12 +32,12 @@
 		<e:Label text="微信扫码 加入游戏" x="0" y="268" width="250" textAlign="center" verticalAlign="middle" fontFamily="微软雅黑"/>
 	</e:Group>
 	<e:Group id="userGroup" width="1920" height="1080">
-		<ns1:HeadUI id="head0" x="343" y="543" skinName="HeadUI2Skin"/>
-		<ns1:HeadUI skinName="HeadUI2Skin" y="543" x="598" id="head1"/>
-		<ns1:HeadUI skinName="HeadUI2Skin" y="543" id="head2" x="852"/>
-		<e:Image source="home_player2_png" x="348" y="639"/>
-		<e:Image source="home_player0_png" x="597" y="631"/>
-		<e:Image source="home_player1_png" x="820" y="637"/>
+		<ns1:HeadUI id="head0" x="853" y="543" skinName="HeadUI2Skin"/>
+		<ns1:HeadUI skinName="HeadUI2Skin" y="543" x="338" id="head1"/>
+		<ns1:HeadUI skinName="HeadUI2Skin" y="543" id="head2" x="597"/>
+		<e:Image source="home_player2_png" x="858" y="639"/>
+		<e:Image source="home_player0_png" x="337" y="631"/>
+		<e:Image source="home_player1_png" x="565" y="637"/>
 	</e:Group>
 	<e:Group id="introduceGroup" width="1920" height="1080">
 		<e:Image source="home_codebg_png" x="342" y="208"/>

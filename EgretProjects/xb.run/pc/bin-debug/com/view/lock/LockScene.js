@@ -20,7 +20,7 @@ var LockScene = (function (_super) {
         _super.prototype.componentCreated.call(this);
         this.socket = ClientSocket.getInstance();
         this.initHandY = this.hand.y;
-        this.countDownLimit = window["gameConfig"].lockTime;
+        this.countDownLimit = GameConst.gameCofig.lockTime;
     };
     p.onEnable = function () {
         this.resetScene();

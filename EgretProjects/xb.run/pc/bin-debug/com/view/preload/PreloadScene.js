@@ -11,6 +11,7 @@ var PreloadScene = (function (_super) {
     var d = __define,c=PreloadScene,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
+        this.progressLabel.text = "0%";
     };
     p.setProgress = function (process) {
         if (this.inited) {

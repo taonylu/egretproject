@@ -65,6 +65,9 @@ var ClientSocket = (function () {
         this.socket.on("gameOver", function (data) {
             self.gameScene.revGameOver(data);
         });
+        this.socket.on("prize", function (data) {
+            self.gameScene.revPrize();
+        });
     };
     //////////////////////////////////////////////////////
     /////////////////   发送数据    //////////////////////

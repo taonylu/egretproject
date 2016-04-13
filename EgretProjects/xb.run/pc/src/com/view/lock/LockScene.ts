@@ -23,7 +23,7 @@ class LockScene extends BaseScene{
         super.componentCreated();
         this.socket = ClientSocket.getInstance();      
         this.initHandY = this.hand.y;
-        this.countDownLimit = window["gameConfig"].lockTime;
+        this.countDownLimit = GameConst.gameCofig.lockTime;
     }
 
     public onEnable(): void {

@@ -8,6 +8,8 @@ var GameManager = (function () {
         this.lockScene = new LockScene(); //校准场景
         this.gameScene = new GameScene(); //游戏场景
         this.resultScene = new ResultScene(); //结果场景
+        this.prizeScene = new PrizeScene(); //获奖页面
+        this.messageBox = new MessageBox(); //弹框
     }
     var d = __define,c=GameManager,p=c.prototype;
     //启动游戏框架
@@ -24,6 +26,7 @@ var GameManager = (function () {
         this.socket.gameManager = this;
         this.socket.lockScene = this.lockScene;
         this.socket.gameScene = this.gameScene;
+        this.socket.resultScene = this.resultScene;
         this.socket.startConnect();
     };
     //------------------------【socket事件】-------------------------

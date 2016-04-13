@@ -38,13 +38,17 @@ var GameScene = (function (_super) {
         this.isSingleMode = true; //是否单人模式
         this.singleTrackNum = 3; //单人赛道数量
         this.multiTrackNum = 7; //多人赛道
-        this.grassSpeedX = 2; //草地X轴移动速度
+        this.grassFarList = new Array();
+        this.grassNearList = new Array();
         this.grassPool = ObjectPool.getPool(Grass.NAME); //草地对象池
         this.grassList = new Array(); //草地数组 
         this.gameTimer = new egret.Timer(1000); //游戏计时器
         this.gameTimeLimit = 60; //游戏时间限制
         this.countDownTimer = new egret.Timer(1000); //倒计时
         this.countDownLimit = 1; //倒计时限制
+        this.status_free = 0;
+        this.status_gameing = 1;
+        this.status_gameover = 2;
         //创建草地
         this.grassCount = 0;
         //结果数据，临时保存本地玩家分数和服务器返回分数，用于结果场景显示
@@ -54,9 +58,10 @@ var GameScene = (function (_super) {
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
         this.initView();
-        this.gameTimeLimit = window["gameConfig"].gameTime;
+        this.gameTimeLimit = GameConst.gameCofig.gameTime;
     };
     p.onEnable = function () {
+        this.gameStatus = this.status_free;
         this.resetGame(); //重置游戏
         this.startCountDown(); //开始倒计时
     };
@@ -68,11 +73,13 @@ var GameScene = (function (_super) {
         this.runAllPlayer(); //所有玩家跑动
         this.startBgAnim(); //背景动画
         this.startProgressAnim(); //开始进度条动画
+        this.gameStatus = this.status_gameing;
     };
     p.resetGame = function () {
         this.clearPlayerList(); //重置用户列表
         this.initMap(); //初始化地图
         this.initFarAndNear(); //初始化远点和近点
+        this.initGrassPot(); //初始化草地远点近点
         this.resetAllPlayer(); //重置所有玩家
         this.clearItem(); //清理移动物体
         this.clearGrass(); //清理草地
@@ -86,6 +93,7 @@ var GameScene = (function (_super) {
         this.stopBgAnim(); //停止背景动画
         this.stopProgressAnim(); //停止进度条动画
         this.sendGameOver(); //发送游戏结束
+        this.gameStatus = this.status_gameover;
     };
     //初始化场景
     p.initView = function () {
@@ -99,7 +107,6 @@ var GameScene = (function (_super) {
         this.moveSpeed = GameConst.gameCofig.moveSpeed;
         this.mapMultiFruit = GameConst.gameCofig.mapMultiFruit;
         this.initRole(); //初始化角色
-        this.initGrass(); //初始化草地
         this.initGameHead(); //初始化用户头像
         this.initTrackData(); //初始化赛道信息
     };
@@ -143,7 +150,7 @@ var GameScene = (function (_super) {
         //关卡难度
         this.curTimeCount = 0;
         this.curTimeLimit = this.mapCreateTimeList[0];
-        this.curLevel = 1;
+        this.curLevel = 0;
         //赛道信息
         for (var i = 0; i < this.multiTrackNum; i++) {
             this.trackDataList[i].clear();
@@ -186,9 +193,32 @@ var GameScene = (function (_super) {
         }
     };
     //初始化草地
-    p.initGrass = function () {
-        this.grassPot0.parent && this.grassGroup.removeChild(this.grassPot0);
-        this.grassPot1.parent && this.grassGroup.removeChild(this.grassPot1);
+    p.initGrassPot = function () {
+        this.grassFarList.length = 0;
+        this.grassNearList.length = 0;
+        var far;
+        var near;
+        //单人模式
+        if (this.trackNum == this.singleTrackNum) {
+            for (var i = 0; i < 2; i++) {
+                far = this["grassFarPot" + i];
+                near = this["grassNearPot" + i];
+                this.grassFarList.push(far);
+                this.grassNearList.push(near);
+                far.parent && far.parent.removeChild(far);
+                near.parent && near.parent.removeChild(near);
+            }
+        }
+        else {
+            for (var i = 2; i < 4; i++) {
+                far = this["grassFarPot" + i];
+                near = this["grassNearPot" + i];
+                this.grassFarList.push(far);
+                this.grassNearList.push(near);
+                far.parent && far.parent.removeChild(far);
+                near.parent && near.parent.removeChild(near);
+            }
+        }
     };
     //初始化用户头像
     p.initGameHead = function () {
@@ -268,6 +298,7 @@ var GameScene = (function (_super) {
             player.shadow.x = player.x;
             player.shadow.y = player.y;
             player.modifyPos();
+            player.initY = player.y;
             player.clearStatus();
             player.score = 0;
             player.gameHead = null;
@@ -290,6 +321,12 @@ var GameScene = (function (_super) {
     //玩家撞到障碍物后，重置
     p.resetPlayer = function (player) {
         player.track = Math.floor(this.trackNum / 2);
+        for (var i = 0; i < this.playerList.length; i++) {
+            if (player.openid != this.playerList[i].openid && player.track == this.playerList[i].track) {
+                player.track = (player.track + 1) % this.trackNum;
+                i = -1;
+            }
+        }
         player.x = this.nearPotList[player.track].x;
         player.y = this.nearPotList[player.track].y;
         player.shadow.x = player.x;
@@ -358,16 +395,42 @@ var GameScene = (function (_super) {
                 var trackData = this.trackDataList[i];
                 //上一次创建水果，并且小于连续创建值，则继续创建水果
                 if (trackData.lastItemType == 1 && trackData.fruitNum < trackData.shouldCreate) {
-                    item = this.getRandomFruit();
+                    item = this.getFruit(trackData.fruitType);
                     trackData.fruitNum++;
+                }
+                else if (trackData.lastItemType == 2) {
+                    //创建水果
+                    if (rand < this.mapFruitList[this.curLevel]) {
+                        trackData.fruitType = NumberTool.getRandomInt(0, 1);
+                        trackData.lastItemType = 1;
+                        trackData.shouldCreate = NumberTool.getRandomInt(this.mapMultiFruit[0], this.mapMultiFruit[1]);
+                        trackData.fruitNum = 0;
+                        item = this.getFruit(trackData.fruitType);
+                    }
+                    else {
+                        item = null;
+                        trackData.lastItemType = 0;
+                    }
+                }
+                else if (trackData.lastItemType == 1) {
+                    //创建障碍物
+                    if (rand < this.mapBarrList[this.curLevel]) {
+                        item = this.getRandomBarrior();
+                        trackData.lastItemType = 2;
+                    }
+                    else {
+                        item = null;
+                        trackData.lastItemType = 0;
+                    }
                 }
                 else {
                     //创建水果
                     if (rand < this.mapFruitList[this.curLevel]) {
-                        item = this.getRandomFruit();
                         trackData.lastItemType = 1;
+                        trackData.fruitType = NumberTool.getRandomInt(0, 1);
                         trackData.shouldCreate = NumberTool.getRandomInt(this.mapMultiFruit[0], this.mapMultiFruit[1]);
                         trackData.fruitNum = 0;
+                        item = this.getFruit(trackData.fruitType);
                     }
                     else if (rand < (this.mapFruitList[this.curLevel] + this.mapBarrList[this.curLevel])) {
                         item = this.getRandomBarrior();
@@ -384,8 +447,8 @@ var GameScene = (function (_super) {
                 item.x = this.farPotList[i].x;
                 item.y = this.farPotList[i].y;
                 item.track = i;
-                item.scaleX = 0.2;
-                item.scaleY = 0.2;
+                item.scaleX = 0.1;
+                item.scaleY = 0.1;
                 this.itemGroup.addChild(item);
                 this.itemList.push(item);
                 this.itemGroup.setChildIndex(item, 1);
@@ -394,6 +457,9 @@ var GameScene = (function (_super) {
     };
     p.getRandomFruit = function () {
         return this.scorePoolList[NumberTool.getRandomInt(0, 1)].getObject();
+    };
+    p.getFruit = function (fruitType) {
+        return this.scorePoolList[fruitType].getObject();
     };
     p.getRandomBarrior = function () {
         return this.zhangAiPoolList[NumberTool.getRandomInt(0, 4)].getObject();
@@ -407,11 +473,12 @@ var GameScene = (function (_super) {
             item = this.itemList[i];
             track = item.track;
             //移动
-            item.y += this.moveSpeed + this.moveSpeed * item.scaleX;
+            item.y += this.moveSpeed + this.moveSpeed * item.scaleX * 10;
             var rate = (item.y - this.farPotList[track].y) / this.trackYList[track]; //所在y轴位置比例
             item.x = this.farPotList[track].x + rate * this.trackXList[track];
-            item.scaleX = 0.2 + rate * 0.4;
-            item.scaleY = 0.2 + rate * 0.4;
+            var addScale = rate * 0.6;
+            item.scaleX = 0.1 + addScale;
+            item.scaleY = 0.1 + addScale;
             //边界检测
             if (item.y > (this.stageHeight + item.height)) {
                 item.recycle();
@@ -472,16 +539,18 @@ var GameScene = (function (_super) {
             var rand = Math.random();
             var grass = this.grassPool.getObject();
             grass.randomSkin();
-            grass.x = this.grassPot0.x;
-            grass.y = this.grassPot0.y;
-            grass.speedX = -Math.abs(grass.speedX);
+            grass.scaleX = 0.05;
+            grass.scaleY = 0.05;
+            grass.x = this.grassFarList[0].x;
+            grass.y = this.grassFarList[0].y;
+            grass.speedX = -1;
             this.grassGroup.addChild(grass);
             this.grassList.push(grass);
             grass = this.grassPool.getObject();
             grass.randomSkin();
-            grass.x = this.grassPot1.x;
-            grass.y = this.grassPot1.y;
-            grass.speedX = Math.abs(grass.speedX);
+            grass.x = this.grassFarList[1].x;
+            grass.y = this.grassFarList[1].y;
+            grass.speedX = 1;
             this.grassGroup.addChild(grass);
             this.grassList.push(grass);
         }
@@ -492,8 +561,16 @@ var GameScene = (function (_super) {
         var grass;
         for (var i = len - 1; i >= 0; i--) {
             grass = this.grassList[i];
-            grass.x += grass.speedX;
-            grass.y += this.moveSpeed;
+            var rate = (grass.y - this.grassFarList[0].y) / (this.grassNearList[0].y - this.grassFarList[0].y);
+            grass.y += this.moveSpeed + grass.scaleX * 5;
+            if (grass.speedX > 0) {
+                grass.x = this.grassFarList[1].x - (this.grassFarList[1].x - this.grassNearList[1].x) * rate;
+            }
+            else {
+                grass.x = this.grassFarList[0].x - (this.grassFarList[0].x - this.grassNearList[0].x) * rate;
+            }
+            grass.scaleX = 0.05 + rate;
+            grass.scaleY = 0.05 + rate;
             if (grass.y > this.stageHeight) {
                 grass.recycle();
                 this.grassList.splice(i, 1);
@@ -525,14 +602,12 @@ var GameScene = (function (_super) {
     p.onGameTimerHandler = function () {
         var curCount = this.gameTimer.currentCount;
         //难度递增
-        this.curLevel = Math.ceil(curCount / (this.gameTimeLimit / this.mapCreateTimeList.length));
-        if (this.curLevel < this.mapCreateTimeList.length) {
+        var level = Math.floor(curCount / (this.gameTimeLimit / this.mapCreateTimeList.length));
+        if (level != this.curLevel) {
+            this.curLevel = (level >= this.mapCreateTimeList.length) ? (this.mapCreateTimeList.length - 1) : level;
             this.curTimeCount = 0;
-            this.curTimeLimit = this.mapCreateTimeList[this.curLevel - 1];
+            this.curTimeLimit = this.mapCreateTimeList[this.curLevel];
             console.log("当前关卡等级:", this.curLevel);
-        }
-        else {
-            this.curLevel = this.mapCreateTimeList.length;
         }
         //游戏结束判断
         if (curCount >= this.gameTimeLimit) {
@@ -579,6 +654,9 @@ var GameScene = (function (_super) {
     //跳跃
     p.revAction = function (data) {
         //egret.log("revAction:",data);
+        if (this.gameStatus != this.status_gameing) {
+            return;
+        }
         var actionType = data.actionType;
         var openid = data.openid;
         var player = this.getPlayerByOpenid(openid);
@@ -590,30 +668,49 @@ var GameScene = (function (_super) {
             return;
         }
         var myTrack = player.track;
+        var nextTrack = myTrack;
         var self = this;
         if (actionType == "left") {
             if (myTrack > 0) {
-                myTrack--;
+                nextTrack -= 1;
+                for (var i = 0; i < this.playerList.length; i++) {
+                    if (player.openid != this.playerList[i].openid && nextTrack == this.playerList[i].track) {
+                        nextTrack -= 1;
+                        i = -1;
+                    }
+                }
+                if (nextTrack < 0) {
+                    return;
+                }
                 player.isMoving = true;
-                var dist = this.nearPotList[myTrack].x - this.nearPotList[myTrack + 1].x;
+                var dist = this.nearPotList[nextTrack].x - this.nearPotList[myTrack].x;
                 egret.Tween.get(player).to({ x: player.x + dist }, 300);
                 egret.Tween.get(player.shadow).to({ x: player.shadow.x + dist }, 300).call(function () {
                     player.isMoving = false;
                 });
-                player.track = myTrack;
+                player.track = nextTrack;
             }
         }
         else if (actionType == "right") {
             if (myTrack < (this.trackNum - 1)) {
-                myTrack++;
+                nextTrack += 1;
+                for (var i = 0; i < this.playerList.length; i++) {
+                    if (player.openid != this.playerList[i].openid && nextTrack == this.playerList[i].track) {
+                        nextTrack += 1;
+                        i = -1;
+                    }
+                }
+                if (nextTrack > (this.trackNum - 1)) {
+                    return;
+                }
                 player.isMoving = true;
-                var dist = this.nearPotList[myTrack].x - this.nearPotList[myTrack - 1].x;
+                var dist = this.nearPotList[nextTrack].x - this.nearPotList[myTrack].x;
                 egret.Tween.get(player).to({ x: player.x + dist }, 300);
                 egret.Tween.get(player.shadow).to({ x: player.shadow.x + dist }, 300).call(function () {
                     player.isMoving = false;
                 });
                 ;
-                player.track = myTrack;
+                player.track = nextTrack;
             }
         }
         else if (actionType == "up") {

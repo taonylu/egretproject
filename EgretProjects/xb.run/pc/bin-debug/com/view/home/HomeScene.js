@@ -16,7 +16,7 @@ var HomeScene = (function (_super) {
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
         this.socket = ClientSocket.getInstance();
-        this.countDownLimit = window["gameConfig"].homeTime;
+        this.countDownLimit = GameConst.gameCofig.homeTime;
         this.initView();
     };
     p.onEnable = function () {
@@ -113,7 +113,7 @@ var HomeScene = (function (_super) {
         this.codeGroup.addChild(codeLoader);
         //更新rid
         egret.log("upRid:", this.rid);
-        this.socket.sendMessage("upRid ", { rid: this.rid });
+        this.socket.sendMessage("upRid", { rid: this.rid });
     };
     //开始倒计时
     p.startCountDown = function () {

@@ -18,6 +18,10 @@ var GameScene = (function (_super) {
     var d = __define,c=GameScene,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
+        this.centerLabel.visible = false;
+        this.deviceLabel.visible = false;
+        this.actionLabel.visible = false;
+        this.statusLabel.visible = false;
         this.socket = ClientSocket.getInstance();
     };
     p.onEnable = function () {
@@ -163,7 +167,22 @@ var GameScene = (function (_super) {
             };
         }
         this.resultData = data;
-        LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
+        //当不显示获奖页时，才显示结果页，因为不知道哪个命令先后
+        if (!GameManager.getInstance().prizeScene.parent) {
+            LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
+        }
+    };
+    //接收奖品
+    p.revPrize = function () {
+        egret.log("revPrize:", GameConst.gameConfig.isGetPrie);
+        if (GameConst.gameConfig.isGetPrie == 1) {
+            if (!GameManager.getInstance().resultScene.parent) {
+                LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
+            }
+        }
+        else {
+            LayerManager.getInstance().runScene(GameManager.getInstance().prizeScene);
+        }
     };
     return GameScene;
 }(BaseScene));
