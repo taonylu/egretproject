@@ -2,9 +2,9 @@
 <e:Skin class="GameSceneSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
 	<e:Rect width="640" height="1136" fillColor="0x6FEAEA"/>
 	<e:Group id="arrowGroup" height="744" width="640" bottom="0">
-		<ns1:SimpleButton id="upBtn" y="321" skinName="UpArrowSkin" x="230"/>
-		<ns1:SimpleButton id="rightBtn" y="512" x="412" skinName="RightArrowSkin"/>
-		<ns1:SimpleButton id="leftBtn" x="42" y="512" skinName="LeftArrowSkin"/>
+		<ns1:SimpleButton id="upBtn" y="331" skinName="UpArrowSkin" x="230"/>
+		<ns1:SimpleButton id="rightBtn" y="492" x="372" skinName="RightArrowSkin"/>
+		<ns1:SimpleButton id="leftBtn" x="82" y="492" skinName="LeftArrowSkin"/>
 		<e:Image source="panel_png" y="96" horizontalCenter="0.5"/>
 		<e:Label text="重力感应不好使？可以试试点击操作！" y="153" textColor="0x030000" fontFamily="微软雅黑" width="322" height="102" verticalAlign="middle" textAlign="center" horizontalCenter="0"/>
 	</e:Group>

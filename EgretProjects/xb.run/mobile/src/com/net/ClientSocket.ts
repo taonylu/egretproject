@@ -10,6 +10,7 @@ class ClientSocket {
     public gameManager:GameManager;
     public lockScene:LockScene;
     public gameScene:GameScene;
+    public resultScene:ResultScene;
     
     public static getInstance(): ClientSocket {
         if(this.instance == null) {
@@ -85,6 +86,10 @@ class ClientSocket {
         
         this.socket.on("gameOver",function(data) {
             self.gameScene.revGameOver(data);
+        }); 
+        
+        this.socket.on("prize",function(data) {
+            self.gameScene.revPrize();
         }); 
         
     }

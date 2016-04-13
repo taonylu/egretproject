@@ -26,6 +26,18 @@ class StringTool {
         }
         return str;
     }
+	
+	
+    /**
+    * 检查手机号是否11位
+    * @param tel 手机号
+    * @return 是否是11位
+    */
+    public static checkPhoneNum(tel:string):boolean{
+	var patt = /^1\d{10}$/;
+        var result = patt.test(tel);
+        return result;
+    }
 
     
     /**

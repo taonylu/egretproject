@@ -15,7 +15,7 @@
 		<e:Image source="game_tree1_png" width="190" y="-5" height="255" x="1229"/>
 		<e:Image source="game_tree3_png" width="161" y="9" height="250" x="1437"/>
 	</e:Group>
-	<e:Group id="bg0Group" height="1080" width="1920">
+	<e:Group id="bg0Group" height="1080" width="1920" visible="false">
 		<e:Image source="game_bg0_png" bottom="0"/>
 		<e:Rect id="singleFar0" anchorOffsetY="50" y="196" anchorOffsetX="50" width="100" height="100" x="850"/>
 		<e:Rect id="singleNear0" x="600" width="100" y="946" anchorOffsetX="50" anchorOffsetY="50" height="100"/>
@@ -23,8 +23,12 @@
 		<e:Rect x="1336" width="100" y="946" anchorOffsetX="50" anchorOffsetY="50" height="100" id="singleNear2"/>
 		<e:Rect x="961" width="100" y="196" anchorOffsetX="50" anchorOffsetY="50" height="100" id="singleFar1"/>
 		<e:Rect id="singleFar2" anchorOffsetY="50" y="196" anchorOffsetX="50" width="100" height="100" x="1072"/>
+		<e:Rect id="grassFarPot0" y="216" x="780" anchorOffsetY="10" width="20" height="20" anchorOffsetX="10" fillAlpha="1"/>
+		<e:Rect id="grassFarPot1" anchorOffsetX="10" y="216" x="1133" anchorOffsetY="10" width="20" height="20" fillAlpha="1"/>
+		<e:Rect id="grassNearPot0" y="1073" anchorOffsetX="10" anchorOffsetY="10" width="20" fillAlpha="1" height="20" x="273"/>
+		<e:Rect id="grassNearPot1" y="1074" anchorOffsetX="10" x="1677" anchorOffsetY="10" width="20" fillAlpha="1" height="20"/>
 	</e:Group>
-	<e:Group id="bg1Group" width="1920" height="1080" visible="false">
+	<e:Group id="bg1Group" width="1920" height="1080">
 		<e:Image source="game_bg1_png" bottom="0"/>
 		<e:Rect id="far00" height="10" width="10" x="617" y="217" anchorOffsetX="5" anchorOffsetY="5"/>
 		<e:Rect id="far01" y="217" anchorOffsetY="5" anchorOffsetX="5" width="10" height="10" x="721"/>
@@ -40,13 +44,15 @@
 		<e:Rect id="near04" x="1162" y="936" anchorOffsetY="50" width="100" height="100" anchorOffsetX="50"/>
 		<e:Rect id="near05" anchorOffsetX="50" y="936" anchorOffsetY="50" width="100" height="100" x="1356"/>
 		<e:Rect id="near06" x="1578" y="936" anchorOffsetY="50" width="100" height="100" anchorOffsetX="50"/>
+		<e:Rect y="223" anchorOffsetX="10" x="545" anchorOffsetY="10" width="20" fillAlpha="1" height="20" id="grassFarPot2"/>
+		<e:Rect y="224" anchorOffsetX="10" id="grassFarPot3" anchorOffsetY="10" width="20" fillAlpha="1" height="20" x="1391"/>
+		<e:Rect y="1071" anchorOffsetX="10" x="49" anchorOffsetY="10" width="20" fillAlpha="1" height="20" id="grassNearPot2"/>
+		<e:Rect y="1081" anchorOffsetX="10" id="grassNearPot3" anchorOffsetY="10" width="20" fillAlpha="1" height="20" x="1889"/>
 	</e:Group>
 	<e:Group id="itemGroup" width="1920" height="1080"/>
 	<e:Group id="playerGroup" height="1080" width="1920">
 	</e:Group>
 	<e:Group id="grassGroup" width="1920" height="1080">
-		<e:Rect id="grassPot0" y="106" x="370" anchorOffsetY="50" width="100" height="100" anchorOffsetX="50"/>
-		<e:Rect id="grassPot1" anchorOffsetX="50" y="96" x="1480" anchorOffsetY="50" width="100" height="100"/>
 	</e:Group>
 	<e:Group id="progressGroup" width="1920" height="1080">
 		<e:Image id="progressBg" source="progress_bg_png" y="57" horizontalCenter="0.5"/>

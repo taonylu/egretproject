@@ -42,7 +42,7 @@ class HomeScene extends BaseScene{
     public componentCreated(): void {
         super.componentCreated();
         this.socket = ClientSocket.getInstance();
-        this.countDownLimit = window["gameConfig"].homeTime;
+        this.countDownLimit = GameConst.gameCofig.homeTime;
         this.initView();  
     }
 
@@ -156,7 +156,7 @@ class HomeScene extends BaseScene{
         
         //更新rid
         egret.log("upRid:",this.rid);
-        this.socket.sendMessage("upRid ", {rid:this.rid});
+        this.socket.sendMessage("upRid", {rid:this.rid});
     }
     
     //开始倒计时

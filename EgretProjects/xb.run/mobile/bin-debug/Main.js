@@ -65,6 +65,7 @@ var Main = (function (_super) {
         this.preloadScene.setProgress(Math.round(e.itemsLoaded / e.itemsTotal * 100));
     };
     p.onGameComplete = function () {
+        LoadManager.getInstance().loadGroup("result", this);
         this.preloadScene.progressLabel.text = "请等待大屏幕倒计时结束\n游戏即将开始";
         GameManager.getInstance().startup(this);
     };

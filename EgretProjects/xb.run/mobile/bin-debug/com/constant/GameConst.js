@@ -13,16 +13,6 @@ var GameConst = (function () {
     GameConst.centerX = 0;
     /**校准位置Z*/
     GameConst.centerZ = 0;
-    GameConst.gameConfig = {
-        debug: true,
-        subscribe: 0,
-        picture: "",
-        openid: "",
-        headimgurl: "",
-        nickname: "",
-        server: "",
-        rid: "" //房间号 
-    };
     return GameConst;
 }());
 egret.registerClass(GameConst,'GameConst');

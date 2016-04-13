@@ -68,8 +68,9 @@ class Main extends eui.UILayer {
     }
     
     private onGameComplete():void{
-        this.preloadScene.progressLabel.text = "请等待大屏幕倒计时结束\n游戏即将开始";
+        LoadManager.getInstance().loadGroup("result",this); 
         
+        this.preloadScene.progressLabel.text = "请等待大屏幕倒计时结束\n游戏即将开始";
         GameManager.getInstance().startup(this);
     }
 

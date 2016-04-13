@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="PrizeSceneSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="640" height="1136" fillColor="0x6FEAEA"/>
+	<e:Image source="result_prizetitle_png" y="60" x="162"/>
+	<e:Image source="result_prizebg_png" y="266" x="185"/>
+	<e:Image source="result_bag0_png" y="381" rotation="30" x="467" scaleX="0.8" scaleY="0.8"/>
+	<e:Image source="result_bag0_png" y="437" scaleX="0.8" rotation="-30" scaleY="0.8" x="90"/>
+	<e:Image source="result_bag0_png" x="365" y="340" rotation="15"/>
+	<e:Image source="result_bag0_png" y="377" rotation="-15" x="154"/>
+	<e:Image source="result_bag1_png" y="299" x="217"/>
+	<e:Image source="result_textbg_png" y="612" horizontalCenter="0"/>
+	<e:Image id="okBtn" source="result_okbtn_png" y="760" x="220"/>
+	<e:EditableText id="phoneLabel" width="380" height="48" x="131" y="617" fontFamily="微软雅黑" size="30" textColor="0x010000" verticalAlign="middle" text="19999"/>
+</e:Skin>

@@ -4,9 +4,13 @@ declare class LockSceneSkin extends eui.Skin{
 }
 declare class PreloadSceneSkin extends eui.Skin{
 }
+declare class PrizeSceneSkin extends eui.Skin{
+}
 declare class ResultSceneSkin extends eui.Skin{
 }
 declare class LeftArrowSkin extends eui.Skin{
+}
+declare class MessageBoxSkin extends eui.Skin{
 }
 declare class RankHeadSkin extends eui.Skin{
 }

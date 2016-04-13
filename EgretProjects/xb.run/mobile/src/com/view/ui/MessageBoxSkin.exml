@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="MessageBoxSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect height="1136" width="640" fillAlpha="0.7"/>
+	<e:Image source="messageBoxBg_png" x="48" verticalCenter="0"/>
+	<e:Image id="closeBtn" source="closeBtn_png" x="525" verticalCenter="-164.5"/>
+	<e:Label id="msgLabel" text="请求失败" width="358" height="189" textColor="0x1E2329" verticalAlign="middle" textAlign="center" size="30" x="141" top="474" fontFamily="微软雅黑"/>
+</e:Skin>

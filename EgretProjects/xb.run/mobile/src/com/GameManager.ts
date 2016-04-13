@@ -8,6 +8,9 @@ class GameManager {
     public lockScene: LockScene = new LockScene();  //校准场景
     public gameScene: GameScene = new GameScene();  //游戏场景
     public resultScene:ResultScene = new ResultScene(); //结果场景
+    public prizeScene:PrizeScene = new PrizeScene();    //获奖页面
+    public messageBox:MessageBox = new MessageBox();    //弹框
+    
     
     private socket:ClientSocket;
     
@@ -26,6 +29,7 @@ class GameManager {
         this.socket.gameManager = this;
         this.socket.lockScene = this.lockScene;
         this.socket.gameScene = this.gameScene;
+        this.socket.resultScene = this.resultScene;
         this.socket.startConnect();
 
     }
