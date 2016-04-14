@@ -4,6 +4,7 @@
     "src/com/view/game/ui/GameHeadSkin.exml",
     "src/com/view/game/GameSceneSkin.exml",
     "src/com/view/game/ui/HeadUI2Skin.exml",
+    "src/com/view/game/ui/ScoreUISkin.exml",
     "src/com/view/home/HomeSceneSkin.exml",
     "src/com/view/lock/LockSceneSkin.exml",
     "src/com/view/preload/PreloadSceneSkin.exml",

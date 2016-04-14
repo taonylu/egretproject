@@ -21,6 +21,7 @@ class ScoreHead extends BaseUI{
     public componentCreated(): void {
         super.componentCreated();
         this.nameLabel.text = "";
+        this.scoreLabel.text = "";
         
         this.headImg= new egret.Bitmap();
         this.headImg.width = this.imgWidth;
@@ -33,7 +34,7 @@ class ScoreHead extends BaseUI{
     }
     
     public setScoreLabel(msg:string){
-        this.scoreLabel.text = msg;
+        this.scoreLabel.text = "得分："  + msg;
     }
     
     public loadImg(imgUrl:string){

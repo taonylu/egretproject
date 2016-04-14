@@ -12,7 +12,7 @@
     <style>
         html, body {
             -ms-touch-action: none;
-            background: #ffffff;
+            background: #35ed94;
             padding: 0;
             border: 0;
             margin: 0;
@@ -44,6 +44,7 @@
 	<script egret="game" src="bin-debug/com/net/ClientSocket.js"></script>
 	<script egret="game" src="bin-debug/com/utils/manager/LayerManager.js"></script>
 	<script egret="game" src="bin-debug/com/utils/manager/LoadManager.js"></script>
+	<script egret="game" src="bin-debug/com/utils/manager/SoundManager.js"></script>
 	<script egret="game" src="bin-debug/com/utils/manager/UserManager.js"></script>
 	<script egret="game" src="bin-debug/com/utils/manager/UserVO.js"></script>
 	<script egret="game" src="bin-debug/com/utils/scene/BaseScene.js"></script>
@@ -69,6 +70,7 @@
 	<script egret="game" src="bin-debug/com/view/game/ui/Grass.js"></script>
 	<script egret="game" src="bin-debug/com/view/game/ui/HeadUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/game/ui/Player.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/ui/ScoreUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/game/ui/TrackData.js"></script>
 	<script egret="game" src="bin-debug/com/view/home/HomeScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/lock/LockScene.js"></script>
@@ -105,7 +107,7 @@
     	//游戏配置
     	//-------------【游戏配置】---------------
     	var gameConfig = {};
-    	gameConfig.debug = false;      //是否本地调试模式
+    	gameConfig.debug = true;      //是否本地调试模式
     	gameConfig.codeWidth = 250;    //二维码宽
     	gameConfig.codeHeight = 250;   //二维码高
     	gameConfig.codeData = "";      //二维码数据，用于加载为egret.Image     
@@ -121,6 +123,7 @@
     	gameConfig.gameTime = 30;  //游戏进行时长
     	gameConfig.resultTime = 5;  //结果页倒计时时间
     	gameConfig.moveSpeed = 1;  //地图上物品移动速度
+    	gameConfig.accList = [0.02,0.05,0.1];       //加速度
     	gameConfig.mapCreateTimeList = [20,15,15];    //地图生成时间间隔，游戏时间分成3段，随着游戏时间增加，地图概率调整
     	gameConfig.mapFruitList = [30,30,30];         //水果生成概率, 50表示50%几率生成水果
     	gameConfig.mapBarrList = [30,30,30];             //障碍物生成概率 
@@ -163,6 +166,10 @@
     	
     	}
     	
+    	
+    	function changeBgColor(color){
+    		document.body.style.backgroundColor = color;
+    	}
     	
         //运行游戏
         egret.runEgret();

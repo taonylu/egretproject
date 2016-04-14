@@ -1,11 +1,11 @@
 {
 	"groups":[
 		{
-			"keys":"home_json,home_png,homg_bg_jpg",
+			"keys":"home_json,homg_bg_jpg",
 			"name":"preload"
 		},
 		{
-			"keys":"game_json,game_png,game_bg0_png,game_bg1_png,lock_bg_png,result_json,result_png,result_bg_jpg,countDownFont_fnt,countDownFont_png,player0_json,player0_png,player1_json,player1_png,player2_json,player2_png",
+			"keys":"game_bg0_png,game_bg1_png,lock_bg_png,result_json,result_bg_jpg,countDownFont_fnt,player0_json,player0_png,player1_json,player1_png,player2_json,player2_png,die0_mp3,die1_mp3,bgm_game_mp3,bgm_home_mp3,1_mp3,2_mp3,3_mp3,coin_mp3,gameover_mp3,die2_mp3,jump0_mp3,jump1_mp3,jump2_mp3,jump3_mp3,jump4_mp3,game_png,game_json",
 			"name":"home"
 		}
 	],
@@ -20,12 +20,6 @@
 			"name":"homg_bg_jpg",
 			"type":"image",
 			"url":"assets/home/homg_bg.jpg"
-		},
-		{
-			"name":"game_json",
-			"subkeys":"game_grass0_png,game_grass1_png,game_grass2_png,game_sky_jpg,game_tree0_png,game_tree1_png,game_tree3_png,item_banana_png,item_carrot_png,item_highwood_png,item_lowwood_png,item_mice_png,item_stone_png,item_water_png,lock_center_png,lock_hand_png,lock_msg_png,lock_phone_png,progress_bar0_png,progress_bar1_png,progress_bg_png,progress_slider_png,scoreBg0_png,scoreBg1_png,scoreBg2_png,shadow_png",
-			"type":"sheet",
-			"url":"assets/game/game.json"
 		},
 		{
 			"name":"game_bg0_png",
@@ -87,6 +81,87 @@
 			"name":"player2_png",
 			"type":"image",
 			"url":"assets/game/mc/player2.png"
+		},
+		{
+			"name":"die0_mp3",
+			"type":"sound",
+			"url":"assets/sound/die0.mp3"
+		},
+		{
+			"name":"die1_mp3",
+			"type":"sound",
+			"url":"assets/sound/die1.mp3"
+		},
+		{
+			"name":"bgm_game_mp3",
+			"type":"sound",
+			"url":"assets/sound/bgm_game.mp3"
+		},
+		{
+			"name":"bgm_home_mp3",
+			"type":"sound",
+			"url":"assets/sound/bgm_home.mp3"
+		},
+		{
+			"name":"1_mp3",
+			"type":"sound",
+			"url":"assets/sound/1.mp3"
+		},
+		{
+			"name":"2_mp3",
+			"type":"sound",
+			"url":"assets/sound/2.mp3"
+		},
+		{
+			"name":"3_mp3",
+			"type":"sound",
+			"url":"assets/sound/3.mp3"
+		},
+		{
+			"name":"coin_mp3",
+			"type":"sound",
+			"url":"assets/sound/coin.mp3"
+		},
+		{
+			"name":"gameover_mp3",
+			"type":"sound",
+			"url":"assets/sound/gameover.mp3"
+		},
+		{
+			"name":"die2_mp3",
+			"type":"sound",
+			"url":"assets/sound/die2.mp3"
+		},
+		{
+			"name":"jump0_mp3",
+			"type":"sound",
+			"url":"assets/sound/jump0.mp3"
+		},
+		{
+			"name":"jump1_mp3",
+			"type":"sound",
+			"url":"assets/sound/jump1.mp3"
+		},
+		{
+			"name":"jump2_mp3",
+			"type":"sound",
+			"url":"assets/sound/jump2.mp3"
+		},
+		{
+			"name":"jump3_mp3",
+			"type":"sound",
+			"url":"assets/sound/jump3.mp3"
+		},
+		{
+			"name":"jump4_mp3",
+			"type":"sound",
+			"url":"assets/sound/jump4.mp3"
+		},
+		{
+			"name":"game_json",
+			"subkeys":"game_grass0_png,game_grass1_png,game_grass2_png,game_sky_png,game_tree0_png,game_tree1_png,game_tree3_png,item_banana_png,item_carrot_png,item_highwood_png,item_lowwood_png,item_mice_png,item_stone_png,item_water_png,lock_center_png,lock_hand_png,lock_msg_png,lock_phone_png,progress_bar0_png,progress_bar1_png,progress_bg_png,progress_slider_png,scoreBg0_png,scoreBg1_png,scoreBg2_png,shadow_png",
+			"type":"sheet",
+			"url":"assets/game/game.json"
 		}
 	]
 }

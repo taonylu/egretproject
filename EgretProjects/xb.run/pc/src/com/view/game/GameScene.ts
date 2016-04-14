@@ -7,12 +7,12 @@ class GameScene extends BaseScene{
     
     private socket:ClientSocket;
     
-    private sky:eui.Image;  //天空背景
-    private treeLeftGroup:eui.Group; //树Group
+    private sky:eui.Image;              //天空背景
+    private treeLeftGroup:eui.Group;    //树Group
     private treeRightGroup:eui.Group;
     
-    private bg0Group:eui.Group;  //单人赛道
-    private bg1Group:eui.Group;  //多人赛道
+    private bg0Group:eui.Group;  //单人赛道Group
+    private bg1Group:eui.Group;  //多人赛道Group
     private farPotList: Array<egret.Point> = new Array < egret.Point>();    //远点列表
     private nearPotList: Array<egret.Point> = new Array < egret.Point>();   //进点列表
     private trackXList = [];   //赛道X轴偏移量
@@ -24,12 +24,14 @@ class GameScene extends BaseScene{
     private trackDataList:Array<TrackData> = new Array<TrackData>();  //赛道信息列表
     private curTimeCount: number = 0; //生成地图物品，当前时间间隔计数
     private curTimeLimit: number = 0;  //生成地图物品，时间间隔限制时间
-    public mapCreateTimeList = [30,20,15];           //生成物品时间间隔列表，随着游戏时间，关卡等级增加，生成物品时间缩短
-    public mapFruitList = [5,4,3];                            //水果概率
-    public mapBarrList = [3,2,1];                             //障碍物概率
-    public mapMultiFruit = [1,3];                            //当生成水果时，可以生成一串连续的水果，随机  n~m个
-    private curLevel: number = 1;         //当前关卡
-    public moveSpeed: number = 4;   //移动速度
+    public mapCreateTimeList = [30,20,15];  //生成物品时间间隔列表，随着游戏时间，关卡等级增加，生成物品时间缩短
+    public mapFruitList = [];               //水果概率
+    public mapBarrList = [];                //障碍物概率
+    public mapMultiFruit = [];              //当生成水果时，可以生成一串连续的水果，随机  n~m个
+    private curLevel: number = 1;           //当前关卡
+    private moveSpeed: number = 0;          //移动速度
+    private accList = [];                   //加速度列表
+    private moveAcc:number = 0;             //加速度
     
     private gameHeadList:Array<GameHead> = new Array<GameHead>(); //游戏中头像
     private gameHeadPosList = [];  //游戏中头像的y位置，用于排名变化
@@ -43,6 +45,7 @@ class GameScene extends BaseScene{
     private lowWoodPool:ObjectPool = ObjectPool.getPool(LowWood.NAME,1);   //矮木桩对象池
     private waterPool:ObjectPool = ObjectPool.getPool(Water.NAME,1);       //水池对象池
     private scorePoolList = [this.carrotPool, this.bananaPool];            //得分物品对象池数组
+    private numPoolList:ObjectPool = ObjectPool.getPool(ScoreUI.NAME,2);   //+10分对象池
     private zhangAiPoolList = [this.stonePool, this.micePool, this.highWoodPool, this.lowWoodPool, this.waterPool];//障碍物对象池数组
     private itemList = [];           //物品列表(水果、障碍物)
     private itemGroup:eui.Group;     //物品Group
@@ -71,6 +74,10 @@ class GameScene extends BaseScene{
     private countDownTimer:egret.Timer = new egret.Timer(1000);  //倒计时
     private countDownLimit:number = 1;  //倒计时限制
     
+    private gameOverLabel:eui.BitmapLabel;  //倒计时文本
+    
+    private snd:SoundManager = SoundManager.getInstance();
+    
    public gameStatus:number;  //游戏状态
    private status_free:number = 0;
    private status_gameing:number = 1;
@@ -84,13 +91,15 @@ class GameScene extends BaseScene{
     public componentCreated(): void {
         super.componentCreated();
         this.initView();
-        this.gameTimeLimit = GameConst.gameCofig.gameTime;
+        
     }
 
     public onEnable(): void {
+        window["changeBgColor"]("#0cb859");
         this.gameStatus = this.status_free;
         this.resetGame();      //重置游戏
         this.startCountDown(); //开始倒计时
+        this.snd.playBgm(this.snd.bgm_game);
      }
 
     public onRemove(): void {
@@ -116,7 +125,6 @@ class GameScene extends BaseScene{
         this.clearGrass();      //清理草地
         this.resetProgressBar();//重置进度条
         this.resetGameHead();   //重置用户头像
-        
     }
     
     private gameOver(){
@@ -140,8 +148,12 @@ class GameScene extends BaseScene{
         this.mapCreateTimeList = GameConst.gameCofig.mapCreateTimeList;
         this.mapFruitList = GameConst.gameCofig.mapFruitList;
         this.mapBarrList = GameConst.gameCofig.mapBarrList;
-        this.moveSpeed = GameConst.gameCofig.moveSpeed;
         this.mapMultiFruit = GameConst.gameCofig.mapMultiFruit;
+        this.accList = GameConst.gameCofig.accList;
+        this.gameTimeLimit = GameConst.gameCofig.gameTime;
+        this.moveSpeed = GameConst.gameCofig.moveSpeed;
+        
+        this.gameOverLabel.visible = false;
         
         this.initRole();        //初始化角色
         this.initGameHead();    //初始化用户头像
@@ -192,6 +204,7 @@ class GameScene extends BaseScene{
         this.curTimeCount =0;
         this.curTimeLimit = this.mapCreateTimeList[0];
         this.curLevel = 0;
+        this.moveAcc = this.accList[0];
         //赛道信息
         for(var i=0;i<this.multiTrackNum;i++){
             this.trackDataList[i].clear();
@@ -338,6 +351,17 @@ class GameScene extends BaseScene{
                 player.track = Math.floor(this.trackNum / 2) - 2;
             } else if(i == 2) {
                 player.track = Math.floor(this.trackNum / 2) + 2;
+            }
+            if(this.trackNum == this.singleTrackNum) {
+                player.scaleX = 1.2;
+                player.scaleY = 1.2;
+                player.offerX = -90 * 1.2;   //mc中心位置不准确，修正值
+                player.offerY = -255 * 1.2;
+            } else {
+                player.scaleX = 1;
+                player.scaleY = 1;
+                player.offerX = -90;   //mc中心位置不准确，修正值
+                player.offerY = -250;
             }
             player.x = this.nearPotList[player.track].x;
             player.y = this.nearPotList[player.track].y;
@@ -508,8 +532,9 @@ class GameScene extends BaseScene{
                 item.x = this.farPotList[i].x;
                 item.y = this.farPotList[i].y;
                 item.track = i;
-                item.scaleX = 0.1;
-                item.scaleY = 0.1;
+                item.scaleX = 0.05;
+                item.scaleY = 0.05;
+                item.moveSpeedY = this.moveSpeed;
                 this.itemGroup.addChild(item);
                 this.itemList.push(item);
                 this.itemGroup.setChildIndex(item,1);
@@ -538,12 +563,19 @@ class GameScene extends BaseScene{
             item = this.itemList[i];
             track = item.track;
             //移动
-            item.y += this.moveSpeed + this.moveSpeed*item.scaleX*10;
+            //item.y += this.moveSpeed + this.moveSpeed*item.scaleX*10;
+            item.moveSpeedY += this.moveAcc;
+            item.y += item.moveSpeedY + item.moveSpeedY*item.scaleX;
             var rate = (item.y - this.farPotList[track].y) / this.trackYList[track]; //所在y轴位置比例
             item.x = this.farPotList[track].x +  rate* this.trackXList[track];
-            var addScale = rate* 0.6;
-            item.scaleX = 0.1 + addScale;
-            item.scaleY = 0.1 + addScale;
+            if(this.trackNum == this.singleTrackNum){
+                var addScale = rate * 0.6;
+            }else{
+                var addScale = rate * 0.5;
+            }
+            
+            item.scaleX = 0.05 + addScale;
+            item.scaleY = 0.05 + addScale;
             
             //边界检测
             if(item.y > (this.stageHeight + item.height)) {
@@ -566,10 +598,11 @@ class GameScene extends BaseScene{
                             }else if(player.isDie){
                                 //TODO 玩家死亡
                             }else{
-                                item.changeAlpha();
                                 this.itemList.splice(i,1);
+                                item.flyToHead(player.gameHead);
                                 player.score += item.score;
                                 player.gameHead.setScoreLabel(player.score);
+                                this.snd.play(this.snd.coin);
                                 break; //该物品已移除，则不需要继续判断
                             } 
                         }else if(item.type == 1){ //可跨越障碍
@@ -577,10 +610,11 @@ class GameScene extends BaseScene{
                                 //TODO 跳跃，且不触碰物品
                             } else {
                                 player.die();
+                                this.snd.playDie();
                             }
                         }else if(item.type == 2){ //不可跨越障碍物
                             player.die();
-                            
+                            this.snd.playDie();
                         }
                     }
                 }
@@ -616,6 +650,7 @@ class GameScene extends BaseScene{
             grass.x = this.grassFarList[0].x;
             grass.y = this.grassFarList[0].y;
             grass.speedX = -1;
+            grass.speedY = this.moveSpeed;
             this.grassGroup.addChild(grass);
             this.grassList.push(grass);
             
@@ -624,6 +659,7 @@ class GameScene extends BaseScene{
             grass.x = this.grassFarList[1].x;
             grass.y = this.grassFarList[1].y;
             grass.speedX = 1;
+            grass.speedY = this.moveSpeed;
             this.grassGroup.addChild(grass);
             this.grassList.push(grass);
         }
@@ -636,7 +672,9 @@ class GameScene extends BaseScene{
         for(var i=len-1; i>=0; i--){
             grass = this.grassList[i];
             var rate = (grass.y - this.grassFarList[0].y)/(this.grassNearList[0].y - this.grassFarList[0].y);
-            grass.y += this.moveSpeed + grass.scaleX*5;
+            //grass.y += this.moveSpeed + grass.scaleX*5;
+            grass.speedY += this.moveAcc;
+            grass.y += grass.speedY;
             if(grass.speedX > 0){
                 grass.x = this.grassFarList[1].x - (this.grassFarList[1].x - this.grassNearList[1].x ) * rate;
             }else{
@@ -686,12 +724,28 @@ class GameScene extends BaseScene{
             this.curLevel = (level >= this.mapCreateTimeList.length)?(this.mapCreateTimeList.length-1):level;
             this.curTimeCount = 0;
             this.curTimeLimit = this.mapCreateTimeList[this.curLevel];
+            this.moveAcc = this.accList[this.curLevel];
             console.log("当前关卡等级:",this.curLevel);
         }
         //游戏结束判断
-        if(curCount >= this.gameTimeLimit){
-            this.gameOver();
-        } 
+        var leftTime = this.gameTimeLimit - curCount;  //剩余时间
+        if(leftTime <= 3){
+            if(leftTime == 0){
+                this.gameOver();
+                this.gameOverLabel.visible  = false;
+            }else{
+                this.snd.playCountDown(leftTime);
+                this.setGameOverLabel(leftTime);
+            }
+        }
+    }
+    
+    private setGameOverLabel(time:number){
+        this.gameOverLabel.visible = true;
+        this.gameOverLabel.scaleX = 0;
+        this.gameOverLabel.scaleY = 0;
+        this.gameOverLabel.text = time + "";
+        egret.Tween.get(this.gameOverLabel).to({scaleX:2,scaleY:2},800,egret.Ease.elasticOut);
     }
     
     //停止计时
@@ -726,7 +780,7 @@ class GameScene extends BaseScene{
     public deleteUser(openid:string){
         //清理用户列表
         var userManager: UserManager = UserManager.getInstance();
-        userManager.deleteUser(openid);
+        //userManager.deleteUser(openid);
         //所有人退出，则游戏结束
         if(userManager.getUserNum() == 0){
             this.gameOver();
@@ -802,6 +856,7 @@ class GameScene extends BaseScene{
             }
         }else if(actionType == "up"){
             player.jump();
+            this.snd.playJump();
         }
         
     }
@@ -865,6 +920,7 @@ class GameScene extends BaseScene{
             this.resultData.rankList = data.rankList;
             this.resultData.gameRankList = data.gameRankList;
         }
+        SoundManager.getInstance().stopBgm();
         LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
     }
 }

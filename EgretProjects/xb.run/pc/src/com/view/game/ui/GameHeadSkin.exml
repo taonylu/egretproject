@@ -3,5 +3,5 @@
 	<e:Image id="bg" y="24" x="29" source="scoreBg0_png"/>
 	<e:Group id="headGroup" height="65" width="65" x="36" y="82"/>
 	<e:Label id="nameLabel" text="标签标签标签标签" x="104" y="91" width="167" textColor="0x020000" fontFamily="微软雅黑" size="18" height="30" verticalAlign="middle" textAlign="center"/>
-	<e:Label id="scoreLabel" y="117" text="99999" fontFamily="微软雅黑" width="140" size="50" x="104" height="48" verticalAlign="middle" textAlign="center" textColor="0x343131"/>
+	<e:Label id="scoreLabel" y="117" text="99" fontFamily="微软雅黑" width="166" size="50" x="104" height="48" verticalAlign="middle" textAlign="center" textColor="0x343131"/>
 </e:Skin>

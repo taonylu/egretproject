@@ -9,6 +9,7 @@ class ResultScene extends BaseScene{
     private countDownLabel:eui.EditableText;
     private countDownTimer:egret.Timer = new egret.Timer(1000);
     private countDownLimit:number = 0;
+    private snd:SoundManager = SoundManager.getInstance();
     
 	public constructor() {
     	super("ResultSceneSkin");
@@ -30,7 +31,9 @@ class ResultScene extends BaseScene{
     }
 
     public onEnable(): void {
+        window["changeBgColor"]("#5b7cf2");
         this.showResult();
+        this.snd.play(this.snd.gameover);
     }
     
     public showResult(){
@@ -49,7 +52,8 @@ class ResultScene extends BaseScene{
             var scoreHead:ScoreHead = this.scoreHeadList[i];
             scoreHead.setNameLabel(gameRankList[i].nickName);
             scoreHead.loadImg(gameRankList[i].headUrl);
-            scoreHead.setScoreLabel("得分：" + gameRankList[i].score + " 排名：" + gameRankList[i].rank);
+            scoreHead.setScoreLabel(gameRankList[i].score);
+            //scoreHead.setRankLabel(gameRankList[i].rank);
         }
         //清理1-10排名
         for(var i=0;i<10;i++){

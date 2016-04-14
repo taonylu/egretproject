@@ -38,7 +38,6 @@ var ResultScene = (function (_super) {
             this.headList[i].setNameLabel(gameRankList[i].nickName);
             this.headList[i].setScoreLabel(gameRankList[i].score);
             this.headList[i].loadImg(gameRankList[i].headUrl);
-            this.headList[i].setRankLabel(gameRankList[i].rank);
         }
         //清理历史排行
         for (var i = 0; i < 10; i++) {

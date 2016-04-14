@@ -194,6 +194,21 @@
 					"name":"result_json"
 				},
 				{
+					"isFolder":false,
+					"key":"player0_png",
+					"name":"player0_png"
+				},
+				{
+					"isFolder":false,
+					"key":"player1_png",
+					"name":"player1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"player2_png",
+					"name":"player2_png"
+				},
+				{
 					"children":[
 						{
 							"isFolder":false,
@@ -212,8 +227,8 @@
 						},
 						{
 							"isFolder":false,
-							"key":"game_sky_jpg",
-							"name":"game_sky_jpg"
+							"key":"game_sky_png",
+							"name":"game_sky_png"
 						},
 						{
 							"isFolder":false,
@@ -329,21 +344,6 @@
 					"isFolder":false,
 					"key":"game_json",
 					"name":"game_json"
-				},
-				{
-					"isFolder":false,
-					"key":"player0_png",
-					"name":"player0_png"
-				},
-				{
-					"isFolder":false,
-					"key":"player1_png",
-					"name":"player1_png"
-				},
-				{
-					"isFolder":false,
-					"key":"player2_png",
-					"name":"player2_png"
 				}
 			]
 		}

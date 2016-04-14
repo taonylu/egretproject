@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="ScoreUISkin" width="200" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Label id="scoreLabel" text="+10" height="100" width="200" verticalAlign="middle" textAlign="center" fontFamily="微软雅黑" size="50" textColor="0xF9F7F3"/>
+</e:Skin>

@@ -42,7 +42,7 @@ class Player extends SimpleMC{
         	this.isJumping = true;
             this.gotoAndPlay("jump",1);
             var self = this;
-            egret.Tween.get(this).to({ y: this.initY - 200},300).to({ y: this.initY },300).
+            egret.Tween.get(this).to({ y: this.initY - 150},300).to({ y: this.initY },300).
                 call(function() {
                     self.isJumping = false;
                     self.run();

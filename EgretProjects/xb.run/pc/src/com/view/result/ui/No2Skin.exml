@@ -2,6 +2,6 @@
 <e:Skin class="No2Skin" width="300" height="420" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="result_no2_png" y="0"/>
 	<e:Group id="headGroup" height="150" width="150" y="140" x="75"/>
-	<e:Label id="nameLabel" text="标签" y="298" width="210" size="20" fontFamily="微软雅黑" textColor="0x010000" verticalAlign="middle" textAlign="center" horizontalCenter="0"/>
-	<e:Label id="scoreLabel" y="326" textColor="0x010000" text="标签" fontFamily="微软雅黑" textAlign="center" width="210" verticalAlign="middle" size="20" horizontalCenter="0"/>
+	<e:Label id="nameLabel" text="标签" y="298" width="177" size="20" fontFamily="微软雅黑" textColor="0x010000" verticalAlign="middle" textAlign="left" x="63"/>
+	<e:Label id="scoreLabel" y="326" textColor="0x010000" text="标签" fontFamily="微软雅黑" textAlign="left" width="177" verticalAlign="middle" size="20" x="63"/>
 </e:Skin>

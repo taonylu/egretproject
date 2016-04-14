@@ -12,14 +12,15 @@ var BaseItem = (function (_super) {
         this.className = egret.getQualifiedClassName(this);
     }
     var d = __define,c=BaseItem,p=c.prototype;
-    p.changeAlpha = function () {
+    p.flyToHead = function (gameHead) {
         var self = this;
-        egret.Tween.get(this).to({ y: (this.y - 300), alpha: 0 }, 200).call(function () {
+        egret.Tween.get(this).to({ y: this.y - 200 }, 200).to({ x: gameHead.x, y: gameHead.y, scaleX: 0.1, scaleY: 0.1 }, 1000, egret.Ease.circIn).call(function () {
             self.recycle();
         });
     };
     p.recycle = function () {
-        this.alpha = 1;
+        this.scaleX = 1;
+        this.scaleY = 1;
         this.parent && this.parent.removeChild(this);
         ObjectPool.getPool(this.className).returnObject(this);
     };
