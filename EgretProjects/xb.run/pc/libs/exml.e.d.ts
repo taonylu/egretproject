@@ -4,6 +4,8 @@ declare class GameHeadSkin extends eui.Skin{
 }
 declare class HeadUI2Skin extends eui.Skin{
 }
+declare class ScoreUISkin extends eui.Skin{
+}
 declare class HomeSceneSkin extends eui.Skin{
 }
 declare class LockSceneSkin extends eui.Skin{

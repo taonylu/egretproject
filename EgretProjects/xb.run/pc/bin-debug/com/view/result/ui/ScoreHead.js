@@ -15,6 +15,7 @@ var ScoreHead = (function (_super) {
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
         this.nameLabel.text = "";
+        this.scoreLabel.text = "";
         this.headImg = new egret.Bitmap();
         this.headImg.width = this.imgWidth;
         this.headImg.height = this.imgHeight;
@@ -24,7 +25,7 @@ var ScoreHead = (function (_super) {
         this.nameLabel.text = "昵称：" + _name;
     };
     p.setScoreLabel = function (msg) {
-        this.scoreLabel.text = msg;
+        this.scoreLabel.text = "得分：" + msg;
     };
     p.loadImg = function (imgUrl) {
         this.imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onLoadError, this);

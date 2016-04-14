@@ -33,6 +33,7 @@ class HomeScene extends BaseScene{
     private leftArrow:eui.Image;    //左箭头
     private rightArrow:eui.Image;   //右箭头
     
+    private snd:SoundManager = SoundManager.getInstance();
     
     
     public constructor() {
@@ -47,11 +48,15 @@ class HomeScene extends BaseScene{
     }
 
     public onEnable(): void {
+        window["changeBgColor"]("#35ed94");
         this.resetScene();    //重置场景
+        this.snd.playBgm(this.snd.bgm_home);
+        
     }
 
     public onRemove(): void {
         //this.stopFengAnim();
+        this.snd.stopBgm();
     }
     
     //初始化视图
@@ -110,12 +115,20 @@ class HomeScene extends BaseScene{
         egret.Tween.get(this.phone0,{ loop: true }).wait(1500).to({ rotation: -30 },200).to({ rotation: 0 },200).wait(1200) //左移
         .to({rotation:30},200).to({rotation:0},200).wait(1200) //右移
         .call(function(){
-            self.phone0.visible = false;
-            self.phone1.visible = true;
+            self.changePhoneVisible(false);
         }).wait(200).call(function(){
-            self.phone0.visible = true;
-            self.phone1.visible = false;
+            self.changePhoneVisible(true);
         }).wait(200);
+    }
+    
+    private changePhoneVisible(isPhone0:boolean){
+        if(isPhone0){
+            this.phone0.visible = true;
+            this.phone1.visible = false;
+        }else{
+            this.phone0.visible = false;
+            this.phone1.visible = true;
+        }
     }
     
     //停止人物动画

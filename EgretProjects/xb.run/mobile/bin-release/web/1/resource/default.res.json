@@ -1,15 +1,15 @@
 {
 	"groups":[
 		{
-			"keys":"preload_json,preload_png",
+			"keys":"preload_json",
 			"name":"preload"
 		},
 		{
-			"keys":"home_json,home_png",
+			"keys":"home_json",
 			"name":"home"
 		},
 		{
-			"keys":"common_json,common_png,result_json,result_png,rankFont_png,rankFont_fnt",
+			"keys":"common_json,result_json,rankFont_fnt",
 			"name":"result"
 		}
 	],

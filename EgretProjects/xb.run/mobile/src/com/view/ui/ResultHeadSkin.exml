@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="ResultHeadSkin" width="130" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Group id="imgGroup" height="75" width="75" y="0" x="23"/>
-	<e:Label id="nameLabel" text="标签标签标签标签" y="74" width="126" size="16" textColor="0x060000" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center" height="35" x="2"/>
-	<e:Label id="scoreLabel" y="107" textColor="0x060000" size="16" text="得分：123" fontFamily="微软雅黑" textAlign="center" width="127" verticalAlign="middle" height="17" x="2"/>
-	<e:Label id="rankLabel" y="128" textColor="0x060000" size="16" text="排名：123" fontFamily="微软雅黑" textAlign="center" width="127" verticalAlign="middle" height="17" x="2"/>
+	<e:Label id="nameLabel" text="AAAAA" y="79" width="126" size="16" textColor="0x060000" fontFamily="微软雅黑" verticalAlign="middle" textAlign="left" height="35" x="2"/>
+	<e:Label id="scoreLabel" y="117" textColor="0x060000" size="16" text="得分：99" fontFamily="微软雅黑" textAlign="left" width="127" verticalAlign="middle" height="17" x="2"/>
 </e:Skin>

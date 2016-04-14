@@ -42,7 +42,7 @@ io.on('connection', function(socket){
         if(userType == "mobile"){
         	var pcSocket = pcUser[rid];
         	if(pcSocket){
-        		pcSocket.emit('userJoin', {openid:Math.random() + "",headUrl:"",nickName:"ABC"});
+        		pcSocket.emit('userJoin', {openid:data.openid,headUrl:"",nickName:"ABC"});
         	}
         }
 

@@ -11,6 +11,7 @@ var HomeScene = (function (_super) {
         this.countDownTimer = new egret.Timer(1000); //倒计时计时器
         this.countDownLimit = 15; //倒计时限制
         this.headList = new Array(); //头像UI
+        this.snd = SoundManager.getInstance();
     }
     var d = __define,c=HomeScene,p=c.prototype;
     p.componentCreated = function () {
@@ -20,10 +21,13 @@ var HomeScene = (function (_super) {
         this.initView();
     };
     p.onEnable = function () {
+        window["changeBgColor"]("#35ed94");
         this.resetScene(); //重置场景
+        this.snd.playBgm(this.snd.bgm_home);
     };
     p.onRemove = function () {
         //this.stopFengAnim();
+        this.snd.stopBgm();
     };
     //初始化视图
     p.initView = function () {
@@ -75,12 +79,20 @@ var HomeScene = (function (_super) {
         egret.Tween.get(this.phone0, { loop: true }).wait(1500).to({ rotation: -30 }, 200).to({ rotation: 0 }, 200).wait(1200) //左移
             .to({ rotation: 30 }, 200).to({ rotation: 0 }, 200).wait(1200) //右移
             .call(function () {
-            self.phone0.visible = false;
-            self.phone1.visible = true;
+            self.changePhoneVisible(false);
         }).wait(200).call(function () {
-            self.phone0.visible = true;
-            self.phone1.visible = false;
+            self.changePhoneVisible(true);
         }).wait(200);
+    };
+    p.changePhoneVisible = function (isPhone0) {
+        if (isPhone0) {
+            this.phone0.visible = true;
+            this.phone1.visible = false;
+        }
+        else {
+            this.phone0.visible = false;
+            this.phone1.visible = true;
+        }
     };
     //停止人物动画
     p.stopPlayerAnim = function () {

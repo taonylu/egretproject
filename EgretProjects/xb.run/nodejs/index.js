@@ -42,7 +42,7 @@ io.on('connection', function(socket){
         if(userType == "mobile"){
         	var pcSocket = pcUser[rid];
         	if(pcSocket){
-        		pcSocket.emit('userJoin', {openid:"123",headUrl:"",nickName:"ABC"});
+        		pcSocket.emit('userJoin', {openid:data.openid,headUrl:"",nickName:"ABC"});
         	}
         }
 
@@ -78,7 +78,7 @@ function initPC(socket){
     socket.on('assignRole',function(data){
     	if(pcUser[socket.name]){
 			if(mobileUser[socket.name]){
-				mobileUser[socket.name].emit('assignRole',{roleType:1});
+				mobileUser[socket.name].emit('assignRole',{roleType:2});
 			}
     	}
     });

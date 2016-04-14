@@ -11,6 +11,7 @@ var ResultScene = (function (_super) {
         this.rankHeadList = new Array(); //排名1-10头像
         this.countDownTimer = new egret.Timer(1000);
         this.countDownLimit = 0;
+        this.snd = SoundManager.getInstance();
     }
     var d = __define,c=ResultScene,p=c.prototype;
     p.componentCreated = function () {
@@ -26,7 +27,9 @@ var ResultScene = (function (_super) {
         this.countDownLimit = GameConst.gameCofig.resultTime;
     };
     p.onEnable = function () {
+        window["changeBgColor"]("#5b7cf2");
         this.showResult();
+        this.snd.play(this.snd.gameover);
     };
     p.showResult = function () {
         var data = GameManager.getInstance().gameScene.resultData;
@@ -43,7 +46,7 @@ var ResultScene = (function (_super) {
             var scoreHead = this.scoreHeadList[i];
             scoreHead.setNameLabel(gameRankList[i].nickName);
             scoreHead.loadImg(gameRankList[i].headUrl);
-            scoreHead.setScoreLabel("得分：" + gameRankList[i].score + " 排名：" + gameRankList[i].rank);
+            scoreHead.setScoreLabel(gameRankList[i].score);
         }
         //清理1-10排名
         for (var i = 0; i < 10; i++) {
