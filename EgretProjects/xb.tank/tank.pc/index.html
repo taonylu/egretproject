@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Egret</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <style>
+        html, body {
+            -ms-touch-action: none;
+            background: #888888;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+
+    <!--这个标签为通过egret提供的第三方库的方式生成的 javascript 文件。删除 modules_files 标签后，库文件加载列表将不会变化，请谨慎操作！-->
+    <!--modules_files_start-->
+	<script egret="lib" src="libs/modules/egret/egret.js" src-release="libs/modules/egret/egret.min.js"></script>
+	<script egret="lib" src="libs/modules/egret/egret.web.js" src-release="libs/modules/egret/egret.web.min.js"></script>
+	<script egret="lib" src="libs/modules/eui/eui.js" src-release="libs/modules/eui/eui.min.js"></script>
+	<script egret="lib" src="libs/modules/res/res.js" src-release="libs/modules/res/res.min.js"></script>
+	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
+	<script egret="lib" src="libs/modules/game/game.js" src-release="libs/modules/game/game.min.js"></script>
+	<script egret="lib" src="libs/modules/game/game.web.js" src-release="libs/modules/game/game.web.min.js"></script>
+	<script egret="lib" src="libs/modules/socket.io/socket.io.js" src-release="libs/modules/socket.io/socket.io.min.js"></script>
+	<!--modules_files_end-->
+
+    <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
+    <!--other_libs_files_start-->
+    <!--other_libs_files_end-->
+
+    <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
+    <!--game_files_start-->
+	<script egret="game" src="bin-debug/AssetAdapter.js"></script>
+	<script egret="game" src="bin-debug/com/common/GameFactory.js"></script>
+	<script egret="game" src="bin-debug/com/common/MapManager.js"></script>
+	<script egret="game" src="bin-debug/com/constant/GameConst.js"></script>
+	<script egret="game" src="bin-debug/com/GameManager.js"></script>
+	<script egret="game" src="bin-debug/com/model/LevelData.js"></script>
+	<script egret="game" src="bin-debug/com/net/ClientSocket.js"></script>
+	<script egret="game" src="bin-debug/com/utils/manager/LayerManager.js"></script>
+	<script egret="game" src="bin-debug/com/utils/manager/LoadManager.js"></script>
+	<script egret="game" src="bin-debug/com/utils/scene/BaseScene.js"></script>
+	<script egret="game" src="bin-debug/com/utils/scene/BaseUI.js"></script>
+	<script egret="game" src="bin-debug/com/utils/tool/ArrayTool.js"></script>
+	<script egret="game" src="bin-debug/com/utils/tool/HttpUtil.js"></script>
+	<script egret="game" src="bin-debug/com/utils/tool/NumberTool.js"></script>
+	<script egret="game" src="bin-debug/com/utils/tool/ObjectPool.js"></script>
+	<script egret="game" src="bin-debug/com/utils/tool/QRCodeLoader.js"></script>
+	<script egret="game" src="bin-debug/com/utils/tool/ShakeTool.js"></script>
+	<script egret="game" src="bin-debug/com/utils/tool/StringTool.js"></script>
+	<script egret="game" src="bin-debug/com/utils/ui/HeadUI.js"></script>
+	<script egret="game" src="bin-debug/com/utils/ui/SimpleMC.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/GameScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/other/BaseItem.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/other/BaseTile.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/other/Boom.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/other/Bullet.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/tank/BaseTank.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/tank/FastTank.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/tank/NormalTank.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/tank/PlayerTank.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/tank/StrongTank.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/tank/SuperTank.js"></script>
+	<script egret="game" src="bin-debug/com/view/home/HomeScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/preload/PreloadScene.js"></script>
+	<script egret="game" src="bin-debug/Main.js"></script>
+	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
+	<!--game_files_end-->
+</head>
+<body>
+
+    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+         data-entry-class="Main"
+         data-orientation="portrait"
+         data-scale-mode="fixedWidth"
+         data-frame-rate="60"
+         data-content-width="2560"
+         data-content-height="1440"
+         data-show-paint-rect="false"
+         data-multi-fingered="2"
+         data-show-fps="true" data-show-log="true"
+         data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
+    </div>
+    
+    <!-- 二维码 -->
+    <script type="text/javascript" src="jquery-1.5.2.min.js"></script> 
+    <script type="text/javascript" src="jquery.qrcode.min.js"></script> 
+    <div id="code" style="display:none"></div>
+    <!-- end 二维码 -->
+    
+
+    <script>
+    	//--------------游戏配置------------
+    	var gameConfig = {};
+    	gameConfig.debug = true;
+    	
+    	gameConfig.codeUrl = "";
+    	gameConfig.codeWidth = 100;
+    	gameConfig.codeHeight = 100;
+    	gameConfig.codeData = "";
+    	gameConfig.codeUrl = "http://node.ekche.com/game/paoku/mobile";
+    	
+    	gameConfig.server = "http://node.ekche.com:4300/screen";         //服务器地址
+
+    	//-------------end 游戏配置----------
+    	
+    	//创建二维码图片，提供图片dataUrl给egret创建Image
+    	function createQRCode(){
+	    	var rid = new Date().getTime() + Math.round(Math.random()*100) + "";
+	    	var codeUrl = gameConfig.codeUrl + "?rid=" + rid;
+	    	var codeWidth = gameConfig.codeWidth;
+	    	var codeHeight = gameConfig.codeHeight;
+	    	$("#code").qrcode({ width: codeWidth, height:codeHeight,text:codeUrl });
+	    	var i=$("#code > canvas");
+	    	var codeData=i[0].toDataURL();
+	    	gameConfig.codeData = codeData;
+	    	//删除所有子节点
+	    	var codeDiv = document.getElementById("code");
+	    	codeDiv.innerHTML = "";
+	    	console.log("createQRCode Complete:",codeUrl);
+	    	return rid;
+    	}
+
+    	//运行游戏
+        egret.runEgret({renderMode:"canvas"});
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
