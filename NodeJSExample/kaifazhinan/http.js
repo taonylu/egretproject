@@ -1,19 +1,26 @@
 
-var app = require('express')();         //引入express
-var http = require('http').Server(app);
+//var app = require('express')();         //引入express
+//var http = require('http').Server(app);
+var http = require('http');
 
 //加载模块，file相当于一个单例类，无论require多少次，指向同一个对象
-var file = require('./com/io/readfile.js');
-var event = require('./com/event/event.js');
-var single = require('./com/module/single.js');
+//var file = require('./com/io/readfile.js');
+//var event = require('./com/event/event.js');
+//var single = require('./com/module/single.js');
 
 
-app.get('/', function(req, res){
-    res.send("welcome");  //在浏览器打开时显示在页面上的信息..
-});
+http.createServer(function(request,response){
+	response.writeHead(200,{'Content-Type':'text/plain'});
+	response.end('Hello World\n');
+}).listen(8888);
 
-http.listen(3000, function(){
-    console.log('listening on *:3000');
+// app.get('/', function(req, res){
+//     res.send("welcome");  //在浏览器打开时显示在页面上的信息..
+//     res.end("123");
+// });
+
+// http.listen(3000, function(){
+//     console.log('listening on *:3000');
     
     //file.readFile();      //测试读取文本
     //event.eventTest();    //测试事件
@@ -35,7 +42,7 @@ http.listen(3000, function(){
 //    hello.setName("peter2");
 //    console.log(hello.getName());  //peter2
 
-});
+// });
 
 
 console.log("HTTP server is listening at port 3000.");
