@@ -6,7 +6,7 @@
 var PlayerTank = (function (_super) {
     __extends(PlayerTank, _super);
     function PlayerTank() {
-        _super.call(this, "playerTank_png", "playerTank_json", "playerTank");
+        _super.call(this, "player", 0, 1);
         this.reset();
     }
     var d = __define,c=PlayerTank,p=c.prototype;

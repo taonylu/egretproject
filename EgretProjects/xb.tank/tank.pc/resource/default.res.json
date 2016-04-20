@@ -5,13 +5,85 @@
 			"name":"preload"
 		},
 		{
-			"keys":"home_thxbg_jpg",
+			"keys":"home_thxbg_jpg,tile1_png,tile2_png,tile3_png,tile4_png,tile5_png,level1_json,level2_json,level3_json,level4_json,level5_json,level6_json,map_json,player0_png,player1_png",
 			"name":"game"
 		}
 	],
-	"resources":[{
+	"resources":[
+		{
 			"name":"home_thxbg_jpg",
 			"type":"image",
 			"url":"assets/home_thxbg.jpg"
-		}]
+		},
+		{
+			"name":"tile1_png",
+			"type":"image",
+			"url":"assets/tile1.png"
+		},
+		{
+			"name":"tile2_png",
+			"type":"image",
+			"url":"assets/tile2.png"
+		},
+		{
+			"name":"tile3_png",
+			"type":"image",
+			"url":"assets/tile3.png"
+		},
+		{
+			"name":"tile4_png",
+			"type":"image",
+			"url":"assets/tile4.png"
+		},
+		{
+			"name":"tile5_png",
+			"type":"image",
+			"url":"assets/tile5.png"
+		},
+		{
+			"name":"level1_json",
+			"type":"json",
+			"url":"assets/map/level1.json"
+		},
+		{
+			"name":"level2_json",
+			"type":"json",
+			"url":"assets/map/level2.json"
+		},
+		{
+			"name":"level3_json",
+			"type":"json",
+			"url":"assets/map/level3.json"
+		},
+		{
+			"name":"level4_json",
+			"type":"json",
+			"url":"assets/map/level4.json"
+		},
+		{
+			"name":"level5_json",
+			"type":"json",
+			"url":"assets/map/level5.json"
+		},
+		{
+			"name":"level6_json",
+			"type":"json",
+			"url":"assets/map/level6.json"
+		},
+		{
+			"name":"map_json",
+			"type":"json",
+			"url":"assets/map/map.json"
+		},
+		{
+			"name":"player0_png",
+			"type":"image",
+			"url":"assets/tank/player0.png"
+		},
+		{
+			"name":"player1_png",
+			"type":"image",
+			"url":"assets/tank/player1.png"
+		}
+	]
 }

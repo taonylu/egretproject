@@ -7,6 +7,8 @@ class BaseTile extends egret.Bitmap{
     public static NAME:string = "BaseTile";
     public type:TileEnum;    //类型
     public life:number = 0;  //生命值
+    public row:number;
+    public col:number;
     
 	public constructor() {
     	super();
@@ -16,6 +18,8 @@ class BaseTile extends egret.Bitmap{
 	public setType(type:TileEnum){
     	this.type = type;
     	this.bitmapData = RES.getRes("tile" + type + "_png");
+    	this.anchorOffsetX = this.width/2;
+    	this.anchorOffsetY = this.height/2;
 	}
 	
     /**

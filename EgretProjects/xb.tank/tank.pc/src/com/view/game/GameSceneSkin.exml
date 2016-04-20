@@ -1,2 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="GameSceneSkin" width="2560" height="1440" xmlns:e="http://ns.egret.com/eui"></e:Skin>
+<e:Skin class="GameSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="footTileGroup" width="1280" height="1024" horizontalCenter="0" verticalCenter="0">
+		<e:Rect height="1024" width="1280" fillColor="0x8E03F9"/>
+	</e:Group>
+	<e:Group id="bulletGroup" width="1280" height="1024" horizontalCenter="0" verticalCenter="0"/>
+	<e:Group id="tankGroup" width="1280" height="1024" horizontalCenter="0" verticalCenter="0"/>
+	<e:Group id="topTileGroup" height="1024" width="1280" horizontalCenter="0" verticalCenter="0"/>
+</e:Skin>

@@ -5,24 +5,56 @@
  */
 var BaseTank = (function (_super) {
     __extends(BaseTank, _super);
-    function BaseTank(pngName, jsonName, mcName) {
-        _super.call(this, pngName, jsonName, mcName);
+    function BaseTank(imgName, start, end) {
+        _super.call(this);
         this.className = ""; //类名
         this.skin = ""; //坦克皮肤
-        this.speed = 0; //移动速度
+        this.speed = 4; //移动速度
         this.speedX = 0;
         this.speedY = 0;
-        this.direction = 0; //移动方向 -1停 0上 1下 2左 3右
+        this.direction = ""; //移动方向
         this.power = 0; //子弹威力
         this.life = 0; //生命值
         this.shootTime = 0; //射击间隔时间，单位ms
         this.shootCount = 0; //射击计时，单位帧
         this.className = egret.getQualifiedClassName(this);
+        this.addTexture(imgName, start, end);
+        this.anchorOffsetX = this.width / 2;
+        this.anchorOffsetY = this.height / 2;
     }
     var d = __define,c=BaseTank,p=c.prototype;
     p.move = function () {
         this.x += this.speedX;
         this.y += this.speedY;
+    };
+    p.setDirection = function (direction) {
+        this.direction = direction;
+        switch (this.direction) {
+            case "up":
+                this.speedX = 0;
+                this.speedY = -this.speed;
+                this.rotation = 0;
+                break;
+            case "down":
+                this.speedX = 0;
+                this.speedY = this.speed;
+                this.rotation = 180;
+                break;
+            case "left":
+                this.speedX = -this.speed;
+                this.speedY = 0;
+                this.rotation = -90;
+                break;
+            case "right":
+                this.speedX = this.speed;
+                this.speedY = 0;
+                this.rotation = 90;
+                break;
+            case "stopMove":
+                this.speedX = 0;
+                this.speedY = 0;
+                break;
+        }
     };
     //自动射击
     p.autoShoot = function () {
@@ -38,16 +70,16 @@ var BaseTank = (function (_super) {
         bullet.type = this.type;
         bullet.power = this.power;
         switch (this.direction) {
-            case 0:
+            case "up":
                 bullet.speedY = -bullet.speed;
                 break;
-            case 1:
+            case "down":
                 bullet.speedY = bullet.speed;
                 break;
-            case 2:
+            case "left":
                 bullet.speedX = -bullet.speed;
                 break;
-            case 3:
+            case "right":
                 bullet.speedX = bullet.speed;
                 break;
         }
@@ -78,5 +110,5 @@ var BaseTank = (function (_super) {
         ObjectPool.getPool(this.className).returnObject(this);
     };
     return BaseTank;
-}(SimpleMC));
+}(CMovieClip));
 egret.registerClass(BaseTank,'BaseTank');

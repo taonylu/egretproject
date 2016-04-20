@@ -9,12 +9,15 @@
 */
 var MapManager = (function () {
     function MapManager() {
-        this.rowMax = 10; //地图行数
-        this.colMax = 9; //地图列数
-        this.tileWidth = 128; //tile宽度
-        this.tileHeight = 128; //tile高度
+        this.rowMax = 16; //地图行数
+        this.colMax = 20; //地图列数
+        this.tileWidth = 64; //tile宽度
+        this.tileHeight = 64; //tile高度
+        this.halfWidth = 32;
+        this.halfHeight = 32;
         this.levelLimit = 6; //地图数量
         this.curLevel = 1; //当前关卡
+        this.createPos = [[15, 6], [15, 11]]; //生成点
         this.levelList = new Array();
     }
     var d = __define,c=MapManager,p=c.prototype;
@@ -28,19 +31,28 @@ var MapManager = (function () {
         var level = json.level;
         for (var i = 0; i < this.levelLimit; i++) {
             var levelData = new LevelData();
-            var arr2D = []; //将tile导出的一维数组转成二维数组
-            for (var m = 0; m < this.rowMax; m++) {
-                arr2D[m] = [];
-                for (var n = 0; n < this.colMax; n++) {
-                    arr2D[m][n] = level[i].data[this.rowMax * m + n];
-                }
-            }
-            levelData.mapData = arr2D;
             levelData.normalTank = level[i].normalTank;
             levelData.fastTank = level[i].fastTank;
             levelData.strongTank = level[i].strongTank;
             levelData.superTank = level[i].superTank;
             this.levelList[i] = levelData;
+        }
+        for (var i = 1; i <= this.levelLimit; i++) {
+            var json = RES.getRes("level" + i + "_json");
+            if (json == null) {
+                console.log("第" + i + "关配置文件不存在");
+                return;
+            }
+            var data = json.layers[0].data;
+            var levelData = this.levelList[i - 1];
+            var arr2D = []; //将tile导出的一维数组转成二维数组
+            for (var m = 0; m < this.rowMax; m++) {
+                arr2D[m] = [];
+                for (var n = 0; n < this.colMax; n++) {
+                    arr2D[m][n] = data[this.colMax * m + n];
+                }
+            }
+            levelData.mapData = arr2D;
         }
     };
     MapManager.getInstance = function () {

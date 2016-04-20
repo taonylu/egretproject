@@ -39,17 +39,15 @@
     <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
     <!--game_files_start-->
 	<script egret="game" src="bin-debug/AssetAdapter.js"></script>
+	<script egret="game" src="bin-debug/com/common/UserManager.js"></script>
 	<script egret="game" src="bin-debug/com/constant/GameConst.js"></script>
 	<script egret="game" src="bin-debug/com/GameManager.js"></script>
 	<script egret="game" src="bin-debug/com/net/ClientSocket.js"></script>
-	<script egret="game" src="bin-debug/com/utils/gesture/GestureDrag.js"></script>
-	<script egret="game" src="bin-debug/com/utils/gesture/GesturePinch.js"></script>
 	<script egret="game" src="bin-debug/com/utils/manager/LayerManager.js"></script>
 	<script egret="game" src="bin-debug/com/utils/manager/LoadManager.js"></script>
 	<script egret="game" src="bin-debug/com/utils/scene/BaseScene.js"></script>
 	<script egret="game" src="bin-debug/com/utils/scene/BaseUI.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/HttpUtil.js"></script>
-	<script egret="game" src="bin-debug/com/utils/tool/QRCode.js"></script>
 	<script egret="game" src="bin-debug/com/utils/tool/StringTool.js"></script>
 	<script egret="game" src="bin-debug/com/utils/ui/HeadUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/GameScene.js"></script>
@@ -63,17 +61,24 @@
 
     <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
          data-entry-class="Main"
-         data-orientation="portrait"
-         data-scale-mode="fixedWidth"
+         data-orientation="landScape"
+         data-scale-mode="noBorder"
          data-frame-rate="30"
-         data-content-width="480"
-         data-content-height="800"
+         data-content-width="800"
+         data-content-height="480"
          data-show-paint-rect="false"
          data-multi-fingered="2"
          data-show-fps="true" data-show-log="true"
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>
+    	var gameConfig = {};
+    	gameConfig.openid =  Math.random();
+    	gameConfig.headimgurl = "";
+    	gameConfig.nickname = "";
+    	gameConfig.rid = "1";
+    	gameConfig.server = "http://192.168.1.111:3000";
+    	
         egret.runEgret({renderMode:"canvas"});
     </script>
 </body>

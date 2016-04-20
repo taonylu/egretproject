@@ -38,7 +38,8 @@
 
 
 class QRCodeLoader  extends egret.DisplayObjectContainer{
-    
+    private imageLoader: egret.ImageLoader;  //二维码加载器
+    private logoLoader:egret.ImageLoader;    //logo加载器
     private qrcodeWidth:number;  //二维码高宽
     private qrcodeHeight:number;
     private logoUrl:string = ""; //logo地址
@@ -54,10 +55,13 @@ class QRCodeLoader  extends egret.DisplayObjectContainer{
         this.qrcodeHeight = height;
         this.logoUrl = logoUrl;
         
-        var imageLoader: egret.ImageLoader = new egret.ImageLoader();
-        imageLoader.addEventListener(egret.Event.COMPLETE,this.onQRCodeComplete,this);
-        imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onQRCodeError, this);
-        imageLoader.load(dataUrl); 
+        if(this.imageLoader == null){
+            this.imageLoader = new egret.ImageLoader();
+            this.imageLoader.addEventListener(egret.Event.COMPLETE,this.onQRCodeComplete,this);
+            this.imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onQRCodeError,this);
+        }
+
+        this.imageLoader.load(dataUrl); 
     }
     
     private onQRCodeError():void{
@@ -67,25 +71,25 @@ class QRCodeLoader  extends egret.DisplayObjectContainer{
     //加载QRCode完成
     private onQRCodeComplete(event:egret.Event):void {
         //生成二维码
-        var imageLoader = <egret.ImageLoader>event.currentTarget;
-        var bitmap: egret.Bitmap = new egret.Bitmap(imageLoader.data);
+        var bitmap: egret.Bitmap = new egret.Bitmap(this.imageLoader.data);
         bitmap.width = this.qrcodeWidth;
         bitmap.height = this.qrcodeHeight;
         this.addChild(bitmap);
         
         //加载logo
         if(this.logoUrl != ""){
-            var imageLoader: egret.ImageLoader = new egret.ImageLoader();
-            imageLoader.addEventListener(egret.Event.COMPLETE,this.onlogoComplete,this);
-            imageLoader.load(this.logoUrl); 
+            if(this.logoLoader == null){
+                this.logoLoader = new egret.ImageLoader();
+                this.logoLoader.addEventListener(egret.Event.COMPLETE,this.onlogoComplete,this);
+            }
+            this.logoLoader.load(this.logoUrl); 
         }
     }
     
     
     //logo加载完成
     private onlogoComplete(event: egret.Event): void {
-        var imageLoader = <egret.ImageLoader>event.currentTarget;
-        var bitmap: egret.Bitmap = new egret.Bitmap(imageLoader.data);
+        var bitmap: egret.Bitmap = new egret.Bitmap(this.logoLoader.data);
         bitmap.width = this.qrcodeWidth/4;    //  二维码高宽：logo高宽 =   4 : 1
         bitmap.height = this.qrcodeHeight/4;
         bitmap.x = (this.qrcodeWidth - bitmap.width)/2;
@@ -94,8 +98,8 @@ class QRCodeLoader  extends egret.DisplayObjectContainer{
        
     }
     
-    //销毁二维码
-    private destroy(){
+    //清理二维码
+    private clear(){
         var len:number = this.numChildren;
         for(var i:number=len-1;i>=0;i--){
             var obj:egret.DisplayObject = this.getChildAt(i);

@@ -6,7 +6,7 @@
 var FastTank = (function (_super) {
     __extends(FastTank, _super);
     function FastTank() {
-        _super.call(this, "fastTank_png", "fastTank_json", "fastTank");
+        _super.call(this, "fastTank", 0, 1);
         this.reset();
     }
     var d = __define,c=FastTank,p=c.prototype;

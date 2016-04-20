@@ -3,27 +3,61 @@
  * @author 
  *
  */
-class BaseTank extends SimpleMC{
+class BaseTank extends CMovieClip{
     public className:string = "";//类名
     public type:TankEnum;        //坦克类型
     public skin:string = "";     //坦克皮肤
-    public speed:number = 0;     //移动速度
+    public speed:number = 4;     //移动速度
     public speedX:number = 0;    
     public speedY:number = 0;
-    public direction:number = 0; //移动方向 -1停 0上 1下 2左 3右
+    public direction:string = ""; //移动方向
     public power:number = 0;     //子弹威力
     public life:number = 0;      //生命值
     public shootTime:number = 0; //射击间隔时间，单位ms
     public shootCount:number = 0;//射击计时，单位帧
+    public openid: string;
     
-    public constructor(pngName: string,jsonName: string,mcName: string) {
-        super(pngName,jsonName,mcName);
+    public constructor(imgName:string,start:number,end:number) {
+        super();
         this.className = egret.getQualifiedClassName(this);
+        this.addTexture(imgName,start,end);
+        this.anchorOffsetX = this.width / 2;
+        this.anchorOffsetY = this.height / 2;
 	}
 
 	public move(){
     	this.x += this.speedX;
     	this.y += this.speedY;
+	}
+	
+	public setDirection(direction:string){
+    	this.direction = direction;
+    	switch(this.direction){
+        	case "up":
+        	    this.speedX = 0;
+        	    this.speedY = -this.speed;
+        	    this.rotation = 0;
+        	    break;
+        	case "down":
+        	    this.speedX = 0;
+        	    this.speedY = this.speed;
+        	    this.rotation = 180;
+        	    break;
+        	 case "left":
+        	    this.speedX = -this.speed;
+        	    this.speedY = 0;
+        	    this.rotation = -90;
+        	    break;
+        	 case "right":
+                this.speedX = this.speed;
+                this.speedY = 0;
+                this.rotation = 90;
+                break;
+            case "stopMove":
+                this.speedX = 0;
+                this.speedY = 0;
+                break;
+    	}
 	}
 	
 	//自动射击
@@ -41,16 +75,16 @@ class BaseTank extends SimpleMC{
     	bullet.type = this.type;
     	bullet.power = this.power;
     	switch(this.direction){
-            case 0:   //上
+            case "up":   //上
                 bullet.speedY = -bullet.speed;
                 break;
-    	       case 1:   //下
+    	       case "down":   //下
                 bullet.speedY = bullet.speed;
                 break;
-    	       case 2:   //左
+    	       case "left":   //左
                 bullet.speedX = -bullet.speed;
                 break;
-            case 3:     //右
+            case "right":     //右
                 bullet.speedX = bullet.speed;
                 break;
     	}

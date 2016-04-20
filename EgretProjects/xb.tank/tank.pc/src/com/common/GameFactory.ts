@@ -37,17 +37,17 @@ enum TileEnum{
 }
 
 class GameFactory {
-	public playerTankPool:ObjectPool = ObjectPool.getPool("PlayerTank");
-    public normalTankPool:ObjectPool = ObjectPool.getPool("NormalTank");
-    public fastTankPool: ObjectPool = ObjectPool.getPool("FastTank");
-    public strongTankPool: ObjectPool = ObjectPool.getPool("StrongTank");
-    public superTankPool: ObjectPool = ObjectPool.getPool("superTank");
-    public tankList:Array<ObjectPool> = new Array<ObjectPool>();
+	private playerTankPool:ObjectPool = ObjectPool.getPool("PlayerTank");
+    private normalTankPool:ObjectPool = ObjectPool.getPool("NormalTank");
+    private fastTankPool: ObjectPool = ObjectPool.getPool("FastTank");
+    private strongTankPool: ObjectPool = ObjectPool.getPool("StrongTank");
+    private superTankPool: ObjectPool = ObjectPool.getPool("superTank");
+    private tankList:Array<ObjectPool> = new Array<ObjectPool>();
     
-    public itemPool:ObjectPool = ObjectPool.getPool(BaseItem.NAME);
+    private itemPool:ObjectPool = ObjectPool.getPool(BaseItem.NAME);
     public bulletPool:ObjectPool = ObjectPool.getPool(Bullet.NAME);
-    public boomPool:ObjectPool = ObjectPool.getPool(Boom.NAME);
-    public tilePool:ObjectPool = ObjectPool.getPool(BaseTile.NAME);
+    private boomPool:ObjectPool = ObjectPool.getPool(Boom.NAME);
+    private tilePool:ObjectPool = ObjectPool.getPool(BaseTile.NAME);
     
     public constructor(){
         this.tankList.push(this.playerTankPool);
