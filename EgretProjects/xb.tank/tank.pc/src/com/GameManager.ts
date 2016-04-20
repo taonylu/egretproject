@@ -20,6 +20,11 @@ class GameManager {
         //配置地图
         MapManager.getInstance().initalize();
         
+        //配置socket
+        var socket:ClientSocket = ClientSocket.getInstance();
+        socket.homeScene = this.homeScene;
+        socket.gameScene = this.gameScene;
+        
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);  
     }

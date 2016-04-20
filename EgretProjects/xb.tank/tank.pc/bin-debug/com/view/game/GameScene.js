@@ -19,15 +19,20 @@ var GameScene = (function (_super) {
         this.initView();
     };
     p.onEnable = function () {
+        MapManager.getInstance().curLevel = 1;
+        this.resetGame();
+        this.startGame();
     };
     p.onRemove = function () {
     };
     p.startGame = function () {
-        this.initMap();
-        this.initPlayer();
+        this.createMap();
+        this.createPlayer();
         this.configListeners();
     };
     p.nextLevel = function () {
+        this.resetGame();
+        this.startGame();
     };
     p.gameOver = function () {
     };
@@ -46,11 +51,18 @@ var GameScene = (function (_super) {
     };
     //初始化界面
     p.initView = function () {
+        //socket
+        this.socket = ClientSocket.getInstance();
         //初始化地图数据
-        this.rowMax = MapManager.getInstance().rowMax;
-        this.colMax = MapManager.getInstance().colMax;
-        this.tileWidth = MapManager.getInstance().tileWidth;
-        this.tileHeight = MapManager.getInstance().tileHeight;
+        var mapManager = MapManager.getInstance();
+        this.rowMax = mapManager.rowMax;
+        this.colMax = mapManager.colMax;
+        this.tileWidth = mapManager.tileWidth;
+        this.tileHeight = mapManager.tileHeight;
+        this.halfWidth = mapManager.halfWidth;
+        this.halfHeight = mapManager.halfHeight;
+        this.mapWidth = this.colMax * this.tileWidth;
+        this.mapHeight = this.rowMax * this.tileHeight;
         //初始化地形数组
         this.tileList = [];
         for (var i = 0; i < this.rowMax; i++) {
@@ -60,8 +72,8 @@ var GameScene = (function (_super) {
             }
         }
     };
-    //初始化地图
-    p.initMap = function () {
+    //创建地图
+    p.createMap = function () {
         //获取地图数据
         var mapManager = MapManager.getInstance();
         var levelData = mapManager.levelList[mapManager.curLevel];
@@ -76,16 +88,35 @@ var GameScene = (function (_super) {
                 if (tileType != 0) {
                     var tile = gameFactory.getTile(tileType);
                     tile.setType(tileType);
-                    tile.x = j * this.tileWidth;
-                    tile.y = i * this.tileHeight;
-                    this.tileGroup.addChild(tile);
+                    tile.x = j * this.tileWidth + this.halfWidth;
+                    tile.y = i * this.tileHeight + this.halfHeight;
+                    tile.row = i;
+                    tile.col = j;
+                    if (tileType == TileEnum.speed || tileType == TileEnum.river) {
+                        this.footTileGroup.addChild(tile);
+                    }
+                    else {
+                        this.topTileGroup.addChild(tile);
+                    }
                     this.tileList[i][j] = tile;
                 }
             }
         }
     };
     //初始化玩家
-    p.initPlayer = function () {
+    p.createPlayer = function () {
+        var userManager = UserManager.getInstance();
+        var userNum = userManager.getUserNum();
+        var mapManager = MapManager.getInstance();
+        var createPos = mapManager.createPos;
+        for (var i = 0; i < userNum; i++) {
+            var player = GameFactory.getInstance().getTank(TankEnum.player);
+            player.y = createPos[i][0] * this.tileWidth + this.tileWidth / 2;
+            player.x = createPos[i][1] * this.tileHeight + this.tileWidth / 2;
+            player.openid = userManager.userList[i].openid;
+            this.tankGroup.addChild(player);
+            this.playerTankList.push(player);
+        }
     };
     //移动玩家坦克
     p.movePlayerTank = function () {
@@ -93,7 +124,7 @@ var GameScene = (function (_super) {
         var tank;
         for (var i = 0; i < len; i++) {
             tank = this.playerTankList[i];
-            if (this.getCollioseTile(tank) == null) {
+            if (this.getCollioseTile(tank) == null && this.checkEdge(tank) == false) {
                 tank.move();
             }
         }
@@ -141,18 +172,18 @@ var GameScene = (function (_super) {
      * @return 返回是否超越边界
      */
     p.checkEdge = function (target) {
-        var halfWidth = target.width / 2;
-        var halfHeight = target.height / 2;
-        if (target.x - halfWidth < 0) {
+        var nextX = target.x + target.speedX;
+        var nextY = target.y + target.speedY;
+        if (nextX - this.halfWidth < 0) {
             return true;
         }
-        else if (target.x + halfWidth > this.mapWidth) {
+        else if (nextX + this.halfWidth > this.mapWidth) {
             return true;
         }
-        if (target.y + halfHeight > this.mapHeight) {
+        if (nextY - this.halfHeight <= 0) {
             return true;
         }
-        else if (target.y - halfHeight < 0) {
+        else if (nextY + this.halfHeight >= this.mapHeight) {
             return true;
         }
         return false;
@@ -167,8 +198,8 @@ var GameScene = (function (_super) {
         var nextX = target.x + target.speedX;
         var nextY = target.y + target.speedY;
         //获取坐标所在行列
-        var row = Math.floor(nextX / this.tileWidth);
-        var col = Math.floor(nextY / this.tileWidth);
+        var col = Math.floor(target.x / this.tileWidth);
+        var row = Math.floor(target.y / this.tileWidth);
         //获取四周的地形
         var tileList = this.getRoundTile(row, col);
         //判断是否碰撞地形
@@ -177,7 +208,7 @@ var GameScene = (function (_super) {
         for (var i = 0; i < len; i++) {
             tile = tileList[i];
             if (tile != null && tile.type >= TileEnum.wall) {
-                if (target.getBounds().intersects(tile.getBounds())) {
+                if (Math.abs(nextX - tile.x) < this.tileWidth && Math.abs(nextY - tile.y) < this.tileHeight) {
                     return tile;
                 }
             }
@@ -212,6 +243,23 @@ var GameScene = (function (_super) {
             }
         }
         return tileList;
+    };
+    //发送游戏结束
+    p.sendGameOver = function () {
+        this.socket.sendMessage("gameOver");
+    };
+    //接收用户操作
+    p.revAction = function (data) {
+        console.log("rev action:", data);
+        var actionType = data.actionType;
+        var openid = data.openid;
+        //获取用户tank
+        for (var i = 0; i < this.playerTankList.length; i++) {
+            var tank = this.playerTankList[i];
+            if (tank.openid == openid) {
+                tank.setDirection(actionType);
+            }
+        }
     };
     return GameScene;
 }(BaseScene));

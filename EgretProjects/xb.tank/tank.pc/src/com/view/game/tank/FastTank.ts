@@ -5,8 +5,9 @@
  */
 class FastTank extends BaseTank{
     public constructor() {
-        super("fastTank_png","fastTank_json","fastTank");
+        super("fastTank",0,1);
         this.reset();
+        
     }
 
     public reset() {

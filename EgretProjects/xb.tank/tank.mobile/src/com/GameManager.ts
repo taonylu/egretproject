@@ -16,6 +16,11 @@ class GameManager {
         GameConst.stage = main.stage;
         LayerManager.getInstance().initialize(main);
         
+        //配置socket
+        var socket:ClientSocket = ClientSocket.getInstance();
+        socket.homeScene = this.homeScene;
+        socket.gameScene = this.gameScene;
+        
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);  
     }

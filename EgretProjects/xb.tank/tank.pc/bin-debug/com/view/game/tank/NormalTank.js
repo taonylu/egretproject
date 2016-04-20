@@ -6,7 +6,7 @@
 var NormalTank = (function (_super) {
     __extends(NormalTank, _super);
     function NormalTank() {
-        _super.call(this, "normalTank_png", "normalTank_json", "normalTank");
+        _super.call(this, "normalTank", 0, 1);
         this.reset();
     }
     var d = __define,c=NormalTank,p=c.prototype;

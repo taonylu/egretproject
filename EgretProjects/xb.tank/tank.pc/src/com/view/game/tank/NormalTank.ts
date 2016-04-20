@@ -5,7 +5,7 @@
  */
 class NormalTank extends BaseTank{
     public constructor() {
-        super("normalTank_png","normalTank_json","normalTank");
+        super("normalTank",0,1);
         this.reset();
     }
 

@@ -14,6 +14,8 @@ var BaseTile = (function (_super) {
     p.setType = function (type) {
         this.type = type;
         this.bitmapData = RES.getRes("tile" + type + "_png");
+        this.anchorOffsetX = this.width / 2;
+        this.anchorOffsetY = this.height / 2;
     };
     /**
      * 被攻击

@@ -1,0 +1,44 @@
+{ 
+	"level":[
+			{
+				"normalTank":10,
+				"fastTank":10,
+				"strongTank":10,
+				"superTank":10
+			},
+			{
+				
+				"normalTank":10,
+				"fastTank":10,
+				"strongTank":10,
+				"superTank":10
+			},
+			{
+				
+				"normalTank":10,
+				"fastTank":10,
+				"strongTank":10,
+				"superTank":10
+			},
+			{
+				
+				"normalTank":10,
+				"fastTank":10,
+				"strongTank":10,
+				"superTank":10
+			},
+			{
+				
+				"fastTank":10,
+				"speedTank":10,
+				"strongTank":10,
+				"superTank":10
+			},
+			{
+				"fastTank":10,
+				"speedTank":10,
+				"strongTank":10,
+				"superTank":10
+			}
+		]
+}

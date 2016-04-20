@@ -51,10 +51,12 @@ var QRCodeLoader = (function (_super) {
         this.qrcodeWidth = width;
         this.qrcodeHeight = height;
         this.logoUrl = logoUrl;
-        var imageLoader = new egret.ImageLoader();
-        imageLoader.addEventListener(egret.Event.COMPLETE, this.onQRCodeComplete, this);
-        imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onQRCodeError, this);
-        imageLoader.load(dataUrl);
+        if (this.imageLoader == null) {
+            this.imageLoader = new egret.ImageLoader();
+            this.imageLoader.addEventListener(egret.Event.COMPLETE, this.onQRCodeComplete, this);
+            this.imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onQRCodeError, this);
+        }
+        this.imageLoader.load(dataUrl);
     };
     p.onQRCodeError = function () {
         console.log("加载二维码错误");
@@ -62,30 +64,30 @@ var QRCodeLoader = (function (_super) {
     //加载QRCode完成
     p.onQRCodeComplete = function (event) {
         //生成二维码
-        var imageLoader = event.currentTarget;
-        var bitmap = new egret.Bitmap(imageLoader.data);
+        var bitmap = new egret.Bitmap(this.imageLoader.data);
         bitmap.width = this.qrcodeWidth;
         bitmap.height = this.qrcodeHeight;
         this.addChild(bitmap);
         //加载logo
         if (this.logoUrl != "") {
-            var imageLoader = new egret.ImageLoader();
-            imageLoader.addEventListener(egret.Event.COMPLETE, this.onlogoComplete, this);
-            imageLoader.load(this.logoUrl);
+            if (this.logoLoader == null) {
+                this.logoLoader = new egret.ImageLoader();
+                this.logoLoader.addEventListener(egret.Event.COMPLETE, this.onlogoComplete, this);
+            }
+            this.logoLoader.load(this.logoUrl);
         }
     };
     //logo加载完成
     p.onlogoComplete = function (event) {
-        var imageLoader = event.currentTarget;
-        var bitmap = new egret.Bitmap(imageLoader.data);
+        var bitmap = new egret.Bitmap(this.logoLoader.data);
         bitmap.width = this.qrcodeWidth / 4; //  二维码高宽：logo高宽 =   4 : 1
         bitmap.height = this.qrcodeHeight / 4;
         bitmap.x = (this.qrcodeWidth - bitmap.width) / 2;
         bitmap.y = (this.qrcodeHeight - bitmap.height) / 2;
         this.addChild(bitmap);
     };
-    //销毁二维码
-    p.destroy = function () {
+    //清理二维码
+    p.clear = function () {
         var len = this.numChildren;
         for (var i = len - 1; i >= 0; i--) {
             var obj = this.getChildAt(i);

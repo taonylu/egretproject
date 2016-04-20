@@ -6,7 +6,7 @@
 var SuperTank = (function (_super) {
     __extends(SuperTank, _super);
     function SuperTank() {
-        _super.call(this, "superTank_png", "superTank_json", "superTank");
+        _super.call(this, "superTank", 0, 1);
         this.reset();
     }
     var d = __define,c=SuperTank,p=c.prototype;

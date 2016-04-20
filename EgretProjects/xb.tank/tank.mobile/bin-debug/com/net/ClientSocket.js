@@ -25,11 +25,12 @@ var ClientSocket = (function () {
     };
     p.startConnect = function () {
         //连接socket
-        //this.socket = io.connect(GameConst.gameConfig.server,{ reconnection: false,'force new connection': true});
+        this.socket = io.connect(GameConst.gameConfig.server, { reconnection: false, 'force new connection': true });
         var self = this;
         //连接成功 
         this.socket.on('connect', function () {
             egret.log("connenct succss");
+            self.homeScene.connect();
         });
         //连接失败    
         this.socket.on('error', function (data) {
@@ -50,7 +51,11 @@ var ClientSocket = (function () {
         //////////////////////////////////////////////////////
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
-        this.socket.on("xxx", function (data) {
+        this.socket.on("startGame", function (data) {
+            self.homeScene.revStartGame();
+        });
+        this.socket.on("gameOver", function (data) {
+            self.gameScene.revGameOver(data);
         });
     };
     //////////////////////////////////////////////////////

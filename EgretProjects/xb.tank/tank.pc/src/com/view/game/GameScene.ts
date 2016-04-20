@@ -4,8 +4,12 @@
  *
  */
 class GameScene extends BaseScene{
-    private tileGroup:eui.Group;   //地形层
-    public bulletGroup:eui.Group;  //子弹层
+    private socket:ClientSocket;
+    
+    private topTileGroup:eui.Group;   //上层地形层
+    private footTileGroup:eui.Group;  //下层地形层
+    private tankGroup:eui.Group;      //坦克层
+    public bulletGroup:eui.Group;     //子弹层
     
     private mapList;           //当前地图二维数组，存储地图数字
     private tileList;          //地形数组，存储BaseItem
@@ -15,6 +19,8 @@ class GameScene extends BaseScene{
     private tileHeight:number;
     private mapWidth:number;   //地图整个高宽
     private mapHeight:number;
+    public halfWidth:number;   //地图块一半高宽
+    public halfHeight:number;
     
     private playerTankList:Array<BaseTank> = new Array<BaseTank>();  //我方坦克
     private enemyTankList:Array<BaseTank> = new Array<BaseTank>();   //敌方坦克
@@ -33,8 +39,9 @@ class GameScene extends BaseScene{
     }
 
     public onEnable(): void {
-        
-  
+        MapManager.getInstance().curLevel = 1;
+        this.resetGame();
+        this.startGame();
     }
 
     public onRemove(): void {
@@ -42,13 +49,14 @@ class GameScene extends BaseScene{
     }
     
     public startGame(){
-        this.initMap();
-        this.initPlayer();
+        this.createMap();
+        this.createPlayer();
         this.configListeners();
     }
     
     public nextLevel(){
-        
+        this.resetGame();
+        this.startGame();
     }
     
     public gameOver(){
@@ -75,11 +83,18 @@ class GameScene extends BaseScene{
     
     //初始化界面
     private initView() {
+        //socket
+        this.socket = ClientSocket.getInstance();
         //初始化地图数据
-        this.rowMax = MapManager.getInstance().rowMax;
-        this.colMax = MapManager.getInstance().colMax;
-        this.tileWidth = MapManager.getInstance().tileWidth;
-        this.tileHeight = MapManager.getInstance().tileHeight;
+        var mapManager:MapManager = MapManager.getInstance();
+        this.rowMax = mapManager.rowMax;
+        this.colMax = mapManager.colMax;
+        this.tileWidth = mapManager.tileWidth;
+        this.tileHeight = mapManager.tileHeight;
+        this.halfWidth = mapManager.halfWidth;
+        this.halfHeight = mapManager.halfHeight;
+        this.mapWidth = this.colMax*this.tileWidth;
+        this.mapHeight = this.rowMax*this.tileHeight;
         //初始化地形数组
         this.tileList = [];
         for(var i = 0;i < this.rowMax;i++) {
@@ -87,13 +102,11 @@ class GameScene extends BaseScene{
             for(var j = 0;j < this.colMax;j++) {
                 this.tileList[i][j] = null;
             }
-
         }
-
     }
     
-    //初始化地图
-    private initMap() {
+    //创建地图
+    private createMap() {
         //获取地图数据
         var mapManager: MapManager = MapManager.getInstance();
         var levelData: LevelData = mapManager.levelList[mapManager.curLevel];
@@ -109,9 +122,15 @@ class GameScene extends BaseScene{
                 if(tileType != 0) {
                     var tile: BaseTile = gameFactory.getTile(tileType);
                     tile.setType(tileType);
-                    tile.x = j * this.tileWidth;
-                    tile.y = i * this.tileHeight;
-                    this.tileGroup.addChild(tile);
+                    tile.x = j * this.tileWidth + this.halfWidth;
+                    tile.y = i * this.tileHeight + this.halfHeight;
+                    tile.row = i;
+                    tile.col = j;
+                    if(tileType == TileEnum.speed || tileType == TileEnum.river){
+                        this.footTileGroup.addChild(tile);
+                    }else{
+                        this.topTileGroup.addChild(tile);
+                    }
                     this.tileList[i][j] = tile;
                 }
             }
@@ -119,8 +138,19 @@ class GameScene extends BaseScene{
     }
     
     //初始化玩家
-    private initPlayer() {
-
+    private createPlayer() {
+        var userManager:UserManager = UserManager.getInstance();
+        var userNum:number = userManager.getUserNum();
+        var mapManager:MapManager = MapManager.getInstance();
+        var createPos = mapManager.createPos;
+        for(var i=0;i<userNum;i++){
+            var player: BaseTank = GameFactory.getInstance().getTank(TankEnum.player);
+            player.y = createPos[i][0]*this.tileWidth + this.tileWidth/2;
+            player.x = createPos[i][1]*this.tileHeight + this.tileWidth/2;
+            player.openid = userManager.userList[i].openid;
+            this.tankGroup.addChild(player);
+            this.playerTankList.push(player);
+        }
     }
     
     //移动玩家坦克
@@ -129,7 +159,7 @@ class GameScene extends BaseScene{
         var tank:PlayerTank;
         for(var i=0;i<len;i++){
             tank = this.playerTankList[i];
-            if(this.getCollioseTile(tank) == null){
+            if(this.getCollioseTile(tank) == null && this.checkEdge(tank) == false){
                 tank.move();
             }
         }
@@ -183,16 +213,16 @@ class GameScene extends BaseScene{
      * @return 返回是否超越边界
      */ 
     private checkEdge(target):boolean{
-        var halfWidth = target.width/2;
-        var halfHeight = target.height/2;
-        if(target.x - halfWidth < 0){
+        var nextX = target.x + target.speedX;
+        var nextY = target.y + target.speedY;
+        if(nextX - this.halfWidth < 0){
             return true;
-        } else if(target.x + halfWidth > this.mapWidth){
+        } else if(nextX + this.halfWidth > this.mapWidth){
             return true;
         }
-        if(target.y + halfHeight > this.mapHeight){
+        if(nextY - this.halfHeight <= 0 ){
             return true;
-        }else if(target.y - halfHeight < 0){
+        } else if(nextY + this.halfHeight >= this.mapHeight){
             return true;
         }
         return false;
@@ -209,8 +239,8 @@ class GameScene extends BaseScene{
         var nextX = target.x + target.speedX;
         var nextY = target.y + target.speedY;
         //获取坐标所在行列
-        var row: number = Math.floor(nextX/this.tileWidth);
-        var col: number = Math.floor(nextY/this.tileWidth);
+        var col: number = Math.floor(target.x/this.tileWidth);
+        var row: number = Math.floor(target.y/this.tileWidth);
        //获取四周的地形
         var tileList = this.getRoundTile(row,col);
         //判断是否碰撞地形
@@ -219,7 +249,7 @@ class GameScene extends BaseScene{
         for(var i=0;i<len;i++){
             tile = tileList[i];
             if(tile != null && tile.type >= TileEnum.wall){  //不可行走地形
-                if(target.getBounds().intersects(tile.getBounds())){
+                if(Math.abs(nextX - tile.x) < this.tileWidth && Math.abs(nextY - tile.y) < this.tileHeight){
                     return tile;
                 }
             }
@@ -229,6 +259,7 @@ class GameScene extends BaseScene{
     
     //获取四周格子列表
     private getRoundTile(row:number, col:number){
+        
         var tileList = [];
 
         if(row-1>=0){ //上方格子
@@ -260,7 +291,25 @@ class GameScene extends BaseScene{
         return tileList;
     }
     
+    //发送游戏结束
+    public sendGameOver(){
+        this.socket.sendMessage("gameOver");
+    }
     
+    //接收用户操作
+    public revAction(data) {
+        console.log("rev action:",data);
+        var actionType: string = data.actionType;
+        var openid: string = data.openid;
+        
+        //获取用户tank
+        for(var i=0;i<this.playerTankList.length;i++){
+            var tank:BaseTank = this.playerTankList[i];
+            if(tank.openid == openid){
+                tank.setDirection(actionType);
+            }
+        }
+    }
     
 }
 

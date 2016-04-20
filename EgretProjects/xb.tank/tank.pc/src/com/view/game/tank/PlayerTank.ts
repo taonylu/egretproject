@@ -4,9 +4,10 @@
  *
  */
 class PlayerTank extends BaseTank{
+    
 	public constructor() {
-        super("playerTank_png","playerTank_json","playerTank");
-    	 this.reset();
+        super("player",0,1);
+    	  this.reset();
 	}
 	
 	public reset(){

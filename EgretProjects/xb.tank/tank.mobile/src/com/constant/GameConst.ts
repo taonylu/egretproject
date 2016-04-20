@@ -9,7 +9,5 @@ class GameConst {
 	/**调试模式*/
 	public static debug:boolean;
 	/**游戏配置*/
-    public static gameConfig = {
-    	server:""
-	}
+    public static gameConfig;
 }
