@@ -17,33 +17,45 @@ var MapManager = (function () {
         this.halfHeight = 32;
         this.levelLimit = 6; //地图数量
         this.curLevel = 1; //当前关卡
-        this.createPos = [[15, 6], [15, 11]]; //生成点
-        this.levelList = new Array();
+        this.levelList = new Array(); //关卡数据列表
     }
     var d = __define,c=MapManager,p=c.prototype;
     //初始化地图配置文件
     p.initalize = function () {
-        var json = RES.getRes("map_json");
-        if (json == null) {
+        //获取地图文件
+        var mapJson = RES.getRes("map_json");
+        if (mapJson == null) {
             console.log("地图配置文件为null");
             return;
         }
-        var level = json.level;
+        //获取map_json坦克数量
+        var level = mapJson.level;
+        this.levelLimit = level.levelLimit;
         for (var i = 0; i < this.levelLimit; i++) {
             var levelData = new LevelData();
-            levelData.normalTank = level[i].normalTank;
-            levelData.fastTank = level[i].fastTank;
-            levelData.strongTank = level[i].strongTank;
-            levelData.superTank = level[i].superTank;
+            levelData.normalTank = level.normalTank[i];
+            levelData.fastTank = level.fastTank[i];
+            levelData.strongTank = level.strongTank[i];
+            levelData.superTank = level.superTank[i];
+            //将坦克存入列表，并随机打乱顺序
+            this.setTankList(levelData.tankList, TankEnum.normal, levelData.normalTank);
+            this.setTankList(levelData.tankList, TankEnum.fast, levelData.fastTank);
+            this.setTankList(levelData.tankList, TankEnum.strong, levelData.strongTank);
+            this.setTankList(levelData.tankList, TankEnum.super, levelData.superTank);
+            ArrayTool.randomArr(levelData.tankList);
             this.levelList[i] = levelData;
         }
+        //获取坦克和道具属性
+        this.tankSet = mapJson.tankSet;
+        this.itemSet = mapJson.itemSet;
+        //获取level_json地图数据
         for (var i = 1; i <= this.levelLimit; i++) {
-            var json = RES.getRes("level" + i + "_json");
-            if (json == null) {
+            var levelJson = RES.getRes("level" + i + "_json");
+            if (levelJson == null) {
                 console.log("第" + i + "关配置文件不存在");
                 return;
             }
-            var data = json.layers[0].data;
+            var data = levelJson.layers[0].data;
             var levelData = this.levelList[i - 1];
             var arr2D = []; //将tile导出的一维数组转成二维数组
             for (var m = 0; m < this.rowMax; m++) {
@@ -53,6 +65,17 @@ var MapManager = (function () {
                 }
             }
             levelData.mapData = arr2D;
+        }
+    };
+    /**
+     * 将各种坦克保存到列表中
+     * @targetList 目标列表
+     * @tankType 坦克类型
+     * @tankNum 坦克数量
+     */
+    p.setTankList = function (targetList, tankType, tankNum) {
+        for (var i = 0; i < tankNum; i++) {
+            targetList.push(tankType);
         }
     };
     MapManager.getInstance = function () {

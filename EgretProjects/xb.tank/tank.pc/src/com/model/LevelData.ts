@@ -14,4 +14,12 @@ class LevelData {
     public strongTank:number = 0;
     /**超级强化坦克*/
     public superTank:number = 0;
+    /**本关卡剩余坦克，保存的值为坦克类型，用于生成顺序*/
+    public tankList = [];
+    /**敌方坦克同时存在上限*/
+    public tankLimit:number = 5;
+    /**我方坦克生成点*/
+    public friendBirthPos = [[15,6],[15,11]];
+    /**敌方坦克生成点*/
+    public enemyBirthPos = [[0,0]];
 }

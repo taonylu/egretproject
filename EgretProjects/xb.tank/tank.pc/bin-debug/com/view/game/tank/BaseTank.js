@@ -5,55 +5,77 @@
  */
 var BaseTank = (function (_super) {
     __extends(BaseTank, _super);
-    function BaseTank(imgName, start, end) {
+    function BaseTank() {
         _super.call(this);
         this.className = ""; //类名
         this.skin = ""; //坦克皮肤
         this.speed = 4; //移动速度
         this.speedX = 0;
         this.speedY = 0;
-        this.direction = ""; //移动方向
         this.power = 0; //子弹威力
         this.life = 0; //生命值
         this.shootTime = 0; //射击间隔时间，单位ms
         this.shootCount = 0; //射击计时，单位帧
+        //自动移动
+        this.turnCount = 60;
         this.className = egret.getQualifiedClassName(this);
-        this.addTexture(imgName, start, end);
-        this.anchorOffsetX = this.width / 2;
-        this.anchorOffsetY = this.height / 2;
     }
     var d = __define,c=BaseTank,p=c.prototype;
+    //移动
     p.move = function () {
         this.x += this.speedX;
         this.y += this.speedY;
     };
+    //设置方向
     p.setDirection = function (direction) {
         this.direction = direction;
+        this.play();
         switch (this.direction) {
-            case "up":
+            case ActionEnum.up:
                 this.speedX = 0;
                 this.speedY = -this.speed;
                 this.rotation = 0;
                 break;
-            case "down":
+            case ActionEnum.down:
                 this.speedX = 0;
                 this.speedY = this.speed;
                 this.rotation = 180;
                 break;
-            case "left":
+            case ActionEnum.left:
                 this.speedX = -this.speed;
                 this.speedY = 0;
                 this.rotation = -90;
                 break;
-            case "right":
+            case ActionEnum.right:
                 this.speedX = this.speed;
                 this.speedY = 0;
                 this.rotation = 90;
                 break;
-            case "stopMove":
+            case ActionEnum.stopMove:
                 this.speedX = 0;
                 this.speedY = 0;
+                this.stop();
                 break;
+        }
+    };
+    //自动转向，优先往下
+    p.autoTurn = function () {
+        if (this.direction != ActionEnum.down) {
+            this.direction = ActionEnum.down;
+        }
+        else {
+            this.direction = NumberTool.getRandomInt(ActionEnum.up, ActionEnum.right);
+        }
+        this.setDirection(this.direction);
+    };
+    p.autoMove = function () {
+        this.turnCount--;
+        if (this.turnCount < 0) {
+            this.turnCount = Math.round(60 + Math.random() * 100); //每隔一段时间自动转向
+            this.autoTurn();
+        }
+        else {
+            this.move();
         }
     };
     //自动射击
@@ -70,28 +92,20 @@ var BaseTank = (function (_super) {
         bullet.type = this.type;
         bullet.power = this.power;
         switch (this.direction) {
-            case "up":
+            case ActionEnum.up:
                 bullet.speedY = -bullet.speed;
                 break;
-            case "down":
+            case ActionEnum.down:
                 bullet.speedY = bullet.speed;
                 break;
-            case "left":
+            case ActionEnum.left:
                 bullet.speedX = -bullet.speed;
                 break;
-            case "right":
+            case ActionEnum.right:
                 bullet.speedX = bullet.speed;
                 break;
         }
-        //子弹添加到场景中
-        var gameScene = GameManager.getInstance().gameScene;
-        gameScene.bulletGroup.addChild(bullet);
-        if (bullet.type == TankEnum.player) {
-            gameScene.playerBulletList.push(bullet);
-        }
-        else {
-            gameScene.enemyBulletList.push(bullet);
-        }
+        return bullet;
     };
     /**
      * 被击中
@@ -107,6 +121,7 @@ var BaseTank = (function (_super) {
     //回收
     p.recycle = function () {
         this.parent && this.parent.removeChild(this);
+        this.reset();
         ObjectPool.getPool(this.className).returnObject(this);
     };
     return BaseTank;

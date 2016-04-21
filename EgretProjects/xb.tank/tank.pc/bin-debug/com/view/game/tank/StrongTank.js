@@ -6,15 +6,16 @@
 var StrongTank = (function (_super) {
     __extends(StrongTank, _super);
     function StrongTank() {
-        _super.call(this, "strongTank", 0, 1);
+        _super.call(this);
         this.reset();
     }
     var d = __define,c=StrongTank,p=c.prototype;
     p.reset = function () {
-        this.speed = 8;
-        this.power = 1;
-        this.life = 2;
-        this.shootTime = 0.5;
+        var tankSet = MapManager.getInstance().tankSet.strongTank;
+        this.speed = tankSet.speed;
+        this.power = tankSet.power;
+        this.life = tankSet.life;
+        this.shootTime = tankSet.shootTime;
         this.type = TankEnum.strong;
     };
     return StrongTank;

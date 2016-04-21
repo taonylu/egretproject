@@ -25,6 +25,13 @@ var BaseTile = (function (_super) {
     p.beAttacked = function (target) {
         return true;
     };
+    p.reset = function () {
+    };
+    p.recycle = function () {
+        this.parent && this.parent.removeChild(this);
+        this.reset();
+        ObjectPool.getPool(BaseTile.NAME).returnObject(this);
+    };
     BaseTile.NAME = "BaseTile";
     return BaseTile;
 }(egret.Bitmap));

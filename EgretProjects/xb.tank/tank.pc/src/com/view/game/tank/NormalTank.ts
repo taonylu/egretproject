@@ -5,15 +5,16 @@
  */
 class NormalTank extends BaseTank{
     public constructor() {
-        super("normalTank",0,1);
+        super();
         this.reset();
     }
 
     public reset() {
-        this.speed = 4;
-        this.power = 1;
-        this.life = 1;
-        this.shootTime = 0.5;
+        var tankSet = MapManager.getInstance().tankSet.normalTank;
+        this.speed = tankSet.speed;
+        this.power = tankSet.power;
+        this.life = tankSet.life;
+        this.shootTime = tankSet.shootTime;
         this.type = TankEnum.normal;
     }
 }

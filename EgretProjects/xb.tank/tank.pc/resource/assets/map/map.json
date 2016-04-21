@@ -1,44 +1,70 @@
-{ 
-	"level":[
+{  		
+    "comment":[
+        		"关卡设置",
+        		"levelLimit总数，不包含生存关卡",
+        		"normalTank普通坦克，值表示该类型坦克在本关出现的数量",
+        		"fastTank快速坦克",
+        		"strongTank强化坦克",
+        		"superTank超级强化坦克",
+        		
+        		"itemRefreshTime道具刷新时间间隔范围，单位s，[5,10] 5-10秒刷新",
+        		"alphaItem隐身，值表示该道具在本关出现的几率",
+        		"gunItem枪",
+        		"starItem星星",
+        		"armorItem基地护甲",
+        		"lifeItem生命",
+        		"boomItem炸弹",
+        		"pauseItem暂停"
+        	  ],    	  
+	"level":
 			{
-				"normalTank":10,
-				"fastTank":10,
-				"strongTank":10,
-				"superTank":10
-			},
-			{
+    			"levelLimit":5,
+				"normalTank":[10,10,10,10,10],
+				"fastTank":[10,10,10,10,10],
+				"strongTank":[10,10,10,10,10],
+				"superTank":[10,10,10,10,10],
 				
-				"normalTank":10,
-				"fastTank":10,
-				"strongTank":10,
-				"superTank":10
+				"itemRefreshTime":[[5,10],[5,10],[5,10],[5,10],[5,10]],
+				"alpha":[10,10,10,10,10],
+				"gun":[10,10,10,10,10],
+				"star":[10,10,10,10,10],
+				"armor":[10,10,10,10,10],
+				"life":[10,10,10,10,10],
+				"boom":[10,10,10,10,10],
+				"pause":[10,10,10,10,10]
 			},
-			{
-				
-				"normalTank":10,
-				"fastTank":10,
-				"strongTank":10,
-				"superTank":10
-			},
-			{
-				
-				"normalTank":10,
-				"fastTank":10,
-				"strongTank":10,
-				"superTank":10
-			},
-			{
-				
-				"fastTank":10,
-				"speedTank":10,
-				"strongTank":10,
-				"superTank":10
-			},
-			{
-				"fastTank":10,
-				"speedTank":10,
-				"strongTank":10,
-				"superTank":10
-			}
-		]
+	"comment":[
+        	"坦克属性设置",
+        	"坦克属性 life:生命值，power:枪威力，shootTime:射击间隔单位s，speed:移动速度"
+          ], 
+    "tankSet":{
+       		"playerTank":{"life":1,"power":1,"shootTime":0.1,"speed":4},
+        	"normalTank":{"life":1,"power":1,"shootTime":0.1,"speed":4},
+        	"fastTank":{"life":1,"power":1,"shootTime":0.1,"speed":4},
+        	"strongTank":{"life":2,"power":1,"shootTime":0.1,"speed":4},
+        	"superTank":{"life":3,"power":1,"shootTime":0.1,"speed":4}
+    	},
+    "comment":[
+        	"道具设置",
+        	"alpha隐身时间",
+        	"pause暂停时间"
+          ], 
+    "itemSet":{
+        	"alpha":10,
+        	"pause":10
+    	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

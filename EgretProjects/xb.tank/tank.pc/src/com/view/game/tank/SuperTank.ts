@@ -5,15 +5,16 @@
  */
 class SuperTank extends BaseTank{
     public constructor() {
-        super("superTank",0,1);
+        super();
         this.reset();
     }
 
     public reset() {
-        this.speed = 8;
-        this.power = 1;
-        this.life = 3;
-        this.shootTime = 0.5;
+        var tankSet = MapManager.getInstance().tankSet.superTank;
+        this.speed = tankSet.speed;
+        this.power = tankSet.power;
+        this.life = tankSet.life;
+        this.shootTime = tankSet.shootTime;
         this.type = TankEnum.super;
     }
 }

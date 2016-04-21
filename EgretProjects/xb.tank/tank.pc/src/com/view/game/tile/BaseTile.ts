@@ -30,4 +30,14 @@ class BaseTile extends egret.Bitmap{
     public beAttacked(target: Bullet):boolean {
         return true;
     }
+    
+    public reset(){
+        
+    }
+    
+    public recycle(){
+        this.parent && this.parent.removeChild(this);
+        this.reset();
+        ObjectPool.getPool(BaseTile.NAME).returnObject(this);
+    }
 }

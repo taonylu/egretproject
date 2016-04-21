@@ -23,7 +23,6 @@ class GameScene extends BaseScene{
 
     public onEnable(): void {
         this.configListeners();
-  
     }
 
     public onRemove(): void {
@@ -50,65 +49,65 @@ class GameScene extends BaseScene{
         this.curTouchTarget = e.target;
         switch(this.curTouchTarget){
             case this.upBtn:
-                this.sendAction("up");
+                this.sendAction(ActionEnum.up);
                 break;
             case this.downBtn:
-                this.sendAction("down");
+                this.sendAction(ActionEnum.down);
                 break;
             case this.leftBtn:
-                this.sendAction("left");
+                this.sendAction(ActionEnum.left);
                 break;
             case this.rightBtn:
-                this.sendAction("right");
+                this.sendAction(ActionEnum.right);
                 break;
         }
         
     }
     
     private onTouchBegin(e: egret.TouchEvent) {
-        console.log("begin",e.target);
+        //console.log("begin",e.target);
         switch(e.target) {
             case this.upBtn:
-                this.sendAction("up");
+                this.sendAction(ActionEnum.up);
                 break;
             case this.downBtn:
-                this.sendAction("down");
+                this.sendAction(ActionEnum.down);
                 break;
             case this.leftBtn:
-                this.sendAction("left");
+                this.sendAction(ActionEnum.left);
                 break;
             case this.rightBtn:
-                this.sendAction("right");
+                this.sendAction(ActionEnum.right);
                 break;
             case this.shootBtn:
-                this.sendAction("shoot");
+                this.sendAction(ActionEnum.shoot);
                 break;
         }
     }
     
     private onTouchEnd(e:egret.TouchEvent){
-        console.log("touchEnd:",e.target);
+        //console.log("touchEnd:",e.target);
         switch(e.target) {
             case this.upBtn:
-                this.sendAction("stopMove");
+                this.sendAction(ActionEnum.stopMove);
                 break;
             case this.downBtn:
-                this.sendAction("stopMove");
+                this.sendAction(ActionEnum.stopMove);
                 break;
             case this.leftBtn:
-                this.sendAction("stopMove");
+                this.sendAction(ActionEnum.stopMove);
                 break;
             case this.rightBtn:
-                this.sendAction("stopMove");
+                this.sendAction(ActionEnum.stopMove);
                 break;
             case this.shootBtn:
-                this.sendAction("stopShoot");
+                this.sendAction(ActionEnum.stopMove);
                 break;
         }
     }
     
     
-    public sendAction(actionType:string){
+    public sendAction(actionType:ActionEnum){
         //egret.log("send action:",actionType);
         this.socket.sendMessage("action",{actionType:actionType, openid:GameConst.gameConfig.openid})
     }

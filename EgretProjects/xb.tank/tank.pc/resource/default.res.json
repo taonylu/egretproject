@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"home_thxbg_jpg,tile1_png,tile2_png,tile3_png,tile4_png,tile5_png,level1_json,level2_json,level3_json,level4_json,level5_json,level6_json,map_json,player0_png,player1_png",
+			"keys":"home_thxbg_jpg,tile1_png,tile2_png,tile3_png,tile4_png,tile5_png,level1_json,level2_json,level3_json,level4_json,level5_json,level6_json,wall15_png,wall14_png,wall13_png,wall12_png,wall11_png,wall10_png,wall09_png,wall08_png,wall07_png,wall06_png,wall05_png,wall04_png,wall03_png,wall02_png,wall01_png,wall00_png,steel3_png,steel2_png,steel1_png,steel0_png,map_json,playerYellow_lvl3_1_png,playerYellow_lvl3_0_png,playerYellow_lvl2_1_png,playerYellow_lvl2_0_png,playerYellow_lvl1_1_png,playerYellow_lvl1_0_png,playerGreen_lvl3_1_png,playerGreen_lvl3_0_png,playerGreen_lvl2_1_png,playerGreen_lvl2_0_png,playerGreen_lvl1_1_png,playerGreen_lvl1_0_png",
 			"name":"game"
 		}
 	],
@@ -76,14 +76,164 @@
 			"url":"assets/map/map.json"
 		},
 		{
-			"name":"player0_png",
+			"name":"wall15_png",
 			"type":"image",
-			"url":"assets/tank/player0.png"
+			"url":"assets/tile/wall15.png"
 		},
 		{
-			"name":"player1_png",
+			"name":"wall14_png",
 			"type":"image",
-			"url":"assets/tank/player1.png"
+			"url":"assets/tile/wall14.png"
+		},
+		{
+			"name":"wall13_png",
+			"type":"image",
+			"url":"assets/tile/wall13.png"
+		},
+		{
+			"name":"wall12_png",
+			"type":"image",
+			"url":"assets/tile/wall12.png"
+		},
+		{
+			"name":"wall11_png",
+			"type":"image",
+			"url":"assets/tile/wall11.png"
+		},
+		{
+			"name":"wall10_png",
+			"type":"image",
+			"url":"assets/tile/wall10.png"
+		},
+		{
+			"name":"wall09_png",
+			"type":"image",
+			"url":"assets/tile/wall09.png"
+		},
+		{
+			"name":"wall08_png",
+			"type":"image",
+			"url":"assets/tile/wall08.png"
+		},
+		{
+			"name":"wall07_png",
+			"type":"image",
+			"url":"assets/tile/wall07.png"
+		},
+		{
+			"name":"wall06_png",
+			"type":"image",
+			"url":"assets/tile/wall06.png"
+		},
+		{
+			"name":"wall05_png",
+			"type":"image",
+			"url":"assets/tile/wall05.png"
+		},
+		{
+			"name":"wall04_png",
+			"type":"image",
+			"url":"assets/tile/wall04.png"
+		},
+		{
+			"name":"wall03_png",
+			"type":"image",
+			"url":"assets/tile/wall03.png"
+		},
+		{
+			"name":"wall02_png",
+			"type":"image",
+			"url":"assets/tile/wall02.png"
+		},
+		{
+			"name":"wall01_png",
+			"type":"image",
+			"url":"assets/tile/wall01.png"
+		},
+		{
+			"name":"wall00_png",
+			"type":"image",
+			"url":"assets/tile/wall00.png"
+		},
+		{
+			"name":"steel3_png",
+			"type":"image",
+			"url":"assets/tile/steel3.png"
+		},
+		{
+			"name":"steel2_png",
+			"type":"image",
+			"url":"assets/tile/steel2.png"
+		},
+		{
+			"name":"steel1_png",
+			"type":"image",
+			"url":"assets/tile/steel1.png"
+		},
+		{
+			"name":"steel0_png",
+			"type":"image",
+			"url":"assets/tile/steel0.png"
+		},
+		{
+			"name":"playerYellow_lvl3_1_png",
+			"type":"image",
+			"url":"assets/tank/playerYellow_lvl3_1.png"
+		},
+		{
+			"name":"playerYellow_lvl3_0_png",
+			"type":"image",
+			"url":"assets/tank/playerYellow_lvl3_0.png"
+		},
+		{
+			"name":"playerYellow_lvl2_1_png",
+			"type":"image",
+			"url":"assets/tank/playerYellow_lvl2_1.png"
+		},
+		{
+			"name":"playerYellow_lvl2_0_png",
+			"type":"image",
+			"url":"assets/tank/playerYellow_lvl2_0.png"
+		},
+		{
+			"name":"playerYellow_lvl1_1_png",
+			"type":"image",
+			"url":"assets/tank/playerYellow_lvl1_1.png"
+		},
+		{
+			"name":"playerYellow_lvl1_0_png",
+			"type":"image",
+			"url":"assets/tank/playerYellow_lvl1_0.png"
+		},
+		{
+			"name":"playerGreen_lvl3_1_png",
+			"type":"image",
+			"url":"assets/tank/playerGreen_lvl3_1.png"
+		},
+		{
+			"name":"playerGreen_lvl3_0_png",
+			"type":"image",
+			"url":"assets/tank/playerGreen_lvl3_0.png"
+		},
+		{
+			"name":"playerGreen_lvl2_1_png",
+			"type":"image",
+			"url":"assets/tank/playerGreen_lvl2_1.png"
+		},
+		{
+			"name":"playerGreen_lvl2_0_png",
+			"type":"image",
+			"url":"assets/tank/playerGreen_lvl2_0.png"
+		},
+		{
+			"name":"playerGreen_lvl1_1_png",
+			"type":"image",
+			"url":"assets/tank/playerGreen_lvl1_1.png"
+		},
+		{
+			"name":"playerGreen_lvl1_0_png",
+			"type":"image",
+			"url":"assets/tank/playerGreen_lvl1_0.png"
 		}
 	]
 }

@@ -6,15 +6,16 @@
 var SuperTank = (function (_super) {
     __extends(SuperTank, _super);
     function SuperTank() {
-        _super.call(this, "superTank", 0, 1);
+        _super.call(this);
         this.reset();
     }
     var d = __define,c=SuperTank,p=c.prototype;
     p.reset = function () {
-        this.speed = 8;
-        this.power = 1;
-        this.life = 3;
-        this.shootTime = 0.5;
+        var tankSet = MapManager.getInstance().tankSet.superTank;
+        this.speed = tankSet.speed;
+        this.power = tankSet.power;
+        this.life = tankSet.life;
+        this.shootTime = tankSet.shootTime;
         this.type = TankEnum.super;
     };
     return SuperTank;

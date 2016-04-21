@@ -5,7 +5,7 @@
  */
 class CMovieClip extends egret.Bitmap{
     
-    private textureList: Array<egret.Texture> = [];     //保存纹理列表
+    protected textureList: Array<egret.Texture> = [];   //保存纹理列表
     public curFrame: number = 0;                        //当前帧
     public totalFrame: number = 0;                      //总帧数
     private timer: egret.Timer;                         //计时器
@@ -13,6 +13,7 @@ class CMovieClip extends egret.Bitmap{
     
 	public constructor() {
         super();
+        this.timer = new egret.Timer(this.delay);
 	}
 
 	/**
@@ -23,17 +24,26 @@ class CMovieClip extends egret.Bitmap{
 	 * 例如图片 img0.png img1.png img2.png，则addTexture("img",0,2)
 	 */ 
     protected addTexture(bmName:string,startIndex:number,endIndex:number): void {
+        this.textureList.length = 0;
+        this.texture = null;
+        
         for(var i=startIndex;i<=endIndex;i++){
             this.textureList.push(RES.getRes(bmName + i + "_png")); 
+            console.log(bmName + i + "_png");
         }
         //显示第一帧
         this.texture = this.textureList[0];
         this.totalFrame = this.textureList.length;
         
+        this.anchorOffsetX = this.width / 2;
+        this.anchorOffsetY = this.height / 2;
     }
     
     //播放动画
     public play(): void {
+        if(this.timer.hasEventListener(egret.TimerEvent.TIMER)){
+            return;
+        }
         this.startTimer();
     }
     
@@ -55,9 +65,6 @@ class CMovieClip extends egret.Bitmap{
     }
     
     private startTimer(): void {
-        if(this.timer == null) {
-            this.timer = new egret.Timer(this.delay);
-        }
         this.timer.addEventListener(egret.TimerEvent.TIMER, this.onTimerHandler,this);
         this.timer.reset();
         this.timer.start();
