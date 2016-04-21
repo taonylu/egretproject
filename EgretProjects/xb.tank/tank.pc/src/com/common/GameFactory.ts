@@ -3,51 +3,20 @@
  * @author 
  *
  */
-
-//坦克 0玩家 1普通 2快速 3强化 4超级强化
-enum TankEnum  {
-    player = 0,
-    normal = 1,
-    fast = 2,
-    strong = 3,
-    super = 4,
-    max = 4
-}
-
-//道具 0隐身，1枪，2星星，3基地护甲，4命，5手雷，6暂停
-enum ItemEnum{
-    alpha = 0,
-    gun = 1,
-    star = 2,
-    armor = 3,
-    life = 4,
-    boom = 5,
-    pause = 6,
-    max = 6
-}
-
-//地形 1砖墙 2钢板 3草地 4加速带 5河流 
-enum TileEnum{
-    grass = 1,
-    speed = 2,
-    wall = 3,
-    steel = 4,
-    river = 5,
-    max = 5
-}
-
 class GameFactory {
 	private playerTankPool:ObjectPool = ObjectPool.getPool("PlayerTank");
     private normalTankPool:ObjectPool = ObjectPool.getPool("NormalTank");
     private fastTankPool: ObjectPool = ObjectPool.getPool("FastTank");
     private strongTankPool: ObjectPool = ObjectPool.getPool("StrongTank");
-    private superTankPool: ObjectPool = ObjectPool.getPool("superTank");
+    private superTankPool: ObjectPool = ObjectPool.getPool("SuperTank");
     private tankList:Array<ObjectPool> = new Array<ObjectPool>();
     
     private itemPool:ObjectPool = ObjectPool.getPool(BaseItem.NAME);
     public bulletPool:ObjectPool = ObjectPool.getPool(Bullet.NAME);
     private boomPool:ObjectPool = ObjectPool.getPool(Boom.NAME);
     private tilePool:ObjectPool = ObjectPool.getPool(BaseTile.NAME);
+    private steelPool:ObjectPool = ObjectPool.getPool("Steel");
+    private wallPool:ObjectPool = ObjectPool.getPool("Wall");
     
     public constructor(){
         this.tankList.push(this.playerTankPool);
@@ -81,10 +50,16 @@ class GameFactory {
     }
     
     //获取一个地形
-    public getTile(type:TileEnum):BaseTile{
-        var tile:BaseTile = this.tilePool.getObject();
-        tile.setType(type);
-        return tile;
+    public getTile(type:TileEnum):any{
+        if(type == TileEnum.wall){
+            return this.wallPool.getObject();
+        }else if(type == TileEnum.steel){
+            return this.steelPool.getObject();
+        }else{
+            var tile: BaseTile = this.tilePool.getObject();
+            tile.setType(type);
+            return tile;
+        }
     }
     
     private static instance:GameFactory;

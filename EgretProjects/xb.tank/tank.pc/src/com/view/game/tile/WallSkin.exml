@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="WallSkin" width="64" height="64" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="wall0" source="wall00_png" y="0"/>
+	<e:Image id="wall1" source="wall01_png" x="16" y="0"/>
+	<e:Image id="wall2" source="wall02_png" x="32" y="0"/>
+	<e:Image id="wall3" source="wall03_png" x="48" y="0"/>
+	<e:Image id="wall4" source="wall04_png" x="0" y="16"/>
+	<e:Image id="wall5" source="wall05_png" x="16" y="16"/>
+	<e:Image id="wall6" source="wall06_png" x="32" y="16"/>
+	<e:Image id="wall7" source="wall07_png" x="48" y="16"/>
+	<e:Image id="wall8" source="wall08_png" x="0" y="32"/>
+	<e:Image id="wall9" source="wall09_png" x="16" y="32"/>
+	<e:Image id="wall10" source="wall10_png" x="32" y="32"/>
+	<e:Image id="wall11" source="wall11_png" x="48" y="32"/>
+	<e:Image id="wall12" source="wall12_png" x="0" y="48"/>
+	<e:Image id="wall13" source="wall13_png" x="16" y="48"/>
+	<e:Image id="wall14" source="wall14_png" x="32" y="48"/>
+	<e:Image id="wall15" source="wall15_png" x="48" y="48"/>
+</e:Skin>

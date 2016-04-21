@@ -12,6 +12,7 @@ var GameScene = (function (_super) {
         this.playerBulletList = new Array(); //我方子弹
         this.enemyBulletList = new Array(); //敌方子弹
         this.itemList = new Array(); //道具
+        this.generateTimer = new egret.Timer(1000); //生成坦克计时器
     }
     var d = __define,c=GameScene,p=c.prototype;
     p.componentCreated = function () {
@@ -29,6 +30,7 @@ var GameScene = (function (_super) {
         this.createMap();
         this.createPlayer();
         this.configListeners();
+        //this.startGenerateTimer();
     };
     p.nextLevel = function () {
         this.resetGame();
@@ -76,7 +78,7 @@ var GameScene = (function (_super) {
     p.createMap = function () {
         //获取地图数据
         var mapManager = MapManager.getInstance();
-        var levelData = mapManager.levelList[mapManager.curLevel];
+        var levelData = mapManager.levelList[mapManager.curLevel - 1];
         var mapData = levelData.mapData;
         this.mapList = ArrayTool.copy2DArr(mapData);
         //创建地图
@@ -87,7 +89,6 @@ var GameScene = (function (_super) {
                 tileType = mapData[i][j];
                 if (tileType != 0) {
                     var tile = gameFactory.getTile(tileType);
-                    tile.setType(tileType);
                     tile.x = j * this.tileWidth + this.halfWidth;
                     tile.y = i * this.tileHeight + this.halfHeight;
                     tile.row = i;
@@ -108,12 +109,14 @@ var GameScene = (function (_super) {
         var userManager = UserManager.getInstance();
         var userNum = userManager.getUserNum();
         var mapManager = MapManager.getInstance();
-        var createPos = mapManager.createPos;
+        var levelData = mapManager.levelList[mapManager.curLevel - 1];
+        var birthPos = levelData.friendBirthPos;
         for (var i = 0; i < userNum; i++) {
             var player = GameFactory.getInstance().getTank(TankEnum.player);
-            player.y = createPos[i][0] * this.tileWidth + this.tileWidth / 2;
-            player.x = createPos[i][1] * this.tileHeight + this.tileWidth / 2;
+            player.y = birthPos[i][0] * this.tileWidth + this.tileWidth / 2;
+            player.x = birthPos[i][1] * this.tileHeight + this.tileWidth / 2;
             player.openid = userManager.userList[i].openid;
+            player.setPlayerNo(i + 1); //p1 p2
             this.tankGroup.addChild(player);
             this.playerTankList.push(player);
         }
@@ -135,9 +138,13 @@ var GameScene = (function (_super) {
         var tank;
         for (var i = 0; i < len; i++) {
             tank = this.enemyTankList[i];
-            if (this.getCollioseTile(tank) == null) {
-                tank.move();
+            if (this.getCollioseTile(tank) == null && this.checkEdge(tank) == false) {
+                tank.autoMove();
             }
+            else {
+                tank.autoTurn();
+            }
+            tank.autoShoot();
         }
     };
     //移动自己子弹
@@ -180,10 +187,10 @@ var GameScene = (function (_super) {
         else if (nextX + this.halfWidth > this.mapWidth) {
             return true;
         }
-        if (nextY - this.halfHeight <= 0) {
+        if (nextY - this.halfHeight < 0) {
             return true;
         }
-        else if (nextY + this.halfHeight >= this.mapHeight) {
+        else if (nextY + this.halfHeight > this.mapHeight) {
             return true;
         }
         return false;
@@ -244,13 +251,51 @@ var GameScene = (function (_super) {
         }
         return tileList;
     };
+    //开始生成坦克计时
+    p.startGenerateTimer = function () {
+        this.generateTimer.addEventListener(egret.TimerEvent.TIMER, this.onGenerateTank, this);
+        this.generateTimer.reset();
+        this.generateTimer.start();
+    };
+    //生成坦克
+    p.onGenerateTank = function () {
+        //获取当前坦克数量，判断上限
+        var mapManager = MapManager.getInstance();
+        var levelData = mapManager.levelList[mapManager.curLevel - 1];
+        var tankLimit = levelData.tankLimit;
+        if (this.enemyTankList.length > tankLimit) {
+            return;
+        }
+        //获取坦克剩余数量，随机生成
+        var tankList = levelData.tankList;
+        if (tankList.length > 0) {
+            var tankeType = tankList.pop();
+        }
+        else {
+            return;
+        }
+        //获取坦克生成点，并在该点生成坦克
+        var enemyBirthPos = levelData.enemyBirthPos;
+        var birthPos = enemyBirthPos[NumberTool.getRandomInt(0, enemyBirthPos.length - 1)];
+        var tank = GameFactory.getInstance().getTank(tankeType);
+        tank.x = birthPos[0] + this.halfWidth;
+        tank.y = birthPos[1] + this.halfHeight;
+        tank.autoTurn();
+        this.tankGroup.addChild(tank);
+        this.enemyTankList.push(tank);
+    };
+    //停止生成坦克
+    p.stopGenerateTimer = function () {
+        this.generateTimer.removeEventListener(egret.TimerEvent.TIMER, this.onGenerateTank, this);
+        this.generateTimer.stop();
+    };
     //发送游戏结束
     p.sendGameOver = function () {
         this.socket.sendMessage("gameOver");
     };
     //接收用户操作
     p.revAction = function (data) {
-        console.log("rev action:", data);
+        //console.log("rev action:",data);
         var actionType = data.actionType;
         var openid = data.openid;
         //获取用户tank

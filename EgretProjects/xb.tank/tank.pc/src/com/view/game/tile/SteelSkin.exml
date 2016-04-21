@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="SteelSkin" width="64" height="64" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="steel0" source="steel0_png" x="0" y="0"/>
+	<e:Image id="steel1" source="steel1_png" x="32" y="0"/>
+	<e:Image id="steel2" source="steel2_png" x="0" y="32"/>
+	<e:Image id="steel3" source="steel3_png" x="32" y="32"/>
+</e:Skin>

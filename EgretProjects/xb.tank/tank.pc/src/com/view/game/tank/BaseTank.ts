@@ -10,55 +10,78 @@ class BaseTank extends CMovieClip{
     public speed:number = 4;     //移动速度
     public speedX:number = 0;    
     public speedY:number = 0;
-    public direction:string = ""; //移动方向
+    public direction:ActionEnum; //移动方向
     public power:number = 0;     //子弹威力
     public life:number = 0;      //生命值
     public shootTime:number = 0; //射击间隔时间，单位ms
     public shootCount:number = 0;//射击计时，单位帧
-    public openid: string;
+    public openid: string;       //openid
     
-    public constructor(imgName:string,start:number,end:number) {
+    public constructor() {
         super();
         this.className = egret.getQualifiedClassName(this);
-        this.addTexture(imgName,start,end);
-        this.anchorOffsetX = this.width / 2;
-        this.anchorOffsetY = this.height / 2;
 	}
 
+	//移动
 	public move(){
     	this.x += this.speedX;
     	this.y += this.speedY;
 	}
 	
-	public setDirection(direction:string){
+	//设置方向
+	public setDirection(direction:ActionEnum){
     	this.direction = direction;
+    	this.play();
     	switch(this.direction){
-        	case "up":
+        	case ActionEnum.up:
         	    this.speedX = 0;
         	    this.speedY = -this.speed;
         	    this.rotation = 0;
         	    break;
-        	case "down":
+        	case ActionEnum.down:
         	    this.speedX = 0;
         	    this.speedY = this.speed;
         	    this.rotation = 180;
         	    break;
-        	 case "left":
+        	 case ActionEnum.left:
         	    this.speedX = -this.speed;
         	    this.speedY = 0;
         	    this.rotation = -90;
         	    break;
-        	 case "right":
+        	 case ActionEnum.right:
                 this.speedX = this.speed;
                 this.speedY = 0;
                 this.rotation = 90;
                 break;
-            case "stopMove":
+            case ActionEnum.stopMove:
                 this.speedX = 0;
                 this.speedY = 0;
+                this.stop();
                 break;
     	}
 	}
+	
+	//自动转向，优先往下
+	public autoTurn(){
+    	 if(this.direction != ActionEnum.down){
+        	 this.direction = ActionEnum.down;
+    	 }else{
+        	 this.direction = NumberTool.getRandomInt(ActionEnum.up, ActionEnum.right);
+    	 }
+    	 this.setDirection(this.direction);
+	}
+	
+	//自动移动
+	private turnCount = 60;
+    public autoMove(){
+        this.turnCount--;
+        if(this.turnCount < 0){
+            this.turnCount = Math.round(60 + Math.random()*100);  //每隔一段时间自动转向
+            this.autoTurn();
+        }else{
+            this.move();
+        }
+    }
 	
 	//自动射击
 	public autoShoot(){
@@ -70,32 +93,25 @@ class BaseTank extends CMovieClip{
 	}
 	
 	//射击
-	public shoot(){
+	public shoot():Bullet{
     	var bullet:Bullet = GameFactory.getInstance().bulletPool.getObject();
     	bullet.type = this.type;
     	bullet.power = this.power;
     	switch(this.direction){
-            case "up":   //上
+            case ActionEnum.up:   //上
                 bullet.speedY = -bullet.speed;
                 break;
-    	       case "down":   //下
+    	       case ActionEnum.down:   //下
                 bullet.speedY = bullet.speed;
                 break;
-    	       case "left":   //左
+    	       case ActionEnum.left:   //左
                 bullet.speedX = -bullet.speed;
                 break;
-            case "right":     //右
+            case ActionEnum.right:     //右
                 bullet.speedX = bullet.speed;
                 break;
     	}
-    	//子弹添加到场景中
-    	var gameScene:GameScene = GameManager.getInstance().gameScene;
-       gameScene.bulletGroup.addChild(bullet);
-       if(bullet.type == TankEnum.player){
-           gameScene.playerBulletList.push(bullet);
-       }else{
-           gameScene.enemyBulletList.push(bullet);
-       }
+      return bullet;
 	}
 	
 	/**
@@ -115,6 +131,7 @@ class BaseTank extends CMovieClip{
 	//回收
     public recycle() {
         this.parent && this.parent.removeChild(this);
+        this.reset();
         ObjectPool.getPool(this.className).returnObject(this);
     }
 }

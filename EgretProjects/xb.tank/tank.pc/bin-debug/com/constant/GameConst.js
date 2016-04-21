@@ -10,3 +10,43 @@ var GameConst = (function () {
     return GameConst;
 }());
 egret.registerClass(GameConst,'GameConst');
+//坦克 0玩家 1普通 2快速 3强化 4超级强化
+var TankEnum;
+(function (TankEnum) {
+    TankEnum[TankEnum["player"] = 0] = "player";
+    TankEnum[TankEnum["normal"] = 1] = "normal";
+    TankEnum[TankEnum["fast"] = 2] = "fast";
+    TankEnum[TankEnum["strong"] = 3] = "strong";
+    TankEnum[TankEnum["super"] = 4] = "super";
+})(TankEnum || (TankEnum = {}));
+//道具 0隐身，1枪，2星星，3基地护甲，4命，5手雷，6暂停
+var ItemEnum;
+(function (ItemEnum) {
+    ItemEnum[ItemEnum["alpha"] = 0] = "alpha";
+    ItemEnum[ItemEnum["gun"] = 1] = "gun";
+    ItemEnum[ItemEnum["star"] = 2] = "star";
+    ItemEnum[ItemEnum["armor"] = 3] = "armor";
+    ItemEnum[ItemEnum["life"] = 4] = "life";
+    ItemEnum[ItemEnum["boom"] = 5] = "boom";
+    ItemEnum[ItemEnum["pause"] = 6] = "pause";
+})(ItemEnum || (ItemEnum = {}));
+//地形 1砖墙 2钢板 3草地 4加速带 5河流 
+var TileEnum;
+(function (TileEnum) {
+    TileEnum[TileEnum["grass"] = 1] = "grass";
+    TileEnum[TileEnum["speed"] = 2] = "speed";
+    TileEnum[TileEnum["wall"] = 3] = "wall";
+    TileEnum[TileEnum["steel"] = 4] = "steel";
+    TileEnum[TileEnum["river"] = 5] = "river";
+})(TileEnum || (TileEnum = {}));
+//坦克行为
+var ActionEnum;
+(function (ActionEnum) {
+    ActionEnum[ActionEnum["up"] = 0] = "up";
+    ActionEnum[ActionEnum["down"] = 1] = "down";
+    ActionEnum[ActionEnum["left"] = 2] = "left";
+    ActionEnum[ActionEnum["right"] = 3] = "right";
+    ActionEnum[ActionEnum["stopMove"] = 4] = "stopMove";
+    ActionEnum[ActionEnum["stopShoot"] = 5] = "stopShoot";
+    ActionEnum[ActionEnum["shoot"] = 6] = "shoot";
+})(ActionEnum || (ActionEnum = {}));

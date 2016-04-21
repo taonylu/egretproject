@@ -11,3 +11,14 @@ class GameConst {
 	/**游戏配置*/
     public static gameConfig;
 }
+
+//坦克行为
+enum ActionEnum {
+    up = 0,
+    down = 1,
+    left = 2,
+    right = 3,
+    stopMove = 4,
+    stopShoot = 5,
+    shoot = 6
+}

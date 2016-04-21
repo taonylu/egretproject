@@ -28,6 +28,8 @@ class GameScene extends BaseScene{
     public enemyBulletList:Array<Bullet> = new Array<Bullet>();      //敌方子弹
     private itemList:Array<BaseItem> = new Array<BaseItem>();        //道具
     
+    private generateTimer:egret.Timer = new egret.Timer(1000);       //生成坦克计时器
+    
     
 	public constructor() {
         super("GameSceneSkin");
@@ -52,6 +54,7 @@ class GameScene extends BaseScene{
         this.createMap();
         this.createPlayer();
         this.configListeners();
+        //this.startGenerateTimer();
     }
     
     public nextLevel(){
@@ -109,7 +112,7 @@ class GameScene extends BaseScene{
     private createMap() {
         //获取地图数据
         var mapManager: MapManager = MapManager.getInstance();
-        var levelData: LevelData = mapManager.levelList[mapManager.curLevel];
+        var levelData: LevelData = mapManager.levelList[mapManager.curLevel-1];
         var mapData = levelData.mapData;
         this.mapList = ArrayTool.copy2DArr(mapData);
         
@@ -120,8 +123,7 @@ class GameScene extends BaseScene{
             for(var j = 0;j < this.colMax;j++) {
                 tileType = mapData[i][j];
                 if(tileType != 0) {
-                    var tile: BaseTile = gameFactory.getTile(tileType);
-                    tile.setType(tileType);
+                    var tile = gameFactory.getTile(tileType);
                     tile.x = j * this.tileWidth + this.halfWidth;
                     tile.y = i * this.tileHeight + this.halfHeight;
                     tile.row = i;
@@ -142,12 +144,14 @@ class GameScene extends BaseScene{
         var userManager:UserManager = UserManager.getInstance();
         var userNum:number = userManager.getUserNum();
         var mapManager:MapManager = MapManager.getInstance();
-        var createPos = mapManager.createPos;
+        var levelData:LevelData = mapManager.levelList[mapManager.curLevel-1];
+        var birthPos = levelData.friendBirthPos;
         for(var i=0;i<userNum;i++){
-            var player: BaseTank = GameFactory.getInstance().getTank(TankEnum.player);
-            player.y = createPos[i][0]*this.tileWidth + this.tileWidth/2;
-            player.x = createPos[i][1]*this.tileHeight + this.tileWidth/2;
+            var player: PlayerTank = <PlayerTank>GameFactory.getInstance().getTank(TankEnum.player);
+            player.y = birthPos[i][0]*this.tileWidth + this.tileWidth/2;
+            player.x = birthPos[i][1]*this.tileHeight + this.tileWidth/2;
             player.openid = userManager.userList[i].openid;
+            player.setPlayerNo(i+1); //p1 p2
             this.tankGroup.addChild(player);
             this.playerTankList.push(player);
         }
@@ -156,7 +160,7 @@ class GameScene extends BaseScene{
     //移动玩家坦克
     private movePlayerTank(){
         var len = this.playerTankList.length;
-        var tank:PlayerTank;
+        var tank:BaseTank;
         for(var i=0;i<len;i++){
             tank = this.playerTankList[i];
             if(this.getCollioseTile(tank) == null && this.checkEdge(tank) == false){
@@ -171,9 +175,12 @@ class GameScene extends BaseScene{
         var tank:BaseTank;
         for(var i=0;i<len;i++){
             tank = this.enemyTankList[i];
-            if(this.getCollioseTile(tank) == null){
-                tank.move();
+            if(this.getCollioseTile(tank) == null && this.checkEdge(tank) == false){
+                tank.autoMove();
+            }else{ //遇到障碍，随机一个方向，优先往下
+                tank.autoTurn();
             }
+            tank.autoShoot();
         }
     }
     
@@ -220,9 +227,9 @@ class GameScene extends BaseScene{
         } else if(nextX + this.halfWidth > this.mapWidth){
             return true;
         }
-        if(nextY - this.halfHeight <= 0 ){
+        if(nextY - this.halfHeight < 0 ){
             return true;
-        } else if(nextY + this.halfHeight >= this.mapHeight){
+        } else if(nextY + this.halfHeight > this.mapHeight){
             return true;
         }
         return false;
@@ -291,6 +298,46 @@ class GameScene extends BaseScene{
         return tileList;
     }
     
+    //开始生成坦克计时
+    private startGenerateTimer(){
+        this.generateTimer.addEventListener(egret.TimerEvent.TIMER, this.onGenerateTank, this);
+        this.generateTimer.reset();
+        this.generateTimer.start();
+    }
+    
+    //生成坦克
+    private onGenerateTank(){
+        //获取当前坦克数量，判断上限
+        var mapManager:MapManager = MapManager.getInstance();
+        var levelData:LevelData = mapManager.levelList[mapManager.curLevel-1];
+        var tankLimit = levelData.tankLimit;
+        if(this.enemyTankList.length > tankLimit){
+            return;
+        }
+        //获取坦克剩余数量，随机生成
+        var tankList = levelData.tankList;
+        if(tankList.length > 0){
+            var tankeType = tankList.pop();
+        }else{
+            return;
+        }
+        //获取坦克生成点，并在该点生成坦克
+        var enemyBirthPos = levelData.enemyBirthPos;
+        var birthPos = enemyBirthPos[NumberTool.getRandomInt(0,enemyBirthPos.length-1)];
+        var tank:BaseTank = GameFactory.getInstance().getTank(tankeType);
+        tank.x = birthPos[0] + this.halfWidth;
+        tank.y = birthPos[1] + this.halfHeight;
+        tank.autoTurn();
+        this.tankGroup.addChild(tank);
+        this.enemyTankList.push(tank);
+    }
+    
+    //停止生成坦克
+    private stopGenerateTimer(){
+        this.generateTimer.removeEventListener(egret.TimerEvent.TIMER,this.onGenerateTank,this);
+        this.generateTimer.stop();
+    }
+    
     //发送游戏结束
     public sendGameOver(){
         this.socket.sendMessage("gameOver");
@@ -298,8 +345,8 @@ class GameScene extends BaseScene{
     
     //接收用户操作
     public revAction(data) {
-        console.log("rev action:",data);
-        var actionType: string = data.actionType;
+        //console.log("rev action:",data);
+        var actionType = data.actionType;
         var openid: string = data.openid;
         
         //获取用户tank

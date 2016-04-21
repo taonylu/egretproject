@@ -15,6 +15,14 @@ var LevelData = (function () {
         this.strongTank = 0;
         /**超级强化坦克*/
         this.superTank = 0;
+        /**本关卡剩余坦克，保存的值为坦克类型，用于生成顺序*/
+        this.tankList = [];
+        /**敌方坦克同时存在上限*/
+        this.tankLimit = 5;
+        /**我方坦克生成点*/
+        this.friendBirthPos = [[15, 6], [15, 11]];
+        /**敌方坦克生成点*/
+        this.enemyBirthPos = [[0, 0]];
     }
     var d = __define,c=LevelData,p=c.prototype;
     return LevelData;

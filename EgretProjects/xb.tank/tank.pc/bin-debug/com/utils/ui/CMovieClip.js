@@ -11,6 +11,7 @@ var CMovieClip = (function (_super) {
         this.curFrame = 0; //当前帧
         this.totalFrame = 0; //总帧数
         this.delay = 1000 / 24; //每帧计时
+        this.timer = new egret.Timer(this.delay);
     }
     var d = __define,c=CMovieClip,p=c.prototype;
     /**
@@ -21,15 +22,23 @@ var CMovieClip = (function (_super) {
      * 例如图片 img0.png img1.png img2.png，则addTexture("img",0,2)
      */
     p.addTexture = function (bmName, startIndex, endIndex) {
+        this.textureList.length = 0;
+        this.texture = null;
         for (var i = startIndex; i <= endIndex; i++) {
             this.textureList.push(RES.getRes(bmName + i + "_png"));
+            console.log(bmName + i + "_png");
         }
         //显示第一帧
         this.texture = this.textureList[0];
         this.totalFrame = this.textureList.length;
+        this.anchorOffsetX = this.width / 2;
+        this.anchorOffsetY = this.height / 2;
     };
     //播放动画
     p.play = function () {
+        if (this.timer.hasEventListener(egret.TimerEvent.TIMER)) {
+            return;
+        }
         this.startTimer();
     };
     //跳转到指定帧并播放
@@ -47,9 +56,6 @@ var CMovieClip = (function (_super) {
         this.curFrame = frame;
     };
     p.startTimer = function () {
-        if (this.timer == null) {
-            this.timer = new egret.Timer(this.delay);
-        }
         this.timer.addEventListener(egret.TimerEvent.TIMER, this.onTimerHandler, this);
         this.timer.reset();
         this.timer.start();
