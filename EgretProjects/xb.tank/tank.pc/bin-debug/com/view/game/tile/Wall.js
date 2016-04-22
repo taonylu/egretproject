@@ -10,6 +10,10 @@ var Wall = (function (_super) {
         this.wallList = new Array();
         this.type = TileEnum.wall; //类型
         this.life = 0; //生命值
+        this.canHit = false; //可以被击中
+        this.canWalk = false; //能够行走
+        this.canHit = true;
+        this.canWalk = false;
     }
     var d = __define,c=Wall,p=c.prototype;
     p.componentCreated = function () {
@@ -42,7 +46,8 @@ var Wall = (function (_super) {
         for (var i = 0; i < 16; i++) {
             wall = this.wallList[i];
             if (wall.visible == true) {
-                if (Math.abs(wall.x - 32 - target.x) < 40 && Math.abs(wall.y - 32 - target.y) < 40) {
+                //转换砖块坐标为bullet所在容器坐标，再计算碰撞半径
+                if (Math.abs(this.x + wall.x - 32 - target.x) < 24 && Math.abs(this.y + wall.y - 32 - target.y) < 24) {
                     wall.visible = false;
                     isHit = true;
                 }
@@ -53,8 +58,9 @@ var Wall = (function (_super) {
     p.recycle = function () {
         this.parent && this.parent.removeChild(this);
         this.reset();
-        ObjectPool.getPool("Wall").returnObject(this);
+        ObjectPool.getPool(Wall.NAME).returnObject(this);
     };
+    Wall.NAME = "Wall";
     return Wall;
 }(BaseUI));
 egret.registerClass(Wall,'Wall');

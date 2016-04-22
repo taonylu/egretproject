@@ -8,11 +8,23 @@
  *  修改日志：
  */
 class SimpleMC extends egret.MovieClip {
-    public constructor(pngName:string, jsonName:string, mcName:string) {
+    public constructor() {
+        super();
+    }
+    
+    /**
+     * 设置movieClip
+     * @pngName 图片名
+     * @jsonName json名
+     * @mcName  mc名
+     */ 
+    public setMovieClip(pngName: string,jsonName: string,mcName: string){
         var png = RES.getRes(pngName);
         var json = RES.getRes(jsonName);
-        var mcF:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(json,png);
-        super(mcF.generateMovieClipData(mcName));
+        var mcF: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(json,png);
+        this.movieClipData = mcF.generateMovieClipData(mcName);
+        this.anchorOffsetX = 32;
+        this.anchorOffsetY = 32;
     }
 
 }

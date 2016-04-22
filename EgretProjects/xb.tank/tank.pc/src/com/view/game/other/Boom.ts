@@ -5,8 +5,8 @@
  */
 class Boom extends SimpleMC{
     public static NAME:string = "Boom";
-    public constructor(pngName: string,jsonName: string,mcName: string) {
-        super(pngName, jsonName, mcName);
+    public constructor() {
+        super();
     }
     
     public playAnim(){

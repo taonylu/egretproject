@@ -7,7 +7,7 @@
         		"strongTank强化坦克",
         		"superTank超级强化坦克",
         		
-        		"itemRefreshTime道具刷新时间间隔范围，单位s，[5,10] 5-10秒刷新",
+        		"itemNum道具数量",
         		"alphaItem隐身，值表示该道具在本关出现的几率",
         		"gunItem枪",
         		"starItem星星",
@@ -23,8 +23,8 @@
 				"fastTank":[10,10,10,10,10],
 				"strongTank":[10,10,10,10,10],
 				"superTank":[10,10,10,10,10],
+				"itemNum":[0,3,5,6,7],
 				
-				"itemRefreshTime":[[5,10],[5,10],[5,10],[5,10],[5,10]],
 				"alpha":[10,10,10,10,10],
 				"gun":[10,10,10,10,10],
 				"star":[10,10,10,10,10],
@@ -35,14 +35,14 @@
 			},
 	"comment":[
         	"坦克属性设置",
-        	"坦克属性 life:生命值，power:枪威力，shootTime:射击间隔单位s，speed:移动速度"
+        	"坦克属性 life:生命值，power:枪威力，shootTime:射击间隔单位ms，speed:移动速度"
           ], 
     "tankSet":{
-       		"playerTank":{"life":1,"power":1,"shootTime":0.1,"speed":4},
-        	"normalTank":{"life":1,"power":1,"shootTime":0.1,"speed":4},
-        	"fastTank":{"life":1,"power":1,"shootTime":0.1,"speed":4},
-        	"strongTank":{"life":2,"power":1,"shootTime":0.1,"speed":4},
-        	"superTank":{"life":3,"power":1,"shootTime":0.1,"speed":4}
+       		"playerTank":{"life":1,"power":1,"shootTime":[500,300,200],"speed":4},
+        	"normalTank":{"life":1,"power":1,"shootTime":[3000,300,200],"speed":4},
+        	"fastTank":{"life":1,"power":1,"shootTime":[3000,300,200],"speed":8},
+        	"strongTank":{"life":2,"power":1,"shootTime":[3000,300,200],"speed":4},
+        	"superTank":{"life":3,"power":1,"shootTime":[3000,300,200],"speed":4}
     	},
     "comment":[
         	"道具设置",

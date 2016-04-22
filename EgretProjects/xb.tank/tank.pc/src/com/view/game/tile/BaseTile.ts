@@ -5,13 +5,17 @@
  */
 class BaseTile extends egret.Bitmap{
     public static NAME:string = "BaseTile";
+    public className: string = "";//类名
     public type:TileEnum;    //类型
     public life:number = 0;  //生命值
     public row:number;
     public col:number;
+    public canHit:boolean = false;  //可以被击中
+    public canWalk:boolean = false; //能够行走
     
 	public constructor() {
     	super();
+      this.className = egret.getQualifiedClassName(this);
 	}
 	
 	//设置类型
@@ -38,6 +42,6 @@ class BaseTile extends egret.Bitmap{
     public recycle(){
         this.parent && this.parent.removeChild(this);
         this.reset();
-        ObjectPool.getPool(BaseTile.NAME).returnObject(this);
+        ObjectPool.getPool(this.className).returnObject(this);
     }
 }

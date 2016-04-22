@@ -10,7 +10,7 @@ var BaseTank = (function (_super) {
         this.className = ""; //类名
         this.skin = ""; //坦克皮肤
         this.speed = 4; //移动速度
-        this.speedX = 0;
+        this.speedX = 0; //x，y轴移动速度
         this.speedY = 0;
         this.power = 0; //子弹威力
         this.life = 0; //生命值
@@ -26,10 +26,16 @@ var BaseTank = (function (_super) {
         this.x += this.speedX;
         this.y += this.speedY;
     };
+    //播放移动动画，敌方坦克不会停止移动
+    p.playMove = function () {
+        if (this.type == TankEnum.player && this.direction != ActionEnum.stopMove) {
+            this.gotoAndPlay("lvl" + this.power);
+        }
+    };
     //设置方向
     p.setDirection = function (direction) {
         this.direction = direction;
-        this.play();
+        this.play(-1);
         switch (this.direction) {
             case ActionEnum.up:
                 this.speedX = 0;
@@ -78,34 +84,38 @@ var BaseTank = (function (_super) {
             this.move();
         }
     };
-    //自动射击
-    p.autoShoot = function () {
+    //射击
+    p.shoot = function () {
         this.shootCount++;
         if (this.shootCount * 16 >= this.shootTime) {
             this.shootCount = 0;
-            this.shoot();
+            var bullet = GameFactory.getInstance().bulletPool.getObject();
+            bullet.type = this.type;
+            bullet.power = this.power;
+            bullet.x = this.x;
+            bullet.y = this.y;
+            switch (this.direction) {
+                case ActionEnum.up:
+                    bullet.rotation = 0;
+                    bullet.speedY = -bullet.speed + (this.power - 1); //子弹根据威力加速
+                    break;
+                case ActionEnum.down:
+                    bullet.rotation = 180;
+                    bullet.speedY = bullet.speed + (this.power - 1);
+                    break;
+                case ActionEnum.left:
+                    bullet.rotation = -90;
+                    bullet.speedX = -bullet.speed + (this.power - 1);
+                    break;
+                case ActionEnum.right:
+                    bullet.rotation = 90;
+                    bullet.speedX = bullet.speed + (this.power - 1);
+                    break;
+            }
+            var gameScene = GameManager.getInstance().gameScene;
+            gameScene.bulletList.push(bullet);
+            gameScene.bulletGroup.addChild(bullet);
         }
-    };
-    //射击
-    p.shoot = function () {
-        var bullet = GameFactory.getInstance().bulletPool.getObject();
-        bullet.type = this.type;
-        bullet.power = this.power;
-        switch (this.direction) {
-            case ActionEnum.up:
-                bullet.speedY = -bullet.speed;
-                break;
-            case ActionEnum.down:
-                bullet.speedY = bullet.speed;
-                break;
-            case ActionEnum.left:
-                bullet.speedX = -bullet.speed;
-                break;
-            case ActionEnum.right:
-                bullet.speedX = bullet.speed;
-                break;
-        }
-        return bullet;
     };
     /**
      * 被击中
@@ -113,10 +123,15 @@ var BaseTank = (function (_super) {
      * return 返回是否击中有效
      */
     p.beAttacked = function (bullet) {
-        return true;
+        if (Math.abs(bullet.x - this.x) < 48 && (Math.abs(bullet.y - this.y) < 48)) {
+            return true;
+        }
+        return false;
     };
     //重置状态
     p.reset = function () {
+        this.isHaveItem = false;
+        this.shootCount = 0;
     };
     //回收
     p.recycle = function () {
@@ -125,5 +140,5 @@ var BaseTank = (function (_super) {
         ObjectPool.getPool(this.className).returnObject(this);
     };
     return BaseTank;
-}(CMovieClip));
+}(SimpleMC));
 egret.registerClass(BaseTank,'BaseTank');

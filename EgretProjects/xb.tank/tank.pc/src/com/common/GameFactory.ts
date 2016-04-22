@@ -4,19 +4,25 @@
  *
  */
 class GameFactory {
-	private playerTankPool:ObjectPool = ObjectPool.getPool("PlayerTank");
-    private normalTankPool:ObjectPool = ObjectPool.getPool("NormalTank");
-    private fastTankPool: ObjectPool = ObjectPool.getPool("FastTank");
-    private strongTankPool: ObjectPool = ObjectPool.getPool("StrongTank");
-    private superTankPool: ObjectPool = ObjectPool.getPool("SuperTank");
-    private tankList:Array<ObjectPool> = new Array<ObjectPool>();
+	private playerTankPool:ObjectPool = ObjectPool.getPool(PlayerTank.NAME);  //玩家坦克
+    private normalTankPool:ObjectPool = ObjectPool.getPool(NormalTank.NAME);  //普通坦克
+    private fastTankPool: ObjectPool = ObjectPool.getPool(FastTank.NAME);     //快速坦克
+    private strongTankPool: ObjectPool = ObjectPool.getPool(StrongTank.NAME); //强化坦克
+    private superTankPool: ObjectPool = ObjectPool.getPool(SuperTank.NAME);   //超级强化坦克
+    private tankList:Array<ObjectPool> = new Array<ObjectPool>();          //坦克列表，保存坦克对象池，用于根据类型获取对象池
     
-    private itemPool:ObjectPool = ObjectPool.getPool(BaseItem.NAME);
-    public bulletPool:ObjectPool = ObjectPool.getPool(Bullet.NAME);
-    private boomPool:ObjectPool = ObjectPool.getPool(Boom.NAME);
-    private tilePool:ObjectPool = ObjectPool.getPool(BaseTile.NAME);
-    private steelPool:ObjectPool = ObjectPool.getPool("Steel");
-    private wallPool:ObjectPool = ObjectPool.getPool("Wall");
+    private itemPool:ObjectPool = ObjectPool.getPool(BaseItem.NAME);       //道具
+    public bulletPool:ObjectPool = ObjectPool.getPool(Bullet.NAME);        //子弹
+    private boomPool:ObjectPool = ObjectPool.getPool(Boom.NAME);           //爆炸效果
+    
+    
+    private steelPool:ObjectPool = ObjectPool.getPool(Steel.NAME);            //钢铁
+    private wallPool:ObjectPool = ObjectPool.getPool(Wall.NAME);              //墙
+    private grassPool:ObjectPool = ObjectPool.getPool(Grass.NAME);            //草地
+    private riverPool:ObjectPool = ObjectPool.getPool(River.NAME);            //河流
+    private speedPool:ObjectPool = ObjectPool.getPool(Speed.NAME);            //加速
+    private tileList = [];   //地形列表，保存地形对象池，用于根据类型获取对象池
+    
     
     public constructor(){
         this.tankList.push(this.playerTankPool);
@@ -25,6 +31,11 @@ class GameFactory {
         this.tankList.push(this.strongTankPool);
         this.tankList.push(this.superTankPool);
         
+        this.tileList.push(this.grassPool);
+        this.tileList.push(this.speedPool);
+        this.tileList.push(this.wallPool);
+        this.tileList.push(this.steelPool);
+        this.tileList.push(this.riverPool);
     }
     
     //获取一辆坦克 0玩家 1普通 2快速 3强化 4超级强化
@@ -51,15 +62,7 @@ class GameFactory {
     
     //获取一个地形
     public getTile(type:TileEnum):any{
-        if(type == TileEnum.wall){
-            return this.wallPool.getObject();
-        }else if(type == TileEnum.steel){
-            return this.steelPool.getObject();
-        }else{
-            var tile: BaseTile = this.tilePool.getObject();
-            tile.setType(type);
-            return tile;
-        }
+        return this.tileList[type-1].getObject();  //地形从1开始，数组索引从0开始
     }
     
     private static instance:GameFactory;
