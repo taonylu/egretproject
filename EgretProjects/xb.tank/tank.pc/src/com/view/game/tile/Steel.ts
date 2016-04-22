@@ -4,14 +4,19 @@
  *
  */
 class Steel extends BaseUI{
+    public static NAME:string = "Steel";
     public steelList: Array<eui.Image> = new Array<eui.Image>();
     public type: TileEnum = TileEnum.steel;    //类型
     public life: number = 0;  //生命值
     public row: number;
     public col: number;
+    public canHit: boolean = false;  //可以被击中
+    public canWalk: boolean = false; //能够行走
     
     public constructor() {
         super("SteelSkin");
+        this.canHit = true;
+        this.canWalk = false;
     }
 	
     public componentCreated(): void {
@@ -41,23 +46,24 @@ class Steel extends BaseUI{
      * @return 返回击中是否有效 
      */
     public beAttacked(target: Bullet): boolean {
-        var wall: eui.Image;
+        var steel: eui.Image;
         var isHit: boolean = false;
-        for(var i = 0;i < 16;i++) {
-            wall = this.steelList[i];
-            if(wall.visible == true) {
-                if(Math.abs(wall.x - 32 - target.x) < 48 && Math.abs(wall.y - 32 - target.y) < 48) {  //击中
-                    wall.visible = false;
+        var len = this.steelList.length;
+        for(var i = 0;i < len;i++) {
+            steel = this.steelList[i];
+            if(steel.visible == true) {
+                if(Math.abs(this.x + steel.x - 32 - target.x) < 48 && Math.abs(this.y + steel.y - 32 - target.y) < 48) {  //击中
+                    steel.visible = false;
                     isHit = true;
                 }
             }
         }
-        return isHit;
+        return isHit; 
     }
     
     public recycle() {
         this.parent && this.parent.removeChild(this);
         this.reset();
-        ObjectPool.getPool("Steel").returnObject(this);
+        ObjectPool.getPool(Steel.NAME).returnObject(this);
     }
 }

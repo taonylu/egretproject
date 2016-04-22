@@ -1,45 +1,15 @@
 {
 	"groups":[
 		{
-			"keys":"home_thxbg_jpg",
+			"keys":"wall15_png",
 			"name":"preload"
 		},
 		{
-			"keys":"home_thxbg_jpg,tile1_png,tile2_png,tile3_png,tile4_png,tile5_png,level1_json,level2_json,level3_json,level4_json,level5_json,level6_json,wall15_png,wall14_png,wall13_png,wall12_png,wall11_png,wall10_png,wall09_png,wall08_png,wall07_png,wall06_png,wall05_png,wall04_png,wall03_png,wall02_png,wall01_png,wall00_png,steel3_png,steel2_png,steel1_png,steel0_png,map_json,playerYellow_lvl3_1_png,playerYellow_lvl3_0_png,playerYellow_lvl2_1_png,playerYellow_lvl2_0_png,playerYellow_lvl1_1_png,playerYellow_lvl1_0_png,playerGreen_lvl3_1_png,playerGreen_lvl3_0_png,playerGreen_lvl2_1_png,playerGreen_lvl2_0_png,playerGreen_lvl1_1_png,playerGreen_lvl1_0_png",
+			"keys":"level1_json,level2_json,level3_json,level4_json,level5_json,level6_json,wall15_png,wall14_png,wall13_png,wall12_png,wall11_png,wall10_png,wall09_png,wall08_png,wall07_png,wall06_png,wall05_png,wall04_png,wall03_png,wall02_png,wall01_png,wall00_png,steel3_png,steel2_png,steel1_png,steel0_png,map_json,fastTank_json,fastTank_png,normalTank_json,normalTank_png,playerGreenTank_json,playerGreenTank_png,playerYellowTank_json,playerYellowTank_png,strongTank_json,strongTank_png,superTank_json,superTank_png,bullet_png,tile5_png,tile4_png,tile3_png,tile2_png,tile1_png",
 			"name":"game"
 		}
 	],
 	"resources":[
-		{
-			"name":"home_thxbg_jpg",
-			"type":"image",
-			"url":"assets/home_thxbg.jpg"
-		},
-		{
-			"name":"tile1_png",
-			"type":"image",
-			"url":"assets/tile1.png"
-		},
-		{
-			"name":"tile2_png",
-			"type":"image",
-			"url":"assets/tile2.png"
-		},
-		{
-			"name":"tile3_png",
-			"type":"image",
-			"url":"assets/tile3.png"
-		},
-		{
-			"name":"tile4_png",
-			"type":"image",
-			"url":"assets/tile4.png"
-		},
-		{
-			"name":"tile5_png",
-			"type":"image",
-			"url":"assets/tile5.png"
-		},
 		{
 			"name":"level1_json",
 			"type":"json",
@@ -176,64 +146,94 @@
 			"url":"assets/tile/steel0.png"
 		},
 		{
-			"name":"playerYellow_lvl3_1_png",
-			"type":"image",
-			"url":"assets/tank/playerYellow_lvl3_1.png"
+			"name":"fastTank_json",
+			"type":"json",
+			"url":"assets/tank/fastTank.json"
 		},
 		{
-			"name":"playerYellow_lvl3_0_png",
+			"name":"fastTank_png",
 			"type":"image",
-			"url":"assets/tank/playerYellow_lvl3_0.png"
+			"url":"assets/tank/fastTank.png"
 		},
 		{
-			"name":"playerYellow_lvl2_1_png",
-			"type":"image",
-			"url":"assets/tank/playerYellow_lvl2_1.png"
+			"name":"normalTank_json",
+			"type":"json",
+			"url":"assets/tank/normalTank.json"
 		},
 		{
-			"name":"playerYellow_lvl2_0_png",
+			"name":"normalTank_png",
 			"type":"image",
-			"url":"assets/tank/playerYellow_lvl2_0.png"
+			"url":"assets/tank/normalTank.png"
 		},
 		{
-			"name":"playerYellow_lvl1_1_png",
-			"type":"image",
-			"url":"assets/tank/playerYellow_lvl1_1.png"
+			"name":"playerGreenTank_json",
+			"type":"json",
+			"url":"assets/tank/playerGreenTank.json"
 		},
 		{
-			"name":"playerYellow_lvl1_0_png",
+			"name":"playerGreenTank_png",
 			"type":"image",
-			"url":"assets/tank/playerYellow_lvl1_0.png"
+			"url":"assets/tank/playerGreenTank.png"
 		},
 		{
-			"name":"playerGreen_lvl3_1_png",
-			"type":"image",
-			"url":"assets/tank/playerGreen_lvl3_1.png"
+			"name":"playerYellowTank_json",
+			"type":"json",
+			"url":"assets/tank/playerYellowTank.json"
 		},
 		{
-			"name":"playerGreen_lvl3_0_png",
+			"name":"playerYellowTank_png",
 			"type":"image",
-			"url":"assets/tank/playerGreen_lvl3_0.png"
+			"url":"assets/tank/playerYellowTank.png"
 		},
 		{
-			"name":"playerGreen_lvl2_1_png",
-			"type":"image",
-			"url":"assets/tank/playerGreen_lvl2_1.png"
+			"name":"strongTank_json",
+			"type":"json",
+			"url":"assets/tank/strongTank.json"
 		},
 		{
-			"name":"playerGreen_lvl2_0_png",
+			"name":"strongTank_png",
 			"type":"image",
-			"url":"assets/tank/playerGreen_lvl2_0.png"
+			"url":"assets/tank/strongTank.png"
 		},
 		{
-			"name":"playerGreen_lvl1_1_png",
-			"type":"image",
-			"url":"assets/tank/playerGreen_lvl1_1.png"
+			"name":"superTank_json",
+			"type":"json",
+			"url":"assets/tank/superTank.json"
 		},
 		{
-			"name":"playerGreen_lvl1_0_png",
+			"name":"superTank_png",
 			"type":"image",
-			"url":"assets/tank/playerGreen_lvl1_0.png"
+			"url":"assets/tank/superTank.png"
+		},
+		{
+			"name":"bullet_png",
+			"type":"image",
+			"url":"assets/bullet/bullet.png"
+		},
+		{
+			"name":"tile5_png",
+			"type":"image",
+			"url":"assets/tile/tile5.png"
+		},
+		{
+			"name":"tile4_png",
+			"type":"image",
+			"url":"assets/tile/tile4.png"
+		},
+		{
+			"name":"tile3_png",
+			"type":"image",
+			"url":"assets/tile/tile3.png"
+		},
+		{
+			"name":"tile2_png",
+			"type":"image",
+			"url":"assets/tile/tile2.png"
+		},
+		{
+			"name":"tile1_png",
+			"type":"image",
+			"url":"assets/tile/tile1.png"
 		}
 	]
 }

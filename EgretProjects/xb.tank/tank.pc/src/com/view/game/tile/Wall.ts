@@ -4,14 +4,19 @@
  *
  */
 class Wall extends BaseUI{
+    public static NAME:string = "Wall";
     public wallList:Array<eui.Image> = new Array<eui.Image>();
     public type: TileEnum = TileEnum.wall;    //类型
     public life: number = 0;  //生命值
     public row: number;
     public col: number;
+    public canHit: boolean = false;  //可以被击中
+    public canWalk: boolean = false; //能够行走
     
 	public constructor() {
     	super("WallSkin");
+    	this.canHit = true;
+    	this.canWalk = false;
 	}
 	
     public componentCreated(): void {
@@ -44,9 +49,10 @@ class Wall extends BaseUI{
         var wall:eui.Image;
         var isHit:boolean = false;
         for(var i=0;i<16;i++){
-            wall = this.wallList[i];
+            wall = this.wallList[i]; 
             if(wall.visible == true){
-                if(Math.abs(wall.x - 32 - target.x) < 40 && Math.abs(wall.y - 32 - target.y) < 40){  //击中
+                //转换砖块坐标为bullet所在容器坐标，再计算碰撞半径
+                if(Math.abs(this.x + wall.x -32 - target.x) < 24 && Math.abs(this.y + wall.y -32 - target.y) < 24){  //击中
                     wall.visible = false;
                     isHit = true;
                 }
@@ -58,7 +64,7 @@ class Wall extends BaseUI{
     public recycle(){
         this.parent && this.parent.removeChild(this);
         this.reset();
-        ObjectPool.getPool("Wall").returnObject(this);
+        ObjectPool.getPool(Wall.NAME).returnObject(this);
     }
 }
 

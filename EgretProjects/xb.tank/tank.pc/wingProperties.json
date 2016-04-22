@@ -11,11 +11,6 @@
 			"children":[
 				{
 					"isFolder":false,
-					"key":"home_thxbg_jpg",
-					"name":"home_thxbg_jpg"
-				},
-				{
-					"isFolder":false,
 					"key":"tile1_png",
 					"name":"tile1_png"
 				},
@@ -141,63 +136,38 @@
 				},
 				{
 					"isFolder":false,
-					"key":"playerYellow_lvl1_0_png",
-					"name":"playerYellow_lvl1_0_png"
+					"key":"playerYellowTank_png",
+					"name":"playerYellowTank_png"
 				},
 				{
 					"isFolder":false,
-					"key":"playerYellow_lvl1_1_png",
-					"name":"playerYellow_lvl1_1_png"
+					"key":"playerGreenTank_png",
+					"name":"playerGreenTank_png"
 				},
 				{
 					"isFolder":false,
-					"key":"playerYellow_lvl2_0_png",
-					"name":"playerYellow_lvl2_0_png"
+					"key":"normalTank_png",
+					"name":"normalTank_png"
 				},
 				{
 					"isFolder":false,
-					"key":"playerYellow_lvl2_1_png",
-					"name":"playerYellow_lvl2_1_png"
+					"key":"fastTank_png",
+					"name":"fastTank_png"
 				},
 				{
 					"isFolder":false,
-					"key":"playerYellow_lvl3_0_png",
-					"name":"playerYellow_lvl3_0_png"
+					"key":"strongTank_png",
+					"name":"strongTank_png"
 				},
 				{
 					"isFolder":false,
-					"key":"playerYellow_lvl3_1_png",
-					"name":"playerYellow_lvl3_1_png"
+					"key":"superTank_png",
+					"name":"superTank_png"
 				},
 				{
 					"isFolder":false,
-					"key":"playerGreen_lvl2_0_png",
-					"name":"playerGreen_lvl2_0_png"
-				},
-				{
-					"isFolder":false,
-					"key":"playerGreen_lvl2_1_png",
-					"name":"playerGreen_lvl2_1_png"
-				},
-				{
-					"isFolder":false,
-					"key":"playerGreen_lvl3_0_png",
-					"name":"playerGreen_lvl3_0_png"
-				},
-				{
-					"isFolder":false,
-					"key":"playerGreen_lvl3_1_png",
-					"name":"playerGreen_lvl3_1_png"
-				},
-				{
-					"isFolder":false,
-					"key":"playerGreen_lvl1_0_png",
-					"name":"playerGreen_lvl1_0_png"
-				},
-				{
-					"isFolder":false,
-					"key":"playerGreen_lvl1_1_png",
-					"name":"playerGreen_lvl1_1_png"
+					"key":"bullet_png",
+					"name":"bullet_png"
 				}
 			]
 		}

@@ -10,6 +10,10 @@ var Steel = (function (_super) {
         this.steelList = new Array();
         this.type = TileEnum.steel; //类型
         this.life = 0; //生命值
+        this.canHit = false; //可以被击中
+        this.canWalk = false; //能够行走
+        this.canHit = true;
+        this.canWalk = false;
     }
     var d = __define,c=Steel,p=c.prototype;
     p.componentCreated = function () {
@@ -37,13 +41,14 @@ var Steel = (function (_super) {
      * @return 返回击中是否有效
      */
     p.beAttacked = function (target) {
-        var wall;
+        var steel;
         var isHit = false;
-        for (var i = 0; i < 16; i++) {
-            wall = this.steelList[i];
-            if (wall.visible == true) {
-                if (Math.abs(wall.x - 32 - target.x) < 48 && Math.abs(wall.y - 32 - target.y) < 48) {
-                    wall.visible = false;
+        var len = this.steelList.length;
+        for (var i = 0; i < len; i++) {
+            steel = this.steelList[i];
+            if (steel.visible == true) {
+                if (Math.abs(this.x + steel.x - 32 - target.x) < 48 && Math.abs(this.y + steel.y - 32 - target.y) < 48) {
+                    steel.visible = false;
                     isHit = true;
                 }
             }
@@ -53,8 +58,9 @@ var Steel = (function (_super) {
     p.recycle = function () {
         this.parent && this.parent.removeChild(this);
         this.reset();
-        ObjectPool.getPool("Steel").returnObject(this);
+        ObjectPool.getPool(Steel.NAME).returnObject(this);
     };
+    Steel.NAME = "Steel";
     return Steel;
 }(BaseUI));
 egret.registerClass(Steel,'Steel');

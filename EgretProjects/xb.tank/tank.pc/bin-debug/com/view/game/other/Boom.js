@@ -5,8 +5,8 @@
  */
 var Boom = (function (_super) {
     __extends(Boom, _super);
-    function Boom(pngName, jsonName, mcName) {
-        _super.call(this, pngName, jsonName, mcName);
+    function Boom() {
+        _super.call(this);
     }
     var d = __define,c=Boom,p=c.prototype;
     p.playAnim = function () {

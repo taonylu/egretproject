@@ -9,13 +9,24 @@
  */
 var SimpleMC = (function (_super) {
     __extends(SimpleMC, _super);
-    function SimpleMC(pngName, jsonName, mcName) {
+    function SimpleMC() {
+        _super.call(this);
+    }
+    var d = __define,c=SimpleMC,p=c.prototype;
+    /**
+     * 设置movieClip
+     * @pngName 图片名
+     * @jsonName json名
+     * @mcName  mc名
+     */
+    p.setMovieClip = function (pngName, jsonName, mcName) {
         var png = RES.getRes(pngName);
         var json = RES.getRes(jsonName);
         var mcF = new egret.MovieClipDataFactory(json, png);
-        _super.call(this, mcF.generateMovieClipData(mcName));
-    }
-    var d = __define,c=SimpleMC,p=c.prototype;
+        this.movieClipData = mcF.generateMovieClipData(mcName);
+        this.anchorOffsetX = 32;
+        this.anchorOffsetY = 32;
+    };
     return SimpleMC;
 }(egret.MovieClip));
 egret.registerClass(SimpleMC,'SimpleMC');

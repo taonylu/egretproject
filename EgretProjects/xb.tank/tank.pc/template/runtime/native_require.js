@@ -50,6 +50,9 @@ var game_file_list = [
 	"bin-debug/com/view/preload/PreloadScene.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
+	"bin-debug/com/view/game/tile/Grass.js",
+	"bin-debug/com/view/game/tile/River.js",
+	"bin-debug/com/view/game/tile/Speed.js",
 	//----auto game_file_list end----
 ];
 
