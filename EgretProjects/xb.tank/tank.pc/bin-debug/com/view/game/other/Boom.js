@@ -7,11 +7,12 @@ var Boom = (function (_super) {
     __extends(Boom, _super);
     function Boom() {
         _super.call(this);
+        this.setMovieClip("boom_png", "boom_json", "boom");
+        this.addEventListener(egret.MovieClipEvent.COMPLETE, this.recycle, this);
     }
     var d = __define,c=Boom,p=c.prototype;
-    p.playAnim = function () {
+    p.playBoom = function () {
         this.gotoAndPlay(1, 1);
-        this.addEventListener(egret.MovieClipEvent.COMPLETE, this.onComplete, this);
     };
     p.onComplete = function () {
         this.recycle();
@@ -25,3 +26,4 @@ var Boom = (function (_super) {
     return Boom;
 }(SimpleMC));
 egret.registerClass(Boom,'Boom');
+//# sourceMappingURL=Boom.js.map

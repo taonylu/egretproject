@@ -1,2 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="HomeSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui"></e:Skin>
+<e:Skin class="HomeSceneSkin" width="1920" height="1024" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="title" source="home_title_png" y="136" horizontalCenter="0"/>
+	<e:Image id="codeBg" source="home_code_png" y="464" x="624"/>
+	<e:Group id="codeGroup" height="280" width="280" x="660" y="498"/>
+	<e:Group id="headGroup" height="250" width="348" x="1060" y="468">
+		<e:Image id="p1" source="home_p1_png" x="92" y="59" scaleX="1.5" scaleY="1.5" anchorOffsetX="26" anchorOffsetY="32" rotation="90"/>
+		<e:Image id="p2" source="home_p2_png" x="92" y="169" anchorOffsetX="26" anchorOffsetY="32" rotation="90" scaleX="1.5" scaleY="1.5"/>
+		<e:Image source="home__png" x="178" y="60"/>
+		<e:Image source="home__png" y="170" x="178"/>
+		<e:Group id="p1HeadGroup" height="100" width="100" x="230" y="10"/>
+		<e:Group id="p2HeadGroup" height="100" width="100" x="230" y="120"/>
+	</e:Group>
+</e:Skin>

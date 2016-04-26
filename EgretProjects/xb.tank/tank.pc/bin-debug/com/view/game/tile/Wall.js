@@ -6,12 +6,10 @@
 var Wall = (function (_super) {
     __extends(Wall, _super);
     function Wall() {
-        _super.call(this, "WallSkin");
+        _super.call(this);
         this.wallList = new Array();
         this.type = TileEnum.wall; //类型
-        this.life = 0; //生命值
-        this.canHit = false; //可以被击中
-        this.canWalk = false; //能够行走
+        this.skinName = "WallSkin";
         this.canHit = true;
         this.canWalk = false;
     }
@@ -40,20 +38,51 @@ var Wall = (function (_super) {
      * @target 子弹
      * @return 返回击中是否有效
      */
-    p.beAttacked = function (target) {
+    p.beAttacked = function (bullet) {
         var wall;
         var isHit = false;
         for (var i = 0; i < 16; i++) {
             wall = this.wallList[i];
             if (wall.visible == true) {
                 //转换砖块坐标为bullet所在容器坐标，再计算碰撞半径
-                if (Math.abs(this.x + wall.x - 32 - target.x) < 24 && Math.abs(this.y + wall.y - 32 - target.y) < 24) {
-                    wall.visible = false;
-                    isHit = true;
+                //子弹是横着移动，则计算y范围扩大到32
+                if (bullet.speedX != 0) {
+                    if (Math.abs(this.x + wall.x - 32 - bullet.x) < 24 && Math.abs(this.y + wall.y - 32 - bullet.y) < 40) {
+                        wall.visible = false;
+                        isHit = true;
+                    }
+                }
+                else {
+                    //子弹是竖着移动，则判断x范围扩大到32
+                    if (Math.abs(this.x + wall.x - 32 - bullet.x) < 40 && Math.abs(this.y + wall.y - 32 - bullet.y) < 24) {
+                        wall.visible = false;
+                        isHit = true;
+                    }
                 }
             }
         }
         return isHit;
+    };
+    //碰撞检测，taraget是子弹或者坦克
+    p.checkCollision = function (target) {
+        //下一步坐标
+        var nextX = target.x + target.speedX;
+        var nextY = target.y + target.speedY;
+        //目标和地形的半径碰撞
+        var wall;
+        for (var i = 0; i < 16; i++) {
+            wall = this.wallList[i];
+            if (wall.visible == true) {
+                //将墙块坐标换成target容器坐标
+                if (Math.abs(this.x + wall.x - 32 - nextX) < (8 + target.hitHalfWidth) && Math.abs(this.y + wall.y - 32 - nextY) < (8 + target.hitHalfWidth)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+    //检查是否地形小块被消灭完
+    p.checkDie = function () {
     };
     p.recycle = function () {
         this.parent && this.parent.removeChild(this);
@@ -62,5 +91,6 @@ var Wall = (function (_super) {
     };
     Wall.NAME = "Wall";
     return Wall;
-}(BaseUI));
+}(BaseTile));
 egret.registerClass(Wall,'Wall');
+//# sourceMappingURL=Wall.js.map

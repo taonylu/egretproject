@@ -25,3 +25,4 @@ var NormalTank = (function (_super) {
     return NormalTank;
 }(BaseTank));
 egret.registerClass(NormalTank,'NormalTank');
+//# sourceMappingURL=NormalTank.js.map

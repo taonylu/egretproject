@@ -23,3 +23,4 @@ var BaseItem = (function (_super) {
     return BaseItem;
 }(egret.Bitmap));
 egret.registerClass(BaseItem,'BaseItem');
+//# sourceMappingURL=BaseItem.js.map

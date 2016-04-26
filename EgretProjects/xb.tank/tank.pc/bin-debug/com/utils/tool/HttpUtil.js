@@ -56,3 +56,4 @@ var HttpUtil = (function () {
     return HttpUtil;
 }());
 egret.registerClass(HttpUtil,'HttpUtil');
+//# sourceMappingURL=HttpUtil.js.map

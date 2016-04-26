@@ -41,9 +41,12 @@ var PlayerTank = (function (_super) {
         this.life = tankSet.life;
         this.shootTime = tankSet.shootTime[0];
         this.type = TankEnum.player;
+        this.rotation = 0;
+        this.direction = DirectionEnum.up;
         this.gotoAndStop("lvl1");
     };
     PlayerTank.NAME = "PlayerTank";
     return PlayerTank;
 }(BaseTank));
 egret.registerClass(PlayerTank,'PlayerTank');
+//# sourceMappingURL=PlayerTank.js.map

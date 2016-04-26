@@ -3,6 +3,8 @@
   "exmls": [
     "src/com/utils/ui/HeadUISkin.exml",
     "src/com/view/game/GameSceneSkin.exml",
+    "src/com/view/game/tile/GrassSkin.exml",
+    "src/com/view/game/tile/RiverSkin.exml",
     "src/com/view/game/tile/SteelSkin.exml",
     "src/com/view/game/tile/WallSkin.exml",
     "src/com/view/home/HomeSceneSkin.exml",

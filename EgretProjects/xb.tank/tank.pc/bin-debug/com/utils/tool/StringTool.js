@@ -43,3 +43,4 @@ var StringTool = (function () {
     return StringTool;
 }());
 egret.registerClass(StringTool,'StringTool');
+//# sourceMappingURL=StringTool.js.map

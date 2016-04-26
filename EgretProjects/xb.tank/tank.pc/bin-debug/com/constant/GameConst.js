@@ -30,14 +30,13 @@ var ItemEnum;
     ItemEnum[ItemEnum["boom"] = 5] = "boom";
     ItemEnum[ItemEnum["pause"] = 6] = "pause";
 })(ItemEnum || (ItemEnum = {}));
-//地形 1砖墙 2钢板 3草地 4加速带 5河流 
+//地形
 var TileEnum;
 (function (TileEnum) {
     TileEnum[TileEnum["grass"] = 1] = "grass";
-    TileEnum[TileEnum["speed"] = 2] = "speed";
-    TileEnum[TileEnum["wall"] = 3] = "wall";
-    TileEnum[TileEnum["steel"] = 4] = "steel";
-    TileEnum[TileEnum["river"] = 5] = "river";
+    TileEnum[TileEnum["wall"] = 2] = "wall";
+    TileEnum[TileEnum["steel"] = 3] = "steel";
+    TileEnum[TileEnum["river"] = 4] = "river";
 })(TileEnum || (TileEnum = {}));
 //坦克行为
 var ActionEnum;
@@ -50,3 +49,12 @@ var ActionEnum;
     ActionEnum[ActionEnum["stopShoot"] = 5] = "stopShoot";
     ActionEnum[ActionEnum["shoot"] = 6] = "shoot";
 })(ActionEnum || (ActionEnum = {}));
+//坦克方向
+var DirectionEnum;
+(function (DirectionEnum) {
+    DirectionEnum[DirectionEnum["up"] = 0] = "up";
+    DirectionEnum[DirectionEnum["down"] = 1] = "down";
+    DirectionEnum[DirectionEnum["left"] = 2] = "left";
+    DirectionEnum[DirectionEnum["right"] = 3] = "right";
+})(DirectionEnum || (DirectionEnum = {}));
+//# sourceMappingURL=GameConst.js.map

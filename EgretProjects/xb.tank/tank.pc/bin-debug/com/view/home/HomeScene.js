@@ -7,7 +7,7 @@ var HomeScene = (function (_super) {
     __extends(HomeScene, _super);
     function HomeScene() {
         _super.call(this, "HomeSceneSkin");
-        this.countDownTimer = new egret.Timer(1000);
+        this.countDownTimer = new egret.Timer(1000); //倒计时
         this.countDownLimit = 1;
     }
     var d = __define,c=HomeScene,p=c.prototype;
@@ -51,7 +51,7 @@ var HomeScene = (function (_super) {
         var codeLoader = new QRCodeLoader();
         var codeConfig = window["codeConfig"];
         codeLoader.load(codeConfig.codeData, codeConfig.codeWidth, codeConfig.codeHeight, codeConfig.logoUrl);
-        this.addChild(codeLoader);
+        this.codeGroup.addChild(codeLoader);
         this.sendUpRid();
     };
     //开始连接socket
@@ -110,3 +110,4 @@ var HomeScene = (function (_super) {
     return HomeScene;
 }(BaseScene));
 egret.registerClass(HomeScene,'HomeScene');
+//# sourceMappingURL=HomeScene.js.map

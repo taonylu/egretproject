@@ -30,3 +30,4 @@ var SimpleMC = (function (_super) {
     return SimpleMC;
 }(egret.MovieClip));
 egret.registerClass(SimpleMC,'SimpleMC');
+//# sourceMappingURL=SimpleMC.js.map

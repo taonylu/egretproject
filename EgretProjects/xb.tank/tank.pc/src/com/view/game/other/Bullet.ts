@@ -5,11 +5,15 @@
  */
 class Bullet extends egret.Bitmap{
     public static NAME:string = "Bullet";
-    public speed:number = 8;   //子弹速度
-    public speedX:number = 0;  //移动速度
+    public speed:number = 8;          //子弹速度
+    public speedX:number = 0;         //移动速度
     public speedY:number = 0;
-    public power:number = 0;  //威力
-    public type:TankEnum = 0;   //子弹发射方
+    public power:number = 0;          //威力
+    public type:TankEnum = 0;         //子弹发射方
+    public hitWidth: number = 16;     //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
+    public hitHalfWidth: number = 8;
+    public isDie:boolean = false;     //是否已经失效
+    
 	public constructor() {
     	super();
     	this.bitmapData = RES.getRes("bullet_png");

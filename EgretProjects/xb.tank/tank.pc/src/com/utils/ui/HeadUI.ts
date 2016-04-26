@@ -26,7 +26,8 @@ class HeadUI extends BaseUI{
     private imageLoader: egret.ImageLoader = new egret.ImageLoader(); //图片加载器
     
 	public constructor() {
-    	super("HeadUISkin");
+    	super();
+        this.skinName = "HeadUISkin";
 	}
 	
     public componentCreated(): void {

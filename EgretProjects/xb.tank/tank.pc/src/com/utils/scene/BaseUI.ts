@@ -10,10 +10,9 @@
 class BaseUI extends eui.Component {
     public inited: Boolean = false;
 
-    public constructor(skinName: string) {
+    public constructor() {
         super();
         this.addEventListener(eui.UIEvent.CREATION_COMPLETE,this.componentCreated,this);
-        this.skinName = skinName;
     }
 
     /**组件创建完毕并添加到舞台时触发

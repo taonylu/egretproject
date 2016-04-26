@@ -7,6 +7,7 @@ var River = (function (_super) {
     __extends(River, _super);
     function River() {
         _super.call(this);
+        this.skinName = "RiverSkin";
         this.canHit = false;
         this.canWalk = false;
     }
@@ -15,3 +16,4 @@ var River = (function (_super) {
     return River;
 }(BaseTile));
 egret.registerClass(River,'River');
+//# sourceMappingURL=River.js.map

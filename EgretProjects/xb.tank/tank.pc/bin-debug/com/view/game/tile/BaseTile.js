@@ -17,7 +17,7 @@ var BaseTile = (function (_super) {
     //设置类型
     p.setType = function (type) {
         this.type = type;
-        this.bitmapData = RES.getRes("tile" + type + "_png");
+        //this.bitmapData = RES.getRes("tile" + type + "_png");
         this.anchorOffsetX = this.width / 2;
         this.anchorOffsetY = this.height / 2;
     };
@@ -29,6 +29,17 @@ var BaseTile = (function (_super) {
     p.beAttacked = function (target) {
         return true;
     };
+    //碰撞检测
+    p.checkCollision = function (target) {
+        //下一步坐标
+        var nextX = target.x + target.speedX;
+        var nextY = target.y + target.speedY;
+        //目标和地形的半径碰撞
+        if (Math.abs(nextX - this.x) < (32 + target.hitHalfWidth) && Math.abs(nextY - this.y) < (32 + target.hitHalfWidth)) {
+            return true;
+        }
+        return false;
+    };
     p.reset = function () {
     };
     p.recycle = function () {
@@ -38,5 +49,6 @@ var BaseTile = (function (_super) {
     };
     BaseTile.NAME = "BaseTile";
     return BaseTile;
-}(egret.Bitmap));
+}(BaseUI));
 egret.registerClass(BaseTile,'BaseTile');
+//# sourceMappingURL=BaseTile.js.map

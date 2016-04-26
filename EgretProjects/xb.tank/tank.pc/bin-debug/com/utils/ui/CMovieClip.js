@@ -92,3 +92,4 @@ var CMovieClip = (function (_super) {
     return CMovieClip;
 }(egret.Bitmap));
 egret.registerClass(CMovieClip,'CMovieClip');
+//# sourceMappingURL=CMovieClip.js.map

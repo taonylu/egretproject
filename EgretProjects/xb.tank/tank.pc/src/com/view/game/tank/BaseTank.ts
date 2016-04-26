@@ -10,13 +10,15 @@ class BaseTank extends SimpleMC{
     public speed:number = 4;     //移动速度
     public speedX:number = 0;    //x，y轴移动速度
     public speedY:number = 0;
-    public direction:ActionEnum; //移动方向
+    public direction: DirectionEnum; //移动方向
     public power:number = 0;     //子弹威力
     public life:number = 0;      //生命值
     public shootTime:number = 0; //射击间隔时间，单位ms
     public shootCount:number = 0;//射击计时，单位帧
     public isHaveItem:boolean;   //是否携带道具         
     public openid: string;       //openid
+    public hitWidth:number = 64;     //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
+    public hitHalfWidth:number = 32;
     
     public constructor() {
         super();
@@ -29,37 +31,41 @@ class BaseTank extends SimpleMC{
     	this.y += this.speedY;
 	}
 	
-	//播放移动动画，敌方坦克不会停止移动
+	//播放移动动画
 	public playMove(){
-    	 if(this.type == TankEnum.player && this.direction != ActionEnum.stopMove){
-            this.gotoAndPlay("lvl" + this.power);
-    	 }
+        
 	}
 	
-	//设置方向
-	public setDirection(direction:ActionEnum){
-    	this.direction = direction;
-      this.play(-1);
-    	switch(this.direction){
+	//设置行动
+	public actionHandler(actionType){
+      if(this.speedX == 0 && this.speedY ==0 && actionType != ActionEnum.stopMove){
+          this.playMove();
+      }  
+     
+      switch(actionType){
         	case ActionEnum.up:
         	    this.speedX = 0;
         	    this.speedY = -this.speed;
         	    this.rotation = 0;
+        	    this.direction = DirectionEnum.up;
         	    break;
         	case ActionEnum.down:
         	    this.speedX = 0;
         	    this.speedY = this.speed;
         	    this.rotation = 180;
+                this.direction = DirectionEnum.down;
         	    break;
         	 case ActionEnum.left:
         	    this.speedX = -this.speed;
         	    this.speedY = 0;
         	    this.rotation = -90;
+                this.direction = DirectionEnum.left;
         	    break;
         	 case ActionEnum.right:
                 this.speedX = this.speed;
                 this.speedY = 0;
                 this.rotation = 90;
+                this.direction = DirectionEnum.right;
                 break;
             case ActionEnum.stopMove:
                 this.speedX = 0;
@@ -71,12 +77,12 @@ class BaseTank extends SimpleMC{
 	
 	//自动转向，优先往下
 	public autoTurn(){
-    	 if(this.direction != ActionEnum.down){
-        	 this.direction = ActionEnum.down;
+    	 if(this.direction != DirectionEnum.down){
+             var actionType = ActionEnum.down;
     	 }else{
-        	 this.direction = NumberTool.getRandomInt(ActionEnum.up, ActionEnum.right);
+             actionType = NumberTool.getRandomInt(ActionEnum.up, ActionEnum.right);
     	 }
-    	 this.setDirection(this.direction);
+    	 this.actionHandler(actionType);
 	}
 	
 	//自动移动
@@ -84,11 +90,16 @@ class BaseTank extends SimpleMC{
     public autoMove(){
         this.turnCount--;
         if(this.turnCount < 0){
-            this.turnCount = Math.round(60 + Math.random()*100);  //每隔一段时间自动转向
+            this.turnCount = Math.round(120 + Math.random()*100);  //每隔一段时间自动转向
             this.autoTurn();
         }else{
             this.move();
         }
+    }
+    
+    //更新射击时间
+    public updateShootCount() {
+        this.shootCount++;
     }
     
 	//射击
@@ -102,19 +113,19 @@ class BaseTank extends SimpleMC{
             bullet.x = this.x;
             bullet.y = this.y;
             switch(this.direction) {
-                case ActionEnum.up:   //上
+                case DirectionEnum.up:   //上
                     bullet.rotation = 0;
                     bullet.speedY = -bullet.speed + (this.power - 1); //子弹根据威力加速
                     break;
-                case ActionEnum.down:   //下
+                case DirectionEnum.down:   //下
                     bullet.rotation = 180;
                     bullet.speedY = bullet.speed + (this.power - 1);
                     break;
-                case ActionEnum.left:   //左
+                case DirectionEnum.left:   //左
                     bullet.rotation = -90;
                     bullet.speedX = -bullet.speed + (this.power - 1);
                     break;
-                case ActionEnum.right:     //右
+                case DirectionEnum.right:     //右
                     bullet.rotation = 90;
                     bullet.speedX = bullet.speed + (this.power - 1);
                     break;

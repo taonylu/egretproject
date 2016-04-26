@@ -9,8 +9,8 @@
 */
 var MapManager = (function () {
     function MapManager() {
-        this.rowMax = 16; //地图行数
-        this.colMax = 20; //地图列数
+        this.rowMax = 13; //地图行数
+        this.colMax = 13; //地图列数
         this.tileWidth = 64; //tile宽度
         this.tileHeight = 64; //tile高度
         this.halfWidth = 32;
@@ -87,3 +87,4 @@ var MapManager = (function () {
     return MapManager;
 }());
 egret.registerClass(MapManager,'MapManager');
+//# sourceMappingURL=MapManager.js.map

@@ -18,7 +18,6 @@ var GameFactory = (function () {
         this.wallPool = ObjectPool.getPool(Wall.NAME); //墙
         this.grassPool = ObjectPool.getPool(Grass.NAME); //草地
         this.riverPool = ObjectPool.getPool(River.NAME); //河流
-        this.speedPool = ObjectPool.getPool(Speed.NAME); //加速
         this.tileList = []; //地形列表，保存地形对象池，用于根据类型获取对象池
         this.tankList.push(this.playerTankPool);
         this.tankList.push(this.normalTankPool);
@@ -26,7 +25,6 @@ var GameFactory = (function () {
         this.tankList.push(this.strongTankPool);
         this.tankList.push(this.superTankPool);
         this.tileList.push(this.grassPool);
-        this.tileList.push(this.speedPool);
         this.tileList.push(this.wallPool);
         this.tileList.push(this.steelPool);
         this.tileList.push(this.riverPool);
@@ -63,3 +61,4 @@ var GameFactory = (function () {
     return GameFactory;
 }());
 egret.registerClass(GameFactory,'GameFactory');
+//# sourceMappingURL=GameFactory.js.map
