@@ -21,7 +21,8 @@ var SuperTank = (function (_super) {
         this.type = TankEnum.super;
         this.gotoAndStop("lvl3");
     };
-    SuperTank.NAME = "StrongTank";
+    SuperTank.NAME = "SuperTank";
     return SuperTank;
 }(BaseTank));
 egret.registerClass(SuperTank,'SuperTank');
+//# sourceMappingURL=SuperTank.js.map

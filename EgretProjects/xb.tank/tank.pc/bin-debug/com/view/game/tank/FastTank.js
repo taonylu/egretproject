@@ -25,3 +25,4 @@ var FastTank = (function (_super) {
     return FastTank;
 }(BaseTank));
 egret.registerClass(FastTank,'FastTank');
+//# sourceMappingURL=FastTank.js.map

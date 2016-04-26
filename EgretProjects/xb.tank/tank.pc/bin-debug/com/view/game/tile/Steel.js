@@ -6,12 +6,10 @@
 var Steel = (function (_super) {
     __extends(Steel, _super);
     function Steel() {
-        _super.call(this, "SteelSkin");
+        _super.call(this);
         this.steelList = new Array();
         this.type = TileEnum.steel; //类型
-        this.life = 0; //生命值
-        this.canHit = false; //可以被击中
-        this.canWalk = false; //能够行走
+        this.skinName = "SteelSkin";
         this.canHit = true;
         this.canWalk = false;
     }
@@ -24,7 +22,7 @@ var Steel = (function (_super) {
             steel.anchorOffsetY = steel.height / 2;
             steel.x += steel.width / 2;
             steel.y += steel.height / 2;
-            this.steelList.push(this["steel" + i]);
+            this.steelList.push(steel);
         }
         this.anchorOffsetX = this.width / 2;
         this.anchorOffsetY = this.height / 2;
@@ -47,6 +45,7 @@ var Steel = (function (_super) {
         for (var i = 0; i < len; i++) {
             steel = this.steelList[i];
             if (steel.visible == true) {
+                //转换坐标为bullet所在容器坐标，再计算碰撞半径
                 if (Math.abs(this.x + steel.x - 32 - target.x) < 48 && Math.abs(this.y + steel.y - 32 - target.y) < 48) {
                     steel.visible = false;
                     isHit = true;
@@ -55,6 +54,24 @@ var Steel = (function (_super) {
         }
         return isHit;
     };
+    //碰撞检测，taraget是子弹或者坦克
+    p.checkCollision = function (target) {
+        //下一步坐标
+        var nextX = target.x + target.speedX;
+        var nextY = target.y + target.speedY;
+        //目标和地形的半径碰撞
+        var steel;
+        for (var i = 0; i < 4; i++) {
+            steel = this.steelList[i];
+            if (steel.visible == true) {
+                //将墙块坐标换成target容器坐标
+                if (Math.abs(this.x + steel.x - 32 - nextX) < (16 + target.hitHalfWidth) && Math.abs(this.y + steel.y - 32 - nextY) < (16 + target.hitHalfWidth)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
     p.recycle = function () {
         this.parent && this.parent.removeChild(this);
         this.reset();
@@ -62,5 +79,6 @@ var Steel = (function (_super) {
     };
     Steel.NAME = "Steel";
     return Steel;
-}(BaseUI));
+}(BaseTile));
 egret.registerClass(Steel,'Steel');
+//# sourceMappingURL=Steel.js.map

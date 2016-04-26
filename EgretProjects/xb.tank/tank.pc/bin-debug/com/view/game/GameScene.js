@@ -29,7 +29,7 @@ var GameScene = (function (_super) {
         this.createMap();
         this.createPlayer();
         this.configListeners();
-        this.startGenerateTimer();
+        //this.startGenerateTimer();
     };
     p.nextLevel = function () {
         this.resetGame();
@@ -93,7 +93,7 @@ var GameScene = (function (_super) {
                     tile.y = i * this.tileHeight + this.halfHeight;
                     tile.row = i;
                     tile.col = j;
-                    if (tileType == TileEnum.speed || tileType == TileEnum.river) {
+                    if (tileType == TileEnum.river) {
                         this.footTileGroup.addChild(tile);
                     }
                     else {
@@ -113,8 +113,8 @@ var GameScene = (function (_super) {
         var birthPos = levelData.friendBirthPos;
         for (var i = 0; i < userNum; i++) {
             var player = GameFactory.getInstance().getTank(TankEnum.player);
-            player.y = birthPos[i][0] * this.tileWidth + this.tileWidth / 2;
-            player.x = birthPos[i][1] * this.tileHeight + this.tileWidth / 2;
+            player.y = birthPos[i][1] * this.tileWidth + this.tileWidth / 2;
+            player.x = birthPos[i][0] * this.tileHeight + this.tileWidth / 2;
             player.openid = userManager.userList[i].openid;
             player.setPlayerNo(i + 1); //p1 p2
             this.tankGroup.addChild(player);
@@ -127,7 +127,8 @@ var GameScene = (function (_super) {
         var tank;
         for (var i = 0; i < len; i++) {
             tank = this.playerTankList[i];
-            if (this.getCollioseTile(tank) == null && this.checkEdge(tank) == false) {
+            tank.updateShootCount();
+            if (this.getCollioseTile(tank).length == 0 && this.checkEdge(tank) == false) {
                 tank.move();
             }
         }
@@ -138,7 +139,7 @@ var GameScene = (function (_super) {
         var tank;
         for (var i = 0; i < len; i++) {
             tank = this.enemyTankList[i];
-            if (this.getCollioseTile(tank) == null && this.checkEdge(tank) == false) {
+            if (this.getCollioseTile(tank).length == 0 && this.checkEdge(tank) == false) {
                 tank.autoMove();
             }
             else {
@@ -155,16 +156,21 @@ var GameScene = (function (_super) {
             bullet = this.bulletList[i];
             //边界检测
             if (this.checkEdge(bullet)) {
+                this.playBoom(bullet);
                 this.bulletList.splice(i, 1);
                 bullet.recycle();
                 continue;
             }
             //判断子弹击中障碍物
-            var tile = this.getCollioseTile(bullet);
-            if (tile != null && tile.beAttacked(bullet)) {
+            var collisionTileList = this.getCollioseTile(bullet);
+            for (var j = 0; j < collisionTileList.length; j++) {
+                collisionTileList[j].beAttacked(bullet);
+            }
+            if (collisionTileList.length > 0) {
+                this.playBoom(bullet);
                 bullet.recycle();
                 this.bulletList.splice(i, 1);
-                continue; //跳出循环
+                continue;
             }
             //判断子弹击中坦克
             if (bullet.type == TankEnum.player) {
@@ -172,6 +178,7 @@ var GameScene = (function (_super) {
                 for (var j = tankLen - 1; j >= 0; j--) {
                     var tank = this.enemyTankList[j];
                     if (tank.beAttacked(bullet)) {
+                        this.playBoom(bullet);
                         bullet.recycle();
                         this.bulletList.splice(i, 1);
                         break; //跳出循环
@@ -183,6 +190,7 @@ var GameScene = (function (_super) {
                 for (var j = tankLen - 1; j >= 0; j--) {
                     var tank = this.playerTankList[j];
                     if (tank.beAttacked(bullet)) {
+                        this.playBoom(bullet);
                         bullet.recycle();
                         this.bulletList.splice(i, 1);
                         break; //跳出循环
@@ -193,6 +201,14 @@ var GameScene = (function (_super) {
             bullet.move();
         }
     };
+    //播放爆炸动画
+    p.playBoom = function (bullet) {
+        var boom = GameFactory.getInstance().getBoom();
+        boom.x = bullet.x;
+        boom.y = bullet.y;
+        this.bulletGroup.addChild(boom);
+        boom.playBoom();
+    };
     /**
      * 边界检测
      * @target 检测对象
@@ -201,16 +217,16 @@ var GameScene = (function (_super) {
     p.checkEdge = function (target) {
         var nextX = target.x + target.speedX;
         var nextY = target.y + target.speedY;
-        if (nextX - this.halfWidth < 0) {
+        if (nextX - target.hitHalfWidth < 0) {
             return true;
         }
-        else if (nextX + this.halfWidth > this.mapWidth) {
+        else if (nextX + target.hitHalfWidth > this.mapWidth) {
             return true;
         }
-        if (nextY - this.halfHeight < 0) {
+        if (nextY - target.hitHalfWidth < 0) {
             return true;
         }
-        else if (nextY + this.halfHeight > this.mapHeight) {
+        else if (nextY + target.hitHalfWidth > this.mapHeight) {
             return true;
         }
         return false;
@@ -221,9 +237,6 @@ var GameScene = (function (_super) {
      * @return 返回碰撞的地形
      */
     p.getCollioseTile = function (target) {
-        //下一步坐标
-        var nextX = target.x + target.speedX;
-        var nextY = target.y + target.speedY;
         //获取坐标所在行列
         var col = Math.floor(target.x / this.tileWidth);
         var row = Math.floor(target.y / this.tileWidth);
@@ -231,19 +244,19 @@ var GameScene = (function (_super) {
         var tileList = this.getRoundTile(row, col);
         //判断是否碰撞地形
         var len = tileList.length;
-        var tile;
+        var collisionList = [];
         for (var i = 0; i < len; i++) {
-            tile = tileList[i];
+            var tile = tileList[i];
             if (tile != null) {
-                //子弹和可以击中地形，或者坦克和不可行走地形
-                if ((target instanceof Bullet && tile.canHit) || (target instanceof Bullet == false && tile.canMove == false)) {
-                    if (Math.abs(nextX - tile.x) < (this.halfWidth + target.width / 2) && Math.abs(nextY - tile.y) < (this.halfHeight + target.height / 2)) {
-                        return tile;
+                //子弹碰撞了地形，或者坦克碰撞地形
+                if ((target instanceof Bullet && tile.canHit) || (target instanceof Bullet == false && tile.canWalk == false)) {
+                    if (tile.checkCollision(target)) {
+                        collisionList.push(tile);
                     }
                 }
             }
         }
-        return null;
+        return collisionList;
     };
     //获取四周格子列表
     p.getRoundTile = function (row, col) {
@@ -329,10 +342,16 @@ var GameScene = (function (_super) {
         for (var i = 0; i < this.playerTankList.length; i++) {
             var tank = this.playerTankList[i];
             if (tank.openid == openid) {
-                tank.setDirection(actionType);
+                if (actionType == ActionEnum.shoot) {
+                    tank.shoot();
+                }
+                else {
+                    tank.actionHandler(actionType);
+                }
             }
         }
     };
     return GameScene;
 }(BaseScene));
 egret.registerClass(GameScene,'GameScene');
+//# sourceMappingURL=GameScene.js.map

@@ -35,3 +35,4 @@ var GameManager = (function () {
     return GameManager;
 }());
 egret.registerClass(GameManager,'GameManager');
+//# sourceMappingURL=GameManager.js.map

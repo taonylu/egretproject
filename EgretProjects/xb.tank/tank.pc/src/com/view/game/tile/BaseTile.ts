@@ -3,7 +3,7 @@
  * @author 
  *
  */
-class BaseTile extends egret.Bitmap{
+class BaseTile extends BaseUI{
     public static NAME:string = "BaseTile";
     public className: string = "";//类名
     public type:TileEnum;    //类型
@@ -21,7 +21,7 @@ class BaseTile extends egret.Bitmap{
 	//设置类型
 	public setType(type:TileEnum){
     	this.type = type;
-    	this.bitmapData = RES.getRes("tile" + type + "_png");
+    	//this.bitmapData = RES.getRes("tile" + type + "_png");
     	this.anchorOffsetX = this.width/2;
     	this.anchorOffsetY = this.height/2;
 	}
@@ -33,6 +33,18 @@ class BaseTile extends egret.Bitmap{
      */ 
     public beAttacked(target: Bullet):boolean {
         return true;
+    }
+    
+    //碰撞检测
+    public checkCollision(target):boolean {
+        //下一步坐标
+        var nextX = target.x + target.speedX;
+        var nextY = target.y + target.speedY;
+        //目标和地形的半径碰撞
+        if(Math.abs(nextX - this.x) < (32 + target.hitHalfWidth) && Math.abs(nextY - this.y) < (32 + target.hitHalfWidth)) {
+            return true;
+        }
+        return false;
     }
     
     public reset(){

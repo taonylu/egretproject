@@ -12,6 +12,9 @@ var Bullet = (function (_super) {
         this.speedY = 0;
         this.power = 0; //威力
         this.type = 0; //子弹发射方
+        this.hitWidth = 16; //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
+        this.hitHalfWidth = 8;
+        this.isDie = false; //是否已经失效
         this.bitmapData = RES.getRes("bullet_png");
         this.anchorOffsetX = 16;
         this.anchorOffsetY = 16;
@@ -36,3 +39,4 @@ var Bullet = (function (_super) {
     return Bullet;
 }(egret.Bitmap));
 egret.registerClass(Bullet,'Bullet');
+//# sourceMappingURL=Bullet.js.map

@@ -168,6 +168,46 @@
 					"isFolder":false,
 					"key":"bullet_png",
 					"name":"bullet_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_c_png",
+					"name":"home_c_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_code_png",
+					"name":"home_code_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_title_png",
+					"name":"home_title_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_enemy_png",
+					"name":"home_enemy_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_p1_png",
+					"name":"home_p1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home_p2_png",
+					"name":"home_p2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"home__png",
+					"name":"home__png"
+				},
+				{
+					"isFolder":false,
+					"key":"boom_png",
+					"name":"boom_png"
 				}
 			]
 		}

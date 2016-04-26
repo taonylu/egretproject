@@ -12,7 +12,7 @@
     <style>
         html, body {
             -ms-touch-action: none;
-            background: #000000;
+            background: #222222;
             padding: 0;
             border: 0;
             margin: 0;
@@ -72,15 +72,14 @@
 	<script egret="game" src="bin-debug/com/view/game/tank/StrongTank.js"></script>
 	<script egret="game" src="bin-debug/com/view/game/tank/SuperTank.js"></script>
 	<script egret="game" src="bin-debug/com/view/game/tile/BaseTile.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/tile/Grass.js"></script>
+	<script egret="game" src="bin-debug/com/view/game/tile/River.js"></script>
 	<script egret="game" src="bin-debug/com/view/game/tile/Steel.js"></script>
 	<script egret="game" src="bin-debug/com/view/game/tile/Wall.js"></script>
 	<script egret="game" src="bin-debug/com/view/home/HomeScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/preload/PreloadScene.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
 	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
-	<script egret="game" src="bin-debug/com/view/game/tile/Grass.js"></script>
-	<script egret="game" src="bin-debug/com/view/game/tile/River.js"></script>
-	<script egret="game" src="bin-debug/com/view/game/tile/Speed.js"></script>
 	<!--game_files_end-->
 </head>
 <body>
@@ -91,7 +90,7 @@
          data-scale-mode="showAll"
          data-frame-rate="60"
          data-content-width="1920"
-         data-content-height="1080"
+         data-content-height="1024"
          data-show-paint-rect="false"
          data-multi-fingered="2"
          data-show-fps="true" data-show-log="true"
@@ -113,9 +112,8 @@
 
     	//二维码配置
     	var codeConfig = {};
-    	codeConfig.codeUrl = "";
-    	codeConfig.codeWidth = 100;
-    	codeConfig.codeHeight = 100;
+    	codeConfig.codeWidth = 280;
+    	codeConfig.codeHeight = 280;
     	codeConfig.codeData = "";
     	codeConfig.codeUrl = "http://node.ekche.com/game/paoku/mobile";   //二维码地址
     	

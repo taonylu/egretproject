@@ -16,6 +16,8 @@ var BaseTank = (function (_super) {
         this.life = 0; //生命值
         this.shootTime = 0; //射击间隔时间，单位ms
         this.shootCount = 0; //射击计时，单位帧
+        this.hitWidth = 64; //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
+        this.hitHalfWidth = 32;
         //自动移动
         this.turnCount = 60;
         this.className = egret.getQualifiedClassName(this);
@@ -28,34 +30,36 @@ var BaseTank = (function (_super) {
     };
     //播放移动动画，敌方坦克不会停止移动
     p.playMove = function () {
-        if (this.type == TankEnum.player && this.direction != ActionEnum.stopMove) {
-            this.gotoAndPlay("lvl" + this.power);
-        }
     };
-    //设置方向
-    p.setDirection = function (direction) {
-        this.direction = direction;
-        this.play(-1);
-        switch (this.direction) {
+    //设置行动
+    p.actionHandler = function (actionType) {
+        if (this.speedX == 0 && this.speedY == 0 && actionType != ActionEnum.stopMove) {
+            this.playMove();
+        }
+        switch (actionType) {
             case ActionEnum.up:
                 this.speedX = 0;
                 this.speedY = -this.speed;
                 this.rotation = 0;
+                this.direction = DirectionEnum.up;
                 break;
             case ActionEnum.down:
                 this.speedX = 0;
                 this.speedY = this.speed;
                 this.rotation = 180;
+                this.direction = DirectionEnum.down;
                 break;
             case ActionEnum.left:
                 this.speedX = -this.speed;
                 this.speedY = 0;
                 this.rotation = -90;
+                this.direction = DirectionEnum.left;
                 break;
             case ActionEnum.right:
                 this.speedX = this.speed;
                 this.speedY = 0;
                 this.rotation = 90;
+                this.direction = DirectionEnum.right;
                 break;
             case ActionEnum.stopMove:
                 this.speedX = 0;
@@ -66,23 +70,27 @@ var BaseTank = (function (_super) {
     };
     //自动转向，优先往下
     p.autoTurn = function () {
-        if (this.direction != ActionEnum.down) {
-            this.direction = ActionEnum.down;
+        if (this.direction != DirectionEnum.down) {
+            var actionType = ActionEnum.down;
         }
         else {
-            this.direction = NumberTool.getRandomInt(ActionEnum.up, ActionEnum.right);
+            actionType = NumberTool.getRandomInt(ActionEnum.up, ActionEnum.right);
         }
-        this.setDirection(this.direction);
+        this.actionHandler(actionType);
     };
     p.autoMove = function () {
         this.turnCount--;
         if (this.turnCount < 0) {
-            this.turnCount = Math.round(60 + Math.random() * 100); //每隔一段时间自动转向
+            this.turnCount = Math.round(120 + Math.random() * 100); //每隔一段时间自动转向
             this.autoTurn();
         }
         else {
             this.move();
         }
+    };
+    //更新射击时间
+    p.updateShootCount = function () {
+        this.shootCount++;
     };
     //射击
     p.shoot = function () {
@@ -95,19 +103,19 @@ var BaseTank = (function (_super) {
             bullet.x = this.x;
             bullet.y = this.y;
             switch (this.direction) {
-                case ActionEnum.up:
+                case DirectionEnum.up:
                     bullet.rotation = 0;
                     bullet.speedY = -bullet.speed + (this.power - 1); //子弹根据威力加速
                     break;
-                case ActionEnum.down:
+                case DirectionEnum.down:
                     bullet.rotation = 180;
                     bullet.speedY = bullet.speed + (this.power - 1);
                     break;
-                case ActionEnum.left:
+                case DirectionEnum.left:
                     bullet.rotation = -90;
                     bullet.speedX = -bullet.speed + (this.power - 1);
                     break;
-                case ActionEnum.right:
+                case DirectionEnum.right:
                     bullet.rotation = 90;
                     bullet.speedX = bullet.speed + (this.power - 1);
                     break;
@@ -142,3 +150,4 @@ var BaseTank = (function (_super) {
     return BaseTank;
 }(SimpleMC));
 egret.registerClass(BaseTank,'BaseTank');
+//# sourceMappingURL=BaseTank.js.map

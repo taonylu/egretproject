@@ -9,8 +9,8 @@
 */
 class MapManager {
     
-    public rowMax: number = 16;     //地图行数
-    public colMax: number = 20;     //地图列数
+    public rowMax: number = 13;     //地图行数
+    public colMax: number = 13;     //地图列数
     public tileWidth:number = 64;  //tile宽度
     public tileHeight:number = 64; //tile高度
     public halfWidth:number = 32;

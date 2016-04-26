@@ -80,3 +80,4 @@ var LoadManager = (function () {
     return LoadManager;
 }());
 egret.registerClass(LoadManager,'LoadManager');
+//# sourceMappingURL=LoadManager.js.map

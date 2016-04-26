@@ -20,7 +20,7 @@ var LevelData = (function () {
         /**敌方坦克同时存在上限*/
         this.tankLimit = 5;
         /**我方坦克生成点*/
-        this.friendBirthPos = [[15, 6], [15, 11]];
+        this.friendBirthPos = [[4, 12], [8, 12]];
         /**敌方坦克生成点*/
         this.enemyBirthPos = [[0, 0]];
     }
@@ -28,3 +28,4 @@ var LevelData = (function () {
     return LevelData;
 }());
 egret.registerClass(LevelData,'LevelData');
+//# sourceMappingURL=LevelData.js.map

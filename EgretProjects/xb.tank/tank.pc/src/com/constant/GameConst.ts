@@ -32,13 +32,12 @@ enum ItemEnum {
     pause = 6
 }
 
-//地形 1砖墙 2钢板 3草地 4加速带 5河流 
+//地形
 enum TileEnum {
     grass = 1,
-    speed = 2,
-    wall = 3,
-    steel = 4,
-    river = 5
+    wall = 2,
+    steel = 3,
+    river = 4
 }
 
 //坦克行为
@@ -50,6 +49,14 @@ enum ActionEnum{
     stopMove = 4,
     stopShoot = 5,
     shoot = 6
+}
+
+//坦克方向
+enum DirectionEnum{
+    up = 0,
+    down = 1,
+    left = 2,
+    right = 3
 }
 
 

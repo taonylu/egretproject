@@ -72,17 +72,9 @@ var GameScene = (function (_super) {
         //console.log("touchEnd:",e.target);
         switch (e.target) {
             case this.upBtn:
-                this.sendAction(ActionEnum.stopMove);
-                break;
             case this.downBtn:
-                this.sendAction(ActionEnum.stopMove);
-                break;
             case this.leftBtn:
-                this.sendAction(ActionEnum.stopMove);
-                break;
             case this.rightBtn:
-                this.sendAction(ActionEnum.stopMove);
-                break;
             case this.shootBtn:
                 this.sendAction(ActionEnum.stopMove);
                 break;

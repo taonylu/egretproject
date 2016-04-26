@@ -21,7 +21,8 @@ var StrongTank = (function (_super) {
         this.type = TankEnum.strong;
         this.gotoAndStop("lvl2");
     };
-    StrongTank.NAME = "PlayerTank";
+    StrongTank.NAME = "StrongTank";
     return StrongTank;
 }(BaseTank));
 egret.registerClass(StrongTank,'StrongTank');
+//# sourceMappingURL=StrongTank.js.map

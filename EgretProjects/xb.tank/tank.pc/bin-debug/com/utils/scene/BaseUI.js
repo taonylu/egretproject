@@ -9,11 +9,10 @@
 */
 var BaseUI = (function (_super) {
     __extends(BaseUI, _super);
-    function BaseUI(skinName) {
+    function BaseUI() {
         _super.call(this);
         this.inited = false;
         this.addEventListener(eui.UIEvent.CREATION_COMPLETE, this.componentCreated, this);
-        this.skinName = skinName;
     }
     var d = __define,c=BaseUI,p=c.prototype;
     /**组件创建完毕并添加到舞台时触发
@@ -27,3 +26,4 @@ var BaseUI = (function (_super) {
     return BaseUI;
 }(eui.Component));
 egret.registerClass(BaseUI,'BaseUI');
+//# sourceMappingURL=BaseUI.js.map

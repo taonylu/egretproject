@@ -19,7 +19,7 @@ class LevelData {
     /**敌方坦克同时存在上限*/
     public tankLimit:number = 5;
     /**我方坦克生成点*/
-    public friendBirthPos = [[15,6],[15,11]];
+    public friendBirthPos = [[4,12],[8,12]];
     /**敌方坦克生成点*/
     public enemyBirthPos = [[0,0]];
 }

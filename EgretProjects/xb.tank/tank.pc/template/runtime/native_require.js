@@ -44,15 +44,14 @@ var game_file_list = [
 	"bin-debug/com/view/game/tank/StrongTank.js",
 	"bin-debug/com/view/game/tank/SuperTank.js",
 	"bin-debug/com/view/game/tile/BaseTile.js",
+	"bin-debug/com/view/game/tile/Grass.js",
+	"bin-debug/com/view/game/tile/River.js",
 	"bin-debug/com/view/game/tile/Steel.js",
 	"bin-debug/com/view/game/tile/Wall.js",
 	"bin-debug/com/view/home/HomeScene.js",
 	"bin-debug/com/view/preload/PreloadScene.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
-	"bin-debug/com/view/game/tile/Grass.js",
-	"bin-debug/com/view/game/tile/River.js",
-	"bin-debug/com/view/game/tile/Speed.js",
 	//----auto game_file_list end----
 ];
 
@@ -84,7 +83,7 @@ egret_native.egretStart = function () {
 		frameRate: 60,
 		scaleMode: "showAll",
 		contentWidth: 1920,
-		contentHeight: 1080,
+		contentHeight: 1024,
 		showPaintRect: false,
 		showFPS: true,
 		fpsStyles: "x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9",

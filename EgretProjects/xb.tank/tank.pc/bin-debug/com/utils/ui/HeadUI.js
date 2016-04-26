@@ -16,12 +16,13 @@
 var HeadUI = (function (_super) {
     __extends(HeadUI, _super);
     function HeadUI() {
-        _super.call(this, "HeadUISkin");
+        _super.call(this);
         this.imgX = 10; //图片大小高宽和位置
         this.imgY = 17;
         this.imgWidth = 45;
         this.imgHeight = 45;
         this.imageLoader = new egret.ImageLoader(); //图片加载器
+        this.skinName = "HeadUISkin";
     }
     var d = __define,c=HeadUI,p=c.prototype;
     p.componentCreated = function () {
@@ -68,3 +69,4 @@ var HeadUI = (function (_super) {
     return HeadUI;
 }(BaseUI));
 egret.registerClass(HeadUI,'HeadUI');
+//# sourceMappingURL=HeadUI.js.map

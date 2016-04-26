@@ -7,11 +7,12 @@ class Boom extends SimpleMC{
     public static NAME:string = "Boom";
     public constructor() {
         super();
+        this.setMovieClip("boom_png","boom_json","boom");
+        this.addEventListener(egret.MovieClipEvent.COMPLETE,this.recycle,this);
     }
     
-    public playAnim(){
+    public playBoom(){
         this.gotoAndPlay(1,1);
-        this.addEventListener(egret.MovieClipEvent.COMPLETE,this.onComplete, this);
     }
     
     private onComplete(){

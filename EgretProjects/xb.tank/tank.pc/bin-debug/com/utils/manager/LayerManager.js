@@ -61,3 +61,4 @@ var LayerManager = (function () {
     return LayerManager;
 }());
 egret.registerClass(LayerManager,'LayerManager');
+//# sourceMappingURL=LayerManager.js.map

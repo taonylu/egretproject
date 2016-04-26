@@ -7,8 +7,13 @@ class HomeScene extends BaseScene{
     private socket:ClientSocket;      //socket
     private rid:string;               //房间号
     
-    private countDownTimer:egret.Timer = new egret.Timer(1000);
+    private countDownTimer:egret.Timer = new egret.Timer(1000);  //倒计时
     private countDownLimit:number = 1;
+    
+    private p1HeadGroup:eui.Group;  //坦克头像group
+    private p2HeadGroup:eui.Group;
+    
+    private codeGroup:eui.Group;    //二维码group 280x280
     
 
     public constructor() {
@@ -64,7 +69,7 @@ class HomeScene extends BaseScene{
         var codeLoader: QRCodeLoader = new QRCodeLoader();
         var codeConfig = window["codeConfig"];
         codeLoader.load(codeConfig.codeData,codeConfig.codeWidth,codeConfig.codeHeight,codeConfig.logoUrl);
-        this.addChild(codeLoader);
+        this.codeGroup.addChild(codeLoader);
         
         this.sendUpRid();
     }

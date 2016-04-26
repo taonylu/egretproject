@@ -20,7 +20,6 @@ class GameFactory {
     private wallPool:ObjectPool = ObjectPool.getPool(Wall.NAME);              //墙
     private grassPool:ObjectPool = ObjectPool.getPool(Grass.NAME);            //草地
     private riverPool:ObjectPool = ObjectPool.getPool(River.NAME);            //河流
-    private speedPool:ObjectPool = ObjectPool.getPool(Speed.NAME);            //加速
     private tileList = [];   //地形列表，保存地形对象池，用于根据类型获取对象池
     
     
@@ -32,7 +31,6 @@ class GameFactory {
         this.tankList.push(this.superTankPool);
         
         this.tileList.push(this.grassPool);
-        this.tileList.push(this.speedPool);
         this.tileList.push(this.wallPool);
         this.tileList.push(this.steelPool);
         this.tileList.push(this.riverPool);

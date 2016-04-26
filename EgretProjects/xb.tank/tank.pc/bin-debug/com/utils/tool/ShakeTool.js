@@ -54,3 +54,4 @@ var ShakeTool = (function () {
     return ShakeTool;
 }());
 egret.registerClass(ShakeTool,'ShakeTool');
+//# sourceMappingURL=ShakeTool.js.map
