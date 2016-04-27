@@ -6,7 +6,6 @@
 class BaseTank extends SimpleMC{
     public className:string = "";//类名
     public type:TankEnum;        //坦克类型
-    public skin:string = "";     //坦克皮肤
     public speed:number = 4;     //移动速度
     public speedX:number = 0;    //x，y轴移动速度
     public speedY:number = 0;
@@ -15,6 +14,7 @@ class BaseTank extends SimpleMC{
     public life:number = 0;      //生命值
     public shootTime:number = 0; //射击间隔时间，单位ms
     public shootCount:number = 0;//射击计时，单位帧
+    public isWuDi:boolean = false;//是否无敌
     public isHaveItem:boolean;   //是否携带道具         
     public openid: string;       //openid
     public hitWidth:number = 64;     //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
@@ -24,6 +24,15 @@ class BaseTank extends SimpleMC{
         super();
         this.className = egret.getQualifiedClassName(this);
 	}
+	
+    //重置状态
+    public reset() {
+         this.speedX = 0;
+         this.speedY = 0;
+    	   this.isHaveItem = false;
+    	   this.shootCount = 0;
+    	   this.isWuDi = false;
+    }
 
 	//移动
 	public move(){
@@ -32,15 +41,16 @@ class BaseTank extends SimpleMC{
 	}
 	
 	//播放移动动画
-	public playMove(){
+	public playMoveAnim(){
         
 	}
 	
 	//设置行动
 	public actionHandler(actionType){
+    	//当坦克停止时，播放动画
       if(this.speedX == 0 && this.speedY ==0 && actionType != ActionEnum.stopMove){
-          this.playMove();
-      }  
+          this.playMoveAnim();
+      }
      
       switch(actionType){
         	case ActionEnum.up:
@@ -90,7 +100,7 @@ class BaseTank extends SimpleMC{
     public autoMove(){
         this.turnCount--;
         if(this.turnCount < 0){
-            this.turnCount = Math.round(120 + Math.random()*100);  //每隔一段时间自动转向
+            this.turnCount = Math.round(120 + Math.random()*120);  //每隔一段时间自动转向
             this.autoTurn();
         }else{
             this.move();
@@ -136,23 +146,33 @@ class BaseTank extends SimpleMC{
         }
 	}
 	
+	//坦克碰撞检测
+	public checkCollision(target):boolean{
+        var myX = this.x + this.speedX;
+        var myY = this.y + this.speedY;
+        if(Math.abs(target.x - myX) < 64 && Math.abs(target.y- myY) < 64) {
+            return true;
+        }
+        return false;
+	}
+	
 	/**
 	 * 被击中
 	 * bullet 子弹
-	 * return 返回是否击中有效
+	 * return 返回是否击毁坦克
 	 */ 
     public beAttacked(bullet:Bullet){
-        if(Math.abs(bullet.x - this.x) < 48 && (Math.abs(bullet.y- this.y)<48)){
+        if(this.isWuDi){
+            return false;
+        }
+        this.life -= bullet.power;
+        if(this.life <= 0){
             return true;
         }
         return false;
     }
     
-	//重置状态
-	public reset(){
-    	   this.isHaveItem = false;
-    	   this.shootCount = 0;
-	}
+	
 	
 	//回收
     public recycle() {

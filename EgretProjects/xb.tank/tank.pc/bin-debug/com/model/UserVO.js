@@ -10,4 +10,3 @@ var UserVO = (function () {
     return UserVO;
 }());
 egret.registerClass(UserVO,'UserVO');
-//# sourceMappingURL=UserVO.js.map

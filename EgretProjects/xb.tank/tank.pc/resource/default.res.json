@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"level1_json,level2_json,level3_json,level4_json,level5_json,level6_json,wall15_png,wall14_png,wall13_png,wall12_png,wall11_png,wall10_png,wall09_png,wall08_png,wall07_png,wall06_png,wall05_png,wall04_png,wall03_png,wall02_png,wall01_png,wall00_png,steel3_png,steel2_png,steel1_png,steel0_png,map_json,fastTank_json,fastTank_png,normalTank_json,normalTank_png,playerGreenTank_json,playerGreenTank_png,playerYellowTank_json,playerYellowTank_png,strongTank_json,strongTank_png,superTank_json,superTank_png,bullet_png,tile5_png,tile4_png,tile3_png,tile2_png,tile1_png,home_title_png,home_code_png,home_c_png,home_p2_png,home_enemy_png,home_p1_png,home__png,boom_png,boom_json",
+			"keys":"level1_json,level2_json,level3_json,level4_json,level5_json,level6_json,wall15_png,wall14_png,wall13_png,wall12_png,wall11_png,wall10_png,wall09_png,wall08_png,wall07_png,wall06_png,wall05_png,wall04_png,wall03_png,wall02_png,wall01_png,wall00_png,steel3_png,steel2_png,steel1_png,steel0_png,map_json,fastTank_json,fastTank_png,normalTank_json,normalTank_png,playerGreenTank_json,playerGreenTank_png,playerYellowTank_json,playerYellowTank_png,strongTank_json,strongTank_png,superTank_json,superTank_png,bullet_png,tile5_png,tile4_png,tile3_png,tile2_png,tile1_png,home_title_png,home_code_png,home_c_png,home_p2_png,home_enemy_png,home_p1_png,home__png,boom_png,boom_json,tankBoom_png,tankBoom_json",
 			"name":"game"
 		}
 	],
@@ -279,6 +279,16 @@
 			"name":"boom_json",
 			"type":"json",
 			"url":"assets/bullet/boom.json"
+		},
+		{
+			"name":"tankBoom_png",
+			"type":"image",
+			"url":"assets/bullet/tankBoom.png"
+		},
+		{
+			"name":"tankBoom_json",
+			"type":"json",
+			"url":"assets/bullet/tankBoom.json"
 		}
 	]
 }

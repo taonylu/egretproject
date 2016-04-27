@@ -10,5 +10,6 @@ class River extends BaseTile{
     	this.skinName = "RiverSkin";
     	this.canHit = false;
     	this.canWalk = false;
+    	this.setType(TileEnum.river);
 	}
 }

@@ -11,6 +11,20 @@ class SuperTank extends BaseTank{
         this.reset();
     }
 
+    //override  超级坦克动画lvl1 lvl2 lvl3 haveItem
+    public playMoveAnim() {
+        if(this.isHaveItem) {
+            this.gotoAndPlay("haveItem",-1);
+        } else if(this.life == 3) {
+            this.gotoAndPlay("lvl3",-1);
+        } else if(this.life == 2){
+            this.gotoAndPlay("lvl2",-1);
+        }else{
+            this.gotoAndPlay("lvl1",-1);
+        }
+    }
+    
+    //override
     public reset() {
         super.reset();
         var tankSet = MapManager.getInstance().tankSet.superTank;

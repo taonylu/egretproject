@@ -10,6 +10,7 @@ class GameScene extends BaseScene{
     private footTileGroup:eui.Group;  //下层地形层
     private tankGroup:eui.Group;      //坦克层
     public bulletGroup:eui.Group;     //子弹层
+    public boomGroup:eui.Group;       //炸弹层
     
     private mapList;           //当前地图二维数组，存储地图数字
     private tileList;          //地形数组，存储BaseItem
@@ -53,7 +54,7 @@ class GameScene extends BaseScene{
         this.createMap();
         this.createPlayer();
         this.configListeners();
-        //this.startGenerateTimer();
+        this.startGenerateTimer();
     }
     
     public nextLevel(){
@@ -160,12 +161,33 @@ class GameScene extends BaseScene{
     //移动玩家坦克
     private movePlayerTank(){
         var len = this.playerTankList.length;
-        var tank:BaseTank;
+        var player:BaseTank;
+        var enemy:BaseTank;
+        var otherPlayer:BaseTank;
         for(var i=0;i<len;i++){
-            tank = this.playerTankList[i];
-            tank.updateShootCount();
-            if(this.getCollioseTile(tank).length == 0 && this.checkEdge(tank) == false){
-                tank.move();
+            player = this.playerTankList[i];
+            //射击
+            player.updateShootCount();
+            //坦克碰撞检测
+            var enemyLen = this.enemyTankList.length;
+            for(var j=0;j<enemyLen;j++){
+                enemy = this.enemyTankList[j];
+                if(player.checkCollision(enemy)){
+                    return;
+                }
+            }
+            var playerLen = this.playerTankList.length;
+            for(var j = 0;j < playerLen;j++) {
+                otherPlayer = this.playerTankList[j];
+                if(otherPlayer != player && player.checkCollision(otherPlayer)) {
+                    return;
+                }
+            }
+            
+            //地形碰撞检测
+            if(this.getCollioseTile(player).length == 0 && this.checkEdge(player) == false) {
+                
+                player.move();
             }
         }
     }   
@@ -173,15 +195,37 @@ class GameScene extends BaseScene{
     //移动敌方坦克
     private moveEnemyTank(){
         var len = this.enemyTankList.length;
-        var tank:BaseTank;
+        var enemy:BaseTank;
+        var player:BaseTank
+        var otherEnemy:BaseTank;
         for(var i=0;i<len;i++){
-            tank = this.enemyTankList[i];
-            if(this.getCollioseTile(tank).length == 0 && this.checkEdge(tank) == false){
-                tank.autoMove();
-            }else{ //遇到障碍，随机一个方向，优先往下
-                tank.autoTurn();
+            enemy = this.enemyTankList[i];
+            //射击
+            enemy.shoot();
+            //坦克碰撞检测
+            var playerLen = this.playerTankList.length;
+            for(var j = 0;j < playerLen;j++) {
+                player = this.playerTankList[j];
+                if(enemy.checkCollision(player)) {
+                    enemy.autoTurn();
+                    return;
+                }
             }
-            tank.shoot();
+            var enemyLen = this.enemyTankList.length;
+            for(var j = 0;j < enemyLen;j++) {
+                otherEnemy = this.enemyTankList[j];
+                if(otherEnemy != enemy && enemy.checkCollision(otherEnemy)) {
+                    enemy.autoTurn();
+                    return;
+                }
+            }
+            //地形碰撞检测
+            if(this.getCollioseTile(enemy).length == 0 && this.checkEdge(enemy) == false){
+                enemy.autoMove();
+            }else{ //遇到障碍，随机一个方向，优先往下
+                enemy.autoTurn();
+                this.modifyTankTurn(enemy);
+            }
         }
     }
     
@@ -212,26 +256,37 @@ class GameScene extends BaseScene{
                 continue;
             }
             
-            //判断子弹击中坦克
+            //判断子弹击中敌方坦克
             if(bullet.type == TankEnum.player){
                 var tankLen = this.enemyTankList.length;
                 for(var j = tankLen - 1;j >= 0;j--) {
                     var tank: BaseTank = this.enemyTankList[j];
-                    if(tank.beAttacked(bullet)) {
+                    if(tank.checkCollision(bullet)) {
                         this.playBoom(bullet);
                         bullet.recycle();
                         this.bulletList.splice(i,1);
+                        if(tank.beAttacked(bullet)){
+                            tank.recycle();
+                            this.enemyTankList.splice(j,1);
+                            this.playTankBoom(tank);
+                        }
                         break;  //跳出循环
                     }
                 } 
+            //判断子弹击中我方坦克
             }else{
                 var tankLen = this.playerTankList.length;
                 for(var j = tankLen - 1;j >= 0;j--) {
                     var tank: BaseTank = this.playerTankList[j];
-                    if(tank.beAttacked(bullet)) {
+                    if(tank.checkCollision(bullet)) {
                         this.playBoom(bullet);
                         bullet.recycle();
                         this.bulletList.splice(i,1);
+                        if(tank.beAttacked(bullet)) {
+                            tank.recycle();
+                            this.playerTankList.splice(j,1);
+                            this.playTankBoom(tank);
+                        }
                         break;  //跳出循环
                     }
                 } 
@@ -241,13 +296,54 @@ class GameScene extends BaseScene{
         }
     }
     
+    //坦克转向碰到障碍物，且下一步目的地行走的地形为空，允许一定的碰撞偏差，让坦克转向成功
+    private modifyTankTurn(tank:BaseTank){
+        if(this.getCollioseTile(tank).length > 0) {
+            var curCol = Math.floor(tank.x / this.tileWidth);
+            var curRow = Math.floor(tank.y / this.tileHeight);
+            var nextCol = curCol;
+            var nextRow = curRow;
+            var direction = tank.direction;
+            if(direction == DirectionEnum.up) {
+                nextRow -= 1;
+            } else if(direction == DirectionEnum.down) {
+                nextRow += 1;
+            } else if(direction == DirectionEnum.left) {
+                nextCol -= 1;
+            } else if(direction == DirectionEnum.right) {
+                nextCol += 1;
+            }
+            if(this.tileList[curRow][curCol] != null && this.tileList[curRow][curCol].canWalk == true){ //当前地形是障碍物，例如墙，修正位置会产生bug
+                return;
+            }
+            if(curRow != nextRow || curCol != nextCol) {
+                if(nextRow >= 0 && nextRow < this.rowMax && nextCol >= 0 && nextCol < this.colMax) {
+                    var tile = this.tileList[nextRow][nextCol];
+                    if(tile == null || tile.canWalk == true) {
+                        tank.x = curCol * this.tileWidth + this.halfWidth + tank.speedX;
+                        tank.y = curRow * this.tileHeight + this.halfHeight + tank.speedY;
+                    }
+                }
+            }
+        }
+    }
+    
     //播放爆炸动画
     private playBoom(bullet:Bullet){
         var boom:Boom = GameFactory.getInstance().getBoom();
         boom.x = bullet.x;
         boom.y = bullet.y;
-        this.bulletGroup.addChild(boom);
+        this.boomGroup.addChild(boom);
         boom.playBoom();
+    }
+    
+    //播放坦克爆炸效果
+    private playTankBoom(tank:BaseTank){
+        var tankBoom: TankBoom = GameFactory.getInstance().getTankBoom();
+        tankBoom.x = tank.x;
+        tankBoom.y = tank.y;
+        this.boomGroup.addChild(tankBoom);
+        tankBoom.playBoom();
     }
     
     /**
@@ -278,6 +374,8 @@ class GameScene extends BaseScene{
      * @return 返回碰撞的地形
      */ 
     private getCollioseTile(target){
+        //碰撞的地形列表
+        var collisionTileList = [];
         //获取坐标所在行列
         var col: number = Math.floor(target.x/this.tileWidth);
         var row: number = Math.floor(target.y/this.tileWidth);
@@ -285,20 +383,23 @@ class GameScene extends BaseScene{
         var tileList = this.getRoundTile(row,col);
         //判断是否碰撞地形
         var len = tileList.length;
-        var collisionList = [];
         for(var i=0;i<len;i++){
             var tile = tileList[i];
             if(tile != null){  
-                //子弹碰撞了地形，或者坦克碰撞地形
-                if((target instanceof Bullet && tile.canHit) || (target instanceof Bullet == false && tile.canWalk == false)){
+                //子弹碰撞了地形
+                if(target instanceof Bullet && tile.canHit){
                     if(tile.checkCollision(target)){
-                        collisionList.push(tile);
+                        collisionTileList.push(tile);
                     }
-                }
-                
+                //坦克碰撞地形
+                } else if((target instanceof Bullet) == false && tile.canWalk == false){
+                    if(tile.checkCollision(target)) {
+                        collisionTileList.push(tile);
+                    }
+                }  
             }
         }
-        return collisionList;
+        return collisionTileList;
     }
     
     //获取四周格子列表
@@ -398,6 +499,7 @@ class GameScene extends BaseScene{
                     tank.shoot();
                 }else{
                     tank.actionHandler(actionType); 
+                    this.modifyTankTurn(tank);
                 }
             }
         }

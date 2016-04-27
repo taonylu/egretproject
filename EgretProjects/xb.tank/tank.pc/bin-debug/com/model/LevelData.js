@@ -28,4 +28,3 @@ var LevelData = (function () {
     return LevelData;
 }());
 egret.registerClass(LevelData,'LevelData');
-//# sourceMappingURL=LevelData.js.map

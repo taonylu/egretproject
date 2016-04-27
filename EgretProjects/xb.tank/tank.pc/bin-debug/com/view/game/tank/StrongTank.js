@@ -11,6 +11,19 @@ var StrongTank = (function (_super) {
         this.reset();
     }
     var d = __define,c=StrongTank,p=c.prototype;
+    //override  强化坦克动画lvl1 lvl2 haveItem
+    p.playMoveAnim = function () {
+        if (this.isHaveItem) {
+            this.gotoAndPlay("haveItem", -1);
+        }
+        else if (this.life == 2) {
+            this.gotoAndPlay("lvl2", -1);
+        }
+        else {
+            this.gotoAndPlay("lvl1", -1);
+        }
+    };
+    //override
     p.reset = function () {
         _super.prototype.reset.call(this);
         var tankSet = MapManager.getInstance().tankSet.strongTank;
@@ -25,4 +38,3 @@ var StrongTank = (function (_super) {
     return StrongTank;
 }(BaseTank));
 egret.registerClass(StrongTank,'StrongTank');
-//# sourceMappingURL=StrongTank.js.map

@@ -6,4 +6,5 @@
 	<e:Group id="bulletGroup" width="832" height="832" horizontalCenter="0" verticalCenter="0"/>
 	<e:Group id="tankGroup" width="832" height="832" horizontalCenter="0" verticalCenter="0"/>
 	<e:Group id="topTileGroup" height="832" width="832" horizontalCenter="0" verticalCenter="0"/>
+	<e:Group id="boomGroup" width="832" height="832" horizontalCenter="0" verticalCenter="0"/>
 </e:Skin>

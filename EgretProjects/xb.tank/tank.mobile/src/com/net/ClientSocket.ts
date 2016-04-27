@@ -66,6 +66,21 @@ class ClientSocket {
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
 
+        
+//        this.socket.on("revMessages", function(data){
+//            var mainCmd = data.cmd;
+//            var xxxx 
+//            switch(cmd){
+//                case "startGame":
+//                    //TODO startGame;
+//                break;
+//                case "gameOVer":
+//                    break;
+//            }
+//        });
+        
+        
+        
         this.socket.on("startGame",function(data) {      
             self.homeScene.revStartGame();
         }); 

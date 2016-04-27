@@ -12,6 +12,7 @@ var Wall = (function (_super) {
         this.skinName = "WallSkin";
         this.canHit = true;
         this.canWalk = false;
+        this.setType(TileEnum.wall);
     }
     var d = __define,c=Wall,p=c.prototype;
     p.componentCreated = function () {
@@ -93,4 +94,3 @@ var Wall = (function (_super) {
     return Wall;
 }(BaseTile));
 egret.registerClass(Wall,'Wall');
-//# sourceMappingURL=Wall.js.map

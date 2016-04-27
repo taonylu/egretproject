@@ -87,4 +87,3 @@ var MapManager = (function () {
     return MapManager;
 }());
 egret.registerClass(MapManager,'MapManager');
-//# sourceMappingURL=MapManager.js.map

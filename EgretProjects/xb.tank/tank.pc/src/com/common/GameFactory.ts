@@ -14,7 +14,7 @@ class GameFactory {
     private itemPool:ObjectPool = ObjectPool.getPool(BaseItem.NAME);       //道具
     public bulletPool:ObjectPool = ObjectPool.getPool(Bullet.NAME);        //子弹
     private boomPool:ObjectPool = ObjectPool.getPool(Boom.NAME);           //爆炸效果
-    
+    private tankBoomPool:ObjectPool = ObjectPool.getPool(TankBoom.NAME);   //坦克爆炸效果
     
     private steelPool:ObjectPool = ObjectPool.getPool(Steel.NAME);            //钢铁
     private wallPool:ObjectPool = ObjectPool.getPool(Wall.NAME);              //墙
@@ -56,6 +56,11 @@ class GameFactory {
     //获取一个爆炸效果
     public getBoom():Boom{
         return this.boomPool.getObject();
+    }
+    
+    //获取一个坦克爆炸效果
+    public getTankBoom():TankBoom{
+        return this.tankBoomPool.getObject();
     }
     
     //获取一个地形

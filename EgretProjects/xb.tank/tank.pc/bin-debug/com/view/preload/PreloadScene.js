@@ -20,4 +20,3 @@ var PreloadScene = (function (_super) {
     return PreloadScene;
 }(BaseScene));
 egret.registerClass(PreloadScene,'PreloadScene');
-//# sourceMappingURL=PreloadScene.js.map

@@ -26,4 +26,3 @@ var BaseUI = (function (_super) {
     return BaseUI;
 }(eui.Component));
 egret.registerClass(BaseUI,'BaseUI');
-//# sourceMappingURL=BaseUI.js.map

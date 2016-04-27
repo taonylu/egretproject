@@ -21,6 +21,10 @@ var PlayerTank = (function (_super) {
             this.setMovieClip("playerGreenTank_png", "playerGreenTank_json", "playerGreenTank");
         }
     };
+    //override  玩家坦克动画lvl1 lvl2 lvl3
+    p.playMoveAnim = function () {
+        this.gotoAndPlay("lvl" + this.power, -1);
+    };
     //设置坦克威力，并且改变坦克外形
     p.setPower = function (power) {
         if (power >= 3) {
@@ -32,7 +36,7 @@ var PlayerTank = (function (_super) {
         this.power = power;
         this.gotoAndPlay("lvl" + this.power, -1);
     };
-    //重置
+    //override
     p.reset = function () {
         _super.prototype.reset.call(this);
         var tankSet = MapManager.getInstance().tankSet.playerTank;
@@ -49,4 +53,3 @@ var PlayerTank = (function (_super) {
     return PlayerTank;
 }(BaseTank));
 egret.registerClass(PlayerTank,'PlayerTank');
-//# sourceMappingURL=PlayerTank.js.map

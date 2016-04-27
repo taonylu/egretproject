@@ -90,4 +90,3 @@ var ArrayTool = (function () {
     return ArrayTool;
 }());
 egret.registerClass(ArrayTool,'ArrayTool');
-//# sourceMappingURL=ArrayTool.js.map
