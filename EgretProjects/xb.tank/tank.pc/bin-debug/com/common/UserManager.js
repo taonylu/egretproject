@@ -79,4 +79,3 @@ var UserManager = (function () {
     return UserManager;
 }());
 egret.registerClass(UserManager,'UserManager');
-//# sourceMappingURL=UserManager.js.map

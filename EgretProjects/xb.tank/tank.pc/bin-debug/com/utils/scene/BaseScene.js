@@ -42,4 +42,3 @@ var BaseScene = (function (_super) {
     return BaseScene;
 }(eui.Component));
 egret.registerClass(BaseScene,'BaseScene');
-//# sourceMappingURL=BaseScene.js.map

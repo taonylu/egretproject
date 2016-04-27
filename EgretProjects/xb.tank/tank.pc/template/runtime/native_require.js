@@ -37,6 +37,7 @@ var game_file_list = [
 	"bin-debug/com/view/game/other/BaseItem.js",
 	"bin-debug/com/view/game/other/Boom.js",
 	"bin-debug/com/view/game/other/Bullet.js",
+	"bin-debug/com/view/game/other/TankBoom.js",
 	"bin-debug/com/view/game/tank/BaseTank.js",
 	"bin-debug/com/view/game/tank/FastTank.js",
 	"bin-debug/com/view/game/tank/NormalTank.js",

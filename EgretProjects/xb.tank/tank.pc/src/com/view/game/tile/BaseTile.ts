@@ -4,7 +4,6 @@
  *
  */
 class BaseTile extends BaseUI{
-    public static NAME:string = "BaseTile";
     public className: string = "";//类名
     public type:TileEnum;    //类型
     public life:number = 0;  //生命值
@@ -18,10 +17,14 @@ class BaseTile extends BaseUI{
       this.className = egret.getQualifiedClassName(this);
 	}
 	
+    public reset() {
+        this.canHit = false;
+        this.canWalk = false;
+    }
+	
 	//设置类型
 	public setType(type:TileEnum){
     	this.type = type;
-    	//this.bitmapData = RES.getRes("tile" + type + "_png");
     	this.anchorOffsetX = this.width/2;
     	this.anchorOffsetY = this.height/2;
 	}
@@ -47,9 +50,7 @@ class BaseTile extends BaseUI{
         return false;
     }
     
-    public reset(){
-        
-    }
+   
     
     public recycle(){
         this.parent && this.parent.removeChild(this);

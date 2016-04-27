@@ -71,4 +71,3 @@ var Main = (function (_super) {
     return Main;
 }(eui.UILayer));
 egret.registerClass(Main,'Main');
-//# sourceMappingURL=Main.js.map

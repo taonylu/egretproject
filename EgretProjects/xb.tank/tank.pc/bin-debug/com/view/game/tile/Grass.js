@@ -10,9 +10,10 @@ var Grass = (function (_super) {
         this.skinName = "GrassSkin";
         this.canHit = false;
         this.canWalk = true;
+        this.setType(TileEnum.grass);
     }
     var d = __define,c=Grass,p=c.prototype;
+    Grass.NAME = "Grass";
     return Grass;
 }(BaseTile));
 egret.registerClass(Grass,'Grass');
-//# sourceMappingURL=Grass.js.map

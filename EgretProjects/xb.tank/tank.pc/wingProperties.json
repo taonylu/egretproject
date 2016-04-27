@@ -208,6 +208,11 @@
 					"isFolder":false,
 					"key":"boom_png",
 					"name":"boom_png"
+				},
+				{
+					"isFolder":false,
+					"key":"tankBoom_png",
+					"name":"tankBoom_png"
 				}
 			]
 		}

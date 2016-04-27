@@ -12,6 +12,7 @@ var Steel = (function (_super) {
         this.skinName = "SteelSkin";
         this.canHit = true;
         this.canWalk = false;
+        this.setType(TileEnum.steel);
     }
     var d = __define,c=Steel,p=c.prototype;
     p.componentCreated = function () {
@@ -81,4 +82,3 @@ var Steel = (function (_super) {
     return Steel;
 }(BaseTile));
 egret.registerClass(Steel,'Steel');
-//# sourceMappingURL=Steel.js.map

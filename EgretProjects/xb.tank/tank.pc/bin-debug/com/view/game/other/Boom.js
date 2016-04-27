@@ -26,4 +26,3 @@ var Boom = (function (_super) {
     return Boom;
 }(SimpleMC));
 egret.registerClass(Boom,'Boom');
-//# sourceMappingURL=Boom.js.map

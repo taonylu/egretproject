@@ -57,4 +57,3 @@ var DirectionEnum;
     DirectionEnum[DirectionEnum["left"] = 2] = "left";
     DirectionEnum[DirectionEnum["right"] = 3] = "right";
 })(DirectionEnum || (DirectionEnum = {}));
-//# sourceMappingURL=GameConst.js.map

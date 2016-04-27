@@ -11,6 +11,16 @@ var NormalTank = (function (_super) {
         this.reset();
     }
     var d = __define,c=NormalTank,p=c.prototype;
+    //override  普通坦克动画normal haveItem
+    p.playMoveAnim = function () {
+        if (this.isHaveItem) {
+            this.gotoAndPlay("haveItem", -1);
+        }
+        else {
+            this.gotoAndPlay("normal", -1);
+        }
+    };
+    //override 
     p.reset = function () {
         _super.prototype.reset.call(this);
         var tankSet = MapManager.getInstance().tankSet.normalTank;
@@ -25,4 +35,3 @@ var NormalTank = (function (_super) {
     return NormalTank;
 }(BaseTank));
 egret.registerClass(NormalTank,'NormalTank');
-//# sourceMappingURL=NormalTank.js.map

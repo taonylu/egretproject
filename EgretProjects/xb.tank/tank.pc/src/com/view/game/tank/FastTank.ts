@@ -10,7 +10,17 @@ class FastTank extends BaseTank{
         this.setMovieClip("fastTank_png","fastTank_json","fastTank");
         this.reset();
     }
-
+    
+    //override  急速坦克动画normal haveItem
+    public playMoveAnim(){
+        if(this.isHaveItem){
+            this.gotoAndPlay("haveItem",-1);
+        }else{
+            this.gotoAndPlay("normal",-1);
+        }
+    }
+    
+    //override
     public reset() {
         super.reset();
         var tankSet = MapManager.getInstance().tankSet.fastTank;

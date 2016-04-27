@@ -14,10 +14,13 @@ var BaseTile = (function (_super) {
         this.className = egret.getQualifiedClassName(this);
     }
     var d = __define,c=BaseTile,p=c.prototype;
+    p.reset = function () {
+        this.canHit = false;
+        this.canWalk = false;
+    };
     //设置类型
     p.setType = function (type) {
         this.type = type;
-        //this.bitmapData = RES.getRes("tile" + type + "_png");
         this.anchorOffsetX = this.width / 2;
         this.anchorOffsetY = this.height / 2;
     };
@@ -40,15 +43,11 @@ var BaseTile = (function (_super) {
         }
         return false;
     };
-    p.reset = function () {
-    };
     p.recycle = function () {
         this.parent && this.parent.removeChild(this);
         this.reset();
         ObjectPool.getPool(this.className).returnObject(this);
     };
-    BaseTile.NAME = "BaseTile";
     return BaseTile;
 }(BaseUI));
 egret.registerClass(BaseTile,'BaseTile');
-//# sourceMappingURL=BaseTile.js.map

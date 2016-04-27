@@ -13,6 +13,7 @@ class Steel extends BaseTile{
         this.skinName = "SteelSkin";
         this.canHit = true;
         this.canWalk = false;
+        this.setType(TileEnum.steel);
     }
 	
     public componentCreated(): void {

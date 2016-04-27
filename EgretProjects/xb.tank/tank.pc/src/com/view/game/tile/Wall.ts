@@ -13,6 +13,7 @@ class Wall extends BaseTile{
       this.skinName = "WallSkin";
     	this.canHit = true;
     	this.canWalk = false;
+        this.setType(TileEnum.wall);
 	}
 	
     public componentCreated(): void {

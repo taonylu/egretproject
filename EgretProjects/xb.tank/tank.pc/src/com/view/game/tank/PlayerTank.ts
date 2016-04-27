@@ -22,6 +22,11 @@ class PlayerTank extends BaseTank{
         }
 	}
 	
+    //override  玩家坦克动画lvl1 lvl2 lvl3
+    public playMoveAnim() {
+        this.gotoAndPlay("lvl" + this.power,-1);
+    }
+	
 	//设置坦克威力，并且改变坦克外形
 	public setPower(power:number){
         if(power >= 3) {
@@ -35,7 +40,7 @@ class PlayerTank extends BaseTank{
 	}
 	
 	
-	//重置
+	//override
 	public reset(){
         super.reset();
     	  var tankSet = MapManager.getInstance().tankSet.playerTank;

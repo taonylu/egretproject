@@ -69,4 +69,3 @@ var HeadUI = (function (_super) {
     return HeadUI;
 }(BaseUI));
 egret.registerClass(HeadUI,'HeadUI');
-//# sourceMappingURL=HeadUI.js.map

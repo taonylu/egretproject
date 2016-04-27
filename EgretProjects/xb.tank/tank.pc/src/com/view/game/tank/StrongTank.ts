@@ -10,7 +10,19 @@ class StrongTank extends BaseTank{
         this.setMovieClip("strongTank_png","strongTank_json","strongTank");
         this.reset();
     }
-
+    
+    //override  强化坦克动画lvl1 lvl2 haveItem
+    public playMoveAnim() {
+        if(this.isHaveItem) {
+            this.gotoAndPlay("haveItem",-1);
+        } else if(this.life == 2){
+            this.gotoAndPlay("lvl2",-1);
+        }else {
+            this.gotoAndPlay("lvl1",-1);
+        }
+    }
+    
+    //override
     public reset() {
         super.reset();
         var tankSet = MapManager.getInstance().tankSet.strongTank;

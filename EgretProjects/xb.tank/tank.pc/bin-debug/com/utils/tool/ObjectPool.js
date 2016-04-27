@@ -54,4 +54,3 @@ var ObjectPool = (function () {
     return ObjectPool;
 }());
 egret.registerClass(ObjectPool,'ObjectPool');
-//# sourceMappingURL=ObjectPool.js.map

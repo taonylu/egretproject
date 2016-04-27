@@ -8,7 +8,6 @@ var BaseTank = (function (_super) {
     function BaseTank() {
         _super.call(this);
         this.className = ""; //类名
-        this.skin = ""; //坦克皮肤
         this.speed = 4; //移动速度
         this.speedX = 0; //x，y轴移动速度
         this.speedY = 0;
@@ -16,6 +15,7 @@ var BaseTank = (function (_super) {
         this.life = 0; //生命值
         this.shootTime = 0; //射击间隔时间，单位ms
         this.shootCount = 0; //射击计时，单位帧
+        this.isWuDi = false; //是否无敌
         this.hitWidth = 64; //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
         this.hitHalfWidth = 32;
         //自动移动
@@ -23,18 +23,27 @@ var BaseTank = (function (_super) {
         this.className = egret.getQualifiedClassName(this);
     }
     var d = __define,c=BaseTank,p=c.prototype;
+    //重置状态
+    p.reset = function () {
+        this.speedX = 0;
+        this.speedY = 0;
+        this.isHaveItem = false;
+        this.shootCount = 0;
+        this.isWuDi = false;
+    };
     //移动
     p.move = function () {
         this.x += this.speedX;
         this.y += this.speedY;
     };
-    //播放移动动画，敌方坦克不会停止移动
-    p.playMove = function () {
+    //播放移动动画
+    p.playMoveAnim = function () {
     };
     //设置行动
     p.actionHandler = function (actionType) {
+        //当坦克停止时，播放动画
         if (this.speedX == 0 && this.speedY == 0 && actionType != ActionEnum.stopMove) {
-            this.playMove();
+            this.playMoveAnim();
         }
         switch (actionType) {
             case ActionEnum.up:
@@ -81,7 +90,7 @@ var BaseTank = (function (_super) {
     p.autoMove = function () {
         this.turnCount--;
         if (this.turnCount < 0) {
-            this.turnCount = Math.round(120 + Math.random() * 100); //每隔一段时间自动转向
+            this.turnCount = Math.round(120 + Math.random() * 120); //每隔一段时间自动转向
             this.autoTurn();
         }
         else {
@@ -125,21 +134,29 @@ var BaseTank = (function (_super) {
             gameScene.bulletGroup.addChild(bullet);
         }
     };
-    /**
-     * 被击中
-     * bullet 子弹
-     * return 返回是否击中有效
-     */
-    p.beAttacked = function (bullet) {
-        if (Math.abs(bullet.x - this.x) < 48 && (Math.abs(bullet.y - this.y) < 48)) {
+    //坦克碰撞检测
+    p.checkCollision = function (target) {
+        var myX = this.x + this.speedX;
+        var myY = this.y + this.speedY;
+        if (Math.abs(target.x - myX) < 64 && Math.abs(target.y - myY) < 64) {
             return true;
         }
         return false;
     };
-    //重置状态
-    p.reset = function () {
-        this.isHaveItem = false;
-        this.shootCount = 0;
+    /**
+     * 被击中
+     * bullet 子弹
+     * return 返回是否击毁坦克
+     */
+    p.beAttacked = function (bullet) {
+        if (this.isWuDi) {
+            return false;
+        }
+        this.life -= bullet.power;
+        if (this.life <= 0) {
+            return true;
+        }
+        return false;
     };
     //回收
     p.recycle = function () {
@@ -150,4 +167,3 @@ var BaseTank = (function (_super) {
     return BaseTank;
 }(SimpleMC));
 egret.registerClass(BaseTank,'BaseTank');
-//# sourceMappingURL=BaseTank.js.map

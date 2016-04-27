@@ -37,4 +37,3 @@ var NumberTool = (function () {
     return NumberTool;
 }());
 egret.registerClass(NumberTool,'NumberTool');
-//# sourceMappingURL=NumberTool.js.map

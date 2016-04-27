@@ -14,6 +14,7 @@ var GameFactory = (function () {
         this.itemPool = ObjectPool.getPool(BaseItem.NAME); //道具
         this.bulletPool = ObjectPool.getPool(Bullet.NAME); //子弹
         this.boomPool = ObjectPool.getPool(Boom.NAME); //爆炸效果
+        this.tankBoomPool = ObjectPool.getPool(TankBoom.NAME); //坦克爆炸效果
         this.steelPool = ObjectPool.getPool(Steel.NAME); //钢铁
         this.wallPool = ObjectPool.getPool(Wall.NAME); //墙
         this.grassPool = ObjectPool.getPool(Grass.NAME); //草地
@@ -48,6 +49,10 @@ var GameFactory = (function () {
     p.getBoom = function () {
         return this.boomPool.getObject();
     };
+    //获取一个坦克爆炸效果
+    p.getTankBoom = function () {
+        return this.tankBoomPool.getObject();
+    };
     //获取一个地形
     p.getTile = function (type) {
         return this.tileList[type - 1].getObject(); //地形从1开始，数组索引从0开始
@@ -61,4 +66,3 @@ var GameFactory = (function () {
     return GameFactory;
 }());
 egret.registerClass(GameFactory,'GameFactory');
-//# sourceMappingURL=GameFactory.js.map

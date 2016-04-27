@@ -11,6 +11,16 @@ var FastTank = (function (_super) {
         this.reset();
     }
     var d = __define,c=FastTank,p=c.prototype;
+    //override  急速坦克动画normal haveItem
+    p.playMoveAnim = function () {
+        if (this.isHaveItem) {
+            this.gotoAndPlay("haveItem", -1);
+        }
+        else {
+            this.gotoAndPlay("normal", -1);
+        }
+    };
+    //override
     p.reset = function () {
         _super.prototype.reset.call(this);
         var tankSet = MapManager.getInstance().tankSet.fastTank;
@@ -25,4 +35,3 @@ var FastTank = (function (_super) {
     return FastTank;
 }(BaseTank));
 egret.registerClass(FastTank,'FastTank');
-//# sourceMappingURL=FastTank.js.map
