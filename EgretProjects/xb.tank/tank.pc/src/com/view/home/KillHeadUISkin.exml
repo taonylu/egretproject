@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="KillHeadUISkin" width="350" height="60" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:HeadUI skinName="HeadUISkin" width="60" height="60"/>
+	<e:BitmapLabel id="_label" x="75" y="19" font="writeFont_fnt" text="-"/>
+	<e:Image id="tank" source="home_enemy_png" x="136" y="0"/>
+	<e:BitmapLabel x="221" y="21" font="writeFont_fnt" text="X  36"/>
+</e:Skin>

@@ -15,7 +15,6 @@ var BaseTank = (function (_super) {
         this.life = 0; //生命值
         this.shootTime = 0; //射击间隔时间，单位ms
         this.shootCount = 0; //射击计时，单位帧
-        this.isWuDi = false; //是否无敌
         this.hitWidth = 64; //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
         this.hitHalfWidth = 32;
         //自动移动
@@ -29,7 +28,6 @@ var BaseTank = (function (_super) {
         this.speedY = 0;
         this.isHaveItem = false;
         this.shootCount = 0;
-        this.isWuDi = false;
     };
     //移动
     p.move = function () {
@@ -88,14 +86,13 @@ var BaseTank = (function (_super) {
         this.actionHandler(actionType);
     };
     p.autoMove = function () {
-        this.turnCount--;
-        if (this.turnCount < 0) {
-            this.turnCount = Math.round(120 + Math.random() * 120); //每隔一段时间自动转向
-            this.autoTurn();
-        }
-        else {
-            this.move();
-        }
+        //        this.turnCount--;
+        //        if(this.turnCount < 0){
+        //            this.turnCount = Math.round(120 + Math.random()*120);  //每隔一段时间自动转向
+        //            this.autoTurn();
+        //        }else{
+        this.move();
+        //  }
     };
     //更新射击时间
     p.updateShootCount = function () {
@@ -134,11 +131,18 @@ var BaseTank = (function (_super) {
             gameScene.bulletGroup.addChild(bullet);
         }
     };
-    //坦克碰撞检测
-    p.checkCollision = function (target) {
+    //检查下一步位置的碰撞，预测下一步将碰撞，则不能行走
+    p.checkNextCollision = function (target) {
         var myX = this.x + this.speedX;
         var myY = this.y + this.speedY;
         if (Math.abs(target.x - myX) < 64 && Math.abs(target.y - myY) < 64) {
+            return true;
+        }
+        return false;
+    };
+    //检查当前位置的碰撞，防止坦克粘在一起
+    p.checkCollision = function (target) {
+        if (Math.abs(target.x - this.x) < 64 && Math.abs(target.y - this.y) < 64) {
             return true;
         }
         return false;
@@ -149,9 +153,6 @@ var BaseTank = (function (_super) {
      * return 返回是否击毁坦克
      */
     p.beAttacked = function (bullet) {
-        if (this.isWuDi) {
-            return false;
-        }
         this.life -= bullet.power;
         if (this.life <= 0) {
             return true;

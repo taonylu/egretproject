@@ -26,6 +26,14 @@ class Bullet extends egret.Bitmap{
     	this.y += this.speedY;
 	}
 	
+    public checkCollision(target){
+        if(Math.abs(this.x - target.x) < (target.hitHalfWidth + this.hitHalfWidth) && 
+            Math.abs(this.y - target.y) < (target.hitHalfWidth + this.hitHalfWidth)){
+                return true;    
+            }
+        return false;
+    }
+	
 	public reset(){
     	this.speedX = 0;
     	this.speedY = 0;

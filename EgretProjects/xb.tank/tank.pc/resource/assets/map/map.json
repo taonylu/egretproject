@@ -2,6 +2,7 @@
     "comment":[
         		"关卡设置",
         		"levelLimit总数，不包含生存关卡",
+        		"tankLimit坦克上限数",
         		"normalTank普通坦克，值表示该类型坦克在本关出现的数量",
         		"fastTank快速坦克",
         		"strongTank强化坦克",
@@ -19,13 +20,16 @@
 	"level":
 			{
     			"levelLimit":5,
+    			
+    			"tankLimit":[200,5,5,5,5],
 				"normalTank":[10,10,10,10,10],
 				"fastTank":[10,10,10,10,10],
 				"strongTank":[10,10,10,10,10],
 				"superTank":[10,10,10,10,10],
-				"itemNum":[0,3,5,6,7],
 				
-				"alpha":[10,10,10,10,10],
+				
+				"itemNum":[30,3,5,6,7],
+				"shield":[10,10,10,10,10],
 				"gun":[10,10,10,10,10],
 				"star":[10,10,10,10,10],
 				"armor":[10,10,10,10,10],

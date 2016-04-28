@@ -22,7 +22,7 @@ var TankEnum;
 //道具 0隐身，1枪，2星星，3基地护甲，4命，5手雷，6暂停
 var ItemEnum;
 (function (ItemEnum) {
-    ItemEnum[ItemEnum["alpha"] = 0] = "alpha";
+    ItemEnum[ItemEnum["shield"] = 0] = "shield";
     ItemEnum[ItemEnum["gun"] = 1] = "gun";
     ItemEnum[ItemEnum["star"] = 2] = "star";
     ItemEnum[ItemEnum["armor"] = 3] = "armor";

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="RankHeadSkin" width="350" height="60" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:HeadUI id="p1HeadUI" skinName="HeadUISkin" width="60" height="60"/>
+	<ns1:HeadUI id="p2HeadUI" width="60" skinName="HeadUISkin" height="60" x="68"/>
+	<e:BitmapLabel id="stageLabel" x="140" font="writeFont_fnt" text="-  S3" y="19"/>
+	<e:BitmapLabel id="waveLabel" text="WAVE.5" x="230" font="redFont_fnt" y="19"/>
+</e:Skin>

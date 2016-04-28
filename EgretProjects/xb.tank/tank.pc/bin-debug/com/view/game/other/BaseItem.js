@@ -13,6 +13,8 @@ var BaseItem = (function (_super) {
     p.setType = function (_type) {
         this.type = _type;
         this.bitmapData = RES.getRes("item" + _type + "_png");
+        this.anchorOffsetX = 32;
+        this.anchorOffsetY = 32;
     };
     //回收
     p.recycle = function () {

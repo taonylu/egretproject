@@ -1,14 +1,51 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="HomeSceneSkin" width="1920" height="1024" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="HomeSceneSkin" width="1920" height="1024" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
 	<e:Image id="title" source="home_title_png" y="136" horizontalCenter="0"/>
-	<e:Image id="codeBg" source="home_code_png" y="464" x="624"/>
-	<e:Group id="codeGroup" height="280" width="280" x="660" y="498"/>
-	<e:Group id="headGroup" height="250" width="348" x="1060" y="468">
+	<e:Group id="codeGroup" height="280" width="280" x="700" y="478">
+		<e:Image id="codeBg" source="home_code_png" horizontalCenter="0" verticalCenter="0"/>
+	</e:Group>
+	<e:Group id="headGroup" height="250" width="348" x="1020" y="448">
 		<e:Image id="p1" source="home_p1_png" x="92" y="59" scaleX="1.5" scaleY="1.5" anchorOffsetX="26" anchorOffsetY="32" rotation="90"/>
 		<e:Image id="p2" source="home_p2_png" x="92" y="169" anchorOffsetX="26" anchorOffsetY="32" rotation="90" scaleX="1.5" scaleY="1.5"/>
 		<e:Image source="home__png" x="178" y="60"/>
 		<e:Image source="home__png" y="170" x="178"/>
-		<e:Group id="p1HeadGroup" height="100" width="100" x="230" y="10"/>
-		<e:Group id="p2HeadGroup" height="100" width="100" x="230" y="120"/>
+		<ns1:HeadUI id="p1HeadUI" x="240" y="10" skinName="HeadUISkin"/>
+		<ns1:HeadUI id="p2HeadUI" y="120" skinName="HeadUISkin" x="240"/>
 	</e:Group>
+	<e:Group id="countDownGroup" height="146" width="190" x="1088" y="674">
+		<e:BitmapLabel id="countDownLabel" font="countDownFont_fnt" text="0" horizontalCenter="0" verticalCenter="0"/>
+	</e:Group>
+	<e:Group id="rankGroup" height="500" width="500" x="118" y="326">
+		<e:BitmapLabel x="28" y="134" font="writeFont_fnt" text="1"/>
+		<e:BitmapLabel y="207" text="2" font="writeFont_fnt" x="28"/>
+		<e:BitmapLabel y="279" text="3" font="writeFont_fnt" x="28"/>
+		<e:BitmapLabel y="352" text="4" font="writeFont_fnt" x="28"/>
+		<e:BitmapLabel y="424" text="5" font="writeFont_fnt" x="28"/>
+		<e:Rect height="350" width="5" x="68" y="133" fillColor="0xFEFCFC"/>
+		<e:Rect width="450" y="482" height="5" fillColor="0xFEFCFC" x="26"/>
+		<e:Image source="home_ranktext_png" x="34" y="78" scaleX="1" scaleY="1"/>
+		<ns1:RankHeadUI id="rankHead0" x="85" y="117" skinName="RankHeadSkin"/>
+		<ns1:RankHeadUI x="85" y="189" skinName="RankHeadSkin" id="rankHead1"/>
+		<ns1:RankHeadUI id="rankHead2" y="261" skinName="RankHeadSkin" x="85"/>
+		<ns1:RankHeadUI x="85" y="332" skinName="RankHeadSkin" id="rankHead3"/>
+		<ns1:RankHeadUI id="rankHead4" y="404" skinName="RankHeadSkin" x="85"/>
+	</e:Group>
+	<e:Group y="326" id="rankGroup0" width="500" height="500" x="1378">
+		<e:BitmapLabel y="134" text="1" font="writeFont_fnt" x="28"/>
+		<e:BitmapLabel y="207" text="2" font="writeFont_fnt" x="28"/>
+		<e:BitmapLabel y="279" text="3" font="writeFont_fnt" x="28"/>
+		<e:BitmapLabel y="352" text="4" font="writeFont_fnt" x="28"/>
+		<e:BitmapLabel y="424" text="5" font="writeFont_fnt" x="28"/>
+		<e:Rect width="5" y="133" height="350" fillColor="0xFEFCFC" x="68"/>
+		<e:Rect width="450" y="482" height="5" fillColor="0xFEFCFC" x="26"/>
+		<e:Image y="78" scaleY="1" x="34" scaleX="1" source="home_killtext_png"/>
+		<ns1:KillHeadUI id="killHead0" x="92" y="114" skinName="KillHeadUISkin"/>
+		<ns1:KillHeadUI x="92" y="186" skinName="KillHeadUISkin" id="killHead1"/>
+		<ns1:KillHeadUI id="killHead2" y="259" skinName="KillHeadUISkin" x="92"/>
+		<ns1:KillHeadUI x="92" y="331" skinName="KillHeadUISkin" id="killHead3"/>
+		<ns1:KillHeadUI id="killHead4" y="403" skinName="KillHeadUISkin" x="92"/>
+	</e:Group>
+	<e:BitmapLabel y="44" text="I-          00                  HI-       2000" font="writeFont_fnt" horizontalCenter="0"/>
+	<e:BitmapLabel y="914" text="2016    XINBU   INTERACTIVE" font="writeFont_fnt" x="722"/>
+	<e:Label text="©" x="684" y="912" size="30"/>
 </e:Skin>

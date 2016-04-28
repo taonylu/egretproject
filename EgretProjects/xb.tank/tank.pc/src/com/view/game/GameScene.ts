@@ -11,6 +11,7 @@ class GameScene extends BaseScene{
     private tankGroup:eui.Group;      //坦克层
     public bulletGroup:eui.Group;     //子弹层
     public boomGroup:eui.Group;       //炸弹层
+    public itemGroup:eui.Group;       //道具层
     
     private mapList;           //当前地图二维数组，存储地图数字
     private tileList;          //地形数组，存储BaseItem
@@ -28,7 +29,7 @@ class GameScene extends BaseScene{
     public bulletList:Array<Bullet> = new Array<Bullet>();           //子弹
     private itemList:Array<BaseItem> = new Array<BaseItem>();        //道具
     
-    private generateTimer:egret.Timer = new egret.Timer(1000);       //生成坦克计时器
+    private generateTimer:egret.Timer = new egret.Timer(2000);       //生成坦克计时器
     
     
 	public constructor() {
@@ -155,6 +156,7 @@ class GameScene extends BaseScene{
             player.setPlayerNo(i+1); //p1 p2
             this.tankGroup.addChild(player);
             this.playerTankList.push(player);
+            player.playShield();
         }
     }
     
@@ -168,25 +170,31 @@ class GameScene extends BaseScene{
             player = this.playerTankList[i];
             //射击
             player.updateShootCount();
-            //坦克碰撞检测
+            //我方坦克和敌方坦克碰撞检测
             var enemyLen = this.enemyTankList.length;
             for(var j=0;j<enemyLen;j++){
                 enemy = this.enemyTankList[j];
-                if(player.checkCollision(enemy)){
-                    return;
+                if(player.checkCollision(enemy) == false){
+                    if(player.checkNextCollision(enemy)){
+                        return;
+                    }
                 }
             }
+            //我方坦克和我方坦克碰撞检测
             var playerLen = this.playerTankList.length;
             for(var j = 0;j < playerLen;j++) {
                 otherPlayer = this.playerTankList[j];
-                if(otherPlayer != player && player.checkCollision(otherPlayer)) {
-                    return;
+                if(otherPlayer != player) {
+                    if(player.checkCollision(enemy) == false) {
+                        if(player.checkNextCollision(enemy)) {
+                            return;
+                        }
+                    }
                 }
             }
             
             //地形碰撞检测
             if(this.getCollioseTile(player).length == 0 && this.checkEdge(player) == false) {
-                
                 player.move();
             }
         }
@@ -202,22 +210,37 @@ class GameScene extends BaseScene{
             enemy = this.enemyTankList[i];
             //射击
             enemy.shoot();
-            //坦克碰撞检测
+            //我方坦克和敌方坦克
             var playerLen = this.playerTankList.length;
             for(var j = 0;j < playerLen;j++) {
                 player = this.playerTankList[j];
-                if(enemy.checkCollision(player)) {
-                    enemy.autoTurn();
-                    return;
+                if(enemy.checkCollision(player) == false) {
+                    if(enemy.checkNextCollision(player)){
+                        enemy.autoTurn();
+                        enemy = null;
+                        break;
+                    }
                 }
             }
+            if(enemy == null){
+                continue;
+            }
+            //敌方坦克和敌方坦克
             var enemyLen = this.enemyTankList.length;
             for(var j = 0;j < enemyLen;j++) {
                 otherEnemy = this.enemyTankList[j];
-                if(otherEnemy != enemy && enemy.checkCollision(otherEnemy)) {
-                    enemy.autoTurn();
-                    return;
+                if(otherEnemy != enemy) {
+                    if(enemy.checkCollision(otherEnemy) == false){
+                        if(enemy.checkNextCollision(otherEnemy)){
+                            enemy.autoTurn();
+                            enemy = null;
+                            break;
+                        }
+                    }
                 }
+            }
+            if(enemy == null){
+                continue;
             }
             //地形碰撞检测
             if(this.getCollioseTile(enemy).length == 0 && this.checkEdge(enemy) == false){
@@ -241,7 +264,7 @@ class GameScene extends BaseScene{
                 this.playBoom(bullet);
                 this.bulletList.splice(i,1);
                 bullet.recycle();
-                continue;
+                continue;  //子弹已销毁，跳过本次循环
             }
             
             //判断子弹击中障碍物
@@ -253,7 +276,27 @@ class GameScene extends BaseScene{
                 this.playBoom(bullet);
                 bullet.recycle();
                 this.bulletList.splice(i,1);
-                continue;
+                continue;  //子弹已销毁，跳过本次循环
+            }
+            
+            //判断子弹和子弹碰撞
+            var jLen = this.bulletList.length;
+            for(var j=i-1;j>=0;j--){
+                var jBullet:Bullet = this.bulletList[j];
+                if(bullet != jBullet){
+                    if(bullet.checkCollision(jBullet)){
+                        bullet.recycle();
+                        this.bulletList.splice(i,1);
+                        jBullet.recycle();
+                        this.bulletList.splice(j,1);
+                        i--;  //销毁了两颗子弹，子弹数组减少了2
+                        bullet = null;
+                        break;
+                    } 
+                }
+            }
+            if(bullet == null){
+                continue;  //子弹已销毁，则跳过本次循环
             }
             
             //判断子弹击中敌方坦克
@@ -262,9 +305,17 @@ class GameScene extends BaseScene{
                 for(var j = tankLen - 1;j >= 0;j--) {
                     var tank: BaseTank = this.enemyTankList[j];
                     if(tank.checkCollision(bullet)) {
+                        //击中，销毁子弹
                         this.playBoom(bullet);
                         bullet.recycle();
                         this.bulletList.splice(i,1);
+                        //掉落道具判断
+                        if(tank.isHaveItem){
+                            tank.isHaveItem = false;
+                            tank.playMoveAnim();
+                            this.createItem();
+                        }
+                        //击毁，销毁坦克
                         if(tank.beAttacked(bullet)){
                             tank.recycle();
                             this.enemyTankList.splice(j,1);
@@ -296,6 +347,30 @@ class GameScene extends BaseScene{
         }
     }
     
+    //创建道具
+    private createItem(){
+        //根据地图道具配置随机生成道具类型
+        var mapMananger:MapManager = MapManager.getInstance();
+        var levelData = mapMananger.levelList[mapMananger.curLevel - 1];
+        var itemType:ItemEnum = levelData.getRandomItem();
+        var item:BaseItem = GameFactory.getInstance().getItem(itemType);
+        //放置道具
+        var emptyTileList = [];
+        var len = this.mapList.length;
+        for(var i=0;i<this.rowMax;i++){
+            for(var j=0;j<this.colMax;j++){
+                if(this.mapList[i][j] == 0){
+                    emptyTileList.push([i,j]);
+                }
+            }
+        }
+        var emptyPos = emptyTileList[NumberTool.getRandomInt(0, emptyTileList.length-1)];
+        item.x = emptyPos[0]*this.tileWidth + this.halfWidth;
+        item.y = emptyPos[1]*this.tileWidth + this.halfWidth;
+        this.itemGroup.addChild(item);
+        this.itemList.push(item);
+    }
+    
     //坦克转向碰到障碍物，且下一步目的地行走的地形为空，允许一定的碰撞偏差，让坦克转向成功
     private modifyTankTurn(tank:BaseTank){
         if(this.getCollioseTile(tank).length > 0) {
@@ -313,7 +388,8 @@ class GameScene extends BaseScene{
             } else if(direction == DirectionEnum.right) {
                 nextCol += 1;
             }
-            if(this.tileList[curRow][curCol] != null && this.tileList[curRow][curCol].canWalk == true){ //当前地形是障碍物，例如墙，修正位置会产生bug
+            //当前地形是障碍物，例如墙，修正位置会产生bug
+            if(this.tileList[curRow][curCol] != null && this.tileList[curRow][curCol].canWalk == false){ 
                 return;
             }
             if(curRow != nextRow || curCol != nextCol) {
@@ -451,11 +527,11 @@ class GameScene extends BaseScene{
         var mapManager:MapManager = MapManager.getInstance();
         var levelData:LevelData = mapManager.levelList[mapManager.curLevel-1];
         var tankLimit = levelData.tankLimit;
-        //测试
-        tankLimit = 1;
         if(this.enemyTankList.length >= tankLimit){
             return;
         }
+        //TODO 坦克生成位置有其他坦克导致的问题
+        
         //获取坦克剩余数量，随机生成
         var tankList = levelData.tankList;
         if(tankList.length > 0){
@@ -466,12 +542,24 @@ class GameScene extends BaseScene{
         //获取坦克生成点，并在该点生成坦克
         var enemyBirthPos = levelData.enemyBirthPos;
         var birthPos = enemyBirthPos[NumberTool.getRandomInt(0,enemyBirthPos.length-1)];
-        var tank:BaseTank = GameFactory.getInstance().getTank(tankeType);
-        tank.x = birthPos[0] + this.halfWidth;
-        tank.y = birthPos[1] + this.halfHeight;
-        tank.autoTurn();
-        this.tankGroup.addChild(tank);
-        this.enemyTankList.push(tank);
+        var self:GameScene = this;
+        var flash:Flash = GameFactory.getInstance().getFlash();
+        flash.x = birthPos[0]*this.tileWidth + this.halfWidth;
+        flash.y = birthPos[1] * this.tileWidth + this.halfHeight;
+        this.tankGroup.addChild(flash);
+        flash.playAnim();
+        egret.Tween.get(this).wait(1200).call(function(){
+            var tank: BaseTank = GameFactory.getInstance().getTank(tankeType);
+            tank.x = birthPos[0] * self.tileWidth + self.halfWidth;
+            tank.y = birthPos[1] * self.tileWidth + self.halfHeight;
+            if(Math.random() < (levelData.itemNum / (tankList.length + 1))) {
+                tank.isHaveItem = true;
+            }
+            tank.autoTurn();
+            self.tankGroup.addChild(tank);
+            self.enemyTankList.push(tank); 
+        });
+        
     }
     
     //停止生成坦克

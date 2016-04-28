@@ -33,6 +33,8 @@ var MapManager = (function () {
         this.levelLimit = level.levelLimit;
         for (var i = 0; i < this.levelLimit; i++) {
             var levelData = new LevelData();
+            //坦克
+            levelData.tankLimit = level.tankLimit[i];
             levelData.normalTank = level.normalTank[i];
             levelData.fastTank = level.fastTank[i];
             levelData.strongTank = level.strongTank[i];
@@ -43,6 +45,17 @@ var MapManager = (function () {
             this.setTankList(levelData.tankList, TankEnum.strong, levelData.strongTank);
             this.setTankList(levelData.tankList, TankEnum.super, levelData.superTank);
             ArrayTool.randomArr(levelData.tankList);
+            //道具
+            levelData.itemNum = level.itemNum[i];
+            levelData.shield = level.shield[i];
+            levelData.gun = level.gun[i];
+            levelData.star = level.star[i];
+            levelData.armor = level.armor[i];
+            levelData.life = level.life[i];
+            levelData.boom = level.boom[i];
+            levelData.pause = level.pause[i];
+            levelData.initItemChance();
+            //保存地图
             this.levelList[i] = levelData;
         }
         //获取坦克和道具属性

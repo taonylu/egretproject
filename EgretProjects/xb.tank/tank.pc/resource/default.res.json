@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"level1_json,level2_json,level3_json,level4_json,level5_json,level6_json,wall15_png,wall14_png,wall13_png,wall12_png,wall11_png,wall10_png,wall09_png,wall08_png,wall07_png,wall06_png,wall05_png,wall04_png,wall03_png,wall02_png,wall01_png,wall00_png,steel3_png,steel2_png,steel1_png,steel0_png,map_json,fastTank_json,fastTank_png,normalTank_json,normalTank_png,playerGreenTank_json,playerGreenTank_png,playerYellowTank_json,playerYellowTank_png,strongTank_json,strongTank_png,superTank_json,superTank_png,bullet_png,tile5_png,tile4_png,tile3_png,tile2_png,tile1_png,home_title_png,home_code_png,home_c_png,home_p2_png,home_enemy_png,home_p1_png,home__png,boom_png,boom_json,tankBoom_png,tankBoom_json",
+			"keys":"level1_json,level2_json,level3_json,level4_json,level5_json,level6_json,wall15_png,wall14_png,wall13_png,wall12_png,wall11_png,wall10_png,wall09_png,wall08_png,wall07_png,wall06_png,wall05_png,wall04_png,wall03_png,wall02_png,wall01_png,wall00_png,steel3_png,steel2_png,steel1_png,steel0_png,map_json,fastTank_json,fastTank_png,normalTank_json,normalTank_png,playerGreenTank_json,playerGreenTank_png,playerYellowTank_json,playerYellowTank_png,strongTank_json,strongTank_png,superTank_json,superTank_png,bullet_png,tile5_png,tile4_png,tile3_png,tile2_png,tile1_png,home_title_png,home_code_png,home_c_png,home_p2_png,home_enemy_png,home_p1_png,home__png,boom_png,boom_json,tankBoom_png,tankBoom_json,countDownFont_fnt,writeFont_fnt,redFont_fnt,home_killtext_png,home_ranktext_png,home_weektext_png,flash_png,flash_json,shield_png,shield_json,item6_png,item5_png,item4_png,item3_png,item2_png,item1_png,item0_png",
 			"name":"game"
 		}
 	],
@@ -289,6 +289,91 @@
 			"name":"tankBoom_json",
 			"type":"json",
 			"url":"assets/bullet/tankBoom.json"
+		},
+		{
+			"name":"countDownFont_fnt",
+			"type":"font",
+			"url":"assets/home/font/countDownFont.fnt"
+		},
+		{
+			"name":"writeFont_fnt",
+			"type":"font",
+			"url":"assets/home/font/writeFont.fnt"
+		},
+		{
+			"name":"redFont_fnt",
+			"type":"font",
+			"url":"assets/home/font/redFont.fnt"
+		},
+		{
+			"name":"home_killtext_png",
+			"type":"image",
+			"url":"assets/home/home_killtext.png"
+		},
+		{
+			"name":"home_ranktext_png",
+			"type":"image",
+			"url":"assets/home/home_ranktext.png"
+		},
+		{
+			"name":"home_weektext_png",
+			"type":"image",
+			"url":"assets/home/home_weektext.png"
+		},
+		{
+			"name":"flash_png",
+			"type":"image",
+			"url":"assets/game/flash.png"
+		},
+		{
+			"name":"flash_json",
+			"type":"json",
+			"url":"assets/game/flash.json"
+		},
+		{
+			"name":"shield_png",
+			"type":"image",
+			"url":"assets/game/shield.png"
+		},
+		{
+			"name":"shield_json",
+			"type":"json",
+			"url":"assets/game/shield.json"
+		},
+		{
+			"name":"item6_png",
+			"type":"image",
+			"url":"assets/item/item6.png"
+		},
+		{
+			"name":"item5_png",
+			"type":"image",
+			"url":"assets/item/item5.png"
+		},
+		{
+			"name":"item4_png",
+			"type":"image",
+			"url":"assets/item/item4.png"
+		},
+		{
+			"name":"item3_png",
+			"type":"image",
+			"url":"assets/item/item3.png"
+		},
+		{
+			"name":"item2_png",
+			"type":"image",
+			"url":"assets/item/item2.png"
+		},
+		{
+			"name":"item1_png",
+			"type":"image",
+			"url":"assets/item/item1.png"
+		},
+		{
+			"name":"item0_png",
+			"type":"image",
+			"url":"assets/item/item0.png"
 		}
 	]
 }

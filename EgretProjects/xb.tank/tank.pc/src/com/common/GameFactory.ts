@@ -22,6 +22,7 @@ class GameFactory {
     private riverPool:ObjectPool = ObjectPool.getPool(River.NAME);            //河流
     private tileList = [];   //地形列表，保存地形对象池，用于根据类型获取对象池
     
+    private flashPool:ObjectPool = ObjectPool.getPool(Flash.NAME);
     
     public constructor(){
         this.tankList.push(this.playerTankPool);
@@ -34,6 +35,11 @@ class GameFactory {
         this.tileList.push(this.wallPool);
         this.tileList.push(this.steelPool);
         this.tileList.push(this.riverPool);
+    }
+    
+    //获取一个坦克生成时的闪烁效果
+    public getFlash():Flash{
+        return this.flashPool.getObject();
     }
     
     //获取一辆坦克 0玩家 1普通 2快速 3强化 4超级强化

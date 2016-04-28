@@ -14,9 +14,6 @@ var Boom = (function (_super) {
     p.playBoom = function () {
         this.gotoAndPlay(1, 1);
     };
-    p.onComplete = function () {
-        this.recycle();
-    };
     p.recycle = function () {
         this.parent && this.parent.removeChild(this);
         this.gotoAndStop(1);
