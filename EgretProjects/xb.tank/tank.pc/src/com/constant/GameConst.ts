@@ -23,7 +23,7 @@ enum TankEnum {
 
 //道具 0隐身，1枪，2星星，3基地护甲，4命，5手雷，6暂停
 enum ItemEnum {
-    alpha = 0,
+    shield = 0,
     gun = 1,
     star = 2,
     armor = 3,

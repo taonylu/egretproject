@@ -20,6 +20,7 @@ var GameFactory = (function () {
         this.grassPool = ObjectPool.getPool(Grass.NAME); //草地
         this.riverPool = ObjectPool.getPool(River.NAME); //河流
         this.tileList = []; //地形列表，保存地形对象池，用于根据类型获取对象池
+        this.flashPool = ObjectPool.getPool(Flash.NAME);
         this.tankList.push(this.playerTankPool);
         this.tankList.push(this.normalTankPool);
         this.tankList.push(this.fastTankPool);
@@ -31,6 +32,10 @@ var GameFactory = (function () {
         this.tileList.push(this.riverPool);
     }
     var d = __define,c=GameFactory,p=c.prototype;
+    //获取一个坦克生成时的闪烁效果
+    p.getFlash = function () {
+        return this.flashPool.getObject();
+    };
     //获取一辆坦克 0玩家 1普通 2快速 3强化 4超级强化
     p.getTank = function (type) {
         return this.tankList[type].getObject();

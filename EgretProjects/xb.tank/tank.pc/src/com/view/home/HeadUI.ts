@@ -14,15 +14,12 @@
   headUI.clear();
 */
 class HeadUI extends BaseUI{
-    
-    private nameLabel:eui.Label;    //名字文本
+    //private nameLabel:eui.Label;    //名字文本
     public  headImg:egret.Bitmap;   //头像图片
-    public  userID:string;          //用户ID
-    private headMask:eui.Image;     //头像遮罩
-    public imgX:number = 10;       //图片大小高宽和位置
-    public imgY:number = 17;
-    public imgWidth:number = 45;
-    public imgHeight:number = 45;
+    public  openid:string;          //用户ID
+    //private headMask:eui.Image;     //头像遮罩
+    public imgWidth:number = 100;
+    public imgHeight:number = 100;
     private imageLoader: egret.ImageLoader = new egret.ImageLoader(); //图片加载器
     
 	public constructor() {
@@ -32,19 +29,17 @@ class HeadUI extends BaseUI{
 	
     public componentCreated(): void {
         super.componentCreated();
-        this.nameLabel.text = "";
+        //this.nameLabel.text = "";
         
         this.headImg= new egret.Bitmap();
-        this.headImg.x = this.imgX;        //调整位置
-        this.headImg.y = this.imgY;
         this.headImg.width = this.imgWidth;
         this.headImg.height = this.imgHeight;
-        this.headImg.mask = this.headMask;
+        //this.headImg.mask = this.headMask;
         this.addChild(this.headImg);
     }
     
     public setNameLabel(_name:string):void{
-        this.nameLabel.text = _name;
+       // this.nameLabel.text = _name;
     }
     
     public loadImg(imgUrl:string){
@@ -66,7 +61,7 @@ class HeadUI extends BaseUI{
     
     //是否为空
     public isEmpty():Boolean{
-        if(this.nameLabel.text == ""){
+        if(this.headImg.bitmapData == null){
             return true;
         }
         return false;
@@ -74,9 +69,9 @@ class HeadUI extends BaseUI{
     
     //清理数据
     public clear():void{
-        this.nameLabel.text = "";
+        //this.nameLabel.text = "";
         this.headImg.bitmapData = null;
-        this.userID = "";
+        this.openid = "";
     }
     
     

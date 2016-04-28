@@ -14,7 +14,6 @@ class BaseTank extends SimpleMC{
     public life:number = 0;      //生命值
     public shootTime:number = 0; //射击间隔时间，单位ms
     public shootCount:number = 0;//射击计时，单位帧
-    public isWuDi:boolean = false;//是否无敌
     public isHaveItem:boolean;   //是否携带道具         
     public openid: string;       //openid
     public hitWidth:number = 64;     //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
@@ -31,7 +30,6 @@ class BaseTank extends SimpleMC{
          this.speedY = 0;
     	   this.isHaveItem = false;
     	   this.shootCount = 0;
-    	   this.isWuDi = false;
     }
 
 	//移动
@@ -98,13 +96,13 @@ class BaseTank extends SimpleMC{
 	//自动移动
 	private turnCount = 60;
     public autoMove(){
-        this.turnCount--;
-        if(this.turnCount < 0){
-            this.turnCount = Math.round(120 + Math.random()*120);  //每隔一段时间自动转向
-            this.autoTurn();
-        }else{
+//        this.turnCount--;
+//        if(this.turnCount < 0){
+//            this.turnCount = Math.round(120 + Math.random()*120);  //每隔一段时间自动转向
+//            this.autoTurn();
+//        }else{
             this.move();
-        }
+      //  }
     }
     
     //更新射击时间
@@ -146,11 +144,19 @@ class BaseTank extends SimpleMC{
         }
 	}
 	
-	//坦克碰撞检测
-	public checkCollision(target):boolean{
+	//检查下一步位置的碰撞，预测下一步将碰撞，则不能行走
+	public checkNextCollision(target):boolean{
         var myX = this.x + this.speedX;
         var myY = this.y + this.speedY;
         if(Math.abs(target.x - myX) < 64 && Math.abs(target.y- myY) < 64) {
+            return true;
+        }
+        return false;
+	}
+	
+	//检查当前位置的碰撞，防止坦克粘在一起
+	public checkCollision(target):boolean{
+        if(Math.abs(target.x - this.x) < 64 && Math.abs(target.y - this.y) < 64) {
             return true;
         }
         return false;
@@ -161,10 +167,7 @@ class BaseTank extends SimpleMC{
 	 * bullet 子弹
 	 * return 返回是否击毁坦克
 	 */ 
-    public beAttacked(bullet:Bullet){
-        if(this.isWuDi){
-            return false;
-        }
+    public beAttacked(bullet:Bullet):boolean{
         this.life -= bullet.power;
         if(this.life <= 0){
             return true;

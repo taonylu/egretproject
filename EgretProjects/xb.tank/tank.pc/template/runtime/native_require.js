@@ -31,7 +31,6 @@ var game_file_list = [
 	"bin-debug/com/utils/tool/ShakeTool.js",
 	"bin-debug/com/utils/tool/StringTool.js",
 	"bin-debug/com/utils/ui/CMovieClip.js",
-	"bin-debug/com/utils/ui/HeadUI.js",
 	"bin-debug/com/utils/ui/SimpleMC.js",
 	"bin-debug/com/view/game/GameScene.js",
 	"bin-debug/com/view/game/other/BaseItem.js",
@@ -49,10 +48,15 @@ var game_file_list = [
 	"bin-debug/com/view/game/tile/River.js",
 	"bin-debug/com/view/game/tile/Steel.js",
 	"bin-debug/com/view/game/tile/Wall.js",
+	"bin-debug/com/view/home/HeadUI.js",
 	"bin-debug/com/view/home/HomeScene.js",
+	"bin-debug/com/view/home/KillHeadUI.js",
+	"bin-debug/com/view/home/RankHeadUI.js",
 	"bin-debug/com/view/preload/PreloadScene.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
+	"bin-debug/com/view/game/other/Flash.js",
+	"bin-debug/com/view/game/other/Shield.js",
 	//----auto game_file_list end----
 ];
 

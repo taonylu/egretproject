@@ -24,6 +24,13 @@ var Bullet = (function (_super) {
         this.x += this.speedX;
         this.y += this.speedY;
     };
+    p.checkCollision = function (target) {
+        if (Math.abs(this.x - target.x) < (target.hitHalfWidth + this.hitHalfWidth) &&
+            Math.abs(this.y - target.y) < (target.hitHalfWidth + this.hitHalfWidth)) {
+            return true;
+        }
+        return false;
+    };
     p.reset = function () {
         this.speedX = 0;
         this.speedY = 0;

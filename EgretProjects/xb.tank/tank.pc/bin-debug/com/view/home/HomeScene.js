@@ -9,17 +9,40 @@ var HomeScene = (function (_super) {
         _super.call(this, "HomeSceneSkin");
         this.countDownTimer = new egret.Timer(1000); //倒计时
         this.countDownLimit = 1;
+        this.rankHeadList = new Array(); //英雄榜列表
+        this.killHeadList = new Array(); //击杀榜列表
     }
     var d = __define,c=HomeScene,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
         this.socket = ClientSocket.getInstance();
+        //初始化玩家头像
+        this.pHeadUIList = [this.p1HeadUI, this.p2HeadUI];
+        //初始化排行榜头像
+        for (var i = 0; i < 5; i++) {
+            this.rankHeadList.push(this["rankHead" + i]);
+        }
+        //初始化击杀榜头像
+        for (var i = 0; i < 5; i++) {
+            this.killHeadList.push(this["killHead" + i]);
+        }
     };
     p.onEnable = function () {
+        this.resetView(); //重置界面
         this.createQRCode(); //创建二维码
         this.startConnect(); //连接socket
     };
     p.onRemove = function () {
+    };
+    //重置界面
+    p.resetView = function () {
+        //重置倒计时
+        this.countDownLabel.text = this.countDownLimit + "";
+        //重置玩家头像
+        for (var i = 0; i < this.pHeadUIList.length; i++) {
+            var headUI = this.pHeadUIList[i];
+            headUI.clear();
+        }
     };
     //开始游戏
     p.startGame = function () {
@@ -35,6 +58,7 @@ var HomeScene = (function (_super) {
     //倒计时处理
     p.onCountDownHandler = function () {
         var count = this.countDownLimit - this.countDownTimer.currentCount;
+        this.countDownLabel.text = count + "";
         if (count <= 0) {
             this.stopCountDown();
             this.startGame();
@@ -74,6 +98,9 @@ var HomeScene = (function (_super) {
         var success = data.success;
         var msg = data.msg;
         console.log("rev login:", data);
+        if (success == false) {
+            alert(msg);
+        }
     };
     //更新房间号，第一次进入homeScene时，socket尚未连接，所以并不会发送upRid，房间号在登录请求login中发送
     p.sendUpRid = function () {
@@ -97,6 +124,14 @@ var HomeScene = (function (_super) {
         userVO.headimgurl = headimgurl;
         userVO.nickname = nickname;
         UserManager.getInstance().addUser(userVO);
+        //显示用户头像
+        for (var i = 0; i < this.pHeadUIList.length; i++) {
+            var headUI = this.pHeadUIList[i];
+            if (headUI.isEmpty()) {
+                headUI.loadImg(headimgurl);
+                headUI.openid = openid;
+            }
+        }
         //开始倒计时
         this.startCountDown();
     };

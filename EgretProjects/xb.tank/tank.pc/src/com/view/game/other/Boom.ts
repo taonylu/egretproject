@@ -15,10 +15,6 @@ class Boom extends SimpleMC{
         this.gotoAndPlay(1,1);
     }
     
-    private onComplete(){
-        this.recycle();
-    }
-    
     public recycle(){
         this.parent && this.parent.removeChild(this);
         this.gotoAndStop(1);
