@@ -1,17 +1,39 @@
 {
 	"groups":[
 		{
-			"keys":"home_thxbg_jpg",
+			"keys":"p1_png",
 			"name":"preload"
 		},
 		{
-			"keys":"home_thxbg_jpg",
+			"keys":"p2_png,p1_png,light_png,handBg_png,alphaBtn_png",
 			"name":"game"
 		}
 	],
-	"resources":[{
-			"name":"home_thxbg_jpg",
+	"resources":[
+		{
+			"name":"p2_png",
 			"type":"image",
-			"url":"assets/home_thxbg.jpg"
-		}]
+			"url":"assets/p2.png"
+		},
+		{
+			"name":"p1_png",
+			"type":"image",
+			"url":"assets/p1.png"
+		},
+		{
+			"name":"light_png",
+			"type":"image",
+			"url":"assets/light.png"
+		},
+		{
+			"name":"handBg_png",
+			"type":"image",
+			"url":"assets/handBg.png"
+		},
+		{
+			"name":"alphaBtn_png",
+			"type":"image",
+			"url":"assets/alphaBtn.png"
+		}
+	]
 }

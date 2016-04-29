@@ -32,10 +32,10 @@ class BaseTile extends BaseUI{
     /**
      * 被攻击
      * @target 子弹
-     * @return 返回击中是否有效 
+     * @return 返回地形是否被击毁
      */ 
     public beAttacked(target: Bullet):boolean {
-        return true;
+        return false;
     }
     
     //碰撞检测

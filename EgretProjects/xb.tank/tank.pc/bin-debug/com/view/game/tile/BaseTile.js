@@ -27,10 +27,10 @@ var BaseTile = (function (_super) {
     /**
      * 被攻击
      * @target 子弹
-     * @return 返回击中是否有效
+     * @return 返回地形是否被击毁
      */
     p.beAttacked = function (target) {
-        return true;
+        return false;
     };
     //碰撞检测
     p.checkCollision = function (target) {

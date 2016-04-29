@@ -20,6 +20,7 @@ class GameFactory {
     private wallPool:ObjectPool = ObjectPool.getPool(Wall.NAME);              //墙
     private grassPool:ObjectPool = ObjectPool.getPool(Grass.NAME);            //草地
     private riverPool:ObjectPool = ObjectPool.getPool(River.NAME);            //河流
+    private campPool:ObjectPool = ObjectPool.getPool(Camp.NAME);              //基地
     private tileList = [];   //地形列表，保存地形对象池，用于根据类型获取对象池
     
     private flashPool:ObjectPool = ObjectPool.getPool(Flash.NAME);
@@ -35,6 +36,7 @@ class GameFactory {
         this.tileList.push(this.wallPool);
         this.tileList.push(this.steelPool);
         this.tileList.push(this.riverPool);
+        this.tileList.push(this.campPool);
     }
     
     //获取一个坦克生成时的闪烁效果

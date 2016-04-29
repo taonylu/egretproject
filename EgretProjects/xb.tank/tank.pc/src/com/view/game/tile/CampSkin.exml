@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="CampSkin" width="64" height="64" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="normal" source="base_png" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image id="gameOver" source="base_gameover_png" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image id="destory" source="base_destory_png" horizontalCenter="0" verticalCenter="0"/>
+</e:Skin>

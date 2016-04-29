@@ -43,7 +43,7 @@ class LevelData {
     }
     
     //根据道具出现几率，随机道具
-    public getRandomItem(){
+    public getRandomItem():ItemEnum{
         var rand = NumberTool.getRandomInt(0,100);
         if(rand < this.shield){
             return ItemEnum.shield;
@@ -60,6 +60,7 @@ class LevelData {
         } else if(rand < this.pause) {
             return ItemEnum.pause;
         }
+        return ItemEnum.star;  //默认返回star
     }
 }
 

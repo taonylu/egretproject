@@ -30,13 +30,14 @@ var ItemEnum;
     ItemEnum[ItemEnum["boom"] = 5] = "boom";
     ItemEnum[ItemEnum["pause"] = 6] = "pause";
 })(ItemEnum || (ItemEnum = {}));
-//地形
+//地形 1草地 2墙 3钢铁 4河流 5基地
 var TileEnum;
 (function (TileEnum) {
     TileEnum[TileEnum["grass"] = 1] = "grass";
     TileEnum[TileEnum["wall"] = 2] = "wall";
     TileEnum[TileEnum["steel"] = 3] = "steel";
     TileEnum[TileEnum["river"] = 4] = "river";
+    TileEnum[TileEnum["camp"] = 5] = "camp";
 })(TileEnum || (TileEnum = {}));
 //坦克行为
 var ActionEnum;

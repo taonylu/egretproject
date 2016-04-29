@@ -51,6 +51,9 @@ var ClientSocket = (function () {
         //////////////////////////////////////////////////////
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
+        this.socket.on("gameOver", function (data) {
+            console.log("rev gameOver");
+        });
         this.socket.on("userJoin", function (data) {
             self.homeScene.revUserJoin(data);
         });

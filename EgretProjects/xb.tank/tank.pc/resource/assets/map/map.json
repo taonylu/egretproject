@@ -50,11 +50,11 @@
     	},
     "comment":[
         	"道具设置",
-        	"alpha隐身时间",
-        	"pause暂停时间"
+        	"shield护盾时间，单位ms",
+        	"pause暂停时间，单位ms"
           ], 
     "itemSet":{
-        	"alpha":10,
+        	"shield":10000,
         	"pause":10
     	}
 }

@@ -1,2 +1,27 @@
 <?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="HomeSceneSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui"></e:Skin>
+<e:Skin class="HomeSceneSkin" width="1136" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bg" source="handBg_png"/>
+	<e:Image id="p1" source="p1_png" x="70" y="42"/>
+	<e:Image id="p2" source="p2_png" x="71" y="41"/>
+	<e:Button id="bBtn" x="710" y="309">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="alphaBtn_png" source.down="light_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button id="aBtn" y="308" x="906">
+		<e:skinName>
+			<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
+				<e:Image width="100%" height="100%" source="alphaBtn_png" source.down="light_png"/>
+				<e:Label id="labelDisplay0" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Rect id="directionBg" height="454" width="419" x="34" y="111" fillAlpha="0"/>
+	<e:Rect id="upBtn" y="180" fillAlpha="0" x="194" width="74" height="84"/>
+	<e:Rect id="downBtn" y="340" fillAlpha="0" x="194" width="74" height="109"/>
+	<e:Rect id="leftBtn" y="262" fillAlpha="0" x="112" width="83" height="94"/>
+	<e:Rect id="rightBtn" y="261" fillAlpha="0" x="269" width="83" height="94"/>
+</e:Skin>

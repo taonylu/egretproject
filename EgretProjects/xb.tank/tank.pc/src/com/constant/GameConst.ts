@@ -32,12 +32,13 @@ enum ItemEnum {
     pause = 6
 }
 
-//地形
+//地形 1草地 2墙 3钢铁 4河流 5基地
 enum TileEnum {
     grass = 1,
     wall = 2,
     steel = 3,
-    river = 4
+    river = 4,
+    camp = 5
 }
 
 //坦克行为

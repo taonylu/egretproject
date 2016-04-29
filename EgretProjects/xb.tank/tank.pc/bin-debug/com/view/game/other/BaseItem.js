@@ -16,6 +16,13 @@ var BaseItem = (function (_super) {
         this.anchorOffsetX = 32;
         this.anchorOffsetY = 32;
     };
+    //碰撞检测
+    p.checkCollision = function (target) {
+        if (Math.abs(this.x - target.x) < 64 && Math.abs(this.y - target.y) < 64) {
+            return true;
+        }
+        return false;
+    };
     //回收
     p.recycle = function () {
         this.parent && this.parent.removeChild(this);

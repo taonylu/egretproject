@@ -11,12 +11,10 @@ class Steel extends BaseTile{
     public constructor() {
         super();
         this.skinName = "SteelSkin";
-        this.canHit = true;
-        this.canWalk = false;
         this.setType(TileEnum.steel);
     }
 	
-    public componentCreated(): void {
+    public componentCreated():void {
         super.componentCreated();
         for(var i = 0;i < 4;i++) {
             var steel: eui.Image = this["steel" + i];
@@ -28,13 +26,17 @@ class Steel extends BaseTile{
         }
         this.anchorOffsetX = this.width / 2;
         this.anchorOffsetY = this.height / 2;
+        this.reset();
     }
     
-    //重置方块
+    //override 重置方块
     public reset() {
         for(var i = 0;i < 4;i++) {
             this.steelList[i].visible = true;
         }
+        this.life = 4;
+        this.canHit = true;
+        this.canWalk = false;
     }
 	
 	/**
@@ -44,7 +46,6 @@ class Steel extends BaseTile{
      */
     public beAttacked(target: Bullet): boolean {
         var steel: eui.Image;
-        var isHit: boolean = false;
         var len = this.steelList.length;
         for(var i = 0;i < len;i++) {
             steel = this.steelList[i];
@@ -52,11 +53,16 @@ class Steel extends BaseTile{
                 //转换坐标为bullet所在容器坐标，再计算碰撞半径
                 if(Math.abs(this.x + steel.x - 32 - target.x) < 48 && Math.abs(this.y + steel.y - 32 - target.y) < 48) {  //击中
                     steel.visible = false;
-                    isHit = true;
+                    this.life--;
                 }
             }
         }
-        return isHit; 
+        if(this.life<=0){
+            return true;
+        }else{
+            return false;
+        }
+        
     }
     
     //碰撞检测，taraget是子弹或者坦克

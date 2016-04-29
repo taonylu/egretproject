@@ -37,6 +37,13 @@ var BaseTank = (function (_super) {
     //播放移动动画
     p.playMoveAnim = function () {
     };
+    //设置威力
+    p.setPower = function (power) {
+        if (power >= 3) {
+            power = 3;
+        }
+        this.power = power;
+    };
     //设置行动
     p.actionHandler = function (actionType) {
         //当坦克停止时，播放动画
