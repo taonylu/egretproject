@@ -2,6 +2,7 @@
   "autoGenerateExmlsList": true,
   "exmls": [
     "src/com/view/game/GameSceneSkin.exml",
+    "src/com/view/game/tile/CampSkin.exml",
     "src/com/view/game/tile/GrassSkin.exml",
     "src/com/view/game/tile/RiverSkin.exml",
     "src/com/view/game/tile/SteelSkin.exml",

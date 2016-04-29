@@ -36,6 +36,8 @@ var game_file_list = [
 	"bin-debug/com/view/game/other/BaseItem.js",
 	"bin-debug/com/view/game/other/Boom.js",
 	"bin-debug/com/view/game/other/Bullet.js",
+	"bin-debug/com/view/game/other/Flash.js",
+	"bin-debug/com/view/game/other/Shield.js",
 	"bin-debug/com/view/game/other/TankBoom.js",
 	"bin-debug/com/view/game/tank/BaseTank.js",
 	"bin-debug/com/view/game/tank/FastTank.js",
@@ -44,6 +46,7 @@ var game_file_list = [
 	"bin-debug/com/view/game/tank/StrongTank.js",
 	"bin-debug/com/view/game/tank/SuperTank.js",
 	"bin-debug/com/view/game/tile/BaseTile.js",
+	"bin-debug/com/view/game/tile/Camp.js",
 	"bin-debug/com/view/game/tile/Grass.js",
 	"bin-debug/com/view/game/tile/River.js",
 	"bin-debug/com/view/game/tile/Steel.js",
@@ -55,8 +58,6 @@ var game_file_list = [
 	"bin-debug/com/view/preload/PreloadScene.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
-	"bin-debug/com/view/game/other/Flash.js",
-	"bin-debug/com/view/game/other/Shield.js",
 	//----auto game_file_list end----
 ];
 

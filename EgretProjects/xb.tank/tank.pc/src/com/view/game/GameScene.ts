@@ -14,7 +14,7 @@ class GameScene extends BaseScene{
     public itemGroup:eui.Group;       //道具层
     
     private mapList;           //当前地图二维数组，存储地图数字
-    private tileList;          //地形数组，存储BaseItem
+    private tileList;          //地形数组
     private rowMax:number;     //地图行列最大值
     private colMax:number; 
     private tileWidth:number;  //地图块高宽
@@ -64,7 +64,7 @@ class GameScene extends BaseScene{
     }
     
     public gameOver(){
-        
+        console.log("game over");
     }
     
     public resetGame(){
@@ -139,6 +139,13 @@ class GameScene extends BaseScene{
                 }
             }
         }
+        //基地附近的砖块是只有一半的，因为地图编辑器没做一半的砖块,这里取基地固定位置，然后手动设置砖块为一半
+        var camp:Camp = this.tileList[6][12];
+        this.tileList[camp.row][camp.col - 1].setTileHalf(3);
+        this.tileList[camp.row-1][camp.col - 1].setTileHalf(5);
+        this.tileList[camp.row - 1][camp.col].setTileHalf(1);
+        this.tileList[camp.row - 1][camp.col+1].setTileHalf(4);
+        this.tileList[camp.row - 1][camp.col + 1].setTileHalf(4);
     }
     
     //初始化玩家
@@ -156,7 +163,7 @@ class GameScene extends BaseScene{
             player.setPlayerNo(i+1); //p1 p2
             this.tankGroup.addChild(player);
             this.playerTankList.push(player);
-            player.playShield();
+            player.playShield(player.birthShieldTime);
         }
     }
     
@@ -189,6 +196,17 @@ class GameScene extends BaseScene{
                         if(player.checkNextCollision(enemy)) {
                             return;
                         }
+                    }
+                }
+            }
+            //道具碰撞
+            var itemLen = this.itemList.length;
+            for(var j=itemLen-1;j>=0;j--){
+                var item:BaseItem = this.itemList[j];
+                if(item.checkCollision(player)){
+                    if(this.checkItemEffect(item,player)){
+                        this.itemList.splice(j,1);
+                        item.recycle(); 
                     }
                 }
             }
@@ -242,6 +260,19 @@ class GameScene extends BaseScene{
             if(enemy == null){
                 continue;
             }
+            
+            //道具碰撞
+            var itemLen = this.itemList.length;
+            for(var j = itemLen - 1;j >= 0;j--) {
+                var item: BaseItem = this.itemList[j];
+                if(item.checkCollision(enemy)) {
+                    if(this.checkItemEffect(item,enemy)) {
+                        this.itemList.splice(j,1);
+                        item.recycle();
+                    }
+                }
+            }
+            
             //地形碰撞检测
             if(this.getCollioseTile(enemy).length == 0 && this.checkEdge(enemy) == false){
                 enemy.autoMove();
@@ -270,7 +301,17 @@ class GameScene extends BaseScene{
             //判断子弹击中障碍物
             var collisionTileList = this.getCollioseTile(bullet);
             for(var j = 0;j < collisionTileList.length;j++){
-                collisionTileList[j].beAttacked(bullet);
+                var tile:BaseTile = collisionTileList[j];
+                if(tile.beAttacked(bullet)){
+                    if(tile.type == TileEnum.camp){
+                        this.gameOver();  //打中基地，游戏结束
+                        return;
+                    }else{
+                        this.mapList[tile.row][tile.col] = 0;
+                        this.tileList[tile.row][tile.col] = null;
+                        tile.recycle();
+                    }
+                }
             }
             if(collisionTileList.length > 0){
                 this.playBoom(bullet);
@@ -342,7 +383,7 @@ class GameScene extends BaseScene{
                     }
                 } 
             }
-            //子弹未击中坦克或者障碍物，或者超过边界
+            //子弹移动
             bullet.move();
         }
     }
@@ -365,10 +406,47 @@ class GameScene extends BaseScene{
             }
         }
         var emptyPos = emptyTileList[NumberTool.getRandomInt(0, emptyTileList.length-1)];
-        item.x = emptyPos[0]*this.tileWidth + this.halfWidth;
-        item.y = emptyPos[1]*this.tileWidth + this.halfWidth;
+        item.y = emptyPos[0]*this.tileWidth + this.halfWidth;
+        item.x = emptyPos[1]*this.tileWidth + this.halfWidth;
         this.itemGroup.addChild(item);
         this.itemList.push(item);
+    }
+    
+    //道具生效，返回道具是否生效
+    private checkItemEffect(item:BaseItem, tank:BaseTank):boolean{
+        if(item.type == ItemEnum.shield){   //护盾
+            if(tank.type == TankEnum.player){
+                var player: PlayerTank = <PlayerTank>tank;
+                player.playShield(player.itemShieldTime);
+            }else{
+                return false;
+            }
+        }else if(item.type == ItemEnum.gun){  //直接升级到3
+            tank.setPower(3);
+        }else if(item.type == ItemEnum.star){ //升1级
+            tank.setPower(tank.power + 1);
+        }else if(item.type == ItemEnum.armor){ //基地护甲
+            
+        }else if(item.type == ItemEnum.life){ //生命增加
+            if(tank.type == TankEnum.player){
+                
+            }else{
+                return false;
+            }
+        }else if(item.type == ItemEnum.boom){ //炸弹
+            if(tank.type == TankEnum.player){
+                
+            }else{
+                
+            }
+        }else if(item.type == ItemEnum.pause){ //暂定
+            if(tank.type == TankEnum.player){
+                
+            }else{
+                
+            }
+        }
+        return true;
     }
     
     //坦克转向碰到障碍物，且下一步目的地行走的地形为空，允许一定的碰撞偏差，让坦克转向成功

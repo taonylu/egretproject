@@ -273,6 +273,21 @@
 					"isFolder":false,
 					"key":"item6_png",
 					"name":"item6_png"
+				},
+				{
+					"isFolder":false,
+					"key":"base_destory_png",
+					"name":"base_destory_png"
+				},
+				{
+					"isFolder":false,
+					"key":"base_gameover_png",
+					"name":"base_gameover_png"
+				},
+				{
+					"isFolder":false,
+					"key":"base_png",
+					"name":"base_png"
 				}
 			]
 		}

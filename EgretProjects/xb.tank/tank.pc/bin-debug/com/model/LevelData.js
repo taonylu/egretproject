@@ -67,6 +67,7 @@ var LevelData = (function () {
         else if (rand < this.pause) {
             return ItemEnum.pause;
         }
+        return ItemEnum.star; //默认返回star
     };
     return LevelData;
 }());

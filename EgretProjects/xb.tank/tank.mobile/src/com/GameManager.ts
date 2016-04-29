@@ -5,7 +5,6 @@
  */
 class GameManager {
     public homeScene: HomeScene = new HomeScene();  //主页场景
-    public gameScene: GameScene = new GameScene();  //游戏场景
     
     //启动游戏框架
     public startup(main: Main): void {
@@ -19,7 +18,6 @@ class GameManager {
         //配置socket
         var socket:ClientSocket = ClientSocket.getInstance();
         socket.homeScene = this.homeScene;
-        socket.gameScene = this.gameScene;
         
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);  

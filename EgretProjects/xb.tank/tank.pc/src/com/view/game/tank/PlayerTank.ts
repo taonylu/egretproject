@@ -7,6 +7,9 @@ class PlayerTank extends BaseTank{
     public static NAME: string = "PlayerTank";
     public playerNo:number; //几号玩家
     public shield:Shield = new Shield();  //护盾
+    public birthShieldTime:number = 30;   //出生时护盾循环次数
+    public itemShieldTime:number = 100;   //道具护盾持续时间
+    
 	public constructor() {
       super();
       this.setMovieClip("playerYellowTank_png","playerYellowTank_json","playerYellowTank");
@@ -24,10 +27,10 @@ class PlayerTank extends BaseTank{
     }
 	
 	//播放护盾动画
-	public playShield(){
+	public playShield(loopTimes:number){
         if(this.parent){
             this.parent.addChild(this.shield);
-            this.shield.play(30);
+            this.shield.play(loopTimes);
             this.shield.addEventListener(egret.MovieClipEvent.COMPLETE, this.onShieldComplete, this);
         }
 	}
@@ -63,7 +66,7 @@ class PlayerTank extends BaseTank{
         this.gotoAndPlay("lvl" + this.power,-1);
     }
 	
-	//设置坦克威力，并且改变坦克外形
+	//override 设置坦克威力，并且改变坦克外形
 	public setPower(power:number){
         if(power >= 3) {
             power = 3;
@@ -88,5 +91,11 @@ class PlayerTank extends BaseTank{
         this.rotation = 0;
         this.direction = DirectionEnum.up;
         this.gotoAndStop("lvl1");
+        
+        var itemSet = MapManager.getInstance().itemSet;
+        this.itemShieldTime = Math.round(itemSet.shield/160);  //护盾动画播放一次160ms
+        if(this.itemShieldTime <=0){
+            this.itemShieldTime = 1;
+        }
 	}
 }

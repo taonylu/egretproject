@@ -19,6 +19,7 @@ var GameFactory = (function () {
         this.wallPool = ObjectPool.getPool(Wall.NAME); //墙
         this.grassPool = ObjectPool.getPool(Grass.NAME); //草地
         this.riverPool = ObjectPool.getPool(River.NAME); //河流
+        this.campPool = ObjectPool.getPool(Camp.NAME); //基地
         this.tileList = []; //地形列表，保存地形对象池，用于根据类型获取对象池
         this.flashPool = ObjectPool.getPool(Flash.NAME);
         this.tankList.push(this.playerTankPool);
@@ -30,6 +31,7 @@ var GameFactory = (function () {
         this.tileList.push(this.wallPool);
         this.tileList.push(this.steelPool);
         this.tileList.push(this.riverPool);
+        this.tileList.push(this.campPool);
     }
     var d = __define,c=GameFactory,p=c.prototype;
     //获取一个坦克生成时的闪烁效果

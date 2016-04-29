@@ -10,8 +10,6 @@ var Steel = (function (_super) {
         this.steelList = new Array();
         this.type = TileEnum.steel; //类型
         this.skinName = "SteelSkin";
-        this.canHit = true;
-        this.canWalk = false;
         this.setType(TileEnum.steel);
     }
     var d = __define,c=Steel,p=c.prototype;
@@ -27,12 +25,16 @@ var Steel = (function (_super) {
         }
         this.anchorOffsetX = this.width / 2;
         this.anchorOffsetY = this.height / 2;
+        this.reset();
     };
-    //重置方块
+    //override 重置方块
     p.reset = function () {
         for (var i = 0; i < 4; i++) {
             this.steelList[i].visible = true;
         }
+        this.life = 4;
+        this.canHit = true;
+        this.canWalk = false;
     };
     /**
      * 被攻击
@@ -41,7 +43,6 @@ var Steel = (function (_super) {
      */
     p.beAttacked = function (target) {
         var steel;
-        var isHit = false;
         var len = this.steelList.length;
         for (var i = 0; i < len; i++) {
             steel = this.steelList[i];
@@ -49,11 +50,16 @@ var Steel = (function (_super) {
                 //转换坐标为bullet所在容器坐标，再计算碰撞半径
                 if (Math.abs(this.x + steel.x - 32 - target.x) < 48 && Math.abs(this.y + steel.y - 32 - target.y) < 48) {
                     steel.visible = false;
-                    isHit = true;
+                    this.life--;
                 }
             }
         }
-        return isHit;
+        if (this.life <= 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     };
     //碰撞检测，taraget是子弹或者坦克
     p.checkCollision = function (target) {

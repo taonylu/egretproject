@@ -10,8 +10,6 @@ var Wall = (function (_super) {
         this.wallList = new Array();
         this.type = TileEnum.wall; //类型
         this.skinName = "WallSkin";
-        this.canHit = true;
-        this.canWalk = false;
         this.setType(TileEnum.wall);
     }
     var d = __define,c=Wall,p=c.prototype;
@@ -27,21 +25,79 @@ var Wall = (function (_super) {
         }
         this.anchorOffsetX = this.width / 2;
         this.anchorOffsetY = this.height / 2;
+        this.reset();
     };
-    //重置方块
+    //override 重置方块
     p.reset = function () {
         for (var i = 0; i < 16; i++) {
             this.wallList[i].visible = true;
+        }
+        this.canHit = true;
+        this.canWalk = false;
+        this.life = 16;
+    };
+    //因为地图编辑没做一半的方块，这里手动设置砖块只剩哪一半，用于基地附近砖块显示，0上半，1下半，2左半，3右半，4左下，5右下
+    p.setTileHalf = function (type) {
+        switch (type) {
+            case 0:
+                for (var i = 8; i < 16; i++) {
+                    this.wallList[i].visible = false;
+                }
+                this.life = 8;
+                break;
+            case 1:
+                for (var i = 0; i < 8; i++) {
+                    this.wallList[i].visible = false;
+                }
+                this.life = 8;
+                break;
+            case 2:
+                for (var i = 0; i < 4; i++) {
+                    for (var j = 2; j < 4; j++) {
+                        this.wallList[i * 4 + j].visible = false;
+                    }
+                }
+                this.life = 8;
+                break;
+            case 3:
+                for (var i = 0; i < 4; i++) {
+                    for (var j = 0; j < 2; j++) {
+                        this.wallList[i * 4 + j].visible = false;
+                    }
+                }
+                this.life = 8;
+                break;
+            case 4:
+                for (var i = 0; i < 16; i++) {
+                    this.wallList[i].visible = false;
+                }
+                for (var i = 2; i < 4; i++) {
+                    for (var j = 0; j < 2; j++) {
+                        this.wallList[i * 4 + j].visible = true;
+                    }
+                }
+                this.life = 4;
+                break;
+            case 5:
+                for (var i = 0; i < 16; i++) {
+                    this.wallList[i].visible = false;
+                }
+                for (var i = 2; i < 4; i++) {
+                    for (var j = 2; j < 4; j++) {
+                        this.wallList[i * 4 + j].visible = true;
+                    }
+                }
+                this.life = 4;
+                break;
         }
     };
     /**
      * 被攻击
      * @target 子弹
-     * @return 返回击中是否有效
+     * @return 返回地形是否被击毁
      */
     p.beAttacked = function (bullet) {
         var wall;
-        var isHit = false;
         for (var i = 0; i < 16; i++) {
             wall = this.wallList[i];
             if (wall.visible == true) {
@@ -50,19 +106,24 @@ var Wall = (function (_super) {
                 if (bullet.speedX != 0) {
                     if (Math.abs(this.x + wall.x - 32 - bullet.x) < 24 && Math.abs(this.y + wall.y - 32 - bullet.y) < 40) {
                         wall.visible = false;
-                        isHit = true;
+                        this.life--;
                     }
                 }
                 else {
                     //子弹是竖着移动，则判断x范围扩大到32
                     if (Math.abs(this.x + wall.x - 32 - bullet.x) < 40 && Math.abs(this.y + wall.y - 32 - bullet.y) < 24) {
                         wall.visible = false;
-                        isHit = true;
+                        this.life--;
                     }
                 }
             }
         }
-        return isHit;
+        if (this.life <= 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     };
     //碰撞检测，taraget是子弹或者坦克
     p.checkCollision = function (target) {
@@ -81,9 +142,6 @@ var Wall = (function (_super) {
             }
         }
         return false;
-    };
-    //检查是否地形小块被消灭完
-    p.checkDie = function () {
     };
     p.recycle = function () {
         this.parent && this.parent.removeChild(this);

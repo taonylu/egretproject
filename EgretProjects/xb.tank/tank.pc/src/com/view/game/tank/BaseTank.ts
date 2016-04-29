@@ -43,6 +43,14 @@ class BaseTank extends SimpleMC{
         
 	}
 	
+	//设置威力
+    public setPower(power: number) {
+        if(power >= 3) {
+            power = 3;
+        }
+        this.power = power;
+	}
+	
 	//设置行动
 	public actionHandler(actionType){
     	//当坦克停止时，播放动画

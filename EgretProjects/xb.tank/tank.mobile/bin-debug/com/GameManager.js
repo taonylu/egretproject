@@ -6,7 +6,6 @@
 var GameManager = (function () {
     function GameManager() {
         this.homeScene = new HomeScene(); //主页场景
-        this.gameScene = new GameScene(); //游戏场景
     }
     var d = __define,c=GameManager,p=c.prototype;
     //启动游戏框架
@@ -19,7 +18,6 @@ var GameManager = (function () {
         //配置socket
         var socket = ClientSocket.getInstance();
         socket.homeScene = this.homeScene;
-        socket.gameScene = this.gameScene;
         //跳转场景
         LayerManager.getInstance().runScene(this.homeScene);
     };

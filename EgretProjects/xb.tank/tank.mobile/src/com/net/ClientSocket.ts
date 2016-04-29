@@ -8,7 +8,6 @@ class ClientSocket {
     private socket;                         //socket.io
     
     public homeScene: HomeScene;            //主页场景
-    public gameScene: GameScene;            //游戏场景
     
     public static getInstance(): ClientSocket {
         if(this.instance == null) {
@@ -86,7 +85,8 @@ class ClientSocket {
         }); 
         
         this.socket.on("gameOver",function(data) {
-            self.gameScene.revGameOver(data);
+            console.log("rev gameOver");
+            //self.gameScene.revGameOver(data);
         }); 
         
     }
