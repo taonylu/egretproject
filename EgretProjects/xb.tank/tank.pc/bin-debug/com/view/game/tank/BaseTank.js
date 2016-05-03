@@ -17,6 +17,7 @@ var BaseTank = (function (_super) {
         this.shootCount = 0; //射击计时，单位帧
         this.hitWidth = 64; //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
         this.hitHalfWidth = 32;
+        this.snd = SoundManager.getInstance();
         //自动移动
         this.turnCount = 60;
         this.className = egret.getQualifiedClassName(this);
@@ -49,6 +50,9 @@ var BaseTank = (function (_super) {
         //当坦克停止时，播放动画
         if (this.speedX == 0 && this.speedY == 0 && actionType != ActionEnum.stopMove) {
             this.playMoveAnim();
+            if (this.type == TankEnum.player) {
+                this.snd.play(this.snd.user_move, 9999);
+            }
         }
         switch (actionType) {
             case ActionEnum.up:
@@ -79,12 +83,13 @@ var BaseTank = (function (_super) {
                 this.speedX = 0;
                 this.speedY = 0;
                 this.stop();
+                this.snd.stop(this.snd.user_move);
                 break;
         }
     };
     //自动转向，优先往下
     p.autoTurn = function () {
-        if (this.direction != DirectionEnum.down) {
+        if (this.direction != DirectionEnum.down && Math.random() > 0.6) {
             var actionType = ActionEnum.down;
         }
         else {
@@ -109,6 +114,9 @@ var BaseTank = (function (_super) {
     p.shoot = function () {
         this.shootCount++;
         if (this.shootCount * 16 >= this.shootTime) {
+            if (this.type == TankEnum.player) {
+                this.snd.play(this.snd.fire);
+            }
             this.shootCount = 0;
             var bullet = GameFactory.getInstance().bulletPool.getObject();
             bullet.type = this.type;

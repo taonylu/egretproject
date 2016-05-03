@@ -66,7 +66,7 @@ var ClientSocket = (function () {
             self.homeScene.revStartGame();
         });
         this.socket.on("gameOver", function (data) {
-            console.log("gameOver");
+            console.log("rev gameOver");
             //self.gameScene.revGameOver(data);
         });
     };

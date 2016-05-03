@@ -8,4 +8,16 @@
 	<e:Group id="topTileGroup" height="832" width="832" horizontalCenter="0" verticalCenter="0"/>
 	<e:Group id="itemGroup" width="832" height="832" horizontalCenter="0" verticalCenter="0"/>
 	<e:Group id="boomGroup" width="832" height="832" horizontalCenter="0" verticalCenter="0"/>
+	<e:Group id="enemyNumGroup" height="390" width="140" x="1394" y="100"/>
+	<e:Group id="playerLifeGroup" x="1394" width="140" y="530" height="390">
+		<e:BitmapLabel id="p1Label" x="20" y="50" font="blackFont_fnt" text="1P"/>
+		<e:BitmapLabel id="p1LifeLabel" y="90" text="2" font="blackFont_fnt" x="67"/>
+		<e:Image id="p1Icon" source="game_playerLife_png" x="26" y="90"/>
+		<e:BitmapLabel id="p2Label" y="150" text="2P" font="blackFont_fnt" x="20"/>
+		<e:BitmapLabel id="p2LifeLabel" y="190" text="2" font="blackFont_fnt" x="67"/>
+		<e:Image id="p2Icon" source="game_playerLife_png" y="190" x="26"/>
+	</e:Group>
+	<e:Group id="topGroup" horizontalCenter="0" width="832" verticalCenter="0" height="832" x="10" y="10">
+		<e:Image id="gameOverIcon" source="base_gameover_png" y="766" x="354"/>
+	</e:Group>
 </e:Skin>

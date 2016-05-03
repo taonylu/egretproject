@@ -19,6 +19,17 @@ class BaseItem extends egret.Bitmap{
     	 this.anchorOffsetY = 32;
 	}
 	
+	//闪烁效果
+	public startFlash(){
+    	 egret.Tween.get(this,{loop:true}).wait(200).to({alpha:0}).wait(200).to({alpha:1});
+	}
+	
+	//停止闪烁效果
+	public stopFlash(){
+    	this.alpha = 1;
+    	egret.Tween.removeTweens(this);
+	}
+	
 	//碰撞检测
 	public checkCollision(target){
         if(Math.abs(this.x - target.x) < 64 && Math.abs(this.y - target.y)<64){
@@ -29,6 +40,7 @@ class BaseItem extends egret.Bitmap{
 	
 	//回收
 	public recycle(){
+    	this.stopFlash();
     	this.parent && this.parent.removeChild(this);
     	ObjectPool.getPool(BaseItem.NAME).returnObject(this);
 	}
