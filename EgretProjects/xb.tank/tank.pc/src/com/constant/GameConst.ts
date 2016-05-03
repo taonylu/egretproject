@@ -12,6 +12,13 @@ class GameConst {
     public static gameConfig;
 }
 
+//游戏状态 0等待  1游戏中 2游戏结束
+enum GameStatus{
+    waiting = 0,
+    gameing = 1,
+    gameover = 2
+}
+
 //坦克 0玩家 1普通 2快速 3强化 4超级强化
 enum TankEnum {
     player = 0,

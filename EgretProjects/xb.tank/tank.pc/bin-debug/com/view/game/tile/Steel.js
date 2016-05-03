@@ -36,12 +36,52 @@ var Steel = (function (_super) {
         this.canHit = true;
         this.canWalk = false;
     };
+    //因为地图编辑没做一半的方块，这里手动设置只剩哪一半，用于基地附近显示，0上半，1下半，2左半，3右半，4左下，5右下
+    p.setTileHalf = function (type) {
+        switch (type) {
+            case 0:
+                this.steelList[2].visible = false;
+                this.steelList[3].visible = false;
+                this.life = 2;
+                break;
+            case 1:
+                this.steelList[0].visible = false;
+                this.steelList[1].visible = false;
+                this.life = 2;
+                break;
+            case 2:
+                this.steelList[1].visible = false;
+                this.steelList[3].visible = false;
+                this.life = 2;
+                break;
+            case 3:
+                this.steelList[0].visible = false;
+                this.steelList[2].visible = false;
+                this.life = 2;
+                break;
+            case 4:
+                this.steelList[0].visible = false;
+                this.steelList[1].visible = false;
+                this.steelList[3].visible = false;
+                this.life = 1;
+                break;
+            case 5:
+                this.steelList[0].visible = false;
+                this.steelList[1].visible = false;
+                this.steelList[2].visible = false;
+                this.life = 1;
+                break;
+        }
+    };
     /**
      * 被攻击
      * @target 子弹
      * @return 返回击中是否有效
      */
     p.beAttacked = function (target) {
+        if (target.power < 3) {
+            return false;
+        }
         var steel;
         var len = this.steelList.length;
         for (var i = 0; i < len; i++) {

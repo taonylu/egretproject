@@ -18,7 +18,7 @@ var HomeScene = (function (_super) {
         this.socket = ClientSocket.getInstance();
         //初始化玩家头像
         this.pHeadUIList = [this.p1HeadUI, this.p2HeadUI];
-        //初始化排行榜头像
+        //初始化英雄排行榜头像
         for (var i = 0; i < 5; i++) {
             this.rankHeadList.push(this["rankHead" + i]);
         }
@@ -42,6 +42,12 @@ var HomeScene = (function (_super) {
         for (var i = 0; i < this.pHeadUIList.length; i++) {
             var headUI = this.pHeadUIList[i];
             headUI.clear();
+        }
+        //重置英雄榜
+        for (var i = 0; i < 5; i++) {
+        }
+        //重置击杀榜头像
+        for (var i = 0; i < 5; i++) {
         }
     };
     //开始游戏

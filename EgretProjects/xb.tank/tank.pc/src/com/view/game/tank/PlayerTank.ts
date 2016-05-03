@@ -5,7 +5,7 @@
  */
 class PlayerTank extends BaseTank{
     public static NAME: string = "PlayerTank";
-    public playerNo:number; //几号玩家
+    public playerNo:number; //几号玩家 ，1或者2
     public shield:Shield = new Shield();  //护盾
     public birthShieldTime:number = 30;   //出生时护盾循环次数
     public itemShieldTime:number = 100;   //道具护盾持续时间

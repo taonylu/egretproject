@@ -288,6 +288,21 @@
 					"isFolder":false,
 					"key":"base_png",
 					"name":"base_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_enemyNum_png",
+					"name":"game_enemyNum_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_playerLife_png",
+					"name":"game_playerLife_png"
+				},
+				{
+					"isFolder":false,
+					"key":"game_stageImg_png",
+					"name":"game_stageImg_png"
 				}
 			]
 		}

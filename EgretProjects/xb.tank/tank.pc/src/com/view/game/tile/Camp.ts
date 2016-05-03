@@ -6,9 +6,8 @@
 class Camp extends BaseTile{
     public static NAME:string = "Camp";
     private normal:eui.Image;
-    private gameOver:eui.Image;
-    private destory:eui.Image;
-    private gameOverPos:egret.Point;
+    private destoryImg:eui.Image;
+    private gameOverPos:egret.Point = new egret.Point();
     
 	public constructor() {
     	super();
@@ -16,10 +15,12 @@ class Camp extends BaseTile{
     	this.setType(TileEnum.camp);
     	this.canHit = true;
     	this.canWalk = false;
-      this.gameOverPos.x = this.destory.x;
-      this.gameOverPos.y = this.destory.y;
-      this.reset();
 	}
+	
+    public componentCreated(): void {
+        super.componentCreated();
+        this.reset();
+    }
 	
 	//override
     public beAttacked(target: Bullet): boolean {
@@ -33,17 +34,12 @@ class Camp extends BaseTile{
 	
 	public setNormal(){
     	this.normal.visible = true;
-    	this.gameOver.visible = false;
-    	this.destory.visible = false;
+      this.destoryImg.visible = false;
 	}
 	
 	public setGameOver(){
     	this.normal.visible = false;
-    	this.gameOver.visible = true;
-    	this.destory.visible = true;
-    	this.gameOver.x = this.gameOverPos.x;
-    	this.gameOver.y = this.gameOverPos.y;
-        egret.Tween.get(this.gameOver).to({y:this.gameOverPos.y - 64},1000);
+      this.destoryImg.visible = true;
 	}
 	
 	

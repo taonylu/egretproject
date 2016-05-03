@@ -30,7 +30,7 @@ class HomeScene extends BaseScene{
         this.socket = ClientSocket.getInstance();
         //初始化玩家头像
         this.pHeadUIList = [this.p1HeadUI,this.p2HeadUI];
-        //初始化排行榜头像
+        //初始化英雄排行榜头像
         for(var i=0;i<5;i++){
             this.rankHeadList.push(this["rankHead" + i]);
         }
@@ -58,6 +58,14 @@ class HomeScene extends BaseScene{
         for(var i=0;i<this.pHeadUIList.length;i++){
             var headUI:HeadUI = this.pHeadUIList[i];
             headUI.clear();
+        }
+        //重置英雄榜
+        for(var i = 0;i < 5;i++) {
+            //this.rankHeadList[i].clear();
+        }
+        //重置击杀榜头像
+        for(var i = 0;i < 5;i++) {
+           // this.killHeadList[i].clear();
         }
     }
     

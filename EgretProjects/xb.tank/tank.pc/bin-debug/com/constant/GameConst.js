@@ -10,6 +10,13 @@ var GameConst = (function () {
     return GameConst;
 }());
 egret.registerClass(GameConst,'GameConst');
+//游戏状态 0等待  1游戏中 2游戏结束
+var GameStatus;
+(function (GameStatus) {
+    GameStatus[GameStatus["waiting"] = 0] = "waiting";
+    GameStatus[GameStatus["gameing"] = 1] = "gameing";
+    GameStatus[GameStatus["gameover"] = 2] = "gameover";
+})(GameStatus || (GameStatus = {}));
 //坦克 0玩家 1普通 2快速 3强化 4超级强化
 var TankEnum;
 (function (TankEnum) {

@@ -18,6 +18,7 @@ class BaseTank extends SimpleMC{
     public openid: string;       //openid
     public hitWidth:number = 64;     //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
     public hitHalfWidth:number = 32;
+    public snd:SoundManager = SoundManager.getInstance();
     
     public constructor() {
         super();
@@ -56,6 +57,9 @@ class BaseTank extends SimpleMC{
     	//当坦克停止时，播放动画
       if(this.speedX == 0 && this.speedY ==0 && actionType != ActionEnum.stopMove){
           this.playMoveAnim();
+          if(this.type == TankEnum.player){
+              this.snd.play(this.snd.user_move,9999);
+          }
       }
      
       switch(actionType){
@@ -87,13 +91,14 @@ class BaseTank extends SimpleMC{
                 this.speedX = 0;
                 this.speedY = 0;
                 this.stop();
+                this.snd.stop(this.snd.user_move);
                 break;
     	}
 	}
 	
 	//自动转向，优先往下
 	public autoTurn(){
-    	 if(this.direction != DirectionEnum.down){
+    	 if(this.direction != DirectionEnum.down && Math.random() > 0.6){ //大几率往下移动
              var actionType = ActionEnum.down;
     	 }else{
              actionType = NumberTool.getRandomInt(ActionEnum.up, ActionEnum.right);
@@ -122,6 +127,9 @@ class BaseTank extends SimpleMC{
 	public shoot(){
         this.shootCount++;
         if(this.shootCount * 16 >= this.shootTime) {  // 1帧的时间 1000/60 = 16ms
+            if(this.type == TankEnum.player){
+                this.snd.play(this.snd.fire);
+            }
             this.shootCount = 0;
             var bullet: Bullet = GameFactory.getInstance().bulletPool.getObject();
             bullet.type = this.type;

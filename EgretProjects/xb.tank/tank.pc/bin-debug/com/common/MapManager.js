@@ -61,6 +61,7 @@ var MapManager = (function () {
         //获取坦克和道具属性
         this.tankSet = mapJson.tankSet;
         this.itemSet = mapJson.itemSet;
+        this.playerSet = mapJson.playerSet;
         //获取level_json地图数据
         for (var i = 1; i <= this.levelLimit; i++) {
             var levelJson = RES.getRes("level" + i + "_json");
@@ -79,6 +80,10 @@ var MapManager = (function () {
             }
             levelData.mapData = arr2D;
         }
+    };
+    //获取当前关卡的LevelData
+    p.getCurLevelData = function () {
+        return this.levelList[this.curLevel - 1];
     };
     /**
      * 将各种坦克保存到列表中

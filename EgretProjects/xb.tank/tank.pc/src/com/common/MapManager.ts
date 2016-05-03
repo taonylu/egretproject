@@ -22,6 +22,7 @@ class MapManager {
     
     public tankSet;  //坦克属性
     public itemSet;  //道具属性
+    public playerSet;//玩家属性
     
     //初始化地图配置文件
     public initalize(){
@@ -64,7 +65,7 @@ class MapManager {
         //获取坦克和道具属性
         this.tankSet = mapJson.tankSet;
         this.itemSet = mapJson.itemSet;
-        
+        this.playerSet = mapJson.playerSet;
         
         //获取level_json地图数据
         for(var i=1;i<=this.levelLimit;i++){
@@ -85,6 +86,11 @@ class MapManager {
             levelData.mapData = arr2D;
         }
        
+    }
+    
+    //获取当前关卡的LevelData
+    public getCurLevelData():LevelData{
+        return this.levelList[this.curLevel-1];
     }
     
     /**

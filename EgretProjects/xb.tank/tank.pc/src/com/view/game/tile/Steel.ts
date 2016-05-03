@@ -38,6 +38,44 @@ class Steel extends BaseTile{
         this.canHit = true;
         this.canWalk = false;
     }
+    
+    //因为地图编辑没做一半的方块，这里手动设置只剩哪一半，用于基地附近显示，0上半，1下半，2左半，3右半，4左下，5右下
+    public setTileHalf(type) {
+        switch(type) {
+            case 0:  //显示上半，隐藏下半
+                this.steelList[2].visible = false;
+                this.steelList[3].visible = false;
+                this.life = 2;
+                break;
+            case 1: //显示下半，隐藏上半
+                this.steelList[0].visible = false;
+                this.steelList[1].visible = false;
+                this.life = 2;
+                break;
+            case 2: //显示左半，隐藏右半
+                this.steelList[1].visible = false;
+                this.steelList[3].visible = false;
+                this.life = 2;
+                break;
+            case 3:  //显示右半，隐藏左半
+                this.steelList[0].visible = false;
+                this.steelList[2].visible = false;
+                this.life = 2;
+                break;
+            case 4:  //显示左下，隐藏其他
+                this.steelList[0].visible = false;
+                this.steelList[1].visible = false;
+                this.steelList[3].visible = false;
+                this.life = 1;
+                break;
+            case 5:  //显示右下，隐藏其他
+                this.steelList[0].visible = false;
+                this.steelList[1].visible = false;
+                this.steelList[2].visible = false;
+                this.life = 1;
+                break;
+        }
+    }
 	
 	/**
      * 被攻击
@@ -45,6 +83,9 @@ class Steel extends BaseTile{
      * @return 返回击中是否有效 
      */
     public beAttacked(target: Bullet): boolean {
+        if(target.power < 3){  //威力小的子弹不能击毁钢铁
+            return false;
+        }
         var steel: eui.Image;
         var len = this.steelList.length;
         for(var i = 0;i < len;i++) {
