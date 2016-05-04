@@ -30,7 +30,7 @@
 		<ns1:RankHeadUI x="85" y="332" skinName="RankHeadSkin" id="rankHead3"/>
 		<ns1:RankHeadUI id="rankHead4" y="404" skinName="RankHeadSkin" x="85"/>
 	</e:Group>
-	<e:Group y="326" id="rankGroup0" width="500" height="500" x="1378">
+	<e:Group id="killGroup" y="326" width="500" height="500" x="1378">
 		<e:BitmapLabel y="134" text="1" font="writeFont_fnt" x="28"/>
 		<e:BitmapLabel y="207" text="2" font="writeFont_fnt" x="28"/>
 		<e:BitmapLabel y="279" text="3" font="writeFont_fnt" x="28"/>

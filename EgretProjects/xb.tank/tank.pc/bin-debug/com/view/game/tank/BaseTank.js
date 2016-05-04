@@ -123,6 +123,7 @@ var BaseTank = (function (_super) {
             bullet.power = this.power;
             bullet.x = this.x;
             bullet.y = this.y;
+            bullet.owner = this;
             switch (this.direction) {
                 case DirectionEnum.up:
                     bullet.rotation = 0;

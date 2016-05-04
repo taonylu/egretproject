@@ -11,7 +11,8 @@
     "src/com/view/home/RankHeadSkin.exml",
     "src/com/view/home/KillHeadUISkin.exml",
     "src/com/view/home/HomeSceneSkin.exml",
-    "src/com/view/preload/PreloadSceneSkin.exml"
+    "src/com/view/preload/PreloadSceneSkin.exml",
+    "src/com/view/result/ResultSceneSkin.exml"
   ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",

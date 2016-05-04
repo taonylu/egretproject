@@ -61,11 +61,11 @@ class HomeScene extends BaseScene{
         }
         //重置英雄榜
         for(var i = 0;i < 5;i++) {
-            //this.rankHeadList[i].clear();
+            this.rankHeadList[i].clear();
         }
         //重置击杀榜头像
         for(var i = 0;i < 5;i++) {
-           // this.killHeadList[i].clear();
+            this.killHeadList[i].clear();
         }
     }
     

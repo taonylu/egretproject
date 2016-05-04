@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"level1_json,level2_json,level3_json,level4_json,level5_json,level6_json,wall15_png,wall14_png,wall13_png,wall12_png,wall11_png,wall10_png,wall09_png,wall08_png,wall07_png,wall06_png,wall05_png,wall04_png,wall03_png,wall02_png,wall01_png,wall00_png,steel3_png,steel2_png,steel1_png,steel0_png,map_json,fastTank_json,fastTank_png,normalTank_json,normalTank_png,playerGreenTank_json,playerGreenTank_png,playerYellowTank_json,playerYellowTank_png,strongTank_json,strongTank_png,superTank_json,superTank_png,bullet_png,tile5_png,tile4_png,tile3_png,tile2_png,tile1_png,home_title_png,home_code_png,home_c_png,home_p2_png,home_enemy_png,home_p1_png,home__png,boom_png,boom_json,tankBoom_png,tankBoom_json,countDownFont_fnt,writeFont_fnt,redFont_fnt,home_killtext_png,home_ranktext_png,home_weektext_png,flash_png,flash_json,shield_png,shield_json,item6_png,item5_png,item4_png,item3_png,item2_png,item1_png,item0_png,base_gameover_png,base_destory_png,base_png,user_move_mp3,start_stage_mp3,lose_mp3,gift_life_mp3,gift_bomb_mp3,gift_mp3,fire_reach_wall_mp3,fire_mp3,enemy_move_mp3,game_stageImg_png,game_enemyNum_png,game_playerLife_png,blackFont_fnt",
+			"keys":"level1_json,level2_json,level3_json,level4_json,level5_json,level6_json,wall15_png,wall14_png,wall13_png,wall12_png,wall11_png,wall10_png,wall09_png,wall08_png,wall07_png,wall06_png,wall05_png,wall04_png,wall03_png,wall02_png,wall01_png,wall00_png,steel3_png,steel2_png,steel1_png,steel0_png,map_json,fastTank_json,fastTank_png,normalTank_json,normalTank_png,playerGreenTank_json,playerGreenTank_png,playerYellowTank_json,playerYellowTank_png,strongTank_json,strongTank_png,superTank_json,superTank_png,bullet_png,tile5_png,tile4_png,tile3_png,tile2_png,tile1_png,home_title_png,home_code_png,home_c_png,home_p2_png,home_enemy_png,home_p1_png,home__png,boom_png,boom_json,tankBoom_png,tankBoom_json,home_killtext_png,home_ranktext_png,home_weektext_png,flash_png,flash_json,shield_png,shield_json,item6_png,item5_png,item4_png,item3_png,item2_png,item1_png,item0_png,base_gameover_png,base_destory_png,base_png,user_move_mp3,start_stage_mp3,lose_mp3,gift_life_mp3,gift_bomb_mp3,gift_mp3,fire_reach_wall_mp3,fire_mp3,enemy_move_mp3,game_stageImg_png,game_enemyNum_png,game_playerLife_png,result_enemy3_png,result_enemy2_png,result_enemy1_png,result_enemy0_png,result_arrow_png,yellowFont_png,yellowFont_fnt,writeFont_png,writeFont_fnt,redFont_png,redFont_fnt,countDownFont_png,countDownFont_fnt,blackFont_png,blackFont_fnt",
 			"name":"game"
 		}
 	],
@@ -291,21 +291,6 @@
 			"url":"assets/bullet/tankBoom.json"
 		},
 		{
-			"name":"countDownFont_fnt",
-			"type":"font",
-			"url":"assets/home/font/countDownFont.fnt"
-		},
-		{
-			"name":"writeFont_fnt",
-			"type":"font",
-			"url":"assets/home/font/writeFont.fnt"
-		},
-		{
-			"name":"redFont_fnt",
-			"type":"font",
-			"url":"assets/home/font/redFont.fnt"
-		},
-		{
 			"name":"home_killtext_png",
 			"type":"image",
 			"url":"assets/home/home_killtext.png"
@@ -451,9 +436,54 @@
 			"url":"assets/game/game_playerLife.png"
 		},
 		{
+			"name":"result_enemy3_png",
+			"type":"image",
+			"url":"assets/result/result_enemy3.png"
+		},
+		{
+			"name":"result_enemy2_png",
+			"type":"image",
+			"url":"assets/result/result_enemy2.png"
+		},
+		{
+			"name":"result_enemy1_png",
+			"type":"image",
+			"url":"assets/result/result_enemy1.png"
+		},
+		{
+			"name":"result_enemy0_png",
+			"type":"image",
+			"url":"assets/result/result_enemy0.png"
+		},
+		{
+			"name":"result_arrow_png",
+			"type":"image",
+			"url":"assets/result/result_arrow.png"
+		},
+		{
+			"name":"yellowFont_fnt",
+			"type":"font",
+			"url":"assets/font/yellowFont.fnt"
+		},
+		{
+			"name":"writeFont_fnt",
+			"type":"font",
+			"url":"assets/font/writeFont.fnt"
+		},
+		{
+			"name":"redFont_fnt",
+			"type":"font",
+			"url":"assets/font/redFont.fnt"
+		},
+		{
+			"name":"countDownFont_fnt",
+			"type":"font",
+			"url":"assets/font/countDownFont.fnt"
+		},
+		{
 			"name":"blackFont_fnt",
 			"type":"font",
-			"url":"assets/home/font/blackFont.fnt"
+			"url":"assets/font/blackFont.fnt"
 		}
 	]
 }

@@ -4,7 +4,7 @@
  *
  */
 class UserVO {
-	public openid:string;   
-    public headimgurl:string;
-    public nickname:string;
+	public openid:string = "";   
+    public headimgurl:string = "";
+    public nickname:string = "";
 }

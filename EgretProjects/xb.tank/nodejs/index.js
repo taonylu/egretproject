@@ -94,7 +94,7 @@ function initPC(socket){
     socket.on('gameOver',function(data,callback){
     	if(pcUser[socket.rid]){
 			if(mobileUser[socket.rid]){
-				io.emit('gameOver');
+				io.emit('gameOver',{"historyScore":9999,"scoreRank":3,"p1KillRank":5,"p2KillRank":6});
 			}
     	}
 		callback();

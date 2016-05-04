@@ -83,10 +83,8 @@ function initPC(socket){
 
 	//开始游戏
     socket.on('startGame',function(data){
-		console.log("startGame");
     	if(pcUser[socket.rid]){
 			if(mobileUser[socket.rid]){
-				
 				io.emit('startGame');
 			}
     	}
@@ -96,7 +94,7 @@ function initPC(socket){
     socket.on('gameOver',function(data,callback){
     	if(pcUser[socket.rid]){
 			if(mobileUser[socket.rid]){
-				io.emit('gameOver');
+				io.emit('gameOver',{"historyScore":9999,});
 			}
     	}
 		callback();
