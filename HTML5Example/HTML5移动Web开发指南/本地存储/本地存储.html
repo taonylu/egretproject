@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+        //存储变量
+        localStorage.setItem("test","peter");
+        localStorage.getItem("test");
+
+        //存储Json
+        var json = {name:"marry"};
+        localStorage.setItem("test2",JSON.stringify(json));
+        JSON.parse(localStorage.getItem("test2"));
+
+        //sessionStorage  生命周期为当前窗口关闭
+        sessionStorage.setItem("test3","dawei");
+        sessionStorage.getItem("test3");
+
+    </script>
+</body>
+</html>

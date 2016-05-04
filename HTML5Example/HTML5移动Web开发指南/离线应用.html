@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" manifest="cache.manifest">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+        //离线清单文件 cache.manifest
+        if(window.applicationCache){
+            console.log("支持离线缓存");
+        }
+        if(window.navigator.onLine){
+            console.log("浏览器在线");
+        }
+    </script>
+</body>
+</html>
