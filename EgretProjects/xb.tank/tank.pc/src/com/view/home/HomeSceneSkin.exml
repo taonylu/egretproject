@@ -29,6 +29,7 @@
 		<ns1:RankHeadUI id="rankHead2" y="261" skinName="RankHeadSkin" x="85"/>
 		<ns1:RankHeadUI x="85" y="332" skinName="RankHeadSkin" id="rankHead3"/>
 		<ns1:RankHeadUI id="rankHead4" y="404" skinName="RankHeadSkin" x="85"/>
+		<e:Label text="本榜单为周排名" x="24" y="498"/>
 	</e:Group>
 	<e:Group id="killGroup" y="326" width="500" height="500" x="1378">
 		<e:BitmapLabel y="134" text="1" font="writeFont_fnt" x="28"/>
@@ -44,8 +45,10 @@
 		<ns1:KillHeadUI id="killHead2" y="259" skinName="KillHeadUISkin" x="92"/>
 		<ns1:KillHeadUI x="92" y="331" skinName="KillHeadUISkin" id="killHead3"/>
 		<ns1:KillHeadUI id="killHead4" y="403" skinName="KillHeadUISkin" x="92"/>
+		<e:Label y="508" text="本榜单为周排名" x="34"/>
 	</e:Group>
-	<e:BitmapLabel y="44" text="I-          00                  HI-       2000" font="writeFont_fnt" horizontalCenter="0"/>
+	<e:BitmapLabel y="44" text="I-          00" font="writeFont_fnt" x="678"/>
+	<e:BitmapLabel id="historyLabel" y="44" text="HI-          20000" font="writeFont_fnt" x="1038" width="516"/>
 	<e:BitmapLabel y="914" text="2016    XINBU   INTERACTIVE" font="writeFont_fnt" x="722"/>
 	<e:Label text="©" x="684" y="912" size="30"/>
 </e:Skin>

@@ -10,8 +10,10 @@ class Wall extends BaseTile{
     
 	public constructor() {
     	super();
-      this.skinName = "WallSkin";
-      this.setType(TileEnum.wall);
+         this.skinName = "WallSkin";
+         this.setType(TileEnum.wall);
+         this.canHit = true;
+         this.canWalk = false;
 	}
 	
     public componentCreated(): void {
@@ -34,8 +36,6 @@ class Wall extends BaseTile{
     	 for(var i=0;i<16;i++){
         	 this.wallList[i].visible = true;
     	 }
-       this.canHit = true;
-       this.canWalk = false;
        this.life = 16;
 	}
 	

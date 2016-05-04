@@ -20,6 +20,8 @@ class HomeScene extends BaseScene{
     private rankHeadList:Array<RankHeadUI> = new Array<RankHeadUI>(); //英雄榜列表
     private killHeadList:Array<KillHeadUI> = new Array<KillHeadUI>(); //击杀榜列表
     
+    private historyLabel:eui.Label;   //顶部历史最高得分
+    
 
     public constructor() {
         super("HomeSceneSkin");
@@ -32,15 +34,20 @@ class HomeScene extends BaseScene{
         this.pHeadUIList = [this.p1HeadUI,this.p2HeadUI];
         //初始化英雄排行榜头像
         for(var i=0;i<5;i++){
-            this.rankHeadList.push(this["rankHead" + i]);
+            var rankHead: RankHeadUI = this["rankHead" + i];
+            rankHead.clear();
+            this.rankHeadList.push(rankHead);
         }
         //初始化击杀榜头像
         for(var i = 0;i < 5;i++) {
-            this.killHeadList.push(this["killHead" + i]);
+            var killHead: KillHeadUI = this["killHead" + i];
+            killHead.clear();
+            this.killHeadList.push(killHead);
         }
     }
 
     public onEnable(): void {
+        window["changeBgColor"](GameConst.color0);
         this.resetView();     //重置界面
         this.createQRCode();  //创建二维码
         this.startConnect();  //连接socket
@@ -59,20 +66,13 @@ class HomeScene extends BaseScene{
             var headUI:HeadUI = this.pHeadUIList[i];
             headUI.clear();
         }
-        //重置英雄榜
-        for(var i = 0;i < 5;i++) {
-            this.rankHeadList[i].clear();
-        }
-        //重置击杀榜头像
-        for(var i = 0;i < 5;i++) {
-            this.killHeadList[i].clear();
-        }
     }
     
     //开始游戏
     private startGame(){
         this.sendStartGame();
-        LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
+        MapManager.getInstance().curLevel = 1;
+        LayerManager.getInstance().runScene(GameManager.getInstance().transitionScene);
     }
     
     //开始倒计时
@@ -177,13 +177,63 @@ class HomeScene extends BaseScene{
         this.startCountDown();   
     }
     
+    //接收排行榜
+    public revRank(data){
+        console.log("revRank:",data);
+        var heroRankList = data.heroRankList;  //英雄榜
+        var killRankList = data.killRankList;        //击杀榜
+        var historyScore = data.historyScore;     //历史最高得分
+        //重置英雄榜
+        var len = this.rankHeadList.length;
+        for(var i = 0;i < len;i++){
+            var rankHead:RankHeadUI = this.rankHeadList[i];
+            rankHead.clear();
+        }
+        //设置英雄榜
+        len = heroRankList.length;
+        for(var i=0;i<len;i++){
+            rankHead = this.rankHeadList[i];
+            rankHead.setHead(heroRankList[i].p1HeadUrl,heroRankList[i].p2HeadUrl);
+            rankHead.setHistory(heroRankList[i].stage,heroRankList[i].wave);
+        }
+        //重置击杀榜
+        len = this.killHeadList.length;
+        for(var i = 0;i < len;i++) {
+            var killHead: KillHeadUI = this.killHeadList[i];
+            killHead.clear();
+        }
+        //设置击杀榜
+        len = killRankList.length;
+        for(var i = 0;i < len;i++) {
+            killHead = this.killHeadList[i];
+            killHead.setValue(killRankList[i].headUrl, killRankList[i].kill);
+        } 
+        //历史最高得分
+        this.historyLabel.text = "HI-          " + historyScore;
+        GameConst.historyScore = historyScore;
+    }
+    
     //接收用户离开
     public revUserQuit(data){
         console.log("rev userQuit:",data);
         var openid:string = data.openid;
         
-        //从用户列表中删除
-        UserManager.getInstance().deleteUser(openid);
+        //如果当前是主页，则删除用户，如果是其他页面，则不处理
+        if(this.parent){
+            //从用户列表中删除
+            UserManager.getInstance().deleteUser(openid);
+            //从头像删除
+            if(this.p1HeadUI.openid == openid) {
+                this.p1HeadUI.clear();
+            } else if(this.p2HeadUI.openid == openid) {
+                this.p2HeadUI.clear();
+            }
+            //停止倒计时
+            if(UserManager.getInstance().getUserNum() <= 0) {
+                this.stopCountDown();
+                this.countDownLabel.text = this.countDownLimit + "";
+            }
+        }
     } 
     
     

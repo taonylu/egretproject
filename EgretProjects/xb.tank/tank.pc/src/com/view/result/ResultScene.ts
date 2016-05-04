@@ -61,6 +61,7 @@ class ResultScene extends BaseScene{
         }
         this.p1TotalLabel.text = "";
         this.p2TotalLabel.text = "";
+        this.historyLabel.text = "";
     }
     
     //设置结果界面 bGameOver true游戏结束  false下一关
@@ -97,6 +98,35 @@ class ResultScene extends BaseScene{
         }
         this.p1ScoreLabel.text = p1Score + "";
         this.p2ScoreLabel.text = p2Score + "";
+        //游戏结束，才能显示击杀和英雄榜
+        if(bGameOver) {
+            this.rankGroup.visible = true;
+            //英雄榜
+            this.p1RankHead.loadImg(data.p1RankHeadUrl);
+            this.p2RankHead.loadImg(data.p2RankHeadUrl);
+            this.rankLabel.text = data.scoreRank + "";
+            //击杀榜
+            this.p1KillHead.loadImg(data.p1KillHeadUrl);
+            this.p2KillHead.loadImg(data.p2KillHeadUrl);
+            if(data.p1Kill != "") {
+                this.p1Kill0Label.visible = true;
+                this.p1Kill1Label.visible = true;
+            } else {
+                this.p1Kill0Label.visible = false;
+                this.p1Kill1Label.visible = false;
+            }
+            this.p1KillLabel.text = data.p1KillRank + "";
+            if(data.p2Kill != "") {
+                this.p2Kill0Label.visible = true;
+                this.p2Kill1Label.visible = true;
+            } else {
+                this.p2Kill0Label.visible = false;
+                this.p2Kill1Label.visible = false;
+            }
+            this.p2KillLabel.text = data.p2KillRank + "";
+        } else {
+            this.rankGroup.visible = false;
+        }
         //击毁坦克数量
         var self:ResultScene = this;
         egret.Tween.get(this).wait(500).call(function(){
@@ -122,47 +152,16 @@ class ResultScene extends BaseScene{
         }).wait(500).call(function() {
             self.p1TotalLabel.text = p1kill + "";
             self.p2TotalLabel.text = p2kill + "";
-        }).wait(5000).call(function(){
+        }).wait(3000).call(function(){
             //游戏结束则回到首页，否则进入下一关
             if(bGameOver){
                 MapManager.getInstance().curLevel = 1;
                 LayerManager.getInstance().runScene(GameManager.getInstance().homeScene); 
             }else{
                 MapManager.getInstance().curLevel += 1;
-                LayerManager.getInstance().runScene(GameManager.getInstance().gameScene); 
+                LayerManager.getInstance().runScene(GameManager.getInstance().transitionScene); 
             }
         });
-        //游戏结束，才能显示击杀和英雄榜
-        if(bGameOver){
-            this.rankGroup.visible = true;
-            //英雄榜
-            this.p1RankHead.loadImg(data.p1RankHeadUrl);
-            this.p2RankHead.loadImg(data.p2RankHeadUrl);
-            this.rankLabel.text = data.scoreRank + "";
-            //击杀榜
-            this.p1KillHead.loadImg(data.p1KillHeadUrl);
-            this.p2KillHead.loadImg(data.p2KillHeadUrl);
-            if(data.p1Kill != "") {
-                this.p1Kill0Label.visible = true;
-                this.p1Kill1Label.visible = true;
-            } else {
-                this.p1Kill0Label.visible = false;
-                this.p1Kill1Label.visible = false;
-            }
-            this.p1KillLabel.text = data.p1KillRank + "";
-            if(data.p2Kill != "") {
-                this.p2Kill0Label.visible = true;
-                this.p2Kill1Label.visible = true;
-            } else {
-                this.p2Kill0Label.visible = false;
-                this.p2Kill1Label.visible = false;
-            }
-            this.p2KillLabel.text = data.p2KillRank + "";
-        }else{
-            this.rankGroup.visible = false;
-        }
-        
-        
     }
     
 }

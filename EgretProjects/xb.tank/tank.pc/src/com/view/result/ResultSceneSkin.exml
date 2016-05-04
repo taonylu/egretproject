@@ -3,15 +3,13 @@
 	<e:BitmapLabel y="40" font="writeFont_fnt" text="HI-SCORE" x="756"/>
 	<e:BitmapLabel id="stageLabel" y="90" text="STAGE-3" font="writeFont_fnt" x="786"/>
 	<e:BitmapLabel y="630" text="TOTAL" font="writeFont_fnt" x="646"/>
-	<e:BitmapLabel id="p1TotalLabel" y="630" text="99" x="793" font="redFont_fnt"/>
-	<e:BitmapLabel id="p2TotalLabel" y="630" text="99" font="redFont_fnt" x="1089"/>
 	<e:BitmapLabel id="waveLabel" y="90" text="WAVE.5" x="966" font="yellowFont_fnt"/>
-	<e:BitmapLabel id="historyLabel" y="40" text="99999" font="writeFont_fnt" x="1002"/>
+	<e:BitmapLabel id="historyLabel" y="40" text="99999" font="writeFont_fnt" x="1002" width="297"/>
 	<e:Image y="246" x="934" source="result_enemy0_png"/>
 	<e:Image y="331" x="934" source="result_enemy1_png"/>
 	<e:Image source="result_enemy2_png" y="415" x="934"/>
 	<e:Image source="result_enemy3_png" y="500" x="934"/>
-	<e:Rect height="5" width="418" x="750" y="588" fillColor="0xFCFAFA"/>
+	<e:Rect height="5" width="418" y="588" fillColor="0xFCFAFA" x="751"/>
 	<e:Group id="rankGroup" height="320" width="850" x="524" y="670">
 		<e:Label text="英雄榜：" x="220" y="32" size="30" fontFamily="微软雅黑" textColor="0xF49129"/>
 		<e:Label y="122" textColor="0xF49129" text="击杀榜" fontFamily="微软雅黑" size="30" x="215"/>
@@ -48,8 +46,10 @@
 		<e:Image source="result_arrow_png" y="199" x="312"/>
 		<e:Image source="result_arrow_png" y="281" x="312"/>
 		<e:Image source="result_arrow_png" y="364" x="312"/>
+		<e:BitmapLabel id="p1TotalLabel" y="482" text="99" x="247" font="redFont_fnt"/>
 	</e:Group>
 	<e:Group id="p2ScoreGroup" height="436" width="406" x="994" y="140">
+		<e:BitmapLabel id="p2TotalLabel" y="487" text="99" font="redFont_fnt" x="88"/>
 		<e:BitmapLabel id="p2ScoreLabel" y="69" text="35000" font="writeFont_fnt" x="166" width="211"/>
 		<e:BitmapLabel y="29" text="2 PLAYER" font="writeFont_fnt" x="166"/>
 		<e:Image source="result_arrow_png" y="153" x="54" rotation="180"/>

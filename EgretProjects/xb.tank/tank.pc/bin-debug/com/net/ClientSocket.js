@@ -51,9 +51,8 @@ var ClientSocket = (function () {
         //////////////////////////////////////////////////////
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
-        this.socket.on("gameOver", function (data) {
-            console.log("rev gameOver");
-            self.gameScene.revGameOver(data);
+        this.socket.on("rank", function (data) {
+            self.homeScene.revRank(data);
         });
         this.socket.on("userJoin", function (data) {
             self.homeScene.revUserJoin(data);
@@ -63,6 +62,10 @@ var ClientSocket = (function () {
         });
         this.socket.on("action", function (data) {
             self.gameScene.revAction(data);
+        });
+        this.socket.on("gameOver", function (data) {
+            console.log("rev gameOver");
+            self.gameScene.revGameOver(data);
         });
     };
     //////////////////////////////////////////////////////

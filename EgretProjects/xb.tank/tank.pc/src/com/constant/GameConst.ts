@@ -10,6 +10,14 @@ class GameConst {
 	public static debug:boolean;
 	/**游戏配置*/
     public static gameConfig;
+    /**历史最高得分*/
+    public static historyScore = 0;
+    /**过渡场景和游戏背景颜色*/
+    public static color7= "#777777";
+    /**首页时的黑色*/
+    public static color0= "#000000";
+    /**游戏场景背景色*/
+    public static color2 = "#222222";
 }
 
 //游戏状态 0等待  1游戏中 2游戏结束

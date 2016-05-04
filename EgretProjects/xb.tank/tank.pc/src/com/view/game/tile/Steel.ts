@@ -12,6 +12,8 @@ class Steel extends BaseTile{
         super();
         this.skinName = "SteelSkin";
         this.setType(TileEnum.steel);
+        this.canHit = true;
+        this.canWalk  = false;
     }
 	
     public componentCreated():void {
@@ -35,8 +37,6 @@ class Steel extends BaseTile{
             this.steelList[i].visible = true;
         }
         this.life = 4;
-        this.canHit = true;
-        this.canWalk = false;
     }
     
     //因为地图编辑没做一半的方块，这里手动设置只剩哪一半，用于基地附近显示，0上半，1下半，2左半，3右半，4左下，5右下

@@ -11,6 +11,8 @@ var Wall = (function (_super) {
         this.type = TileEnum.wall; //类型
         this.skinName = "WallSkin";
         this.setType(TileEnum.wall);
+        this.canHit = true;
+        this.canWalk = false;
     }
     var d = __define,c=Wall,p=c.prototype;
     p.componentCreated = function () {
@@ -32,8 +34,6 @@ var Wall = (function (_super) {
         for (var i = 0; i < 16; i++) {
             this.wallList[i].visible = true;
         }
-        this.canHit = true;
-        this.canWalk = false;
         this.life = 16;
     };
     //因为地图编辑没做一半的方块，这里手动设置砖块只剩哪一半，用于基地附近砖块显示，0上半，1下半，2左半，3右半，4左下，5右下
