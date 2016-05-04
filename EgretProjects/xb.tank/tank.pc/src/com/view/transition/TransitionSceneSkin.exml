@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="TransitionSceneSkin" width="1920" height="1024" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect height="1024" width="1920" fillColor="0x777777"/>
+	<e:BitmapLabel id="stageLabel" font="blackFont_fnt" text="STAGE 3" verticalCenter="0" horizontalCenter="0"/>
+	<e:Group id="endLessGroup" height="200" width="1142" y="542" x="399">
+		<e:Label text="小心了！无尽关卡将会有" x="5" y="36" fontFamily="微软雅黑" textColor="0x030000"/>
+		<e:Label y="36" textColor="0x030000" text="的敌军" fontFamily="微软雅黑" x="473"/>
+		<e:Label y="36" textColor="0x030000" text="攻打过来，挑战你的生存能力！" fontFamily="微软雅黑" x="695"/>
+		<e:Label y="36" text="源源不断" fontFamily="微软雅黑" x="345" textColor="0xF50606"/>
+		<e:Label y="36" textColor="0xF50606" text="一波一波" fontFamily="微软雅黑" x="565"/>
+		<e:Label y="-54" text="无尽模式" fontFamily="微软雅黑" x="715" size="50" textColor="0xDA2935"/>
+		<e:Label y="-57" text="-" fontFamily="微软雅黑" size="50" x="665" textColor="0x040000"/>
+	</e:Group>
+</e:Skin>

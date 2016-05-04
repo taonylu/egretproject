@@ -15,8 +15,6 @@ var BaseTile = (function (_super) {
     }
     var d = __define,c=BaseTile,p=c.prototype;
     p.reset = function () {
-        this.canHit = false;
-        this.canWalk = false;
     };
     //设置类型
     p.setType = function (type) {

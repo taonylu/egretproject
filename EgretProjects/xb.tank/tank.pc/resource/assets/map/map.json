@@ -23,13 +23,13 @@
         	  ],    	  
 	"level":
 			{
-    			"levelLimit":3,
+    			"levelLimit":2,
     			
-    			"tankLimit":[5,5,10],
-				"normalTank":[1,1,0],
-				"fastTank":[0,0,0],
-				"strongTank":[0,0,0],
-				"superTank":[0,0,0],
+    			"tankLimit":[5,5],
+				"normalTank":[1,1],
+				"fastTank":[0,0],
+				"strongTank":[0,0],
+				"superTank":[0,0],
 
 				"itemNum":[30,3,5],
 				"shield":[0,10,10],
@@ -41,7 +41,7 @@
 				"pause":[10,10,10],
 				
 				"tankAdd":0.3,
-				"superChance":50,
+				"superChance":0.5,
 				"superAdd":0.1
 			},
 	"comment":[
@@ -70,7 +70,7 @@
           ], 
     "itemSet":{
         	"shield":10,
-        	"pause":200,
+        	"pause":10,
         	"armor":30
     	}
 }

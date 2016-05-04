@@ -18,8 +18,7 @@ class BaseTile extends BaseUI{
 	}
 	
     public reset() {
-        this.canHit = false;
-        this.canWalk = false;
+        
     }
 	
 	//设置类型

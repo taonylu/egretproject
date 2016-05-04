@@ -22,6 +22,7 @@ var ResultScene = (function (_super) {
         }
         this.p1TotalLabel.text = "";
         this.p2TotalLabel.text = "";
+        this.historyLabel.text = "";
     };
     //设置结果界面 bGameOver true游戏结束  false下一关
     p.setResult = function (data, bGameOver, bEndLess) {
@@ -60,42 +61,6 @@ var ResultScene = (function (_super) {
         }
         this.p1ScoreLabel.text = p1Score + "";
         this.p2ScoreLabel.text = p2Score + "";
-        //击毁坦克数量
-        var self = this;
-        egret.Tween.get(this).wait(500).call(function () {
-            self.p1Score0Label.text = killList[0][0] * 100 + "";
-            self.p1Tank0Label.text = killList[0][0] + "";
-            self.p2Score0Label.text = killList[1][0] * 100 + "";
-            self.p2Tank0Label.text = killList[1][0] + "";
-        }).wait(500).call(function () {
-            self.p1Score1Label.text = killList[0][1] * 200 + "";
-            self.p1Tank1Label.text = killList[0][1] + "";
-            self.p2Score1Label.text = killList[1][1] * 200 + "";
-            self.p2Tank1Label.text = killList[1][1] + "";
-        }).wait(500).call(function () {
-            self.p1Score2Label.text = killList[0][2] * 300 + "";
-            self.p1Tank2Label.text = killList[0][2] + "";
-            self.p2Score2Label.text = killList[1][2] * 300 + "";
-            self.p2Tank2Label.text = killList[1][2] + "";
-        }).wait(500).call(function () {
-            self.p1Score3Label.text = killList[0][3] * 400 + "";
-            self.p1Tank3Label.text = killList[0][3] + "";
-            self.p2Score3Label.text = killList[1][3] * 400 + "";
-            self.p2Tank3Label.text = killList[1][3] + "";
-        }).wait(500).call(function () {
-            self.p1TotalLabel.text = p1kill + "";
-            self.p2TotalLabel.text = p2kill + "";
-        }).wait(5000).call(function () {
-            //游戏结束则回到首页，否则进入下一关
-            if (bGameOver) {
-                MapManager.getInstance().curLevel = 1;
-                LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
-            }
-            else {
-                MapManager.getInstance().curLevel += 1;
-                LayerManager.getInstance().runScene(GameManager.getInstance().gameScene);
-            }
-        });
         //游戏结束，才能显示击杀和英雄榜
         if (bGameOver) {
             this.rankGroup.visible = true;
@@ -128,6 +93,42 @@ var ResultScene = (function (_super) {
         else {
             this.rankGroup.visible = false;
         }
+        //击毁坦克数量
+        var self = this;
+        egret.Tween.get(this).wait(500).call(function () {
+            self.p1Score0Label.text = killList[0][0] * 100 + "";
+            self.p1Tank0Label.text = killList[0][0] + "";
+            self.p2Score0Label.text = killList[1][0] * 100 + "";
+            self.p2Tank0Label.text = killList[1][0] + "";
+        }).wait(500).call(function () {
+            self.p1Score1Label.text = killList[0][1] * 200 + "";
+            self.p1Tank1Label.text = killList[0][1] + "";
+            self.p2Score1Label.text = killList[1][1] * 200 + "";
+            self.p2Tank1Label.text = killList[1][1] + "";
+        }).wait(500).call(function () {
+            self.p1Score2Label.text = killList[0][2] * 300 + "";
+            self.p1Tank2Label.text = killList[0][2] + "";
+            self.p2Score2Label.text = killList[1][2] * 300 + "";
+            self.p2Tank2Label.text = killList[1][2] + "";
+        }).wait(500).call(function () {
+            self.p1Score3Label.text = killList[0][3] * 400 + "";
+            self.p1Tank3Label.text = killList[0][3] + "";
+            self.p2Score3Label.text = killList[1][3] * 400 + "";
+            self.p2Tank3Label.text = killList[1][3] + "";
+        }).wait(500).call(function () {
+            self.p1TotalLabel.text = p1kill + "";
+            self.p2TotalLabel.text = p2kill + "";
+        }).wait(3000).call(function () {
+            //游戏结束则回到首页，否则进入下一关
+            if (bGameOver) {
+                MapManager.getInstance().curLevel = 1;
+                LayerManager.getInstance().runScene(GameManager.getInstance().homeScene);
+            }
+            else {
+                MapManager.getInstance().curLevel += 1;
+                LayerManager.getInstance().runScene(GameManager.getInstance().transitionScene);
+            }
+        });
     };
     return ResultScene;
 }(BaseScene));

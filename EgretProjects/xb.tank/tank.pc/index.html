@@ -87,6 +87,7 @@
 	<script egret="game" src="bin-debug/com/view/home/RankHeadUI.js"></script>
 	<script egret="game" src="bin-debug/com/view/preload/PreloadScene.js"></script>
 	<script egret="game" src="bin-debug/com/view/result/ResultScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/transition/TransitionScene.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
 	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
 	<!--game_files_end-->
@@ -147,6 +148,11 @@
 	    	codeDiv.innerHTML = "";
 	    	console.log("createQRCode Complete:",codeUrl);
 	    	return rid;
+    	}
+    	
+    	//改变背景颜色
+    	function changeBgColor(color){
+    		document.body.style.backgroundColor = color;
     	}
 
     	//运行游戏

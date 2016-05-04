@@ -25,11 +25,11 @@ var RankHeadUI = (function (_super) {
     //设置历史关卡
     p.setHistory = function (stage, wave) {
         if (stage < 3) {
-            this.stageLabel.text = "STAGE" + stage;
+            this.stageLabel.text = "-  STAGE" + stage;
             this.waveLabel.text = "";
         }
         else {
-            this.stageLabel.text = "S" + stage;
+            this.stageLabel.text = "-  S" + stage;
             this.waveLabel.text = "WAVE." + wave;
         }
     };

@@ -79,6 +79,18 @@ function initPC(socket){
 			delete mobileUser[socket.rid];
 			pcUser[data.rid] = socket;
     	}
+		var data = {
+			"heroRankList":[
+				{"p1HeadUrl":"resource/assets/home/home_p1.png", "p2HeadUrl":"resource/assets/home/home_p1.png", stage:3,wave:3},
+				{"p1HeadUrl":"resource/assets/home/home_p1.png", "p2HeadUrl":"resource/assets/home/home_p1.png", stage:1,wave:0}
+				],
+			"killRankList":[
+				{"headUrl":"resource/assets/home/home_p1.png", "kill":99},
+				{"headUrl":"resource/assets/home/home_p1.png", "kill":88}
+				],
+			"historyScore":999999
+		}
+		io.emit("rank", data);
     });
 
 	//开始游戏

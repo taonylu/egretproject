@@ -22,3 +22,5 @@ declare class PreloadSceneSkin extends eui.Skin{
 }
 declare class ResultSceneSkin extends eui.Skin{
 }
+declare class TransitionSceneSkin extends eui.Skin{
+}

@@ -11,6 +11,8 @@ var Steel = (function (_super) {
         this.type = TileEnum.steel; //类型
         this.skinName = "SteelSkin";
         this.setType(TileEnum.steel);
+        this.canHit = true;
+        this.canWalk = false;
     }
     var d = __define,c=Steel,p=c.prototype;
     p.componentCreated = function () {
@@ -33,8 +35,6 @@ var Steel = (function (_super) {
             this.steelList[i].visible = true;
         }
         this.life = 4;
-        this.canHit = true;
-        this.canWalk = false;
     };
     //因为地图编辑没做一半的方块，这里手动设置只剩哪一半，用于基地附近显示，0上半，1下半，2左半，3右半，4左下，5右下
     p.setTileHalf = function (type) {

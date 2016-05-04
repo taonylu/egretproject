@@ -10,7 +10,7 @@ class Grass extends BaseTile{
     	this.skinName = "GrassSkin";
     	this.canHit = false;
     	this.canWalk = true;
-      this.setType(TileEnum.grass);
+            this.setType(TileEnum.grass);
 	}
 
 }
