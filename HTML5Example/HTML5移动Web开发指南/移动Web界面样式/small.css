@@ -1,0 +1,11 @@
+@media screen and(max-width:600px){
+    .demo{background-color: #ccc}
+}
+
+@media screen and(max-width:600px) and(max-width: 900px){
+    .demo{background-color: #fff}
+}
+
+@media screen and(max-device-width:480px){
+    .demo{background-color: #f00}
+}

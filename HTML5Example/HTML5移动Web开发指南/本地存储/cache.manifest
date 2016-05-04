@@ -1,0 +1,9 @@
+CACHE MANIFEST
+#缓存的文件
+index.html
+test.js
+#不作缓存
+NETWORK
+/iamges/
+FALLBACK
+offline.html index.html
