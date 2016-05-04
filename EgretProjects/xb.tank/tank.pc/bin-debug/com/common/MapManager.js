@@ -15,17 +15,23 @@ var MapManager = (function () {
         this.tileHeight = 64; //tile高度
         this.halfWidth = 32;
         this.halfHeight = 32;
-        this.levelLimit = 6; //地图数量
+        this.levelLimit = 0; //地图数量
         this.curLevel = 1; //当前关卡
         this.levelList = new Array(); //关卡数据列表
+        this.endLess_tankAdd = 0.3; //无尽模式，坦克数量增加比例
+        this.endLess_superChance = 50; //强化坦克出现几率
+        this.endLess_superAdd = 10; //每波强化坦克出现几率增加比例
+        this.endless_itemNum = 5; //道具数量
     }
     var d = __define,c=MapManager,p=c.prototype;
     //初始化地图配置文件
     p.initalize = function () {
+        //清理地图数据
+        this.levelList.length = 0;
         //获取地图文件
         var mapJson = RES.getRes("map_json");
         if (mapJson == null) {
-            console.log("地图配置文件为null");
+            alert("地图配置文件不存在");
             return;
         }
         //获取map_json坦克数量
@@ -62,11 +68,16 @@ var MapManager = (function () {
         this.tankSet = mapJson.tankSet;
         this.itemSet = mapJson.itemSet;
         this.playerSet = mapJson.playerSet;
+        //获取无尽模式设置
+        this.endLess_tankAdd = level.tankAdd;
+        this.endLess_superChance = level.superChance;
+        this.endLess_superAdd = level.superAdd;
+        this.endless_itemNum = level.itemNum[this.levelLimit - 1];
         //获取level_json地图数据
         for (var i = 1; i <= this.levelLimit; i++) {
             var levelJson = RES.getRes("level" + i + "_json");
             if (levelJson == null) {
-                console.log("第" + i + "关配置文件不存在");
+                alert("第" + i + "关配置文件不存在");
                 return;
             }
             var data = levelJson.layers[0].data;
@@ -95,6 +106,37 @@ var MapManager = (function () {
         for (var i = 0; i < tankNum; i++) {
             targetList.push(tankType);
         }
+    };
+    //获取无尽关卡的levelData
+    p.getEndLessLevelData = function (wave) {
+        var levelData = this.levelList[this.levelLimit - 1];
+        //坦克数量 = 上限*增加比例*波数
+        var tankNum = Math.round(levelData.tankLimit * this.endLess_tankAdd * wave);
+        //强化坦克比例
+        var superChance = this.endLess_superChance + this.endLess_superAdd * wave;
+        //生成坦克列表
+        levelData.tankList.length = 0;
+        for (var i = 0; i < tankNum; i++) {
+            var rand = Math.random();
+            if (rand < superChance / 2) {
+                levelData.tankList.push(TankEnum.super);
+            }
+            else if (rand < superChance) {
+                levelData.tankList.push(TankEnum.strong);
+            }
+            else {
+                var rand2 = Math.random(); //非强化坦克生成几率
+                if (rand2 < 0.5) {
+                    levelData.tankList.push(TankEnum.normal);
+                }
+                else {
+                    levelData.tankList.push(TankEnum.fast);
+                }
+            }
+        }
+        //生成道具数量
+        levelData.itemNum = this.endless_itemNum;
+        return levelData;
     };
     MapManager.getInstance = function () {
         if (this.instance == null) {

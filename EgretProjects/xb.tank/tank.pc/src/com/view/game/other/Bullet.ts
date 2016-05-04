@@ -12,7 +12,7 @@ class Bullet extends egret.Bitmap{
     public type:TankEnum = 0;         //子弹发射方
     public hitWidth: number = 16;     //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
     public hitHalfWidth: number = 8;
-    public isDie:boolean = false;     //是否已经失效
+    public owner:BaseTank;            //子弹拥有者
     
 	public constructor() {
     	super();
@@ -26,6 +26,7 @@ class Bullet extends egret.Bitmap{
     	this.y += this.speedY;
 	}
 	
+	//返回是否碰撞
     public checkCollision(target){
         if(Math.abs(this.x - target.x) < (target.hitHalfWidth + this.hitHalfWidth) && 
             Math.abs(this.y - target.y) < (target.hitHalfWidth + this.hitHalfWidth)){
@@ -39,6 +40,7 @@ class Bullet extends egret.Bitmap{
     	this.speedY = 0;
     	this.power = 1;
     	this.rotation = 0;
+    	this.owner = null;
 	}
 	
 	public recycle(){

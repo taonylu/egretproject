@@ -17,9 +17,6 @@ class HeadUI extends BaseUI{
     //private nameLabel:eui.Label;    //名字文本
     public  headImg:egret.Bitmap;   //头像图片
     public  openid:string;          //用户ID
-    //private headMask:eui.Image;     //头像遮罩
-    public imgWidth:number = 100;
-    public imgHeight:number = 100;
     private imageLoader: egret.ImageLoader = new egret.ImageLoader(); //图片加载器
     
 	public constructor() {
@@ -29,20 +26,17 @@ class HeadUI extends BaseUI{
 	
     public componentCreated(): void {
         super.componentCreated();
-        //this.nameLabel.text = "";
-        
         this.headImg= new egret.Bitmap();
-        this.headImg.width = this.imgWidth;
-        this.headImg.height = this.imgHeight;
-        //this.headImg.mask = this.headMask;
+        this.headImg.width = this.width;
+        this.headImg.height = this.height;
         this.addChild(this.headImg);
     }
     
-    public setNameLabel(_name:string):void{
-       // this.nameLabel.text = _name;
-    }
-    
     public loadImg(imgUrl:string){
+        this.clear();
+        if(imgUrl == "" || imgUrl == null){
+            return;
+        }
         this.imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onLoadError,this);
         this.imageLoader.addEventListener(egret.Event.COMPLETE,this.loadCompleteHandler,this);
         this.imageLoader.load(imgUrl);
@@ -69,7 +63,6 @@ class HeadUI extends BaseUI{
     
     //清理数据
     public clear():void{
-        //this.nameLabel.text = "";
         this.headImg.bitmapData = null;
         this.openid = "";
     }

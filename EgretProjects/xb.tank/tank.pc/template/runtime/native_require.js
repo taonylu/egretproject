@@ -58,6 +58,7 @@ var game_file_list = [
 	"bin-debug/com/view/home/KillHeadUI.js",
 	"bin-debug/com/view/home/RankHeadUI.js",
 	"bin-debug/com/view/preload/PreloadScene.js",
+	"bin-debug/com/view/result/ResultScene.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
 	//----auto game_file_list end----

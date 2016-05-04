@@ -303,6 +303,31 @@
 					"isFolder":false,
 					"key":"game_stageImg_png",
 					"name":"game_stageImg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_enemy1_png",
+					"name":"result_enemy1_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_enemy2_png",
+					"name":"result_enemy2_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_enemy3_png",
+					"name":"result_enemy3_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_arrow_png",
+					"name":"result_arrow_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_enemy0_png",
+					"name":"result_enemy0_png"
 				}
 			]
 		}

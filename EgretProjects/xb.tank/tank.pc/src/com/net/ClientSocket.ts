@@ -68,6 +68,7 @@ class ClientSocket {
 
         this.socket.on("gameOver",function(data) {
             console.log("rev gameOver");
+            self.gameScene.revGameOver(data);
         }); 
         
         this.socket.on("userJoin",function(data) {      

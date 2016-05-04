@@ -7,6 +7,7 @@ var GameManager = (function () {
     function GameManager() {
         this.homeScene = new HomeScene(); //主页场景
         this.gameScene = new GameScene(); //游戏场景
+        this.resultScene = new ResultScene(); //结果场景
     }
     var d = __define,c=GameManager,p=c.prototype;
     //启动游戏框架
@@ -17,8 +18,6 @@ var GameManager = (function () {
         //配置Layer
         GameConst.stage = main.stage;
         LayerManager.getInstance().initialize(main);
-        //配置地图
-        MapManager.getInstance().initalize();
         //配置socket
         var socket = ClientSocket.getInstance();
         socket.homeScene = this.homeScene;

@@ -14,7 +14,6 @@ var Bullet = (function (_super) {
         this.type = 0; //子弹发射方
         this.hitWidth = 16; //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
         this.hitHalfWidth = 8;
-        this.isDie = false; //是否已经失效
         this.bitmapData = RES.getRes("bullet_png");
         this.anchorOffsetX = 16;
         this.anchorOffsetY = 16;
@@ -24,6 +23,7 @@ var Bullet = (function (_super) {
         this.x += this.speedX;
         this.y += this.speedY;
     };
+    //返回是否碰撞
     p.checkCollision = function (target) {
         if (Math.abs(this.x - target.x) < (target.hitHalfWidth + this.hitHalfWidth) &&
             Math.abs(this.y - target.y) < (target.hitHalfWidth + this.hitHalfWidth)) {
@@ -36,6 +36,7 @@ var Bullet = (function (_super) {
         this.speedY = 0;
         this.power = 1;
         this.rotation = 0;
+        this.owner = null;
     };
     p.recycle = function () {
         this.reset();

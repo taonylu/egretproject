@@ -1,7 +1,7 @@
 {  		
     "comment":[
         		"关卡设置",
-        		"levelLimit总数，不包含生存关卡",
+        		"levelLimit总数，最后一关为生存关卡",
         		"tankLimit坦克同时存在场景中的上限数量",
         		"normalTank普通坦克，值表示该类型坦克在本关出现的数量",
         		"fastTank快速坦克",
@@ -15,27 +15,34 @@
         		"armor基地护甲",
         		"life生命",
         		"boom炸弹",
-        		"pause暂停"
+        		"pause暂停",
+        		
+        		"tankAdd 无尽模式坦克数量增长比例",
+        		"superChance 强化坦克出现概率",
+        		"superAdd 每波强化坦克增加几率"
         	  ],    	  
 	"level":
 			{
-    			"levelLimit":5,
+    			"levelLimit":3,
     			
-    			"tankLimit":[5,5,5,5,5],
-				"normalTank":[5,10,10,10,10],
-				"fastTank":[5,10,10,10,10],
-				"strongTank":[5,10,10,10,10],
-				"superTank":[5,10,10,10,10],
+    			"tankLimit":[5,5,10],
+				"normalTank":[1,1,0],
+				"fastTank":[0,0,0],
+				"strongTank":[0,0,0],
+				"superTank":[0,0,0],
+
+				"itemNum":[30,3,5],
+				"shield":[0,10,10],
+				"gun":[0,10,10],
+				"star":[0,10,10],
+				"armor":[100,10,10],
+				"life":[10,10,10],
+				"boom":[10,10,10],
+				"pause":[10,10,10],
 				
-				
-				"itemNum":[30,3,5,6,7],
-				"shield":[0,10,10,10,10],
-				"gun":[0,10,10,10,10],
-				"star":[0,10,10,10,10],
-				"armor":[100,10,10,10,10],
-				"life":[10,10,10,10,10],
-				"boom":[10,10,10,10,10],
-				"pause":[10,10,10,10,10]
+				"tankAdd":0.3,
+				"superChance":50,
+				"superAdd":0.1
 			},
 	"comment":[
     			"玩家设置",

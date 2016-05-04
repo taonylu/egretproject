@@ -45,9 +45,11 @@ var HomeScene = (function (_super) {
         }
         //重置英雄榜
         for (var i = 0; i < 5; i++) {
+            this.rankHeadList[i].clear();
         }
         //重置击杀榜头像
         for (var i = 0; i < 5; i++) {
+            this.killHeadList[i].clear();
         }
     };
     //开始游戏
