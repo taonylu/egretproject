@@ -18,6 +18,7 @@ class HeadUI extends BaseUI{
     public  headImg:egret.Bitmap;   //头像图片
     public  openid:string;          //用户ID
     private imageLoader: egret.ImageLoader = new egret.ImageLoader(); //图片加载器
+    private wenHao:egret.Bitmap;     //临时加的，首页中玩家头像没有时的问号
     
 	public constructor() {
     	super();
@@ -30,6 +31,11 @@ class HeadUI extends BaseUI{
         this.headImg.width = this.width;
         this.headImg.height = this.height;
         this.addChild(this.headImg);
+    }
+    
+    public createWenHao(){
+        this.wenHao = new egret.Bitmap(RES.getRes("home_wenhao_png"));
+        this.addChild(this.wenHao);
     }
     
     public loadImg(imgUrl:string){
@@ -46,6 +52,9 @@ class HeadUI extends BaseUI{
     private loadCompleteHandler(event: egret.Event): void {
         var imageLoader = <egret.ImageLoader>event.currentTarget;
         this.headImg.bitmapData = imageLoader.data;
+        if(this.wenHao){
+            this.wenHao.visible = false;
+        }
     }
     
     //加载头像错误
@@ -65,6 +74,9 @@ class HeadUI extends BaseUI{
     public clear():void{
         this.headImg.bitmapData = null;
         this.openid = "";
+        if(this.wenHao){
+            this.wenHao.visible = true;
+        }
     }
     
     

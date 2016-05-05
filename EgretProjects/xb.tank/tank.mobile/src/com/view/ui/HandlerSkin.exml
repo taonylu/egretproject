@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HandlerSkin" width="500" height="500" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="light_png" horizontalCenter="0" verticalCenter="0"/>
+	<e:Rect height="500" width="500" fillAlpha="0" horizontalCenter="0" verticalCenter="0"/>
+</e:Skin>

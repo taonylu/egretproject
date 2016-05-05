@@ -69,7 +69,6 @@ class Main extends eui.UILayer {
     private onGameComplete():void{
         this.removeChild(this.preloadScene);
         this.preloadScene = null;
-        
         GameManager.getInstance().startup(this);
     }
 

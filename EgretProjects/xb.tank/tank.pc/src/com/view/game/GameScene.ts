@@ -15,6 +15,7 @@ class GameScene extends BaseScene{
     public itemGroup:eui.Group;       //道具层
     private topGroup:eui.Group;       //顶层
     
+    private stageLabel:eui.BitmapLabel;//第几关
     private enemyNumGroup: eui.Group;  //敌人数量图标
     private playerLifeGroup: eui.Group;//玩家生命图标 
     private enemyNumIconList: Array<EnemyNumIcon> = new Array<EnemyNumIcon>();  //敌人图标数组
@@ -93,6 +94,9 @@ class GameScene extends BaseScene{
         }else {
             this.bEndLess = false;
         }
+        //第几关
+        this.stageLabel.text = map.curLevel + "";
+        //开始游戏
         this.resetGame();
         this.startGame();
         this.gameStatus = GameStatus.gameing;
@@ -336,12 +340,28 @@ class GameScene extends BaseScene{
     
     //初始化玩家
     private initPlayer(){
-        var userNum = UserManager.getInstance().getUserNum();
-        if(userNum >= 1){
+//        var userNum = UserManager.getInstance().getUserNum();
+//        if(userNum >= 1){
+//            this.createPlayer(1);
+//        }
+//        if(userNum == 2){
+//            this.createPlayer(2);
+//        }
+        var playerNum = UserManager.getInstance().getUserNum();
+        if(playerNum == 1) {
             this.createPlayer(1);
-        }
-        if(userNum == 2){
-            this.createPlayer(2);
+            this.reducePlayerIcon(1);
+        } else if(playerNum == 2) {
+            var life1 = parseInt(this.p1LifeLabel.text);
+            if(life1 >= 1) {
+                this.createPlayer(1);
+                this.reducePlayerIcon(1);
+            }
+            var life2 = parseInt(this.p2LifeLabel.text);
+            if(life2 >= 1) {
+                this.createPlayer(1);
+                this.reducePlayerIcon(1);
+            }
         }
     }
     
@@ -571,8 +591,8 @@ class GameScene extends BaseScene{
             for(var j = 0;j < playerLen;j++) {
                 otherPlayer = this.playerTankList[j];
                 if(otherPlayer != player) {
-                    if(player.checkCollision(enemy) == false) {
-                        if(player.checkNextCollision(enemy)) {
+                    if(player.checkCollision(otherPlayer) == false) {
+                        if(player.checkNextCollision(otherPlayer)) {
                             return;
                         }
                     }
@@ -670,6 +690,8 @@ class GameScene extends BaseScene{
                                 this.gameOver();
                                 return;
                             }
+                            //坦克重生
+                            this.initPlayer();
                         }
                     }
                 }
@@ -779,6 +801,7 @@ class GameScene extends BaseScene{
                         //未击毁坦克，则改变坦克形态
                         }else{
                             tank.playMoveAnim();
+                            this.bEnemyPause && tank.stop();
                         }
                         //击中，销毁子弹
                         this.playBoom(bullet);
@@ -1108,6 +1131,7 @@ class GameScene extends BaseScene{
                 tank.isHaveItem = true;
             }
             tank.autoTurn();
+            self.bEnemyPause && tank.stop();
             self.tankGroup.addChild(tank);
             self.enemyTankList.push(tank); 
         });
@@ -1171,7 +1195,8 @@ class GameScene extends BaseScene{
     
     //发送游戏结束
     public sendGameOver(){
-        this.socket.sendMessage("gameOver");
+        console.log("send gameOver");
+        this.socket.sendMessage("gameOver",null,this.revGameOver,this);
     }
     
     //接收游戏结束

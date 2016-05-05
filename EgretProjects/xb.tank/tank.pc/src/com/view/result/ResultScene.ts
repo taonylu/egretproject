@@ -43,12 +43,15 @@ class ResultScene extends BaseScene{
     private p2Kill1Label: eui.Label;
     private p2KillLabel: eui.Label;
     
+    private countDownTime:number = 3000;
+    
 	public constructor() {
         super("ResultSceneSkin");
 	}
 	
     public componentCreated(): void {
         super.componentCreated();
+        this.countDownTime = GameConst.gameConfig.resultCountDown;
     }
     
     //清理结果页面
@@ -152,7 +155,7 @@ class ResultScene extends BaseScene{
         }).wait(500).call(function() {
             self.p1TotalLabel.text = p1kill + "";
             self.p2TotalLabel.text = p2kill + "";
-        }).wait(3000).call(function(){
+            }).wait(this.countDownTime).call(function(){
             //游戏结束则回到首页，否则进入下一关
             if(bGameOver){
                 MapManager.getInstance().curLevel = 1;

@@ -82,11 +82,6 @@ class ClientSocket {
             self.gameScene.revAction(data);
         });
         
-        this.socket.on("gameOver",function(data) {
-            console.log("rev gameOver");
-            self.gameScene.revGameOver(data);
-        }); 
-        
     }
     
     //////////////////////////////////////////////////////
@@ -96,9 +91,9 @@ class ClientSocket {
     
     public sendMessage(cmd: string,data = null,callBack: Function = null,thisObject = null): void {
         if(this.socket && this.socket.connected) {
-            this.socket.emit(cmd,data,function(data) {
+            this.socket.emit(cmd,data,function(revData) {
                 if(callBack && thisObject) {
-                    callBack.call(thisObject,data);
+                    callBack.call(thisObject,revData);
                 }
             });
         }

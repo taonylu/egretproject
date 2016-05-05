@@ -11,8 +11,8 @@
 	<e:Image source="result_enemy3_png" y="500" x="934"/>
 	<e:Rect height="5" width="418" y="588" fillColor="0xFCFAFA" x="751"/>
 	<e:Group id="rankGroup" height="320" width="850" x="524" y="670">
-		<e:Label text="英雄榜：" x="220" y="32" size="30" fontFamily="微软雅黑" textColor="0xF49129"/>
-		<e:Label y="122" textColor="0xF49129" text="击杀榜" fontFamily="微软雅黑" size="30" x="215"/>
+		<e:Label text="英雄榜：" x="215" y="32" size="30" fontFamily="微软雅黑" textColor="0xF49129"/>
+		<e:Label y="122" textColor="0xF49129" text="击杀榜：" fontFamily="微软雅黑" size="30" x="215"/>
 		<e:Label y="32" size="30" text="第" x="550" textColor="0xFAF9F6" fontFamily="微软雅黑"/>
 		<e:Label id="rankLabel" y="31" size="30" text="999" x="588" width="60" verticalAlign="middle" textAlign="center" fontFamily="微软雅黑" textColor="0xF49129"/>
 		<e:Label y="31" textColor="0xFAF9F6" size="30" text="名" x="654" fontFamily="微软雅黑"/>

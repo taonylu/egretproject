@@ -18,6 +18,8 @@ var HomeScene = (function (_super) {
         this.socket = ClientSocket.getInstance();
         //初始化玩家头像
         this.pHeadUIList = [this.p1HeadUI, this.p2HeadUI];
+        this.p1HeadUI.createWenHao();
+        this.p2HeadUI.createWenHao();
         //初始化英雄排行榜头像
         for (var i = 0; i < 5; i++) {
             var rankHead = this["rankHead" + i];
@@ -30,6 +32,8 @@ var HomeScene = (function (_super) {
             killHead.clear();
             this.killHeadList.push(killHead);
         }
+        //倒计时
+        this.countDownLimit = GameConst.gameConfig.homeCountDown;
     };
     p.onEnable = function () {
         window["changeBgColor"](GameConst.color0);
@@ -136,6 +140,7 @@ var HomeScene = (function (_super) {
             if (headUI.isEmpty()) {
                 headUI.loadImg(headimgurl);
                 headUI.openid = openid;
+                break;
             }
         }
         //开始倒计时

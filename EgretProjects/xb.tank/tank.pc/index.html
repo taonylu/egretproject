@@ -96,7 +96,7 @@
 
     <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
          data-entry-class="Main"
-         data-orientation="landScape"
+         data-orientation="landscape"
          data-scale-mode="showAll"
          data-frame-rate="60"
          data-content-width="1920"
@@ -119,6 +119,10 @@
     	var gameConfig = {};
     	gameConfig.debug = true;
     	gameConfig.server = "http://node.ekche.com:4300/screen";          //服务器地址
+    	
+    	gameConfig.homeCountDown = 3;       //首页倒计时，单位s
+    	gameConfig.transitionCountDown = 1; //过渡画面倒计时
+    	gameConfig.resultCountDown = 3;     //结算页面倒计时
 
     	//二维码配置
     	var codeConfig = {};
@@ -128,8 +132,8 @@
     	codeConfig.codeUrl = "http://node.ekche.com/game/paoku/mobile";   //二维码地址
     	
     	//测试数据
-    	gameConfig.server = "http://127.0.0.1:3000";
-    	codeConfig.codeUrl = "http://127.0.0.1:3000";
+    	gameConfig.server = "http://192.168.1.111:3000";
+    	codeConfig.codeUrl = "http://192.168.1.111/1/index.html";
     	
     	
     	//创建二维码图片，提供图片dataUrl给egret创建Image

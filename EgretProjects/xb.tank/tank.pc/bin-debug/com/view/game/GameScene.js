@@ -53,6 +53,9 @@ var GameScene = (function (_super) {
         else {
             this.bEndLess = false;
         }
+        //第几关
+        this.stageLabel.text = map.curLevel + "";
+        //开始游戏
         this.resetGame();
         this.startGame();
         this.gameStatus = GameStatus.gameing;
@@ -281,12 +284,29 @@ var GameScene = (function (_super) {
     };
     //初始化玩家
     p.initPlayer = function () {
-        var userNum = UserManager.getInstance().getUserNum();
-        if (userNum >= 1) {
+        //        var userNum = UserManager.getInstance().getUserNum();
+        //        if(userNum >= 1){
+        //            this.createPlayer(1);
+        //        }
+        //        if(userNum == 2){
+        //            this.createPlayer(2);
+        //        }
+        var playerNum = UserManager.getInstance().getUserNum();
+        if (playerNum == 1) {
             this.createPlayer(1);
+            this.reducePlayerIcon(1);
         }
-        if (userNum == 2) {
-            this.createPlayer(2);
+        else if (playerNum == 2) {
+            var life1 = parseInt(this.p1LifeLabel.text);
+            if (life1 >= 1) {
+                this.createPlayer(1);
+                this.reducePlayerIcon(1);
+            }
+            var life2 = parseInt(this.p2LifeLabel.text);
+            if (life2 >= 1) {
+                this.createPlayer(1);
+                this.reducePlayerIcon(1);
+            }
         }
     };
     //创建玩家
@@ -501,8 +521,8 @@ var GameScene = (function (_super) {
             for (var j = 0; j < playerLen; j++) {
                 otherPlayer = this.playerTankList[j];
                 if (otherPlayer != player) {
-                    if (player.checkCollision(enemy) == false) {
-                        if (player.checkNextCollision(enemy)) {
+                    if (player.checkCollision(otherPlayer) == false) {
+                        if (player.checkNextCollision(otherPlayer)) {
                             return;
                         }
                     }
@@ -597,6 +617,8 @@ var GameScene = (function (_super) {
                                 this.gameOver();
                                 return;
                             }
+                            //坦克重生
+                            this.initPlayer();
                         }
                     }
                 }
@@ -703,6 +725,7 @@ var GameScene = (function (_super) {
                         }
                         else {
                             tank.playMoveAnim();
+                            this.bEnemyPause && tank.stop();
                         }
                         //击中，销毁子弹
                         this.playBoom(bullet);
@@ -1034,6 +1057,7 @@ var GameScene = (function (_super) {
                 tank.isHaveItem = true;
             }
             tank.autoTurn();
+            self.bEnemyPause && tank.stop();
             self.tankGroup.addChild(tank);
             self.enemyTankList.push(tank);
         });
@@ -1087,7 +1111,8 @@ var GameScene = (function (_super) {
     };
     //发送游戏结束
     p.sendGameOver = function () {
-        this.socket.sendMessage("gameOver");
+        console.log("send gameOver");
+        this.socket.sendMessage("gameOver", null, this.revGameOver, this);
     };
     //接收游戏结束
     p.revGameOver = function (data) {
