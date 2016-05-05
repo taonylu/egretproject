@@ -22,7 +22,7 @@ io.on('connection', function(socket){
     	var userType = data.userType;
         var rid = data.rid;
 		var openid = data.openid;
-        console.log("rid:" + rid + " userType:" + userType + " openid:" + openid);
+        console.log("----" + "用户加入" + "rid:" + rid + " userType:" + userType + " openid:" + openid);
         //将新加入用户的唯一标识当作socket的名称，后面退出的时候会用到
         socket.rid = rid;
 		socket.openid = openid;
@@ -47,7 +47,7 @@ io.on('connection', function(socket){
         if(userType == "mobile"){
         	var pcSocket = pcUser[rid];
         	if(pcSocket){
-        		pcSocket.emit('userJoin', {openid:openid,headimgurl:"",nickname:"ABC"});
+        		pcSocket.emit('userJoin', {openid:openid,headimgurl:"resource/assets/home/home_p1.png",nickname:"ABC"});
         	}
         }
 
@@ -58,6 +58,9 @@ io.on('connection', function(socket){
     //监听用户退出
     socket.on('disconnect', function(){
 		var pcSocket = pcUser[socket.rid];
+		if(pcSocket == null){
+			return;
+		}
 		if(pcSocket == socket){ //pc离开
 			console.log("pc离开");
 			delete pcUser[socket.rid];
@@ -74,10 +77,12 @@ io.on('connection', function(socket){
 function initPC(socket){
 	//更新rid
     socket.on('upRid',function(data){
+		console.log("upRid:",data.rid);
     	if(pcUser[socket.rid]){
-			delete pcUser[socket.rid];
-			delete mobileUser[socket.rid];
+			//delete pcUser[socket.rid];
+			//delete mobileUser[socket.rid];
 			pcUser[data.rid] = socket;
+			socket.rid = data.rid;
     	}
 		var data = {
 			"heroRankList":[
@@ -90,37 +95,43 @@ function initPC(socket){
 				],
 			"historyScore":999999
 		}
-		io.emit("rank", data);
+		socket.emit("rank", data);
     });
 
 	//开始游戏
     socket.on('startGame',function(data){
     	if(pcUser[socket.rid]){
 			if(mobileUser[socket.rid]){
-				io.emit('startGame');
+				var mobileObj = mobileUser[socket.rid];
+				for(var key in mobileObj) {
+					 mobileObj[key].emit('startGame');
+				}
 			}
     	}
     });
 
 	//游戏结束
     socket.on('gameOver',function(data,callback){
+		console.log("-------rev gameOver rid=" + socket.rid);
     	if(pcUser[socket.rid]){
 			if(mobileUser[socket.rid]){
-				io.emit('gameOver',{"historyScore":9999,"scoreRank":3,"p1KillRank":5,"p2KillRank":6});
-			}
+				var mobileObj = mobileUser[socket.rid];
+				for(var key in mobileObj) {
+					 mobileObj[key].emit('gameOver',{"historyScore":9999,"scoreRank":3,"p1KillRank":5,"p2KillRank":6});
+				}
+			}	
     	}
-		callback();
+		console.log("callback gameOver to PC");
+		callback({"historyScore":9999,"scoreRank":3,"p1KillRank":5,"p2KillRank":6});
     });
 }
 
 function initMobile(socket){
 	//接收来自手机的消息
     socket.on('action',function(data){
-    	if(mobileUser[socket.rid]){
-    		var actionType = data.actionType;
-			if(pcUser[socket.rid]){
-				pcUser[socket.rid].emit('action',{actionType:actionType,openid:socket.openid});
-			}
-    	}
+		var actionType = data.actionType;
+		if(pcUser[socket.rid]){
+			pcUser[socket.rid].emit('action',{actionType:actionType,openid:socket.openid});
+		}
     });
 }

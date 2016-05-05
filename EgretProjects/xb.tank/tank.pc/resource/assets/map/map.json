@@ -23,22 +23,22 @@
         	  ],    	  
 	"level":
 			{
-    			"levelLimit":2,
+    			"levelLimit":3,
     			
-    			"tankLimit":[5,5],
-				"normalTank":[1,1],
-				"fastTank":[0,0],
-				"strongTank":[0,0],
-				"superTank":[0,0],
+    			"tankLimit":[5,5,10],
+				"normalTank":[5,5,2],
+				"fastTank":[5,5,5],
+				"strongTank":[2,5,2],
+				"superTank":[0,5,2],
 
-				"itemNum":[30,3,5],
-				"shield":[0,10,10],
-				"gun":[0,10,10],
-				"star":[0,10,10],
-				"armor":[100,10,10],
-				"life":[10,10,10],
+				"itemNum":[5,5,5],
+				"shield":[15,15,15],
+				"gun":[10,10,10],
+				"star":[20,20,20],
+				"armor":[15,15,15],
+				"life":[15,15,15],
 				"boom":[10,10,10],
-				"pause":[10,10,10],
+				"pause":[15,15,15],
 				
 				"tankAdd":0.3,
 				"superChance":0.5,
@@ -56,11 +56,11 @@
         	"坦克属性 life:生命值，power:枪威力，shootTime:射击间隔单位ms，speed:移动速度(必须能被64整除)"
           ], 
     "tankSet":{
-       		"playerTank":{"life":1,"power":1,"shootTime":[500,300,200],"speed":4},
-        	"normalTank":{"life":1,"power":1,"shootTime":[3000,300,200],"speed":4},
-        	"fastTank":{"life":1,"power":1,"shootTime":[3000,300,200],"speed":8},
-        	"strongTank":{"life":2,"power":2,"shootTime":[3000,300,200],"speed":4},
-        	"superTank":{"life":3,"power":3,"shootTime":[3000,300,200],"speed":4}
+       		"playerTank":{"life":1,"power":1,"shootTime":[500,300,200],"speed":2},
+        	"normalTank":{"life":1,"power":1,"shootTime":[3000,300,200],"speed":2},
+        	"fastTank":{"life":1,"power":1,"shootTime":[3000,300,200],"speed":4},
+        	"strongTank":{"life":2,"power":2,"shootTime":[3000,300,200],"speed":2},
+        	"superTank":{"life":3,"power":3,"shootTime":[3000,300,200],"speed":2}
     	},
     "comment":[
         	"道具属性设置",

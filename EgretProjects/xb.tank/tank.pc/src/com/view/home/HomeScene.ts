@@ -32,6 +32,8 @@ class HomeScene extends BaseScene{
         this.socket = ClientSocket.getInstance();
         //初始化玩家头像
         this.pHeadUIList = [this.p1HeadUI,this.p2HeadUI];
+        this.p1HeadUI.createWenHao();
+        this.p2HeadUI.createWenHao();
         //初始化英雄排行榜头像
         for(var i=0;i<5;i++){
             var rankHead: RankHeadUI = this["rankHead" + i];
@@ -44,6 +46,8 @@ class HomeScene extends BaseScene{
             killHead.clear();
             this.killHeadList.push(killHead);
         }
+        //倒计时
+        this.countDownLimit = GameConst.gameConfig.homeCountDown;
     }
 
     public onEnable(): void {
@@ -170,6 +174,7 @@ class HomeScene extends BaseScene{
             if(headUI.isEmpty()){
                 headUI.loadImg(headimgurl);
                 headUI.openid = openid;
+                break;
             }
         }
         

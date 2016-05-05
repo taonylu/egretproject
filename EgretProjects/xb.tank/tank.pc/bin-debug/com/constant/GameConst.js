@@ -9,12 +9,12 @@ var GameConst = (function () {
     var d = __define,c=GameConst,p=c.prototype;
     /**历史最高得分*/
     GameConst.historyScore = 0;
-    /**过渡场景和游戏背景颜色*/
+    /**过渡场景*/
     GameConst.color7 = "#777777";
     /**首页时的黑色*/
     GameConst.color0 = "#000000";
     /**游戏场景背景色*/
-    GameConst.color2 = "#222222";
+    GameConst.color2 = "#333A42";
     return GameConst;
 }());
 egret.registerClass(GameConst,'GameConst');

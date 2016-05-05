@@ -7,10 +7,12 @@ var ResultScene = (function (_super) {
     __extends(ResultScene, _super);
     function ResultScene() {
         _super.call(this, "ResultSceneSkin");
+        this.countDownTime = 3000;
     }
     var d = __define,c=ResultScene,p=c.prototype;
     p.componentCreated = function () {
         _super.prototype.componentCreated.call(this);
+        this.countDownTime = GameConst.gameConfig.resultCountDown;
     };
     //清理结果页面
     p.clear = function () {
@@ -118,7 +120,7 @@ var ResultScene = (function (_super) {
         }).wait(500).call(function () {
             self.p1TotalLabel.text = p1kill + "";
             self.p2TotalLabel.text = p2kill + "";
-        }).wait(3000).call(function () {
+        }).wait(this.countDownTime).call(function () {
             //游戏结束则回到首页，否则进入下一关
             if (bGameOver) {
                 MapManager.getInstance().curLevel = 1;

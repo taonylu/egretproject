@@ -28,6 +28,10 @@ var HeadUI = (function (_super) {
         this.headImg.height = this.height;
         this.addChild(this.headImg);
     };
+    p.createWenHao = function () {
+        this.wenHao = new egret.Bitmap(RES.getRes("home_wenhao_png"));
+        this.addChild(this.wenHao);
+    };
     p.loadImg = function (imgUrl) {
         this.clear();
         if (imgUrl == "" || imgUrl == null) {
@@ -41,6 +45,9 @@ var HeadUI = (function (_super) {
     p.loadCompleteHandler = function (event) {
         var imageLoader = event.currentTarget;
         this.headImg.bitmapData = imageLoader.data;
+        if (this.wenHao) {
+            this.wenHao.visible = false;
+        }
     };
     //加载头像错误
     p.onLoadError = function () {
@@ -57,6 +64,9 @@ var HeadUI = (function (_super) {
     p.clear = function () {
         this.headImg.bitmapData = null;
         this.openid = "";
+        if (this.wenHao) {
+            this.wenHao.visible = true;
+        }
     };
     return HeadUI;
 }(BaseUI));

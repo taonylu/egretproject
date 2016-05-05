@@ -25,6 +25,7 @@ var game_file_list = [
 	"bin-debug/com/view/GameScene.js",
 	"bin-debug/com/view/HomeScene.js",
 	"bin-debug/com/view/PreloadScene.js",
+	"bin-debug/com/view/ui/Handler.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",
 	//----auto game_file_list end----
@@ -56,7 +57,7 @@ egret_native.egretStart = function () {
         //----auto option start----
 		entryClassName: "Main",
 		frameRate: 30,
-		scaleMode: "noBorder",
+		scaleMode: "fixedWidth",
 		contentWidth: 1136,
 		contentHeight: 640,
 		showPaintRect: false,

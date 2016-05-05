@@ -12,7 +12,7 @@
     <style>
         html, body {
             -ms-touch-action: none;
-            background: #888888;
+            background: #000000;
             padding: 0;
             border: 0;
             margin: 0;
@@ -45,11 +45,11 @@
 
     <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
          data-entry-class="Main"
-         data-orientation="landScape"
-         data-scale-mode="noBorder"
+         data-orientation="landscape"
+         data-scale-mode="fixedWidth"
          data-frame-rate="30"
-         data-content-width="800"
-         data-content-height="480"
+         data-content-width="1136"
+         data-content-height="640"
          data-show-paint-rect="false"
          data-multi-fingered="2"
          data-show-fps="true" data-show-log="true"
@@ -60,8 +60,29 @@
     	gameConfig.openid =  Math.random();
     	gameConfig.headimgurl = "";
     	gameConfig.nickname = "";
+    	//gameConfig.rid = Request("rid");
     	gameConfig.rid = "1";
     	gameConfig.server = "http://192.168.1.111:3000";
+    	//gameConfig.server = "http://127.0.0.1:3000";
+    	
+    	//获取get的值		
+    	function Request(argname) 
+    	{ 
+    		var url = document.location.href; 
+    		var arrStr = url.substring(url.indexOf("?")+1).split("&"); 
+    		//return arrStr; 
+    		for(var i =0;i<arrStr.length;i++) 
+            { 
+                  var loc = arrStr[i].indexOf(argname+"="); 
+                   if(loc!=-1) 
+                  { 
+                        return arrStr[i].replace(argname+"=","").replace("?",""); 
+                        break; 
+                   } 
+            } 
+            return ""; 
+        }
+    	
     	
         egret.runEgret({renderMode:"canvas"});
     </script>

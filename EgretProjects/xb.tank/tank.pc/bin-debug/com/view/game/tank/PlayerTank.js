@@ -75,7 +75,8 @@ var PlayerTank = (function (_super) {
         _super.prototype.reset.call(this);
         var tankSet = MapManager.getInstance().tankSet.playerTank;
         this.speed = tankSet.speed;
-        this.power = tankSet.power;
+        //this.power = tankSet.power;
+        this.power = 3;
         this.life = tankSet.life;
         this.shootTime = tankSet.shootTime[0];
         this.type = TankEnum.player;

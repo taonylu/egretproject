@@ -63,10 +63,6 @@ var ClientSocket = (function () {
         this.socket.on("action", function (data) {
             self.gameScene.revAction(data);
         });
-        this.socket.on("gameOver", function (data) {
-            console.log("rev gameOver");
-            self.gameScene.revGameOver(data);
-        });
     };
     //////////////////////////////////////////////////////
     /////////////////   发送数据    //////////////////////
@@ -76,9 +72,9 @@ var ClientSocket = (function () {
         if (callBack === void 0) { callBack = null; }
         if (thisObject === void 0) { thisObject = null; }
         if (this.socket && this.socket.connected) {
-            this.socket.emit(cmd, data, function (data) {
+            this.socket.emit(cmd, data, function (revData) {
                 if (callBack && thisObject) {
-                    callBack.call(thisObject, data);
+                    callBack.call(thisObject, revData);
                 }
             });
         }

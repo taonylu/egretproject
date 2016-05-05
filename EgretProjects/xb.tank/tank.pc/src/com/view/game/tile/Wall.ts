@@ -109,13 +109,13 @@ class Wall extends BaseTile{
                 //转换砖块坐标为bullet所在容器坐标，再计算碰撞半径
                 //子弹是横着移动，则计算y范围扩大到32
                 if(bullet.speedX != 0){
-                    if(Math.abs(this.x + wall.x - 32 - bullet.x) < 24 && Math.abs(this.y + wall.y - 32 - bullet.y) < 40) {  //击中
+                    if(Math.abs(this.x + wall.x - 32 - bullet.x) <= 24 && Math.abs(this.y + wall.y - 32 - bullet.y) <= 40) {  //击中
                         wall.visible = false;
                         this.life--;
                     }
                 }else{
                   //子弹是竖着移动，则判断x范围扩大到32
-                    if(Math.abs(this.x + wall.x - 32 - bullet.x) < 40 && Math.abs(this.y + wall.y - 32 - bullet.y) < 24) {  //击中
+                    if(Math.abs(this.x + wall.x - 32 - bullet.x) <= 40 && Math.abs(this.y + wall.y - 32 - bullet.y) <= 24) {  //击中
                         wall.visible = false;
                         this.life--;
                     }
@@ -127,6 +127,7 @@ class Wall extends BaseTile{
         }else{
             return false;
         }
+        
     }
     
     //碰撞检测，taraget是子弹或者坦克

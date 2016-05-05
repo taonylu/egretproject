@@ -92,7 +92,7 @@ class Steel extends BaseTile{
             steel = this.steelList[i];
             if(steel.visible == true) {
                 //转换坐标为bullet所在容器坐标，再计算碰撞半径
-                if(Math.abs(this.x + steel.x - 32 - target.x) < 48 && Math.abs(this.y + steel.y - 32 - target.y) < 48) {  //击中
+                if(Math.abs(this.x + steel.x - 32 - target.x) <= 48 && Math.abs(this.y + steel.y - 32 - target.y) <= 48) {  //击中
                     steel.visible = false;
                     this.life--;
                 }
