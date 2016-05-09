@@ -24,6 +24,8 @@ class HomeScene extends BaseScene{
     public onEnable(): void {
        this.startConnect();
        this.handler.visible = false;
+       egret.log("用户id:",GameConst.gameConfig.openid);
+       egret.log("用户昵称:",GameConst.gameConfig.nickname);
     }
 
     public onRemove(): void {
@@ -77,13 +79,15 @@ class HomeScene extends BaseScene{
             openid: gameConfig.openid,
             headimgurl: gameConfig.headimgurl,
             nickname: gameConfig.nickname,
+            group: gameConfig.group,
+            count:gameConfig.count,
             userType:"mobile"
         }
-        this.socket.sendMessage("login",json,this.revLogin,this);
+        this.socket.sendMessage("login",json);
     }
     
     //接收登录
-    private revLogin(data){
+    public revLogin(data){
         var success:string = data.success;
         var msg:string = data.msg;
         egret.log("rev login:"," success:",success," msg:",msg);

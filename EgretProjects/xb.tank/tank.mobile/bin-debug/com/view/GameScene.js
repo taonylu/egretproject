@@ -87,6 +87,9 @@ var GameScene = (function (_super) {
     //接收游戏结束
     p.revGameOver = function (data) {
         egret.log("rev gameOver");
+        var wave = data.wave;
+        var heroRank = data.heroRank;
+        var prize = data.prize;
     };
     return GameScene;
 }(BaseScene));

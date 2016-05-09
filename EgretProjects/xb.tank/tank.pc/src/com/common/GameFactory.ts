@@ -15,6 +15,7 @@ class GameFactory {
     public bulletPool:ObjectPool = ObjectPool.getPool(Bullet.NAME);        //子弹
     private boomPool:ObjectPool = ObjectPool.getPool(Boom.NAME);           //爆炸效果
     private tankBoomPool:ObjectPool = ObjectPool.getPool(TankBoom.NAME);   //坦克爆炸效果
+    private scoreLabelPool:ObjectPool = ObjectPool.getPool(ScoreLabel.NAME);//爆炸或道具的分数文本
     
     private steelPool:ObjectPool = ObjectPool.getPool(Steel.NAME);            //钢铁
     private wallPool:ObjectPool = ObjectPool.getPool(Wall.NAME);              //墙
@@ -59,6 +60,11 @@ class GameFactory {
     //获取一颗子弹
     public getBullet():Bullet{
         return this.bulletPool.getObject();
+    }
+    
+    //获取一个分数文本
+    public getScoreLabel():ScoreLabel{
+        return this.scoreLabelPool.getObject();
     }
     
     //获取一个爆炸效果

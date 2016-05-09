@@ -15,6 +15,7 @@ var GameFactory = (function () {
         this.bulletPool = ObjectPool.getPool(Bullet.NAME); //子弹
         this.boomPool = ObjectPool.getPool(Boom.NAME); //爆炸效果
         this.tankBoomPool = ObjectPool.getPool(TankBoom.NAME); //坦克爆炸效果
+        this.scoreLabelPool = ObjectPool.getPool(ScoreLabel.NAME); //爆炸或道具的分数文本
         this.steelPool = ObjectPool.getPool(Steel.NAME); //钢铁
         this.wallPool = ObjectPool.getPool(Wall.NAME); //墙
         this.grassPool = ObjectPool.getPool(Grass.NAME); //草地
@@ -51,6 +52,10 @@ var GameFactory = (function () {
     //获取一颗子弹
     p.getBullet = function () {
         return this.bulletPool.getObject();
+    };
+    //获取一个分数文本
+    p.getScoreLabel = function () {
+        return this.scoreLabelPool.getObject();
     };
     //获取一个爆炸效果
     p.getBoom = function () {
