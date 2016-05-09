@@ -27,6 +27,8 @@ var PlayerTank = (function (_super) {
     p.playShield = function (loopTimes) {
         if (this.parent) {
             this.parent.addChild(this.shield);
+            this.shield.x = this.x;
+            this.shield.y = this.y;
             this.shield.play(loopTimes);
             this.shield.addEventListener(egret.MovieClipEvent.COMPLETE, this.onShieldComplete, this);
         }
@@ -75,8 +77,7 @@ var PlayerTank = (function (_super) {
         _super.prototype.reset.call(this);
         var tankSet = MapManager.getInstance().tankSet.playerTank;
         this.speed = tankSet.speed;
-        //this.power = tankSet.power;
-        this.power = 3;
+        this.power = tankSet.power;
         this.life = tankSet.life;
         this.shootTime = tankSet.shootTime[0];
         this.type = TankEnum.player;

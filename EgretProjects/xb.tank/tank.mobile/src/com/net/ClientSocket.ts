@@ -78,7 +78,9 @@ class ClientSocket {
 //            }
 //        });
         
-        
+        this.socket.on("login",function(data) {
+            self.homeScene.revLogin(data);
+        }); 
         
         this.socket.on("startGame",function(data) {      
             self.homeScene.revStartGame();

@@ -51,7 +51,7 @@ class ResultScene extends BaseScene{
 	
     public componentCreated(): void {
         super.componentCreated();
-        this.countDownTime = GameConst.gameConfig.resultCountDown;
+        this.countDownTime = GameConst.gameConfig.resultCountDown*1000;
     }
     
     //清理结果页面
@@ -84,34 +84,44 @@ class ResultScene extends BaseScene{
         var killList = data.killList;
         var totalKillList = data.totalKillList;
         //总分
+        this.p1ScoreLabel.text = data.totalScore[0] + "";
         if(UserManager.getInstance().getUserNum() == 1){
             this.p2ScoreGroup.visible = false;
+            this.p2ScoreLabel.text = "";
         }else{
             this.p2ScoreGroup.visible = true;   
+            this.p2ScoreLabel.text = data.totalScore[1] + "";
         }
-        var p1Score = 0;  //总分
-        var p2Score = 0;
         var p1kill = 0;   //本关击杀
         var p2kill = 0;
         for(var i=0;i<4;i++){
-            p1Score += totalKillList[0][i]*(i+1)*100;
-            p2Score += totalKillList[1][i]*(i+1)*100;
             p1kill += killList[0][i];
             p2kill += killList[1][i];
         }
-        this.p1ScoreLabel.text = p1Score + "";
-        this.p2ScoreLabel.text = p2Score + "";
+        
         //游戏结束，才能显示击杀和英雄榜
         if(bGameOver) {
             this.rankGroup.visible = true;
             //英雄榜
-            this.p1RankHead.loadImg(data.p1RankHeadUrl);
-            this.p2RankHead.loadImg(data.p2RankHeadUrl);
-            this.rankLabel.text = data.scoreRank + "";
+            var userManager:UserManager = UserManager.getInstance();
+            var userList = userManager.userList;
+            var userNum = userList.length;
+            if(userNum >= 1) {
+                this.p1RankHead.loadImg(userList[0].headimgurl);
+            }
+            if(userNum == 2){
+                this.p2RankHead.loadImg(userList[1].headimgurl); 
+            }
+            this.rankLabel.text = data.heroRank + "";
             //击杀榜
-            this.p1KillHead.loadImg(data.p1KillHeadUrl);
-            this.p2KillHead.loadImg(data.p2KillHeadUrl);
-            if(data.p1Kill != "") {
+            if(userNum >= 1) {
+                this.p1KillHead.loadImg(userList[0].headimgurl);
+            }
+            if(userNum == 2) {
+                this.p2KillHead.loadImg(userList[1].headimgurl);
+            }
+            
+            if(data.p1KillRank != 0) {
                 this.p1Kill0Label.visible = true;
                 this.p1Kill1Label.visible = true;
             } else {
@@ -119,14 +129,19 @@ class ResultScene extends BaseScene{
                 this.p1Kill1Label.visible = false;
             }
             this.p1KillLabel.text = data.p1KillRank + "";
-            if(data.p2Kill != "") {
+            if(data.p2KillRank != 0) {
                 this.p2Kill0Label.visible = true;
                 this.p2Kill1Label.visible = true;
             } else {
                 this.p2Kill0Label.visible = false;
                 this.p2Kill1Label.visible = false;
             }
-            this.p2KillLabel.text = data.p2KillRank + "";
+            if(userNum == 2){
+                this.p2KillLabel.text = data.p2KillRank + "";
+            }else{
+                this.p2KillLabel.text = "";
+            }
+            
         } else {
             this.rankGroup.visible = false;
         }

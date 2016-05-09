@@ -86,7 +86,10 @@ var HomeScene = (function (_super) {
         var codeConfig = window["codeConfig"];
         codeLoader.load(codeConfig.codeData, codeConfig.codeWidth, codeConfig.codeHeight, codeConfig.logoUrl);
         this.codeGroup.addChild(codeLoader);
-        this.sendUpRid();
+        if (this.socket.isConnected()) {
+            this.sendUpRid();
+            this.sendRank();
+        }
     };
     //开始连接socket
     p.startConnect = function () {
@@ -100,8 +103,8 @@ var HomeScene = (function (_super) {
     };
     //发送登录请求
     p.sendLogin = function () {
-        console.log("send login:", "rid=" + this.rid);
-        this.socket.sendMessage("login", { rid: this.rid, userType: "pc" }, this.revLogin, this);
+        this.socket.sendMessage("login", { rid: this.rid, gid: GameConst.gameConfig.gid, userType: "pc" });
+        console.log("send login:", "rid=" + this.rid, "gid=", GameConst.gameConfig.gid);
     };
     //接收登录
     p.revLogin = function (data) {
@@ -111,6 +114,11 @@ var HomeScene = (function (_super) {
         if (success == false) {
             alert(msg);
         }
+        this.sendRank();
+    };
+    //请求获取排行榜
+    p.sendRank = function () {
+        this.socket.sendMessage("rank", {});
     };
     //更新房间号，第一次进入homeScene时，socket尚未连接，所以并不会发送upRid，房间号在登录请求login中发送
     p.sendUpRid = function () {
@@ -120,7 +128,7 @@ var HomeScene = (function (_super) {
     //发送游戏开始
     p.sendStartGame = function () {
         console.log("send startGame");
-        this.socket.sendMessage("startGame");
+        this.socket.sendMessage("startGame", { data: {} });
     };
     //接收用户加入
     p.revUserJoin = function (data) {
@@ -147,8 +155,9 @@ var HomeScene = (function (_super) {
         this.startCountDown();
     };
     //接收排行榜
-    p.revRank = function (data) {
-        console.log("revRank:", data);
+    p.revRank = function (json) {
+        console.log("revRank:", json);
+        var data = json.message;
         var heroRankList = data.heroRankList; //英雄榜
         var killRankList = data.killRankList; //击杀榜
         var historyScore = data.historyScore; //历史最高得分
@@ -160,6 +169,7 @@ var HomeScene = (function (_super) {
         }
         //设置英雄榜
         len = heroRankList.length;
+        len = (len > 5) ? 5 : len;
         for (var i = 0; i < len; i++) {
             rankHead = this.rankHeadList[i];
             rankHead.setHead(heroRankList[i].p1HeadUrl, heroRankList[i].p2HeadUrl);
@@ -167,6 +177,7 @@ var HomeScene = (function (_super) {
         }
         //重置击杀榜
         len = this.killHeadList.length;
+        len = (len > 5) ? 5 : len;
         for (var i = 0; i < len; i++) {
             var killHead = this.killHeadList[i];
             killHead.clear();

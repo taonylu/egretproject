@@ -16,6 +16,8 @@ var HomeScene = (function (_super) {
     p.onEnable = function () {
         this.startConnect();
         this.handler.visible = false;
+        egret.log("用户id:", GameConst.gameConfig.openid);
+        egret.log("用户昵称:", GameConst.gameConfig.nickname);
     };
     p.onRemove = function () {
     };
@@ -59,9 +61,11 @@ var HomeScene = (function (_super) {
             openid: gameConfig.openid,
             headimgurl: gameConfig.headimgurl,
             nickname: gameConfig.nickname,
+            group: gameConfig.group,
+            count: gameConfig.count,
             userType: "mobile"
         };
-        this.socket.sendMessage("login", json, this.revLogin, this);
+        this.socket.sendMessage("login", json);
     };
     //接收登录
     p.revLogin = function (data) {

@@ -52,6 +52,7 @@ class GameScene extends BaseScene{
     private bEnemyPause:boolean = false;
     
     private gameStatus:GameStatus = GameStatus.waiting;   //游戏状态
+    private totalScore = [0,0];                              //玩家总分数
     
     private killList;                 //本关击杀坦克记录，二维数组 [玩家][坦克类型] = 击杀数
     private totalKillList;            //总击杀坦克记录，二维数组 [玩家][坦克类型] = 击杀数
@@ -84,7 +85,8 @@ class GameScene extends BaseScene{
         if(map.curLevel == 1) {
             this.initMap();     //初始化地图
             this.initKillList();  //初始化击杀列表
-            this.waveLabel.text = "";
+            this.waveLabel.text = "";   //波数文本清理
+            this.totalScore = [0,0];  //玩家分数清零
         }
         //判断无尽关卡
         if(map.curLevel >= map.levelLimit && this.bEndLess == false){
@@ -119,6 +121,7 @@ class GameScene extends BaseScene{
         this.clearPlayerIcon();    //清理玩家生命
         this.clearEnemyTank();     //清理敌方坦克
         this.clearPlayerTank();    //清理我方坦克
+        this.clearBullet();        //清理子弹
         this.clearItem();          //清理道具
         this.clearTile();          //清理地形
     }
@@ -154,6 +157,7 @@ class GameScene extends BaseScene{
                 var data = {
                     "killList": self.killList,
                     "totalKillList": self.totalKillList,
+                    "totalScore":self.totalScore,
                     "stage": MapManager.getInstance().curLevel,
                     "wave": self.wave,
                     "historyScore": GameConst.historyScore
@@ -348,19 +352,16 @@ class GameScene extends BaseScene{
 //            this.createPlayer(2);
 //        }
         var playerNum = UserManager.getInstance().getUserNum();
-        if(playerNum == 1) {
-            this.createPlayer(1);
-            this.reducePlayerIcon(1);
-        } else if(playerNum == 2) {
+        if(playerNum >= 1) {
             var life1 = parseInt(this.p1LifeLabel.text);
             if(life1 >= 1) {
                 this.createPlayer(1);
-                this.reducePlayerIcon(1);
             }
+        }
+        if(playerNum == 2) {
             var life2 = parseInt(this.p2LifeLabel.text);
             if(life2 >= 1) {
-                this.createPlayer(1);
-                this.reducePlayerIcon(1);
+                this.createPlayer(2);
             }
         }
     }
@@ -531,6 +532,16 @@ class GameScene extends BaseScene{
         this.playerTankList.length = 0;
     }
     
+    //清理子弹
+    private clearBullet(){
+        var len = this.bulletList.length;
+        for(var i=0;i<len;i++){
+            var bullet:Bullet = this.bulletList[i];
+            bullet.recycle();
+        }
+        this.bulletList.length = 0;
+    }
+    
     //清理道具
     private clearItem(){
         var len = this.itemList.length;
@@ -551,16 +562,6 @@ class GameScene extends BaseScene{
                 this.mapList[i][j] = 0;
             }
         }  
-    }
-    
-    //清理子弹
-    private clearBullet(){
-        var len = this.bulletList.length;
-        for(var i=0;i<len;i++){
-            var bullet:Bullet = this.bulletList[i];
-            bullet.recycle();
-        }
-        this.bulletList.length = 0;
     }
     
     //移动玩家坦克
@@ -609,9 +610,13 @@ class GameScene extends BaseScene{
                 var item:BaseItem = this.itemList[j];
                 if(item.checkCollision(player)){
                     if(this.checkItemEffect(item,player)){
+                        //显示得分
+                        this.playScoreLabel(item, 500, (<PlayerTank>player).playerNo);  //一个道具500分，暂时写死
+                        //移除道具
                         this.itemList.splice(j,1);
                         item.recycle(); 
-                        if(item.type == ItemEnum.boom) {  //如果是炸弹，则判断是否游戏结束
+                        //如果是炸弹，则判断是否游戏结束
+                        if(item.type == ItemEnum.boom) {  
                             if(this.checkEnemyAllDie()) {
                                 this.gameWin();
                                 return;
@@ -683,15 +688,25 @@ class GameScene extends BaseScene{
                 var item: BaseItem = this.itemList[j];
                 if(item.checkCollision(enemy)) {
                     if(this.checkItemEffect(item,enemy)) {
+                        //移除道具
                         this.itemList.splice(j,1);
                         item.recycle();
-                        if(item.type == ItemEnum.boom){  //如果是炸弹，则判断是否游戏结束
+                        //如果是炸弹，则判断是否游戏结束
+                        if(item.type == ItemEnum.boom){  
                             if(this.checkPlayerAllDie()){
                                 this.gameOver();
                                 return;
                             }
                             //坦克重生
                             this.initPlayer();
+                            var life1 = parseInt(this.p1LifeLabel.text);
+                            if(life1 >= 1) {
+                                this.reducePlayerIcon(1);
+                            }
+                            var life2 = parseInt(this.p2LifeLabel.text);
+                            if(life2 >= 1) {
+                                this.reducePlayerIcon(2);
+                            }
                         }
                     }
                 }
@@ -782,6 +797,9 @@ class GameScene extends BaseScene{
                         }
                         //击毁，销毁坦克
                         if(tank.beAttacked(bullet)){
+                            //显示得分
+                            this.playScoreLabel(tank,tank.type * 100,(<PlayerTank>bullet.owner).playerNo);
+                            //移除坦克
                             tank.recycle();
                             this.enemyTankList.splice(j,1);
                             this.playTankBoom(tank.x, tank.y);
@@ -898,7 +916,7 @@ class GameScene extends BaseScene{
         }else if(item.type == ItemEnum.life){ //生命增加
             if(tank.type == TankEnum.player){
                 this.snd.play(this.snd.gift_life);
-                this.reducePlayerIcon(-1);
+                this.reducePlayerIcon((<PlayerTank>tank).playerNo,-1);
             }else{
                 return false;
             }
@@ -985,6 +1003,17 @@ class GameScene extends BaseScene{
         boom.y = bullet.y;
         this.boomGroup.addChild(boom);
         boom.playBoom();
+    }
+    
+    //显示得分
+    private playScoreLabel(target, score:number, playerNo:number){
+        var scoreLabel:ScoreLabel = GameFactory.getInstance().getScoreLabel();
+        scoreLabel.x = target.x;
+        scoreLabel.y = target.y;
+        scoreLabel.setScoreLabel(score);
+        this.topGroup.addChild(scoreLabel);
+        //得分
+        this.totalScore[playerNo-1] += score;
     }
     
     //播放坦克爆炸效果
@@ -1195,25 +1224,49 @@ class GameScene extends BaseScene{
     
     //发送游戏结束
     public sendGameOver(){
-        console.log("send gameOver");
-        this.socket.sendMessage("gameOver",null,this.revGameOver,this);
+        var userNum = UserManager.getInstance().getUserNum();
+        var p1Kill = 0;
+        var p2Kill = 0;
+        var p1Score = 0;
+        var p2Score = 0;
+        var p1Openid = "";
+        var p2Openid = "";
+        for(var i=0;i<4;i++){
+            p1Kill += this.totalKillList[0][i];
+            p2Kill += this.totalKillList[1][i];
+        } 
+        if(userNum >= 1){
+            p1Openid = UserManager.getInstance().userList[0].openid;
+            p1Score = this.totalScore[0];
+        }
+        if(userNum == 2){
+            p2Openid = UserManager.getInstance().userList[1].openid;
+            p2Score = this.totalScore[1];
+        }
+        var data = {p1Kill:p1Kill, p2Kill:p2Kill,p1Score:p1Score,p2Score:p2Score,wave:this.wave,p1Openid:p1Openid,
+                    p2Openid:p2Openid,stage:MapManager.getInstance().curLevel};
+        console.log("send gameOver:",data);
+        this.socket.sendMessage("gameOver",data);
     }
     
     //接收游戏结束
-    public revGameOver(data){
-        console.log("revGameOver:",data);
+    public revGameOver(json){
+        console.log("revGameOver:",json);
         this.deConfigListeners();     //停止移动和碰撞检测
         this.stopGenerateTimer();     //停止生成坦克计时
         this.stopArmorTimer();        //停止基地护甲计时
         this.stopPauseTimer();        //停止暂停道具计时
         LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
+        var data = json.message;    //临时修改的data为message
+        var success = json.success;
         var gameData = {
             "killList": this.killList,
             "totalKillList": this.totalKillList,
             "stage": MapManager.getInstance().curLevel,
             "wave": this.wave,
-            "historyScore":data.historyScore,
-            "scoreRank": data.scoreRank,
+            "totalScore": this.totalScore,
+            "historyScore": data.historyScore,
+            "heroRank": data.heroRank,
             "p1KillRank": data.p1KillRank,
             "p2KillRank": data.p2KillRank
         };

@@ -1,5 +1,7 @@
 declare class GameSceneSkin extends eui.Skin{
 }
+declare class ScoreLabelSkin extends eui.Skin{
+}
 declare class CampSkin extends eui.Skin{
 }
 declare class GrassSkin extends eui.Skin{

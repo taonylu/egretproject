@@ -35,10 +35,12 @@ var ClientSocket = (function () {
         //连接失败    
         this.socket.on('error', function (data) {
             egret.log("connenct erro");
+            alert("与服务器连接错误");
         });
         //断开连接    
         this.socket.on('disconnect', function () {
             egret.log("connenct close");
+            alert("与服务器断开连接");
         });
         //尝试重新连接
         this.socket.on('reconnect_attempt', function () {
@@ -47,10 +49,14 @@ var ClientSocket = (function () {
         //连接超时
         this.socket.on('connect_timeout', function () {
             egret.log("connect_timeout");
+            alert("连接超时");
         });
         //////////////////////////////////////////////////////
         /////////////////   接收数据     //////////////////////
         //////////////////////////////////////////////////////
+        this.socket.on("login", function (data) {
+            self.homeScene.revLogin(data);
+        });
         this.socket.on("rank", function (data) {
             self.homeScene.revRank(data);
         });
@@ -62,6 +68,9 @@ var ClientSocket = (function () {
         });
         this.socket.on("action", function (data) {
             self.gameScene.revAction(data);
+        });
+        this.socket.on("gameOver", function (data) {
+            self.gameScene.revGameOver(data);
         });
     };
     //////////////////////////////////////////////////////

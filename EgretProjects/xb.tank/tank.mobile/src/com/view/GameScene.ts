@@ -101,12 +101,18 @@ class GameScene extends BaseScene{
     
     public sendAction(actionType:ActionEnum){
         //egret.log("send action:",actionType);
-        this.socket.sendMessage("action",{actionType:actionType, openid:GameConst.gameConfig.openid})
+        this.socket.sendMessage("action",{actionType:actionType, openid:GameConst.gameConfig.openid});
     }
     
     //接收游戏结束
     public revGameOver(data){
         egret.log("rev gameOver");
+        var wave = data.wave;
+        var heroRank = data.heroRank;
+        var prize = data.prize;
+        
+        
+        
     }
 
     
