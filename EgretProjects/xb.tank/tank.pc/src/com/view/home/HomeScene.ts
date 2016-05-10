@@ -48,10 +48,12 @@ class HomeScene extends BaseScene{
         }
         //倒计时
         this.countDownLimit = GameConst.gameConfig.homeCountDown;
+        this.countDownLabel.visible = false;
     }
 
     public onEnable(): void {
         window["changeBgColor"](GameConst.color0);
+        UserManager.getInstance().clearAllUser(); //清理用户列表
         this.resetView();     //重置界面
         this.createQRCode();  //创建二维码
         this.startConnect();  //连接socket
@@ -81,6 +83,7 @@ class HomeScene extends BaseScene{
     
     //开始倒计时
     private startCountDown(){
+        this.countDownLabel.visible = true;
         this.countDownTimer.addEventListener(egret.TimerEvent.TIMER, this.onCountDownHandler,this);
         this.countDownTimer.reset();
         this.countDownTimer.start();
@@ -98,6 +101,7 @@ class HomeScene extends BaseScene{
     
     //停止倒计时
     private stopCountDown(){
+        this.countDownLabel.visible = false;
         this.countDownTimer.removeEventListener(egret.TimerEvent.TIMER,this.onCountDownHandler,this);
         this.countDownTimer.stop();
     }
@@ -188,7 +192,9 @@ class HomeScene extends BaseScene{
         }
         
         //开始倒计时
-        this.startCountDown();   
+        if(UserManager.getInstance().getUserNum() == 1){
+            this.startCountDown();
+        }   
     }
     
     //接收排行榜
@@ -214,13 +220,13 @@ class HomeScene extends BaseScene{
         }
         //重置击杀榜
         len = this.killHeadList.length;
-        len = (len > 5) ? 5 : len;
         for(var i = 0;i < len;i++) {
             var killHead: KillHeadUI = this.killHeadList[i];
             killHead.clear();
         }
         //设置击杀榜
         len = killRankList.length;
+        len = (len > 5) ? 5 : len;
         for(var i = 0;i < len;i++) {
             killHead = this.killHeadList[i];
             killHead.setValue(killRankList[i].headUrl, killRankList[i].kill);
@@ -249,6 +255,13 @@ class HomeScene extends BaseScene{
             if(UserManager.getInstance().getUserNum() <= 0) {
                 this.stopCountDown();
                 this.countDownLabel.text = this.countDownLimit + "";
+            }
+        }else if(GameManager.getInstance().gameScene.parent){
+            //从用户列表中删除
+            UserManager.getInstance().deleteUser(openid);
+            //如果玩家全部离开，则结束游戏
+            if(UserManager.getInstance().getUserNum() <= 0){
+                GameManager.getInstance().gameScene.gameOver();
             }
         }
     } 

@@ -22,7 +22,6 @@ var game_file_list = [
 	"bin-debug/com/utils/tool/HttpUtil.js",
 	"bin-debug/com/utils/tool/StringTool.js",
 	"bin-debug/com/utils/ui/HeadUI.js",
-	"bin-debug/com/view/GameScene.js",
 	"bin-debug/com/view/HomeScene.js",
 	"bin-debug/com/view/PreloadScene.js",
 	"bin-debug/com/view/ui/Handler.js",

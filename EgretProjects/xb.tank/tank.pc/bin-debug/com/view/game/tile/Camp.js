@@ -20,7 +20,12 @@ var Camp = (function (_super) {
     };
     //override
     p.beAttacked = function (target) {
-        return true;
+        if (this.normal.visible) {
+            return true;
+        }
+        else {
+            return false;
+        }
     };
     //override
     p.reset = function () {

@@ -31,6 +31,11 @@
 				},
 				{
 					"isFolder":false,
+					"key":"preload_jpg",
+					"name":"preload_jpg"
+				},
+				{
+					"isFolder":false,
 					"key":"alphaBtn_png",
 					"name":"alphaBtn_png"
 				}

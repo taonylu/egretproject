@@ -16,7 +16,7 @@ class PreloadScene extends BaseScene{
     
     public setProgress(process:number){
         if(this.inited){
-            this.progressLabel.text = process.toString() + "%";
+            this.progressLabel.text = "Loading..." + process.toString() + "%";
         }    
     }
 }

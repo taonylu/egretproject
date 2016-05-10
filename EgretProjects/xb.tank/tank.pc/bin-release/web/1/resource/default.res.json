@@ -1,7 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"wall15_png",
+			"keys":"home_p1_png,result_enemy1_png,bullet_png,tankBoom_png,tankBoom_json",
 			"name":"preload"
 		},
 		{
