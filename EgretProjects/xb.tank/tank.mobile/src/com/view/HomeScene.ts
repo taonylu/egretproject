@@ -34,6 +34,7 @@ class HomeScene extends BaseScene{
     
     private configListeners() {
         this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouchBegin,this);
+        this.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
         this.handler.configListeners();
     }
 
@@ -41,8 +42,6 @@ class HomeScene extends BaseScene{
         this.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouchBegin,this);
         this.handler.deConfigListeners();
     }
-
-    private curTouchTarget;  //当前触摸对象
 
     private onTouchBegin(e: egret.TouchEvent) {
         switch(e.target) {
@@ -54,6 +53,15 @@ class HomeScene extends BaseScene{
                 this.handler.x = e.stageX - this.handler.width/2;
                 this.handler.y = e.stageY - this.handler.height/2;
                 this.handler.visible = true;
+                break;
+        }
+    }
+    
+    private onTouchEnd(e:egret.TouchEvent){
+        switch(e.target){
+            case this.aBtn:
+            case this.bBtn:
+                this.sendAction(ActionEnum.stopShoot);
                 break;
         }
     }
@@ -106,8 +114,12 @@ class HomeScene extends BaseScene{
     }
     
     //接收游戏结束
-    public revGameOver(data) {
+    public revGameOver(json) {
         egret.log("rev gameOver");
+        var data = json.message;
+        var wave = data.wave;
+        var heroRank = data.heroRank;
+        egret.log("wave:",wave,"heroRank:",heroRank);
     }
     
 }

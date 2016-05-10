@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="HomeSceneSkin" width="1136" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
-	<e:Image id="bg" source="handBg_png"/>
-	<e:Image id="p1" source="p1_png" x="70" y="42"/>
-	<e:Image id="p2" source="p2_png" x="71" y="41"/>
+	<e:Rect height="900" width="1136" fillColor="0xCE0203"/>
+	<e:Image id="bg" source="handBg_png" y="0"/>
+	<e:Image id="p1" source="p1_png" x="70" y="42" visible="false"/>
+	<e:Image id="p2" source="p2_png" x="71" y="41" visible="false"/>
 	<e:Button id="bBtn" x="710" y="309">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
@@ -19,6 +20,6 @@
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Rect id="directionBg" height="500" width="500" x="12" y="83" fillAlpha="0"/>
-	<ns1:Handler id="handler" x="-16" y="48" skinName="HandlerSkin"/>
+	<e:Rect id="directionBg" height="636" width="537" x="3" y="2" fillAlpha="0"/>
+	<ns1:Handler id="handler" x="-3" y="0" skinName="HandlerSkin" height="637" width="532"/>
 </e:Skin>

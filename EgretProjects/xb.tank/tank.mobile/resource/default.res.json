@@ -1,7 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"p1_png",
+			"keys":"preload_jpg",
 			"name":"preload"
 		},
 		{
@@ -29,6 +29,11 @@
 			"name":"handBg_png",
 			"type":"image",
 			"url":"assets/handBg.png"
+		},
+		{
+			"name":"preload_jpg",
+			"type":"image",
+			"url":"assets/preload.jpg"
 		},
 		{
 			"name":"alphaBtn_png",

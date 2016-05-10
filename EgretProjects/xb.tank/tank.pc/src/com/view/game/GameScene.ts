@@ -52,7 +52,8 @@ class GameScene extends BaseScene{
     private bEnemyPause:boolean = false;
     
     private gameStatus:GameStatus = GameStatus.waiting;   //游戏状态
-    private totalScore = [0,0];                              //玩家总分数
+    private totalScore = [0,0];                           //玩家总分数
+    private playerLife = [0,0];                           //玩家生命
     
     private killList;                 //本关击杀坦克记录，二维数组 [玩家][坦克类型] = 击杀数
     private totalKillList;            //总击杀坦克记录，二维数组 [玩家][坦克类型] = 击杀数
@@ -344,22 +345,15 @@ class GameScene extends BaseScene{
     
     //初始化玩家
     private initPlayer(){
-//        var userNum = UserManager.getInstance().getUserNum();
-//        if(userNum >= 1){
-//            this.createPlayer(1);
-//        }
-//        if(userNum == 2){
-//            this.createPlayer(2);
-//        }
         var playerNum = UserManager.getInstance().getUserNum();
         if(playerNum >= 1) {
-            var life1 = parseInt(this.p1LifeLabel.text);
+            var life1 = this.playerLife[0];
             if(life1 >= 1) {
                 this.createPlayer(1);
             }
         }
         if(playerNum == 2) {
-            var life2 = parseInt(this.p2LifeLabel.text);
+            var life2 = this.playerLife[1];
             if(life2 >= 1) {
                 this.createPlayer(2);
             }
@@ -432,6 +426,7 @@ class GameScene extends BaseScene{
         if(MapManager.getInstance().curLevel == 1){  //只需要设置一次
             var userNum = UserManager.getInstance().getUserNum();
             var playerLife = MapManager.getInstance().playerSet.life;
+            this.playerLife = [playerLife, playerLife];
             if(userNum >= 1) {  //1个玩家
                 this.p1Label.visible = true;
                 this.p1LifeLabel.visible = true;
@@ -450,11 +445,11 @@ class GameScene extends BaseScene{
     //减少玩家生命文本
     private reducePlayerIcon(playerNo:number,reduceLife:number=1){
         if(playerNo == 1){
-            var life = parseInt(this.p1LifeLabel.text);
-            this.p1LifeLabel.text = (life - reduceLife) + "";
+            this.playerLife[0] -= reduceLife;
+            this.p1LifeLabel.text = this.playerLife[0] + "";
         }else if(playerNo == 2){
-            var life = parseInt(this.p2LifeLabel.text);
-            this.p2LifeLabel.text = (life - reduceLife) + "";
+            this.playerLife[1] -= reduceLife;
+            this.p2LifeLabel.text = this.playerLife[1] + "";
         }
     }
     
@@ -699,12 +694,10 @@ class GameScene extends BaseScene{
                             }
                             //坦克重生
                             this.initPlayer();
-                            var life1 = parseInt(this.p1LifeLabel.text);
-                            if(life1 >= 1) {
+                            if(this.playerLife[0] >= 1) {
                                 this.reducePlayerIcon(1);
                             }
-                            var life2 = parseInt(this.p2LifeLabel.text);
-                            if(life2 >= 1) {
+                            if(this.playerLife[1] >= 1) {
                                 this.reducePlayerIcon(2);
                             }
                         }
@@ -792,6 +785,7 @@ class GameScene extends BaseScene{
                         //掉落道具判断
                         if(tank.isHaveItem){
                             tank.isHaveItem = false;
+                            this.clearItem(); //道具不能同时存在多个
                             this.createItem();
                             this.snd.play(this.snd.gift);
                         }
@@ -850,8 +844,11 @@ class GameScene extends BaseScene{
                                 return;
                             }
                             //坦克重生
-                            this.createPlayer((<PlayerTank>tank).playerNo);
-                            this.reducePlayerIcon((<PlayerTank>tank).playerNo);
+                            var playerNo = (<PlayerTank>tank).playerNo;
+                            if(this.playerLife[playerNo-1] >= 1){
+                                this.createPlayer(playerNo);
+                                this.reducePlayerIcon(playerNo);
+                            }   
                         }
                         //销毁子弹
                         this.playBoom(bullet);
@@ -897,7 +894,7 @@ class GameScene extends BaseScene{
         if(item.type == ItemEnum.shield){   //护盾
             if(tank.type == TankEnum.player){
                 var player: PlayerTank = <PlayerTank>tank;
-                player.playShield(player.itemShieldTime*1000); //时间s转成ms
+                player.playShield(player.itemShieldTime*1000/60); //时间s转成ms,护盾动画60帧播放4帧所需时间60ms
             }else{
                 return false;
             }
@@ -951,13 +948,13 @@ class GameScene extends BaseScene{
                     tank.stop();
                 }
             }else{
-                this.bPlayerPause = true;
-                this.startPauseTimer();
-                var len = this.playerTankList.length;
-                for(var i = 0;i < len;i++) {
-                    var tank: BaseTank = this.playerTankList[i];
-                    tank.stop();
-                }
+//                this.bPlayerPause = true;
+//                this.startPauseTimer();
+//                var len = this.playerTankList.length;
+//                for(var i = 0;i < len;i++) {
+//                    var tank: BaseTank = this.playerTankList[i];
+//                    tank.stop();
+//                }
             }
         }
         return true;
@@ -1293,6 +1290,8 @@ class GameScene extends BaseScene{
             if(tank.openid == openid){
                 if(actionType == ActionEnum.shoot){
                     tank.shoot();
+                }else if(actionType == ActionEnum.stopShoot){
+                    tank.stopShoot();
                 }else{
                     tank.actionHandler(actionType); 
                     this.modifyTankTurn(tank);

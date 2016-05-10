@@ -18,6 +18,7 @@ class BaseTank extends SimpleMC{
     public openid: string;       //openid
     public hitWidth:number = 64;     //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
     public hitHalfWidth:number = 32;
+    public shooting:boolean = false; //连续射击
     public snd:SoundManager = SoundManager.getInstance();
     
     public constructor() {
@@ -31,6 +32,7 @@ class BaseTank extends SimpleMC{
          this.speedY = 0;
     	   this.isHaveItem = false;
     	   this.shootCount = 0;
+    	   this.shooting = false;
     }
 
 	//移动
@@ -120,12 +122,17 @@ class BaseTank extends SimpleMC{
     
     //更新射击时间
     public updateShootCount() {
-        this.shootCount++;
+        if(this.shooting){  //临时增加连续射击
+            this.shoot();
+        }else{
+            this.shootCount++;
+        }
     }
     
 	//射击
 	public shoot(){
         this.shootCount++;
+        this.shooting = true;  //临时增加连续射击
         if(this.shootCount * 16 >= this.shootTime) {  // 1帧的时间 1000/60 = 16ms
             if(this.type == TankEnum.player){
                 this.snd.play(this.snd.fire);
@@ -159,6 +166,11 @@ class BaseTank extends SimpleMC{
             gameScene.bulletList.push(bullet);
             gameScene.bulletGroup.addChild(bullet);
         }
+	}
+	
+	//停止射击
+	public stopShoot(){
+    	 this.shooting = false;
 	}
 	
 	//检查下一步位置的碰撞，预测下一步将碰撞，则不能行走

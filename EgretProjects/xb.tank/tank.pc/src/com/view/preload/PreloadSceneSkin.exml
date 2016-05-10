@@ -1,4 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="PreloadSceneSkin" width="1920" height="1024" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Label id="progressLabel" text="标签" horizontalCenter="0" verticalCenter="0" size="100" width="630" verticalAlign="middle" textAlign="center"/>
+	<e:Label id="progressLabel" text="0%" horizontalCenter="0" verticalCenter="0" size="100" width="630" verticalAlign="middle" textAlign="center" visible="false"/>
+	<e:Image source="home_p1_png" x="724" y="456" rotation="90"/>
+	<e:Image id="enemyTank" source="result_enemy1_png" x="1264" y="456" rotation="90"/>
+	<e:Rect id="barBg" height="3" width="470" y="522" x="725" fillColor="0x333333"/>
+	<e:Rect id="bar" width="470" y="522" height="3" x="725" anchorOffsetX="0" fillColor="0xFAF7F7"/>
+	<e:Image id="bullet" source="bullet_png" x="762" y="464" rotation="90"/>
 </e:Skin>

@@ -47,7 +47,7 @@
     },
     {
       "path": "src/com/view/preload/PreloadSceneSkin.exml",
-      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PreloadSceneSkin\" width=\"1920\" height=\"1024\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Label id=\"progressLabel\" text=\"标签\" horizontalCenter=\"0\" verticalCenter=\"0\" size=\"100\" width=\"630\" verticalAlign=\"middle\" textAlign=\"center\"/>\n</e:Skin>"
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PreloadSceneSkin\" width=\"1920\" height=\"1024\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Label id=\"progressLabel\" text=\"0%\" horizontalCenter=\"0\" verticalCenter=\"0\" size=\"100\" width=\"630\" verticalAlign=\"middle\" textAlign=\"center\" visible=\"false\"/>\n\t<e:Image source=\"home_p1_png\" x=\"724\" y=\"456\" rotation=\"90\"/>\n\t<e:Image id=\"enemyTank\" source=\"result_enemy1_png\" x=\"1264\" y=\"456\" rotation=\"90\"/>\n\t<e:Rect id=\"barBg\" height=\"3\" width=\"470\" y=\"522\" x=\"725\" fillColor=\"0x333333\"/>\n\t<e:Rect id=\"bar\" width=\"470\" y=\"522\" height=\"3\" x=\"725\" anchorOffsetX=\"0\" fillColor=\"0xFAF7F7\"/>\n\t<e:Image id=\"bullet\" source=\"bullet_png\" x=\"762\" y=\"464\" rotation=\"90\"/>\n</e:Skin>"
     },
     {
       "path": "src/com/view/result/ResultSceneSkin.exml",

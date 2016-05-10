@@ -69,7 +69,7 @@
         	"armor基地护甲时间,单位s"
           ], 
     "itemSet":{
-        	"shield":10,
+        	"shield":5,
         	"pause":10,
         	"armor":30
     	}

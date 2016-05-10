@@ -58,8 +58,10 @@ class Main extends eui.UILayer {
     //preload资源组加载完成
     private onPreloadComplete(event: RES.ResourceEvent): void {
         this.preloadScene = new PreloadScene();
+        this.preloadScene.addEventListener("BoomComplete", this.onGameComplete, this);
         this.addChild(this.preloadScene);
-        LoadManager.getInstance().loadGroup("game",this,this.onGameComplete,this.onGameProgress);
+        
+        LoadManager.getInstance().loadGroup("game",this,null,this.onGameProgress);
     }
     
     private onGameProgress(e:RES.ResourceEvent){

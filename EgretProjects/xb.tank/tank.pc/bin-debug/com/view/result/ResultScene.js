@@ -45,12 +45,13 @@ var ResultScene = (function (_super) {
         var killList = data.killList;
         var totalKillList = data.totalKillList;
         //总分
-        this.p1ScoreLabel.text = data.totalScore[0] + "";
-        if (UserManager.getInstance().getUserNum() == 1) {
+        var userNum = UserManager.getInstance().getUserNum();
+        if (userNum >= 1) {
+            this.p1ScoreLabel.text = data.totalScore[0] + "";
             this.p2ScoreGroup.visible = false;
             this.p2ScoreLabel.text = "";
         }
-        else {
+        if (userNum == 2) {
             this.p2ScoreGroup.visible = true;
             this.p2ScoreLabel.text = data.totalScore[1] + "";
         }

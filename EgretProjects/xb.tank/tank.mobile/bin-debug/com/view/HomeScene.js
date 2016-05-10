@@ -23,6 +23,7 @@ var HomeScene = (function (_super) {
     };
     p.configListeners = function () {
         this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+        this.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
         this.handler.configListeners();
     };
     p.deConfigListeners = function () {
@@ -39,6 +40,14 @@ var HomeScene = (function (_super) {
                 this.handler.x = e.stageX - this.handler.width / 2;
                 this.handler.y = e.stageY - this.handler.height / 2;
                 this.handler.visible = true;
+                break;
+        }
+    };
+    p.onTouchEnd = function (e) {
+        switch (e.target) {
+            case this.aBtn:
+            case this.bBtn:
+                this.sendAction(ActionEnum.stopShoot);
                 break;
         }
     };
@@ -84,8 +93,12 @@ var HomeScene = (function (_super) {
         this.socket.sendMessage("action", { actionType: actionType, openid: GameConst.gameConfig.openid });
     };
     //接收游戏结束
-    p.revGameOver = function (data) {
+    p.revGameOver = function (json) {
         egret.log("rev gameOver");
+        var data = json.message;
+        var wave = data.wave;
+        var heroRank = data.heroRank;
+        egret.log("wave:", wave, "heroRank:", heroRank);
     };
     return HomeScene;
 }(BaseScene));

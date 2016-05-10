@@ -24,7 +24,11 @@ class Camp extends BaseTile{
 	
 	//override
     public beAttacked(target: Bullet): boolean {
-        return true;
+        if(this.normal.visible){  //当正常状态时，才能被击毁
+            return true;
+        }else{
+            return false;
+        }
     }
 	
 	//override

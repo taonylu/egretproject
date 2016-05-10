@@ -14,7 +14,7 @@ var PreloadScene = (function (_super) {
     };
     p.setProgress = function (process) {
         if (this.inited) {
-            this.progressLabel.text = process.toString() + "%";
+            this.progressLabel.text = "Loading..." + process.toString() + "%";
         }
     };
     return PreloadScene;
