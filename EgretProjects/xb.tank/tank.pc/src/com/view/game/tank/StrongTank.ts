@@ -23,6 +23,12 @@ class StrongTank extends BaseTank{
     }
     
     //override
+    public setPower(power: number) {
+        super.setPower(power);
+        this.shootTime = MapManager.getInstance().tankSet.strongTank.shootTime[this.power - 1];
+    }
+    
+    //override
     public reset() {
         super.reset();
         var tankSet = MapManager.getInstance().tankSet.strongTank;

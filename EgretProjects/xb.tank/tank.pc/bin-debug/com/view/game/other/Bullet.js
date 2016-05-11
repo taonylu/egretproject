@@ -17,8 +17,14 @@ var Bullet = (function (_super) {
         this.bitmapData = RES.getRes("bullet_png");
         this.anchorOffsetX = 16;
         this.anchorOffsetY = 16;
+        this.bulletSpeed = MapManager.getInstance().itemSet.bulletSpeed;
     }
     var d = __define,c=Bullet,p=c.prototype;
+    //子弹威力
+    p.setPower = function (power) {
+        this.power = power;
+        this.speed = this.bulletSpeed[this.power - 1];
+    };
     p.move = function () {
         this.x += this.speedX;
         this.y += this.speedY;

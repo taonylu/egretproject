@@ -20,12 +20,17 @@ var NormalTank = (function (_super) {
             this.gotoAndPlay("normal", -1);
         }
     };
+    //override
+    p.setPower = function (power) {
+        _super.prototype.setPower.call(this, power);
+        this.shootTime = MapManager.getInstance().tankSet.normalTank.shootTime[this.power - 1];
+    };
     //override 
     p.reset = function () {
         _super.prototype.reset.call(this);
         var tankSet = MapManager.getInstance().tankSet.normalTank;
         this.speed = tankSet.speed;
-        this.power = tankSet.power;
+        this.setPower(tankSet.power);
         this.life = tankSet.life;
         this.shootTime = tankSet.shootTime[0];
         this.type = TankEnum.normal;

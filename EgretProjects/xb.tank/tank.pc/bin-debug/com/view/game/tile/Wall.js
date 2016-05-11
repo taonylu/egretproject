@@ -94,10 +94,11 @@ var Wall = (function (_super) {
     /**
      * 被攻击
      * @target 子弹
-     * @return 返回地形是否被击毁
+     * @return 返回击中是否有效
      */
     p.beAttacked = function (bullet) {
         var wall;
+        var bHit = false;
         for (var i = 0; i < 16; i++) {
             wall = this.wallList[i];
             if (wall.visible == true) {
@@ -107,6 +108,7 @@ var Wall = (function (_super) {
                     if (Math.abs(this.x + wall.x - 32 - bullet.x) <= 24 && Math.abs(this.y + wall.y - 32 - bullet.y) <= 40) {
                         wall.visible = false;
                         this.life--;
+                        bHit = true;
                     }
                 }
                 else {
@@ -114,16 +116,12 @@ var Wall = (function (_super) {
                     if (Math.abs(this.x + wall.x - 32 - bullet.x) <= 40 && Math.abs(this.y + wall.y - 32 - bullet.y) <= 24) {
                         wall.visible = false;
                         this.life--;
+                        bHit = true;
                     }
                 }
             }
         }
-        if (this.life <= 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return bHit;
     };
     //碰撞检测，taraget是子弹或者坦克
     p.checkCollision = function (target) {

@@ -24,6 +24,11 @@ var StrongTank = (function (_super) {
         }
     };
     //override
+    p.setPower = function (power) {
+        _super.prototype.setPower.call(this, power);
+        this.shootTime = MapManager.getInstance().tankSet.strongTank.shootTime[this.power - 1];
+    };
+    //override
     p.reset = function () {
         _super.prototype.reset.call(this);
         var tankSet = MapManager.getInstance().tankSet.strongTank;

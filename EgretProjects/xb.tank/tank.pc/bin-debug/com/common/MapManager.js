@@ -22,6 +22,7 @@ var MapManager = (function () {
         this.endLess_superChance = 50; //强化坦克出现几率
         this.endLess_superAdd = 10; //每波强化坦克出现几率增加比例
         this.endless_itemNum = 5; //道具数量
+        this.endless_refreshTime = 30; //刷新时间
     }
     var d = __define,c=MapManager,p=c.prototype;
     //初始化地图配置文件
@@ -73,6 +74,7 @@ var MapManager = (function () {
         this.endLess_superChance = level.superChance;
         this.endLess_superAdd = level.superAdd;
         this.endless_itemNum = level.itemNum[this.levelLimit - 1];
+        this.endless_refreshTime = level.refreshTime;
         //获取level_json地图数据
         for (var i = 1; i <= this.levelLimit; i++) {
             var levelJson = RES.getRes("level" + i + "_json");

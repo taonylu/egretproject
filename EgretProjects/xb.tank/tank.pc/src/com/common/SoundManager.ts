@@ -13,6 +13,7 @@ class SoundManager {
     public fire_reach_wall: string = "fire_reach_wall_mp3";
     public fire: string = "fire_mp3";
     public user_move: string = "user_move_mp3";
+    public tank_boom: string = "tank_boom_mp3";
     
     private soundList = {};     //声音列表
     private channelList = {};   //声道列表
@@ -28,6 +29,7 @@ class SoundManager {
         this.addSound(this.fire_reach_wall);
         this.addSound(this.fire);
         this.addSound(this.user_move);
+        this.addSound(this.tank_boom);
 	}
 	
 	public addSound(soundName:string){
