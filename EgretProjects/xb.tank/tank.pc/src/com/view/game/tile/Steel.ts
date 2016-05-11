@@ -83,27 +83,26 @@ class Steel extends BaseTile{
      * @return 返回击中是否有效 
      */
     public beAttacked(target: Bullet): boolean {
-        if(target.power < 3){  //威力小的子弹不能击毁钢铁
-            return false;
-        }
+//        if(target.power < 3){  //威力小的子弹不能击毁钢铁
+//            return false;
+//        }
         var steel: eui.Image;
         var len = this.steelList.length;
+        var bHit:boolean = false;
         for(var i = 0;i < len;i++) {
             steel = this.steelList[i];
             if(steel.visible == true) {
                 //转换坐标为bullet所在容器坐标，再计算碰撞半径
                 if(Math.abs(this.x + steel.x - 32 - target.x) <= 48 && Math.abs(this.y + steel.y - 32 - target.y) <= 48) {  //击中
-                    steel.visible = false;
-                    this.life--;
+                    if(target.power >=3){
+                        steel.visible = false;
+                        this.life--;  
+                    }
+                    bHit = true;
                 }
             }
         }
-        if(this.life<=0){
-            return true;
-        }else{
-            return false;
-        }
-        
+        return bHit;
     }
     
     //碰撞检测，taraget是子弹或者坦克

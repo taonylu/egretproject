@@ -99,10 +99,11 @@ class Wall extends BaseTile{
 	/**
      * 被攻击
      * @target 子弹
-     * @return 返回地形是否被击毁
+     * @return 返回击中是否有效
      */
     public beAttacked(bullet: Bullet): boolean {
         var wall:eui.Image;
+        var bHit:boolean = false;
         for(var i=0;i<16;i++){
             wall = this.wallList[i]; 
             if(wall.visible == true){
@@ -112,22 +113,19 @@ class Wall extends BaseTile{
                     if(Math.abs(this.x + wall.x - 32 - bullet.x) <= 24 && Math.abs(this.y + wall.y - 32 - bullet.y) <= 40) {  //击中
                         wall.visible = false;
                         this.life--;
+                        bHit = true;
                     }
                 }else{
                   //子弹是竖着移动，则判断x范围扩大到32
                     if(Math.abs(this.x + wall.x - 32 - bullet.x) <= 40 && Math.abs(this.y + wall.y - 32 - bullet.y) <= 24) {  //击中
                         wall.visible = false;
                         this.life--;
+                        bHit = true;
                     }
                 }
             }
         }
-        if(this.life <=0){
-            return true;
-        }else{
-            return false;
-        }
-        
+        return bHit;
     }
     
     //碰撞检测，taraget是子弹或者坦克

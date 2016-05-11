@@ -13,12 +13,20 @@ class Bullet extends egret.Bitmap{
     public hitWidth: number = 16;     //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
     public hitHalfWidth: number = 8;
     public owner:BaseTank;            //子弹拥有者
+    public bulletSpeed;
     
 	public constructor() {
     	super();
     	this.bitmapData = RES.getRes("bullet_png");
     	this.anchorOffsetX = 16;
     	this.anchorOffsetY = 16;
+        this.bulletSpeed = MapManager.getInstance().itemSet.bulletSpeed;
+	}
+	
+	//子弹威力
+	public setPower(power:number){
+    	this.power = power;
+      this.speed = this.bulletSpeed[this.power-1];
 	}
 	
 	public move(){

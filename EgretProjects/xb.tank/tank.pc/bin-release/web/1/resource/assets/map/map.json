@@ -19,7 +19,8 @@
         		
         		"tankAdd 无尽模式坦克数量增长比例",
         		"superChance 强化坦克出现概率",
-        		"superAdd 每波强化坦克增加几率"
+        		"superAdd 每波强化坦克增加几率",
+        		"refreshTime 刷新时间30s"
         	  ],    	  
 	"level":
 			{
@@ -42,7 +43,8 @@
 				
 				"tankAdd":0.3,
 				"superChance":0.5,
-				"superAdd":0.1
+				"superAdd":0.1,
+				"refreshTime":30
 			},
 	"comment":[
     			"玩家设置",
@@ -56,22 +58,24 @@
         	"坦克属性 life:生命值，power:枪威力，shootTime:射击间隔单位ms，speed:移动速度(必须能被64整除)"
           ], 
     "tankSet":{
-       		"playerTank":{"life":1,"power":1,"shootTime":[500,300,200],"speed":2},
-        	"normalTank":{"life":1,"power":1,"shootTime":[3000,300,200],"speed":2},
-        	"fastTank":{"life":1,"power":1,"shootTime":[3000,300,200],"speed":4},
-        	"strongTank":{"life":2,"power":2,"shootTime":[3000,300,200],"speed":2},
-        	"superTank":{"life":3,"power":3,"shootTime":[3000,300,200],"speed":2}
+       		"playerTank":{"life":1,"power":1,"shootTime":[500,400,300],"speed":2},
+        	"normalTank":{"life":1,"power":1,"shootTime":[2000,1500,1000],"speed":2},
+        	"fastTank":{"life":1,"power":1,"shootTime":[2000,1500,1000],"speed":4},
+        	"strongTank":{"life":2,"power":2,"shootTime":[2000,1500,1000],"speed":2},
+        	"superTank":{"life":3,"power":3,"shootTime":[2000,1500,1000],"speed":2}
     	},
     "comment":[
         	"道具属性设置",
         	"shield护盾时间，单位s",
         	"pause暂停时间，单位s",
-        	"armor基地护甲时间,单位s"
+        	"armor基地护甲时间,单位s",
+        	"bulletSpeed 获取道具power=1,2,3时子弹速度"
           ], 
     "itemSet":{
         	"shield":5,
         	"pause":10,
-        	"armor":30
+        	"armor":30,
+        	"bulletSpeed":[8,15,15]
     	}
 }
 

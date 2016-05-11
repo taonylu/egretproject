@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="ResultSceneSkin" width="1920" height="1024" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Rect height="600" width="2400" y="672" fillColor="0x333A42"/>
 	<e:BitmapLabel y="40" font="writeFont_fnt" text="HI-SCORE" x="756"/>
 	<e:BitmapLabel id="stageLabel" y="90" text="STAGE-3" font="writeFont_fnt" x="786"/>
 	<e:BitmapLabel y="630" text="TOTAL" font="writeFont_fnt" x="646"/>

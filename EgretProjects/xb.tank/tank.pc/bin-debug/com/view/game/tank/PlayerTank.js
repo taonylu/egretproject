@@ -9,7 +9,7 @@ var PlayerTank = (function (_super) {
         _super.call(this);
         this.shield = new Shield(); //护盾
         this.birthShieldTime = 30; //出生时护盾循环次数
-        this.itemShieldTime = 100; //道具护盾持续时间
+        this.itemShieldTime = 0; //道具护盾持续时间
         this.setMovieClip("playerYellowTank_png", "playerYellowTank_json", "playerYellowTank");
         this.reset();
     }
@@ -71,21 +71,34 @@ var PlayerTank = (function (_super) {
         }
         this.power = power;
         this.gotoAndPlay("lvl" + this.power, -1);
+        this.shootTime = MapManager.getInstance().tankSet.playerTank.shootTime[this.power - 1];
+    };
+    //时间道具停止
+    p.pause = function () {
+        this.stop();
+        egret.Tween.get(this, { loop: true }).to({ alpha: 0.1 }, 200).to({ alpha: 1 }, 200);
+    };
+    //停止暂停,恢复行动
+    p.resume = function () {
+        egret.Tween.removeTweens(this);
+        this.alpha = 1;
     };
     //override
     p.reset = function () {
         _super.prototype.reset.call(this);
         var tankSet = MapManager.getInstance().tankSet.playerTank;
         this.speed = tankSet.speed;
-        this.power = tankSet.power;
+        this.setPower(tankSet.power);
         this.life = tankSet.life;
         this.shootTime = tankSet.shootTime[0];
         this.type = TankEnum.player;
         this.rotation = 0;
         this.direction = DirectionEnum.up;
         this.gotoAndStop("lvl1");
+        this.resume();
+        this.snd.stop(this.snd.user_move);
         var itemSet = MapManager.getInstance().itemSet;
-        this.itemShieldTime = Math.round(itemSet.shield / 160); //护盾动画播放一次160ms
+        this.itemShieldTime = Math.round(itemSet.shield * 1000 / 160); //护盾动画播放一次160ms
         if (this.itemShieldTime <= 0) {
             this.itemShieldTime = 1;
         }

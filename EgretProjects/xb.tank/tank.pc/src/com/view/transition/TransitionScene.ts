@@ -22,6 +22,10 @@ class TransitionScene extends  BaseScene{
         this.setStageLabel();
     }
     
+    public reset(){
+        egret.Tween.removeTweens(this);
+    }
+    
     //设置第几关
     public setStageLabel(){
         this.stageLabel.text = "STAGE  " + MapManager.getInstance().curLevel;

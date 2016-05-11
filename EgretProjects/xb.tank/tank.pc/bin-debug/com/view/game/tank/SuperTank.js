@@ -27,11 +27,16 @@ var SuperTank = (function (_super) {
         }
     };
     //override
+    p.setPower = function (power) {
+        _super.prototype.setPower.call(this, power);
+        this.shootTime = MapManager.getInstance().tankSet.superTank.shootTime[this.power - 1];
+    };
+    //override
     p.reset = function () {
         _super.prototype.reset.call(this);
         var tankSet = MapManager.getInstance().tankSet.superTank;
         this.speed = tankSet.speed;
-        this.power = tankSet.power;
+        this.setPower(tankSet.power);
         this.life = tankSet.life;
         this.shootTime = tankSet.shootTime[0];
         this.type = TankEnum.super;

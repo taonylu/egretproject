@@ -93,7 +93,9 @@ class BaseTank extends SimpleMC{
                 this.speedX = 0;
                 this.speedY = 0;
                 this.stop();
-                this.snd.stop(this.snd.user_move);
+                if(this.type == TankEnum.player) {
+                    this.snd.stop(this.snd.user_move);
+                }
                 break;
     	}
 	}
@@ -140,7 +142,7 @@ class BaseTank extends SimpleMC{
             this.shootCount = 0;
             var bullet: Bullet = GameFactory.getInstance().bulletPool.getObject();
             bullet.type = this.type;
-            bullet.power = this.power;
+            bullet.setPower(this.power);
             bullet.x = this.x;
             bullet.y = this.y;
             bullet.owner = this;

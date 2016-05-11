@@ -14,6 +14,7 @@ var SoundManager = (function () {
         this.fire_reach_wall = "fire_reach_wall_mp3";
         this.fire = "fire_mp3";
         this.user_move = "user_move_mp3";
+        this.tank_boom = "tank_boom_mp3";
         this.soundList = {}; //声音列表
         this.channelList = {}; //声道列表
         this.addSound(this.start_stage);
@@ -24,6 +25,7 @@ var SoundManager = (function () {
         this.addSound(this.fire_reach_wall);
         this.addSound(this.fire);
         this.addSound(this.user_move);
+        this.addSound(this.tank_boom);
     }
     var d = __define,c=SoundManager,p=c.prototype;
     p.addSound = function (soundName) {

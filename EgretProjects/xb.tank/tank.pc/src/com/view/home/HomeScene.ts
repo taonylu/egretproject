@@ -22,7 +22,8 @@ class HomeScene extends BaseScene{
     
     private historyLabel:eui.Label;   //顶部历史最高得分
     
-
+    private snd:SoundManager;
+    
     public constructor() {
         super("HomeSceneSkin");
 	}
@@ -49,6 +50,8 @@ class HomeScene extends BaseScene{
         //倒计时
         this.countDownLimit = GameConst.gameConfig.homeCountDown;
         this.countDownLabel.visible = false;
+        //声音
+        this.snd = SoundManager.getInstance();
     }
 
     public onEnable(): void {
@@ -93,6 +96,7 @@ class HomeScene extends BaseScene{
     private onCountDownHandler(){
         var count = this.countDownLimit - this.countDownTimer.currentCount;
         this.countDownLabel.text = count + "";
+        this.snd.play(this.snd.fire_reach_wall);
         if(count <= 0){
             this.stopCountDown();
             this.startGame();
@@ -187,6 +191,7 @@ class HomeScene extends BaseScene{
             if(headUI.isEmpty()){
                 headUI.loadImg(headimgurl);
                 headUI.openid = openid;
+                this.snd.play(this.snd.gift_life);  //玩家进入时声音
                 break;
             }
         }
@@ -239,12 +244,13 @@ class HomeScene extends BaseScene{
     //接收用户离开
     public revUserQuit(data){
         console.log("rev userQuit:",data);
-        var openid:string = data.openid;
-        
-        //如果当前是主页，则删除用户，如果是其他页面，则不处理
+        var openid:string = data.uid;
+        var userMananger:UserManager = UserManager.getInstance();
+        var gameManager:GameManager = GameManager.getInstance();
+        //如果当前是主页，则删除用户
         if(this.parent){
             //从用户列表中删除
-            UserManager.getInstance().deleteUser(openid);
+            userMananger.deleteUser(openid);
             //从头像删除
             if(this.p1HeadUI.openid == openid) {
                 this.p1HeadUI.clear();
@@ -252,17 +258,28 @@ class HomeScene extends BaseScene{
                 this.p2HeadUI.clear();
             }
             //停止倒计时
-            if(UserManager.getInstance().getUserNum() <= 0) {
+            if(userMananger.getUserNum() <= 0) {
                 this.stopCountDown();
                 this.countDownLabel.text = this.countDownLimit + "";
             }
-        }else if(GameManager.getInstance().gameScene.parent){
-            //从用户列表中删除
-            UserManager.getInstance().deleteUser(openid);
+        //如果是游戏页面，如果用户全部退出则结束游戏    
+        } else if(gameManager.gameScene.parent){
             //如果玩家全部离开，则结束游戏
-            if(UserManager.getInstance().getUserNum() <= 0){
-                GameManager.getInstance().gameScene.gameOver();
+            if(userMananger.getUserNum() == 1){
+                gameManager.gameScene.gameOver();
+            }else{
+                //从用户列表中删除
+                userMananger.deleteUser(openid);
             }
+        //如果是关卡显示页面，玩家全部退出，则返回首页
+        } else if(gameManager.transitionScene){
+            if(userMananger.getUserNum() == 1){
+                gameManager.transitionScene.reset();
+                LayerManager.getInstance().runScene(gameManager.homeScene);
+            }else{
+                //从用户列表中删除
+                userMananger.deleteUser(openid);
+            } 
         }
     } 
     

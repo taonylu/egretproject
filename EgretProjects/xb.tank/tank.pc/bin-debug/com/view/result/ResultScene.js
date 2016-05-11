@@ -14,6 +14,9 @@ var ResultScene = (function (_super) {
         _super.prototype.componentCreated.call(this);
         this.countDownTime = GameConst.gameConfig.resultCountDown * 1000;
     };
+    p.onEnable = function () {
+        window["changeBgColor"](GameConst.color0);
+    };
     //清理结果页面
     p.clear = function () {
         for (var i = 0; i < 4; i++) {
@@ -26,7 +29,12 @@ var ResultScene = (function (_super) {
         this.p2TotalLabel.text = "";
         this.historyLabel.text = "";
     };
-    //设置结果界面 bGameOver true游戏结束  false下一关
+    /**
+     *设置结果界面
+     *@data 传递参数
+     *@bGameOver true游戏结束  false下一关
+     *@bEndLess 是否无尽模式
+     */
     p.setResult = function (data, bGameOver, bEndLess) {
         if (bEndLess === void 0) { bEndLess = false; }
         this.clear();
@@ -62,7 +70,7 @@ var ResultScene = (function (_super) {
             p2kill += killList[1][i];
         }
         //游戏结束，才能显示击杀和英雄榜
-        if (bGameOver) {
+        if (bGameOver && data.success == true) {
             this.rankGroup.visible = true;
             //英雄榜
             var userManager = UserManager.getInstance();

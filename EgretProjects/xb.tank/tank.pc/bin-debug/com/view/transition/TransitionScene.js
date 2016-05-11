@@ -18,6 +18,9 @@ var TransitionScene = (function (_super) {
         window["changeBgColor"](GameConst.color7);
         this.setStageLabel();
     };
+    p.reset = function () {
+        egret.Tween.removeTweens(this);
+    };
     //设置第几关
     p.setStageLabel = function () {
         this.stageLabel.text = "STAGE  " + MapManager.getInstance().curLevel;

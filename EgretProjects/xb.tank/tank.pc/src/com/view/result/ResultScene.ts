@@ -54,6 +54,10 @@ class ResultScene extends BaseScene{
         this.countDownTime = GameConst.gameConfig.resultCountDown*1000;
     }
     
+    public onEnable(){
+        window["changeBgColor"](GameConst.color0);
+    }
+    
     //清理结果页面
     public clear(){
         for(var i = 0;i < 4;i++) {
@@ -67,7 +71,12 @@ class ResultScene extends BaseScene{
         this.historyLabel.text = "";
     }
     
-    //设置结果界面 bGameOver true游戏结束  false下一关
+    /** 
+     *设置结果界面
+     *@data 传递参数
+     *@bGameOver true游戏结束  false下一关
+     *@bEndLess 是否无尽模式
+     */  
     public setResult(data, bGameOver:boolean,bEndLess:boolean=false){
         this.clear();
         //历史最高分
@@ -103,7 +112,7 @@ class ResultScene extends BaseScene{
         }
         
         //游戏结束，才能显示击杀和英雄榜
-        if(bGameOver) {
+        if(bGameOver && data.success == true) {
             this.rankGroup.visible = true;
             //英雄榜
             var userManager:UserManager = UserManager.getInstance();
