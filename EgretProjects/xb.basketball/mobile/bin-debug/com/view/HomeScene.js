@@ -10,6 +10,7 @@ var HomeScene = (function (_super) {
         this.resultPanel = new ResultPanel(); //结算面板
         this.countDownTimer = new egret.Timer(650); //倒计时
         this.countDownLimit = 3; //倒计时限制
+        this.logoLoader = new ImageLoad();
     }
     var d = __define,c=HomeScene,p=c.prototype;
     p.componentCreated = function () {
@@ -20,6 +21,7 @@ var HomeScene = (function (_super) {
         this.socket.homeScene = this;
     };
     p.onEnable = function () {
+        this.loadLogo();
         this.socket.startConnect();
         this.introduce();
         if (GameConst.isDebug) {
@@ -27,6 +29,12 @@ var HomeScene = (function (_super) {
         }
     };
     p.onRemove = function () {
+    };
+    p.loadLogo = function () {
+        if (this.logoLoader.isEmpty()) {
+            this.logoGroup.addChild(this.logoLoader);
+            this.logoLoader.loadImg(window["logoUrl"]);
+        }
     };
     //开始游戏
     p.startGame = function () {
@@ -161,11 +169,20 @@ var HomeScene = (function (_super) {
         egret.log("接收游戏结束:", score);
         this.gameOver();
         //显示分数
-        this.resultPanel.showScore(score);
-        this.resultPanel.x = (GameConst.stage.stageWidth - this.resultPanel.width) / 2;
-        this.resultPanel.y = (GameConst.stage.stageHeight - this.resultPanel.height) / 2;
-        this.addChild(this.resultPanel);
+        if (score >= window["prizeScore"]) {
+            this.prizeGroup.visible = true;
+            this.messageLabel.text = "恭喜获得优惠券一张\n赶紧点击按钮领取吧";
+            this.prizeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+                location.href = window["prizeLink"];
+            }, this);
+        }
+        else {
+            this.resultPanel.showScore(score);
+            this.resultPanel.x = (GameConst.stage.stageWidth - this.resultPanel.width) / 2;
+            this.resultPanel.y = (GameConst.stage.stageHeight - this.resultPanel.height) / 2;
+            this.addChild(this.resultPanel);
+        }
     };
     return HomeScene;
-})(BaseScene);
+}(BaseScene));
 egret.registerClass(HomeScene,'HomeScene');

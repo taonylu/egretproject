@@ -24,6 +24,7 @@ var game_file_list = [
 	"bin-debug/com/utils/ui/HeadUI.js",
 	"bin-debug/com/view/HomeScene.js",
 	"bin-debug/com/view/PreloadScene.js",
+	"bin-debug/com/view/ResultScene.js",
 	"bin-debug/com/view/ui/Handler.js",
 	"bin-debug/Main.js",
 	"bin-debug/ThemeAdapter.js",

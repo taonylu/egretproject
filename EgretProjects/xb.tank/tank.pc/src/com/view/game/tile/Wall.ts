@@ -139,7 +139,8 @@ class Wall extends BaseTile{
             wall = this.wallList[i];
             if(wall.visible == true) {
                 //将墙块坐标换成target容器坐标
-                if(Math.abs(this.x + wall.x - 32 - nextX) < (8 + target.hitHalfWidth) && Math.abs(this.y + wall.y - 32 - nextY) < (8 + target.hitHalfWidth)) {
+                if(Math.abs(this.x + wall.x - 32 - nextX) < (8 + target.hitHalfWidth) &&
+                    Math.abs(this.y + wall.y - 32 - nextY) < (8 + target.hitHalfWidth)) {
                     return true;
                 }
             }

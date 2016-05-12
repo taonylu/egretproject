@@ -117,6 +117,7 @@ var GameScene = (function (_super) {
                 self.stopGenerateTimer(); //停止生成坦克计时
                 self.stopArmorTimer(); //停止基地护甲计时
                 self.stopPauseTimer(); //停止暂停道具计时
+                self.backTankLife(); //计算场上坦克生命
                 self.clearPlayerTank(); //提前清理坦克
                 self.clearEnemyTank();
                 LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
@@ -150,6 +151,7 @@ var GameScene = (function (_super) {
         this.movePlayerTank(); //移动自己坦克
         this.moveEnemyTank(); //移动敌方坦克
         this.moveBullet(); //移动子弹
+        this.updateShoot();
     };
     //初始化地图
     p.initMap = function () {
@@ -328,12 +330,14 @@ var GameScene = (function (_super) {
             var life1 = this.playerLife[0];
             if (life1 >= 1) {
                 this.createPlayer(1);
+                this.reducePlayerIcon(1);
             }
         }
         if (playerNum == 2) {
             var life2 = this.playerLife[1];
             if (life2 >= 1) {
                 this.createPlayer(2);
+                this.reducePlayerIcon(2);
             }
         }
     };
@@ -495,6 +499,14 @@ var GameScene = (function (_super) {
         }
         this.playerTankList.length = 0;
     };
+    //游戏结束时，检查坦克剩余生命，将场上的坦克生命加回去
+    p.backTankLife = function () {
+        var len = this.playerTankList.length;
+        for (var i = 0; i < len; i++) {
+            var tank = this.playerTankList[i];
+            this.reducePlayerIcon(tank.playerNo, -1);
+        }
+    };
     //清理子弹
     p.clearBullet = function () {
         var len = this.bulletList.length;
@@ -535,8 +547,6 @@ var GameScene = (function (_super) {
         var otherPlayer;
         for (var i = 0; i < len; i++) {
             player = this.playerTankList[i];
-            //射击
-            player.updateShootCount();
             //我方坦克和敌方坦克碰撞检测
             var enemyLen = this.enemyTankList.length;
             for (var j = 0; j < enemyLen; j++) {
@@ -562,6 +572,8 @@ var GameScene = (function (_super) {
             //地形碰撞检测
             if (this.getCollioseTile(player).length == 0 && this.checkEdge(player) == false) {
                 player.move();
+            }
+            else {
             }
             //道具碰撞
             var itemLen = this.itemList.length;
@@ -660,16 +672,18 @@ var GameScene = (function (_super) {
                             }
                             //坦克重生
                             this.initPlayer();
-                            if (this.playerLife[0] >= 1) {
-                                this.reducePlayerIcon(1);
-                            }
-                            if (this.playerLife[1] >= 1) {
-                                this.reducePlayerIcon(2);
-                            }
                         }
                     }
                 }
             }
+        }
+    };
+    //刷新玩家射击时间
+    p.updateShoot = function () {
+        var len = this.playerTankList.length;
+        for (var i = 0; i < len; i++) {
+            var player = this.playerTankList[i];
+            player.updateShootCount();
         }
     };
     //移动自己子弹
@@ -680,16 +694,6 @@ var GameScene = (function (_super) {
         for (var i = len - 1; i >= 0; i--) {
             bullet = this.bulletList[i];
             bHit = false;
-            //边界检测
-            if (this.checkEdge(bullet)) {
-                if (bullet.type == TankEnum.player) {
-                    this.snd.play(this.snd.fire_reach_wall);
-                }
-                this.playBoom(bullet);
-                this.bulletList.splice(i, 1);
-                bullet.recycle();
-                continue; //子弹已销毁，跳过本次循环
-            }
             //判断子弹击中障碍物
             var collisionTileList = this.getCollioseTile(bullet);
             for (var j = 0; j < collisionTileList.length; j++) {
@@ -748,6 +752,16 @@ var GameScene = (function (_super) {
             }
             if (bullet == null) {
                 continue; //子弹已销毁，则跳过本次循环
+            }
+            //边界检测
+            if (this.checkEdge(bullet)) {
+                if (bullet.type == TankEnum.player) {
+                    this.snd.play(this.snd.fire_reach_wall);
+                }
+                this.playBoom(bullet);
+                this.bulletList.splice(i, 1);
+                bullet.recycle();
+                continue; //子弹已销毁，跳过本次循环
             }
             //判断子弹击中敌方坦克
             if (bullet.type == TankEnum.player) {
@@ -808,6 +822,7 @@ var GameScene = (function (_super) {
                             //声音
                             this.snd.play(this.snd.tank_boom);
                             //移除坦克
+                            this.powerList[tank.playerNo - 1] = 1;
                             tank.actionHandler(ActionEnum.stopMove);
                             tank.recycle();
                             this.playerTankList.splice(j, 1);
@@ -966,7 +981,7 @@ var GameScene = (function (_super) {
             else if (direction == DirectionEnum.right) {
                 nextCol += 1;
             }
-            //当前地形是障碍物，例如墙，修正位置会产生bug
+            //当前地形是障碍物，例如墙，修正转向位置会产生bug，会卡在墙里。除非额外判断16小砖的位置
             if (this.tileList[curRow][curCol] != null && this.tileList[curRow][curCol].canWalk == false) {
                 return;
             }
@@ -1116,8 +1131,6 @@ var GameScene = (function (_super) {
         else {
             return;
         }
-        //减少坦克图标
-        this.reduceEnemyNumIcon();
         //获取坦克生成点，并在该点生成坦克
         var enemyBirthPos = levelData.enemyBirthPos;
         var birthPos = enemyBirthPos[NumberTool.getRandomInt(0, enemyBirthPos.length - 1)];
@@ -1139,6 +1152,7 @@ var GameScene = (function (_super) {
             self.bEnemyPause && tank.stop();
             self.tankGroup.addChild(tank);
             self.enemyTankList.push(tank);
+            self.reduceEnemyNumIcon();
         });
     };
     //停止生成坦克
@@ -1271,7 +1285,7 @@ var GameScene = (function (_super) {
         if (this.gameStatus == GameStatus.waiting) {
             return;
         }
-        if (this.bPlayerPause) {
+        if (this.bPlayerPause && actionType != ActionEnum.shoot) {
             return;
         }
         //获取用户tank

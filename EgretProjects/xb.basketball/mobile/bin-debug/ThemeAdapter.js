@@ -51,5 +51,5 @@ var ThemeAdapter = (function () {
         RES.getResByUrl(url, onGetRes, this, RES.ResourceItem.TYPE_TEXT);
     };
     return ThemeAdapter;
-})();
+}());
 egret.registerClass(ThemeAdapter,'ThemeAdapter',["eui.IThemeAdapter"]);

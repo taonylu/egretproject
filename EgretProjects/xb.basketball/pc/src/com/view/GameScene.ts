@@ -37,6 +37,9 @@ class GameScene extends BaseScene{
     
     private score:number = 0;      //当前得分
     
+    private logoGroup:eui.Group;   //logo加载
+    private logoLoader:ImagerLoad = new ImagerLoad();
+    
 	public constructor() {
         super("GameSceneSkin");
 	}
@@ -50,6 +53,7 @@ class GameScene extends BaseScene{
     }
 
     public onEnable(): void {
+        this.loadLogo();
         this.soundManager.playBgm(this.soundManager.bgm_game, 0.5);
         this.resetGame();
         this.startCountDown(); 
@@ -59,6 +63,13 @@ class GameScene extends BaseScene{
         this.soundManager.stopBgm();
         this.hideResult();
         this.stopCountDown();
+    }
+    
+    private loadLogo(){
+        if(this.logoLoader.isEmpty()){
+            this.logoGroup.addChild(this.logoLoader);
+            this.logoLoader.loadImg(window["logoUrl"]);
+        }
     }
     
     private startCountDown(){

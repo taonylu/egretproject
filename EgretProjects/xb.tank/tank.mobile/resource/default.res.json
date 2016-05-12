@@ -5,7 +5,7 @@
 			"name":"preload"
 		},
 		{
-			"keys":"p2_png,p1_png,light_png,handBg_png,alphaBtn_png",
+			"keys":"p2_png,p1_png,light_png,handBg_png,alphaBtn_png,result_bg_jpg",
 			"name":"game"
 		}
 	],
@@ -39,6 +39,11 @@
 			"name":"alphaBtn_png",
 			"type":"image",
 			"url":"assets/alphaBtn.png"
+		},
+		{
+			"name":"result_bg_jpg",
+			"type":"image",
+			"url":"assets/result_bg.jpg"
 		}
 	]
 }

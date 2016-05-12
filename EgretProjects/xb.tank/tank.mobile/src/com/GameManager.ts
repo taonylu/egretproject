@@ -5,6 +5,7 @@
  */
 class GameManager {
     public homeScene: HomeScene = new HomeScene();  //主页场景
+    public resultScene:ResultScene = new ResultScene(); //结果场景
     
     //启动游戏框架
     public startup(main: Main): void {

@@ -14,6 +14,7 @@ class SoundManager {
     public fire: string = "fire_mp3";
     public user_move: string = "user_move_mp3";
     public tank_boom: string = "tank_boom_mp3";
+    public home_bgm: string = "home_bg_mp3";
     
     private soundList = {};     //声音列表
     private channelList = {};   //声道列表
@@ -30,6 +31,7 @@ class SoundManager {
         this.addSound(this.fire);
         this.addSound(this.user_move);
         this.addSound(this.tank_boom);
+        this.addSound(this.home_bgm);
 	}
 	
 	public addSound(soundName:string){
@@ -61,7 +63,7 @@ class SoundManager {
     	}
     	var bgm:egret.Sound = this.soundList[bgmName];
     	if(bgm){
-        this.bgmChannel = bgm.play();
+        this.bgmChannel = bgm.play(0,Number.MAX_VALUE);
         this.bgmChannel.volume = volume;
       }
 	}

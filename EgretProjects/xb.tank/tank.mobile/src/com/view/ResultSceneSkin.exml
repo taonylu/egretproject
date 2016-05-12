@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="ResultSceneSkin" width="1136" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group height="1136" width="640" rotation="90" horizontalCenter="0" verticalCenter="0">
+		<e:Image source="result_bg_jpg" width="640" height="1136"/>
+		<e:Label id="waveLabel" text="99" x="180" y="766" textColor="0xFC0101" width="37" height="30" size="25" verticalAlign="middle" textAlign="center"/>
+		<e:Label id="heroRankLabel" y="766" textColor="0xFC0101" height="30" text="99" textAlign="center" width="48" verticalAlign="middle" size="25" x="481"/>
+		<e:Label id="killLabel" y="807" textColor="0xFC0101" size="25" text="99" textAlign="center" width="45" verticalAlign="middle" height="30" x="126"/>
+		<e:Label id="killRankLabel" y="807" textColor="0xFC0101" height="30" text="99" textAlign="center" width="46" verticalAlign="middle" size="25" x="331"/>
+	</e:Group>
+</e:Skin>

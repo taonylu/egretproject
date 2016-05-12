@@ -38,6 +38,11 @@
 					"isFolder":false,
 					"key":"alphaBtn_png",
 					"name":"alphaBtn_png"
+				},
+				{
+					"isFolder":false,
+					"key":"result_bg_jpg",
+					"name":"result_bg_jpg"
 				}
 			]
 		}

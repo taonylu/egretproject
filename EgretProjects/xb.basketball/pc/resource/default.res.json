@@ -48,7 +48,7 @@
 		{
 			"name":"homebg_jpg",
 			"type":"image",
-			"url":"assets/homebg.jpg"
+			"url":"assets/homebg.jpg?ver=1.0"
 		},
 		{
 			"name":"homeball_png",

@@ -1,6 +1,6 @@
 {
 	"groups":[{
-			"keys":"messageBox_png,bg_jpg,ball_png,hand_png",
+			"keys":"messageBox_png,bg_jpg,ball_png,hand_png,prize_btn_png,prize_bg_png",
 			"name":"preload"
 		}],
 	"resources":[
@@ -12,7 +12,7 @@
 		{
 			"name":"bg_jpg",
 			"type":"image",
-			"url":"assets/bg.jpg"
+			"url":"assets/bg.jpg?ver=1.0"
 		},
 		{
 			"name":"ball_png",
@@ -23,6 +23,16 @@
 			"name":"hand_png",
 			"type":"image",
 			"url":"assets/hand.png"
+		},
+		{
+			"name":"prize_btn_png",
+			"type":"image",
+			"url":"assets/prize_btn.png"
+		},
+		{
+			"name":"prize_bg_png",
+			"type":"image",
+			"url":"assets/prize_bg.png"
 		}
 	]
 }
