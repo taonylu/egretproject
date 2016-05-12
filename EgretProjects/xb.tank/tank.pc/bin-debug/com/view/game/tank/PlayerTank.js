@@ -23,6 +23,11 @@ var PlayerTank = (function (_super) {
             this.shield.y = this.y;
         }
     };
+    //停止移动
+    p.stopMove = function () {
+        this.stop();
+        this.snd.stop(this.snd.user_move);
+    };
     //播放护盾动画
     p.playShield = function (loopTimes) {
         if (this.parent) {
@@ -75,7 +80,7 @@ var PlayerTank = (function (_super) {
     };
     //时间道具停止
     p.pause = function () {
-        this.stop();
+        this.stopMove();
         egret.Tween.get(this, { loop: true }).to({ alpha: 0.1 }, 200).to({ alpha: 1 }, 200);
     };
     //停止暂停,恢复行动

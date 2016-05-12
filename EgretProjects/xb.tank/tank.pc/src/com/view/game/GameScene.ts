@@ -152,7 +152,8 @@ class GameScene extends BaseScene{
             this.gameStatus = GameStatus.gameover;
             //临时增加，保存枪威力
             for(var i=0;i<this.playerTankList.length;i++){
-                this.powerList[i] = this.playerTankList[i].power;
+                var tank: PlayerTank = <PlayerTank>this.playerTankList[i];
+                this.powerList[tank.playerNo-1] = tank.power;
             }
             //等待一段时间，显示结果页面
             var self: GameScene = this;
@@ -499,13 +500,13 @@ class GameScene extends BaseScene{
     private checkPlayerAllDie():boolean{
         var userNum = UserManager.getInstance().getUserNum();
         if(userNum == 1){
-            var life = parseInt(this.p1LifeLabel.text);
+            var life = this.playerLife[0];
             if(life <= 0 && this.playerTankList.length == 0){ //生命文本为<=0并且在场没有我方坦克
                 return true;
             }
         }else if(userNum ==2){
-            var life1 = parseInt(this.p1LifeLabel.text);
-            var life2 = parseInt(this.p2LifeLabel.text);
+            var life1 = this.playerLife[0];
+            var life2 = this.playerLife[1];
             if(life1 <= 0 && life2 <= 0 && this.playerTankList.length == 0) {
                 return true;
             }
@@ -1010,6 +1011,7 @@ class GameScene extends BaseScene{
                     this.playTankBoom(tank.x,tank.y);
                     this.reducePlayerIcon((<PlayerTank>tank).playerNo);
                 }
+                this.powerList = [1,1];
                 this.playerTankList.length = 0;
             }
         }else if(item.type == ItemEnum.pause){ //暂定
