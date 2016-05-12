@@ -55,6 +55,7 @@ class HomeScene extends BaseScene{
     }
 
     public onEnable(): void {
+        this.snd.playBgm(this.snd.home_bgm);
         window["changeBgColor"](GameConst.color0);
         UserManager.getInstance().clearAllUser(); //清理用户列表
         this.resetView();     //重置界面
@@ -63,7 +64,7 @@ class HomeScene extends BaseScene{
     }
 
     public onRemove(): void {
-        
+        this.snd.stopBgm();
     }
     
     //重置界面

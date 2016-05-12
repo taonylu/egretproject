@@ -21,6 +21,7 @@ var game_file_list = [
 	"bin-debug/com/GameManager.js",
 	"bin-debug/com/net/ClientSocket.js",
 	"bin-debug/com/view/HomeScene.js",
+	"bin-debug/com/view/ui/ImageLoad.js",
 	"bin-debug/com/view/ui/MessageBox.js",
 	"bin-debug/com/view/ui/ResultPanel.js",
 	"bin-debug/Main.js",

@@ -117,9 +117,9 @@ class HomeScene extends BaseScene{
     public revGameOver(json) {
         egret.log("rev gameOver");
         var data = json.message;
-        var wave = data.wave;
-        var heroRank = data.heroRank;
-        egret.log("wave:",wave,"heroRank:",heroRank);
+        LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
+        GameManager.getInstance().resultScene.setResult(data);
+        
     }
     
 }

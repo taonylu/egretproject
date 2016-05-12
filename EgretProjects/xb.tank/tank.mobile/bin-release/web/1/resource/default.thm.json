@@ -16,6 +16,10 @@
     {
       "path": "src/com/view/PreloadSceneSkin.exml",
       "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PreloadSceneSkin\" width=\"1136\" height=\"640\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image source=\"preload_jpg\" horizontalCenter=\"0.5\" verticalCenter=\"-80\"/>\n\t<e:Label id=\"progressLabel\" text=\"Loading...0%\" horizontalCenter=\"0\" verticalCenter=\"120\" width=\"232\" verticalAlign=\"middle\" textAlign=\"center\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/ResultSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultSceneSkin\" width=\"1136\" height=\"640\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Group height=\"1136\" width=\"640\" rotation=\"90\" horizontalCenter=\"0\" verticalCenter=\"0\">\n\t\t<e:Image source=\"result_bg_jpg\" width=\"640\" height=\"1136\"/>\n\t\t<e:Label id=\"waveLabel\" text=\"99\" x=\"180\" y=\"766\" textColor=\"0xFC0101\" width=\"37\" height=\"30\" size=\"25\" verticalAlign=\"middle\" textAlign=\"center\"/>\n\t\t<e:Label id=\"heroRankLabel\" y=\"766\" textColor=\"0xFC0101\" height=\"30\" text=\"99\" textAlign=\"center\" width=\"48\" verticalAlign=\"middle\" size=\"25\" x=\"481\"/>\n\t\t<e:Label id=\"killLabel\" y=\"807\" textColor=\"0xFC0101\" size=\"25\" text=\"99\" textAlign=\"center\" width=\"45\" verticalAlign=\"middle\" height=\"30\" x=\"126\"/>\n\t\t<e:Label id=\"killRankLabel\" y=\"807\" textColor=\"0xFC0101\" height=\"30\" text=\"99\" textAlign=\"center\" width=\"46\" verticalAlign=\"middle\" size=\"25\" x=\"331\"/>\n\t</e:Group>\n</e:Skin>"
     }
   ],
   "skins": {

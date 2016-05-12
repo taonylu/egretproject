@@ -18,6 +18,13 @@ class HomeScene extends BaseScene{
     private countDownTimer:egret.Timer = new egret.Timer(650); //倒计时
     private countDownLimit:number = 3;  //倒计时限制
     
+    private logoGroup:eui.Group;  //logoGroup
+    private logoLoader:ImageLoad = new ImageLoad();
+    
+    private prizeGroup:eui.Group;    //领取奖品Group
+    private messageLabel:eui.Label;  //消息文本
+    private prizeBtn:eui.Image;      //领取按钮
+    
     
     public constructor() {
         super("HomeSceneSkin");
@@ -33,6 +40,7 @@ class HomeScene extends BaseScene{
     }
 
     public onEnable(): void {
+        this.loadLogo();
         this.socket.startConnect();
         this.introduce();
         
@@ -44,6 +52,13 @@ class HomeScene extends BaseScene{
 
     public onRemove(): void {
         
+    }
+    
+    private loadLogo(){
+        if(this.logoLoader.isEmpty()) {
+            this.logoGroup.addChild(this.logoLoader);
+            this.logoLoader.loadImg(window["logoUrl"]);
+        }
     }
     
     //开始游戏
@@ -211,10 +226,19 @@ class HomeScene extends BaseScene{
         this.gameOver();
         
         //显示分数
-        this.resultPanel.showScore(score);
-        this.resultPanel.x = (GameConst.stage.stageWidth - this.resultPanel.width)/2;
-        this.resultPanel.y = (GameConst.stage.stageHeight - this.resultPanel.height) / 2;
-        this.addChild(this.resultPanel);
+        if(score >= window["prizeScore"]){
+            this.prizeGroup.visible = true;
+            this.messageLabel.text = "恭喜获得优惠券一张\n赶紧点击按钮领取吧";
+            this.prizeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function(){
+                location.href = window["prizeLink"];
+            },this);
+        }else{
+            this.resultPanel.showScore(score);
+            this.resultPanel.x = (GameConst.stage.stageWidth - this.resultPanel.width) / 2;
+            this.resultPanel.y = (GameConst.stage.stageHeight - this.resultPanel.height) / 2;
+            this.addChild(this.resultPanel);
+        }
+        
     }
    
 }

@@ -4,7 +4,8 @@
     "src/com/utils/ui/HeadUISkin.exml",
     "src/com/view/ui/HandlerSkin.exml",
     "src/com/view/HomeSceneSkin.exml",
-    "src/com/view/PreloadSceneSkin.exml"
+    "src/com/view/PreloadSceneSkin.exml",
+    "src/com/view/ResultSceneSkin.exml"
   ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",

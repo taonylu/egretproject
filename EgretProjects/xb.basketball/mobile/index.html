@@ -49,6 +49,7 @@
 	<script egret="game" src="bin-debug/com/GameManager.js"></script>
 	<script egret="game" src="bin-debug/com/net/ClientSocket.js"></script>
 	<script egret="game" src="bin-debug/com/view/HomeScene.js"></script>
+	<script egret="game" src="bin-debug/com/view/ui/ImageLoad.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/MessageBox.js"></script>
 	<script egret="game" src="bin-debug/com/view/ui/ResultPanel.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
@@ -81,7 +82,10 @@
     <script>
     	
     	window["server"] = "http://192.168.1.101:3004/mobile";
-
+		window["logoUrl"] = "";     //游戏中粘贴商家的logo地址
+    	window["prizeScore"] = "";  //领取分数，达到后会弹出领取奖品提示
+    	window["prizeLink"] = "";   //领取奖品的链接
+    	
     	var gameDiv = document.getElementById("gameDiv");
     	gameDiv.style.display = "none";
     	

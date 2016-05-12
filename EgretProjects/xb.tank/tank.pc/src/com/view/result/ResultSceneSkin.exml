@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="ResultSceneSkin" width="1920" height="1024" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
-	<e:Rect height="600" width="2400" y="672" fillColor="0x333A42"/>
 	<e:BitmapLabel y="40" font="writeFont_fnt" text="HI-SCORE" x="756"/>
 	<e:BitmapLabel id="stageLabel" y="90" text="STAGE-3" font="writeFont_fnt" x="786"/>
 	<e:BitmapLabel y="630" text="TOTAL" font="writeFont_fnt" x="646"/>
@@ -12,6 +11,7 @@
 	<e:Image source="result_enemy3_png" y="500" x="934"/>
 	<e:Rect height="5" width="418" y="588" fillColor="0xFCFAFA" x="751"/>
 	<e:Group id="rankGroup" height="320" width="850" x="524" y="670">
+		<e:Rect id="rankBg" height="600" width="2400" y="0" fillColor="0x333A42" x="-760"/>
 		<e:Label text="英雄榜：" x="215" y="32" size="30" fontFamily="微软雅黑" textColor="0xF49129"/>
 		<e:Label y="122" textColor="0xF49129" text="击杀榜：" fontFamily="微软雅黑" size="30" x="215"/>
 		<e:Label y="32" size="30" text="第" x="550" textColor="0xFAF9F6" fontFamily="微软雅黑"/>

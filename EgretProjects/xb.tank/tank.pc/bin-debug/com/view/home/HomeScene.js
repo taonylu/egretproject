@@ -39,6 +39,7 @@ var HomeScene = (function (_super) {
         this.snd = SoundManager.getInstance();
     };
     p.onEnable = function () {
+        this.snd.playBgm(this.snd.home_bgm);
         window["changeBgColor"](GameConst.color0);
         UserManager.getInstance().clearAllUser(); //清理用户列表
         this.resetView(); //重置界面
@@ -46,6 +47,7 @@ var HomeScene = (function (_super) {
         this.startConnect(); //连接socket
     };
     p.onRemove = function () {
+        this.snd.stopBgm();
     };
     //重置界面
     p.resetView = function () {

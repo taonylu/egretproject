@@ -91,9 +91,15 @@ var egret;
                 function onLoadComplete(e) {
                     removeListeners();
                     loader.data = sound;
-                    egret.$callAsync(function () {
+                    var loadedFunc = function () {
                         loader.dispatchEventWith(egret.Event.COMPLETE);
-                    }, self);
+                    };
+                    if (__global.setTimeout) {
+                        __global.setTimeout(loadedFunc, 0);
+                    }
+                    else {
+                        egret.$callAsync(loadedFunc, self);
+                    }
                 }
                 function removeListeners() {
                     sound.removeEventListener(egret.Event.COMPLETE, onLoadComplete, self);
@@ -124,9 +130,15 @@ var egret;
                     var texture = new egret.Texture();
                     texture._setBitmapData(bitmapData);
                     loader.data = texture;
-                    egret.$callAsync(function () {
+                    var loadedFunc = function () {
                         loader.dispatchEventWith(egret.Event.COMPLETE);
-                    }, self);
+                    };
+                    if (__global.setTimeout) {
+                        __global.setTimeout(loadedFunc, 0);
+                    }
+                    else {
+                        egret.$callAsync(loadedFunc, self);
+                    }
                 }
                 function removeListeners() {
                     imageLoader.removeEventListener(egret.Event.COMPLETE, onLoadComplete, self);
@@ -158,7 +170,7 @@ var egret;
             };
             NativeNetContext.__use_asyn = egret_native.readFileAsync == null ? false : true;
             return NativeNetContext;
-        })(egret.HashObject);
+        }(egret.HashObject));
         native.NativeNetContext = NativeNetContext;
         egret.registerClass(NativeNetContext,'egret.native.NativeNetContext',["egret.NetContext"]);
         egret.NetContext = NativeNetContext;

@@ -28,6 +28,16 @@
 					"isFolder":false,
 					"key":"hand_png",
 					"name":"hand_png"
+				},
+				{
+					"isFolder":false,
+					"key":"prize_bg_png",
+					"name":"prize_bg_png"
+				},
+				{
+					"isFolder":false,
+					"key":"prize_btn_png",
+					"name":"prize_btn_png"
 				}
 			]
 		}

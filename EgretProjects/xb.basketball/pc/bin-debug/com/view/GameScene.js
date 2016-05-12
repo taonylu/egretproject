@@ -19,6 +19,7 @@ var GameScene = (function (_super) {
         this.countDownTimer = new egret.Timer(1000); //倒计时
         this.countDownLimit = 3;
         this.score = 0; //当前得分
+        this.logoLoader = new ImagerLoad();
         this.floorLength = 2000; //球道长宽，虚拟长度
         this.floorMaxWidth = 950; //球道z=0，y=0时，宽度
         this.floorMinWidth = 475; //球道z=2000时宽度
@@ -37,6 +38,7 @@ var GameScene = (function (_super) {
         this.stageHeight = GameConst.stage.stageHeight;
     };
     p.onEnable = function () {
+        this.loadLogo();
         this.soundManager.playBgm(this.soundManager.bgm_game, 0.5);
         this.resetGame();
         this.startCountDown();
@@ -45,6 +47,12 @@ var GameScene = (function (_super) {
         this.soundManager.stopBgm();
         this.hideResult();
         this.stopCountDown();
+    };
+    p.loadLogo = function () {
+        if (this.logoLoader.isEmpty()) {
+            this.logoGroup.addChild(this.logoLoader);
+            this.logoLoader.loadImg(window["logoUrl"]);
+        }
     };
     p.startCountDown = function () {
         this.countDownUI.show(this);

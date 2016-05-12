@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="GameSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="bg" source="bg_jpg" width="1920" height="1080"/>
+	<e:Group id="logoGroup" height="200" width="300" y="464" x="819"/>
 	<e:Label id="timeLabel" text="00:30" x="879" y="43" width="178" height="73" verticalAlign="middle" textAlign="center" size="60"/>
 	<e:Group id="frameBgGroup" height="1080" width="1920" x="0" y="0">
 		<e:Image id="ballFrame" source="ballFrame_png" y="123" x="841"/>
