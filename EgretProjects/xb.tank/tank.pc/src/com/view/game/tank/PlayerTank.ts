@@ -25,6 +25,12 @@ class PlayerTank extends BaseTank{
             this.shield.y = this.y;
         }
     }
+    
+    //停止移动
+    public stopMove(){
+        this.stop();
+        this.snd.stop(this.snd.user_move);
+    }
 	
 	//播放护盾动画
 	public playShield(loopTimes:number){
@@ -83,8 +89,8 @@ class PlayerTank extends BaseTank{
 	
 	//时间道具停止
 	public pause(){
-    	this.stop();
-      egret.Tween.get(this,{loop:true}).to({alpha:0.1},200).to({alpha:1},200);
+    	this.stopMove();
+             egret.Tween.get(this,{loop:true}).to({alpha:0.1},200).to({alpha:1},200);
 	}
 	
 	//停止暂停,恢复行动

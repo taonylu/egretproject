@@ -108,7 +108,8 @@ var GameScene = (function (_super) {
             this.gameStatus = GameStatus.gameover;
             //临时增加，保存枪威力
             for (var i = 0; i < this.playerTankList.length; i++) {
-                this.powerList[i] = this.playerTankList[i].power;
+                var tank = this.playerTankList[i];
+                this.powerList[tank.playerNo - 1] = tank.power;
             }
             //等待一段时间，显示结果页面
             var self = this;
@@ -435,14 +436,14 @@ var GameScene = (function (_super) {
     p.checkPlayerAllDie = function () {
         var userNum = UserManager.getInstance().getUserNum();
         if (userNum == 1) {
-            var life = parseInt(this.p1LifeLabel.text);
+            var life = this.playerLife[0];
             if (life <= 0 && this.playerTankList.length == 0) {
                 return true;
             }
         }
         else if (userNum == 2) {
-            var life1 = parseInt(this.p1LifeLabel.text);
-            var life2 = parseInt(this.p2LifeLabel.text);
+            var life1 = this.playerLife[0];
+            var life2 = this.playerLife[1];
             if (life1 <= 0 && life2 <= 0 && this.playerTankList.length == 0) {
                 return true;
             }
@@ -936,6 +937,7 @@ var GameScene = (function (_super) {
                     this.playTankBoom(tank.x, tank.y);
                     this.reducePlayerIcon(tank.playerNo);
                 }
+                this.powerList = [1, 1];
                 this.playerTankList.length = 0;
             }
         }
