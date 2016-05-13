@@ -19,6 +19,8 @@ class BaseTank extends SimpleMC{
     public hitWidth:number = 64;     //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
     public hitHalfWidth:number = 32;
     public shooting:boolean = false; //连续射击
+    public bulletCount: number = 0;      //发射出的子弹数，用于限制射击
+    public playerNo: number; //几号玩家 ，1或者2
     public snd:SoundManager = SoundManager.getInstance();
     
     public constructor() {
@@ -33,6 +35,7 @@ class BaseTank extends SimpleMC{
     	   this.isHaveItem = false;
     	   this.shootCount = 0;
     	   this.shooting = false;
+    	   this.bulletCount = 0;
     }
 
 	//移动
@@ -60,7 +63,7 @@ class BaseTank extends SimpleMC{
       if(this.speedX == 0 && this.speedY ==0 && actionType != ActionEnum.stopMove){
           this.playMoveAnim();
           if(this.type == TankEnum.player){
-              this.snd.play(this.snd.user_move,9999);
+              this.snd.playMove(this.playerNo);
           }
       }
      
@@ -94,7 +97,7 @@ class BaseTank extends SimpleMC{
                 this.speedY = 0;
                 this.stop();
                 if(this.type == TankEnum.player) {
-                    this.snd.stop(this.snd.user_move);
+                    this.snd.stopMove(this.playerNo);
                 }
                 break;
     	}
@@ -135,7 +138,20 @@ class BaseTank extends SimpleMC{
 	public shoot(){
         this.shootCount++;
         this.shooting = true;  //临时增加连续射击
+        if(this.type == TankEnum.player && this.bulletCount <=0 ){  //临时增加，当子弹射出数目为0时，则可立刻发射
+            if(this.shootCount < (this.shootTime/16-10)){
+                this.shootCount = this.shootTime / 16 - 10; //重置射击间隔时间
+            }
+        }
         if(this.shootCount * 16 >= this.shootTime) {  // 1帧的时间 1000/60 = 16ms
+            if(this.bulletCount < 2){  //子弹超出最大数量2，则不能发射
+                this.bulletCount++;
+                if(this.bulletCount <= 0){ //修正子弹数量
+                    this.bulletCount = 1;
+                }
+            }else{
+                return;
+            }
             if(this.type == TankEnum.player){
                 this.snd.play(this.snd.fire);
             }

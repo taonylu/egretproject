@@ -18,6 +18,7 @@ class SoundManager {
     
     private soundList = {};     //声音列表
     private channelList = {};   //声道列表
+    private moveChannelList:Array<egret.SoundChannel> = []; //移动音效
     
     private bgmChannel:egret.SoundChannel;  //背景音乐声道
     
@@ -32,6 +33,11 @@ class SoundManager {
         this.addSound(this.user_move);
         this.addSound(this.tank_boom);
         this.addSound(this.home_bgm);
+        
+        this.moveChannelList[0] = this.play(this.user_move,9999);
+        this.moveChannelList[1] = this.play(this.user_move,9999);
+        this.moveChannelList[0].stop();
+        this.moveChannelList[1].stop();
 	}
 	
 	public addSound(soundName:string){
@@ -39,11 +45,26 @@ class SoundManager {
 	}
 	
 	//播放声音
-    public play(soundName: string,loops: number = 1, volume:number = 1){
+    public play(soundName: string,loops: number = 1, volume:number = 1):egret.SoundChannel{
     	var snd:egret.Sound = this.soundList[soundName];
     	if(snd){
         	this.channelList[soundName] = snd.play(0,loops);
         	(this.channelList[soundName] as egret.SoundChannel).volume = volume;
+        	return this.channelList[soundName];
+    	}
+    	return null;
+	}
+	
+	//坦克移动
+	public playMove(playerNo){
+    	 this.moveChannelList[playerNo-1].stop();
+    	 this.moveChannelList[playerNo-1] = this.play(this.user_move,9999);
+	}
+	
+	//坦克停止移动
+	public stopMove(playerNo){
+    	if(this.moveChannelList[playerNo-1]){
+        this.moveChannelList[playerNo - 1].stop();
     	}
 	}
 

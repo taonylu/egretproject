@@ -18,6 +18,7 @@ var SoundManager = (function () {
         this.home_bgm = "home_bg_mp3";
         this.soundList = {}; //声音列表
         this.channelList = {}; //声道列表
+        this.moveChannelList = []; //移动音效
         this.addSound(this.start_stage);
         this.addSound(this.lose);
         this.addSound(this.gift_life);
@@ -28,6 +29,10 @@ var SoundManager = (function () {
         this.addSound(this.user_move);
         this.addSound(this.tank_boom);
         this.addSound(this.home_bgm);
+        this.moveChannelList[0] = this.play(this.user_move, 9999);
+        this.moveChannelList[1] = this.play(this.user_move, 9999);
+        this.moveChannelList[0].stop();
+        this.moveChannelList[1].stop();
     }
     var d = __define,c=SoundManager,p=c.prototype;
     p.addSound = function (soundName) {
@@ -41,6 +46,19 @@ var SoundManager = (function () {
         if (snd) {
             this.channelList[soundName] = snd.play(0, loops);
             this.channelList[soundName].volume = volume;
+            return this.channelList[soundName];
+        }
+        return null;
+    };
+    //坦克移动
+    p.playMove = function (playerNo) {
+        this.moveChannelList[playerNo - 1].stop();
+        this.moveChannelList[playerNo - 1] = this.play(this.user_move, 9999);
+    };
+    //坦克停止移动
+    p.stopMove = function (playerNo) {
+        if (this.moveChannelList[playerNo - 1]) {
+            this.moveChannelList[playerNo - 1].stop();
         }
     };
     //停止声音

@@ -1,7 +1,7 @@
 {  		
     "comment":[
         		"关卡设置",
-        		"levelLimit总数，最后一关为生存关卡",
+        		"levelLimit关卡总数，最后一关为生存关卡",
         		"tankLimit坦克同时存在场景中的上限数量",
         		"normalTank普通坦克，值表示该类型坦克在本关出现的数量",
         		"fastTank快速坦克",
@@ -26,11 +26,11 @@
 			{
     			"levelLimit":3,
     			
-    			"tankLimit":[5,5,10],
-				"normalTank":[5,5,2],
-				"fastTank":[5,5,5],
-				"strongTank":[2,5,2],
-				"superTank":[0,5,2],
+    			"tankLimit": [5,5,10],
+				"normalTank":[16,11,5],
+				"fastTank":  [2,5,5],
+				"strongTank":[2,2,5],
+				"superTank": [0,2,5],
 
 				"itemNum":[5,5,5],
 				"shield":[15,15,15],
@@ -58,7 +58,7 @@
         	"坦克属性 life:生命值，power:枪威力，shootTime:射击间隔单位ms，speed:移动速度(必须能被64整除)"
           ], 
     "tankSet":{
-       		"playerTank":{"life":1,"power":1,"shootTime":[500,400,300],"speed":2},
+       		"playerTank":{"life":1,"power":1,"shootTime":[800,700,600],"speed":2},
         	"normalTank":{"life":1,"power":1,"shootTime":[2000,1500,1000],"speed":2},
         	"fastTank":{"life":1,"power":1,"shootTime":[2000,1500,1000],"speed":4},
         	"strongTank":{"life":2,"power":2,"shootTime":[2000,1500,1000],"speed":2},
@@ -75,7 +75,7 @@
         	"shield":5,
         	"pause":10,
         	"armor":30,
-        	"bulletSpeed":[8,15,15]
+        	"bulletSpeed":[8,12,12]
     	}
 }
 

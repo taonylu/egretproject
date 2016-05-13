@@ -26,7 +26,7 @@ var PlayerTank = (function (_super) {
     //停止移动
     p.stopMove = function () {
         this.stop();
-        this.snd.stop(this.snd.user_move);
+        this.snd.stopMove(this.playerNo);
     };
     //播放护盾动画
     p.playShield = function (loopTimes) {
@@ -90,6 +90,7 @@ var PlayerTank = (function (_super) {
     };
     //override
     p.reset = function () {
+        this.snd.stopMove(this.playerNo);
         _super.prototype.reset.call(this);
         var tankSet = MapManager.getInstance().tankSet.playerTank;
         this.speed = tankSet.speed;
@@ -101,7 +102,6 @@ var PlayerTank = (function (_super) {
         this.direction = DirectionEnum.up;
         this.gotoAndStop("lvl1");
         this.resume();
-        this.snd.stop(this.snd.user_move);
         var itemSet = MapManager.getInstance().itemSet;
         this.itemShieldTime = Math.round(itemSet.shield * 1000 / 160); //护盾动画播放一次160ms
         if (this.itemShieldTime <= 0) {
