@@ -5,10 +5,10 @@
  */
 class PlayerTank extends BaseTank{
     public static NAME: string = "PlayerTank";
-    public playerNo:number; //几号玩家 ，1或者2
     public shield:Shield = new Shield();  //护盾
     public birthShieldTime:number = 30;   //出生时护盾循环次数
     public itemShieldTime:number = 0;   //道具护盾持续时间
+    
     
 	public constructor() {
       super();
@@ -29,7 +29,7 @@ class PlayerTank extends BaseTank{
     //停止移动
     public stopMove(){
         this.stop();
-        this.snd.stop(this.snd.user_move);
+        this.snd.stopMove(this.playerNo);
     }
 	
 	//播放护盾动画
@@ -102,6 +102,7 @@ class PlayerTank extends BaseTank{
 	
 	//override
 	public reset(){
+        this.snd.stopMove(this.playerNo);
         super.reset();
     	  var tankSet = MapManager.getInstance().tankSet.playerTank;
         this.speed = tankSet.speed;
@@ -113,8 +114,7 @@ class PlayerTank extends BaseTank{
         this.direction = DirectionEnum.up;
         this.gotoAndStop("lvl1");
         this.resume();
-        this.snd.stop(this.snd.user_move);
-        
+
         var itemSet = MapManager.getInstance().itemSet;
         this.itemShieldTime = Math.round(itemSet.shield * 1000 / 160);  //护盾动画播放一次160ms
         if(this.itemShieldTime <=0){

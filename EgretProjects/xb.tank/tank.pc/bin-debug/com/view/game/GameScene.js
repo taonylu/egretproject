@@ -89,6 +89,9 @@ var GameScene = (function (_super) {
     };
     p.gameOver = function () {
         console.log("game over");
+        if (this.gameStatus != GameStatus.gameing) {
+            return;
+        }
         this.gameStatus = GameStatus.gameover;
         this.snd.play(this.snd.lose); //播放失败音效
         this.playGameOverAnim(); //播放游戏结束图标
@@ -101,6 +104,9 @@ var GameScene = (function (_super) {
     };
     p.gameWin = function () {
         console.log("game win");
+        if (this.gameStatus != GameStatus.gameing) {
+            return;
+        }
         if (this.bEndLess) {
             this.nextWave();
         }
@@ -326,19 +332,27 @@ var GameScene = (function (_super) {
     };
     //初始化玩家
     p.initPlayer = function () {
-        var playerNum = UserManager.getInstance().getUserNum();
-        if (playerNum >= 1) {
-            var life1 = this.playerLife[0];
+        var life1 = this.playerLife[0];
+        var life2 = this.playerLife[1];
+        var userNum = UserManager.getInstance().getUserNum();
+        if (userNum >= 1) {
             if (life1 >= 1) {
                 this.createPlayer(1);
                 this.reducePlayerIcon(1);
             }
+            else if (life2 >= 2) {
+                this.createPlayer(1);
+                this.reducePlayerIcon(2);
+            }
         }
-        if (playerNum == 2) {
-            var life2 = this.playerLife[1];
+        if (userNum == 2) {
             if (life2 >= 1) {
                 this.createPlayer(2);
                 this.reducePlayerIcon(2);
+            }
+            else if (life1 >= 1) {
+                this.createPlayer(2);
+                this.reducePlayerIcon(1);
             }
         }
     };
@@ -405,18 +419,19 @@ var GameScene = (function (_super) {
         if (MapManager.getInstance().curLevel == 1) {
             var userNum = UserManager.getInstance().getUserNum();
             var playerLife = MapManager.getInstance().playerSet.life;
-            this.playerLife = [playerLife, playerLife];
             if (userNum >= 1) {
                 this.p1Label.visible = true;
                 this.p1LifeLabel.visible = true;
                 this.p1Icon.visible = true;
                 this.p1LifeLabel.text = playerLife + "";
+                this.playerLife = [playerLife, 0];
             }
             if (userNum == 2) {
                 this.p2Label.visible = true;
                 this.p2LifeLabel.visible = true;
                 this.p2Icon.visible = true;
                 this.p2LifeLabel.text = playerLife + "";
+                this.playerLife = [playerLife, playerLife];
             }
         }
     };
@@ -730,6 +745,7 @@ var GameScene = (function (_super) {
                 }
             }
             if (bHit) {
+                bullet.owner.bulletCount--; //临时增加，用于计算子弹射出数目
                 this.playBoom(bullet);
                 bullet.recycle();
                 this.bulletList.splice(i, 1);
@@ -741,6 +757,8 @@ var GameScene = (function (_super) {
                 var jBullet = this.bulletList[j];
                 if (bullet != jBullet) {
                     if (bullet.checkCollision(jBullet)) {
+                        bullet.owner.bulletCount--; //临时增加，用于计算子弹射出数目
+                        jBullet.owner.bulletCount--;
                         bullet.recycle();
                         this.bulletList.splice(i, 1);
                         jBullet.recycle();
@@ -759,6 +777,7 @@ var GameScene = (function (_super) {
                 if (bullet.type == TankEnum.player) {
                     this.snd.play(this.snd.fire_reach_wall);
                 }
+                bullet.owner.bulletCount--; //临时增加，用于计算子弹射出数目
                 this.playBoom(bullet);
                 this.bulletList.splice(i, 1);
                 bullet.recycle();
@@ -794,6 +813,7 @@ var GameScene = (function (_super) {
                             //敌方坦克全灭
                             if (this.checkEnemyAllDie()) {
                                 //销毁子弹
+                                bullet.owner.bulletCount--; //临时增加，用于计算子弹射出数目
                                 this.playBoom(bullet);
                                 bullet.recycle();
                                 this.bulletList.splice(i, 1);
@@ -806,6 +826,7 @@ var GameScene = (function (_super) {
                             this.bEnemyPause && tank.stop();
                         }
                         //击中，销毁子弹
+                        bullet.owner.bulletCount--; //临时增加，用于计算子弹射出数目
                         this.playBoom(bullet);
                         bullet.recycle();
                         this.bulletList.splice(i, 1);
@@ -831,6 +852,7 @@ var GameScene = (function (_super) {
                             //我方坦克全灭
                             if (this.checkPlayerAllDie()) {
                                 //销毁子弹
+                                bullet.owner.bulletCount--; //临时增加，用于计算子弹射出数目
                                 this.playBoom(bullet);
                                 bullet.recycle();
                                 this.bulletList.splice(i, 1);
@@ -839,12 +861,31 @@ var GameScene = (function (_super) {
                             }
                             //坦克重生
                             var playerNo = tank.playerNo;
-                            if (this.playerLife[playerNo - 1] >= 1) {
-                                this.createPlayer(playerNo);
-                                this.reducePlayerIcon(playerNo);
+                            var life1 = this.playerLife[0];
+                            var life2 = this.playerLife[1];
+                            if (playerNo == 1) {
+                                if (life1 >= 1) {
+                                    this.createPlayer(1);
+                                    this.reducePlayerIcon(1);
+                                }
+                                else if (life2 >= 1) {
+                                    this.createPlayer(1);
+                                    this.reducePlayerIcon(2);
+                                }
+                            }
+                            else if (playerNo == 2) {
+                                if (life2 >= 1) {
+                                    this.createPlayer(2);
+                                    this.reducePlayerIcon(2);
+                                }
+                                else if (life1 >= 1) {
+                                    this.createPlayer(2);
+                                    this.reducePlayerIcon(1);
+                                }
                             }
                         }
                         //销毁子弹
+                        bullet.owner.bulletCount--; //临时增加，用于计算子弹射出数目
                         this.playBoom(bullet);
                         bullet.recycle();
                         this.bulletList.splice(i, 1);
@@ -921,11 +962,12 @@ var GameScene = (function (_super) {
             this.snd.play(this.snd.gift_bomb);
             if (tank.type == TankEnum.player) {
                 var len = this.enemyTankList.length;
+                var playerNO = tank.playerNo;
                 for (var i = 0; i < len; i++) {
                     var tank = this.enemyTankList[i];
+                    this.killList[playerNO - 1][tank.type - 1] += 1; //增加拾取炸弹炸死的敌军，也算击杀数
                     tank.recycle();
                     this.playTankBoom(tank.x, tank.y);
-                    this.reduceEnemyNumIcon();
                 }
                 this.enemyTankList.length = 0;
             }
@@ -935,7 +977,6 @@ var GameScene = (function (_super) {
                     var tank = this.playerTankList[i];
                     tank.recycle();
                     this.playTankBoom(tank.x, tank.y);
-                    this.reducePlayerIcon(tank.playerNo);
                 }
                 this.powerList = [1, 1];
                 this.playerTankList.length = 0;
@@ -991,8 +1032,20 @@ var GameScene = (function (_super) {
                 if (nextRow >= 0 && nextRow < this.rowMax && nextCol >= 0 && nextCol < this.colMax) {
                     var tile = this.tileList[nextRow][nextCol];
                     if (tile == null || tile.canWalk == true) {
+                        var tempX = tank.x;
+                        var tempY = tank.y;
                         tank.x = curCol * this.tileWidth + this.halfWidth + tank.speedX;
                         tank.y = curRow * this.tileHeight + this.halfHeight + tank.speedY;
+                        //临时增加，防止敌方坦克在修改位置时，发生穿过我方坦克的问题
+                        var len = this.playerTankList.length;
+                        for (var i = 0; i < len; i++) {
+                            var playerTank = this.playerTankList[i];
+                            if (tank != playerTank && tank.checkCollision(playerTank)) {
+                                tank.x = tempX;
+                                tank.y = tempY;
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -1287,7 +1340,7 @@ var GameScene = (function (_super) {
         if (this.gameStatus == GameStatus.waiting) {
             return;
         }
-        if (this.bPlayerPause && actionType != ActionEnum.shoot) {
+        if (this.bPlayerPause && actionType != ActionEnum.shoot && actionType != ActionEnum.stopShoot) {
             return;
         }
         //获取用户tank

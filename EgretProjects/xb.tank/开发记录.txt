@@ -5,6 +5,9 @@ xb@1234
 服务器pc端地址：
 http://open.mcw9.com/tank/screen/index
 
+发布svn地址：
+svn://www.mcw9.com/wx/
+
 洋洋测试：
 http://tank.mcw9.com/tank/workerman
 http://tank.mcw9.com/tank/workerman1

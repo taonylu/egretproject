@@ -18,6 +18,7 @@ var BaseTank = (function (_super) {
         this.hitWidth = 64; //碰撞检测范围，因为切图大小并不是64x64，所以不能取width判断碰撞范围，这里自定义一个变量
         this.hitHalfWidth = 32;
         this.shooting = false; //连续射击
+        this.bulletCount = 0; //发射出的子弹数，用于限制射击
         this.snd = SoundManager.getInstance();
         //自动移动
         this.turnCount = 60;
@@ -31,6 +32,7 @@ var BaseTank = (function (_super) {
         this.isHaveItem = false;
         this.shootCount = 0;
         this.shooting = false;
+        this.bulletCount = 0;
     };
     //移动
     p.move = function () {
@@ -53,7 +55,7 @@ var BaseTank = (function (_super) {
         if (this.speedX == 0 && this.speedY == 0 && actionType != ActionEnum.stopMove) {
             this.playMoveAnim();
             if (this.type == TankEnum.player) {
-                this.snd.play(this.snd.user_move, 9999);
+                this.snd.playMove(this.playerNo);
             }
         }
         switch (actionType) {
@@ -86,7 +88,7 @@ var BaseTank = (function (_super) {
                 this.speedY = 0;
                 this.stop();
                 if (this.type == TankEnum.player) {
-                    this.snd.stop(this.snd.user_move);
+                    this.snd.stopMove(this.playerNo);
                 }
                 break;
         }
@@ -123,7 +125,21 @@ var BaseTank = (function (_super) {
     p.shoot = function () {
         this.shootCount++;
         this.shooting = true; //临时增加连续射击
+        if (this.type == TankEnum.player && this.bulletCount <= 0) {
+            if (this.shootCount < (this.shootTime / 16 - 10)) {
+                this.shootCount = this.shootTime / 16 - 10; //重置射击间隔时间
+            }
+        }
         if (this.shootCount * 16 >= this.shootTime) {
+            if (this.bulletCount < 2) {
+                this.bulletCount++;
+                if (this.bulletCount <= 0) {
+                    this.bulletCount = 1;
+                }
+            }
+            else {
+                return;
+            }
             if (this.type == TankEnum.player) {
                 this.snd.play(this.snd.fire);
             }
