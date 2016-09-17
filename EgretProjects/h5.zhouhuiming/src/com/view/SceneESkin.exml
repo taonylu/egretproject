@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="SceneESkin" width="640" height="1040" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="sceneE_jpg" y="-9" height="1050" x="0"/>
+	<e:Group width="640" height="1040" id="starGroup">
+		<e:Image source="sceneC_star_png" y="45" x="5"/>
+		<e:Image source="sceneC_star2_png" y="51" x="445"/>
+	</e:Group>
+	<e:Image id="title" source="sceneE_title_png" y="100" x="145"/>
+	<e:Image id="phoneBtn" source="sceneE_phone_png" y="821" x="317" anchorOffsetX="78" anchorOffsetY="75.5"/>
+</e:Skin>

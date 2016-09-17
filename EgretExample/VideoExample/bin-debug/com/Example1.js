@@ -7,13 +7,14 @@ var Example1 = (function (_super) {
     __extends(Example1, _super);
     function Example1() {
         _super.call(this);
+        this.black = new egret.Sprite();
         this.addEventListener(eui.UIEvent.COMPLETE, this.componentCreated, this);
         this.skinName = "resource/myskin/Example1Skin.exml";
         console.log("example1");
     }
     var d = __define,c=Example1,p=c.prototype;
     p.componentCreated = function () {
-        console.log("created");
+        egret.log("created13");
         //        this.video = new egret.Video();
         //        this.video.x = 0;                       //设置视频坐标x
         //        this.video.y = 0;                       //设置视频坐标y
@@ -36,24 +37,40 @@ var Example1 = (function (_super) {
         //        //监听按钮行为，当按下时调用播放函数。
         //        btnPlay.addEventListener(egret.TouchEvent.TOUCH_TAP,this.play,this);
         this.video = new egret.Video();
-        this.video.height = Example1.stage.stageHeight;
-        this.video.width = 320 * Example1.stage.stageHeight / 176;
-        this.video.x = -(this.video.width - Example1.stage.stageWidth) / 2;
+        this.video.height = Example1.stage.stageWidth;
+        this.video.width = Example1.stage.stageHeight;
+        // this.video.width = 320 * Example1.stage.stageHeight / 176;
+        this.video.x = 0;
         this.video.y = 0;
-        this.video.fullscreen = false;
+        //this.video.rotation = 90;
         this.video.touchEnabled = true;
-        this.video.addEventListener(egret.TouchEvent.TOUCH_TAP, this.play, this);
-        this.video.load("resource/assets/movie.mp4");
+        this.video.fullscreen = false;
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.play, this);
+        this.addEventListener(egret.Event.COMPLETE, this.onLoad, this);
+        this.video.load("resource/assets/video2.mp4");
         this.addChild(this.video);
     };
     p.onLoad = function (e) {
+        egret.log("loaded");
     };
     p.onLoadErr = function (e) {
         console.log("video load error happened");
     };
     p.play = function (e) {
+        egret.log("play");
+        this.black.width = 1000;
+        this.black.height = 1000;
+        this.black.graphics.beginFill(0x000000);
+        this.black.graphics.drawRect(0, 0, 1000, 1000);
+        this.black.graphics.endFill();
+        this.black.touchEnabled = false;
+        this.addChild(this.black);
+        egret.log("play1");
+        var self = this;
+        egret.log("play2");
+        egret.log("play3");
         this.video.play();
     };
     return Example1;
-})(eui.Component);
+}(eui.Component));
 egret.registerClass(Example1,'Example1');

@@ -14,5 +14,5 @@ var LuckScene = (function (_super) {
     p.onRemove = function () {
     };
     return LuckScene;
-})(BaseScene);
+}(BaseScene));
 egret.registerClass(LuckScene,'LuckScene');

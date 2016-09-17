@@ -26,5 +26,5 @@ var PlayerUI = (function (_super) {
         egret.Tween.removeTweens(this);
     };
     return PlayerUI;
-})(eui.Component);
+}(eui.Component));
 egret.registerClass(PlayerUI,'PlayerUI');

@@ -27,5 +27,5 @@ var HTMLText = (function () {
         this.myText.style.display = "none";
     };
     return HTMLText;
-})();
+}());
 egret.registerClass(HTMLText,'HTMLText');

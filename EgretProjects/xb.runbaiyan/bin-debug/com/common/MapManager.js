@@ -134,5 +134,5 @@ var MapManager = (function () {
         return this.mapList[arr[0]][arr[1]];
     };
     return MapManager;
-})();
+}());
 egret.registerClass(MapManager,'MapManager');

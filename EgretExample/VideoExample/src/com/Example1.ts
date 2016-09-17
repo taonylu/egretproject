@@ -21,7 +21,7 @@ class Example1 extends eui.Component{
 	}
 	
     private componentCreated(): void {
-        console.log("created");
+        egret.log("created13");
 //        this.video = new egret.Video();
 //        this.video.x = 0;                       //设置视频坐标x
 //        this.video.y = 0;                       //设置视频坐标y
@@ -45,20 +45,27 @@ class Example1 extends eui.Component{
 //        btnPlay.addEventListener(egret.TouchEvent.TOUCH_TAP,this.play,this);
         
         this.video = new egret.Video();
-        this.video.height = Example1.stage.stageHeight;
-        this.video.width = 320 * Example1.stage.stageHeight / 176;
-        this.video.x = -(this.video.width - Example1.stage.stageWidth) / 2;
+        this.video.height = Example1.stage.stageWidth;
+        this.video.width = Example1.stage.stageHeight;
+       // this.video.width = 320 * Example1.stage.stageHeight / 176;
+        this.video.x =0;
         this.video.y = 0;
-        this.video.fullscreen = false;
+        //this.video.rotation = 90;
         this.video.touchEnabled = true;
-        this.video.addEventListener(egret.TouchEvent.TOUCH_TAP,this.play,this);
-        this.video.load("resource/assets/movie.mp4");
+       this.video.fullscreen = false;  
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.play,this);
+        this.addEventListener(egret.Event.COMPLETE, this.onLoad, this);
+        this.video.load("resource/assets/video2.mp4");
         this.addChild(this.video);
        
+        
+
     }
     
+    private black:egret.Sprite = new egret.Sprite();
+    
     private onLoad(e: egret.Event) {
-        
+        egret.log("loaded");
     }
     
     private onLoadErr(e: egret.Event) {
@@ -66,7 +73,28 @@ class Example1 extends eui.Component{
     }
     
     public play(e: egret.TouchEvent) {
+        egret.log("play");
+        
+        
+      
+        
+        this.black.width = 1000;
+        this.black.height = 1000;
+        this.black.graphics.beginFill(0x000000);
+        this.black.graphics.drawRect(0,0,1000,1000);
+        this.black.graphics.endFill();
+        this.black.touchEnabled = false;
+        this.addChild(this.black);
+        
+        egret.log("play1");
+        
+        var self:Example1 = this;
+        egret.log("play2");
+
+        egret.log("play3");
         this.video.play();
+        
+       
     }
 }
 

@@ -70,5 +70,5 @@ var Main = (function (_super) {
         GameManager.getInstance().startup(this);
     };
     return Main;
-})(eui.UILayer);
+}(eui.UILayer));
 egret.registerClass(Main,'Main');

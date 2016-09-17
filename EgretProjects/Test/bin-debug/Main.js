@@ -126,15 +126,10 @@ var Main = (function (_super) {
      * Create scene interface
      */
     p.startCreateScene = function () {
-        var p = new People();
-        p.name = "123";
-        console.log(p.getName());
-        for (var i = 0; i < 150; i++) {
-            var bm = new egret.Bitmap(RES.getRes("home_thxbg_jpg"));
-            this.addChild(bm);
-            egret.Tween.get(bm, { loop: true }).to({ x: Math.random() * 480 }, 500).to({ x: Math.random() * 480 }, 500);
-        }
-        egret.log(4);
+        var _this = this;
+        var funA = function (lamda) { console.log(_this, _this.loadingView); };
+        funA(); //Main
+        var p;
     };
     return Main;
 }(eui.UILayer));

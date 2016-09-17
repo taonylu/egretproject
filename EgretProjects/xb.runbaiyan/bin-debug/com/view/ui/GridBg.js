@@ -18,5 +18,5 @@ var GridBg = (function (_super) {
         return [this.row, this.col];
     };
     return GridBg;
-})(egret.Bitmap);
+}(egret.Bitmap));
 egret.registerClass(GridBg,'GridBg');

@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HomeSceneSkin" width="480" height="854" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="home_thxbg_jpg" x="79" y="33"/>
+</e:Skin>

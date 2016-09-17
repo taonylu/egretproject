@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="SceneGSkin" width="640" height="1040" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="sceneF_jpg" y="-9" height="1054"/>
+	<e:Group width="640" height="1040" id="starGroup">
+		<e:Image source="sceneC_star_png" y="45" x="5"/>
+		<e:Image source="sceneC_star2_png" y="51" x="445"/>
+	</e:Group>
+	<e:Image id="title" source="sceneG_title_png" y="121" x="104"/>
+	<e:Image id="submitBg" source="sceneG_submitBg_png" y="289" width="452" height="268" x="94"/>
+	<e:Image id="submitBtn" source="sceneG_submit_png" y="574" x="317" anchorOffsetX="73" anchorOffsetY="35"/>
+	<e:Image id="tree" source="sceneG_tree_png" x="111" bottom="-15"/>
+	<e:EditableText width="180" height="25" x="278" y="389" size="22" textColor="0xFEFAFA"/>
+	<e:EditableText y="436" height="25" width="180" size="22" x="278" textColor="0xFCFAFA"/>
+	<e:EditableText y="486" size="20" width="180" height="25" x="279" textColor="0xF9F4F4"/>
+</e:Skin>

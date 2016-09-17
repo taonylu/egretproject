@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="TestSkin"  states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected"  width="850" height="600" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:ViewStack id="stak" width="200" height="200" includeIn="up" x="143" y="212" selectedIndex="0">
+		<e:Group width="100%" height="100%" name="视图1" includeIn="up">
+			<e:Button label="按钮1" x="34" y="87"/>
+		</e:Group>
+		<e:Group width="100%" height="100%" name="视图2">
+			<e:Button y="97" label="按钮2" x="44" includeIn="up"/>
+		</e:Group>
+	</e:ViewStack>
+	<e:TabBar id="tab" height="200" width="200" x="92" y="78" itemRendererSkinName="skins.ItemRendererSkin" includeIn="up"/>
+	
+
+</e:Skin>

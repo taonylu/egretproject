@@ -128,21 +128,15 @@ class Main extends eui.UILayer {
      * Create scene interface
      */
     protected startCreateScene(): void {
-        var p:TestInterface = new People();
-        p.name = "123";
-        console.log(p.getName());
-       
-        for(var i=0;i<150;i++){
-            var bm: egret.Bitmap = new egret.Bitmap(RES.getRes("home_thxbg_jpg"));
-            this.addChild(bm);
-            egret.Tween.get(bm,{ loop: true }).to({ x: Math.random() * 480 },500).to({ x: Math.random() * 480},500);
-        }
-        
-        egret.log(4);
-        
+        var funA: Function = lamda => { console.log(this, this.loadingView) };
+        funA();  //Main
+        var p:People;
     }
-
+           
+             
 }
+
+
 
 
 

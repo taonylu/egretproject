@@ -102,8 +102,13 @@ class Main extends eui.UILayer {
      * Create scene interface
      */
     protected createScene(): void {
-        Example1.stage = this.stage;
-        this.addChild(new Example1());
+        egret.Tween.get(this).wait(1000).call(function() {
+            console.log("移除black");
+
+        },this);
+        
+//        Example1.stage = this.stage;
+//        this.addChild(new Example1());
     }
 
 }

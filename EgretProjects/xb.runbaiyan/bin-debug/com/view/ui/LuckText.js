@@ -29,5 +29,5 @@ var LuckText = (function (_super) {
         }
     };
     return LuckText;
-})(BaseUI);
+}(BaseUI));
 egret.registerClass(LuckText,'LuckText');

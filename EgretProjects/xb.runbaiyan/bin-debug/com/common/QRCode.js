@@ -41,5 +41,5 @@ var QRCode = (function () {
         this.myImg.style.top = _y + "px";
     };
     return QRCode;
-})();
+}());
 egret.registerClass(QRCode,'QRCode');

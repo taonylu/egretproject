@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="TestSkin" width="480" height="800" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="rect1" source="header_png" x="13" y="17"/>
+	<e:Group id="group" height="200" width="200" x="280" y="0">
+		<e:Image id="rect2" source="header_png"/>
+		<e:layout>
+			<e:HorizontalLayout horizontalAlign="justify" verticalAlign="top"/>
+		</e:layout>
+	</e:Group>
+	<e:Group y="10" id="group0" width="200" height="200" x="290">
+		<e:Group x="300" width="200" y="20" height="200" id="group1">
+			<e:Group x="310" width="200" y="30" height="200" id="group2"/>
+		</e:Group>
+	</e:Group>
+	<e:Label text="标签123" x="75" y="235" width="244" height="201" verticalAlign="justify"/>
+</e:Skin>

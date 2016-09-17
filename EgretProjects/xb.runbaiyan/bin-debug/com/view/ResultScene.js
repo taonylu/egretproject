@@ -54,5 +54,5 @@ var ResultScene = (function (_super) {
         }
     };
     return ResultScene;
-})(BaseScene);
+}(BaseScene));
 egret.registerClass(ResultScene,'ResultScene');
