@@ -40,5 +40,5 @@ var Water = (function (_super) {
         this.texture = this.animList[0];
     };
     return Water;
-})(egret.Bitmap);
+}(egret.Bitmap));
 egret.registerClass(Water,'Water');

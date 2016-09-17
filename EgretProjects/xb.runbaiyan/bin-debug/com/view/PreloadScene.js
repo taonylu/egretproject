@@ -18,5 +18,5 @@ var PreloadScene = (function (_super) {
         }
     };
     return PreloadScene;
-})(BaseScene);
+}(BaseScene));
 egret.registerClass(PreloadScene,'PreloadScene');

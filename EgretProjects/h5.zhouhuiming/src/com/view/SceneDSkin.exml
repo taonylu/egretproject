@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="SceneDSkin" width="640" height="1040" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="sceneC_jpg" height="1080" y="-10"/>
+	<e:Group id="starGroup" height="1040" width="640">
+		<e:Image source="sceneC_star_png" x="5" y="45"/>
+		<e:Image source="sceneC_star_png" y="55" x="15"/>
+		<e:Image source="sceneC_star_png" y="255" x="15"/>
+		<e:Image source="sceneC_star_png" y="175" x="215"/>
+	</e:Group>
+	<e:Image id="title" source="sceneD_title_png" y="105" x="83"/>
+	<e:Image id="star0" source="sceneC_star_png" y="15" x="365" anchorOffsetX="182"/>
+	<e:Image id="star1" source="sceneC_star2_png" x="285" y="51"/>
+	<e:Group id="imgGroup" height="1040" width="640">
+		<e:Image source="sceneD_img0_png" x="231" y="431" anchorOffsetX="96.2" anchorOffsetY="93"/>
+		<e:Image source="sceneD_img1_png" x="434" y="431" anchorOffsetX="96.2" anchorOffsetY="93"/>
+		<e:Image source="sceneD_img2_png" x="231" y="631" anchorOffsetX="96.2" anchorOffsetY="93"/>
+		<e:Image source="sceneD_img3_png" x="434" y="631" anchorOffsetX="96.2" anchorOffsetY="93"/>
+		<e:Image source="sceneD_img4_jpg" x="238" y="839" anchorOffsetX="96.2" anchorOffsetY="93"/>
+		<e:Image source="sceneD_img5_jpg" x="443" y="839" anchorOffsetX="96.2" anchorOffsetY="93"/>
+	</e:Group>
+	<e:Image id="arrow" source="comm_arrow_png" y="953" x="303"/>
+</e:Skin>

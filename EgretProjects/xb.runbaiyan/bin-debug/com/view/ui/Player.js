@@ -36,5 +36,5 @@ var Player = (function (_super) {
         this.texture = this.textureList[0];
     };
     return Player;
-})(egret.Bitmap);
+}(egret.Bitmap));
 egret.registerClass(Player,'Player');

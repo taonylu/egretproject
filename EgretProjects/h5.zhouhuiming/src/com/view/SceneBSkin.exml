@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="SceneBSkin" width="640" height="1040" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="sceneB_jpg"/>
+	<e:Label id="timeLabel" text="00:12" y="145" size="40" width="150" verticalAlign="middle" textAlign="center" x="245"/>
+	<e:Rect id="phoneBtn" height="158" width="164" x="245" y="866" fillAlpha="0"/>
+</e:Skin>

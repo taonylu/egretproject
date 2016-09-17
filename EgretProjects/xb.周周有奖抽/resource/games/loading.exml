@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="loading" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" width="640" height="1040">
+	<e:Group bottom="0" left="0" right="0" top="0">
+		<e:Image source="bg_jpg" left="0" right="0" top="0" bottom="0"/>
+		<e:Image source="new_bg_light_png" left="0" right="0" top="0" bottom="0"/>
+		<e:Image source="new_select_png" y="-1"/>
+		<e:Image id="logo" source="logo_png" right="0" bottom="0"/>
+		<e:Label id="loading_text" width="271" textColor="0xFFFFFF" textAlign="center" verticalAlign="middle" horizontalCenter="6.5" bottom="120"/>
+		<e:Label height="40" text="活动最终解释权归乐堡啤酒所有" verticalAlign="middle" textAlign="center" width="450" size="25" horizontalCenter="0" bottom="7" textColor="0x012001"/>
+	</e:Group>
+</e:Skin>

@@ -48,5 +48,5 @@ var ObjectPool = (function () {
     /**存储对象池的Object*/
     ObjectPool.pool = {};
     return ObjectPool;
-})();
+}());
 egret.registerClass(ObjectPool,'ObjectPool');

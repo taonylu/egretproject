@@ -13207,13 +13207,12 @@ var eui;
             var horizontalBar = this.horizontalScrollBar;
             var verticalBar = this.verticalScrollBar;
             if (horizontalBar && horizontalBar.visible || verticalBar && verticalBar.visible) {
-                //修改
                 if (!values[2 /* autoHideTimer */]) {
-                   // values[2 /* autoHideTimer */] = new egret.Timer(200, 1);
-                    //values[2 /* autoHideTimer */].addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.onAutoHideTimer, this);
+                    values[2 /* autoHideTimer */] = new egret.Timer(200, 1);
+                    values[2 /* autoHideTimer */].addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.onAutoHideTimer, this);
                 }
-               // values[2 /* autoHideTimer */].reset();
-               // values[2 /* autoHideTimer */].start();
+                values[2 /* autoHideTimer */].reset();
+                values[2 /* autoHideTimer */].start();
             }
             eui.UIEvent.dispatchUIEvent(this, eui.UIEvent.CHANGE_END);
         };
@@ -13267,8 +13266,7 @@ var eui;
                 this.verticalScrollBar.touchChildren = false;
                 this.verticalScrollBar.touchEnabled = false;
                 this.verticalScrollBar.viewport = this.viewport;
-                //修改
-                //this.verticalScrollBar.visible = false;
+                this.verticalScrollBar.visible = false;
             }
         };
         /**
@@ -14395,18 +14393,18 @@ var eui;
             if (vsp <= 0) {
                 var scaleHeight = thumbHeight * (1 - (-vsp) / (height * 0.5));
                 scaleHeight = Math.max(5, Math.round(scaleHeight));
-                //thumb.setLayoutBoundsSize(NaN, scaleHeight);
+                thumb.setLayoutBoundsSize(NaN, scaleHeight);
                 thumb.setLayoutBoundsPosition(thumbX, 0);
             }
             else if (vsp >= contentHeight - height) {
                 scaleHeight = thumbHeight * (1 - (vsp - contentHeight + height) / (height * 0.5));
                 scaleHeight = Math.max(5, Math.round(scaleHeight));
-               // thumb.setLayoutBoundsSize(NaN, scaleHeight);
+                thumb.setLayoutBoundsSize(NaN, scaleHeight);
                 thumb.setLayoutBoundsPosition(thumbX, unscaledHeight - scaleHeight);
             }
             else {
                 var thumbY = (unscaledHeight - thumbHeight) * vsp / (contentHeight - height);
-                //thumb.setLayoutBoundsSize(NaN, NaN);
+                thumb.setLayoutBoundsSize(NaN, NaN);
                 thumb.setLayoutBoundsPosition(thumbX, thumbY);
             }
         };

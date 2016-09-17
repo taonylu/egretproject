@@ -13,5 +13,5 @@ var Grid = (function (_super) {
     var d = __define,c=Grid,p=c.prototype;
     Grid.NAME = "Grid";
     return Grid;
-})(egret.Bitmap);
+}(egret.Bitmap));
 egret.registerClass(Grid,'Grid');

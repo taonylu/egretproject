@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>跑酷森林</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <style>
+        html, body {
+            -ms-touch-action: none;
+            background: #ffffff;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            height: 100%;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+
+    <!--这个标签为通过egret提供的第三方库的方式生成的 javascript 文件。删除 modules_files 标签后，库文件加载列表将不会变化，请谨慎操作！-->
+    <!--modules_files_start-->
+	<script egret="lib" src="libs/modules/egret/egret.min.js"></script>
+	<script egret="lib" src="libs/modules/egret/egret.web.min.js"></script>
+	<script egret="lib" src="libs/modules/eui/eui.min.js"></script>
+	<script egret="lib" src="libs/modules/res/res.min.js"></script>
+	<script egret="lib" src="libs/modules/tween/tween.min.js"></script>
+	<script egret="lib" src="libs/modules/game/game.min.js"></script>
+	<script egret="lib" src="libs/modules/game/game.web.min.js"></script>
+	<script egret="lib" src="libs/modules/socket.io/socket.io.min.js"></script>
+	<!--modules_files_end-->
+
+    <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
+    <!--other_libs_files_start-->
+    <!--other_libs_files_end-->
+
+    <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
+    <!--game_files_start-->
+	<script src="main.min.js?ver=1.21"></script>
+	<!--game_files_end-->
+</head>
+<body>
+
+    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+         data-entry-class="Main"
+         data-orientation="landSpace"
+         data-scale-mode="showAll"
+         data-frame-rate="60"
+         data-content-width="1920"
+         data-content-height="1080"
+         data-show-paint-rect="false"
+         data-multi-fingered="2"
+         data-show-fps="false" data-show-log="false"
+         data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
+    </div>
+    
+    <div class="hide">
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258539602'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1258539602' type='text/javascript'%3E%3C/script%3E"));</script>
+    </div>
+    
+    
+    <!-- 二维码 -->
+    <script type="text/javascript" src="jquery-1.5.2.min.js"></script> 
+    <script type="text/javascript" src="jquery.qrcode.min.js"></script> 
+    <div id="code" style="display:none"></div>
+    <!-- end 二维码 -->
+    
+    <script>
+		
+		//-----------【测试数据】--------------
+        var needfollow = 0;
+        var picture = "";
+		//----------end 测试数据-----------
+
+		//----------【统计代码】--------------
+		//声明_czc对象:
+		var _czc = _czc || [];
+		//绑定siteid，请用您的siteid替换下方"XXXXXXXX"部分
+		_czc.push(["_setAccount", "1258539602"]);
+		
+		//记录游戏次数和每局游戏人数
+		function czcStartGame(playerNum){
+			_czc.push(["_trackEvent","游戏次数","点击开始","游戏人数",playerNum]);
+		}
+		
+
+		//----------end 统计代码 --------------
+
+
+		//-------------【游戏配置】---------------
+		var gameConfig = {};
+		gameConfig.debug = false;      //是否本地调试模式
+		gameConfig.codeWidth = 250;    //二维码宽
+		gameConfig.codeHeight = 250;   //二维码高
+		gameConfig.codeData = "";      //二维码数据，用于加载为egret.Image     
+		gameConfig.logoUrl = "";       //二维码中心图片
+		gameConfig.needfollow = needfollow; //是否需要关注公众号
+		gameConfig.picture = picture;       //公众号图片地址
+		gameConfig.server = "http://node.ekche.com:4300/screen";         //服务器地址
+		gameConfig.codeUrl = "http://node.ekche.com/game/paoku/mobile?"; //二维码地址
+
+
+		gameConfig.homeTime = 10;  //主页倒计时时间
+		gameConfig.lockTime = 5;   //校准页倒计时时间
+		gameConfig.gameTime = 60;  //游戏时长
+		gameConfig.resultTime = 10;//结果页显示时长
+		gameConfig.introduceText = "超级流量包等你来拿！\n\n扫描二维码加入游戏，可1-3人一起玩。\n\n加入游戏记得手机面对屏幕校准。";     //首页“玩游戏赢大奖”文本
+    	
+
+		//游戏难度均分成3个等级，随着游戏时间增加，地图概率调整
+        gameConfig.mapCreateTimeList = [20,15,15]; //地图物品生成时间间隔
+    	gameConfig.mapFruitList = [20,20,20];      //水果生成概率, 50表示50%几率生成水果
+    	gameConfig.mapBarrList = [20,20,25];       //障碍物生成概率 
+    	gameConfig.mapMultiFruit = [1,3];          //当生成水果时，可以生成一串连续的水果，随机  n~m个。
+		gameConfig.moveSpeed = 1;                  //地图上物品移动速度
+    	gameConfig.accList = [0.02,0.05,0.1];     //加速度
+
+		//---------------end 游戏配置----------------
+
+    	//创建二维码图片，提供图片dataUrl给egret创建Image
+    	function createQRCode(){
+    		var rid = new Date().getTime() + "";
+	    	var codeUrl = gameConfig.codeUrl + "rid=" + rid;
+	    	var codeWidth = gameConfig.codeWidth;
+	    	var codeHeight = gameConfig.codeHeight;
+	    	$("#code").qrcode({ width: codeWidth, height:codeHeight,text:codeUrl });
+	    	var i=$("#code > canvas");
+	    	var codeData=i[0].toDataURL();
+	    	gameConfig.codeData = codeData;
+    		gameConfig.rid = rid;
+	    	//删除所有子节点
+	    	var codeDiv = document.getElementById("code");
+	    	codeDiv.innerHTML = "";
+    		console.log("createQRCode Complete:",codeUrl);
+    		return rid;
+    	}
+    	
+		function changeBgColor(color){
+    		document.body.style.backgroundColor = color;
+    	}
+
+        //运行游戏
+        egret.runEgret();
+    </script>
+    
+    
+    
+    
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

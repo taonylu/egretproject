@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="SceneCSkin" width="640" height="1040" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="sceneC_jpg" y="-10" x="0" height="1054"/>
+	<e:Image id="title" source="sceneC_title_png" x="112" y="200"/>
+	<e:Group id="starGroup" height="1040" width="640" x="-30">
+		<e:Image source="sceneC_star_png" x="5" y="45"/>
+		<e:Image source="sceneC_star_png" y="255" x="15"/>
+		<e:Image source="sceneC_star_png" y="175" x="215"/>
+		<e:Image source="sceneC_star2_png" x="445" y="51"/>
+	</e:Group>
+	<e:Image id="phoneBtn" source="sceneC_phone_png" y="741" anchorOffsetX="88" anchorOffsetY="90.5" x="312"/>
+</e:Skin>

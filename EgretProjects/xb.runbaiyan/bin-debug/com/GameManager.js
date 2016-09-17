@@ -27,5 +27,5 @@ var GameManager = (function () {
         return this.instance;
     };
     return GameManager;
-})();
+}());
 egret.registerClass(GameManager,'GameManager');

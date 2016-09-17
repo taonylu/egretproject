@@ -100,9 +100,12 @@ var Main = (function (_super) {
      * Create scene interface
      */
     p.createScene = function () {
-        Example1.stage = this.stage;
-        this.addChild(new Example1());
+        egret.Tween.get(this).wait(1000).call(function () {
+            console.log("移除black");
+        }, this);
+        //        Example1.stage = this.stage;
+        //        this.addChild(new Example1());
     };
     return Main;
-})(eui.UILayer);
+}(eui.UILayer));
 egret.registerClass(Main,'Main');

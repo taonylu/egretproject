@@ -118,5 +118,5 @@ var HomeScene = (function (_super) {
         this.qrcode.setPosition(this.nextCodeX, this.initCodeY);
     };
     return HomeScene;
-})(BaseScene);
+}(BaseScene));
 egret.registerClass(HomeScene,'HomeScene');

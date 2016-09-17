@@ -19,5 +19,5 @@ var BaseUI = (function (_super) {
         this.inited = true;
     };
     return BaseUI;
-})(eui.Component);
+}(eui.Component));
 egret.registerClass(BaseUI,'BaseUI');
