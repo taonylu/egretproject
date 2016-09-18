@@ -1,9 +1,0 @@
-{
-    "status": true,
-    "code": 200,
-    "msg":"请求成功",
-    "data":{
-       "isWin":"1",
-       "codeUrl":"https://p.ssl.qhimg.com/dmsmty/74_74_100/t012a4e03af16c9d3ca.png"
-    }
-}

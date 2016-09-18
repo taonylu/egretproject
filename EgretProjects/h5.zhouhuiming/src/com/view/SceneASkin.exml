@@ -1,5 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="SceneASkin" width="640" height="1040" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
-	<e:Image source="sceneA_jpg"/>
-	<e:Image id="phoneBtn" source="sceneA_phone_png" x="324" y="846" anchorOffsetX="81" anchorOffsetY="87.5"/>
-</e:Skin>

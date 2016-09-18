@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="LuckSceneSkin" width="640" height="1150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bg" source="game_bg_jpg"/>
+	<e:Group height="200" width="200" x="216" bottom="105">
+		<e:Image id="rulebg" source="game_rulebg_png" y="-642" x="-211"/>
+		<e:Image id="luckText" source="luck_text_png" x="-166" y="-554"/>
+		<e:Image id="qrcode" source="game_qrcode_png" x="-169" bottom="-14"/>
+		<e:Image id="girl" source="home_girl_png" x="62" rotation="-15" y="-47"/>
+	</e:Group>
+</e:Skin>
