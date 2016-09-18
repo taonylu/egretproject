@@ -1,5 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="PlayerUISkin" width="110" height="120" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="girl0" source="A1_png"/>
-	<e:Image id="girl1" source="A2_png"/>
-</e:Skin>

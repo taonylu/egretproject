@@ -1,7 +1,0 @@
-{"file":"scene.png","frames":{
-"guizi0":{"x":504,"y":1,"w":415,"h":533,"offX":0,"offY":0,"sourceW":415,"sourceH":533},
-"guizi1":{"x":1,"y":1019,"w":410,"h":533,"offX":0,"offY":0,"sourceW":410,"sourceH":533},
-"guizi2":{"x":413,"y":1019,"w":406,"h":533,"offX":0,"offY":0,"sourceW":406,"sourceH":533},
-"pos":{"x":1,"y":582,"w":640,"h":435,"offX":0,"offY":0,"sourceW":640,"sourceH":435},
-"door_clip":{"x":1,"y":1554,"w":463,"h":54,"offX":0,"offY":0,"sourceW":463,"sourceH":54},
-"doorbg":{"x":1,"y":1,"w":501,"h":579,"offX":0,"offY":0,"sourceW":501,"sourceH":579}}}

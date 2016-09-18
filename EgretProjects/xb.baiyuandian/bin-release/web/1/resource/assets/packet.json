@@ -1,7 +1,0 @@
-{"file":"packet.png","frames":{
-"packet_write":{"x":1,"y":1,"w":424,"h":658,"offX":0,"offY":0,"sourceW":424,"sourceH":658},
-"packet10":{"x":136,"y":935,"w":105,"h":60,"offX":0,"offY":0,"sourceW":105,"sourceH":60},
-"packet20":{"x":178,"y":661,"w":102,"h":60,"offX":0,"offY":0,"sourceW":102,"sourceH":60},
-"packet50":{"x":178,"y":723,"w":102,"h":60,"offX":0,"offY":0,"sourceW":102,"sourceH":60},
-"packet100":{"x":1,"y":935,"w":133,"h":60,"offX":0,"offY":0,"sourceW":133,"sourceH":60},
-"packetbg":{"x":1,"y":661,"w":175,"h":272,"offX":0,"offY":0,"sourceW":175,"sourceH":272}}}

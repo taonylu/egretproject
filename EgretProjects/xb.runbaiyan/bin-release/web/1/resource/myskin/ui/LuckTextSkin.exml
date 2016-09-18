@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="LuckTextSkin" width="530" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="luck_bg_png" x="1" y="3"/>
-	<e:Label id="nameLabel" text="玩家123" x="31" y="13" textColor="0x070995" width="433" textAlign="left" fontFamily="微软雅黑" size="25"/>
-	<e:Label id="prizeLabel" y="54" textColor="0x070995" text="什么什么面膜" fontFamily="微软雅黑" textAlign="left" width="369" x="127" size="25"/>
-</e:Skin>
