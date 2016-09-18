@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HomeSceneSkin" width="640" height="1150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image id="bg" source="game_bg_jpg" y="0"/>
+	<e:Image id="title" source="home_title_png" y="60" x="25"/>
+	<e:Group id="startGroup" height="324" width="640" x="0" verticalCenter="268">
+		<e:Image id="startBtn" source="home_start_png" x="59" y="216"/>
+		<e:Image id="introduceBtn" source="home_introduce_png" x="365" y="216"/>
+		<ns1:PlayerUI id="girl" y="60" skinName="PlayerUISkin" x="265"/>
+	</e:Group>
+	<e:Group id="ruleGroup" width="640" height="200" y="874" touchThrough="true">
+		<e:Image id="ruleBg" source="game_rulebg_png" y="-612" x="-2"/>
+		<e:Image id="bigGril" source="home_girl_png" rotation="-15" y="-47" x="611"/>
+		<e:Scroller id="ruleScroller" width="640" y="-523" height="382">
+			<e:Group>
+				<e:Image id="ruleText" source="game_rule_png" y="13" x="92"/>
+			</e:Group>
+		</e:Scroller>
+		<e:Image id="arrow" source="arrow_png" y="-107" horizontalCenter="-45.5"/>
+	</e:Group>
+</e:Skin>

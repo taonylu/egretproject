@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="ResultSceneSkin" width="640" height="1150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="game_bg_jpg"/>
+	<e:Group id="resultGroup" height="1056" width="640" y="94">
+		<e:Image id="girl" source="home_girl_png" x="262" y="693" rotation="-15"/>
+		<e:Image id="resultBg" source="game_rulebg_png" y="88"/>
+		<e:Image id="prizebg" source="prize_bg_png" x="42" y="178"/>
+		<e:Label id="prizeLabel" text="标签" x="106" y="230" width="382" height="44" textColor="0x104EB3" textAlign="left" verticalAlign="middle"/>
+		<e:Image id="moneybg" source="prizemoney_png" x="385" y="198"/>
+		<e:Image id="moneyImg" source="prize6_png" x="406" y="217"/>
+		<e:Group id="prizeGroup" height="200" width="200" x="399" y="187">
+			<e:Image id="itemImg" source="prize1_png" x="6" bottom="0"/>
+		</e:Group>
+		<e:EditableText id="codeLabel" width="289" height="46" x="82" y="321" textColor="0x010000" verticalAlign="middle" textAlign="center" touchEnabled="false"/>
+	</e:Group>
+</e:Skin>

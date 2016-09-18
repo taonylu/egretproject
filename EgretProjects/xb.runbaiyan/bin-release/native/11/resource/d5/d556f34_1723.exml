@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="GameSceneSkin" width="640" height="1150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bg" source="game_bg_jpg" y="-254" touchEnabled="false"/>
+	<e:Group id="gridBgGroup" height="510" width="640" x="0" verticalCenter="190"/>
+	<e:Group id="gridGroup" height="510" width="640" x="0" verticalCenter="190" touchChildren="false" touchEnabled="false" touchThrough="true"/>
+	<e:Group id="playerGroup" height="510" width="640" x="0" verticalCenter="190" touchChildren="false" touchEnabled="false" touchThrough="true"/>
+	<e:Group id="resultGroup" height="1150" width="640">
+		<e:Rect id="blackBg" height="1150" width="640" fillAlpha="0.7"/>
+		<e:Image id="popBg" source="result_popbg_png" y="202" x="47"/>
+		<e:Image id="failText" source="result_fail_png" y="402" x="95"/>
+		<e:Image id="shareBtn" source="result_share_png" x="50" y="660"/>
+		<e:Image id="againBtn" source="result_again_png" x="373" y="660"/>
+		<e:Image id="lookBtn" source="result_look_png" y="750" x="236"/>
+		<e:Image id="successText" source="resule_success_png" y="416" x="114"/>
+		<e:Image id="luckBtn" source="result_luckbtn_png" y="496" x="210"/>
+	</e:Group>
+	<e:Group id="luckGroup" height="1150" width="640" x="0" y="0">
+		<e:Rect height="1150" width="640" x="0" y="0" fillAlpha="0.7"/>
+		<e:Scroller id="luckScroller" width="600" height="766" x="20" y="96" skinName="skins.ScrollerSkin">
+			<e:Group id="luckScrollerGroup" height="950">
+				<e:layout>
+					<e:VerticalLayout horizontalAlign="center" verticalAlign="top" gap="0"/>
+				</e:layout>
+			</e:Group>
+		</e:Scroller>
+		<e:Image id="okBtn" source="result_okBtn_png" y="878" x="210"/>
+	</e:Group>
+</e:Skin>
