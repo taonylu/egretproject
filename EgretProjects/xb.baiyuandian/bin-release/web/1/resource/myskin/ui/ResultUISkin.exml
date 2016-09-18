@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="ResultUISkin" width="640" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="rank_bg_png" x="109" y="12"/>
-	<e:Label id="scoreLabel" text="99999" x="385" y="48" width="98" verticalAlign="middle" textAlign="center" textColor="0x030100"/>
-	<e:Label id="telLabel" y="17" textColor="0x030100" text="99999" verticalAlign="middle" textAlign="left" width="221" x="191"/>
-</e:Skin>

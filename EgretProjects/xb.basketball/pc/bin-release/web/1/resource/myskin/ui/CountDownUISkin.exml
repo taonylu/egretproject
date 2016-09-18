@@ -1,5 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="CountDownUISkin" width="600" height="600" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="countdown_png" width="612" height="625" x="-6" y="-12"/>
-	<e:Label id="timeLabel" text="9" width="224" height="193" size="200" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center" x="188" y="204" textColor="0x0AF1CE"/>
-</e:Skin>

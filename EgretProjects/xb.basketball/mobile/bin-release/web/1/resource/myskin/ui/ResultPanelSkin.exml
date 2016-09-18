@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="ResultPanelSkin" width="300" height="200" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="messageBox_png" y="9" height="225" x="5"/>
-	<e:Label text="游戏结束" y="33" width="179" textColor="0xEF0303" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center" size="40" horizontalCenter="0"/>
-	<e:Label text="得分：" x="82" y="86" width="90" height="48" verticalAlign="middle" textAlign="center" fontFamily="微软雅黑"/>
-	<e:Label id="scoreLabel" text="999" x="165" y="96" width="65" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center"/>
-	<e:Label text="扫描二维码重新开始游戏" y="144" width="249" size="20" fontFamily="微软雅黑" textColor="0xE78F55" textAlign="center" verticalAlign="middle" x="26"/>
-</e:Skin>

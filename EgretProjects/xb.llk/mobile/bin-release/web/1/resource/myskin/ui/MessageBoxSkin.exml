@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="MessageBoxSkin" width="480" height="854" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="globe_tip_png" x="55" y="282"/>
-	<e:Image id="closeBtn" source="globe_close_png" x="390" y="272"/>
-	<e:Label id="msgLabel" text="标签" x="76" y="299" width="305" height="97" size="25" fontFamily="微软雅黑" textColor="0x030000" verticalAlign="middle" textAlign="center"/>
-</e:Skin>

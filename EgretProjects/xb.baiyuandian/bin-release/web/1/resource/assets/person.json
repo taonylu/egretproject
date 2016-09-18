@@ -1,9 +1,0 @@
-{"file":"person.png","frames":{
-"man_text1":{"x":264,"y":230,"w":300,"h":164,"offX":0,"offY":0,"sourceW":300,"sourceH":164},
-"god_body":{"x":614,"y":1,"w":220,"h":192,"offX":18,"offY":7,"sourceW":238,"sourceH":199},
-"god_hand":{"x":836,"y":1,"w":158,"h":135,"offX":0,"offY":0,"sourceW":158,"sourceH":135},
-"god_head":{"x":320,"y":396,"w":216,"h":172,"offX":0,"offY":0,"sourceW":216,"sourceH":172},
-"god_text":{"x":264,"y":1,"w":348,"h":227,"offX":0,"offY":0,"sourceW":348,"sourceH":227},
-"man_0":{"x":1,"y":544,"w":317,"h":334,"offX":0,"offY":0,"sourceW":317,"sourceH":334},
-"man_1":{"x":1,"y":1,"w":261,"h":541,"offX":0,"offY":0,"sourceW":261,"sourceH":541},
-"man_text0":{"x":566,"y":230,"w":300,"h":164,"offX":0,"offY":0,"sourceW":300,"sourceH":164}}}

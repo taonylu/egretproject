@@ -1,5 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="PreloadSceneSkin" width="640" height="1150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="logo" source="LODING_png" x="249" y="310"/>
-	<e:Label id="processLabel" text="35%" y="474" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center" width="123" x="259"/>
-</e:Skin>

@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="LoadingUISkin" width="640" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="pill0" source="loading-pill1_png" y="14" x="154"/>
-	<e:Image id="pill1" source="loading-pill1_png" y="14" x="225"/>
-	<e:Image id="pill2" source="loading-pill1_png" y="14" x="302"/>
-	<e:Image id="eat0" source="loading-eat_png" y="8" x="370"/>
-</e:Skin>

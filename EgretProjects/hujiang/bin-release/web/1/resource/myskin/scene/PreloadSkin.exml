@@ -1,5 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="PreloadSkin" width="640" height="1140" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="bg_red_png" cacheAsBitmap="true"/>
-	<ns1:LoadingUI id="loadingUI" skinName="LoadingUISkin" horizontalCenter="0" verticalCenter="0"/>
-</e:Skin>

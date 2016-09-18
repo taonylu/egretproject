@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="FingerUISkin" width="400" height="250" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="finger0" source="scene3_zhiwen0_png" y="51" x="53"/>
-	<e:Image id="finger1" source="scene3_zhiwen1_png" y="51" x="53"/>
-	<e:Image id="lock" source="scene3_lock_png" y="69" x="106"/>
-	<e:Image id="light" source="scene3_light_png" x="222" y="87"/>
-	<e:Image id="gou" source="scene3_gou_png" x="172" y="92"/>
-</e:Skin>

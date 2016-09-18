@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="WeiXinUI2Skin" width="400" height="400" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="img0" source="weixin1_0_png" x="149" y="328"/>
-	<e:Image id="img1" source="weixin1_1.png_png" x="81" y="270"/>
-	<e:Image id="img2" source="weixin1_2.png_png" x="63" y="176"/>
-	<e:Image id="img3" source="weixin1_3.png_png" x="107" y="141"/>
-</e:Skin>

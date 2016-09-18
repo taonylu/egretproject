@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="ResultPanelSkin" width="640" height="300" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="messageBox_png" y="19" width="551" height="319" x="45"/>
-	<e:Label text="游戏结束" y="49" width="294" verticalAlign="middle" textAlign="center" fontFamily="微软雅黑" textColor="0xF70C0C" size="50" x="173"/>
-	<e:Label text="得分：" x="224" y="142" fontFamily="微软雅黑" size="40"/>
-	<e:Label id="scoreLabel" y="125" size="70" text="99" fontFamily="微软雅黑" x="323" textColor="0xDC842C" width="117" height="77" verticalAlign="middle" textAlign="center"/>
-</e:Skin>

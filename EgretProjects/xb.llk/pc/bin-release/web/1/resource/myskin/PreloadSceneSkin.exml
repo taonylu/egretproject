@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="PreloadSceneSkin" width="2560" height="1440" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="homge_bg_png" x="303" y="142"/>
-	<e:Image source="preload_bar_bg_png" y="697" x="1085"/>
-	<e:Image id="bar" source="preload_bar_png" x="1092" y="696" scaleX="0.15"/>
-	<e:Image source="preload_bar_left_png" x="1037" y="696"/>
-	<e:Image source="preload_bar_right_png" x="1444" y="696"/>
-	<e:Label id="progressLabel" text="100%" y="774" textColor="0x070000" size="100" verticalAlign="middle" textAlign="center" width="327" x="1117"/>
-</e:Skin>

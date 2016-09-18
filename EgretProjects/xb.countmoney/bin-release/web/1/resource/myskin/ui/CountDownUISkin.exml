@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="CountDownUISkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Rect height="1136" width="640" x="0" y="0" fillAlpha="0.8"/>
-	<e:Image id="num3" source="count3_png" y="177" x="206"/>
-	<e:Image id="num2" source="count2_png" x="204" y="180"/>
-	<e:Image id="num1" source="count1_png" x="214" y="172"/>
-	<e:Image source="count_rule_png" y="532" x="81"/>
-</e:Skin>

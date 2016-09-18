@@ -1,8 +1,0 @@
-{"file":"skillSheet.png","frames":{
-"game_skill2_png":{"x":84,"y":141,"w":79,"h":85,"offX":6,"offY":3,"sourceW":89,"sourceH":90},
-"line_su_png":{"x":211,"y":183,"w":30,"h":60,"offX":15,"offY":0,"sourceW":60,"sourceH":60},
-"line_zhe_png":{"x":165,"y":183,"w":44,"h":45,"offX":16,"offY":0,"sourceW":60,"sourceH":60},
-"select0_png":{"x":413,"y":1,"w":90,"h":94,"offX":0,"offY":0,"sourceW":90,"sourceH":95},
-"skill_wave_png":{"x":1,"y":1,"w":410,"h":138,"offX":0,"offY":0,"sourceW":410,"sourceH":138},
-"game_skill0_png":{"x":413,"y":97,"w":82,"h":84,"offX":4,"offY":4,"sourceW":89,"sourceH":90},
-"game_skill1_png":{"x":1,"y":141,"w":81,"h":85,"offX":5,"offY":3,"sourceW":89,"sourceH":90}}}

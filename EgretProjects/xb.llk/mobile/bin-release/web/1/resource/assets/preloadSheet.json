@@ -1,6 +1,0 @@
-{"file":"preloadSheet.png","frames":{
-"loading_png":{"x":1,"y":1,"w":480,"h":852,"offX":0,"offY":0,"sourceW":480,"sourceH":852},
-"game_bar_png":{"x":1,"y":882,"w":224,"h":24,"offX":0,"offY":5,"sourceW":224,"sourceH":29},
-"game_bar_bg_png":{"x":1,"y":855,"w":383,"h":25,"offX":4,"offY":4,"sourceW":390,"sourceH":29},
-"game_bar_left_png":{"x":386,"y":855,"w":72,"h":27,"offX":4,"offY":2,"sourceW":80,"sourceH":29},
-"game_bar_right_png":{"x":227,"y":882,"w":72,"h":27,"offX":3,"offY":2,"sourceW":79,"sourceH":29}}}
