@@ -1,2 +1,0 @@
-SoundM 24行，4 SoundM.soundDict.setItem(SoundM.welcome,
-SoundM 28行，5 SoundM.soundDict.getItem(sound)
