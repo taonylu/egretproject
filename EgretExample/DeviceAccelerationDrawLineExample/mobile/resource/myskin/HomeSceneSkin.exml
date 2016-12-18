@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<e:Skin class="HomeSceneSkin" width="480" height="800" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Group id="centerGroup" height="800" width="480" x="0" y="0">
-		<e:Label id="centerLabel" text="对准电脑屏幕红心后按确定" y="202" width="332" height="121" textColor="0x020000" fontFamily="微软雅黑" verticalAlign="middle" textAlign="center" size="18" x="74"/>
-		<e:Rect id="okBtn" height="100" width="100" fillColor="0xF50101" x="190" y="377"/>
-		<e:Label id="deviceLabel" y="523" textColor="0x040000" size="15" fontFamily="微软雅黑" width="364" height="89" x="58"/>
-	</e:Group>
-</e:Skin>
