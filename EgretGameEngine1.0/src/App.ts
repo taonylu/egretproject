@@ -4,7 +4,15 @@
  * @date 2016/12/18
  */
 class App extends SingleClass{
-    
+	
+	/**启动app*/
+	public startup(){
+		
+
+
+	}
+
+
     
     /**版本管理*/
 	public static get VersionManager():VersionManager{
@@ -44,5 +52,35 @@ class App extends SingleClass{
 	/**Http请求*/
 	public static get Http():Http{
 		return Http.getInstance();
+	}
+
+	/**Socket*/
+	public static get Socket():ClientSocket{
+		return ClientSocket.getInstance();
+	}
+
+	/**资源加载类*/
+	public static get ResUtils():ResUtils{
+		return ResUtils.getInstance();
+	}
+
+	/**舞台管理类*/
+	public static get StageUtils():StageUtils{
+		return StageUtils.getInstance();
+	}
+
+	/**弹框管理类*/
+	public static get PanelManager():PanelManager{
+		return PanelManager.getInstance();
+	}
+
+	/**场景管理类*/
+	public static get SceneManager():SceneManager{
+		return SceneManager.getInstance();
+	}
+
+	/**图层管理类*/
+	public static get LayerManager():LayerManager{
+		return LayerManager.getInstance();
 	}
 }
