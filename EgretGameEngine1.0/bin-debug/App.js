@@ -45,6 +45,30 @@ var App = (function (_super) {
             return EventManager.getInstance();
         }
     );
+    d(App, "ObjectPool"
+        /**对象池*/
+        ,function () {
+            return ObjectPool.getInstance();
+        }
+    );
+    d(App, "Http"
+        /**Http请求*/
+        ,function () {
+            return Http.getInstance();
+        }
+    );
+    d(App, "Socket"
+        /**Socket*/
+        ,function () {
+            return ClientSocket.getInstance();
+        }
+    );
+    d(App, "ResUtils"
+        /**资源加载类*/
+        ,function () {
+            return ResUtils.getInstance();
+        }
+    );
     return App;
 }(SingleClass));
 egret.registerClass(App,'App');
