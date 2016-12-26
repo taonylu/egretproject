@@ -1,7 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"checkbox_select_disabled_png,button_down_png",
+			"keys":"checkbox_select_disabled_png,button_down_png,qrcode_jpg",
 			"name":"preload"
 		},
 		{
@@ -139,6 +139,11 @@
 			"name":"description_json",
 			"type":"json",
 			"url":"config/description.json"
+		},
+		{
+			"name":"qrcode_jpg",
+			"type":"image",
+			"url":"assets/qrcode.jpg"
 		}
 	]
 }

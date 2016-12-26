@@ -15,8 +15,7 @@
     "resource/eui_skins/VScrollBarSkin.exml",
     "resource/eui_skins/VSliderSkin.exml",
     "src/game/view/game/GameSceneSkin.exml",
-    "src/game/view/home/HomeSceneSkin.exml",
-    "src/game/view/login/RegisterPanelSkin.exml"
+    "src/game/view/home/HomeSceneSkin.exml"
   ],
   "skins": {
     "eui.Button": "resource/eui_skins/ButtonSkin.exml",

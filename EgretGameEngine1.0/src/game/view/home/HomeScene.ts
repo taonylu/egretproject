@@ -5,7 +5,7 @@
  */
 class HomeScene extends BaseScene{
     private qrCode:eui.Rect;
-    
+    private codeImg:eui.Image;
     
 	public constructor() {
     	super();
@@ -18,12 +18,26 @@ class HomeScene extends BaseScene{
 	
 	public onEnable(){
         console.log("home onEnable");
+        this.test();
         
-        var img:QRCode = new QRCode();
-        img.showCode("resource/assets/Button/button_down.png", this.qrCode);
 	}
 	
 	public onRemove(){
     	 console.log("home onRemove");
 	}
+	
+	private test(){
+    	  
+	}
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -15,11 +15,11 @@ var game_file_list = [
 	"bin-debug/framework/adapter/ThemeAdapter.js",
 	"bin-debug/framework/display/BasePanel.js",
 	"bin-debug/framework/display/BaseScene.js",
-	"bin-debug/framework/display/IBaseUI.js",
 	"bin-debug/framework/mvc/BaseController.js",
 	"bin-debug/framework/net/ClientSocket.js",
 	"bin-debug/framework/net/Http.js",
 	"bin-debug/framework/utils/ArrayTool.js",
+	"bin-debug/framework/utils/CollisionUtils.js",
 	"bin-debug/framework/utils/DeviceUtils.js",
 	"bin-debug/framework/utils/EventManager.js",
 	"bin-debug/framework/utils/LayerManager.js",
@@ -29,6 +29,7 @@ var game_file_list = [
 	"bin-debug/framework/utils/QRCode.js",
 	"bin-debug/framework/utils/ResUtils.js",
 	"bin-debug/framework/utils/SceneManager.js",
+	"bin-debug/framework/utils/SoundManager.js",
 	"bin-debug/framework/utils/StageUtils.js",
 	"bin-debug/framework/utils/StringTool.js",
 	"bin-debug/framework/utils/VersionManager.js",
@@ -38,7 +39,6 @@ var game_file_list = [
 	"bin-debug/game/model/DataCenter.js",
 	"bin-debug/game/view/game/GameScene.js",
 	"bin-debug/game/view/home/HomeScene.js",
-	"bin-debug/game/view/login/RegisterPanel.js",
 	"bin-debug/Main.js",
 	//----auto game_file_list end----
 ];

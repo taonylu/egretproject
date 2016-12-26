@@ -133,6 +133,11 @@
 					"isFolder":false,
 					"key":"tracklight_png",
 					"name":"tracklight_png"
+				},
+				{
+					"isFolder":false,
+					"key":"qrcode_jpg",
+					"name":"qrcode_jpg"
 				}
 			]
 		}
