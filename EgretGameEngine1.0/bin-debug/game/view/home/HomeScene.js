@@ -15,11 +15,12 @@ var HomeScene = (function (_super) {
     };
     p.onEnable = function () {
         console.log("home onEnable");
-        var img = new QRCode();
-        img.showCode("resource/assets/Button/button_down.png", this.qrCode);
+        this.test();
     };
     p.onRemove = function () {
         console.log("home onRemove");
+    };
+    p.test = function () {
     };
     return HomeScene;
 }(BaseScene));

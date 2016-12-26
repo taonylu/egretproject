@@ -9,7 +9,7 @@
  * @date 2016/12/26
  * 
  * example:
- * var codeImg:eui.Image;
+ * var codeImg:eui.Image;    //exml上二维码图片
  * var qrCode:QRCode = new QRCode();
  * qrCode.showCode("resource/assets/qrcode.png", codeImg);
  */
