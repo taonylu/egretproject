@@ -3,8 +3,10 @@
  * @author chenkai
  * @date 2016/12/18
  */
-var BaseApp = (function () {
+var BaseApp = (function (_super) {
+    __extends(BaseApp, _super);
     function BaseApp() {
+        _super.apply(this, arguments);
         /**控制模块列表*/
         this.controllerList = {};
     }
@@ -65,6 +67,5 @@ var BaseApp = (function () {
         var _a;
     };
     return BaseApp;
-}());
+}(SingleClass));
 egret.registerClass(BaseApp,'BaseApp');
-//# sourceMappingURL=BaseApp.js.map

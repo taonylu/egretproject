@@ -3,17 +3,14 @@
  * @author chenkai 
  * @date 2016/12/18
  */
-class App extends SingleClass{
+class App extends BaseApp{
 	
 	/**启动app*/
 	public startup(){
-		
-
-
+        App.SceneManager.register("HomeScene", HomeScene);
+        App.SceneManager.open("HomeScene");
 	}
-
-
-    
+	
     /**版本管理*/
 	public static get VersionManager():VersionManager{
     	return VersionManager.getInstance();

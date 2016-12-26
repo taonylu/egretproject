@@ -84,4 +84,3 @@ var ClientSocket = (function (_super) {
     return ClientSocket;
 }(SingleClass));
 egret.registerClass(ClientSocket,'ClientSocket');
-//# sourceMappingURL=ClientSocket.js.map

@@ -38,4 +38,3 @@ var SingleClass = (function () {
     return SingleClass;
 }());
 egret.registerClass(SingleClass,'SingleClass');
-//# sourceMappingURL=SingleClass.js.map

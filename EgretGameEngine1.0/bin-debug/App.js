@@ -9,6 +9,11 @@ var App = (function (_super) {
         _super.apply(this, arguments);
     }
     var d = __define,c=App,p=c.prototype;
+    /**启动app*/
+    p.startup = function () {
+        App.SceneManager.register("HomeScene", HomeScene);
+        App.SceneManager.open("HomeScene");
+    };
     d(App, "VersionManager"
         /**版本管理*/
         ,function () {
@@ -69,7 +74,30 @@ var App = (function (_super) {
             return ResUtils.getInstance();
         }
     );
+    d(App, "StageUtils"
+        /**舞台管理类*/
+        ,function () {
+            return StageUtils.getInstance();
+        }
+    );
+    d(App, "PanelManager"
+        /**弹框管理类*/
+        ,function () {
+            return PanelManager.getInstance();
+        }
+    );
+    d(App, "SceneManager"
+        /**场景管理类*/
+        ,function () {
+            return SceneManager.getInstance();
+        }
+    );
+    d(App, "LayerManager"
+        /**图层管理类*/
+        ,function () {
+            return LayerManager.getInstance();
+        }
+    );
     return App;
-}(SingleClass));
+}(BaseApp));
 egret.registerClass(App,'App');
-//# sourceMappingURL=App.js.map

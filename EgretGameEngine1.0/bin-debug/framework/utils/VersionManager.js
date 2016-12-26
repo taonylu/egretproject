@@ -28,4 +28,3 @@ var VersionManager = (function (_super) {
     return VersionManager;
 }(SingleClass));
 egret.registerClass(VersionManager,'VersionManager');
-//# sourceMappingURL=VersionManager.js.map

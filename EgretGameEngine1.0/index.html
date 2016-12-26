@@ -37,13 +37,13 @@
     <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
     <!--game_files_start-->
 	<script egret="game" src="bin-debug/framework/base/SingleClass.js"></script>
+	<script egret="game" src="bin-debug/framework/mvc/BaseApp.js"></script>
 	<script egret="game" src="bin-debug/App.js"></script>
 	<script egret="game" src="bin-debug/framework/adapter/AssetAdapter.js"></script>
 	<script egret="game" src="bin-debug/framework/adapter/ThemeAdapter.js"></script>
 	<script egret="game" src="bin-debug/framework/display/BasePanel.js"></script>
 	<script egret="game" src="bin-debug/framework/display/BaseScene.js"></script>
 	<script egret="game" src="bin-debug/framework/display/IBaseUI.js"></script>
-	<script egret="game" src="bin-debug/framework/mvc/BaseApp.js"></script>
 	<script egret="game" src="bin-debug/framework/mvc/BaseController.js"></script>
 	<script egret="game" src="bin-debug/framework/net/ClientSocket.js"></script>
 	<script egret="game" src="bin-debug/framework/net/Http.js"></script>
@@ -54,18 +54,25 @@
 	<script egret="game" src="bin-debug/framework/utils/NumberTool.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/ObjectPool.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/PanelManager.js"></script>
+	<script egret="game" src="bin-debug/framework/utils/QRCode.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/ResUtils.js"></script>
+	<script egret="game" src="bin-debug/framework/utils/SceneManager.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/StageUtils.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/StringTool.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/VersionManager.js"></script>
+	<script egret="game" src="bin-debug/game/constant/AssetConst.js"></script>
+	<script egret="game" src="bin-debug/game/constant/EventConst.js"></script>
 	<script egret="game" src="bin-debug/game/constant/SocketConst.js"></script>
 	<script egret="game" src="bin-debug/game/model/DataCenter.js"></script>
+	<script egret="game" src="bin-debug/game/view/game/GameScene.js"></script>
+	<script egret="game" src="bin-debug/game/view/home/HomeScene.js"></script>
+	<script egret="game" src="bin-debug/game/view/login/RegisterPanel.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
 	<!--game_files_end-->
 </head>
 <body>
 
-    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player" id="gameDiv"
          data-entry-class="Main"
          data-orientation="portrait"
          data-scale-mode="fixedWidth"
@@ -77,6 +84,8 @@
          data-show-fps="false" data-show-log="false"
          data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
     </div>
+    
+    
     <script>
         /**
          * {

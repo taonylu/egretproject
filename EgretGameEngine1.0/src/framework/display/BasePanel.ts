@@ -3,7 +3,7 @@
  * @author chenkai
  * @date 2016/12/18
  */
-class BasePanel extends eui.Component implements IBaseUI{
+class BasePanel extends eui.Component{
 
 	public constructor() {
 		super();
@@ -16,16 +16,6 @@ class BasePanel extends eui.Component implements IBaseUI{
 
 	/**从舞台移除*/
 	public onRemove(){
-
-	}
-
-	/**重置*/
-	public onReset(){
-		
-	}
-
-	/**销毁*/
-	public onDestory(){
 
 	}
 }

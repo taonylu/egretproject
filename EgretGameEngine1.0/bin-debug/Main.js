@@ -37,48 +37,23 @@ var Main = (function (_super) {
         var assetAdapter = new AssetAdapter();
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
-        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.loadConfig("resource/default.res.json", "resource/");
+        App.ResUtils.addConfig("resource/default.res.json", "resource/");
+        App.ResUtils.loadConfig(this.onConfigComplete, this);
     };
     p.onConfigComplete = function (event) {
-        RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         var theme = new eui.Theme("resource/default.thm.json", this.stage);
         theme.addEventListener(eui.UIEvent.COMPLETE, this.onThemeLoadComplete, this);
     };
     p.onThemeLoadComplete = function () {
-        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-        RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-        RES.loadGroup("preload");
+        App.ResUtils.loadGroup(AssetConst.Preload, this.onResourceLoadComplete, this);
     };
     p.onResourceLoadComplete = function (event) {
-        RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-        RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-        RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-        RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-        this.createScene();
-    };
-    p.createScene = function () {
         this.startCreateScene();
     };
-    p.onItemLoadError = function (event) {
-        console.warn("Url:" + event.resItem.url + " has failed to load");
-    };
-    p.onResourceLoadError = function (event) {
-        //TODO
-        console.warn("Group:" + event.groupName + " has failed to load");
-        //忽略加载失败的项目
-        //ignore loading failed projects
-        this.onResourceLoadComplete(event);
-    };
-    p.onResourceProgress = function (event) {
-        if (event.groupName == "preload") {
-        }
-    };
     p.startCreateScene = function () {
+        App.StageUtils.init(this.stage);
+        App.getInstance().startup();
     };
     return Main;
 }(eui.UILayer));
 egret.registerClass(Main,'Main');
-//# sourceMappingURL=Main.js.map

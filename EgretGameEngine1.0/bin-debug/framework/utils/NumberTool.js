@@ -12,4 +12,3 @@ var NumberTool = (function (_super) {
     return NumberTool;
 }(SingleClass));
 egret.registerClass(NumberTool,'NumberTool');
-//# sourceMappingURL=NumberTool.js.map

@@ -74,4 +74,3 @@ var Http = (function (_super) {
     return Http;
 }(SingleClass));
 egret.registerClass(Http,'Http');
-//# sourceMappingURL=Http.js.map

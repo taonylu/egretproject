@@ -43,7 +43,7 @@ class EventManager extends SingleClass{
         if (arr == null) {
             return;
         }
-
+        console.log(arr);
         var len:number = arr.length;
         for (var i = 0; i < len; i++) {
             if (arr[i][0] == listener && arr[i][1] == thisObject) {

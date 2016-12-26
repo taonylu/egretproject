@@ -27,8 +27,9 @@ class SceneManager extends SingleClass{
 	/**
 	 * 运行场景
 	 * @sceneName 场景名
+	 * @destory 是否销毁上一场景
 	 */
-	public runScene(sceneName:string){
+	public open(sceneName:string, destroy:boolean = false){
 		var scene:BaseScene = this.sceneMap[sceneName];
 		if(scene){
 			this.openScene(scene);
@@ -37,7 +38,7 @@ class SceneManager extends SingleClass{
 			if(clz){
 				scene = new clz();
 				this.sceneMap[sceneName] = scene;
-				this.openScene(scene);
+                this.openScene(scene,destroy);
 			}
 		}
 	}
@@ -45,8 +46,9 @@ class SceneManager extends SingleClass{
 	/**
 	 * 打开场景
 	 * @sceneName 场景名
+	 * @destroy 是否销毁上一场景
 	 */
-	private openScene(scene:BaseScene){
+    private openScene(scene: BaseScene,destroy:boolean = false){
 		scene.once(egret.Event.ADDED_TO_STAGE, ()=>{
 			scene.onEnable();
 		},this);
@@ -55,7 +57,8 @@ class SceneManager extends SingleClass{
 		var removeScene:BaseScene = this.curScene;
 		if(removeScene){
 			removeScene.once(egret.Event.REMOVED_FROM_STAGE, ()=>{
-				removeScene.onRemove();
+                removeScene.onRemove();
+                //TODO 销毁上一场景
 			},this);
 		}
 		
