@@ -12,4 +12,3 @@ var DataCenter = (function (_super) {
     return DataCenter;
 }(SingleClass));
 egret.registerClass(DataCenter,'DataCenter');
-//# sourceMappingURL=DataCenter.js.map

@@ -12,4 +12,3 @@ var ArrayTool = (function (_super) {
     return ArrayTool;
 }(SingleClass));
 egret.registerClass(ArrayTool,'ArrayTool');
-//# sourceMappingURL=ArrayTool.js.map

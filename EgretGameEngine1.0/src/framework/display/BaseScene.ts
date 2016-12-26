@@ -3,7 +3,7 @@
  * @author chenkai
  * @date 2016/12/18
  */
-class BaseScene extends eui.Component implements IBaseUI{
+class BaseScene extends eui.Component{
 	
 	public constructor(){
 		super();
@@ -20,15 +20,4 @@ class BaseScene extends eui.Component implements IBaseUI{
 	public onRemove(){
 
 	}
-
-	/**重置*/
-	public onReset(){
-
-	}
-
-	/**销毁*/
-	public onDestory(){
-
-	}
-
 }

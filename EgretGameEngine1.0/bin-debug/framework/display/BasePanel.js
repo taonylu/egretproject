@@ -15,13 +15,6 @@ var BasePanel = (function (_super) {
     /**从舞台移除*/
     p.onRemove = function () {
     };
-    /**重置*/
-    p.onReset = function () {
-    };
-    /**销毁*/
-    p.onDestory = function () {
-    };
     return BasePanel;
 }(eui.Component));
-egret.registerClass(BasePanel,'BasePanel',["IBaseUI"]);
-//# sourceMappingURL=BasePanel.js.map
+egret.registerClass(BasePanel,'BasePanel');

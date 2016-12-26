@@ -19,7 +19,7 @@ var ObjectPool = (function (_super) {
     p.getPool = function (className, initNum) {
         if (initNum === void 0) { initNum = 0; }
         if (!this.poolList[className]) {
-            this.poolList[className] = new PoolVo(className);
+            this.poolList[className] = new Pool(className);
             if (initNum != 0) {
                 var clazz = egret.getDefinitionByName(className);
                 var pool = this.poolList[className];
@@ -34,12 +34,12 @@ var ObjectPool = (function (_super) {
 }(SingleClass));
 egret.registerClass(ObjectPool,'ObjectPool');
 /**对象池*/
-var PoolVo = (function () {
-    function PoolVo(className) {
+var Pool = (function () {
+    function Pool(className) {
         this.className = className;
         this.list = [];
     }
-    var d = __define,c=PoolVo,p=c.prototype;
+    var d = __define,c=Pool,p=c.prototype;
     /**获取对象*/
     p.getObject = function () {
         if (this.list.length > 0) {
@@ -52,7 +52,16 @@ var PoolVo = (function () {
     p.returnObject = function (obj) {
         this.list.push(obj);
     };
-    return PoolVo;
+    d(p, "length"
+        /**获取对象池长度*/
+        ,function () {
+            var count = 0;
+            for (var key in this.list) {
+                count++;
+            }
+            return count;
+        }
+    );
+    return Pool;
 }());
-egret.registerClass(PoolVo,'PoolVo');
-//# sourceMappingURL=ObjectPool.js.map
+egret.registerClass(Pool,'Pool');

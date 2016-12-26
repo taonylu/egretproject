@@ -13,12 +13,12 @@ class ObjectPool extends SingleClass{
      * @param className 对象类名         
      * @param initNum 初始化对象池数量          
      */
-    public getPool(className: string,initNum: number = 0): ObjectPool {
+    public getPool(className: string,initNum: number = 0): Pool {
         if(!this.poolList[className]) {
-            this.poolList[className] = new PoolVo(className);
+            this.poolList[className] = new Pool(className);
             if(initNum != 0) {
                 var clazz: any = egret.getDefinitionByName(className);
-                var pool: PoolVo = this.poolList[className];
+                var pool: Pool = this.poolList[className];
                 for(var i: number = 0;i < initNum;i++) {
                     pool.returnObject(new clazz());
                 }
@@ -29,7 +29,7 @@ class ObjectPool extends SingleClass{
 }
 
 /**对象池*/
-class PoolVo{
+class Pool{
     /**存储对象的数组*/
     private list: Array<any>;
     /**对象类型*/
@@ -53,5 +53,14 @@ class PoolVo{
     /**回收对象*/
     public returnObject(obj: any): void {
         this.list.push(obj);
+    }
+    
+    /**获取对象池长度*/
+    public get length(){
+        var count:number = 0;
+        for(var key in this.list){
+            count ++;
+        }
+        return count;
     }
 }

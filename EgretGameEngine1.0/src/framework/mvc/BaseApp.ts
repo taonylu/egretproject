@@ -3,7 +3,7 @@
  * @author chenkai
  * @date 2016/12/18
  */
-class BaseApp {
+class BaseApp extends SingleClass{
 	/**控制模块列表*/
 	private controllerList = {};
 

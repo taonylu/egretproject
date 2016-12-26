@@ -1,1 +1,0 @@
-{"version":3,"file":"SocketConst.js","sourceRoot":"","sources":["../../../src/game/constant/SocketConst.ts"],"names":[],"mappings":"AAAA;;EAEE;AACF;IAAA;IASA,CAAC;;IARA,eAAe;IACD,0BAAc,GAAU,gBAAgB,CAAC;IACvD,eAAe;IACD,wBAAY,GAAU,cAAc,CAAC;IACnD,aAAa;IACC,wBAAY,GAAU,cAAc,CAAC;IACnD,aAAa;IACC,4BAAgB,GAAU,kBAAkB,CAAC;IAC5D,kBAAC;AAAD,CAAC,AATD,IASC;oBATK,WAAW;AAShB"}

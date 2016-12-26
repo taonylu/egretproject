@@ -45,6 +45,7 @@ var EventManager = (function (_super) {
         if (arr == null) {
             return;
         }
+        console.log(arr);
         var len = arr.length;
         for (var i = 0; i < len; i++) {
             if (arr[i][0] == listener && arr[i][1] == thisObject) {
@@ -82,4 +83,3 @@ var EventManager = (function (_super) {
     return EventManager;
 }(SingleClass));
 egret.registerClass(EventManager,'EventManager');
-//# sourceMappingURL=EventManager.js.map

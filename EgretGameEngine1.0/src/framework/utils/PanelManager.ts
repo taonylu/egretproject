@@ -29,21 +29,29 @@ class PanelManager extends SingleClass{
 	 * @panelName 面板名
 	 * @callBack 面板添加到舞台后的回调函数
 	 * @thisObject 回调函数执行对象
+	 * @reutrn 返回打开的面板
 	 */
-	public open(panelName:string, callBack:Function = null, thisObject:any = null){
+	public open(panelName:string, callBack:Function = null, thisObject:any = null):BasePanel{
 		var panel:BasePanel = this.panelMap[panelName];
 		if(panel){
-			this.openPanel(panelName, callBack, thisObject);
+			panel = this.openPanel(panelName, callBack, thisObject);
 		}else{
-			var groupName:string = this.groupMap[panelName];
-			if(groupName != null){
-				App.ResUtils.loadGroup(groupName, ()=>{
-					this.openPanel(panelName, callBack, thisObject);
-				},this);
-			}else{
-				this.openPanel(panelName, callBack, thisObject);
-			}
+    		//panel不存在，则加载panel所需资源并新建一个
+            var clz = this.clzMap[panelName];
+            if(clz){
+                panel = new clz();
+                this.panelMap[panelName] = panel;
+                var groupName: string = this.groupMap[panelName];
+                if(groupName != null) {
+                    App.ResUtils.loadGroup(groupName,() => {
+                        this.openPanel(panelName,callBack,thisObject);
+                    },this);
+                } else {
+                    this.openPanel(panelName,callBack,thisObject);
+                }
+            }
 		}
+		return panel;
 	}
 
 	/**打开弹框*/
@@ -52,10 +60,13 @@ class PanelManager extends SingleClass{
 		if(panel){
 			panel.once(egret.Event.ADDED_TO_STAGE, ()=>{
 				panel.onEnable();
-				callBack.apply(thisObject);
+				if(callBack && thisObject){
+                    callBack.apply(thisObject);
+				}
 			},this);
 			App.LayerManager.panelLayer.addChild(panel);
 		}
+		return panel;
 	}
 
 	/**
@@ -65,10 +76,10 @@ class PanelManager extends SingleClass{
 	public close(panelName:string){
 		var panel:BasePanel = this.panelMap[panelName];
 		if(panel){
-			panel.once(egret.Event.ADDED_TO_STAGE, ()=>{
+			panel.once(egret.Event.REMOVED_FROM_STAGE, ()=>{
 				panel.onRemove();
 			},this);
-			App.LayerManager.panelLayer.removeChild(panel);
+			panel.parent && panel.parent.removeChild(panel);
 		}
 	}
 

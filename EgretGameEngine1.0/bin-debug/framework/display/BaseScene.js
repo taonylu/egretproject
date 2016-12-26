@@ -17,13 +17,6 @@ var BaseScene = (function (_super) {
     /**从舞台移除*/
     p.onRemove = function () {
     };
-    /**重置*/
-    p.onReset = function () {
-    };
-    /**销毁*/
-    p.onDestory = function () {
-    };
     return BaseScene;
 }(eui.Component));
-egret.registerClass(BaseScene,'BaseScene',["IBaseUI"]);
-//# sourceMappingURL=BaseScene.js.map
+egret.registerClass(BaseScene,'BaseScene');

@@ -36,4 +36,3 @@ var DeviceUtils = (function (_super) {
     return DeviceUtils;
 }(SingleClass));
 egret.registerClass(DeviceUtils,'DeviceUtils');
-//# sourceMappingURL=DeviceUtils.js.map
