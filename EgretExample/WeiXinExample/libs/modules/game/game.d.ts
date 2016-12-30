@@ -1,4 +1,4 @@
-declare module egret {
+declare namespace egret {
     /**
      * @version Egret 2.4
      * @platform Web,Native
@@ -76,7 +76,7 @@ declare module egret {
         clone(): FrameLabel;
     }
 }
-declare module egret {
+declare namespace egret {
     /**
     * @language en_US
     * @version Egret 2.4
@@ -160,6 +160,10 @@ declare module egret {
          */
         private passedTime;
         /**
+         * @private
+         */
+        private $frameRate;
+        /**
          * 创建新的 MovieClip 实例。创建 MovieClip 之后，调用舞台上的显示对象容器的addElement方法。
          * @param movieClipData {movieClipData} 被引用的 movieClipData 对象
          * @version Egret 2.4
@@ -201,7 +205,7 @@ declare module egret {
         /**
          * @private
          */
-        $render(context: sys.RenderContext): void;
+        $render(): void;
         /**
          * @private
          */
@@ -318,6 +322,11 @@ declare module egret {
          * @private
          *
          */
+        $renderFrame(): void;
+        /**
+         * @private
+         *
+         */
         private handlePendingEvent();
         /**
          * MovieClip 实例中帧的总数
@@ -383,7 +392,7 @@ declare module egret {
         private setIsStopped(value);
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @classdesc 使用 MovieClipData 类，您可以创建 MovieClip 对象和处理 MovieClip 对象的数据。MovieClipData 一般由MovieClipDataFactory生成
      * @see http://edn.egret.com/cn/docs/page/596 MovieClip序列帧动画
@@ -528,10 +537,10 @@ declare module egret {
         private setMCData(value);
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @classdesc 使用 MovieClipDataFactory 类，可以生成 MovieClipData 对象用于创建MovieClip
-     * @see http://docs.egret-labs.org/post/manual/displaycon/movieclip.html MovieClip序列帧动画
+     * @see http://edn.egret.com/cn/docs/page/596 MovieClip序列帧动画
      * @version Egret 2.4
      * @platform Web,Native
      */
@@ -616,7 +625,7 @@ declare module egret {
         private setTexture(value);
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @language en_US
      * When the movieClip's current frame have a frameLabel, dispatches MovieClipEvent object. FrameLabel Event type: MovieClipEvent.FRAME_LABEL
@@ -698,7 +707,7 @@ declare module egret {
         static dispatchMovieClipEvent(target: IEventDispatcher, type: string, frameLabel?: string): boolean;
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @private
      */
@@ -736,21 +745,6 @@ declare module egret {
         static quartOut: Function;
     }
     /**
-     * @language en_US
-     * ScrollTween is the animation easing class of Egret
-     * @see http://docs.egret-labs.org/post/manual/anim/tween.html Tween缓动动画
-     * @version Egret 2.4
-     * @platform Web,Native
-     * @includeExample egret/tween/ScrollTween.ts
-     * @private
-     */
-    /**
-     * @language zh_CN
-     * Tween是Egret的动画缓动类
-     * @see http://docs.egret-labs.org/post/manual/anim/tween.html ScrollTween ease animation
-     * @version Egret 2.4
-     * @platform Web,Native
-     * @includeExample egret/tween/ScrollTween.ts
      * @private
      */
     class ScrollTween extends EventDispatcher {
@@ -994,7 +988,7 @@ declare module egret {
          * Execute callback function
          * @param callback {Function} Callback method
          * @param thisObj {any} this action scope of the callback method
-         * @param params {Array<any>} Parameter of the callback method
+         * @param params {any[]} Parameter of the callback method
          * @returns {egret.ScrollTween} ScrollTween object itself
          * @version Egret 2.4
          * @platform Web,Native
@@ -1004,12 +998,12 @@ declare module egret {
          * 执行回调函数
          * @param callback {Function} 回调方法
          * @param thisObj {any} 回调方法this作用域
-         * @param params {Array<any>} 回调方法参数
+         * @param params {any[]} 回调方法参数
          * @returns {egret.ScrollTween} Tween对象本身
          * @version Egret 2.4
          * @platform Web,Native
          */
-        call(callback: Function, thisObj?: any, params?: Array<any>): ScrollTween;
+        call(callback: Function, thisObj?: any, params?: any[]): ScrollTween;
         /**
          * @method egret.ScrollTween#tick
          * @param delta {number}
@@ -1020,7 +1014,7 @@ declare module egret {
         tick(delta: number): void;
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @language en_US
      * ScrollView auxiliary classes for slides, you will pass a display object constructor. It can display more than the range display object within the specified size range. And can easily drag in this range.
@@ -1515,7 +1509,7 @@ declare module egret {
         swapChildrenAt(index1: number, index2: number): void;
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @private
      * @version Egret 2.4
@@ -1595,7 +1589,7 @@ declare module egret {
         _bounces: boolean;
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @private
      * @version Egret 2.4
@@ -1615,7 +1609,7 @@ declare module egret {
      * @version Egret 2.4
      * @platform Web,Native
      */
-    var NetContext: {
+    let NetContext: {
         new (): NetContext;
         getNetContext(): NetContext;
     };
@@ -1627,13 +1621,13 @@ declare module egret {
      */
     function $getUrl(request: URLRequest): string;
 }
-declare module egret {
+declare namespace egret {
     /**
      * @language en_US
      * UThe URLLoader class downloads data from a URL as text, binary data, or URL-encoded variables.  It is useful for downloading text files, XML, or other information to be used in a dynamic, data-driven application.
      * A URLLoader object downloads all of the data from a URL before making it available to code in the applications. It sends out notifications about the progress of the download,
      * which you can monitor through bytesLoaded and bytesTotal properties, as well as through dispatched events.
-     * @see http://docs.egret-labs.org/post/manual/net/createconnect.html Build communication request
+     * @see http://edn.egret.com/cn/docs/page/601 Build communication request
      * @event egret.Event.COMPLETE Dispatched when the net request is complete.
      * @event egret.IOErrorEvent.IO_ERROR io error.
      * @version Egret 2.4
@@ -1645,7 +1639,7 @@ declare module egret {
      * URLLoader 类以文本、二进制数据或 URL 编码变量的形式从 URL 下载数据。在下载文本文件、XML 或其他用于动态数据驱动应用程序的信息时，它很有用。
      * URLLoader 对象会先从 URL 中下载所有数据，然后才将数据用于应用程序中的代码。它会发出有关下载进度的通知，
      * 通过 bytesLoaded 和 bytesTotal 属性以及已调度的事件，可以监视下载进度。
-     * @see http://docs.egret-labs.org/post/manual/net/createconnect.html 构建通信请求
+     * @see http://edn.egret.com/cn/docs/page/601 构建通信请求
      * @event egret.Event.COMPLETE 加载完成后调度。
      * @event egret.IOErrorEvent.IO_ERROR 加载错误后调度。
      * @version Egret 2.4
@@ -1747,11 +1741,11 @@ declare module egret {
         __recycle(): void;
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @language en_US
      * The URLLoaderDataFormat class provides values that specify how downloaded data is received.
-     * @see http://docs.egret-labs.org/post/manual/net/netformat.html Read different data format
+     * @see http://edn.egret.com/cn/docs/page/600 Read different data format
      * @version Egret 2.4
      * @platform Web,Native
      * @includeExample extension/game/net/URLLoaderDataFormat.ts
@@ -1759,7 +1753,7 @@ declare module egret {
     /**
      * @language zh_CN
      * URLLoaderDataFormat 类提供了一些用于指定如何接收已下载数据的值。
-     * @see http://docs.egret-labs.org/post/manual/net/netformat.html 读取不同数据格式
+     * @see http://edn.egret.com/cn/docs/page/600 读取不同数据格式
      * @version Egret 2.4
      * @platform Web,Native
      * @includeExample extension/game/net/URLLoaderDataFormat.ts
@@ -1832,11 +1826,11 @@ declare module egret {
         static SOUND: string;
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @language en_US
      * The URLRequest class captures all of the information in a single HTTP request.
-     * @see http://docs.egret-labs.org/post/manual/net/createconnect.html Build communication request
+     * @see http://edn.egret.com/cn/index.php/article/index/id/601 Build communication request
      * @version Egret 2.4
      * @platform Web,Native
      * @includeExample extension/game/net/URLRequest.ts
@@ -1844,7 +1838,7 @@ declare module egret {
     /**
      * @language zh_CN
      * URLRequest 类可捕获单个 HTTP 请求中的所有信息。
-     * @see http://docs.egret-labs.org/post/manual/net/createconnect.html 构建通信请求
+     * @see http://edn.egret.com/cn/index.php/article/index/id/601 构建通信请求
      * @version Egret 2.4
      * @platform Web,Native
      * @includeExample extension/game/net/URLRequest.ts
@@ -1870,6 +1864,9 @@ declare module egret {
          * An object contains data to be transmitted with the URL request.
          * This property is used in conjunction with the method property.  When the value of method is GET, the value of data is appended to the value of URLRequest.url, using HTTP query-string syntax.
          * When the method value is POST (or any value other than GET), the value of data is transmitted in the body of the HTTP request.
+         * The URLRequest API offers binary POST support and support for URL-encoded variables, as well as support for strings. The data object can be a ArrayBuffer, URLVariables, or String object.
+         * The way in which the data is used depends on the type of object used:
+         * If the object is a ArrayBuffer object, the binary data of the ArrayBuffer object is used as POST data. For GET, data of ArrayBuffer type is not supported.
          * If the object is a URLVariables object and the method is POST, then the variables are encoded using x-www-form-urlencoded format and the resulting string is used as POST data.
          * If the object is a URLVariables object and the method is GET, the URLVariables object will define variables to be sent with the URLRequest object.
          * Otherwise, the object is converted into a string, and the string is used as the POST or GET data.
@@ -1881,8 +1878,9 @@ declare module egret {
          * 一个对象，它包含将随 URL 请求一起传输的数据。
          * 该属性与 method 属性配合使用。当 method 值为 GET 时，将使用 HTTP 查询字符串语法将 data 值追加到 URLRequest.url 值。
          * 当 method 值为 POST（或 GET 之外的任何值）时，将在 HTTP 请求体中传输 data 值。
-         * URLRequest API 支持二进制 POST，并支持 URL 编码变量和字符串。该数据对象可以是 ByteArray、URLVariables 或 String 对象。
+         * URLRequest API 支持二进制 POST，并支持 URL 编码变量和字符串。该数据对象可以是 ArrayBuffer、URLVariables 或 String 对象。
          * 该数据的使用方式取决于所用对象的类型：
+         * 如果该对象为 ArrayBuffer 对象，则 ArrayBuffer 对象的二进制数据用作 POST 数据。对于 GET，不支持 ArrayBuffer 类型的数据。
          * 如果该对象是 URLVariables 对象，并且该方法是 POST，则使用 x-www-form-urlencoded 格式对变量进行编码，并且生成的字符串会用作 POST 数据。
          * 如果该对象是 URLVariables 对象，并且该方法是 GET，则 URLVariables 对象将定义要随 URLRequest 对象一起发送的变量。
          * 否则，该对象会转换为字符串，并且该字符串会用作 POST 或 GET 数据。
@@ -1935,7 +1933,7 @@ declare module egret {
         requestHeaders: Array<URLRequestHeader>;
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @language en_US
      * A URLRequestHeader object encapsulates a single HTTP request header and consists of a name/value pair.  URLRequestHeader objects are used in the requestHeaders property of the URLRequest class.
@@ -1994,12 +1992,12 @@ declare module egret {
         constructor(name: string, value: string);
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @language en_US
      * The URLRequestMethod class provides values that specify whether the
      * URLRequest object should use the POST method or the GET method when sending data to a server.
-     * @see http://docs.egret-labs.org/post/manual/net/postget.html POST与GET
+     * @see http://edn.egret.com/cn/docs/page/599 POST与GET
      * @version Egret 2.4
      * @platform Web,Native
      * @includeExample extension/game/net/URLRequestMethod.ts
@@ -2008,7 +2006,7 @@ declare module egret {
      * @language zh_CN
      * URLRequestMethod 类提供了一些值，这些值可指定在将数据发送到服务器时，
      * URLRequest 对象应使用 POST 方法还是 GET 方法。
-     * @see http://docs.egret-labs.org/post/manual/net/postget.html POST与GET
+     * @see http://edn.egret.com/cn/docs/page/599 POST与GET
      * @version Egret 2.4
      * @platform Web,Native
      * @includeExample extension/game/net/URLRequestMethod.ts
@@ -2042,12 +2040,12 @@ declare module egret {
         static POST: string;
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @language en_US
      * The URLVariables class allows you to transfer variables between an application and a server.
      * Use URLVariables objects with methods of the URLLoader class and the data property of the URLRequest class.
-     * @see http://docs.egret-labs.org/post/manual/net/senddata.html Send the request with parameters
+     * @see http://edn.egret.com/cn/docs/page/598 Send the request with parameters
      * @version Egret 2.4
      * @platform Web,Native
      * @includeExample extension/game/net/URLVariables.ts
@@ -2056,7 +2054,7 @@ declare module egret {
      * @language zh_CN
      * 使用 URLVariables 类可以在应用程序和服务器之间传输变量。
      * 将 URLVariables 对象与 URLLoader 类的方法、URLRequest 类的 data 属性一起使用。
-     * @see http://docs.egret-labs.org/post/manual/net/senddata.html 发送带参数的请求
+     * @see http://edn.egret.com/cn/docs/page/598 发送带参数的请求
      * @version Egret 2.4
      * @platform Web,Native
      * @includeExample extension/game/net/URLVariables.ts
@@ -2134,7 +2132,7 @@ declare module egret {
         private encodeArray(key, value);
     }
 }
-declare module egret {
+declare namespace egret {
     /**
     * @language en_US
     * @version Egret 2.4
@@ -2220,7 +2218,7 @@ declare module egret {
         static getInstance(): egret.Ticker;
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @class egret.MainContext
      * @classdesc
@@ -2321,9 +2319,15 @@ declare module egret {
         static instance: egret.MainContext;
     }
 }
-declare var testDeviceType1: () => boolean;
-declare var testRuntimeType1: () => boolean;
-declare module egret {
+/**
+ * @private
+ */
+declare let testDeviceType1: () => boolean;
+/**
+ * @private
+ */
+declare let testRuntimeType1: () => boolean;
+declare namespace egret {
     /**
      * @language en_US
      * Tool class for object cache repeat use, which can be used to construct an object pool. Objects are automatically recycled after a certain duration.
@@ -2359,7 +2363,7 @@ declare module egret {
         /**
          * @private
          */
-        static _callBackList: Array<any>;
+        static _callBackList: any[];
         static $init(): void;
         static onUpdate(timeStamp: number): boolean;
         /**
@@ -2442,7 +2446,7 @@ declare module egret {
         dispose(): void;
     }
 }
-declare module egret {
+declare namespace egret {
     /**
      * @language en_US
      * To specify a delay (in milliseconds) calls the function specified interval loop.
@@ -2486,7 +2490,7 @@ declare module egret {
      */
     function clearInterval(key: number): void;
 }
-declare module egret {
+declare namespace egret {
     /**
      * @language en_US
      * Run the designated function in specified delay (in milliseconds).

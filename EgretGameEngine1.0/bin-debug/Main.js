@@ -52,6 +52,7 @@ var Main = (function (_super) {
     };
     p.startCreateScene = function () {
         App.StageUtils.init(this.stage);
+        //App.VersionManager.init("1.0");
         App.getInstance().startup();
     };
     return Main;

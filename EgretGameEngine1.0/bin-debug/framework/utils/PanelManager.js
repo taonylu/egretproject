@@ -1,5 +1,5 @@
 /**
- * 面板加载类
+ * 弹框面板加载类
  * @author chenkai
  * @date 2016/12/23
  */
@@ -25,7 +25,7 @@ var PanelManager = (function (_super) {
         this.groupMap[panelName] = groupName;
     };
     /**
-     * 打开面板，若需要实时加载资源，则加载完成后打开
+     * 打开弹框面板，若需要实时加载资源，则加载完成后打开
      * @panelName 面板名
      * @callBack 面板添加到舞台后的回调函数
      * @thisObject 回调函数执行对象
@@ -88,7 +88,7 @@ var PanelManager = (function (_super) {
         }
     };
     /**关闭所有弹框*/
-    p.closeAllPanel = function () {
+    p.closeAll = function () {
         for (var key in this.panelMap) {
             this.close(key);
         }
