@@ -96,5 +96,5 @@ var Main = (function (_super) {
         new Example();
     };
     return Main;
-})(egret.DisplayObjectContainer);
+}(egret.DisplayObjectContainer));
 egret.registerClass(Main,'Main');

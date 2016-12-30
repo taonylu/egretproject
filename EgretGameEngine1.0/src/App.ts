@@ -80,4 +80,24 @@ class App extends BaseApp{
 	public static get LayerManager():LayerManager{
 		return LayerManager.getInstance();
 	}
+	
+	/**声音管理类*/
+	public static get Sound():SoundManager{
+    	return SoundManager.getInstance();
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

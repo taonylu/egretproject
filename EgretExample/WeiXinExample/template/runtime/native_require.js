@@ -11,7 +11,6 @@ var game_file_list = [
 	"libs/modules/weixinapi/weixinapi.js",
 	"bin-debug/Example.js",
 	"bin-debug/GameConst.js",
-	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
 	//----auto game_file_list end----
 ];

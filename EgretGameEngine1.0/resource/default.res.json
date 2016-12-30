@@ -1,7 +1,7 @@
 {
 	"groups":[
 		{
-			"keys":"checkbox_select_disabled_png,button_down_png,qrcode_jpg",
+			"keys":"checkbox_select_disabled_png,button_down_png,qrcode_jpg,bgm_mp3,floor_mp3",
 			"name":"preload"
 		},
 		{
@@ -144,6 +144,16 @@
 			"name":"qrcode_jpg",
 			"type":"image",
 			"url":"assets/qrcode.jpg"
+		},
+		{
+			"name":"bgm_mp3",
+			"type":"sound",
+			"url":"assets/bgm.mp3"
+		},
+		{
+			"name":"floor_mp3",
+			"type":"sound",
+			"url":"assets/floor.mp3"
 		}
 	]
 }

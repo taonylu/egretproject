@@ -1,3 +1,8 @@
+<?php
+require_once "jssdk.php";
+$jssdk = new JSSDK("wx4a14bf95e973b059", "af99ce68694f39e2712e7cf7c22fe224");
+$signPackage = $jssdk->GetSignPackage();
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -28,6 +33,7 @@
 	<script egret="lib" src="libs/modules/res/res.js" src-release="libs/modules/res/res.min.js"></script>
 	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
 	<script egret="lib" src="libs/modules/socket/socket.js" src-release="libs/modules/socket/socket.min.js"></script>
+	<script egret="lib" src="libs/modules/weixinapi/weixinapi.js" src-release="libs/modules/weixinapi/weixinapi.min.js"></script>
 	<!--modules_files_end-->
 
     <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
@@ -48,6 +54,7 @@
 	<script egret="game" src="bin-debug/framework/net/Http.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/ArrayTool.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/CollisionUtils.js"></script>
+	<script egret="game" src="bin-debug/framework/utils/DateTimer.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/DeviceUtils.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/EventManager.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/LayerManager.js"></script>
@@ -63,7 +70,11 @@
 	<script egret="game" src="bin-debug/framework/utils/VersionManager.js"></script>
 	<script egret="game" src="bin-debug/game/constant/AssetConst.js"></script>
 	<script egret="game" src="bin-debug/game/constant/EventConst.js"></script>
+	<script egret="game" src="bin-debug/game/constant/KeyCode.js"></script>
+	<script egret="game" src="bin-debug/game/constant/PanelConst.js"></script>
+	<script egret="game" src="bin-debug/game/constant/SceneConst.js"></script>
 	<script egret="game" src="bin-debug/game/constant/SocketConst.js"></script>
+	<script egret="game" src="bin-debug/game/constant/SoundConst.js"></script>
 	<script egret="game" src="bin-debug/game/model/DataCenter.js"></script>
 	<script egret="game" src="bin-debug/game/view/game/GameScene.js"></script>
 	<script egret="game" src="bin-debug/game/view/home/HomeScene.js"></script>
@@ -87,6 +98,14 @@
     
     
     <script>
+    	var wxConfig = {
+    		debug:true,
+    		appid:'<?php echo $signPackage["appId"];?>',
+    	    timestamp:'<?php echo $signPackage["timestamp"];?>',
+    	    nonceStr:'<?php echo $signPackage["nonceStr"];?>',
+    		signature:'<?php echo $signPackage["signature"];?>'
+    	}
+
         /**
          * {
          * "renderMode":, //引擎渲染模式，"canvas" 或者 "webgl"

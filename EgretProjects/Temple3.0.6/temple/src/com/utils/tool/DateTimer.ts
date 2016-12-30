@@ -10,10 +10,10 @@
  * dateTimer.start();
  */
 class DateTimer extends egret.EventDispatcher{
-    private $previous: number; //以前时间
-    private $curTime: number;  //当前时间
-    private $passTime: number; //已过去时间
-    private $accTime: number;  //累计时间
+    private previous: number; //以前时间
+    private curTime: number;  //当前时间
+    private passTime: number; //已过去时间
+    private accTime: number;  //累计时间
     public delay: number;      //每帧耗时
     public currentCount:number;//当前计数
     public repeatCount:number; //设置的计时器运行总次数
@@ -25,14 +25,14 @@ class DateTimer extends egret.EventDispatcher{
 	}
 	
     public start(){
-        this.$previous = egret.getTimer();
-        this.$accTime = 0;
+        this.previous = egret.getTimer();
+        this.accTime = 0;
         egret.startTick(this.update, this);
 	}
 	
 	public reset(){
-        this.$previous = egret.getTimer();
-        this.$accTime = 0;
+        this.previous = egret.getTimer();
+        this.accTime = 0;
         this.currentCount = 0;
 	}
 	
@@ -41,12 +41,12 @@ class DateTimer extends egret.EventDispatcher{
 	}
 	
     private update():boolean{
-        this.$curTime = egret.getTimer();
-        this.$passTime = this.$curTime - this.$previous;
-        this.$previous = this.$curTime;
-        this.$accTime += this.$passTime;
-        while(this.$accTime >= this.delay) {
-            this.$accTime -= this.delay;
+        this.curTime = egret.getTimer();
+        this.passTime = this.curTime - this.previous;
+        this.previous = this.curTime;
+        this.accTime += this.passTime;
+        while(this.accTime >= this.delay) {
+            this.accTime -= this.delay;
             this.currentCount++;
             if(this.repeatCount > 0 && (this.currentCount == this.repeatCount)){
                 this.dispatchEvent(new egret.TimerEvent(egret.TimerEvent.TIMER_COMPLETE));

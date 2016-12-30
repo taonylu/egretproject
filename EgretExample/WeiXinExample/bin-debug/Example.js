@@ -230,5 +230,5 @@ var Example = (function () {
         return sp;
     };
     return Example;
-})();
+}());
 egret.registerClass(Example,'Example');

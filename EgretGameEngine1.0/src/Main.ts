@@ -55,6 +55,7 @@ class Main extends eui.UILayer {
     private startCreateScene(){
 
         App.StageUtils.init(this.stage);
+        //App.VersionManager.init("1.0");
         
         App.getInstance().startup();
     }

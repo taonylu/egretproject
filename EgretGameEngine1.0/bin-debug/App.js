@@ -98,6 +98,12 @@ var App = (function (_super) {
             return LayerManager.getInstance();
         }
     );
+    d(App, "Sound"
+        /**声音管理类*/
+        ,function () {
+            return SoundManager.getInstance();
+        }
+    );
     return App;
 }(BaseApp));
 egret.registerClass(App,'App');
