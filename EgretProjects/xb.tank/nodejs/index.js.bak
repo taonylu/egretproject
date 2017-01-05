@@ -11,8 +11,7 @@ http.listen(3000, function(){
 });
 
 //在线用户
-var pcUser = {};
-var mobileUser = {};
+var roomList = {};
 
 io.on('connection', function(socket){
     console.log('a user connected');
@@ -21,14 +20,14 @@ io.on('connection', function(socket){
     socket.on('login', function(data,callback){
     	var userType = data.userType;
         var rid = data.rid;
-		var openid = data.openid;
-        console.log("----" + "用户加入" + "rid:" + rid + " userType:" + userType + " openid:" + openid);
+		//var openid = data.openid;
+       // console.log("----" + "用户加入" + "rid:" + rid + " userType:" + userType + " openid:" + openid);
         //将新加入用户的唯一标识当作socket的名称，后面退出的时候会用到
         socket.rid = rid;
-		socket.openid = openid;
+		//socket.openid = openid;
 
         //检查在线列表，如果不在里面就加入
-    	if(userType == "pc" && !pcUser[rid]){
+    	if(userType == "pc" && !roomList[rid]){
     		initPC(socket);
     		pcUser[rid] = socket;
     		console.log('PC用户加入');
@@ -78,12 +77,12 @@ function initPC(socket){
 	//更新rid
     socket.on('upRid',function(data){
 		console.log("upRid:",data.rid);
-    	if(pcUser[socket.rid]){
-			delete pcUser[socket.rid];
-			delete mobileUser[socket.rid];
-			pcUser[data.rid] = socket;
-			socket.rid = data.rid;
-    	}
+		
+		delete roomList[data.rid];
+		roomList[data.rid] = {};
+		roomList[data.rid].pc = socket;
+		
+		/*
 		var data = {
 			"heroRankList":[
 				{"p1HeadUrl":"resource/assets/home/home_p1.png", "p2HeadUrl":"resource/assets/home/home_p1.png", stage:3,wave:3},
@@ -95,6 +94,8 @@ function initPC(socket){
 				],
 			"historyScore":999999
 		}
+		*/
+		var data = {};
 		socket.emit("rank", data);
     });
 
