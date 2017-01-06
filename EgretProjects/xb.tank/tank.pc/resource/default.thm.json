@@ -1,34 +1,34 @@
 {
-  "autoGenerateExmlsList": true,
-  "exmls": [
-    "src/com/view/game/GameSceneSkin.exml",
-    "src/com/view/game/other/ScoreLabelSkin.exml",
-    "src/com/view/game/tile/CampSkin.exml",
-    "src/com/view/game/tile/GrassSkin.exml",
-    "src/com/view/game/tile/RiverSkin.exml",
-    "src/com/view/game/tile/SteelSkin.exml",
-    "src/com/view/game/tile/WallSkin.exml",
-    "src/com/view/home/HeadUISkin.exml",
-    "src/com/view/home/RankHeadSkin.exml",
-    "src/com/view/home/KillHeadUISkin.exml",
-    "src/com/view/home/HomeSceneSkin.exml",
-    "src/com/view/preload/PreloadSceneSkin.exml",
-    "src/com/view/result/ResultSceneSkin.exml",
-    "src/com/view/transition/TransitionSceneSkin.exml"
-  ],
-  "skins": {
-    "eui.Button": "resource/eui_skins/ButtonSkin.exml",
-    "eui.CheckBox": "resource/eui_skins/CheckBoxSkin.exml",
-    "eui.HScrollBar": "resource/eui_skins/HScrollBarSkin.exml",
-    "eui.HSlider": "resource/eui_skins/HSliderSkin.exml",
-    "eui.ItemRenderer": "resource/eui_skins/ItemRendererSkin.exml",
-    "eui.Panel": "resource/eui_skins/PanelSkin.exml",
-    "eui.ProgressBar": "resource/eui_skins/ProgressBarSkin.exml",
-    "eui.RadioButton": "resource/eui_skins/RadioButtonSkin.exml",
-    "eui.Scroller": "resource/eui_skins/ScrollerSkin.exml",
-    "eui.TextInput": "resource/eui_skins/TextInputSkin.exml",
-    "eui.ToggleSwitch": "resource/eui_skins/ToggleSwitchSkin.exml",
-    "eui.VScrollBar": "resource/eui_skins/VScrollBarSkin.exml",
-    "eui.VSlider": "resource/eui_skins/VSliderSkin.exml"
-  }
+	"autoGenerateExmlsList":true,
+	"exmls":[
+		"src/com/view/game/GameSceneSkin.exml",
+		"src/com/view/game/other/ScoreLabelSkin.exml",
+		"src/com/view/game/tile/CampSkin.exml",
+		"src/com/view/game/tile/GrassSkin.exml",
+		"src/com/view/game/tile/RiverSkin.exml",
+		"src/com/view/game/tile/SteelSkin.exml",
+		"src/com/view/game/tile/WallSkin.exml",
+		"src/com/view/home/HeadUISkin.exml",
+		"src/com/view/home/RankHeadSkin.exml",
+		"src/com/view/home/KillHeadUISkin.exml",
+		"src/com/view/home/HomeSceneSkin.exml",
+		"src/com/view/preload/PreloadSceneSkin.exml",
+		"src/com/view/result/ResultSceneSkin.exml",
+		"src/com/view/transition/TransitionSceneSkin.exml"
+	],
+	"skins":{
+		"eui.Button":"resource/eui_skins/ButtonSkin.exml",
+		"eui.CheckBox":"resource/eui_skins/CheckBoxSkin.exml",
+		"eui.HScrollBar":"resource/eui_skins/HScrollBarSkin.exml",
+		"eui.HSlider":"resource/eui_skins/HSliderSkin.exml",
+		"eui.ItemRenderer":"resource/eui_skins/ItemRendererSkin.exml",
+		"eui.Panel":"resource/eui_skins/PanelSkin.exml",
+		"eui.ProgressBar":"resource/eui_skins/ProgressBarSkin.exml",
+		"eui.RadioButton":"resource/eui_skins/RadioButtonSkin.exml",
+		"eui.Scroller":"resource/eui_skins/ScrollerSkin.exml",
+		"eui.TextInput":"resource/eui_skins/TextInputSkin.exml",
+		"eui.ToggleSwitch":"resource/eui_skins/ToggleSwitchSkin.exml",
+		"eui.VScrollBar":"resource/eui_skins/VScrollBarSkin.exml",
+		"eui.VSlider":"resource/eui_skins/VSliderSkin.exml"
+	}
 }
