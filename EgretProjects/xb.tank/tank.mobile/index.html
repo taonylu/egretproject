@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Egret</title>
+    <title>坦克大战</title>
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="full-screen" content="true"/>
@@ -69,7 +69,7 @@
          data-content-height="640"
          data-show-paint-rect="false"
          data-multi-fingered="2"
-         data-show-fps="true" data-show-log="true"
+         data-show-fps="false" data-show-log="false"
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>
@@ -77,12 +77,12 @@
     	gameConfig.openid =  Math.random();
     	gameConfig.headimgurl = "";
     	gameConfig.nickname = "";
-    	//gameConfig.rid = Request("rid");
-    	gameConfig.rid = "1";
+    	gameConfig.rid = Request("rid");
+    	//gameConfig.rid = "1";
     	gameConfig.group = "tank";
     	gameConfig.count = "2";
-    	gameConfig.server = "http://192.168.1.111:3000";
-    	//gameConfig.server = "http://127.0.0.1:3000";
+    	//gameConfig.server = "http://10.1.150.205:3000";
+    	gameConfig.server = "http://120.24.188.118:3000";
     	
     	//获取get的值		
     	function Request(argname) 

@@ -43,7 +43,7 @@ class ResultScene extends BaseScene{
     private p2Kill1Label: eui.Label;
     private p2KillLabel: eui.Label;
     
-    private countDownTime:number = 3000;
+    private countDownTime:number = 10000;
     
 	public constructor() {
         super("ResultSceneSkin");

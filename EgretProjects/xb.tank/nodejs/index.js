@@ -29,36 +29,29 @@ io.on('connection', function(socket){
     	if(userType == "pc"){
     		pcUserJoin(rid, socket);
     	}
+    	//手机用户加入
     	if(userType == "mobile"){
     		mobileUserJoin(rid, socket);
     	}
-        //回调函数
-        callback({success:true});
-
-        //如果是手机登录，则发送玩家加入
-        if(userType == "mobile"){
-        	var pcSocket = pcUser[rid];
-        	if(pcSocket){
-        		pcSocket.emit('userJoin', {openid:openid,headimgurl:"resource/assets/home/home_p1.png",nickname:"ABC"});
-        	}
-        }
     });
 
      
     //监听用户退出
     socket.on('disconnect', function(){
-		var pcSocket = pcUser[socket.rid];
-		if(pcSocket == null){
-			return;
-		}
-		if(pcSocket == socket){ //pc离开
+    	//房间不存在，不予处理
+    	if(roomList[socket.rid] == null){
+    		return;
+    	}
+    	//pc端断线，则删除房间
+		var pcSocket = roomList[socket.rid].pc;
+		if(pcSocket == socket){ 
 			console.log("pc离开");
-			delete pcUser[socket.rid];
-			delete mobileUser[socket.rid];
-		}else{ //手机离开
+			delete roomList[socket.rid];
+		}else{ 
+			//手机端断线，则删除手机端，并广播给pc端
 			console.log("手机离开");
 			pcSocket.emit('userQuit',{openid:socket.openid});
-			delete mobileUser[socket.rid];
+			delete roomList[socket.rid].mobile[socket.openid];
 		}
     });
    
@@ -117,34 +110,43 @@ function listenerSocketPC(socket){
 
 	//游戏结束
     socket.on('gameOver',function(data,callback){
+    	console.log("rev gameOver");
     	if(roomList[socket.rid].pc && roomList[socket.rid].mobile){
 			var mobileObj = roomList[socket.rid].mobile;
 			for(var key in mobileObj) {
-				 mobileObj[key].emit('gameOver',{"historyScore":9999,"scoreRank":3,"p1KillRank":5,"p2KillRank":6});
+				 mobileObj[key].emit('gameOver',{"historyScore":data.p1Score + data.p2Score,"scoreRank":99,"p1KillRank":99,"p2KillRank":99});
 			}
     	}
-		callback({"historyScore":9999,"scoreRank":3,"p1KillRank":5,"p2KillRank":6});
+    	roomList[socket.rid].pc.emit("gameOver",{"historyScore":data.p1Score + data.p2Score,"scoreRank":99,"p1KillRank":99,"p2KillRank":99});
+		//callback({"historyScore":data.p1Score + data.p2Score,"scoreRank":99,"p1KillRank":99,"p2KillRank":99});
     });
 }
 
 /**手机用户加入*/
 function mobileUserJoin(rid, socket){
-	//检查房间是否存在
-	if(roomList[rid] == null){
+	//房间不存在，则返回登录失败
+	if(roomList[rid] == null || roomList[rid].pc == null){
 		socket.emit('login', {'success':false, 'msg':'房间不存在'});
 		return;
 	}
+	//手机端用户数组不存在，则新建
 	if(roomList[rid].mobile == null){
 		roomList[rid].mobile = {};
 	}
-	//检查人数是否足够
+	//房间人满，则返回登录失败
 	if(getObjLength(roomList[rid].mobile) >= 2){
 		socket.emit('login', {'success':false, 'msg':'人数已满'});
 		return;
 	}
-
-	roomList[rid].mobile[data.openid] = socket;
+	//保存客户端用户
+	roomList[rid].mobile[socket.openid] = socket;
+	//注册客户端socket监听
 	listenerSocketMobile(socket);
+	//如果是手机登录，则发送玩家加入
+	var pcSocket = roomList[rid].pc;
+	if(pcSocket){
+		pcSocket.emit('userJoin', {openid:socket.openid,headimgurl:"resource/assets/home/home_p1.png",nickname:"Test"});
+	}
 	console.log('手机用户加入');
 }
 
@@ -153,7 +155,7 @@ function listenerSocketMobile(socket){
 	//接收来自手机的消息
     socket.on('action',function(data){
 		var actionType = data.actionType;
-		if(roomList[socket.rid]){
+		if(roomList[socket.rid] && roomList[socket.rid].pc){
 			roomList[socket.rid].pc.emit('action',{actionType:actionType,openid:socket.openid});
 		}
     });

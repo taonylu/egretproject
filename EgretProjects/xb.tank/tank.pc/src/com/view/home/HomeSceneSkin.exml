@@ -49,6 +49,5 @@
 	</e:Group>
 	<e:BitmapLabel y="44" text="I-                 00" font="writeFont_fnt" x="508"/>
 	<e:BitmapLabel id="historyLabel" y="44" text="HI-          20000" font="writeFont_fnt" x="828" width="516"/>
-	<e:BitmapLabel y="914" text="2016    XINBU   INTERACTIVE" font="writeFont_fnt" x="722"/>
-	<e:Label text="©" x="684" y="912" size="30"/>
+	<e:Label text="©2017 GameDaybyDay" y="912" size="30" x="798"/>
 </e:Skin>

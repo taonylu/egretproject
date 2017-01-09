@@ -1413,7 +1413,7 @@ class GameScene extends BaseScene{
         this.clearPlayerTank();       //清理坦克，防止接收action时，会有声音
         this.clearEnemyTank();
         LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
-        var data = json.message;    //临时修改的data为message
+        var data = json;   
         var success = json.success;
         var gameData = {
             "killList": this.killList,                  //本关击杀
