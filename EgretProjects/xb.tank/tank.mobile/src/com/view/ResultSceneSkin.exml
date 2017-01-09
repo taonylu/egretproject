@@ -7,7 +7,7 @@
 		<e:Label id="killLabel" y="826" textColor="0xFC0101" size="25" text="99" textAlign="center" width="45" verticalAlign="middle" height="30" x="141"/>
 		<e:Label id="killRankLabel" y="826" textColor="0xFC0101" height="30" text="99" textAlign="center" width="46" verticalAlign="middle" size="25" x="374"/>
 		<e:Label text="坦克大战！" x="32" y="700" textColor="0xEB9040" size="40" fontFamily="微软雅黑"/>
-		<e:Label y="930" textColor="0xEB9040" text="分享朋友圈，呼朋唤友，重拾童年的乐趣！" fontFamily="微软雅黑" size="25" x="34"/>
+		<e:Label y="930" textColor="0xEB9040" text="测试版本。数据无效。" fontFamily="微软雅黑" size="25" x="34"/>
 		<e:Label y="767" text="无限模式击溃" fontFamily="微软雅黑" size="25" x="33" textColor="0xFBF9F9"/>
 		<e:Label y="767" textColor="0xFBF9F9" text="。" fontFamily="微软雅黑" size="25" x="583"/>
 		<e:Label y="827" textColor="0xFBF9F9" text="。" fontFamily="微软雅黑" size="25" x="433"/>

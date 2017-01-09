@@ -7,7 +7,7 @@ var ResultScene = (function (_super) {
     __extends(ResultScene, _super);
     function ResultScene() {
         _super.call(this, "ResultSceneSkin");
-        this.countDownTime = 3000;
+        this.countDownTime = 10000;
     }
     var d = __define,c=ResultScene,p=c.prototype;
     p.componentCreated = function () {

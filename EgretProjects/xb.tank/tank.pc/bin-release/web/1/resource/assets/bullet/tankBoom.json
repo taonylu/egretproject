@@ -1,0 +1,26 @@
+{"mc":{
+	"tankBoom":{
+		"frameRate":24,
+		"events":[
+			
+			],
+		"frames":[
+			
+			{
+			"res":"6DDFFEE6",
+			"x":32,
+			"y":32,
+			"duration":2
+			},
+			{
+			"res":"682F02DC",
+			"x":0,
+			"y":0,
+			"duration":2
+			}
+			]
+}},
+	"res":{
+		"6DDFFEE6":{"x":0,"y":130,"w":64,"h":64},
+		"682F02DC":{"x":0,"y":0,"w":128,"h":128}
+	}}
