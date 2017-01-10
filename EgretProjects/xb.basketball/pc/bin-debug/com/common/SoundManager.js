@@ -63,5 +63,5 @@ var SoundManager = (function () {
         return this.instance;
     };
     return SoundManager;
-})();
+}());
 egret.registerClass(SoundManager,'SoundManager');

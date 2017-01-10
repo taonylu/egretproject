@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Egret</title>
+    <title>谁是射手</title>
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="full-screen" content="true"/>
@@ -72,7 +72,7 @@
 <body>
 	<!-- 其他变量 -->
 	<script>
-		window["server"] = "http://192.168.1.101:3004/screen";
+		window["server"] = "http://120.24.188.118:3001";
 		window["logoUrl"] = "";
 	</script>
 	<!-- -->
@@ -83,7 +83,7 @@
 	<div id="code" style="display:none"></div>
 	<script>
 		function createQRCode(rid){
-			var codeUrl = "http://192.168.1.104/1/index.html" + "?rid=" + rid;
+			var codeUrl = "http://120.24.188.118/game/basketball/index.html" + "?rid=" + rid;
 			var codeWidth = 270;
 			var codeHeight = 270;
 			var logoUrl = "";
@@ -111,7 +111,7 @@
          data-content-height="1080"
          data-show-paint-rect="false"
          data-multi-fingered="2"
-         data-show-fps="true" data-show-log="true"
+         data-show-fps="false" data-show-log="false"
          data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>

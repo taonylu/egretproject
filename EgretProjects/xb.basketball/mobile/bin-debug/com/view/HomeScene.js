@@ -171,7 +171,7 @@ var HomeScene = (function (_super) {
         //显示分数
         if (score >= window["prizeScore"]) {
             this.prizeGroup.visible = true;
-            this.messageLabel.text = "恭喜获得优惠券一张\n赶紧点击按钮领取吧";
+            this.messageLabel.text = "恭喜获得优惠券一张\n赶紧点击按钮领取吧(测试数据无效)";
             this.prizeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
                 location.href = window["prizeLink"];
             }, this);
@@ -184,5 +184,5 @@ var HomeScene = (function (_super) {
         }
     };
     return HomeScene;
-}(BaseScene));
+})(BaseScene);
 egret.registerClass(HomeScene,'HomeScene');

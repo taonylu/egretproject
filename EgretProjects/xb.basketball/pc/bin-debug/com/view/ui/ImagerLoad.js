@@ -42,5 +42,5 @@ var ImagerLoad = (function (_super) {
         this.img.bitmapData = null;
     };
     return ImagerLoad;
-})(egret.DisplayObjectContainer);
+}(egret.DisplayObjectContainer));
 egret.registerClass(ImagerLoad,'ImagerLoad');

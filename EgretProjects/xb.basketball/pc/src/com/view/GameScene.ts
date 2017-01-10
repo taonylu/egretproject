@@ -47,9 +47,9 @@ class GameScene extends BaseScene{
     public componentCreated(): void {
         super.componentCreated();
         
+        
         this.stageWidth = GameConst.stage.stageWidth;
         this.stageHeight = GameConst.stage.stageHeight;
-
     }
 
     public onEnable(): void {

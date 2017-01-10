@@ -46,7 +46,7 @@ var ArcMotion = (function () {
         }
     );
     return ArcMotion;
-})();
+}());
 egret.registerClass(ArcMotion,'ArcMotion');
 /* 使用范例
 var p0: egret.Point = new egret.Point(this.ballPosX,this.ballPosY);

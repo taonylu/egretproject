@@ -95,5 +95,5 @@ var HomeScene = (function (_super) {
         }
     };
     return HomeScene;
-})(BaseScene);
+}(BaseScene));
 egret.registerClass(HomeScene,'HomeScene');

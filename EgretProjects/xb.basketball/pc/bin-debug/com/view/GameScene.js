@@ -407,5 +407,5 @@ var GameScene = (function (_super) {
         }
     };
     return GameScene;
-})(BaseScene);
+}(BaseScene));
 egret.registerClass(GameScene,'GameScene');

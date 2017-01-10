@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HomeSceneSkin" width="480" height="800" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bg" source="bg_jpg" height="800"/>
+	<e:Group id="logoGroup" height="100" width="200" y="81" x="140"/>
+	<e:Group height="769" width="480" bottom="31">
+		<e:Image id="ball" source="ball_png" y="561" anchorOffsetX="48" anchorOffsetY="48" width="135" height="135" x="233"/>
+		<e:Image id="hand" source="hand_png" x="207" y="532"/>
+		<e:Label id="tipLabel" text="向前滑动投球" y="719" width="241" height="51" verticalAlign="middle" textAlign="center" x="120"/>
+	</e:Group>
+	<e:Group id="prizeGroup" height="800" width="480" horizontalCenter="0" verticalCenter="0" visible="false">
+		<e:Rect height="800" width="480" fillAlpha="0.7"/>
+		<e:Image source="prize_bg_png" y="115" horizontalCenter="0"/>
+		<e:Image id="prizeBtn" source="prize_btn_png" y="397" horizontalCenter="0"/>
+		<e:Label id="messageLabel" x="69" y="141" fontFamily="微软雅黑" width="344" height="147" multiline="true" verticalAlign="middle" textAlign="center"/>
+	</e:Group>
+</e:Skin>

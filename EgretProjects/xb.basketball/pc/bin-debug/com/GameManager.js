@@ -51,5 +51,5 @@ var GameManager = (function () {
         this.messageBox.showMessage("连接网页错误");
     };
     return GameManager;
-})();
+}());
 egret.registerClass(GameManager,'GameManager');
