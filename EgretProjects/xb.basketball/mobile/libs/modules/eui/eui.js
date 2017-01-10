@@ -122,7 +122,7 @@ var eui;
             return watcher;
         };
         return Binding;
-    }());
+    })();
     eui.Binding = Binding;
     egret.registerClass(Binding,'eui.Binding');
 })(eui || (eui = {}));
@@ -494,7 +494,7 @@ var eui;
             }
         };
         return Watcher;
-    }());
+    })();
     eui.Watcher = Watcher;
     egret.registerClass(Watcher,'eui.Watcher');
 })(eui || (eui = {}));
@@ -1071,7 +1071,7 @@ var eui;
             eui.CollectionEvent.dispatchCollectionEvent(this, eui.CollectionEvent.COLLECTION_CHANGE, kind, location, oldLocation, items, oldItems);
         };
         return ArrayCollection;
-    }(egret.EventDispatcher));
+    })(egret.EventDispatcher);
     eui.ArrayCollection = ArrayCollection;
     egret.registerClass(ArrayCollection,'eui.ArrayCollection',["eui.ICollection","egret.IEventDispatcher"]);
     eui.registerProperty(ArrayCollection, "source", "Array", true);
@@ -1407,7 +1407,7 @@ var eui;
                 }
             };
             return Validator;
-        }(egret.EventDispatcher));
+        })(egret.EventDispatcher);
         sys.Validator = Validator;
         egret.registerClass(Validator,'eui.sys.Validator');
         /**
@@ -1592,7 +1592,7 @@ var eui;
                 return this.minDepth > this.maxDepth;
             };
             return DepthQueue;
-        }());
+        })();
         egret.registerClass(DepthQueue,'DepthQueue');
         /**
          * @private
@@ -1641,7 +1641,7 @@ var eui;
                 }
             };
             return DepthBin;
-        }());
+        })();
         egret.registerClass(DepthBin,'DepthBin');
     })(sys = eui.sys || (eui.sys = {}));
 })(eui || (eui = {}));
@@ -2519,7 +2519,7 @@ var eui;
                 }
             };
             return UIComponentImpl;
-        }(egret.DisplayObject));
+        })(egret.DisplayObject);
         sys.UIComponentImpl = UIComponentImpl;
         egret.registerClass(UIComponentImpl,'eui.sys.UIComponentImpl',["eui.UIComponent"]);
         /**
@@ -3061,7 +3061,7 @@ var eui;
         p.getPreferredBounds = function (bounds) {
         };
         return BitmapLabel;
-    }(egret.BitmapText));
+    })(egret.BitmapText);
     eui.BitmapLabel = BitmapLabel;
     egret.registerClass(BitmapLabel,'eui.BitmapLabel',["eui.UIComponent","eui.IDisplayText"]);
     eui.sys.implementUIComponent(BitmapLabel, egret.BitmapText);
@@ -3101,12 +3101,8 @@ var eui;
 (function (eui) {
     /**
      * @language en_US
-     * The Component class defines the base class for skinnable components.
-     * The skins used by a Component class are typically child classes of
-     * the Skin class.<p/>
      *
-     * Associate a skin class with a component class by setting the <code>skinName</code> property of the
-     * component class.
+     * @copy eui.UIComponents
      * @event egret.Event.COMPLETE Dispatch when <code>skinName</code> property is set the path of external EXML file and the EXML file is resolved.
      *
      * @includeExample  extension/eui/components/ComponentExample.ts
@@ -3116,8 +3112,8 @@ var eui;
      */
     /**
      * @language zh_CN
-     * Component 类定义可设置外观的组件的基类。Component 类所使用的外观通常是 Skin 类的子类。<p/>
-     * 通过设置 component 类的 skinName 属性，将 skin 类与 component 类相关联。
+     *
+     * @copy eui.UIComponents
      * @event egret.Event.COMPLETE 当设置skinName为外部exml文件路径时，加载并完成EXML解析后调度。
      *
      * @includeExample  extension/eui/components/ComponentExample.ts
@@ -3248,7 +3244,7 @@ var eui;
                     }
                     else {
                         clazz = egret.getDefinitionByName(skinName);
-                        if (!clazz && text.toLowerCase().indexOf(".exml") != -1) {
+                        if (!clazz) {
                             EXML.load(skinName, this.onExmlLoaded, this, true);
                             return;
                         }
@@ -3874,7 +3870,7 @@ var eui;
         p.getPreferredBounds = function (bounds) {
         };
         return Component;
-    }(egret.DisplayObjectContainer));
+    })(egret.DisplayObjectContainer);
     eui.Component = Component;
     egret.registerClass(Component,'eui.Component',["eui.UIComponent"]);
     eui.registerProperty(Component, "skinName", "Class");
@@ -4010,6 +4006,7 @@ var eui;
             this.touchCaptured = false;
             this.touchChildren = false;
             this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+            this.addEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
         }
         var d = __define,c=Button,p=c.prototype;
         d(p, "label"
@@ -4079,9 +4076,9 @@ var eui;
          * @platform Web,Native
          */
         p.onTouchCancle = function (event) {
-            var stage = event.$currentTarget;
-            stage.removeEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
-            stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
+            if (this.$stage) {
+                this.$stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
+            }
             this.touchCaptured = false;
             this.invalidateState();
         };
@@ -4102,7 +4099,6 @@ var eui;
          * @platform Web,Native
          */
         p.onTouchBegin = function (event) {
-            this.$stage.addEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
             this.$stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
             this.touchCaptured = true;
             this.invalidateState();
@@ -4114,7 +4110,6 @@ var eui;
          */
         p.onStageTouchEnd = function (event) {
             var stage = event.$currentTarget;
-            stage.removeEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
             stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
             if (this.contains(event.target)) {
                 this.buttonReleased();
@@ -4171,7 +4166,7 @@ var eui;
         p.buttonReleased = function () {
         };
         return Button;
-    }(eui.Component));
+    })(eui.Component);
     eui.Button = Button;
     egret.registerClass(Button,'eui.Button');
 })(eui || (eui = {}));
@@ -4340,7 +4335,7 @@ var eui;
             this.dispatchEventWith(egret.Event.CHANGE);
         };
         return ToggleButton;
-    }(eui.Button));
+    })(eui.Button);
     eui.ToggleButton = ToggleButton;
     egret.registerClass(ToggleButton,'eui.ToggleButton');
     eui.registerBindable(ToggleButton.prototype, "selected");
@@ -4420,7 +4415,7 @@ var eui;
         }
         var d = __define,c=CheckBox,p=c.prototype;
         return CheckBox;
-    }(eui.ToggleButton));
+    })(eui.ToggleButton);
     eui.CheckBox = CheckBox;
     egret.registerClass(CheckBox,'eui.CheckBox');
 })(eui || (eui = {}));
@@ -4541,7 +4536,7 @@ var eui;
             }
         };
         return State;
-    }(egret.HashObject));
+    })(egret.HashObject);
     eui.State = State;
     egret.registerClass(State,'eui.State');
 })(eui || (eui = {}));
@@ -4657,7 +4652,7 @@ var eui;
                 }
             };
             return StateClient;
-        }());
+        })();
         sys.StateClient = StateClient;
         egret.registerClass(StateClient,'eui.sys.StateClient');
         /**
@@ -4700,7 +4695,7 @@ var eui;
             }
             var d = __define,c=StateValues,p=c.prototype;
             return StateValues;
-        }());
+        })();
         sys.StateValues = StateValues;
         egret.registerClass(StateValues,'eui.sys.StateValues');
     })(sys = eui.sys || (eui.sys = {}));
@@ -5359,7 +5354,7 @@ var eui;
         p.getPreferredBounds = function (bounds) {
         };
         return Group;
-    }(egret.DisplayObjectContainer));
+    })(egret.DisplayObjectContainer);
     eui.Group = Group;
     egret.registerClass(Group,'eui.Group',["eui.IViewport","eui.UIComponent"]);
     eui.sys.implementUIComponent(Group, egret.DisplayObjectContainer, true);
@@ -6420,7 +6415,7 @@ var eui;
         p.rendererRemoved = function (renderer, index, item) {
         };
         return DataGroup;
-    }(eui.Group));
+    })(eui.Group);
     eui.DataGroup = DataGroup;
     egret.registerClass(DataGroup,'eui.DataGroup');
     eui.registerProperty(DataGroup, "itemRenderer", "Class");
@@ -6888,7 +6883,7 @@ var eui;
         p.getPreferredBounds = function (bounds) {
         };
         return EditableText;
-    }(egret.TextField));
+    })(egret.TextField);
     eui.EditableText = EditableText;
     egret.registerClass(EditableText,'eui.EditableText',["eui.UIComponent","eui.IDisplayText"]);
     eui.sys.implementUIComponent(EditableText, egret.TextField);
@@ -6989,21 +6984,6 @@ var eui;
              * @private
              */
             this.$viewport = null;
-            /**
-             * @language en_US
-             * Whether the scrollbar can be autohide.
-             * @version Egret 3.0.2
-             * @version eui 1.0
-             * @platform Web,Native
-             */
-            /**
-             * @language zh_CN
-             * 是否自动隐藏 scrollbar
-             * @version Egret 3.0.2
-             * @version eui 1.0
-             * @platform Web,Native
-             */
-            this.autoVisibility = true;
         }
         var d = __define,c=ScrollBarBase,p=c.prototype;
         d(p, "viewport"
@@ -7097,7 +7077,7 @@ var eui;
         p.onPropertyChanged = function (event) {
         };
         return ScrollBarBase;
-    }(eui.Component));
+    })(eui.Component);
     eui.ScrollBarBase = ScrollBarBase;
     egret.registerClass(ScrollBarBase,'eui.ScrollBarBase');
 })(eui || (eui = {}));
@@ -7217,7 +7197,7 @@ var eui;
             }
         };
         return HScrollBar;
-    }(eui.ScrollBarBase));
+    })(eui.ScrollBarBase);
     eui.HScrollBar = HScrollBar;
     egret.registerClass(HScrollBar,'eui.HScrollBar');
 })(eui || (eui = {}));
@@ -7706,7 +7686,7 @@ var eui;
         p.updateSkinDisplayList = function () {
         };
         return Range;
-    }(eui.Component));
+    })(eui.Component);
     eui.Range = Range;
     egret.registerClass(Range,'eui.Range');
     eui.registerBindable(Range.prototype, "value");
@@ -8256,7 +8236,7 @@ var eui;
             }
         };
         return SliderBase;
-    }(eui.Range));
+    })(eui.Range);
     eui.SliderBase = SliderBase;
     egret.registerClass(SliderBase,'eui.SliderBase');
 })(eui || (eui = {}));
@@ -8389,7 +8369,7 @@ var eui;
             }
         };
         return HSlider;
-    }(eui.SliderBase));
+    })(eui.SliderBase);
     eui.HSlider = HSlider;
     egret.registerClass(HSlider,'eui.HSlider');
 })(eui || (eui = {}));
@@ -8510,7 +8490,7 @@ var eui;
             }
         };
         return DefaultAssetAdapter;
-    }());
+    })();
     eui.DefaultAssetAdapter = DefaultAssetAdapter;
     egret.registerClass(DefaultAssetAdapter,'eui.DefaultAssetAdapter',["eui.IAssetAdapter"]);
 })(eui || (eui = {}));
@@ -8802,7 +8782,7 @@ var eui;
          *
          * @param context
          */
-        p.$render = function () {
+        p.$render = function (context) {
             var image = this.$Bitmap[0 /* bitmapData */];
             if (!image) {
                 return;
@@ -8814,7 +8794,7 @@ var eui;
                 return;
             }
             var values = this.$Bitmap;
-            egret.Bitmap.$drawImage(this.$renderNode, values[1 /* image */], values[2 /* bitmapX */], values[3 /* bitmapY */], values[4 /* bitmapWidth */], values[5 /* bitmapHeight */], values[6 /* offsetX */], values[7 /* offsetY */], values[8 /* textureWidth */], values[9 /* textureHeight */], width, height, this.scale9Grid, this.$fillMode, values[10 /* smoothing */]);
+            egret.Bitmap.$drawImage(context, values[1 /* image */], values[2 /* clipX */], values[3 /* clipY */], values[4 /* clipWidth */], values[5 /* clipHeight */], values[6 /* offsetX */], values[7 /* offsetY */], values[8 /* width */], values[9 /* height */], width, height, this.$scale9Grid, this.$fillMode, values[10 /* smoothing */]);
         };
         /**
          * @copy eui.UIComponent#createChildren
@@ -8994,7 +8974,7 @@ var eui;
         p.getPreferredBounds = function (bounds) {
         };
         return Image;
-    }(egret.Bitmap));
+    })(egret.Bitmap);
     eui.Image = Image;
     egret.registerClass(Image,'eui.Image',["eui.UIComponent"]);
     eui.sys.implementUIComponent(Image, egret.Bitmap);
@@ -9028,7 +9008,6 @@ var eui;
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////
-/// <reference path="../utils/registerBindable.ts" />
 var eui;
 (function (eui) {
     /**
@@ -9109,6 +9088,7 @@ var eui;
              */
             this.touchCaptured = false;
             this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+            this.addEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
         }
         var d = __define,c=ItemRenderer,p=c.prototype;
         d(p, "data"
@@ -9199,9 +9179,7 @@ var eui;
          */
         p.onTouchCancle = function (event) {
             this.touchCaptured = false;
-            var stage = event.$currentTarget;
-            stage.removeEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
-            stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
+            this.$stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
             this.invalidateState();
         };
         /**
@@ -9221,7 +9199,6 @@ var eui;
          * @platform Web,Native
          */
         p.onTouchBegin = function (event) {
-            this.$stage.addEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
             this.$stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
             this.touchCaptured = true;
             this.invalidateState();
@@ -9233,7 +9210,6 @@ var eui;
          */
         p.onStageTouchEnd = function (event) {
             var stage = event.$currentTarget;
-            stage.removeEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancle, this);
             stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onStageTouchEnd, this);
             this.touchCaptured = false;
             this.invalidateState();
@@ -9261,7 +9237,7 @@ var eui;
             return state;
         };
         return ItemRenderer;
-    }(eui.Component));
+    })(eui.Component);
     eui.ItemRenderer = ItemRenderer;
     egret.registerClass(ItemRenderer,'eui.ItemRenderer',["eui.IItemRenderer","eui.UIComponent"]);
     eui.registerBindable(ItemRenderer.prototype, "data");
@@ -9604,7 +9580,7 @@ var eui;
         p.getPreferredBounds = function (bounds) {
         };
         return Label;
-    }(egret.TextField));
+    })(egret.TextField);
     eui.Label = Label;
     egret.registerClass(Label,'eui.Label',["eui.UIComponent","eui.IDisplayText"]);
     eui.sys.implementUIComponent(Label, egret.TextField);
@@ -10336,7 +10312,7 @@ var eui;
         /**
          * @language en_US
          * Handles <code>egret.TouchEvent.TOUCH_CANCEL</code> events from any of the
-         * item renderers. This method will cancel the handles <code>egret.TouchEvent.TOUCH_END</code> and <code>egret.TouchEvent.TOUCH_TAP</code>.
+         * item renderers. This method will cancle the handles <code>egret.TouchEvent.TOUCH_END</code> and <code>egret.TouchEvent.TOUCH_TAP</code>.
          * @param event The <code>egret.TouchEvent</code> object.
          * @version Egret 3.0.1
          * @version eui 1.0
@@ -10427,7 +10403,7 @@ var eui;
          */
         ListBase.NO_PROPOSED_SELECTION = -2;
         return ListBase;
-    }(eui.DataGroup));
+    })(eui.DataGroup);
     eui.ListBase = ListBase;
     egret.registerClass(ListBase,'eui.ListBase');
     eui.registerBindable(ListBase.prototype, "selectedIndex");
@@ -10864,7 +10840,7 @@ var eui;
             }
         };
         return List;
-    }(eui.ListBase));
+    })(eui.ListBase);
     eui.List = List;
     egret.registerClass(List,'eui.List');
 })(eui || (eui = {}));
@@ -11228,7 +11204,7 @@ var eui;
             this.$stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
         };
         return Panel;
-    }(eui.Component));
+    })(eui.Component);
     eui.Panel = Panel;
     egret.registerClass(Panel,'eui.Panel');
     eui.registerProperty(Panel, "elementsContent", "Array", true);
@@ -11626,7 +11602,7 @@ var eui;
             }
         };
         return ProgressBar;
-    }(eui.Range));
+    })(eui.Range);
     eui.ProgressBar = ProgressBar;
     egret.registerClass(ProgressBar,'eui.ProgressBar');
 })(eui || (eui = {}));
@@ -11950,7 +11926,7 @@ var eui;
             return g;
         };
         return RadioButton;
-    }(eui.ToggleButton));
+    })(eui.ToggleButton);
     eui.RadioButton = RadioButton;
     egret.registerClass(RadioButton,'eui.RadioButton');
 })(eui || (eui = {}));
@@ -12385,7 +12361,7 @@ var eui;
             }
         };
         return RadioButtonGroup;
-    }(egret.EventDispatcher));
+    })(egret.EventDispatcher);
     eui.RadioButtonGroup = RadioButtonGroup;
     egret.registerClass(RadioButtonGroup,'eui.RadioButtonGroup');
     eui.registerBindable(RadioButtonGroup.prototype, "selectedValue");
@@ -12450,7 +12426,8 @@ var eui;
             this.$ellipseHeight = 0;
             this.touchChildren = false;
             this.$graphics = new egret.Graphics();
-            this.$graphics.$setTarget(this);
+            this.$graphics.$renderContext.$targetDisplay = this;
+            this.$renderRegion = new egret.sys.Region();
             this.width = width;
             this.height = height;
             this.fillColor = fillColor;
@@ -12468,6 +12445,12 @@ var eui;
             if (this.$graphics) {
                 bounds.setTo(0, 0, this.width, this.height);
             }
+        };
+        /**
+         * @private
+         */
+        p.$render = function (context) {
+            this.$graphics.$render(context);
         };
         d(p, "fillColor"
             /**
@@ -12677,7 +12660,7 @@ var eui;
             this.$invalidateContentBounds();
         };
         return Rect;
-    }(eui.Component));
+    })(eui.Component);
     eui.Rect = Rect;
     egret.registerClass(Rect,'eui.Rect');
 })(eui || (eui = {}));
@@ -13024,13 +13007,11 @@ var eui;
             }
             scrollV.stop();
             scrollH.stop();
-            var verticalBar = this.verticalScrollBar;
-            var horizontalBar = this.horizontalScrollBar;
-            if (verticalBar && verticalBar.autoVisibility) {
-                verticalBar.visible = false;
+            if (this.verticalScrollBar) {
+                this.verticalScrollBar.visible = false;
             }
-            if (horizontalBar && horizontalBar.autoVisibility) {
-                horizontalBar.visible = false;
+            if (this.horizontalScrollBar) {
+                this.horizontalScrollBar.visible = false;
             }
         };
         d(p, "viewport"
@@ -13137,6 +13118,16 @@ var eui;
             if (!canScroll) {
                 return;
             }
+            var target = event.target;
+            while (target && target != this) {
+                if (target instanceof Scroller) {
+                    canScroll = target.checkScrollPolicy();
+                    if (canScroll) {
+                        return;
+                    }
+                }
+                target = target.$parent;
+            }
             this.onTouchBegin(event);
         };
         /**
@@ -13231,9 +13222,8 @@ var eui;
                 values[9 /* touchScrollV */].start(event.$stageY);
             }
             var stage = this.$stage;
-            this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
-            stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this, true);
-            this.addEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancel, this);
+            stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
+            stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
             this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemoveListeners, this);
         };
         /**
@@ -13242,50 +13232,28 @@ var eui;
          * @param event
          */
         p.onTouchMove = function (event) {
-            if (event.isDefaultPrevented()) {
-                return;
-            }
             var values = this.$Scroller;
             if (!values[5 /* touchMoved */]) {
-                if (Math.abs(values[3 /* touchStartX */] - event.$stageX) < Scroller.scrollThreshold) {
-                    var outX = false;
-                }
-                else {
-                    outX = true;
-                }
-                if (Math.abs(values[4 /* touchStartY */] - event.$stageY) < Scroller.scrollThreshold) {
-                    var outY = false;
-                }
-                else {
-                    outY = true;
-                }
-                if (!outX && !outY) {
-                    return;
-                }
-                if (outX && values[1 /* scrollPolicyH */] == 'off') {
-                    return;
-                }
-                if (outY && values[0 /* scrollPolicyV */] == 'off') {
+                if (Math.abs(values[3 /* touchStartX */] - event.$stageX) < Scroller.scrollThreshold &&
+                    Math.abs(values[4 /* touchStartY */] - event.$stageY) < Scroller.scrollThreshold) {
                     return;
                 }
                 values[12 /* touchCancle */] = true;
+                this.dispatchCancleEvent(event);
                 values[5 /* touchMoved */] = true;
-                this.dispatchCancelEvent(event);
                 var horizontalBar = this.horizontalScrollBar;
                 var verticalBar = this.verticalScrollBar;
-                if (horizontalBar && horizontalBar.autoVisibility && values[6 /* horizontalCanScroll */]) {
+                if (horizontalBar && values[6 /* horizontalCanScroll */]) {
                     horizontalBar.visible = true;
                 }
-                if (verticalBar && verticalBar.autoVisibility && values[7 /* verticalCanScroll */]) {
+                if (verticalBar && values[7 /* verticalCanScroll */]) {
                     verticalBar.visible = true;
                 }
                 if (values[2 /* autoHideTimer */]) {
                     values[2 /* autoHideTimer */].reset();
                 }
                 eui.UIEvent.dispatchUIEvent(this, eui.UIEvent.CHANGE_START);
-                this.$stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
             }
-            event.preventDefault();
             var viewport = values[10 /* viewport */];
             var uiValues = viewport.$UIComponent;
             if (values[6 /* horizontalCanScroll */]) {
@@ -13299,21 +13267,12 @@ var eui;
          * @private
          * @param event
          */
-        p.onTouchCancel = function (event) {
-            if (!this.$Scroller[5 /* touchMoved */]) {
-                this.onRemoveListeners();
-            }
-        };
-        /**
-         * @private
-         * @param event
-         */
-        p.dispatchCancelEvent = function (event) {
+        p.dispatchCancleEvent = function (event) {
             var viewport = this.$Scroller[10 /* viewport */];
             if (!viewport) {
                 return;
             }
-            var cancelEvent = new egret.TouchEvent(egret.TouchEvent.TOUCH_CANCEL, event.bubbles, event.cancelable);
+            var cancleEvent = new egret.TouchEvent(egret.TouchEvent.TOUCH_CANCEL, event.bubbles, event.cancelable);
             var target = this.downTarget;
             var list = this.$getPropagationList(target);
             var length = list.length;
@@ -13327,8 +13286,8 @@ var eui;
             }
             list.splice(0, startIndex + 1);
             targetIndex -= startIndex + 1;
-            this.$dispatchPropagationEvent(cancelEvent, list, targetIndex);
-            egret.Event.release(cancelEvent);
+            this.$dispatchPropagationEvent(cancleEvent, list, targetIndex);
+            egret.Event.release(cancleEvent);
         };
         /**
          * @private
@@ -13352,10 +13311,8 @@ var eui;
          */
         p.onRemoveListeners = function () {
             var stage = this.$stage;
-            this.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
-            stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this, true);
             stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
-            this.removeEventListener(egret.TouchEvent.TOUCH_CANCEL, this.onTouchCancel, true);
+            stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
             this.removeEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemoveListeners, this);
         };
         /**
@@ -13420,10 +13377,10 @@ var eui;
         p.onAutoHideTimer = function (event) {
             var horizontalBar = this.horizontalScrollBar;
             var verticalBar = this.verticalScrollBar;
-            if (horizontalBar && horizontalBar.autoVisibility) {
+            if (horizontalBar) {
                 horizontalBar.visible = false;
             }
-            if (verticalBar && verticalBar.autoVisibility) {
+            if (verticalBar) {
                 verticalBar.visible = false;
             }
         };
@@ -13456,17 +13413,13 @@ var eui;
                 this.horizontalScrollBar.touchChildren = false;
                 this.horizontalScrollBar.touchEnabled = false;
                 this.horizontalScrollBar.viewport = this.viewport;
-                if (this.horizontalScrollBar.autoVisibility) {
-                    this.horizontalScrollBar.visible = false;
-                }
+                this.horizontalScrollBar.visible = false;
             }
             else if (instance == this.verticalScrollBar) {
                 this.verticalScrollBar.touchChildren = false;
                 this.verticalScrollBar.touchEnabled = false;
                 this.verticalScrollBar.viewport = this.viewport;
-                if (this.verticalScrollBar.autoVisibility) {
-                    this.verticalScrollBar.visible = false;
-                }
+                this.verticalScrollBar.visible = false;
             }
         };
         /**
@@ -13492,7 +13445,7 @@ var eui;
          */
         Scroller.scrollThreshold = 5;
         return Scroller;
-    }(eui.Component));
+    })(eui.Component);
     eui.Scroller = Scroller;
     egret.registerClass(Scroller,'eui.Scroller');
     eui.registerProperty(Scroller, "viewport", "eui.IViewport", true);
@@ -13775,7 +13728,7 @@ var eui;
             this.initializeStates(this._hostComponent.$stage);
         };
         return Skin;
-    }(egret.EventDispatcher));
+    })(egret.EventDispatcher);
     eui.Skin = Skin;
     egret.registerClass(Skin,'eui.Skin');
     eui.sys.mixin(Skin, eui.sys.StateClient);
@@ -13936,7 +13889,7 @@ var eui;
             }
         };
         return TabBar;
-    }(eui.ListBase));
+    })(eui.ListBase);
     eui.TabBar = TabBar;
     egret.registerClass(TabBar,'eui.TabBar');
 })(eui || (eui = {}));
@@ -14347,7 +14300,7 @@ var eui;
             values[7 /* restrict */] = this.textDisplay.restrict;
         };
         return TextInput;
-    }(eui.Component));
+    })(eui.Component);
     eui.TextInput = TextInput;
     egret.registerClass(TextInput,'eui.TextInput');
 })(eui || (eui = {}));
@@ -14422,7 +14375,7 @@ var eui;
         }
         var d = __define,c=ToggleSwitch,p=c.prototype;
         return ToggleSwitch;
-    }(eui.ToggleButton));
+    })(eui.ToggleButton);
     eui.ToggleSwitch = ToggleSwitch;
     egret.registerClass(ToggleSwitch,'eui.ToggleSwitch');
 })(eui || (eui = {}));
@@ -14522,7 +14475,7 @@ var eui;
             this.$setHeight(stage.$stageHeight);
         };
         return UILayer;
-    }(eui.Group));
+    })(eui.Group);
     eui.UILayer = UILayer;
     egret.registerClass(UILayer,'eui.UILayer');
 })(eui || (eui = {}));
@@ -14642,7 +14595,7 @@ var eui;
             }
         };
         return VScrollBar;
-    }(eui.ScrollBarBase));
+    })(eui.ScrollBarBase);
     eui.VScrollBar = VScrollBar;
     egret.registerClass(VScrollBar,'eui.VScrollBar');
 })(eui || (eui = {}));
@@ -14776,7 +14729,7 @@ var eui;
             }
         };
         return VSlider;
-    }(eui.SliderBase));
+    })(eui.SliderBase);
     eui.VSlider = VSlider;
     egret.registerClass(VSlider,'eui.VSlider');
 })(eui || (eui = {}));
@@ -15114,7 +15067,7 @@ var eui;
             return -1;
         };
         return ViewStack;
-    }(eui.Group));
+    })(eui.Group);
     eui.ViewStack = ViewStack;
     egret.registerClass(ViewStack,'eui.ViewStack',["eui.ICollection","egret.IEventDispatcher"]);
     eui.registerBindable(ViewStack.prototype, "selectedIndex");
@@ -15272,7 +15225,7 @@ var eui;
                 return true;
             };
             return Animation;
-        }());
+        })();
         sys.Animation = Animation;
         egret.registerClass(Animation,'eui.sys.Animation');
     })(sys = eui.sys || (eui.sys = {}));
@@ -15348,7 +15301,7 @@ var eui;
             loader.send();
         };
         return DefaultThemeAdapter;
-    }());
+    })();
     eui.DefaultThemeAdapter = DefaultThemeAdapter;
     egret.registerClass(DefaultThemeAdapter,'eui.DefaultThemeAdapter',["eui.IThemeAdapter"]);
 })(eui || (eui = {}));
@@ -15689,7 +15642,7 @@ var eui;
                 this.updateFunction.call(this.target, animation.currentValue);
             };
             return TouchScroll;
-        }());
+        })();
         sys.TouchScroll = TouchScroll;
         egret.registerClass(TouchScroll,'eui.sys.TouchScroll');
     })(sys = eui.sys || (eui.sys = {}));
@@ -15806,7 +15759,7 @@ var eui;
          */
         Direction.BTT = "btt";
         return Direction;
-    }());
+    })();
     eui.Direction = Direction;
     egret.registerClass(Direction,'eui.Direction');
 })(eui || (eui = {}));
@@ -16050,7 +16003,7 @@ var eui;
          */
         ScrollPolicy.ON = "on";
         return ScrollPolicy;
-    }());
+    })();
     eui.ScrollPolicy = ScrollPolicy;
     egret.registerClass(ScrollPolicy,'eui.ScrollPolicy');
 })(eui || (eui = {}));
@@ -16141,7 +16094,6 @@ var eui;
             this.initialized = !configURL;
             if (stage) {
                 this.$stage = stage;
-                EXML.$stage = stage;
                 stage.registerImplementation("eui.Theme", this);
             }
             this.$configURL = configURL;
@@ -16312,7 +16264,7 @@ var eui;
             this.skinMap[hostComponentKey] = skinName;
         };
         return Theme;
-    }(egret.EventDispatcher));
+    })(egret.EventDispatcher);
     eui.Theme = Theme;
     egret.registerClass(Theme,'eui.Theme');
 })(eui || (eui = {}));
@@ -16526,7 +16478,7 @@ var eui;
          */
         CollectionEvent.COLLECTION_CHANGE = "collectionChange";
         return CollectionEvent;
-    }(egret.Event));
+    })(egret.Event);
     eui.CollectionEvent = CollectionEvent;
     egret.registerClass(CollectionEvent,'eui.CollectionEvent');
 })(eui || (eui = {}));
@@ -16679,7 +16631,7 @@ var eui;
          */
         CollectionEventKind.UPDATE = "update";
         return CollectionEventKind;
-    }());
+    })();
     eui.CollectionEventKind = CollectionEventKind;
     egret.registerClass(CollectionEventKind,'eui.CollectionEventKind');
 })(eui || (eui = {}));
@@ -16844,7 +16796,7 @@ var eui;
          */
         ItemTapEvent.ITEM_TAP = "itemTap";
         return ItemTapEvent;
-    }(egret.Event));
+    })(egret.Event);
     eui.ItemTapEvent = ItemTapEvent;
     egret.registerClass(ItemTapEvent,'eui.ItemTapEvent');
 })(eui || (eui = {}));
@@ -16984,7 +16936,7 @@ var eui;
          */
         PropertyEvent.PROPERTY_CHANGE = "propertyChange";
         return PropertyEvent;
-    }(egret.Event));
+    })(egret.Event);
     eui.PropertyEvent = PropertyEvent;
     egret.registerClass(PropertyEvent,'eui.PropertyEvent');
 })(eui || (eui = {}));
@@ -17009,7 +16961,7 @@ var eui;
         var d = __define,c=ScrollerThrowEvent,p=c.prototype;
         ScrollerThrowEvent.THROW = "throw";
         return ScrollerThrowEvent;
-    }(egret.Event));
+    })(egret.Event);
     eui.ScrollerThrowEvent = ScrollerThrowEvent;
     egret.registerClass(ScrollerThrowEvent,'eui.ScrollerThrowEvent');
 })(eui || (eui = {}));
@@ -17204,7 +17156,7 @@ var eui;
          */
         UIEvent.MOVE = "move";
         return UIEvent;
-    }(egret.Event));
+    })(egret.Event);
     eui.UIEvent = UIEvent;
     egret.registerClass(UIEvent,'eui.UIEvent');
 })(eui || (eui = {}));
@@ -17279,7 +17231,7 @@ var eui;
                 return str;
             };
             return CodeBase;
-        }());
+        })();
         sys.CodeBase = CodeBase;
         egret.registerClass(CodeBase,'eui.sys.CodeBase');
         /**
@@ -17442,7 +17394,7 @@ var eui;
                 return returnStr;
             };
             return EXClass;
-        }(CodeBase));
+        })(CodeBase);
         sys.EXClass = EXClass;
         egret.registerClass(EXClass,'eui.sys.EXClass');
         /**
@@ -17580,7 +17532,7 @@ var eui;
                 return this.lines.join("\n");
             };
             return EXCodeBlock;
-        }(CodeBase));
+        })(CodeBase);
         sys.EXCodeBlock = EXCodeBlock;
         egret.registerClass(EXCodeBlock,'eui.sys.EXCodeBlock');
         /**
@@ -17643,7 +17595,7 @@ var eui;
                 return returnStr;
             };
             return EXFunction;
-        }(CodeBase));
+        })(CodeBase);
         sys.EXFunction = EXFunction;
         egret.registerClass(EXFunction,'eui.sys.EXFunction');
         /**
@@ -17673,7 +17625,7 @@ var eui;
                 return "this." + this.name + " = " + this.defaultValue + ";";
             };
             return EXVariable;
-        }(CodeBase));
+        })(CodeBase);
         sys.EXVariable = EXVariable;
         egret.registerClass(EXVariable,'eui.sys.EXVariable');
         /**
@@ -17748,7 +17700,7 @@ var eui;
                 return returnStr;
             };
             return EXState;
-        }(CodeBase));
+        })(CodeBase);
         sys.EXState = EXState;
         egret.registerClass(EXState,'eui.sys.EXState');
         /**
@@ -17777,7 +17729,7 @@ var eui;
                 return returnStr;
             };
             return EXAddItems;
-        }(CodeBase));
+        })(CodeBase);
         sys.EXAddItems = EXAddItems;
         egret.registerClass(EXAddItems,'eui.sys.EXAddItems');
         /**
@@ -17804,7 +17756,7 @@ var eui;
                 return "new " + SET_PROPERTY + "(\"" + this.target + "\",\"" + this.name + "\"," + this.value + ")";
             };
             return EXSetProperty;
-        }(CodeBase));
+        })(CodeBase);
         sys.EXSetProperty = EXSetProperty;
         egret.registerClass(EXSetProperty,'eui.sys.EXSetProperty');
         /**
@@ -17832,7 +17784,7 @@ var eui;
                 return "new " + SET_STATEPROPERTY + "(this, [" + chain + "], this." + this.target + ",\"" + this.property + "\")";
             };
             return EXSetStateProperty;
-        }(CodeBase));
+        })(CodeBase);
         sys.EXSetStateProperty = EXSetStateProperty;
         egret.registerClass(EXSetStateProperty,'eui.sys.EXSetStateProperty');
         /**
@@ -17860,7 +17812,7 @@ var eui;
                 return BINDING_PROPERTY + "(this, [\"" + chain + "\"], this." + this.target + ",\"" + this.property + "\")";
             };
             return EXBinding;
-        }(CodeBase));
+        })(CodeBase);
         sys.EXBinding = EXBinding;
         egret.registerClass(EXBinding,'eui.sys.EXBinding');
     })(sys = eui.sys || (eui.sys = {}));
@@ -19155,7 +19107,7 @@ var eui;
                 return className;
             };
             return EXMLParser;
-        }());
+        })();
         sys.EXMLParser = EXMLParser;
         egret.registerClass(EXMLParser,'eui.sys.EXMLParser');
         if (DEBUG) {
@@ -19449,7 +19401,7 @@ var eui;
                 return resultType;
             };
             return EXMLConfig;
-        }());
+        })();
         sys.EXMLConfig = EXMLConfig;
         egret.registerClass(EXMLConfig,'eui.sys.EXMLConfig');
         /**
@@ -19482,7 +19434,6 @@ var eui;
                 var instance = new clazz();
             }
             catch (e) {
-                egret.error(e);
                 return null;
             }
             return instance;
@@ -19679,21 +19630,26 @@ var EXML;
      * @private
      */
     function request(url, callback) {
+        var request = requestPool.pop();
+        if (!request) {
+            request = new egret.HttpRequest();
+        }
+        var onRequestLoaded = function (e) {
+            request.removeEventListener(egret.Event.COMPLETE, onRequestLoaded, null);
+            request.removeEventListener(egret.IOErrorEvent.IO_ERROR, onRequestLoaded, null);
+            var text = e.type == egret.Event.COMPLETE ? request.response : "";
+            requestPool.push(request);
+            callback(url, text);
+        };
+        request.addEventListener(egret.Event.COMPLETE, onRequestLoaded, null);
+        request.addEventListener(egret.IOErrorEvent.IO_ERROR, onRequestLoaded, null);
         var openUrl = url;
         if (url.indexOf("://") == -1) {
             openUrl = $prefixURL + url;
         }
-        var onConfigLoaded = function (str) {
-            if (!str) {
-                str = "";
-            }
-            callback(url, str);
-        };
-        var adapter = EXML.$stage ? EXML.$stage.getImplementation("eui.IThemeAdapter") : null;
-        if (!adapter) {
-            adapter = new eui.DefaultThemeAdapter();
-        }
-        adapter.getTheme(openUrl, onConfigLoaded, onConfigLoaded, this);
+        request.open(openUrl);
+        request.responseType = egret.HttpResponseType.TEXT;
+        request.send();
     }
 })(EXML || (EXML = {}));
 //////////////////////////////////////////////////////////////////////////////////////
@@ -19753,7 +19709,7 @@ var eui;
     locale_strings[2101] = "EXML parsing warnning : fail to register the class property : {0},there is already a class with the same name in the global,please try to rename the class name for the exml. \n {1}";
     locale_strings[2102] = "EXML parsing warnning {0}: no child node can be found on the property code \n {1}";
     locale_strings[2103] = "EXML parsing warnning {0}: the same property '{1}' on the node is assigned multiple times \n {2}";
-    locale_strings[2104] = "EXML parsing warnning, Instantiate class {0} error，the parameters of its constructor method must be empty.";
+    locale_strings[2104] = "Instantiate class {0} error，the parameters of its constructor method must be empty.";
     locale_strings[2201] = "BasicLayout doesn't support virtualization.";
     locale_strings[2202] = "parse skinName error，the parsing result of skinName must be a instance of eui.Skin.";
     locale_strings[2203] = "Could not find the skin class '{0}'。";
@@ -19818,7 +19774,7 @@ var eui;
     locale_strings[2101] = "EXML解析警告: 在EXML根节点上声明的 class 属性: {0} 注册失败，所对应的类已经存在，请尝试重命名要注册的类名。\n{1}";
     locale_strings[2102] = "EXML解析警告 {0}: 在属性节点上找不到任何子节点\n{1}";
     locale_strings[2103] = "EXML解析警告 {0}: 节点上的同一个属性'{1}'被多次赋值\n{2}";
-    locale_strings[2104] = "EXML解析警告，无法直接实例化自定义组件：{0} ，在EXML中使用的自定义组件必须要能直接被实例化，否则可能导致后续EXML解析报错。";
+    locale_strings[2104] = "无法实例化组件：{0} ，请检查该组件构造函数参数是否为空。";
     //EUI 报错与警告信息
     locale_strings[2201] = "BasicLayout 不支持虚拟化。";
     locale_strings[2202] = "皮肤解析出错，属性 skinName 的值必须要能够解析为一个 eui.Skin 的实例。";
@@ -20187,7 +20143,7 @@ var eui;
         p.updateDisplayList = function (width, height) {
         };
         return LayoutBase;
-    }(egret.EventDispatcher));
+    })(egret.EventDispatcher);
     eui.LayoutBase = LayoutBase;
     egret.registerClass(LayoutBase,'eui.LayoutBase');
 })(eui || (eui = {}));
@@ -20290,7 +20246,7 @@ var eui;
             target.setContentSize(Math.ceil(pos.x), Math.ceil(pos.y));
         };
         return BasicLayout;
-    }(eui.LayoutBase));
+    })(eui.LayoutBase);
     eui.BasicLayout = BasicLayout;
     egret.registerClass(BasicLayout,'eui.BasicLayout');
     if (DEBUG) {
@@ -20550,7 +20506,7 @@ var eui;
          */
         ColumnAlign.JUSTIFY_USING_WIDTH = "justifyUsingWidth";
         return ColumnAlign;
-    }());
+    })();
     eui.ColumnAlign = ColumnAlign;
     egret.registerClass(ColumnAlign,'eui.ColumnAlign');
 })(eui || (eui = {}));
@@ -21317,7 +21273,7 @@ var eui;
             } while (!done);
         };
         return LinearLayoutBase;
-    }(eui.LayoutBase));
+    })(eui.LayoutBase);
     eui.LinearLayoutBase = LinearLayoutBase;
     egret.registerClass(LinearLayoutBase,'eui.LinearLayoutBase');
 })(eui || (eui = {}));
@@ -21353,7 +21309,7 @@ var eui;
             }
             var d = __define,c=ChildInfo,p=c.prototype;
             return ChildInfo;
-        }());
+        })();
         sys.ChildInfo = ChildInfo;
         egret.registerClass(ChildInfo,'eui.sys.ChildInfo');
     })(sys = eui.sys || (eui.sys = {}));
@@ -21879,7 +21835,7 @@ var eui;
             return oldStartIndex != this.startIndex || oldEndIndex != this.endIndex;
         };
         return HorizontalLayout;
-    }(eui.LinearLayoutBase));
+    })(eui.LinearLayoutBase);
     eui.HorizontalLayout = HorizontalLayout;
     egret.registerClass(HorizontalLayout,'eui.HorizontalLayout');
 })(eui || (eui = {}));
@@ -21979,7 +21935,7 @@ var eui;
          */
         JustifyAlign.CONTENT_JUSTIFY = "contentJustify";
         return JustifyAlign;
-    }());
+    })();
     eui.JustifyAlign = JustifyAlign;
     egret.registerClass(JustifyAlign,'eui.JustifyAlign');
 })(eui || (eui = {}));
@@ -22088,7 +22044,7 @@ var eui;
          */
         RowAlign.JUSTIFY_USING_HEIGHT = "justifyUsingHeight";
         return RowAlign;
-    }());
+    })();
     eui.RowAlign = RowAlign;
     egret.registerClass(RowAlign,'eui.RowAlign');
 })(eui || (eui = {}));
@@ -23288,7 +23244,7 @@ var eui;
             }
         };
         return TileLayout;
-    }(eui.LayoutBase));
+    })(eui.LayoutBase);
     eui.TileLayout = TileLayout;
     egret.registerClass(TileLayout,'eui.TileLayout');
     if (DEBUG) {
@@ -23384,7 +23340,7 @@ var eui;
          */
         TileOrientation.COLUMNS = "columns";
         return TileOrientation;
-    }());
+    })();
     eui.TileOrientation = TileOrientation;
     egret.registerClass(TileOrientation,'eui.TileOrientation');
 })(eui || (eui = {}));
@@ -23909,7 +23865,7 @@ var eui;
             return oldStartIndex != this.startIndex || oldEndIndex != this.endIndex;
         };
         return VerticalLayout;
-    }(eui.LinearLayoutBase));
+    })(eui.LinearLayoutBase);
     eui.VerticalLayout = VerticalLayout;
     egret.registerClass(VerticalLayout,'eui.VerticalLayout');
 })(eui || (eui = {}));
@@ -24039,7 +23995,7 @@ var eui;
             }
         };
         return AddItems;
-    }());
+    })();
     eui.AddItems = AddItems;
     egret.registerClass(AddItems,'eui.AddItems',["eui.IOverride"]);
 })(eui || (eui = {}));
@@ -24203,7 +24159,7 @@ var eui;
             return value != false;
         };
         return SetProperty;
-    }());
+    })();
     eui.SetProperty = SetProperty;
     egret.registerClass(SetProperty,'eui.SetProperty',["eui.IOverride"]);
 })(eui || (eui = {}));
@@ -24354,7 +24310,7 @@ var eui;
             return value != false;
         };
         return SetStateProperty;
-    }());
+    })();
     eui.SetStateProperty = SetStateProperty;
     egret.registerClass(SetStateProperty,'eui.SetStateProperty',["eui.IOverride"]);
 })(eui || (eui = {}));
@@ -24453,7 +24409,7 @@ var eui;
                 }
             };
             return MatrixUtil;
-        }());
+        })();
         sys.MatrixUtil = MatrixUtil;
         egret.registerClass(MatrixUtil,'eui.sys.MatrixUtil');
         /**

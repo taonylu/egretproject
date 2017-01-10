@@ -201,7 +201,7 @@ declare module egret {
         /**
          * @private
          */
-        $render(): void;
+        $render(context: sys.RenderContext): void;
         /**
          * @private
          */

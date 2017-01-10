@@ -88,5 +88,5 @@ var ArrayTool = (function () {
         return count;
     };
     return ArrayTool;
-})();
+}());
 egret.registerClass(ArrayTool,'ArrayTool');

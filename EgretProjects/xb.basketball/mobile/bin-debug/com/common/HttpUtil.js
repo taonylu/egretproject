@@ -49,5 +49,5 @@ var HttpUtil = (function () {
         }
     };
     return HttpUtil;
-}());
+})();
 egret.registerClass(HttpUtil,'HttpUtil');

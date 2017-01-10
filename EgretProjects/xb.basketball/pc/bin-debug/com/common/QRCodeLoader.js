@@ -88,5 +88,5 @@ var QRCodeLoader = (function (_super) {
         }
     };
     return QRCodeLoader;
-})(egret.DisplayObjectContainer);
+}(egret.DisplayObjectContainer));
 egret.registerClass(QRCodeLoader,'QRCodeLoader');

@@ -1,4 +1,4 @@
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The Binding class defines utility methods for performing data binding.
@@ -73,9 +73,10 @@ declare module eui {
          * @platform Web,Native
          */
         static bindHandler(host: any, chain: string[], handler: (value: any) => void, thisObject: any): Watcher;
+        static $bindProperties(host: any, templates: any[], chainIndex: number[], target: any, prop: string): Watcher;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The Watcher class defines utility method that you can use with bindable properties.
@@ -266,7 +267,7 @@ declare module eui {
         private onPropertyChange(property);
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Register a property for a class definition in running,
@@ -342,7 +343,7 @@ declare module eui {
      */
     function registerProperty(classDefinition: any, property: string, type: string, asDefault?: boolean): void;
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Register a property of an instance is can be bound.
@@ -368,7 +369,7 @@ declare module eui {
      */
     function registerBindable(instance: any, property: string): void;
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The ArrayCollection class is a wrapper class that exposes an <code>any[]</code> as a collection that can be
@@ -620,7 +621,7 @@ declare module eui {
         private dispatchCoEvent(kind, location?, oldLocation?, items?, oldItems?);
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * An <code>ICollectionView</code> is a view onto a collection of data.
@@ -695,7 +696,7 @@ declare module eui {
         getItemIndex(item: any): number;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      * 失效验证管理器
@@ -804,15 +805,10 @@ declare module eui.sys {
         validateClient(target: UIComponent): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
-     * The Component class defines the base class for skinnable components.
-     * The skins used by a Component class are typically child classes of
-     * the Skin class.<p/>
-     *
-     * Associate a skin class with a component class by setting the <code>skinClass</code> style property of the
-     * component class.
+     * The UIComponent class is the base class for all visual components, both skinnable and nonskinnable.
      *
      * @event egret.Event.RESIZE Dispatch when the component is resized.
      * @event eui.UIEvent.MOVE Dispatch when the object has moved.
@@ -825,9 +821,7 @@ declare module eui {
      */
     /**
      * @language zh_CN
-     * Component 类定义可设置外观的组件的基类。Component 类所使用的外观通常是 Skin 类的子类。<p/>
-     *
-     * 通过设置 component 类的 skinClass 样式属性，将 skin 类与 component 类相关联。
+     * UIComponent 类是所有可视组件（可定制皮肤和不可定制皮肤）的基类。
      *
      * @event egret.Event.RESIZE 当UI组件的尺寸发生改变时调度
      * @event eui.UIEvent.MOVE 当UI组件在父级容器中的位置发生改变时调度
@@ -893,7 +887,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        left: number;
+        left: any;
         /**
          * @language en_US
          * The horizontal distance in pixels from the right edge of the component to the
@@ -915,7 +909,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        right: number;
+        right: any;
         /**
          * @language en_US
          * The vertical distance in pixels from the top edge of the component to the
@@ -937,7 +931,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        top: number;
+        top: any;
         /**
          * @language en_US
          * The vertical distance in pixels from the bottom edge of the component to the
@@ -959,7 +953,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        bottom: number;
+        bottom: any;
         /**
          * @language en_US
          * The horizontal distance in pixels from the center of the component to the
@@ -981,7 +975,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        horizontalCenter: number;
+        horizontalCenter: any;
         /**
          * @language en_US
          * The vertical distance in pixels from the center of the component to the
@@ -1003,7 +997,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        verticalCenter: number;
+        verticalCenter: any;
         /**
          * @language en_US
          * Specifies the width of a component as a percentage
@@ -1497,7 +1491,7 @@ declare module eui {
         getPreferredBounds(bounds: egret.Rectangle): void;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      */
@@ -1600,32 +1594,32 @@ declare module eui.sys {
          * @private
          * 距父级容器离左边距离
          */
-        left: number;
+        left: any;
         /**
          * @private
          * 距父级容器右边距离
          */
-        right: number;
+        right: any;
         /**
          * @private
          * 距父级容器顶部距离
          */
-        top: number;
+        top: any;
         /**
          * @private
          * 距父级容器底部距离
          */
-        bottom: number;
+        bottom: any;
         /**
          * @private
          * 在父级容器中距水平中心位置的距离
          */
-        horizontalCenter: number;
+        horizontalCenter: any;
         /**
          * @private
          * 在父级容器中距竖直中心位置的距离
          */
-        verticalCenter: number;
+        verticalCenter: any;
         /**
          * @private
          * 相对父级容器宽度的百分比
@@ -1675,20 +1669,6 @@ declare module eui.sys {
         $setHeight(value: number): boolean;
         /**
          * @private
-         *
-         * @param value
-         * @returns
-         */
-        $setScaleX(value: number): boolean;
-        /**
-         * @private
-         *
-         * @param value
-         * @returns
-         */
-        $setScaleY(value: number): boolean;
-        /**
-         * @private
          * 组件的最小宽度,此属性设置为大于maxWidth的值时无效。同时影响测量和自动布局的尺寸。
          */
         minWidth: number;
@@ -1720,6 +1700,22 @@ declare module eui.sys {
          * 不会影响显式标记尺寸属性
          */
         private setActualSize(w, h);
+        /**
+         * @private
+         */
+        $invalidateMatrix(): void;
+        /**
+         * @private
+         */
+        $setMatrix(matrix: egret.Matrix, needUpdateProperties?: boolean): boolean;
+        /**
+         * @private
+         */
+        $setAnchorOffsetX(value: number): boolean;
+        /**
+         * @private
+         */
+        $setAnchorOffsetY(value: number): boolean;
         /**
          * @private
          *
@@ -1822,12 +1818,12 @@ declare module eui.sys {
         getPreferredBounds(bounds: egret.Rectangle): void;
         /**
          * @private
-         *
-         * @param bounds
-         * @param w
-         * @param h
          */
         private applyMatrix(bounds, w, h);
+        /**
+         * @private
+         */
+        private getAnchorMatrix();
     }
     /**
      * @private
@@ -1848,7 +1844,7 @@ declare module eui.sys {
      */
     function implementUIComponent(descendant: any, base: any, isContainer?: boolean): void;
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * BitmapLabel is one line or multiline uneditable BitmapText
@@ -1981,7 +1977,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        left: number;
+        left: any;
         /**
          * @copy eui.UIComponent#right
          *
@@ -1989,7 +1985,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        right: number;
+        right: any;
         /**
          * @copy eui.UIComponent#top
          *
@@ -1997,7 +1993,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        top: number;
+        top: any;
         /**
          * @copy eui.UIComponent#bottom
          *
@@ -2005,7 +2001,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        bottom: number;
+        bottom: any;
         /**
          * @copy eui.UIComponent#horizontalCenter
          *
@@ -2013,7 +2009,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        horizontalCenter: number;
+        horizontalCenter: any;
         /**
          * @copy eui.UIComponent#verticalCenter
          *
@@ -2021,7 +2017,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        verticalCenter: number;
+        verticalCenter: any;
         /**
          * @copy eui.UIComponent#percentWidth
          *
@@ -2184,7 +2180,7 @@ declare module eui {
         getPreferredBounds(bounds: egret.Rectangle): void;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      */
@@ -2200,11 +2196,15 @@ declare module eui.sys {
         skin = 8,
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
+     * The Component class defines the base class for skinnable components.
+     * The skins used by a Component class are typically child classes of
+     * the Skin class.<p/>
      *
-     * @copy eui.UIComponents
+     * Associate a skin class with a component class by setting the <code>skinName</code> property of the
+     * component class.
      * @event egret.Event.COMPLETE Dispatch when <code>skinName</code> property is set the path of external EXML file and the EXML file is resolved.
      *
      * @includeExample  extension/eui/components/ComponentExample.ts
@@ -2214,8 +2214,8 @@ declare module eui {
      */
     /**
      * @language zh_CN
-     *
-     * @copy eui.UIComponents
+     * Component 类定义可设置外观的组件的基类。Component 类所使用的外观通常是 Skin 类的子类。<p/>
+     * 通过设置 component 类的 skinName 属性，将 skin 类与 component 类相关联。
      * @event egret.Event.COMPLETE 当设置skinName为外部exml文件路径时，加载并完成EXML解析后调度。
      *
      * @includeExample  extension/eui/components/ComponentExample.ts
@@ -2621,7 +2621,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        left: number;
+        left: any;
         /**
          * @inheritDoc
          *
@@ -2629,7 +2629,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        right: number;
+        right: any;
         /**
          * @inheritDoc
          *
@@ -2637,7 +2637,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        top: number;
+        top: any;
         /**
          * @inheritDoc
          *
@@ -2645,7 +2645,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        bottom: number;
+        bottom: any;
         /**
          * @inheritDoc
          *
@@ -2653,7 +2653,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        horizontalCenter: number;
+        horizontalCenter: any;
         /**
          * @inheritDoc
          *
@@ -2661,7 +2661,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        verticalCenter: number;
+        verticalCenter: any;
         /**
          * @inheritDoc
          *
@@ -2824,7 +2824,7 @@ declare module eui {
         getPreferredBounds(bounds: egret.Rectangle): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The Button component is a commonly used rectangular button.
@@ -3023,7 +3023,7 @@ declare module eui {
         protected buttonReleased(): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The ToggleButton component defines a toggle button.
@@ -3122,7 +3122,7 @@ declare module eui {
         protected buttonReleased(): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The CheckBox component consists of an optional label and a small box
@@ -3165,7 +3165,7 @@ declare module eui {
         constructor();
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The State class defines a view state, a particular view of a component.
@@ -3287,7 +3287,7 @@ declare module eui {
         initialize(host: any, stage: egret.Stage): void;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      */
@@ -3361,7 +3361,7 @@ declare module eui.sys {
         stateIsDirty: boolean;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The Group class is defines the base class for layout component.
@@ -3369,6 +3369,7 @@ declare module eui {
      * group (Give the instance of Group to <code>viewport</code> property of Scroller component).
      * The scroller component can adds a scrolling touch operation for the Group.
      *
+     * @see http://edn.egret.com/cn/article/index/id/608 Simple container
      * @defaultProperty elementsContent
      * @includeExample  extension/eui/components/GroupExample.ts
      * @version Egret 2.4
@@ -3380,7 +3381,7 @@ declare module eui {
      * Group 是自动布局的容器基类。如果包含的子项内容太大需要滚动显示，可以在在 Group 外部包裹一层 Scroller 组件
      * (将 Group 实例赋值给 Scroller 组件的 viewport 属性)。Scroller 会为 Group 添加滚动的触摸操作功能，并显示垂直或水平的滚动条。
      *
-     * @see http://edn.egret.com/cn/index.php/article/index/id/608 简单容器
+     * @see http://edn.egret.com/cn/article/index/id/608 简单容器
      * @defaultProperty elementsContent
      * @includeExample  extension/eui/components/GroupExample.ts
      * @version Egret 2.4
@@ -3752,7 +3753,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        left: number;
+        left: any;
         /**
          * @inheritDoc
          *
@@ -3760,7 +3761,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        right: number;
+        right: any;
         /**
          * @inheritDoc
          *
@@ -3768,7 +3769,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        top: number;
+        top: any;
         /**
          * @inheritDoc
          *
@@ -3776,7 +3777,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        bottom: number;
+        bottom: any;
         /**
          * @inheritDoc
          *
@@ -3784,7 +3785,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        horizontalCenter: number;
+        horizontalCenter: any;
         /**
          * @inheritDoc
          *
@@ -3792,7 +3793,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        verticalCenter: number;
+        verticalCenter: any;
         /**
          * @inheritDoc
          *
@@ -3955,7 +3956,7 @@ declare module eui {
         getPreferredBounds(bounds: egret.Rectangle): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The DataGroup class is the base container class for data items.
@@ -3964,6 +3965,8 @@ declare module eui {
      * to hold data items as children.
      *
      * @see eui.Group
+     * @see http://edn.egret.com/cn/article/index/id/527 Data container
+     * @see http://edn.egret.com/cn/article/index/id/528 Array collection
      * @defaultProperty dataProvider
      * @includeExample  extension/eui/components/DataGroupExample.ts
      * @version Egret 2.4
@@ -3976,8 +3979,8 @@ declare module eui {
      * 尽管此容器可以包含可视元素，但它通常仅用于包含作为子项的数据项目。
      *
      * @see eui.Group
-     * @see http://edn.egret.com/cn/index.php/article/index/id/527 数据容器
-     * @see http://edn.egret.com/cn/index.php/article/index/id/528 数组集合
+     * @see http://edn.egret.com/cn/article/index/id/527 数据容器
+     * @see http://edn.egret.com/cn/article/index/id/528 数组集合
      * @defaultProperty dataProvider
      * @includeExample  extension/eui/components/DataGroupExample.ts
      * @version Egret 2.4
@@ -4455,7 +4458,7 @@ declare module eui {
         protected rendererRemoved(renderer: IItemRenderer, index: number, item: any): void;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      */
@@ -4465,7 +4468,7 @@ declare module eui.sys {
         asPassword = 2,
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Editable text for displaying,
@@ -4687,7 +4690,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        left: number;
+        left: any;
         /**
          * @inheritDoc
          *
@@ -4695,7 +4698,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        right: number;
+        right: any;
         /**
          * @inheritDoc
          *
@@ -4703,7 +4706,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        top: number;
+        top: any;
         /**
          * @inheritDoc
          *
@@ -4711,7 +4714,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        bottom: number;
+        bottom: any;
         /**
          * @inheritDoc
          *
@@ -4719,7 +4722,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        horizontalCenter: number;
+        horizontalCenter: any;
         /**
          * @inheritDoc
          *
@@ -4727,7 +4730,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        verticalCenter: number;
+        verticalCenter: any;
         /**
          * @inheritDoc
          *
@@ -4890,7 +4893,7 @@ declare module eui {
         getPreferredBounds(bounds: egret.Rectangle): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The ScrollBarBase class helps to position
@@ -5021,9 +5024,24 @@ declare module eui {
          * @platform Web,Native
          */
         protected onPropertyChanged(event: eui.PropertyEvent): void;
+        /**
+         * @language en_US
+         * Whether the scrollbar can be autohide.
+         * @version Egret 3.0.2
+         * @version eui 1.0
+         * @platform Web,Native
+         */
+        /**
+         * @language zh_CN
+         * 是否自动隐藏 scrollbar
+         * @version Egret 3.0.2
+         * @version eui 1.0
+         * @platform Web,Native
+         */
+        autoVisibility: boolean;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The HScrollBar (horizontal scrollbar) control lets you control
@@ -5068,7 +5086,7 @@ declare module eui {
         protected onPropertyChanged(event: eui.PropertyEvent): void;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      */
@@ -5085,7 +5103,7 @@ declare module eui.sys {
         explicitSnapInterval = 9,
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The Range class holds a value and an allowed range for that
@@ -5406,7 +5424,7 @@ declare module eui {
         protected updateSkinDisplayList(): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @private
      */
@@ -5768,7 +5786,7 @@ declare module eui {
         protected onTrackTouchBegin(event: egret.TouchEvent): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The HSlider (horizontal slider) control lets users select a value
@@ -5833,7 +5851,7 @@ declare module eui {
         protected updateSkinDisplayList(): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Default instance of interface <code>IAssetAdapter</code>.
@@ -5881,7 +5899,7 @@ declare module eui {
         private onLoadFinish(event);
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The Image control lets you show JPEG, PNG, and GIF files
@@ -6024,7 +6042,7 @@ declare module eui {
          *
          * @param context
          */
-        $render(context: egret.sys.RenderContext): void;
+        $render(): void;
         /**
          * @private
          * UIComponentImpl 定义的所有变量请不要添加任何初始值，必须统一在此处初始化。
@@ -6101,7 +6119,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        left: number;
+        left: any;
         /**
          * @copy eui.UIComponent#right
          *
@@ -6109,7 +6127,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        right: number;
+        right: any;
         /**
          * @copy eui.UIComponent#top
          *
@@ -6117,7 +6135,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        top: number;
+        top: any;
         /**
          * @copy eui.UIComponent#bottom
          *
@@ -6125,7 +6143,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        bottom: number;
+        bottom: any;
         /**
          * @copy eui.UIComponent#horizontalCenter
          *
@@ -6133,7 +6151,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        horizontalCenter: number;
+        horizontalCenter: any;
         /**
          * @copy eui.UIComponent#verticalCenter
          *
@@ -6141,7 +6159,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        verticalCenter: number;
+        verticalCenter: any;
         /**
          * @copy eui.UIComponent#percentWidth
          *
@@ -6304,7 +6322,7 @@ declare module eui {
         getPreferredBounds(bounds: egret.Rectangle): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The ItemRenderer class is the base class for item renderers.
@@ -6479,7 +6497,7 @@ declare module eui {
         protected getCurrentState(): string;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Label is an UIComponent that can render one or more lines of text.
@@ -6544,6 +6562,23 @@ declare module eui {
          * @platform Web,Native
          */
         constructor(text?: string);
+        private $style;
+        /**
+         * @language en_US
+         * Horizontal alignment of text.
+         * @default：egret.HorizontalAlign.LEFT
+         * @version Egret 2.4
+         * @platform Web,Native
+         */
+        /**
+         * @language zh_CN
+         * 文本的水平对齐方式。
+         * @default：egret.HorizontalAlign.LEFT
+         * @version Egret 2.4
+         * @platform Web,Native
+         */
+        style: string;
+        $setStyle(value: string): void;
         /**
          * @private
          *
@@ -6647,7 +6682,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        left: number;
+        left: any;
         /**
          * @copy eui.UIComponent#right
          *
@@ -6655,7 +6690,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        right: number;
+        right: any;
         /**
          * @copy eui.UIComponent#top
          *
@@ -6663,7 +6698,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        top: number;
+        top: any;
         /**
          * @copy eui.UIComponent#bottom
          *
@@ -6671,7 +6706,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        bottom: number;
+        bottom: any;
         /**
          * @copy eui.UIComponent#horizontalCenter
          *
@@ -6679,7 +6714,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        horizontalCenter: number;
+        horizontalCenter: any;
         /**
          * @copy eui.UIComponent#verticalCenter
          *
@@ -6687,7 +6722,7 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        verticalCenter: number;
+        verticalCenter: any;
         /**
          * @copy eui.UIComponent#percentWidth
          *
@@ -6850,7 +6885,7 @@ declare module eui {
         getPreferredBounds(bounds: egret.Rectangle): void;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      */
@@ -6893,7 +6928,7 @@ declare module eui.sys {
         touchCancle = 8,
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The ListBase class is the base class for list component.
@@ -7319,7 +7354,7 @@ declare module eui {
          */
         /**
          * @language zh_CN
-         * 数据源刷新
+         * 数据源刷新时触发。此方法不从组件外部调用，仅用于编写自定义组件时，子类覆盖父类的此方法，以便在数据源发生改变时，自动执行一些额外的根据数据刷新视图的操作。
          * @version Egret 2.4
          * @version eui 1.0
          * @platform Web,Native
@@ -7389,7 +7424,7 @@ declare module eui {
         /**
          * @language en_US
          * Handles <code>egret.TouchEvent.TOUCH_CANCEL</code> events from any of the
-         * item renderers. This method will cancle the handles <code>egret.TouchEvent.TOUCH_END</code> and <code>egret.TouchEvent.TOUCH_TAP</code>.
+         * item renderers. This method will cancel the handles <code>egret.TouchEvent.TOUCH_END</code> and <code>egret.TouchEvent.TOUCH_TAP</code>.
          * @param event The <code>egret.TouchEvent</code> object.
          * @version Egret 3.0.1
          * @version eui 1.0
@@ -7429,7 +7464,7 @@ declare module eui {
         private stage_touchEndHandler(event);
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The List control displays a vertical or horizontal list of items.
@@ -7624,7 +7659,7 @@ declare module eui {
         protected onRendererTouchEnd(event: egret.TouchEvent): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The Panel class defines a container that includes a title bar,
@@ -7891,7 +7926,7 @@ declare module eui {
         protected onTouchEnd(event: egret.TouchEvent): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The ProgressBar control provides a visual representation of the progress of a task over time.
@@ -8098,6 +8133,14 @@ declare module eui {
          */
         private animationUpdateHandler(animation);
         /**
+         * @private
+         */
+        private thumbInitX;
+        /**
+         * @private
+         */
+        private thumbInitY;
+        /**
          * @inheritDoc
          *
          * @version Egret 2.4
@@ -8128,7 +8171,7 @@ declare module eui {
         protected updateSkinDisplayList(): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The RadioButton component allows the user make a single choice
@@ -8318,7 +8361,7 @@ declare module eui {
         private addToGroup();
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The RadioButtonGroup component defines a group of RadioButton components
@@ -8551,7 +8594,7 @@ declare module eui {
         private removedHandler(event);
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The Rect component is a rectangular shape. It can be touched.
@@ -8577,10 +8620,6 @@ declare module eui {
          * @private
          */
         $measureContentBounds(bounds: egret.Rectangle): void;
-        /**
-         * @private
-         */
-        $render(context: egret.sys.RenderContext): void;
         private $fillColor;
         /**
          * @language en_US
@@ -8703,7 +8742,7 @@ declare module eui {
         protected updateDisplayList(unscaledWidth: number, unscaledHeight: number): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The Scroller component displays a single scrollable component,
@@ -9028,7 +9067,12 @@ declare module eui {
          * @private
          * @param event
          */
-        private dispatchCancleEvent(event);
+        private onTouchCancel(event);
+        /**
+         * @private
+         * @param event
+         */
+        private dispatchCancelEvent(event);
         /**
          * @private
          * @param event
@@ -9089,7 +9133,7 @@ declare module eui {
         protected partAdded(partName: string, instance: any): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The Skin class defines the base class for all skins.
@@ -9375,7 +9419,7 @@ declare module eui {
         private commitCurrentState;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The TabBar class displays a set of identical tabs.
@@ -9466,7 +9510,7 @@ declare module eui {
         private onViewStackIndexChange(event);
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      */
@@ -9479,9 +9523,10 @@ declare module eui.sys {
         maxHeight = 5,
         text = 6,
         restrict = 7,
+        inputType = 8,
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      *
      */
@@ -9573,6 +9618,21 @@ declare module eui {
          * @platform Web,Native
          */
         displayAsPassword: boolean;
+        /**
+         * @copy egret.TextField#inputType
+         *
+         * @version Egret 3.1.6
+         * @version eui 1.0
+         * @platform Web,Native
+         */
+        /**
+         * @copy egret.TextField#inputType
+         *
+         * @version Egret 3.1.6
+         * @version eui 1.0
+         * @platform Web,Native
+         */
+        inputType: string;
         /**
          * @copy egret.TextField#textColor
          *
@@ -9711,7 +9771,7 @@ declare module eui {
         private textDisplayRemoved();
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The ToggleSwitch control defines an on-off control.
@@ -9750,7 +9810,7 @@ declare module eui {
         constructor();
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The UILayer class is the subclass of the Group class.It not only has the standard function of the Group class,but also
@@ -9803,7 +9863,7 @@ declare module eui {
         private onResize(event?);
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The VScrollBar (vertical scrollbar) control lets you control
@@ -9848,7 +9908,7 @@ declare module eui {
         protected onPropertyChanged(event: eui.PropertyEvent): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The VSlider (vertical slider) control lets users select a value
@@ -9913,7 +9973,7 @@ declare module eui {
         updateSkinDisplayList(): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * An ViewStack navigator container consists of a collection of child
@@ -10111,7 +10171,7 @@ declare module eui {
         getItemIndex(item: any): number;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      * 数值缓动工具类
@@ -10192,7 +10252,7 @@ declare module eui.sys {
         private doInterval(currentTime);
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Default instance of interface <code>IThemeAdapter</code>.
@@ -10218,7 +10278,7 @@ declare module eui {
         getTheme(url: string, compFunc: Function, errorFunc: Function, thisObject: any): void;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      * 一个工具类,用于容器的滚屏拖动操作，计算在一段时间持续滚动后释放，应该继续滚动到的值和缓动时间。
@@ -10349,7 +10409,7 @@ declare module eui.sys {
         private onScrollingUpdate(animation);
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Defines values for setting the <code>direction</code> property
@@ -10430,15 +10490,15 @@ declare module eui {
         static BTT: string;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Interface of asset adapter.
      * If your project need to custom the resource parsing rule, you need to implement the <code>IAssetAdapter</code>.
      * And use the following code to inject it to the system:
      * <pre>
-     *      var assetAdapter = new YourAssetAdapter();
-     *      Stage.registerImplementation("eui.IAssetAdapter",assetAdapter)
+     *      let assetAdapter = new YourAssetAdapter();
+     *      egret.registerImplementation("eui.IAssetAdapter",assetAdapter)
      * </pre>
      *
      * @version Egret 2.4
@@ -10451,8 +10511,8 @@ declare module eui {
      * 若项目需要自定义 Image.source的解析规则，需要实现这个接口，
      * 然后调用如下代码注入自定义实现到框架即可：
      * <pre>
-     *      var assetAdapter = new YourAssetAdapter();
-     *      Stage.registerImplementation("eui.IAssetAdapter",assetAdapter)
+     *      let assetAdapter = new YourAssetAdapter();
+     *      egret.registerImplementation("eui.IAssetAdapter",assetAdapter)
      * </pre>
      * @version Egret 2.4
      * @version eui 1.0
@@ -10482,7 +10542,7 @@ declare module eui {
         getAsset(source: string, callBack: (content: any, source: string) => void, thisObject: any): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The IDisplayText interface defines the properties
@@ -10518,7 +10578,7 @@ declare module eui {
         text: string;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The IItemRenderer interface defines the basic set of APIs
@@ -10584,15 +10644,15 @@ declare module eui {
         itemIndex: number;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Interface of theme adapter.
      * If your project need to custom the theme rule, you need to implement the <code>IThemeAdapter</code>.
      * And use the following code to inject it to the system:
      * <pre>
-     *      var themeAdapter = new YourThemeAdapter();
-     *      Stage.registerImplementation("eui.IThemeAdapter",themeAdapter);
+     *      let themeAdapter = new YourThemeAdapter();
+     *      egret.registerImplementation("eui.IThemeAdapter",themeAdapter);
      * </pre>
      *
      * @version Egret 2.4
@@ -10605,8 +10665,8 @@ declare module eui {
      * 若项目需要自定义主题需要实现这个接口，
      * 然后调用如下代码注入自定义实现到框架即可：
      * <pre>
-     *      var themeAdapter = new YourThemeAdapter();
-     *      Stage.registerImplementation("eui.IThemeAdapter",themeAdapter);
+     *      let themeAdapter = new YourThemeAdapter();
+     *      egret.registerImplementation("eui.IThemeAdapter",themeAdapter);
      * </pre>
      * @version Egret 2.4
      * @version eui 1.0
@@ -10638,7 +10698,7 @@ declare module eui {
         getTheme(url: string, compFunc: Function, errorFunc: Function, thisObject: any): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The IViewport interface is implemented by components that support a viewport.
@@ -10789,7 +10849,7 @@ declare module eui {
         scrollEnabled: boolean;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Values for the <code>horizontalCanScroll</code> and
@@ -10858,7 +10918,7 @@ declare module eui {
         static ON: string;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Note: The skin name values in the skin theme are used as default values,which can not be changed while running.
@@ -10879,15 +10939,14 @@ declare module eui {
      * @includeExample  extension/eui/core/ThemeExample.ts
      */
     class Theme extends egret.EventDispatcher {
-        private $stage;
         private $configURL;
         /**
          * @language en_US
          * Create an instance of Theme
          * @param configURL the external theme path. if null, you need to register the default skin name with
          * mapSkin() manually.
-         * @param stage current stage. The theme will register to the stage with this parameter.
-         * If null, you need to register with stage.registerImplementation("eui.Theme",theme)
+         * @param stage current stage.
+         * If null, you need to register with egret.registerImplementation("eui.Theme",theme)
          * manually.
          * @version Egret 2.4
          * @version eui 1.0
@@ -10898,13 +10957,13 @@ declare module eui {
          * 创建一个主题实例
          * @param configURL 要加载并解析的外部主题配置文件路径。若传入 null，将不进行配置文件加载，
          * 之后需要在外部以代码方式手动调用 mapSkin() 方法完成每条默认皮肤名的注册。
-         * @param stage 当前舞台引用。传入此参数，主题会自动注册自身到舞台上。
-         * 若传入null，需要在外部手动调用 stage.registerImplementation("eui.Theme",theme) 来完成主题的注册。
+         * @param stage 当前舞台引用。
+         * 若传入null，需要在外部手动调用 egret.registerImplementation("eui.Theme",theme) 来完成主题的注册。
          * @version Egret 2.4
          * @version eui 1.0
          * @platform Web,Native
          */
-        constructor(configURL: string, stage: egret.Stage);
+        constructor(configURL: string, stage?: egret.Stage);
         /**
          * @private
          */
@@ -10984,9 +11043,15 @@ declare module eui {
          * @platform Web,Native
          */
         mapSkin(hostComponentKey: string, skinName: string): void;
+        /**
+         * @private
+         * styles 配置信息
+         */
+        private $styles;
+        $getStyleConfig(style: string): any;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The eui.CollectionEvent class represents an event that is
@@ -11236,7 +11301,7 @@ declare module eui {
         static dispatchCollectionEvent(target: egret.IEventDispatcher, eventType: string, kind?: string, location?: number, oldLocation?: number, items?: any[], oldItems?: any[]): boolean;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The CollectionEventKind class contains constants for the valid values
@@ -11354,7 +11419,7 @@ declare module eui {
         static UPDATE: string;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Represents events that are dispatched when a item has been touched.
@@ -11468,7 +11533,7 @@ declare module eui {
         static dispatchItemTapEvent(target: egret.IEventDispatcher, eventType: string, itemRenderer?: IItemRenderer): boolean;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The PropertyChangeEvent class represents the event object
@@ -11577,7 +11642,7 @@ declare module eui {
         static dispatchPropertyEvent(target: egret.IEventDispatcher, eventType: string, property?: string): boolean;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @private
      */
@@ -11598,7 +11663,7 @@ declare module eui {
         constructor(type: string, bubbles?: boolean, cancelable?: boolean, currentPos?: number, toPos?: number);
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The UIEvent class represents the event object passed to
@@ -11749,7 +11814,7 @@ declare module eui {
         static dispatchUIEvent(target: egret.IEventDispatcher, eventType: string, bubbles?: boolean, cancelable?: boolean): boolean;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      * 代码生成工具基类
@@ -11986,7 +12051,7 @@ declare module eui.sys {
         /**
          * @private
          */
-        constructor(name: string, stateGroups?: Array<any>);
+        constructor(name: string, stateGroups?: any[]);
         /**
          * @private
          * 视图状态名称
@@ -11995,15 +12060,15 @@ declare module eui.sys {
         /**
          * @private
          */
-        stateGroups: Array<any>;
+        stateGroups: any[];
         /**
          * @private
          */
-        addItems: Array<any>;
+        addItems: any[];
         /**
          * @private
          */
-        setProperty: Array<any>;
+        setProperty: any[];
         /**
          * @private
          * 添加一个覆盖
@@ -12088,7 +12153,7 @@ declare module eui.sys {
         /**
          * @private
          */
-        constructor(target: string, property: string, expression: string);
+        constructor(target: string, property: string, templates: string[], chainIndex: number[]);
         /**
          * @private
          * 目标实例名
@@ -12101,9 +12166,14 @@ declare module eui.sys {
         property: string;
         /**
          * @private
-         * 绑定表达式
+         * 绑定的模板列表
          */
-        expression: string;
+        templates: string[];
+        /**
+         * @private
+         * chainIndex是一个索引列表，每个索引指向templates中的一个值，该值是代表属性链。
+         */
+        chainIndex: number[];
         /**
          * @private
          *
@@ -12118,7 +12188,7 @@ declare module eui.sys {
         /**
          * @private
          */
-        constructor(target: string, property: string, expression: string);
+        constructor(target: string, property: string, templates: string[], chainIndex: number[]);
         /**
          * @private
          * 目标实例名
@@ -12131,9 +12201,14 @@ declare module eui.sys {
         property: string;
         /**
          * @private
-         * 绑定表达式
+         * 绑定的模板列表
          */
-        expression: string;
+        templates: string[];
+        /**
+         * @private
+         * chainIndex是一个索引列表，每个索引指向templates中的一个值，该值是代表属性链。
+         */
+        chainIndex: number[];
         /**
          * @private
          *
@@ -12142,12 +12217,12 @@ declare module eui.sys {
         toCode(): string;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      * EXML配置管理器实例
      */
-    var exmlConfig: EXMLConfig;
+    let exmlConfig: EXMLConfig;
     /**
      * @private
      */
@@ -12230,9 +12305,18 @@ declare module eui.sys {
         private delayAssignmentDic;
         /**
          * @private
+         * 将已有javascript代码注册
+         * @param codeText 执行的javascript代码
+         * @param classStr 类名
+         */
+        $parseCode(codeText: string, classStr: string): {
+            new (): any;
+        };
+        /**
+         * @private
          * 编译指定的XML对象为JavaScript代码。
          * @param xmlData 要编译的EXML文件内容
-         * @param className 要编译成的完整类名，包括模块名。
+         *
          */
         parse(text: string): {
             new (): any;
@@ -12331,12 +12415,14 @@ declare module eui.sys {
          * @private
          * 格式化值
          */
-        private formatValue(key, value, node, haveState?, stateCallBack?);
+        private formatValue(key, value, node);
         /**
          * @private
          * 格式化字符串
          */
         private formatString(value);
+        private formatBinding(key, value, node);
+        private parseTemplates(value);
         /**
          * @private
          /**
@@ -12385,17 +12471,17 @@ declare module eui.sys {
         private getClassNameOfNode(node);
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      * EUI 命名空间
      */
-    var NS_S: string;
+    let NS_S: string;
     /**
      * @private
      * Wing命名空间
      */
-    var NS_W: string;
+    let NS_W: string;
     /**
      * @private
      */
@@ -12428,7 +12514,7 @@ declare module eui.sys {
         getPropertyType(property: string, className: string): string;
     }
 }
-declare module EXML {
+declare namespace EXML {
     /**
      * @language en_US
      * Set a prefix url.
@@ -12447,7 +12533,7 @@ declare module EXML {
      * @version eui 1.0
      * @platform Web,Native
      */
-    var prefixURL: string;
+    let prefixURL: string;
     /**
      * @language en_US
      * Parsing a text of EXML file for a definition of class. You can declare the <code>class</code> property in the root
@@ -12515,14 +12601,20 @@ declare module EXML {
     function $loadAll(urls: string[], callBack?: (clazz: any[], url: string[]) => void, thisObject?: any, useCache?: boolean): void;
     /**
      * @private
+     * @param url
+     * @param text
+     */
+    function $parseURLContentAsJs(url: string, text: string, className: string): any;
+    /**
+     * @private
      */
     function $parseURLContent(url: string, text: string): any;
 }
-declare module eui {
+declare namespace eui {
 }
-declare module eui {
+declare namespace eui {
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The LayoutBase class defines the base class for all Spark layouts.
@@ -12809,7 +12901,7 @@ declare module eui {
         updateDisplayList(width: number, height: number): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The BasicLayout class arranges the layout elements according to their individual settings,
@@ -12885,7 +12977,7 @@ declare module eui {
         updateDisplayList(unscaledWidth: number, unscaledHeight: number): void;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      * 一个工具方法，使用BasicLayout规则测量目标对象。
@@ -12897,7 +12989,7 @@ declare module eui.sys {
      */
     function updateDisplayList(target: eui.Group | eui.Component, unscaledWidth: number, unscaledHeight: number): egret.Point;
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The ColumnAlign class defines the possible values for the
@@ -12971,7 +13063,7 @@ declare module eui {
         static JUSTIFY_USING_WIDTH: string;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * Linear layout base class, usually as the parent class of
@@ -13497,10 +13589,10 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        protected flexChildrenProportionally(spaceForChildren: number, spaceToDistribute: number, totalPercent: number, childInfoArray: Array<any>): void;
+        protected flexChildrenProportionally(spaceForChildren: number, spaceToDistribute: number, totalPercent: number, childInfoArray: any[]): void;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      */
@@ -13527,7 +13619,7 @@ declare module eui.sys {
         max: number;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The HorizontalLayout class arranges the layout elements in a horizontal sequence,
@@ -13623,7 +13715,7 @@ declare module eui {
         protected getIndexInView(): boolean;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The JustifyAlign class defines the possible values for the
@@ -13688,7 +13780,7 @@ declare module eui {
         static CONTENT_JUSTIFY: string;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The RowAlign class defines the possible values for the
@@ -13762,7 +13854,7 @@ declare module eui {
         static JUSTIFY_USING_HEIGHT: string;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The TileLayout class arranges layout elements in columns and rows
@@ -14386,7 +14478,7 @@ declare module eui {
         private adjustForJustify(width, height);
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The TileOrientation class defines the possible values for the
@@ -14443,7 +14535,7 @@ declare module eui {
         static COLUMNS: string;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The VerticalLayout class arranges the layout elements in a vertical sequence,
@@ -14539,7 +14631,7 @@ declare module eui {
         protected getIndexInView(): boolean;
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      */
@@ -14566,7 +14658,7 @@ declare module eui.sys {
         AFTER = 3,
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The operation of adding a state to view.
@@ -14675,7 +14767,7 @@ declare module eui {
         remove(host: any, parent: egret.DisplayObjectContainer): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The IOverride interface is used for view state overrides.
@@ -14745,7 +14837,7 @@ declare module eui {
         remove(host: any, parent: egret.DisplayObjectContainer): void;
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The SetProperty class specifies a property value that is in effect only
@@ -14885,7 +14977,7 @@ declare module eui {
         private toBoolean(value);
     }
 }
-declare module eui {
+declare namespace eui {
     /**
      * @language en_US
      * The SetProperty class specifies a property value that is in effect only
@@ -14930,17 +15022,22 @@ declare module eui {
          * @version eui 1.0
          * @platform Web,Native
          */
-        constructor(host: any, chain: string[], target: any, prop: string);
+        constructor(host: any, templates: any[], chainIndex: number[], target: any, prop: string);
         /**
          * 皮肤对象
          * @private
          */
         private host;
         /**
-         * 绑定链
          * @private
+         * 绑定的模板列表
          */
-        private chain;
+        templates: any[];
+        /**
+         * @private
+         * chainIndex是一个索引列表，每个索引指向templates中的一个值，该值是代表属性链。
+         */
+        chainIndex: number[];
         /**
          * 要绑定的对象
          * @private
@@ -14984,7 +15081,7 @@ declare module eui {
         private toBoolean(value);
     }
 }
-declare module eui.sys {
+declare namespace eui.sys {
     /**
      * @private
      */

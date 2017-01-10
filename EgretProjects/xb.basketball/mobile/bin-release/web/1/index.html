@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>谁是射手</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <style>
+        html, body {
+            -ms-touch-action: none;
+            background: #888888;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+
+    <!--这个标签为通过egret提供的第三方库的方式生成的 javascript 文件。删除 modules_files 标签后，库文件加载列表将不会变化，请谨慎操作！-->
+    <!--modules_files_start-->
+	<script egret="lib" src="libs/modules/egret/egret.min.js"></script>
+	<script egret="lib" src="libs/modules/egret/egret.web.min.js"></script>
+	<script egret="lib" src="libs/modules/eui/eui.min.js"></script>
+	<script egret="lib" src="libs/modules/res/res.min.js"></script>
+	<script egret="lib" src="libs/modules/tween/tween.min.js"></script>
+	<script egret="lib" src="libs/modules/game/game.min.js"></script>
+	<script egret="lib" src="libs/modules/game/game.web.min.js"></script>
+	<script egret="lib" src="libs/modules/socket.io/socket.io.min.js"></script>
+	<!--modules_files_end-->
+
+    <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
+    <!--other_libs_files_start-->
+    <!--other_libs_files_end-->
+
+    <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
+    <!--game_files_start-->
+	<script src="main.min.js"></script>
+	<!--game_files_end-->
+</head>
+<body>
+	<!-- 公众号 -->
+	<!--
+	<div id="gzh" style="background-color:#ffffff;width:100%;height:100%;text-align:center;font-family:微软雅黑;display:none">
+		<div id = "gzhTitle" style="font-size:20px;color:#333333;">
+			请先关注公众号
+		</div>
+		<img id="gzhImg" src="" width="200" height="200" style="margin-top:10px"/>
+		<div style="font-size:20px;color:#ff0000;font-weight:bold";>▲长按二维码“识别”关注</div>
+	</div>
+	-->
+	<!-- end 公众号 -->
+	
+    <div id= "gameDiv" style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+         data-entry-class="Main"
+         data-orientation="portrait"
+         data-scale-mode="fixedWidth"
+         data-frame-rate="600"
+         data-content-width="480"
+         data-content-height="800"
+         data-show-paint-rect="false"
+         data-multi-fingered="2"
+         data-show-fps="false" data-show-log="false"
+         data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
+    </div>
+    <script>
+    	
+    	window["server"] = "http://120.24.188.118:3001";
+		window["logoUrl"] = "";     //游戏中粘贴商家的logo地址
+    	window["prizeScore"] = "";  //领取分数，达到后会弹出领取奖品提示
+    	window["prizeLink"] = "";   //领取奖品的链接
+    	/*
+    	var gameDiv = document.getElementById("gameDiv");
+    	gameDiv.style.display = "none";
+    	
+    	//var picurl = Request("picurl");
+    	var picurl = "resource/assets/gzh.jpg";
+    	var gzhImg = document.getElementById("gzhImg");
+    	gzhImg.src = picurl;
+    	
+    	var gzh = document.getElementById("gzh");
+    	gzh.style.display = "block";
+    	
+    	var clientHeight = document.body.clientHeight;
+    	var gzhTitle = document.getElementById("gzhTitle");
+    	
+    	gzhTitle.style.paddingTop = (clientHeight - 300)/2 + "px" ;
+  		*/
+    	
+    	
+        egret.runEgret();
+    	
+    	function Request(argname) //获取get的值
+    	{ 
+	    	var url = document.location.href; 
+	    	var arrStr = url.substring(url.indexOf("?")+1).split("&"); 
+	    	//return arrStr; 
+	    	for(var i =0;i<arrStr.length;i++) 
+            { 
+                var loc = arrStr[i].indexOf(argname+"="); 
+                 if(loc!=-1) 
+                { 
+                 return arrStr[i].replace(argname+"=","").replace("?",""); 
+                  break; 
+                  } 
+                  } 
+             return ""; 
+       }
+    </script>
+</body>
+</html>

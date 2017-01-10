@@ -50,5 +50,5 @@ var ShakeTool = (function () {
         this.timer.removeEventListener(egret.TimerEvent.TIMER_COMPLETE, this.shakeComplete, this);
     };
     return ShakeTool;
-})();
+}());
 egret.registerClass(ShakeTool,'ShakeTool');

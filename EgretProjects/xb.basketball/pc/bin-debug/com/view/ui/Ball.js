@@ -31,5 +31,5 @@ var Ball = (function (_super) {
     };
     Ball.NAME = "Ball";
     return Ball;
-})(SimpleMC);
+}(SimpleMC));
 egret.registerClass(Ball,'Ball');

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HomeSceneSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="homebg_jpg"/>
+	<e:Group id="codeGroup" height="270" width="270" x="1078" y="271"/>
+	<e:Image id="ball" source="homeball_png" x="793" y="682" width="100" height="100"/>
+	<e:Image id="hand" source="hand_png" x="829" y="727" width="83" height="72"/>
+</e:Skin>

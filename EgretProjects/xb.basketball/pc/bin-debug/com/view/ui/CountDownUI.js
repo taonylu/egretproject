@@ -24,5 +24,5 @@ var CountDownUI = (function (_super) {
         this.parent && this.parent.removeChild(this);
     };
     return CountDownUI;
-})(BaseUI);
+}(BaseUI));
 egret.registerClass(CountDownUI,'CountDownUI');
