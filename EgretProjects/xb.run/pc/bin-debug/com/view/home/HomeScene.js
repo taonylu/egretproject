@@ -166,7 +166,7 @@ var HomeScene = (function (_super) {
             this.socket.sendMessage("login", { rid: rid, userType: "pc" }, this.revLogin, this);
         }
         else {
-            this.socket.sendMessage("login", { rid: rid }, this.revLogin, this);
+            this.socket.sendMessage("login", { rid: rid, userType: "pc" }, this.revLogin, this);
         }
     };
     //接收登录

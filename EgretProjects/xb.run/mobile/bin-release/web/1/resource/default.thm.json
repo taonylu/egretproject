@@ -1,0 +1,64 @@
+{
+  "autoGenerateExmlsList": true,
+  "exmls": [
+    {
+      "path": "src/com/view/ui/UpArrowSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"UpArrowSkin\" width=\"180\" height=\"180\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"up\" source=\"up0_png\"/>\n\t<e:Image id=\"down\" source=\"up1_png\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/ui/RightArrowSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"RightArrowSkin\" width=\"180\" height=\"180\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"up\" source=\"right0_png\"/>\n\t<e:Image id=\"down\" source=\"right1_png\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/ui/LeftArrowSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"LeftArrowSkin\" width=\"180\" height=\"180\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image id=\"up\" source=\"left0_png\"/>\n\t<e:Image id=\"down\" source=\"left1_png\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/GameSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"GameSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\" xmlns:ns1=\"*\">\n\t<e:Rect width=\"640\" height=\"1136\" fillColor=\"0x6FEAEA\"/>\n\t<e:Group id=\"arrowGroup\" height=\"744\" width=\"640\" bottom=\"0\">\n\t\t<ns1:SimpleButton id=\"upBtn\" y=\"331\" skinName=\"UpArrowSkin\" x=\"230\"/>\n\t\t<ns1:SimpleButton id=\"rightBtn\" y=\"492\" x=\"372\" skinName=\"RightArrowSkin\"/>\n\t\t<ns1:SimpleButton id=\"leftBtn\" x=\"82\" y=\"492\" skinName=\"LeftArrowSkin\"/>\n\t\t<e:Image source=\"panel_png\" y=\"96\" horizontalCenter=\"0.5\"/>\n\t\t<e:Label text=\"重力感应不好使？可以试试点击操作！\" y=\"153\" textColor=\"0x030000\" fontFamily=\"微软雅黑\" width=\"322\" height=\"102\" verticalAlign=\"middle\" textAlign=\"center\" horizontalCenter=\"0\"/>\n\t</e:Group>\n\t<e:Rect fillColor=\"0xF5FAFA\" width=\"550\" y=\"24\" height=\"232\" horizontalCenter=\"0\" x=\"10\"/>\n\t<e:Image source=\"head0_png\" y=\"78\" x=\"80\" id=\"headImg\"/>\n\t<e:Label y=\"76\" textColor=\"0x030000\" text=\"您当前使用的角色是：\" fontFamily=\"微软雅黑\" width=\"326\" height=\"42\" x=\"232\" verticalAlign=\"middle\"/>\n\t<e:Label id=\"nameLabel\" y=\"126\" textColor=\"0xF90101\" text=\"悠悠熊猫\" fontFamily=\"微软雅黑\" textAlign=\"center\" width=\"148\" height=\"42\" x=\"220\" verticalAlign=\"middle\"/>\n\t<e:Label id=\"centerLabel\" text=\"标签\" x=\"50\" y=\"284\" width=\"532\" fontFamily=\"微软雅黑\" textColor=\"0x030000\"/>\n\t<e:Label id=\"deviceLabel\" y=\"334\" textColor=\"0x030000\" text=\"标签\" fontFamily=\"微软雅黑\" width=\"532\" x=\"49\" height=\"76\"/>\n\t<e:Label id=\"actionLabel\" y=\"421\" textColor=\"0x030000\" text=\"标签\" fontFamily=\"微软雅黑\" width=\"532\" x=\"49\"/>\n\t<e:Label id=\"statusLabel\" y=\"461\" textColor=\"0x030000\" text=\"标签\" fontFamily=\"微软雅黑\" width=\"532\" x=\"49\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/LockSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"LockSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect width=\"640\" height=\"1136\" fillColor=\"0x6FEAEA\"/>\n\t<e:Rect width=\"550\" height=\"232\" y=\"178\" fillColor=\"0xF5FAFA\" horizontalCenter=\"0\"/>\n\t<e:Image id=\"headImg\" source=\"head0_png\" x=\"70\" y=\"228\"/>\n\t<e:Label text=\"我是\" x=\"222\" y=\"226\" textColor=\"0x030000\" width=\"68\" height=\"42\" fontFamily=\"微软雅黑\"/>\n\t<e:Label y=\"266\" textColor=\"0x030000\" text=\"根据大屏幕提示，完成校准，一起游戏吧！\" fontFamily=\"微软雅黑\" width=\"350\" height=\"128\" x=\"222\"/>\n\t<e:Label id=\"nameLabel\" y=\"226\" text=\"悠悠熊猫\" fontFamily=\"微软雅黑\" width=\"148\" height=\"42\" x=\"290\" textAlign=\"center\" textColor=\"0xF90101\"/>\n\t<e:Label id=\"msgLabel\" text=\"校准完成请等待游戏开始\" width=\"410\" textColor=\"0x030000\" fontFamily=\"微软雅黑\" verticalAlign=\"middle\" textAlign=\"center\" height=\"110\" x=\"115\" bottom=\"104\"/>\n\t<e:Button id=\"okBtn\" x=\"221\" bottom=\"204\">\n\t\t<e:skinName>\n\t\t\t<e:Skin states=\"up,down,disabled\">\n\t\t\t\t<e:Image width=\"100%\" height=\"100%\" source=\"ok_png\" source.down=\"ok2_png\"/>\n\t\t\t\t<e:Label id=\"labelDisplay\" horizontalCenter=\"0\" verticalCenter=\"0\"/>\n\t\t\t</e:Skin>\n\t\t</e:skinName>\n\t</e:Button>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/PreloadSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PreloadSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect height=\"1136\" width=\"640\" fillColor=\"0x6FEAEA\"/>\n\t<e:Label id=\"progressLabel\" textColor=\"0x020000\" size=\"30\" width=\"424\" verticalAlign=\"middle\" textAlign=\"center\" height=\"68\" x=\"108\" bottom=\"283\"/>\n\t<e:Image source=\"preload_logo_png\" x=\"68\" bottom=\"334\"/>\n\t<e:Image source=\"preload_title_png\" width=\"516\" height=\"150\" y=\"40\" x=\"62\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/PrizeSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"PrizeSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect width=\"640\" height=\"1136\" fillColor=\"0x6FEAEA\"/>\n\t<e:Image source=\"result_prizetitle_png\" y=\"60\" x=\"162\"/>\n\t<e:Image source=\"result_prizebg_png\" y=\"266\" x=\"185\"/>\n\t<e:Image source=\"result_bag0_png\" y=\"381\" rotation=\"30\" x=\"467\" scaleX=\"0.8\" scaleY=\"0.8\"/>\n\t<e:Image source=\"result_bag0_png\" y=\"437\" scaleX=\"0.8\" rotation=\"-30\" scaleY=\"0.8\" x=\"90\"/>\n\t<e:Image source=\"result_bag0_png\" x=\"365\" y=\"340\" rotation=\"15\"/>\n\t<e:Image source=\"result_bag0_png\" y=\"377\" rotation=\"-15\" x=\"154\"/>\n\t<e:Image source=\"result_bag1_png\" y=\"299\" x=\"217\"/>\n\t<e:Image source=\"result_textbg_png\" y=\"612\" horizontalCenter=\"0\"/>\n\t<e:Image id=\"okBtn\" source=\"result_okbtn_png\" y=\"760\" x=\"220\"/>\n\t<e:EditableText id=\"phoneLabel\" width=\"380\" height=\"48\" x=\"131\" y=\"617\" fontFamily=\"微软雅黑\" size=\"30\" textColor=\"0x010000\" verticalAlign=\"middle\" text=\"19999\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/ui/ResultHeadSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultHeadSkin\" width=\"130\" height=\"150\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Group id=\"imgGroup\" height=\"75\" width=\"75\" y=\"0\" x=\"23\"/>\n\t<e:Label id=\"nameLabel\" text=\"AAAAA\" y=\"79\" width=\"126\" size=\"16\" textColor=\"0x060000\" fontFamily=\"微软雅黑\" verticalAlign=\"middle\" textAlign=\"left\" height=\"35\" x=\"2\"/>\n\t<e:Label id=\"scoreLabel\" y=\"117\" textColor=\"0x060000\" size=\"16\" text=\"得分：99\" fontFamily=\"微软雅黑\" textAlign=\"left\" width=\"127\" verticalAlign=\"middle\" height=\"17\" x=\"2\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/ui/RankHeadSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"RankHeadSkin\" width=\"300\" height=\"90\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Image source=\"rankbg0_png\" horizontalCenter=\"0\" verticalCenter=\"0\"/>\n\t<e:Group id=\"imgGroup\" height=\"50\" width=\"50\" x=\"59\" y=\"23\"/>\n\t<e:BitmapLabel id=\"rankLabel\" x=\"21\" y=\"28\" font=\"rankFont_fnt\" text=\"1\"/>\n\t<e:Label id=\"nameLabel\" text=\"标签\" x=\"114\" y=\"26\" width=\"180\" fontFamily=\"微软雅黑\" verticalAlign=\"middle\" size=\"20\" textAlign=\"left\" textColor=\"0x040000\"/>\n\t<e:Label id=\"scoreLabel\" y=\"53\" textColor=\"0x040000\" verticalAlign=\"middle\" fontFamily=\"微软雅黑\" textAlign=\"left\" width=\"101\" size=\"20\" text=\"标签\" x=\"188\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/ResultSceneSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"ResultSceneSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:ns1=\"*\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect width=\"640\" height=\"1136\" fillColor=\"0x6FEAEA\"/>\n\t<e:Group id=\"resultGroup\" height=\"1136\" width=\"640\">\n\t\t<e:Image source=\"result_title_png\" y=\"20\" x=\"104\"/>\n\t\t<e:Image source=\"result_no1_png\" y=\"115\" x=\"245\"/>\n\t\t<e:Image source=\"result_no2_png\" x=\"46\" y=\"156\"/>\n\t\t<e:Image source=\"result_no3_png\" x=\"434\" y=\"164\" height=\"214\"/>\n\t\t<ns1:ResultHead id=\"head0\" x=\"259\" y=\"222\" width=\"120\" height=\"110\" skinName=\"ResultHeadSkin\"/>\n\t\t<ns1:ResultHead x=\"61\" width=\"120\" y=\"227\" height=\"110\" id=\"head1\" skinName=\"ResultHeadSkin\"/>\n\t\t<ns1:ResultHead id=\"head2\" width=\"120\" y=\"231\" height=\"110\" x=\"449\" skinName=\"ResultHeadSkin\"/>\n\t</e:Group>\n\t<e:Group id=\"rankGroup\" height=\"1136\" width=\"640\">\n\t\t<e:Image source=\"rankbg1_png\" y=\"428\" x=\"11\"/>\n\t\t<ns1:RankHead id=\"rank0\" x=\"20\" y=\"480\" skinName=\"RankHeadSkin\"/>\n\t\t<ns1:RankHead x=\"20\" y=\"565\" skinName=\"RankHeadSkin\" id=\"rank1\"/>\n\t\t<ns1:RankHead id=\"rank2\" y=\"650\" skinName=\"RankHeadSkin\" x=\"20\"/>\n\t\t<ns1:RankHead x=\"20\" y=\"735\" skinName=\"RankHeadSkin\" id=\"rank3\"/>\n\t\t<ns1:RankHead id=\"rank4\" y=\"820\" skinName=\"RankHeadSkin\" x=\"20\"/>\n\t\t<ns1:RankHead x=\"323\" y=\"480\" skinName=\"RankHeadSkin\" id=\"rank5\"/>\n\t\t<ns1:RankHead id=\"rank6\" y=\"565\" skinName=\"RankHeadSkin\" x=\"323\"/>\n\t\t<ns1:RankHead x=\"323\" y=\"650\" skinName=\"RankHeadSkin\" id=\"rank7\"/>\n\t\t<ns1:RankHead id=\"rank8\" y=\"735\" skinName=\"RankHeadSkin\" x=\"323\"/>\n\t\t<ns1:RankHead x=\"323\" y=\"820\" skinName=\"RankHeadSkin\" id=\"rank9\"/>\n\t</e:Group>\n\t<e:Image source=\"result_again_png\" x=\"112\" bottom=\"35\"/>\n</e:Skin>"
+    },
+    {
+      "path": "src/com/view/ui/MessageBoxSkin.exml",
+      "content": "<?xml version='1.0' encoding='utf-8'?>\n<e:Skin class=\"MessageBoxSkin\" width=\"640\" height=\"1136\" xmlns:e=\"http://ns.egret.com/eui\" xmlns:w=\"http://ns.egret.com/wing\">\n\t<e:Rect height=\"1136\" width=\"640\" fillAlpha=\"0.7\"/>\n\t<e:Image source=\"messageBoxBg_png\" x=\"48\" verticalCenter=\"0\"/>\n\t<e:Image id=\"closeBtn\" source=\"closeBtn_png\" x=\"525\" verticalCenter=\"-164.5\"/>\n\t<e:Label id=\"msgLabel\" text=\"请求失败\" width=\"358\" height=\"189\" textColor=\"0x1E2329\" verticalAlign=\"middle\" textAlign=\"center\" size=\"30\" x=\"141\" top=\"474\" fontFamily=\"微软雅黑\"/>\n</e:Skin>"
+    }
+  ],
+  "skins": {
+    "eui.Button": "resource/eui_skins/ButtonSkin.exml",
+    "eui.CheckBox": "resource/eui_skins/CheckBoxSkin.exml",
+    "eui.HScrollBar": "resource/eui_skins/HScrollBarSkin.exml",
+    "eui.HSlider": "resource/eui_skins/HSliderSkin.exml",
+    "eui.ItemRenderer": "resource/eui_skins/ItemRendererSkin.exml",
+    "eui.Panel": "resource/eui_skins/PanelSkin.exml",
+    "eui.ProgressBar": "resource/eui_skins/ProgressBarSkin.exml",
+    "eui.RadioButton": "resource/eui_skins/RadioButtonSkin.exml",
+    "eui.Scroller": "resource/eui_skins/ScrollerSkin.exml",
+    "eui.TextInput": "resource/eui_skins/TextInputSkin.exml",
+    "eui.ToggleSwitch": "resource/eui_skins/ToggleSwitchSkin.exml",
+    "eui.VScrollBar": "resource/eui_skins/VScrollBarSkin.exml",
+    "eui.VSlider": "resource/eui_skins/VSliderSkin.exml"
+  }
+}

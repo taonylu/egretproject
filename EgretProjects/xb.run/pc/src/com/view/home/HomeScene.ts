@@ -214,7 +214,7 @@ class HomeScene extends BaseScene{
         if(GameConst.debug){
             this.socket.sendMessage("login",{ rid: rid,userType: "pc" },this.revLogin,this);
         }else{
-            this.socket.sendMessage("login",{ rid: rid},this.revLogin,this);
+            this.socket.sendMessage("login",{ rid: rid,userType:"pc"},this.revLogin,this);
         }
     }
     

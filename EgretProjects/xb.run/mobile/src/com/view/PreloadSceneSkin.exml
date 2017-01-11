@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="PreloadSceneSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Rect height="1136" width="640" fillColor="0x6FEAEA"/>
-	<e:Label id="progressLabel" text="标签" textColor="0x020000" size="30" width="424" verticalAlign="middle" textAlign="center" height="68" x="108" bottom="283"/>
-	<e:Image source="preload_foot_png" bottom="-60"/>
+	<e:Label id="progressLabel" textColor="0x020000" size="30" width="424" verticalAlign="middle" textAlign="center" height="68" x="108" bottom="283"/>
 	<e:Image source="preload_logo_png" x="68" bottom="334"/>
 	<e:Image source="preload_title_png" width="516" height="150" y="40" x="62"/>
 </e:Skin>

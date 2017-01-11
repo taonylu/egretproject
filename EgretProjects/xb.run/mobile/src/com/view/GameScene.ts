@@ -194,20 +194,20 @@ class GameScene extends BaseScene{
     public revGameOver(data){
         egret.log("revGameOver");
         console.log("revGameOver",data);
-        if(GameConst.debug == true){
+        //if(GameConst.debug == true){
             data = {
                 gameRankList: [
-                                { headUrl:"resource/assets/home/head0.png", nickName:"A",score:999,rank:1},
-                                { headUrl: "resource/assets/home/head0.png",nickName: "B",score: 999,rank: 1},
-                                { headUrl: "resource/assets/home/head0.png",nickName: "C",score: 999,rank: 1},
+                                { headUrl:"resource/assets/home/head0.png", nickName:"Test",score:999,rank:1},
+                                { headUrl: "resource/assets/home/head0.png",nickName: "Test",score: 999,rank: 1},
+                                { headUrl: "resource/assets/home/head0.png",nickName: "Test",score: 999,rank: 1},
                             ],
                 rankList:[
-                            {headUrl:"resource/assets/home/head0.png",nickName:"A",score:99},
-                            { headUrl: "resource/assets/home/head0.png",nickName: "B",score: 99 },
-                            { headUrl: "resource/assets/home/head0.png",nickName: "C",score: 99 }
+                    { headUrl: "resource/assets/home/head0.png",nickName:"Test",score:99},
+                    { headUrl: "resource/assets/home/head0.png",nickName: "Test",score: 99 },
+                    { headUrl: "resource/assets/home/head0.png",nickName: "Test",score: 99 }
                         ]
-            }
-        }
+            };
+        //}
         this.resultData = data;
         //当不显示获奖页时，才显示结果页，因为不知道哪个命令先后
         if(!GameManager.getInstance().prizeScene.parent){

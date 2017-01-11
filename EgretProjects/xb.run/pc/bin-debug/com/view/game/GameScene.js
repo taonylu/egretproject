@@ -805,24 +805,23 @@ var GameScene = (function (_super) {
     //接收游戏结束
     p.revGameOver = function (data) {
         console.log("revGameOver", data);
-        if (GameConst.debug) {
-            this.resultData.rankList = [
-                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
-                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
-                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
-                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
-                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
-                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
-                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
-                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
-                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
-                { nickName: "AA", headUrl: "resource/assets/home/home_arrow0.png", score: 999 }
-            ];
-        }
-        else {
-            this.resultData.rankList = data.rankList;
-            this.resultData.gameRankList = data.gameRankList;
-        }
+        //if(GameConst.debug){
+        this.resultData.rankList = [
+            { nickName: "Test", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+            { nickName: "Test", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+            { nickName: "Test", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+            { nickName: "Test", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+            { nickName: "Test", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+            { nickName: "Test", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+            { nickName: "Test", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+            { nickName: "Test", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+            { nickName: "Test", headUrl: "resource/assets/home/home_arrow0.png", score: 999 },
+            { nickName: "Test", headUrl: "resource/assets/home/home_arrow0.png", score: 999 }
+        ];
+        //        }else{
+        //            this.resultData.rankList = data.rankList;
+        //            this.resultData.gameRankList = data.gameRankList;
+        //        }
         SoundManager.getInstance().stopBgm();
         LayerManager.getInstance().runScene(GameManager.getInstance().resultScene);
     };
