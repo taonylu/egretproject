@@ -100,7 +100,7 @@
     <script>
     	//------配置信息------
     	var srvConfig = {
-    		"rid" : 1,        // 房间ID     
+    		"rid" : new Date.getTime(),        // 房间ID     
     		"licenceStatus" : 1,           // -1 授权码不存在， 0 授权码到期， 1 授权码可用
     		"rommStatus" : 1 ,             //  0 房间已经存在 ， 1 开房成功
     	}
@@ -108,8 +108,8 @@
     	//------配置信息 end------
     	
 		//------生成二维码 start-------
-    	var server = "http://192.168.1.105:3000/screen";
-    	var codeUrl =  "http://192.168.1.105:3002/index.html" + "?rid=" + srvConfig.rid;
+    	var server = "http://120.24.188.118:3002";
+    	var codeUrl =  "http://120.24.188.118:3002/game/llk/mobile/index.html" + "?rid=" + srvConfig.rid;
     	var codeWidth = 350;
     	var codeHeight = 350;
     	var logoUrl = "";

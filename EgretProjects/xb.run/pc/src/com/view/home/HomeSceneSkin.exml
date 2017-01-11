@@ -4,7 +4,6 @@
 		<e:Image source="homg_bg_jpg"/>
 		<e:Image source="home_panel_png" x="304" y="191"/>
 		<e:Image source="home_footbg_png" x="0" bottom="0"/>
-		<e:Image source="home_logo_png" x="879" bottom="0"/>
 		<e:Image source="home_title_png" y="14" width="594" height="172" x="663"/>
 		<e:Image source="home_wa_png" x="236" y="99"/>
 	</e:Group>
