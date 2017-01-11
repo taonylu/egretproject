@@ -369,6 +369,7 @@ var GameScene = (function (_super) {
     ///////////////////////////////////////////
     //接收房间号是否正确
     p.revShoot = function (data) {
+        console.log("rev shoot");
         var angle = data.angle; //发射弧度
         if (GameConst.isDebug) {
             this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.shootTouch, this);
@@ -407,5 +408,5 @@ var GameScene = (function (_super) {
         }
     };
     return GameScene;
-}(BaseScene));
+})(BaseScene);
 egret.registerClass(GameScene,'GameScene');

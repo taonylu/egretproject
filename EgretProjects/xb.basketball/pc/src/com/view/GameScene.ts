@@ -459,6 +459,7 @@ class GameScene extends BaseScene{
     
     //接收房间号是否正确
     public revShoot(data) {
+        console.log("rev shoot");
         var angle:number = data.angle;  //发射弧度
         
         if(GameConst.isDebug){

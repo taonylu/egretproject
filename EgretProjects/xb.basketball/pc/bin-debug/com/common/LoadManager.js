@@ -78,5 +78,5 @@ var LoadManager = (function () {
         this.loadProgress[name] = null;
     };
     return LoadManager;
-}());
+})();
 egret.registerClass(LoadManager,'LoadManager');

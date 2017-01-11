@@ -9,5 +9,5 @@ var GameConst = (function () {
     var d = __define,c=GameConst,p=c.prototype;
     GameConst.isDebug = false;
     return GameConst;
-}());
+})();
 egret.registerClass(GameConst,'GameConst');

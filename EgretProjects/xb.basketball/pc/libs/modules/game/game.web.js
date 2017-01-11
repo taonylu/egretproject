@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////////////
 //
-//  Copyright (c) 2014-present, Egret Technology.
+//  Copyright (c) 2014-2015, Egret Technology Inc.
 //  All rights reserved.
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -200,7 +200,7 @@ var egret;
                 function onLoadComplete(e) {
                     removeListeners();
                     var bitmapData = imageLoader.data;
-                    bitmapData.source.setAttribute("bitmapSrc", virtualUrl);
+                    bitmapData.setAttribute("bitmapSrc", virtualUrl);
                     var texture = new egret.Texture();
                     texture._setBitmapData(bitmapData);
                     loader.data = texture;
@@ -238,7 +238,7 @@ var egret;
                 return HTML5NetContext._instance;
             };
             return HTML5NetContext;
-        }(egret.HashObject));
+        })(egret.HashObject);
         web.HTML5NetContext = HTML5NetContext;
         egret.registerClass(HTML5NetContext,'egret.web.HTML5NetContext',["egret.NetContext"]);
         egret.NetContext = HTML5NetContext;

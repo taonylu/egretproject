@@ -17,5 +17,5 @@ var SimpleMC = (function (_super) {
     }
     var d = __define,c=SimpleMC,p=c.prototype;
     return SimpleMC;
-}(egret.MovieClip));
+})(egret.MovieClip);
 egret.registerClass(SimpleMC,'SimpleMC');

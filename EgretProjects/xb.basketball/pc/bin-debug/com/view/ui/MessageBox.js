@@ -22,5 +22,5 @@ var MessageBox = (function (_super) {
         this.parent && this.parent.removeChild(this);
     };
     return MessageBox;
-}(BaseUI));
+})(BaseUI);
 egret.registerClass(MessageBox,'MessageBox');

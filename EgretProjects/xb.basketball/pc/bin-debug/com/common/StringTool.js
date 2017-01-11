@@ -31,5 +31,5 @@ var StringTool = (function () {
         return str;
     };
     return StringTool;
-}());
+})();
 egret.registerClass(StringTool,'StringTool');
