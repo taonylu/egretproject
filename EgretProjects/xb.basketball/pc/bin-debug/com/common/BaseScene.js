@@ -40,5 +40,5 @@ var BaseScene = (function (_super) {
     p.onDestroy = function () {
     };
     return BaseScene;
-}(eui.Component));
+})(eui.Component);
 egret.registerClass(BaseScene,'BaseScene');

@@ -59,5 +59,5 @@ var LayerManager = (function () {
         return this.instance;
     };
     return LayerManager;
-}());
+})();
 egret.registerClass(LayerManager,'LayerManager');

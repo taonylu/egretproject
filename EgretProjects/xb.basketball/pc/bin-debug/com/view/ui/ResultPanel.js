@@ -16,5 +16,5 @@ var ResultPanel = (function (_super) {
         this.scoreLabel.text = score + "";
     };
     return ResultPanel;
-}(BaseUI));
+})(BaseUI);
 egret.registerClass(ResultPanel,'ResultPanel');

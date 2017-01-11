@@ -35,5 +35,5 @@ var NumberTool = (function () {
         return result;
     };
     return NumberTool;
-}());
+})();
 egret.registerClass(NumberTool,'NumberTool');

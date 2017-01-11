@@ -18,6 +18,7 @@ io.on('connection', function(socket){
      
     //pc连接socket或刷新，接收pc更新房间号
     socket.on('submitRid', function(data){
+    	console.log("submitRid:" + data.rid);
     	var rid = data.rid;
     	socket.rid = rid;
     	//房间已存在
@@ -41,12 +42,12 @@ io.on('connection', function(socket){
         socket.rid = rid;
         //房间不存在，则返回登录失败
 		if(roomList[rid] == null || roomList[rid].pc == null){
-			socket.emit('login', {'bSuccess':false, 'msg':'房间不存在'});
+			callback({'bSuccess':false, 'msg':'房间不存在'});
 			return;
 		}
 		//房间人满，则返回登录失败
 		if(roomList[rid].mobile != null){
-			socket.emit('login', {'bSuccess':false, 'msg':'房间人满'});
+			callback({'bSuccess':false, 'msg':'房间人满'});
 			return;
 		}
 		//保存手机端用户
@@ -54,7 +55,9 @@ io.on('connection', function(socket){
 		//注册客户端socket监听
 		listenerSocketMobile(socket);
 		//返回手机端登录成功
-		socket.emit('login', {'bSuccess':true, 'msg':''});
+        console.log("返回手机登录成功:",rid);
+		//roomList[rid].mobile.emit('login', {'bSuccess':true, 'msg':''});
+        callback({'bSuccess':true, 'msg':''});
 		//返回pc端游戏开始
 		roomList[rid].pc.emit('startGame');
     });
@@ -88,10 +91,7 @@ function listenerSocketPC(socket){
     socket.on('gameOver',function(data,callback){
     	console.log("rev gameOver");
     	if(roomList[socket.rid].pc && roomList[socket.rid].mobile){
-			var mobileObj = roomList[socket.rid].mobile;
-			for(var key in mobileObj) {
-				 mobileObj[key].emit('gameOver',{'score':data.score});
-			}
+			 roomList[socket.rid].mobile.emit('gameOver',{'score':data.score});
     	}
     });
 }

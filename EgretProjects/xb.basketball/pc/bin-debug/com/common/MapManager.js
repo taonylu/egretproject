@@ -25,5 +25,5 @@ var MapManager = (function () {
         return this.instance;
     };
     return MapManager;
-}());
+})();
 egret.registerClass(MapManager,'MapManager');
