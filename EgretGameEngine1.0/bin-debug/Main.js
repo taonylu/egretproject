@@ -37,6 +37,7 @@ var Main = (function (_super) {
         var assetAdapter = new AssetAdapter();
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
+        //App.VersionManager.init();
         App.ResUtils.addConfig("resource/default.res.json", "resource/");
         App.ResUtils.loadConfig(this.onConfigComplete, this);
     };

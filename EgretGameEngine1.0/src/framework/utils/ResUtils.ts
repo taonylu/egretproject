@@ -5,11 +5,11 @@
 class ResUtils extends SingleClass {
     /**保存资源组名*/
     private groupMap: any;
-	/**资源配置文件*/
-	private configs: Array<any>;
-	/**资源配置加载完成回调*/
+    /**资源配置文件*/
+    private configs: Array<any>;
+    /**资源配置加载完成回调*/
     private onConfigComplete: Function;
-	/**资源配置加载完成回调执行对象*/
+    /**资源配置加载完成回调执行对象*/
     private onConfigCompleteTarget: any;
 
     /**
@@ -18,7 +18,7 @@ class ResUtils extends SingleClass {
     public constructor() {
         super();
         this.groupMap = {};
-		this.configs = new Array<any>();
+        this.configs = new Array<any>();
 
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceLoadComplete,this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.onResourceLoadProgress,this);
@@ -74,8 +74,8 @@ class ResUtils extends SingleClass {
     /**
      * 加载资源组，静默加载(无回调函数)
      * @groupName 资源组
-     */ 
-    public loadGroupQuiet(groupName){
+     */
+    public loadGroupQuiet(groupName) {
         RES.loadGroup(groupName);
     }
     
@@ -84,8 +84,8 @@ class ResUtils extends SingleClass {
      * @groupName 资源组
      * @onComplete 加载完成回调
      * @thisObject 回调执行对象
-     */ 
-    public loadGroup(groupName:string, onComplete:Function, thisObject:any){
+     */
+    public loadGroup(groupName: string,onComplete: Function,thisObject: any) {
         this.groupMap[groupName] = [onComplete,null,thisObject];
         RES.loadGroup(groupName);
     }
@@ -98,11 +98,11 @@ class ResUtils extends SingleClass {
 	 * @onProgress 加载进度
 	 * @thisObject 回调执行对象
 	 */
-	public loadGroups(groupName, keys, onComplete:Function, onProgress:Function, thisObject:any){
-		this.groupMap[groupName] = [onComplete, onProgress, thisObject];
-		RES.createGroup(groupName, keys, false);
-		RES.loadGroup(groupName);
-	}
+    public loadGroups(groupName,keys,onComplete: Function,onProgress: Function,thisObject: any) {
+        this.groupMap[groupName] = [onComplete,onProgress,thisObject];
+        RES.createGroup(groupName,keys,false);
+        RES.loadGroup(groupName);
+    }
     
     
     /**
@@ -112,7 +112,7 @@ class ResUtils extends SingleClass {
      * @onProgress 加载进度回调
      * @thisObject 回调执行对象
      */
-    public loadGroupWithPro(groupName ,onComplete: Function,onProgress: Function,thisObject: any): void {
+    public loadGroupWithPro(groupName,onComplete: Function,onProgress: Function,thisObject: any): void {
         this.groupMap[groupName] = [onComplete,onProgress,thisObject];
         RES.loadGroup(groupName);
     }
@@ -157,11 +157,11 @@ class ResUtils extends SingleClass {
         this.onResourceLoadComplete(event);
     }
 
-	/**清理加载回调*/
-	public clearAllCallBack(){
-		for(var key in this.groupMap){
-			this.groupMap[key] = null;
-			delete this.groupMap[key];
-		}
-	}
+    /**清理加载回调*/
+    public clearAllCallBack() {
+        for(var key in this.groupMap) {
+            this.groupMap[key] = null;
+            delete this.groupMap[key];
+        }
+    }
 }

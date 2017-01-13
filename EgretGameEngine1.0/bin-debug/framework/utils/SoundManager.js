@@ -14,31 +14,16 @@ var SoundManager = (function (_super) {
         this._allowBGM = true;
         /**声音列表*/
         this.soundList = {};
-        /**背景音乐列表*/
-        this.bgmList = {};
     }
     var d = __define,c=SoundManager,p=c.prototype;
     /**
      * 添加声音
      * @soundName 声音名
      */
-    p.addEffect = function (soundName) {
+    p.addSound = function (soundName) {
         var sound = RES.getRes(soundName);
         if (sound) {
             this.soundList[soundName] = sound;
-        }
-        else {
-            console.error("声音不存在:", soundName);
-        }
-    };
-    /**
-     * 添加背景音乐
-     * @soundName 声音名
-     */
-    p.addBGM = function (soundName) {
-        var sound = RES.getRes(soundName);
-        if (sound) {
-            this.bgmList[soundName] = sound;
         }
         else {
             console.error("声音不存在:", soundName);
@@ -51,6 +36,9 @@ var SoundManager = (function (_super) {
      */
     p.playEffect = function (soundName, loop) {
         if (loop === void 0) { loop = 1; }
+        if (this.allowEffect == false) {
+            return;
+        }
         var sound = this.soundList[soundName];
         if (sound) {
             sound.type = egret.Sound.EFFECT;
@@ -64,14 +52,15 @@ var SoundManager = (function (_super) {
      * @soundName 声音名
      */
     p.playBGM = function (soundName) {
+        if (this.allowBGM == false) {
+            return;
+        }
         var sound = this.soundList[soundName];
         if (sound) {
             sound.type = egret.Sound.MUSIC;
-            if (this.bgmChannel) {
-                this.bgmChannel.stop();
-                this.bgmChannel = null;
+            if (this.bgmChannel == null) {
+                this.bgmChannel = sound.play(0, Number.MAX_VALUE);
             }
-            this.bgmChannel = sound.play(0, Number.MAX_VALUE);
         }
         else {
         }
@@ -83,6 +72,18 @@ var SoundManager = (function (_super) {
         if (this.bgmChannel) {
             this.bgmChannel.stop();
             this.bgmChannel = null;
+        }
+    };
+    /**暂停背景音乐*/
+    p.pauseBGM = function () {
+        if (this.bgmChannel) {
+            this.bgmChannel.volume = 0;
+        }
+    };
+    /**继续背景音乐*/
+    p.resumeBGM = function () {
+        if (this.bgmChannel) {
+            this.bgmChannel.volume = 1;
         }
     };
     d(p, "allowEffect"
@@ -103,16 +104,6 @@ var SoundManager = (function (_super) {
         /**是否允许播放背景音乐*/
         ,function (allow) {
             this._allowBGM = allow;
-            //设置为允许，则自动播放背景音乐
-            if (allow) {
-                for (var key in this.bgmList) {
-                    this.playBGM(key);
-                    break;
-                }
-            }
-            else {
-                this.stopBGM();
-            }
         }
     );
     return SoundManager;

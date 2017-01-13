@@ -12,7 +12,7 @@ var App = (function (_super) {
     /**启动app*/
     p.startup = function () {
         App.SceneManager.register("HomeScene", HomeScene);
-        App.SceneManager.open("HomeScene");
+        App.SceneManager.replaceScene("HomeScene");
     };
     d(App, "VersionManager"
         /**版本管理*/
@@ -102,6 +102,24 @@ var App = (function (_super) {
         /**声音管理类*/
         ,function () {
             return SoundManager.getInstance();
+        }
+    );
+    d(App, "DeviceUtils"
+        /**设备管理类*/
+        ,function () {
+            return DeviceUtils.getInstance();
+        }
+    );
+    d(App, "BluemoonSDK"
+        /**蓝月亮SDK*/
+        ,function () {
+            return BluemoonSDK.getInstance();
+        }
+    );
+    d(App, "WxContent"
+        /**微信分享*/
+        ,function () {
+            return WxContent.getInstance();
         }
     );
     return App;

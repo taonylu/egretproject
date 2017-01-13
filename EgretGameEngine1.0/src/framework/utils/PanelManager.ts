@@ -3,26 +3,26 @@
  * @author chenkai
  * @date 2016/12/23
  */
-class PanelManager extends SingleClass{
-	/**面板实例*/
-	private panelMap = {};
-	/**面板类定义*/
-	private clzMap = {};
-	/**面板所需资源组*/
-	private groupMap = {};
+class PanelManager extends SingleClass {
+    /**面板实例*/
+    private panelMap = {};
+    /**面板类定义*/
+    private clzMap = {};
+    /**面板所需资源组*/
+    private groupMap = {};
 
-	public constructor() {
-		super();
-	}
+    public constructor() {
+        super();
+    }
 
 	/**
 	 * @注册
 	 * @clz panel类名
 	 */
-	public register(panelName:string, panelClz:any , groupName:string = null){
-		this.clzMap[panelName] = panelClz;
-		this.groupMap[panelName] = groupName;
-	}
+    public register(panelName: string,panelClz: any,groupName: string = null) {
+        this.clzMap[panelName] = panelClz;
+        this.groupMap[panelName] = groupName;
+    }
 
 	/**
 	 * 打开弹框面板，若需要实时加载资源，则加载完成后打开
@@ -31,14 +31,14 @@ class PanelManager extends SingleClass{
 	 * @thisObject 回调函数执行对象
 	 * @reutrn 返回打开的面板
 	 */
-	public open(panelName:string, callBack:Function = null, thisObject:any = null):BasePanel{
-		var panel:BasePanel = this.panelMap[panelName];
-		if(panel){
-			panel = this.openPanel(panelName, callBack, thisObject);
-		}else{
-    		//panel不存在，则加载panel所需资源并新建一个
+    public open(panelName: string,callBack: Function = null,thisObject: any = null): BasePanel {
+        var panel: BasePanel = this.panelMap[panelName];
+        if(panel) {
+            panel = this.openPanel(panelName,callBack,thisObject);
+        } else {
+            //panel不存在，则加载panel所需资源并新建一个
             var clz = this.clzMap[panelName];
-            if(clz){
+            if(clz) {
                 panel = new clz();
                 this.panelMap[panelName] = panel;
                 var groupName: string = this.groupMap[panelName];
@@ -50,43 +50,43 @@ class PanelManager extends SingleClass{
                     this.openPanel(panelName,callBack,thisObject);
                 }
             }
-		}
-		return panel;
-	}
+        }
+        return panel;
+    }
 
-	/**打开弹框*/
-	private openPanel(panelName:string, callBack:Function = null, thisObject:any = null){
-		var panel:BasePanel = this.panelMap[panelName];
-		if(panel){
-			panel.once(egret.Event.ADDED_TO_STAGE, ()=>{
-				panel.onEnable();
-				if(callBack && thisObject){
+    /**打开弹框*/
+    private openPanel(panelName: string,callBack: Function = null,thisObject: any = null) {
+        var panel: BasePanel = this.panelMap[panelName];
+        if(panel) {
+            panel.once(egret.Event.ADDED_TO_STAGE,() => {
+                panel.onEnable();
+                if(callBack && thisObject) {
                     callBack.apply(thisObject);
-				}
-			},this);
-			App.LayerManager.panelLayer.addChild(panel);
-		}
-		return panel;
-	}
+                }
+            },this);
+            App.LayerManager.panelLayer.addChild(panel);
+        }
+        return panel;
+    }
 
 	/**
 	 * 关闭弹框
 	 * @panelName 弹框名
 	*/
-	public close(panelName:string){
-		var panel:BasePanel = this.panelMap[panelName];
-		if(panel){
-			panel.once(egret.Event.REMOVED_FROM_STAGE, ()=>{
-				panel.onRemove();
-			},this);
-			panel.parent && panel.parent.removeChild(panel);
-		}
-	}
+    public close(panelName: string) {
+        var panel: BasePanel = this.panelMap[panelName];
+        if(panel) {
+            panel.once(egret.Event.REMOVED_FROM_STAGE,() => {
+                panel.onRemove();
+            },this);
+            panel.parent && panel.parent.removeChild(panel);
+        }
+    }
 
-	/**关闭所有弹框*/
-	public closeAll(){
-		for(var key in this.panelMap){
-			this.close(key);
-		}
-	}
+    /**关闭所有弹框*/
+    public closeAll() {
+        for(var key in this.panelMap) {
+            this.close(key);
+        }
+    }
 }

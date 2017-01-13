@@ -33,6 +33,18 @@ var DeviceUtils = (function (_super) {
             return !egret.Capabilities.isMobile;
         }
     );
+    d(p, "isAndroid"
+        /**是否Android系统*/
+        ,function () {
+            return egret.Capabilities.os == "Android";
+        }
+    );
+    d(p, "isIos"
+        /**是否ios系统*/
+        ,function () {
+            return egret.Capabilities.os == "iOS";
+        }
+    );
     return DeviceUtils;
 }(SingleClass));
 egret.registerClass(DeviceUtils,'DeviceUtils');

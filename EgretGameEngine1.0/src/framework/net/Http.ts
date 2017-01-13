@@ -56,6 +56,7 @@ class Http extends SingleClass{
 		this.curSend = this.cacheList.shift();
 		this.request.open(this.serverUrl ,this.httpMethod);
         this.request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        //this.request.setRequestHeader("Content-Type","application/json");
 		this.request.send(this.curSend[0]);
 		this.requesting = true;
 	}
