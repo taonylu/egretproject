@@ -4,13 +4,15 @@
  * @author chenkai
  * @date 2016/12/18
  */
-class VersionManager extends SingleClass{
+class VersionManager extends SingleClass {
     
     /**
      * 初始化版本号
      * @version 版本号
-     */ 
-    public init(version:string){
+     */
+    public init() {
+        var version = window["version"];
+        console.log("版本号:",version);
         RES.web.Html5VersionController.prototype.getVirtualUrl = function(url) {
             if(url.indexOf("?") == -1) {
                 url += "?v=" + version;
@@ -20,6 +22,6 @@ class VersionManager extends SingleClass{
             return url;
         }
     }
-    
-    
+
+
 }

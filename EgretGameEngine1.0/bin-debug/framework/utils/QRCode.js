@@ -13,8 +13,10 @@
  * var qrCode:QRCode = new QRCode();
  * qrCode.showCode("resource/assets/qrcode.png", codeImg);
  */
-var QRCode = (function () {
+var QRCode = (function (_super) {
+    __extends(QRCode, _super);
     function QRCode() {
+        _super.call(this);
     }
     var d = __define,c=QRCode,p=c.prototype;
     /**重置位置*/
@@ -37,6 +39,9 @@ var QRCode = (function () {
         if (this.myImg == null) {
             var gameDiv = document.getElementById("gameDiv");
             this.myImg = document.createElement("img");
+            this.myImg.onload = function () {
+                codeImg.visible = false;
+            };
             this.myImg.src = imgUrl;
             this.myImg.style.position = "absolute";
             this.myImg.style.display = "none";
@@ -68,11 +73,16 @@ var QRCode = (function () {
             this.myImg.style.display = "none";
         }
     };
+    /**隐藏300x300用于非微信分享时，普通分享的第一张图片*/
+    p.hideCodeImg = function () {
+        var codeImg = document.getElementById('codeImg');
+        codeImg.style.display = "none";
+    };
     /**销毁*/
     p.onDestroy = function () {
         App.StageUtils.getStage().removeEventListener(egret.StageOrientationEvent.ORIENTATION_CHANGE, this.onResize, this);
         this.codeImg = null;
     };
     return QRCode;
-}());
+}(SingleClass));
 egret.registerClass(QRCode,'QRCode');

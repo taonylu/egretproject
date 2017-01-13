@@ -13,18 +13,22 @@
  * var qrCode:QRCode = new QRCode();
  * qrCode.showCode("resource/assets/qrcode.png", codeImg);
  */
-class QRCode{
+class QRCode extends SingleClass{
     /**二维码透明png的img标签*/
     private myImg: HTMLImageElement;
     /**透明图片地址*/
-    private imgUrl:string;
+    private imgUrl: string;
     /**二维码图片*/
-    private codeImg:egret.DisplayObject;
+    private codeImg: egret.DisplayObject;
+    
+    public constructor(){
+        super();
+    }
     
     /**重置位置*/
-    private onResize(){
+    private onResize() {
         console.log("屏幕旋转，重置二维码位置");
-        if(this.imgUrl && this.codeImg){
+        if(this.imgUrl && this.codeImg) {
             this.showCode(this.imgUrl,this.codeImg);
         }
     }
@@ -33,17 +37,20 @@ class QRCode{
      * 显示二维码
      * imgUrl 覆盖在二维码上透明图片地址
      * codeImg egret中二维码图片 (二维码图片容器必须和stage相等高宽)
-     */ 
-    public showCode(imgUrl: string, codeImg: egret.DisplayObject): void {
+     */
+    public showCode(imgUrl: string,codeImg: egret.DisplayObject): void {
         this.imgUrl = imgUrl;
         this.codeImg = codeImg;
         App.StageUtils.getStage().addEventListener(
             egret.StageOrientationEvent.ORIENTATION_CHANGE,this.onResize,this);
         
         //二维码不存在，则创建一个
-        if(this.myImg == null){   
+        if(this.myImg == null) {
             var gameDiv = document.getElementById("gameDiv");
             this.myImg = document.createElement("img");
+            this.myImg.onload = function() {
+                codeImg.visible = false;
+            }
             this.myImg.src = imgUrl;
             this.myImg.style.position = "absolute";
             this.myImg.style.display = "none";
@@ -51,7 +58,7 @@ class QRCode{
         }
         
         //竖屏
-        if(document.body.clientWidth < document.body.clientHeight){
+        if(document.body.clientWidth < document.body.clientHeight) {
             var wScale = document.body.clientWidth / App.StageUtils.stageWidth;
             var hScale = document.body.clientHeight / App.StageUtils.stageHeight;
             this.myImg.style.width = codeImg.width * wScale + "px";
@@ -59,17 +66,17 @@ class QRCode{
             this.myImg.style.left = codeImg.x * wScale + "px";
             this.myImg.style.top = codeImg.y * hScale + "px";
             this.myImg.style.display = "inline";
-        //横屏
-        }else{
+            //横屏
+        } else {
             var wScale = document.body.clientWidth / App.StageUtils.stageHeight;
             var hScale = document.body.clientHeight / App.StageUtils.stageWidth;
-            this.myImg.style.width = codeImg.height*wScale + "px";
-            this.myImg.style.height = codeImg.width*hScale + "px";
-            this.myImg.style.top = (App.StageUtils.stageWidth - codeImg.x - codeImg.width)*hScale + "px";
-            this.myImg.style.left = codeImg.y*wScale + "px";
+            this.myImg.style.width = codeImg.height * wScale + "px";
+            this.myImg.style.height = codeImg.width * hScale + "px";
+            this.myImg.style.top = (App.StageUtils.stageWidth - codeImg.x - codeImg.width) * hScale + "px";
+            this.myImg.style.left = codeImg.y * wScale + "px";
             this.myImg.style.display = "inline";
         }
-        
+
     }
     
     /**隐藏二维码*/
@@ -79,8 +86,14 @@ class QRCode{
         }
     }
     
+    /**隐藏300x300用于非微信分享时，普通分享的第一张图片*/
+    public hideCodeImg() {
+        var codeImg = document.getElementById('codeImg');
+        codeImg.style.display = "none";
+    }
+    
     /**销毁*/
-    public onDestroy(){
+    public onDestroy() {
         App.StageUtils.getStage().removeEventListener(egret.StageOrientationEvent.ORIENTATION_CHANGE,this.onResize,this);
         this.codeImg = null;
     }

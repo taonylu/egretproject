@@ -1,0 +1,349 @@
+/**
+ * 主类
+ * 测试Egret3D
+ */
+var Main = (function (_super) {
+    __extends(Main, _super);
+    function Main() {
+        _super.call(this);
+        /**键盘按下值*/
+        this.key = -1;
+        //隐藏div图标
+        var loadingMap = document.getElementById('loadingCon');
+        loadingMap.hidden = true;
+        //创建3d画布
+        this.create3DCanvas();
+        //创建视口
+        this.createView3D();
+        //创建方块
+        this.createCube();
+        //创建地板
+        this.createPanel();
+        //自定义三角面
+        this.createTriangle();
+        //贴图材质
+        this.createTextureCube();
+        //键盘控制
+        //this.keyControl();
+        //创建灯光
+        this.createLight();
+        //加载测试
+        this.loadTest();
+        //声音测试
+        this.soundTest();
+        //Object3D测试
+        this.object3DTest();
+        //创建公告板
+        this.createBillboard();
+        //天空盒
+        this.loaderSkyBox();
+        //摄像机控制
+        this.cameroController();
+        //加载地形
+        //this.loaderTerrain();
+        //创建线框
+        this.createWireframeForGeometry();
+        console.log("Hello egret3D");
+    }
+    var d = __define,c=Main,p=c.prototype;
+    /**创建3d画布*/
+    p.create3DCanvas = function () {
+        this.egret3DCanvas = new egret3d.Egret3DCanvas();
+        this.egret3DCanvas.x = 0;
+        this.egret3DCanvas.y = 0;
+        this.egret3DCanvas.width = window.innerWidth;
+        this.egret3DCanvas.height = window.innerHeight;
+        this.egret3DCanvas.start();
+    };
+    /**创建3d视口*/
+    p.createView3D = function () {
+        //var camera:egret3d.Camera3D = new egret3d.Camera3D(egret3d.CameraType.orthogonal);
+        var camera = new egret3d.Camera3D(egret3d.CameraType.perspective);
+        this.view3D = new egret3d.View3D(0, 0, window.innerWidth, innerHeight, camera);
+        this.view3D.backColor = 0xffffff;
+        this.view3D.camera3D.lookAt(new egret3d.Vector3D(0, 500, -500), new egret3d.Vector3D(0, 0, 0));
+        this.egret3DCanvas.addView3D(this.view3D);
+        this.camera = this.view3D.camera3D;
+    };
+    /**创建方块*/
+    p.createCube = function () {
+        var material = new egret3d.ColorMaterial(0xff0000);
+        var model = new egret3d.CubeGeometry();
+        this.cube = new egret3d.Mesh(model, material);
+        this.view3D.addChild3D(this.cube);
+    };
+    /**创建地板*/
+    p.createPanel = function () {
+        ;
+        var material = new egret3d.ColorMaterial(0x00ff00);
+        var model = new egret3d.PlaneGeometry();
+        this.plane = new egret3d.Mesh(model, material);
+        this.view3D.addChild3D(this.plane);
+    };
+    /**自定义数据构造一个三角面片*/
+    p.createTriangle = function () {
+        var geom = egret3d.GeometryUtil.createGeometry();
+        var vb = [];
+        var ib = [];
+        // 0 1 2 坐标 3 4 5 6 颜色 7 8 uv
+        vb.push(-50, -50, 0, 1, 0, 0, 1);
+        vb.push(0, 50, 0, 0, 1, 0, 1);
+        vb.push(50, -50, 0, 0, 0, 1, 1);
+        // 加入3个顶点       
+        // 设置顶点索引  3个索引  1个3角形面
+        ib.push(0, 1, 2);
+        // 把数据填充进Geometry
+        geom.setVerticesForIndex(0, egret3d.VertexFormat.VF_POSITION | egret3d.VertexFormat.VF_COLOR, vb, 3);
+        geom.setVertexIndices(0, ib);
+        // 使用Geometry 创建Mesh
+        var mesh = new egret3d.Mesh(geom, new egret3d.ColorMaterial(0xffffff));
+        // 设置双面渲染
+        mesh.material.bothside = true;
+        this.view3D.addChild3D(mesh);
+        mesh.x = -200;
+    };
+    /**创建贴图材质方块*/
+    p.createTextureCube = function () {
+        var material = new egret3d.TextureMaterial();
+        var model = new egret3d.CubeGeometry();
+        this.textureCube = new egret3d.Mesh(model, material);
+        this.textureCube.x = 100;
+        this.view3D.addChild3D(this.textureCube);
+    };
+    /**键盘控制 */
+    p.keyControl = function () {
+        this.egret3DCanvas.addEventListener(egret3d.Event3D.ENTER_FRAME, this.onUpdate, this);
+        egret3d.Input.addEventListener(egret3d.KeyEvent3D.KEY_DOWN, this.onKeyDown, this);
+        egret3d.Input.addEventListener(egret3d.KeyEvent3D.KEY_UP, this.onKeyUp, this);
+    };
+    /**键盘弹起*/
+    p.onKeyUp = function (e) {
+        this.key = -1;
+    };
+    /**键盘按下*/
+    p.onKeyDown = function (e) {
+        this.key = e.keyCode;
+    };
+    /**每帧执行*/
+    p.onUpdate = function (e) {
+        switch (this.key) {
+            case egret3d.KeyCode.Key_A:
+                this.camera.x -= 1;
+                break;
+            case egret3d.KeyCode.Key_D:
+                this.camera.x += 1;
+                break;
+            case egret3d.KeyCode.Key_W:
+                this.camera.y += 1;
+                break;
+            case egret3d.KeyCode.Key_S:
+                this.camera.y -= 1;
+                break;
+            case egret3d.KeyCode.Key_Q:
+                this.camera.z += 1;
+                break;
+            case egret3d.KeyCode.Key_E:
+                this.camera.z -= 1;
+                break;
+        }
+    };
+    /**创建灯光*/
+    p.createLight = function () {
+        var light = new egret3d.DirectLight();
+        light.dir = new egret3d.Vector3D(-0.5, -0.5, 1);
+        light.diffuse = 0xff0000;
+        this.lights = new egret3d.LightGroup();
+        this.lights.addLight(light);
+        this.cube.material.lightGroup = this.lights;
+        this.plane.material.lightGroup = this.lights;
+        this.textureCube.lightGroup = this.lights;
+    };
+    /**加载测试*/
+    p.loadTest = function () {
+        var queueLoader = new egret3d.QueueLoader();
+        queueLoader.load("resource/LingTong/Bonezero.esm"); //模型
+        queueLoader.load("resource/LingTong/hero_12.png"); //贴图
+        queueLoader.load("resource/LingTong/Idle.eam"); //骨骼动画
+        queueLoader.load("resource/LingTong/Run.eam"); //骨骼动画
+        queueLoader.load("resource/LingTong/Attack1.eam"); //骨骼动画
+        queueLoader.addEventListener(egret3d.LoaderEvent3D.LOADER_COMPLETE, this.onLoadComplete, this);
+    };
+    /**加载完成*/
+    p.onLoadComplete = function (e) {
+        var queueLoader = e.target;
+        //获取模型
+        var model = queueLoader.getAsset("resource/LingTong/Bonezero.esm");
+        //获取贴图
+        var texture = new egret3d.TextureMaterial();
+        texture.diffuseTexture = queueLoader.getAsset("resource/LingTong/hero_12.png");
+        //获取动画
+        var idle = queueLoader.getAsset("resource/LingTong/Idle.eam");
+        idle.animationName = "idle";
+        var run = queueLoader.getAsset("resource/LingTong/Run.eam");
+        run.animationName = "run";
+        var attack = queueLoader.getAsset("resource/LingTong/Attack1.eam");
+        attack.animationName = "attack";
+        //创建网格
+        var player = new egret3d.Mesh(model, texture);
+        player.animation.skeletonAnimationController.addSkeletonAnimationClip(idle);
+        player.animation.skeletonAnimationController.addSkeletonAnimationClip(run);
+        player.animation.skeletonAnimationController.addSkeletonAnimationClip(attack);
+        player.animation.play("run");
+        player.y = 100;
+        this.view3D.addChild3D(player);
+        //pick事件
+        this.cube.enablePick = true;
+        this.cube.addEventListener(egret3d.PickEvent3D.PICK_CLICK, this.onPick, this);
+        //touch事件
+        egret3d.Input.addEventListener(egret3d.TouchEvent3D.TOUCH_START, this.onTouchStart, this);
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
+    };
+    /**pick事件
+     * TouchEvent3D和PickEvent3D区别。
+     * 1. pick电脑和手机都能触发。touch只能手机触摸。
+     * 2. pick能获取3d物体更多详细信息。
+     * 3. pick必须单体监听，这个单体必须enablePick=true。不能监听到egret3d.Input.
+     *    touch可以用input监听。
+    */
+    p.onPick = function (e) {
+        console.log("pick");
+        console.log("pick faceIndex:", e.pickResult.faceIndex);
+        console.log("pick globalPosition:", e.pickResult.globalPosition);
+        var target = e.target;
+        target.material.diffuseColor = 0x0000ff;
+    };
+    /**
+     * 触摸
+     * 1. 触摸可以摸到多个物体。原理是射线穿透物体？
+     */
+    p.onTouchStart = function (e) {
+        console.log("touch");
+        console.log("touch target:", e.target);
+        console.log("touch target clientX:", e.targetTouches[0].clientX);
+    };
+    /**2d触摸*/
+    p.onTouchMove = function (e) {
+        //console.log("touch move");
+        //this.view3D.camera3D.rotation.y += 1;
+    };
+    /**声音测试*/
+    p.soundTest = function () {
+        egret3d.AudioManager.instance.createSound("resource/bgm.mp3", this.loadSoundSuccess);
+    };
+    /**加载声音完成*/
+    p.loadSoundSuccess = function (e) {
+        var audioManager = egret3d.AudioManager.instance;
+        //var channel:egret3d.Channel = audioManager.playSound(e,{volume:0.5, loop:true});
+        //var channel3D:egret3d.Channel3d = audioManager.playSound3d(e, new egret3d.Vector3D(0,0,0), {volume:0.5, loop:true});
+        //channel.pause();
+        //channel.stop();
+    };
+    /**object3D测试*/
+    p.object3DTest = function () {
+        var objA = new egret3d.Object3D();
+        var objB = new egret3d.Object3D();
+        objA.addChildAt(objB, 5); //和2d的差不多一致...
+        console.log(objA.childs[0]);
+        console.log(objA.childs[5]);
+    };
+    /**公告板 一直朝像摄像头的一个东西...*/
+    p.createBillboard = function () {
+        var billboard = new egret3d.Billboard(new egret3d.TextureMaterial());
+        this.view3D.addChild3D(billboard);
+        billboard.y = 300;
+    };
+    /**加载天空素材*/
+    p.loaderSkyBox = function () {
+        var loader = new egret3d.QueueLoader();
+        loader.load("resource/quanjing/pano_b.jpg");
+        loader.load("resource/quanjing/pano_f.jpg");
+        loader.load("resource/quanjing/pano_l.jpg");
+        loader.load("resource/quanjing/pano_r.jpg");
+        loader.load("resource/quanjing/pano_d.jpg");
+        loader.load("resource/quanjing/pano_u.jpg");
+        loader.addEventListener(egret3d.LoaderEvent3D.LOADER_COMPLETE, this.onSkyBoxTexture, this);
+    };
+    /**天空盒资源加载完成 创建天空盒*/
+    p.onSkyBoxTexture = function (e) {
+        var loader = e.target;
+        var fr = loader.getAsset("resource/quanjing/pano_f.jpg");
+        var bk = loader.getAsset("resource/quanjing/pano_b.jpg");
+        var lf = loader.getAsset("resource/quanjing/pano_l.jpg");
+        var rt = loader.getAsset("resource/quanjing/pano_r.jpg");
+        var up = loader.getAsset("resource/quanjing/pano_u.jpg");
+        var dn = loader.getAsset("resource/quanjing/pano_d.jpg");
+        // 创建cube贴图
+        var cubeTexture = egret3d.CubeTexture.createCubeTextureByImageTexture(bk, fr, lf, rt, up, dn); //bk和fr的图得换一下，反了
+        // 创建cube geometry 和 cube 材质
+        var sky = new egret3d.Sky(new egret3d.CubeGeometry(10000, 10000, 10000), new egret3d.CubeTextureMaterial(cubeTexture), this.view3D.camera3D);
+        // 设置天空盒 渲染模式为背面渲染
+        sky.material.cullMode = egret3d.ContextConfig.FRONT;
+        this.view3D.addChild3D(sky);
+    };
+    p.cameroController = function () {
+        //Hover
+        // this.ctl = new egret3d.HoverController(this.view3D.camera3D, this.cube);
+        // this.ctl.distance = 1000;
+        // this.egret3DCanvas.addEventListener(egret3d.Event3D.ENTER_FRAME,this.updateCamera,this);
+        //LookAt
+        this.ctl = new egret3d.LookAtController(this.view3D.camera3D, this.cube);
+        this.ctl.distance = 300;
+        this.ctl.rotationX = 50; //初始旋转角度
+        this.ctl.rotationY = 120;
+        this.egret3DCanvas.addEventListener(egret3d.Event3D.ENTER_FRAME, this.updateCamera, this);
+    };
+    p.updateCamera = function (evt) {
+        this.ctl.update();
+    };
+    /**加载地形*/
+    p.loaderTerrain = function () {
+        var loader = new egret3d.QueueLoader();
+        loader.addEventListener(egret3d.LoaderEvent3D.LOADER_COMPLETE, this.onTerrainComplete, this);
+        // 高度图
+        loader.load("resource/terrain/a.jpg");
+        // 地形混合图
+        //loader.load("resource/terrain/a.jpg");
+        // 地表贴图 4张
+        //loader.load("resource/terrain/a.jpg");
+        //loader.load("resource/terrain/a.jpg");
+    };
+    /***/
+    p.onTerrainComplete = function (e) {
+        var loader = e.target;
+        // 使用高度图创建地形
+        var heightImage = loader.getAsset("resource/terrain/a.jpg");
+        var terrain = new egret3d.Terrain(heightImage, 2000, 500, 2000, 200, 200);
+        var mat = terrain.material;
+        //mat.gloss = 10.0;
+        mat.repeat = true;
+        this.view3D.addChild3D(terrain);
+        // 给地形增加地形混合渲染方法
+        // var terrainMethod: egret3d.TerrainARGBMethod = new egret3d.TerrainARGBMethod(
+        // 	egret3d.CheckerboardTexture.texture,
+        // 	egret3d.CheckerboardTexture.texture,
+        // 	egret3d.CheckerboardTexture.texture,
+        // 	egret3d.CheckerboardTexture.texture,
+        // 	egret3d.CheckerboardTexture.texture);
+        // mat.diffusePass.addMethod(terrainMethod);
+        // terrainMethod.setUVTitling(0, 26.7, 26.7);
+        // terrainMethod.setUVTitling(1, 16, 16);
+        // terrainMethod.setUVTitling(2, 26.7, 26.7);
+        // terrainMethod.setUVTitling(3, 26.7, 26.7);
+        // // 设置混合贴图和地表贴图
+        // terrainMethod.controlTexture = loader.getAsset("resource/terrain/a.jpg");
+        // terrainMethod.splat_0_Texture = loader.getAsset("resource/terrain/a.jpg");
+        // terrainMethod.splat_1_Texture = loader.getAsset("resource/terrain/a.jpg");
+        // terrainMethod.splat_2_Texture = loader.getAsset("resource/terrain/a.jpg");
+        // terrainMethod.splat_3_Texture = loader.getAsset("resource/terrain/a.jpg");
+    };
+    /**创建线框*/
+    p.createWireframeForGeometry = function () {
+        // 用cube 的Geometry 创建线框
+        var cubeWireframe = new egret3d.Wireframe();
+        cubeWireframe.fromGeometry(this.cube.geometry);
+        // 把cube的线框绑定在cube上
+        this.cube.addChild(cubeWireframe);
+    };
+    return Main;
+}(egret.DisplayObject));
+egret.registerClass(Main,'Main');

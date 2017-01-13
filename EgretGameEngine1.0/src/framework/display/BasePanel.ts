@@ -7,6 +7,8 @@ class BasePanel extends eui.Component{
 
 	public constructor() {
 		super();
+        this.percentWidth = 100;
+        this.percentHeight = 100;
 	}
 
 	/**显示到舞台*/

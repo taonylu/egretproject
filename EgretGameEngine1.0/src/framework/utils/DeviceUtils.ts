@@ -25,4 +25,14 @@ class DeviceUtils extends SingleClass{
 		return !egret.Capabilities.isMobile;
 	}
 	
+    /**是否Android系统*/
+    public get isAndroid() {
+        return egret.Capabilities.os == "Android";
+    }
+	
+    /**是否ios系统*/
+    public get isIos() {
+        return egret.Capabilities.os == "iOS";
+    }
+	
 }

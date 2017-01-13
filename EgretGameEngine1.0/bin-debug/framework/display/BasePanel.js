@@ -7,6 +7,8 @@ var BasePanel = (function (_super) {
     __extends(BasePanel, _super);
     function BasePanel() {
         _super.call(this);
+        this.percentWidth = 100;
+        this.percentHeight = 100;
     }
     var d = __define,c=BasePanel,p=c.prototype;
     /**显示到舞台*/

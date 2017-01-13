@@ -26,7 +26,7 @@ var SceneManager = (function (_super) {
      * @sceneName 场景名
      * @destory 是否销毁上一场景
      */
-    p.open = function (sceneName, destroy) {
+    p.replaceScene = function (sceneName, destroy) {
         if (destroy === void 0) { destroy = false; }
         var scene = this.sceneMap[sceneName];
         if (scene) {
@@ -58,6 +58,7 @@ var SceneManager = (function (_super) {
                 removeScene.onRemove();
                 //TODO 销毁上一场景
             }, this);
+            App.LayerManager.sceneLayer.removeChild(removeScene);
         }
         this.curScene = scene;
     };

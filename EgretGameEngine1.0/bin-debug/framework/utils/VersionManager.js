@@ -14,7 +14,9 @@ var VersionManager = (function (_super) {
      * 初始化版本号
      * @version 版本号
      */
-    p.init = function (version) {
+    p.init = function () {
+        var version = window["version"];
+        console.log("版本号:", version);
         RES.web.Html5VersionController.prototype.getVirtualUrl = function (url) {
             if (url.indexOf("?") == -1) {
                 url += "?v=" + version;

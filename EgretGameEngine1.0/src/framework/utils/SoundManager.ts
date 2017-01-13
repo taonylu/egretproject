@@ -4,39 +4,24 @@
  * @date 2016/12/26 
  *
  */
-class SoundManager extends SingleClass{
+class SoundManager extends SingleClass {
     /**允许播放音效*/
-    private _allowEffect:boolean = true;
+    private _allowEffect: boolean = true;
     /**允许播放背景音乐*/
-    private _allowBGM:boolean = true;
+    private _allowBGM: boolean = true;
     /**声音列表*/
     private soundList = {};
-    /**背景音乐列表*/
-	private bgmList = {};
-	/**背景音乐声道*/
-	private bgmChannel:egret.SoundChannel;
+    /**背景音乐声道*/
+    private bgmChannel: egret.SoundChannel;
 	
 	/**
 	 * 添加声音
 	 * @soundName 声音名
-	 */ 
-	public addEffect(soundName:string){
-        var sound:egret.Sound = RES.getRes(soundName);
-        if(sound){
-            this.soundList[soundName] = sound;
-        }else{
-            console.error("声音不存在:", soundName);
-        }
-	}
-	
-	/**
-	 * 添加背景音乐
-	 * @soundName 声音名
 	 */
-    public addBGM(soundName: string) {
+    public addSound(soundName: string) {
         var sound: egret.Sound = RES.getRes(soundName);
         if(sound) {
-            this.bgmList[soundName] = sound;
+            this.soundList[soundName] = sound;
         } else {
             console.error("声音不存在:",soundName);
         }
@@ -46,74 +31,82 @@ class SoundManager extends SingleClass{
 	 * 播放声音
 	 * @soundName 声音名
 	 * @loop 循环次数
-	 */ 
-	public playEffect(soundName:string, loop:number = 1){
-        var sound:egret.Sound = this.soundList[soundName];
-        if(sound){
+	 */
+    public playEffect(soundName: string,loop: number = 1) {
+        if(this.allowEffect == false){
+            return;
+        }
+        var sound: egret.Sound = this.soundList[soundName];
+        if(sound) {
             sound.type = egret.Sound.EFFECT;
             sound.play(0,loop);
-        }else{
+        } else {
             //TODO
         }
-	}
+    }
 	
 	/**
 	 * 播放背景音乐
 	 * @soundName 声音名
-	 */ 
-	public playBGM(soundName:string){
-    	var sound:egret.Sound = this.soundList[soundName];
-    	if(sound){
-        sound.type = egret.Sound.MUSIC;
+	 */
+    public playBGM(soundName: string) {
+        if(this.allowBGM == false){
+            return;
+        }
+        var sound: egret.Sound = this.soundList[soundName];
+        if(sound) {
+            sound.type = egret.Sound.MUSIC;
+            if(this.bgmChannel == null) {
+                this.bgmChannel = sound.play(0,Number.MAX_VALUE);
+            }
+        }else{
+            //TODO
+        }
+    }
+	
+	/**
+	 * 停止背景音乐
+	 */
+    public stopBGM() {
         if(this.bgmChannel) {
             this.bgmChannel.stop();
             this.bgmChannel = null;
         }
-        this.bgmChannel = sound.play(0, Number.MAX_VALUE);
-    	}else{
-        //TODO
-    	}
-	}
+    }
+    
+    /**暂停背景音乐*/
+    public pauseBGM(){
+        if(this.bgmChannel){
+            this.bgmChannel.volume = 0;
+        }
+    }
+    
+    /**继续背景音乐*/
+    public resumeBGM(){
+        if(this.bgmChannel){
+            this.bgmChannel.volume = 1;
+        }
+    }
 	
-	/**
-	 * 停止背景音乐
-	 */ 
-	public stopBGM(){
-    	if(this.bgmChannel){
-        	this.bgmChannel.stop();
-        	this.bgmChannel = null;
-    	}
-	}
+    /**是否允许播放音效*/
+    public get allowEffect(): boolean {
+        return this._allowEffect;
+    }
 	
-	/**是否允许播放音效*/
-	public get allowEffect():boolean{
-    	return this._allowEffect;
-	}
+    /**是否允许播放音效*/
+    public set allowEffect(allow: boolean) {
+        this._allowEffect = allow;
+    }
 	
-	/**是否允许播放音效*/
-	public set allowEffect(allow:boolean){
-    	this._allowEffect = allow;
-	}
+    /**是否允许播放背景音乐*/
+    public get allowBGM(): boolean {
+        return this._allowBGM;
+    }
 	
-	/**是否允许播放背景音乐*/
-	public get allowBGM():boolean{
-    	return this._allowBGM;
-	}
-	
-	/**是否允许播放背景音乐*/
-	public set allowBGM(allow:boolean){
-    	this._allowBGM = allow;
-    	//设置为允许，则自动播放背景音乐
-    	if(allow){
-         for(var key in this.bgmList){
-             this.playBGM(key);
-             break;
-         }
-      //设置为不允许，则停止播放背景音乐
-    	}else{
-          this.stopBGM();
-    	}
-	}
+    /**是否允许播放背景音乐*/
+    public set allowBGM(allow: boolean) {
+        this._allowBGM = allow;
+    }
 }
 
 

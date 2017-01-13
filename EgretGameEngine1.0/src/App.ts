@@ -8,7 +8,7 @@ class App extends BaseApp{
 	/**启动app*/
 	public startup(){
         App.SceneManager.register("HomeScene", HomeScene);
-        App.SceneManager.open("HomeScene");
+        App.SceneManager.replaceScene("HomeScene");
 	}
 	
     /**版本管理*/
@@ -84,6 +84,21 @@ class App extends BaseApp{
 	/**声音管理类*/
 	public static get Sound():SoundManager{
     	return SoundManager.getInstance();
+	}
+	
+	/**设备管理类*/
+	public static get DeviceUtils():DeviceUtils{
+    	return DeviceUtils.getInstance();
+	}
+	
+	/**蓝月亮SDK*/
+    public static get BluemoonSDK(): BluemoonSDK{
+        return BluemoonSDK.getInstance();
+	}
+	
+	/**微信分享*/
+	public static get WxContent():WxContent{
+    	return WxContent.getInstance();
 	}
 }
 
