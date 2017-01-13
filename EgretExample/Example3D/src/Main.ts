@@ -56,6 +56,10 @@ class Main extends egret.DisplayObject{
 		//this.loaderTerrain();
 		//创建线框
 		this.createWireframeForGeometry();
+		//碰撞
+		this.colliose();
+		//粒子
+		this.createParticle();
 
 		console.log("Hello egret3D");
 	}
@@ -400,6 +404,29 @@ class Main extends egret.DisplayObject{
 		cubeWireframe.fromGeometry(this.cube.geometry);
 		// 把cube的线框绑定在cube上
 		this.cube.addChild(cubeWireframe);
+	}
+
+	/**碰撞检测*/
+	private colliose(){
+		//点碰撞
+		var pointResult:boolean = this.cube.bound.pointIntersect(new egret3d.Vector3D(0,0,0));
+		console.log("pointResult:", pointResult);
+
+		//射线碰撞
+		var pickResult:egret3d.PickResult = new egret3d.PickResult();
+		var ray:egret3d.Ray = new egret3d.Ray(new egret3d.Vector3D(100,100,100), new egret3d.Vector3D(-100,-100,-100));
+		var rayResult = ray.IntersectMeshEx(this.cube, 1, pickResult);
+		console.log("rayResult:", rayResult);   //射中不算，射穿才算？
+		console.log("pickResult:", pickResult); //??
+
+		//模型碰撞
+		var modelResult:boolean = this.cube.bound.intersect(this.textureCube.bound);
+		console.log("modelResult:", modelResult);
+	}
+
+	/**粒子效果*/
+	private createParticle(){
+		
 	}
 }
 
