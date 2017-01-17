@@ -1,0 +1,20 @@
+{"frames": [
+
+{
+	"filename": "fonts.png",
+	"frame": {"x":2,"y":2,"w":72,"h":103},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":72,"h":103},
+	"sourceSize": {"w":72,"h":103}
+}],
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "fonts.png",
+	"format": "RGBA8888",
+	"size": {"w":128,"h":128},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6b7dbc6b9ceca74f35b55a5c770b685f$"
+}
+}

@@ -1,0 +1,2 @@
+unity4.7.1_Egret3D_Dll.unitypackage包在官方3d群文件里下载。
+然后在unity中打开，才能拿到测试的素材资源文件。
