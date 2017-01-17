@@ -1,0 +1,148 @@
+{
+  "version": "1.1",
+  "type": "scene",
+  "propertyAnimations": [],
+  "nodes": [
+    {
+      "type": "Camera3D",
+      "insID": "6978",
+      "parent": "-1",
+      "name": "Camera",
+      "fov": "60",
+      "clipNear": "30",
+      "clipFar": "100000",
+      "pos": {
+        "x": "-43",
+        "y": "140",
+        "z": "-397"
+      },
+      "rot": {
+        "rx": "0",
+        "ry": "0",
+        "rz": "0",
+        "rw": "1"
+      },
+      "scale": {
+        "sx": "1",
+        "sy": "1",
+        "sz": "1"
+      }
+    },
+    {
+      "type": "Terrain",
+      "insID": "6992",
+      "parent": "-1",
+      "name": "Example_Terrain",
+      "path": "Terrain/Heightmap_1.jpg",
+      "tagName": "normalAlphaObject",
+      "pos": {
+        "x": "4000",
+        "y": "0",
+        "z": "4000"
+      },
+      "rot": {
+        "rx": "0",
+        "ry": "0",
+        "rz": "0",
+        "rw": "1"
+      },
+      "scale": {
+        "sx": "1",
+        "sy": "1",
+        "sz": "1"
+      },
+      "geometry": {
+        "type": "ElevationGeometry",
+        "width": "8000",
+        "height": "1062.077",
+        "depth": "8000",
+        "segmentsW": "200",
+        "segmentsH": "200",
+        "uScale": "1",
+        "vScale": "1"
+      },
+      "grass": [
+        {
+          "detailTexture": "Terrain/Detailmap_0.jpg",
+          "grassTexture": "Terrain/Detail_texture_0.png",
+          "minWidth": 100.0,
+          "maxWidth": 100.0,
+          "minHeight": 100.0,
+          "maxHeight": 100.0,
+          "noiseSpread": 0.1,
+          "healthyColor": "0xffffff",
+          "dryColor": "0xffffff",
+          "billboard": true
+        }
+      ],
+      "mats": "2"
+    }
+  ],
+  "mats": [
+    {
+      "id": "2",
+      "diffuseTextureName": "",
+      "normalTextureName": "",
+      "specularTextureName": "",
+      "shadowTextureName": "",
+      "diffuseColor": "0xffffff",
+      "ambientColor": "0xffffff",
+      "specularColor": "0x000000",
+      "alpha": "1",
+      "cutAlpha": "0",
+      "specularLevel": "1",
+      "gloss": "1",
+      "ambientPower": "1",
+      "diffusePower": "1",
+      "normalPower": "1",
+      "castShadow": "false",
+      "acceptShadow": "false",
+      "smooth": "true",
+      "repeat": "true",
+      "bothside": "false",
+      "drawMode": "4",
+      "cullMode": "1029",
+      "blendMode": "NORMAL",
+      "methods": {
+        
+        "terrainARGBMethod": {
+          "textures": [
+            {
+              "path": "Terrain/Alphamap_1.jpg",
+              "attributeName": "controlTexture"
+            },
+            {
+              "path": "Terrain/SplatPrototype_texture_0.jpg",
+              "attributeName": "splat_0_Texture",
+              "uvTitlingX": "26.66667",
+              "uvTitlingY": "26.66667"
+            },
+            {
+              "path": "Terrain/SplatPrototype_texture_1.jpg",
+              "attributeName": "splat_1_Texture",
+              "uvTitlingX": "16",
+              "uvTitlingY": "16"
+            },
+            {
+              "path": "Terrain/SplatPrototype_texture_2.jpg",
+              "attributeName": "splat_2_Texture",
+              "uvTitlingX": "26.66667",
+              "uvTitlingY": "26.66667"
+            },
+            {
+              "path": "Terrain/SplatPrototype_texture_3.jpg",
+              "attributeName": "splat_3_Texture",
+              "uvTitlingX": "26.66667",
+              "uvTitlingY": "26.66667"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "env": {
+    "directLight": "close",
+    "pointLight": "close",
+    "lightList": []
+  }
+}

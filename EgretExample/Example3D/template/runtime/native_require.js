@@ -8,8 +8,7 @@ var game_file_list = [
 	"libs/modules/egret3d/egret3d.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
-	"bin-debug/Main2.js",
-	"bin-debug/Main4.js",
+	"bin-debug/UnityScene.js",
 	//----auto game_file_list end----
 ];
 
@@ -38,14 +37,14 @@ egret_native.egretStart = function () {
         //以下为自动修改，请勿修改
         //----auto option start----
 		entryClassName: "Main",
-		frameRate: 30,
+		frameRate: 60,
 		scaleMode: "noScale",
 		contentWidth: 640,
 		contentHeight: 960,
 		showPaintRect: false,
-		showFPS: false,
+		showFPS: true,
 		fpsStyles: "x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9",
-		showLog: false,
+		showLog: true,
 		logFilter: "",
 		maxTouches: 2,
 		textureScaleFactor: 1

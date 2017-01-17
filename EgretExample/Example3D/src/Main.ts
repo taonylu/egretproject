@@ -24,6 +24,12 @@ class Main extends egret.DisplayObject{
 		//隐藏div图标
 		let loadingMap = document.getElementById('loadingCon');
 		loadingMap.hidden = true;
+
+		//测试Unity插件导出
+		new UnityScene();
+		return;
+
+		
 		//创建3d画布
 		this.create3DCanvas();
 		//创建视口
@@ -40,7 +46,7 @@ class Main extends egret.DisplayObject{
 		//this.keyControl();
 		//创建灯光
 		this.createLight();
-		//加载测试
+		//加载测试 人物模型、骨骼动画
 		this.loadTest();
 		//声音测试
 		this.soundTest();
@@ -60,6 +66,10 @@ class Main extends egret.DisplayObject{
 		this.colliose();
 		//粒子
 		this.createParticle();
+		//自定义粒子效果
+		this.createComParticle();
+		//GUI
+		this.createGUI();
 
 		console.log("Hello egret3D");
 	}
@@ -426,7 +436,161 @@ class Main extends egret.DisplayObject{
 
 	/**粒子效果*/
 	private createParticle(){
-		
+		var queueLoader:egret3d.QueueLoader = new egret3d.QueueLoader();
+		var mat: egret3d.TextureMaterial = new egret3d.TextureMaterial();
+		mat.ambientColor = 0xffffff;
+		// 获取资源 这张贴图不是透明贴图 
+		mat.diffuseTexture = queueLoader.getAsset("resource/doc/ice_0001.png");
+		// 设置渲染模式  颜色叠加渲染出来的效果会受背景影响
+		mat.blendMode = egret3d.BlendMode.ADD;
+		var particle: egret3d.ParticleEmitter;
+		var data: egret3d.ParticleData = new egret3d.ParticleData();
+		data.followTarget = new egret3d.ParticleDataFollowTarget();
+		// 设置最大粒子数量 
+		data.property.particleCount = 1000;
+		// 
+		data.shape.type = egret3d.ParticleDataShapeType.Point;
+		var moveSpeed: egret3d.ParticleDataMoveSpeed = new egret3d.ParticleDataMoveSpeed();
+		moveSpeed.min = 80;
+		moveSpeed.max = 100;
+		data.moveSpeed = moveSpeed;
+		var lifeData: egret3d.ParticleDataLife = data.life;
+		lifeData.duration = 20;
+		lifeData.min = lifeData.max = 2;
+		var emission: egret3d.ParticleDataEmission = data.emission;
+		emission.rate = 10;
+		// 爆发的粒子数据
+		emission.bursts = [];
+		emission.bursts.push(new egret3d.Point(2.0, 25));
+		emission.bursts.push(new egret3d.Point(4.0, 20));
+		emission.bursts.push(new egret3d.Point(6.0, 45));
+		// 数据矫正
+		data.validate();
+		// 创建跟随的cube
+		this.cube = new egret3d.Mesh(new egret3d.CubeGeometry(10, 10, 10));
+		this.view3D.addChild3D(this.cube);
+		// 数据准备好后创建粒子
+		particle = new egret3d.ParticleEmitter(data, mat);
+		// 设置跟随的对象
+		particle.followTarget = this.cube;
+		// 播放粒子
+		particle.play();
+		// 加入场景 
+		this.view3D.addChild3D(particle);
 	}
+
+	//自定义粒子效果
+	private particle:egret3d.ParticleEmitter;
+	//创建一个粒子特效
+	private createComParticle():void{
+		var material: egret3d.MaterialBase = this.createMaterial();
+		var particleData: egret3d.ParticleData = this.createParticleData();
+		this.particle = new egret3d.ParticleEmitter(particleData, material);
+		this.particle.play();
+		this.view3D.addChild3D(this.particle);
+	}
+	//创建一个粒子数据
+	private createParticleData(): egret3d.ParticleData {
+		var data: egret3d.ParticleData = new egret3d.ParticleData();
+		data.geometry.planeW = data.geometry.planeH = 30;
+		var life: egret3d.ParticleDataLife = data.life;
+		life.max = 6;
+		life.min = 6;
+		life.duration = 5;
+		life.delay = 0.5;
+		life.loop = true;
+		var emission: egret3d.ParticleDataEmission = data.emission;
+		emission.rate = 2;
+		var property: egret3d.ParticleDataProperty = data.property;
+		property.particleCount = 100;
+		property.renderMode = egret3d.ParticleRenderModeType.StretchedBillboard;
+		property.colorConst1.setTo(255, 255, 255, 255);
+		property.colorConst2.setTo(255, 255, 255, 255);
+		property.gravity = 5;
+		var speed: egret3d.ParticleDataMoveSpeed = data.moveSpeed;
+		speed.max = 50;
+		speed.min = 50;
+		var velocityOver: egret3d.VelocityOverLifeTimeData = new egret3d.VelocityOverLifeTimeData();
+		speed.velocityOver = velocityOver;
+		speed.velocityOver.type = egret3d.ParticleValueType.OneBezier;
+		var xBezier: egret3d.BezierData = new egret3d.BezierData();
+		xBezier.posPoints.push(new egret3d.Point(0, 0));
+		xBezier.posPoints.push(new egret3d.Point(0.5, 20));
+		xBezier.posPoints.push(new egret3d.Point(0.5, 20));
+		xBezier.posPoints.push(new egret3d.Point(1.0, 8));
+		xBezier.ctrlPoints.push(new egret3d.Point(0, 10));
+		xBezier.ctrlPoints.push(new egret3d.Point(0.55, 20));
+		xBezier.ctrlPoints.push(new egret3d.Point(0.55, 20));
+		xBezier.ctrlPoints.push(new egret3d.Point(1.0, 8));
+		speed.velocityOver.xBezier1 = xBezier;
+		var yBezier: egret3d.BezierData = new egret3d.BezierData();
+		yBezier.posPoints.push(new egret3d.Point(0, 0));
+		yBezier.posPoints.push(new egret3d.Point(0.7, 40));
+		yBezier.posPoints.push(new egret3d.Point(0.7, 40));
+		yBezier.posPoints.push(new egret3d.Point(1.0, 16));
+		yBezier.ctrlPoints.push(new egret3d.Point(0, 10));
+		yBezier.ctrlPoints.push(new egret3d.Point(0.75, 40));
+		yBezier.ctrlPoints.push(new egret3d.Point(0.76, 40));
+		yBezier.ctrlPoints.push(new egret3d.Point(1.0, 20));
+		speed.velocityOver.yBezier1 = yBezier;
+		var zBezier: egret3d.BezierData = new egret3d.BezierData();
+		zBezier.posPoints.push(new egret3d.Point(0, 0));
+		zBezier.posPoints.push(new egret3d.Point(1, 0));
+		zBezier.ctrlPoints.push(new egret3d.Point(0, 0));
+		zBezier.ctrlPoints.push(new egret3d.Point(1, 0));
+		speed.velocityOver.zBezier1 = zBezier;
+		var colorOffset: egret3d.ParticleDataColorOffset = new egret3d.ParticleDataColorOffset();
+		data.colorOffset = colorOffset;
+		colorOffset.data.colors.push(new egret3d.Color(255.0, 0.0, 0.0, 255.0));
+		colorOffset.data.colors.push(new egret3d.Color(0.0, 255.0, 0.0, 255.0));
+		colorOffset.data.colors.push(new egret3d.Color(0.0, 0.0, 255.0, 255.0));
+		colorOffset.data.colors.push(new egret3d.Color(0.0, 255.0, 0.0, 255.0));
+		colorOffset.data.colors.push(new egret3d.Color(255.0, 0.0, 0.0, 128.0));
+		colorOffset.data.colors.push(new egret3d.Color(255.0, 0.0, 0.0, 0.0));
+		colorOffset.data.times.push(0.0);
+		colorOffset.data.times.push(0.2);
+		colorOffset.data.times.push(0.4);
+		colorOffset.data.times.push(0.6);
+		colorOffset.data.times.push(0.7);
+		colorOffset.data.times.push(1.0);
+		// var sizeBezier: egret3d.ParticleDataScaleBezier = new egret3d.ParticleDataScaleBezier();
+		// data.scaleBezier = sizeBezier;
+		// sizeBezier.data.posPoints.push(new egret3d.Point(0, 0));
+		// sizeBezier.data.posPoints.push(new egret3d.Point(0.4, 2));
+		// sizeBezier.data.posPoints.push(new egret3d.Point(0.4, 2));
+		// sizeBezier.data.posPoints.push(new egret3d.Point(1.0, 0.2));
+		// sizeBezier.data.ctrlPoints.push(new egret3d.Point(0, 1));
+		// sizeBezier.data.ctrlPoints.push(new egret3d.Point(0.3, 2));
+		// sizeBezier.data.ctrlPoints.push(new egret3d.Point(0.6, 2));
+		// sizeBezier.data.ctrlPoints.push(new egret3d.Point(1.0, 0.2));
+		data.validate();
+		return data;
+	}
+	//创建一个材质球
+	private createMaterial(): egret3d.MaterialBase {
+		var mat: egret3d.TextureMaterial = new egret3d.TextureMaterial();
+		mat.bothside = true;
+		mat.ambientColor = 0xffffff;
+		mat.blendMode = egret3d.BlendMode.ADD;
+		return mat;
+	}
+
+	/**创建GUI*/
+	private createGUI(){
+		var queueLoader:egret3d.QueueLoader = new egret3d.QueueLoader();
+		queueLoader.addEventListener(egret3d.LoaderEvent3D.LOADER_COMPLETE, this.onLoadGUISkinComplete, this);
+		queueLoader.loadDefaultGUISkin();
+	}
+
+	/**加载GUI完成*/
+	private onLoadGUISkinComplete(){
+		// var textField:egret3d.gui.UITextField = new egret3d.gui.UITextField();
+		// textField.x = 100;
+		// textField.y = 100;
+		// textField.text = "Test TextField";
+		// this.view3D.addGUI(textField);
+	}
+
+	
 }
 
