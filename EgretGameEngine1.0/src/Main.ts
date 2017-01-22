@@ -28,38 +28,73 @@
 //////////////////////////////////////////////////////////////////////////////////////
 
 class Main extends eui.UILayer {
-
+    /**预加载界面*/
+    private preloadScene: PreloadScene;
+    
     protected createChildren(): void {
         super.createChildren();
         let assetAdapter = new AssetAdapter();
         egret.registerImplementation("eui.IAssetAdapter",assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter",new ThemeAdapter());
         
-        //App.VersionManager.init();
+        //版本控制
+        App.VersionManager.init();
+        
+        //加载资源配置
         App.ResUtils.addConfig("resource/default.res.json", "resource/");
         App.ResUtils.loadConfig(this.onConfigComplete, this);
     }
-
+    
+    //加载exml主题
     private onConfigComplete(event:RES.ResourceEvent):void {
         let theme = new eui.Theme("resource/default.thm.json", this.stage);
         theme.addEventListener(eui.UIEvent.COMPLETE, this.onThemeLoadComplete, this);
     }
-  
+    
+    //加载预加载资源
     private onThemeLoadComplete(): void {
-        App.ResUtils.loadGroup(AssetConst.Preload, this.onResourceLoadComplete, this);
+        App.ResUtils.loadGroup(AssetConst.Preload,this.onPreloadComplete, this);
     }
-
-    private onResourceLoadComplete(event:RES.ResourceEvent):void {
-        this.startCreateScene();
-    }
-
-    private startCreateScene(){
-
+    
+    private onPreloadComplete(event:RES.ResourceEvent):void {
+        //舞台适配模式
         App.StageUtils.init(this.stage);
-        //App.VersionManager.init("1.0");
+        App.StageUtils.changeStageMode();
         
-        App.getInstance().startup();
+        //显示预加载界面
+        this.preloadScene = new PreloadScene();
+        this.addChild(this.preloadScene);
+        
+        //加载主页和游戏资源
+        var groups = [AssetConst.Home, AssetConst.Game, AssetConst.Result, AssetConst.Sound];
+        App.ResUtils.loadGroups("AllRes", groups, this.onResComplete, this.onResProgress, this);
     }
-
-
+    
+    private onResProgress(e:RES.ResourceEvent){
+        this.preloadScene.setProgress(Math.round(e.itemsLoaded/e.itemsTotal*100));
+    }
+    
+    private onResComplete(){
+        //移除预加载界面
+        this.removeChild(this.preloadScene);
+        this.preloadScene = null;
+        
+        //启动游戏
+        App.getInstance().startup();
+        
+        egret.log("舞台宽度:",this.stage.stageWidth);
+        egret.log("舞台高度:",this.stage.stageHeight);
+        egret.log("当前是否手机运行:",App.DeviceUtils.isMoile);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

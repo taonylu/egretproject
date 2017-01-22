@@ -9,6 +9,7 @@ var game_file_list = [
 	"libs/modules/tween/tween.js",
 	"libs/modules/socket/socket.js",
 	"libs/modules/weixinapi/weixinapi.js",
+	"libs/modules/dragonBones/dragonBones.js",
 	"bin-debug/framework/base/SingleClass.js",
 	"bin-debug/framework/mvc/BaseApp.js",
 	"bin-debug/App.js",
@@ -24,6 +25,7 @@ var game_file_list = [
 	"bin-debug/framework/utils/CollisionUtils.js",
 	"bin-debug/framework/utils/DateTimer.js",
 	"bin-debug/framework/utils/DeviceUtils.js",
+	"bin-debug/framework/utils/DragonBonesUtils.js",
 	"bin-debug/framework/utils/EventManager.js",
 	"bin-debug/framework/utils/LayerManager.js",
 	"bin-debug/framework/utils/NumberTool.js",
@@ -47,6 +49,7 @@ var game_file_list = [
 	"bin-debug/game/model/DataCenter.js",
 	"bin-debug/game/view/game/GameScene.js",
 	"bin-debug/game/view/home/HomeScene.js",
+	"bin-debug/game/view/preload/PreloadScene.js",
 	"bin-debug/Main.js",
 	//----auto game_file_list end----
 ];
