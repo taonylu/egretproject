@@ -6565,14 +6565,16 @@ declare namespace eui {
         private $style;
         /**
          * @language en_US
-         * The style of text.
-         * @version Egret 3.2.1
+         * Horizontal alignment of text.
+         * @default：egret.HorizontalAlign.LEFT
+         * @version Egret 2.4
          * @platform Web,Native
          */
         /**
          * @language zh_CN
-         * 文本样式。
-         * @version Egret 3.2.1
+         * 文本的水平对齐方式。
+         * @default：egret.HorizontalAlign.LEFT
+         * @version Egret 2.4
          * @platform Web,Native
          */
         style: string;

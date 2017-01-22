@@ -27,6 +27,9 @@
 	{
 	  "name": "weixinapi",
 	  "path": "libsrc/weixinapi"
-	}
+	},
+    {
+      "name": "dragonBones"
+    }
   ]
 }
