@@ -5,9 +5,10 @@
  * @date 2016/12/26
  * 
  * example:
- * var codeImg:eui.Image;    //exml上二维码图片
+ * var euiImg:eui.Image;    //exml上二维码图片
  * var qrCode:QRCode = new QRCode();
- * qrCode.showCode("resource/assets/qrcode.png", codeImg);
+ * qrCode.showHtmlCode("resource/assets/qrcode.png", euiImg);
+ * qrCode.hideHtmlCode();
  */
 class QRCode{
     /**html中<img>标签二维码*/
@@ -17,7 +18,7 @@ class QRCode{
     /**二维码图片*/
     private euiImg:egret.DisplayObject;
     /**是否允许旋转屏幕时重置二维码，在显示有黑色半透明分享提示时，不需要重置*/
-    public enable:boolean = true;
+    private enable:boolean = true;
     /**二维码是否初始化过位置*/
     private bInit:boolean = false;
     
@@ -53,6 +54,7 @@ class QRCode{
             }
         //竖屏时，设置html二维码标签，延迟一段时间才能获取euiImg.y值
         }else{
+            this.enable = true; //防止间隔小于400ms时，二维码异步处理出错
             egret.Tween.get(this).wait(400).call(() => {
                 //禁止重置时，退出
                 if(this.enable == false){
@@ -95,6 +97,7 @@ class QRCode{
         if(App.DeviceUtils.isPC) {
             return;
         }
+        this.enable = false;
         if(this.htmlImg && this.euiImg) {
             this.htmlImg.style.display = "none";
             this.euiImg.visible = true;

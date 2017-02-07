@@ -17,14 +17,18 @@ class HomeScene extends eui.Component{
 	}
 	
 	public childrenCreated(){
-    	  
-        
-        
+        this.initDragonBones();
 	}
 	
 	/**初始化龙骨*/
 	private initDragonBones(){
-        DragonBonesUtils.getInstance().addDragonBonesByConfig(this.dragonbonesList);
+        var dragonBonesUtils: DragonBonesUtils = DragonBonesUtils.getInstance();
+        dragonBonesUtils.addDragonBonesByConfig(this.dragonbonesList);
+        var display:dragonBones.EgretArmatureDisplay =  dragonBonesUtils.getArmatureDisplay("scorpion");
+        this.addChild(display);
+        display.x = 200;
+        display.y = 200;
+        display.animation.play("attack");
 	}
 }
 

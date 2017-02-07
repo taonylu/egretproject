@@ -2,6 +2,21 @@
  * 骨骼动画工具
  * @author chenkai
  * @date 2017/1/19
+ Example:
+ //龙骨配置列表
+ private dragonbonesList = [
+        ["scorpion_json","scorpion_texture_json","scorpion_texture_png"],
+        ["SwordsMan_json","SwordsMan_texture_json","SwordsMan_texture_png"]
+    ];
+//配置数据，并获取骨骼动画
+var dragonBonesUtils: DragonBonesUtils = DragonBonesUtils.getInstance();
+dragonBonesUtils.addDragonBonesByConfig(this.dragonbonesList);
+var display:dragonBones.EgretArmatureDisplay =  dragonBonesUtils.getArmatureDisplay("scorpion");
+this.addChild(display);
+display.x = 200;
+display.y = 200;
+display.animation.play("attack");
+ 
  */
 var DragonBonesUtils = (function (_super) {
     __extends(DragonBonesUtils, _super);

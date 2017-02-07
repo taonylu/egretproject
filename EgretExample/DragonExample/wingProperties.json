@@ -14,6 +14,11 @@
 				},
 				{
 					"isFolder":false,
+					"key":"resource/assets/SwordsMan_texture.png",
+					"name":"SwordsMan_texture.png"
+				},
+				{
+					"isFolder":false,
 					"key":"resource/assets/bd81003b85ef11e6aae5fa163e223ae3/texture.png",
 					"name":"texture.png"
 				},
@@ -26,11 +31,6 @@
 					"isFolder":false,
 					"key":"resource/assets/scorpion_texture.png",
 					"name":"scorpion_texture.png"
-				},
-				{
-					"isFolder":false,
-					"key":"resource/assets/SwordsMan_texture.png",
-					"name":"SwordsMan_texture.png"
 				}
 			]
 		}
