@@ -16,10 +16,17 @@ var HomeScene = (function (_super) {
     }
     var d = __define,c=HomeScene,p=c.prototype;
     p.childrenCreated = function () {
+        this.initDragonBones();
     };
     /**初始化龙骨*/
     p.initDragonBones = function () {
-        DragonBonesUtils.getInstance().addDragonBonesByConfig(this.dragonbonesList);
+        var dragonBonesUtils = DragonBonesUtils.getInstance();
+        dragonBonesUtils.addDragonBonesByConfig(this.dragonbonesList);
+        var display = dragonBonesUtils.getArmatureDisplay("scorpion");
+        this.addChild(display);
+        display.x = 200;
+        display.y = 200;
+        display.animation.play("attack");
     };
     return HomeScene;
 }(eui.Component));

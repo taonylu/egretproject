@@ -103,14 +103,6 @@ $signPackage = $jssdk->GetSignPackage();
     
     
     <script>
-    	var wxConfig = {
-    		debug:true,
-    		appid:'<?php echo $signPackage["appId"];?>',
-    	    timestamp:'<?php echo $signPackage["timestamp"];?>',
-    	    nonceStr:'<?php echo $signPackage["nonceStr"];?>',
-    		signature:'<?php echo $signPackage["signature"];?>'
-    	}
-
         /**
          * {
          * "renderMode":, //引擎渲染模式，"canvas" 或者 "webgl"
