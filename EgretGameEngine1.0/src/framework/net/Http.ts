@@ -3,6 +3,10 @@
  * 序列发送http请求
  * @author chenkai
  * @date 2016/12/18
+ * 
+ * Example:
+ * App.Http.initServer("http://123123123.com");
+ * App.Http.send({head:"login",account:"chenkai"}, this.revLogin, this);
  */
 class Http extends SingleClass{
 	/**Request*/
@@ -40,8 +44,8 @@ class Http extends SingleClass{
 	 * @callBack 回调
 	 * @thisObject 回调执行对象
 	 */
-	public send(msg:string, callBack:Function, thisObject:any){
-		this.cacheList.push([msg, callBack, thisObject]);
+    public send(msg, callBack:Function, thisObject:any){
+        this.cacheList.push([JSON.stringify(msg), callBack, thisObject]);
 		this.next();
 	}
 

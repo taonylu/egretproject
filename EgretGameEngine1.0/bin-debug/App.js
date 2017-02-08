@@ -9,11 +9,12 @@ var App = (function (_super) {
         _super.apply(this, arguments);
     }
     var d = __define,c=App,p=c.prototype;
-    /**启动app*/
-    p.startup = function () {
-        App.SceneManager.register("HomeScene", HomeScene);
-        App.SceneManager.replaceScene("HomeScene");
-    };
+    d(App, "View"
+        /**获取视图模块*/
+        ,function () {
+            return View.getInstance();
+        }
+    );
     d(App, "VersionManager"
         /**版本管理*/
         ,function () {
@@ -44,10 +45,10 @@ var App = (function (_super) {
             return StringTool.getInstance();
         }
     );
-    d(App, "EventManager"
+    d(App, "MessageCenter"
         /**事件管理类*/
         ,function () {
-            return EventManager.getInstance();
+            return MessageCenter.getInstance();
         }
     );
     d(App, "ObjectPool"
@@ -123,5 +124,5 @@ var App = (function (_super) {
         }
     );
     return App;
-}(BaseApp));
+}(SingleClass));
 egret.registerClass(App,'App');

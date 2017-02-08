@@ -3,6 +3,9 @@
  * 后台记录玩家行为
  * @author chenkai
  * @date 2017/1/5
+ * 
+ * Example:
+ * App.BluemoonSDK.tracking(App.BluemoonSDK.SHARE_GAME);
  */
 class BluemoonSDK extends SingleClass{
     /**进入游戏*/

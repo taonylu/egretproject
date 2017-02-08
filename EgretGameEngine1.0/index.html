@@ -1,8 +1,3 @@
-<?php
-require_once "jssdk.php";
-$jssdk = new JSSDK("wx4a14bf95e973b059", "af99ce68694f39e2712e7cf7c22fe224");
-$signPackage = $jssdk->GetSignPackage();
-?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -44,13 +39,14 @@ $signPackage = $jssdk->GetSignPackage();
     <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
     <!--game_files_start-->
 	<script egret="game" src="bin-debug/framework/base/SingleClass.js"></script>
-	<script egret="game" src="bin-debug/framework/mvc/BaseApp.js"></script>
 	<script egret="game" src="bin-debug/App.js"></script>
 	<script egret="game" src="bin-debug/framework/adapter/AssetAdapter.js"></script>
 	<script egret="game" src="bin-debug/framework/adapter/ThemeAdapter.js"></script>
 	<script egret="game" src="bin-debug/framework/display/BasePanel.js"></script>
 	<script egret="game" src="bin-debug/framework/display/BaseScene.js"></script>
-	<script egret="game" src="bin-debug/framework/mvc/BaseController.js"></script>
+	<script egret="game" src="bin-debug/framework/mvc/ICommand.js"></script>
+	<script egret="game" src="bin-debug/framework/mvc/IMediator.js"></script>
+	<script egret="game" src="bin-debug/framework/mvc/View.js"></script>
 	<script egret="game" src="bin-debug/framework/net/ClientSocket.js"></script>
 	<script egret="game" src="bin-debug/framework/net/Http.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/ArrayTool.js"></script>
@@ -59,8 +55,8 @@ $signPackage = $jssdk->GetSignPackage();
 	<script egret="game" src="bin-debug/framework/utils/DateTimer.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/DeviceUtils.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/DragonBonesUtils.js"></script>
-	<script egret="game" src="bin-debug/framework/utils/EventManager.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/LayerManager.js"></script>
+	<script egret="game" src="bin-debug/framework/utils/MessageCenter.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/NumberTool.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/ObjectPool.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/PanelManager.js"></script>
@@ -72,7 +68,9 @@ $signPackage = $jssdk->GetSignPackage();
 	<script egret="game" src="bin-debug/framework/utils/StringTool.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/VersionManager.js"></script>
 	<script egret="game" src="bin-debug/framework/utils/WxContent.js"></script>
+	<script egret="game" src="bin-debug/game/command/StartupCommand.js"></script>
 	<script egret="game" src="bin-debug/game/constant/AssetConst.js"></script>
+	<script egret="game" src="bin-debug/game/constant/CmdConst.js"></script>
 	<script egret="game" src="bin-debug/game/constant/EventConst.js"></script>
 	<script egret="game" src="bin-debug/game/constant/KeyCode.js"></script>
 	<script egret="game" src="bin-debug/game/constant/PanelConst.js"></script>

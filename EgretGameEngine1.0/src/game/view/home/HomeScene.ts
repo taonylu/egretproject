@@ -13,21 +13,15 @@ class HomeScene extends BaseScene{
 	}
 	
 	public childrenCreated(){
-    	console.log("home childrenCreated");
+    	
 	}
 	
 	public onEnable(){
-        console.log("home onEnable");
-        this.test();
         
 	}
 	
 	public onRemove(){
-    	 console.log("home onRemove");
-	}
-	
-	private test(){
-    	  
+    	 
 	}
 }
 

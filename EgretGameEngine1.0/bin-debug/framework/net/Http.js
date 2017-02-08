@@ -3,6 +3,10 @@
  * 序列发送http请求
  * @author chenkai
  * @date 2016/12/18
+ *
+ * Example:
+ * App.Http.initServer("http://123123123.com");
+ * App.Http.send({head:"login",account:"chenkai"}, this.revLogin, this);
  */
 var Http = (function (_super) {
     __extends(Http, _super);
@@ -34,7 +38,7 @@ var Http = (function (_super) {
      * @thisObject 回调执行对象
      */
     p.send = function (msg, callBack, thisObject) {
-        this.cacheList.push([msg, callBack, thisObject]);
+        this.cacheList.push([JSON.stringify(msg), callBack, thisObject]);
         this.next();
     };
     /**发送下一条*/

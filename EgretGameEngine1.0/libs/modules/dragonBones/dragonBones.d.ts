@@ -61,15 +61,6 @@ declare namespace dragonBones {
     /**
      * @private
      */
-    const enum DisplayType {
-        Image = 0,
-        Armature = 1,
-        Mesh = 2,
-        Area = 3,
-    }
-    /**
-     * @private
-     */
     const enum ArmatureType {
         Armature = 0,
         MovieClip = 1,
@@ -78,10 +69,10 @@ declare namespace dragonBones {
     /**
      * @private
      */
-    const enum AreaType {
-        Rectangle = 0,
-        Circle = 1,
-        Polygon = 2,
+    const enum DisplayType {
+        Image = 0,
+        Armature = 1,
+        Mesh = 2,
     }
     /**
      * @private
@@ -218,7 +209,7 @@ declare namespace dragonBones {
          * @internal
          * @private
          */
-        _onClear(): void;
+        _onClean(): void;
         /**
          * @internal
          * @private
@@ -1249,7 +1240,6 @@ declare namespace dragonBones {
         texture: TextureData;
         armature: ArmatureData;
         mesh: MeshData;
-        area: AreaData;
         pivot: Point;
         transform: Transform;
         constructor();
@@ -1273,21 +1263,6 @@ declare namespace dragonBones {
         boneVertices: Array<Array<number>>;
         bones: Array<BoneData>;
         inverseBindPose: Array<Matrix>;
-        constructor();
-        /**
-         * @inheritDoc
-         */
-        protected _onClear(): void;
-    }
-    /**
-     * @private
-     */
-    class AreaData extends BaseObject {
-        static toString(): string;
-        type: AreaType;
-        width: number;
-        height: number;
-        vertices: Array<number>;
         constructor();
         /**
          * @inheritDoc
@@ -1789,11 +1764,6 @@ declare namespace dragonBones {
          * @private
          */
         fadeTotalTime: number;
-        /**
-         * @internal
-         * @private
-         */
-        _onFadeInComplete: boolean;
         /**
          * @internal
          * @private
@@ -2948,6 +2918,18 @@ declare namespace dragonBones {
         /**
          * @private
          */
+        _zOrder: number;
+        /**
+         * @private
+         */
+        _pivotX: number;
+        /**
+         * @private
+         */
+        _pivotY: number;
+        /**
+         * @private
+         */
         _displayDataSet: SlotDisplayDataSet;
         /**
          * @private
@@ -3015,19 +2997,7 @@ declare namespace dragonBones {
         /**
          * @private
          */
-        _zOrder: number;
-        /**
-         * @private
-         */
         protected _displayIndex: number;
-        /**
-         * @private
-         */
-        protected _pivotX: number;
-        /**
-         * @private
-         */
-        protected _pivotY: number;
         /**
          * @private
          */
@@ -3154,11 +3124,6 @@ declare namespace dragonBones {
          * @internal
          * @private
          */
-        _setZorder(value: number): boolean;
-        /**
-         * @internal
-         * @private
-         */
         _setDisplayIndex(value: number): boolean;
         /**
          * @internal
@@ -3183,7 +3148,7 @@ declare namespace dragonBones {
         /**
          * @private
          */
-        meshDisplay: any;
+        MeshDisplay: any;
         /**
          * @language zh_CN
          * 此时显示的显示对象在显示列表中的索引。
@@ -4006,7 +3971,7 @@ declare namespace dragonBones {
         /**
          * @inheritDoc
          */
-        _onClear(): void;
+        _onClean(): void;
         /**
          * @inheritDoc
          */
