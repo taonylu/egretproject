@@ -66,7 +66,7 @@ class Main extends eui.UILayer {
         this.addChild(this.preloadScene);
         
         //加载主页和游戏资源
-        var groups = [AssetConst.Home, AssetConst.Game, AssetConst.Result, AssetConst.Sound];
+        var groups = [AssetConst.Home, AssetConst.Game, AssetConst.Result];
         App.ResUtils.loadGroups("AllRes", groups, this.onResComplete, this.onResProgress, this);
     }
     
@@ -80,11 +80,9 @@ class Main extends eui.UILayer {
         this.preloadScene = null;
         
         //启动游戏
-        App.getInstance().startup();
-        
-        egret.log("舞台宽度:",this.stage.stageWidth);
-        egret.log("舞台高度:",this.stage.stageHeight);
-        egret.log("当前是否手机运行:",App.DeviceUtils.isMoile);
+        App.MessageCenter.addCommand(CmdConst.STARTUP, StartupCommand);
+        App.MessageCenter.sendCommand(CmdConst.STARTUP);
+        App.MessageCenter.removeCommand(CmdConst.STARTUP);
     }
 }
 

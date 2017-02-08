@@ -1,8 +1,15 @@
-
 /**
  * @对象池
  * @author chenkai
  * @date 2016/12/23
+ * 
+ * Example:
+ * //获取对象池
+ * var pool:Pool = App.ObjectPool.getPool("Ball",10);
+ * //获取一个Ball
+ * var ball:Ball = pool.getObject();
+ * //回收一个Ball
+ * pool.returnObject(ball);
 */
 class ObjectPool extends SingleClass{
     /**存储对象池的Object*/

@@ -15266,7 +15266,7 @@ var egret;
                 else if (fillMode == egret.BitmapFillMode.SCALE) {
                     var tsX = destW / textureWidth * scale;
                     var tsY = destH / textureHeight * scale;
-                    node.drawImage(bitmapX, bitmapY, bitmapWidth, bitmapHeight, tsX * offsetX, tsY * offsetY, tsX * bitmapWidth, tsY * bitmapHeight);
+                    node.drawImage(bitmapX, bitmapY, bitmapWidth, bitmapHeight, offsetX, offsetY, tsX * bitmapWidth, tsY * bitmapHeight);
                 }
                 else if (fillMode == egret.BitmapFillMode.CLIP) {
                     var displayW = Math.min(textureWidth, destW);
@@ -16896,7 +16896,7 @@ var egret;
         p.drawWithScrollRect = function (displayObject, context, dirtyList, matrix, clipRegion, root) {
             var drawCalls = 0;
             var scrollRect = displayObject.$scrollRect ? displayObject.$scrollRect : displayObject.$maskRect;
-            if (scrollRect.isEmpty()) {
+            if (scrollRect.width == 0 || scrollRect.height == 0) {
                 return drawCalls;
             }
             var m = egret.Matrix.create();
@@ -16911,7 +16911,9 @@ var egret;
                 }
             }
             var region = egret.sys.Region.create();
-            region.updateRegion(scrollRect, m);
+            if (!scrollRect.isEmpty()) {
+                region.updateRegion(scrollRect, m);
+            }
             if (region.isEmpty() || (clipRegion && !clipRegion.intersects(region))) {
                 egret.sys.Region.release(region);
                 egret.Matrix.release(m);
@@ -17832,7 +17834,7 @@ var egret;
              * @platform Web,Native
              */
             ,function () {
-                return "3.2.4";
+                return "3.2.3";
             }
         );
         /**

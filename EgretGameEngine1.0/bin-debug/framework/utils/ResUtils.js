@@ -1,6 +1,20 @@
 /**
  * 资源加载
  * 支持单个或多个资源组加载
+ *
+ * Example:
+ * //添加配置文件，并加载配置文件
+ * App.ResUtils.addConfig("resource/default.res.json", "resource/");
+ * App.ResUtils.loadConfig(this.onConfigComplete, this);
+ *
+ * //静默加载
+ * App.ResUtils.loadGroupQuiet("preload");
+ *
+ * //加载单个资源组
+ * App.ResUtils.loadGroup("preload", this.onPreloadComplete, this);
+ *
+ * //加载多个资源组
+ * App.ResUtils.loadGroups("All",["preload","home"],this.onLoadComplete,this.onLoadProgress, this);
  */
 var ResUtils = (function (_super) {
     __extends(ResUtils, _super);

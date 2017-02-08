@@ -2,6 +2,14 @@
  * 弹框面板加载类
  * @author chenkai
  * @date 2016/12/23
+ *
+ * Example:
+ * //注册面板
+ * App.PanelManager.register("LoginPanel", LoginPanel, AssetConst.LoginPanel);
+ * //打开面板
+ * App.PanelManager.open("LoginPanel");
+ * //关闭面板
+ * App.PanelManager.close("LoginPanel");
  */
 var PanelManager = (function (_super) {
     __extends(PanelManager, _super);

@@ -5,7 +5,7 @@
  */
 class NumberTool extends SingleClass{
 	/**
-     * 获取范围内随机整数 [start,end]
+     * 获取范围内随机整数 getRandInt(1,3)随机获取1,2,3
      * @start 起始整数 
      * @end 终止整数
      */

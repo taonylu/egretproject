@@ -3,13 +3,12 @@
  * @author chenkai 
  * @date 2016/12/18
  */
-class App extends BaseApp{
+class App extends SingleClass{
 	
-	/**启动app*/
-	public startup(){
-        App.SceneManager.register("HomeScene", HomeScene);
-        App.SceneManager.replaceScene("HomeScene");
-	}
+    /**获取视图模块*/
+    public static get View(): View{
+        return View.getInstance();
+    }
 	
     /**版本管理*/
 	public static get VersionManager():VersionManager{
@@ -37,8 +36,8 @@ class App extends BaseApp{
 	}
 
 	/**事件管理类*/
-	public static get EventManager():EventManager{
-		return EventManager.getInstance();
+    public static get MessageCenter(): MessageCenter{
+        return MessageCenter.getInstance();
 	}
 
 	/**对象池*/

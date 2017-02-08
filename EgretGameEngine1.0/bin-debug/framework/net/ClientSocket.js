@@ -2,6 +2,10 @@
  * Socket类
  * @author chenkai
  * @date 2016/12/19
+ *
+ * Example:
+ * App.Socket.connect("127.0.0.1:3000");
+ * App.socket.Send("Login",{account:"chenkai", password:"123456"});
  */
 var ClientSocket = (function (_super) {
     __extends(ClientSocket, _super);
@@ -19,7 +23,7 @@ var ClientSocket = (function (_super) {
      * serverUrl 服务器地址
      * @allowReconnect 是否允许重连(默认false)
      */
-    p.connenct = function (serverUrl, allowReconnect) {
+    p.connect = function (serverUrl, allowReconnect) {
         if (allowReconnect === void 0) { allowReconnect = false; }
         this.resetReconnect();
         this.allowReconnect = allowReconnect;
@@ -40,22 +44,35 @@ var ClientSocket = (function (_super) {
     /**连接成功*/
     p.onConnect = function (e) {
         this.resetReconnect();
-        App.EventManager.sendEvent(SocketConst.SOCKET_CONNECT, this);
+        App.MessageCenter.sendEvent(SocketConst.SOCKET_CONNECT, this);
+    };
+    /**
+     * 发送数据
+     * @param proto 数据协议
+     * @param json  json格式数据
+     */
+    p.send = function (proto, json) {
+        var data = JSON.stringify(json);
+        var byte = new egret.ByteArray();
+        byte.writeUTF(proto);
+        byte.writeInt(data.length);
+        byte.writeUTFBytes(data);
+        this.socket.writeBytes(byte);
+        this.socket.flush();
     };
     /**接收数据*/
     p.onReceive = function (e) {
         var byte = new egret.ByteArray();
         this.socket.readBytes(byte);
-        //TODO
-        //var proto:string = byte.readUTF();
-        //var dataLen:number = byte.readInt();
-        //var json = JSON.parse(byte.readUTFBytes(dataLen));
-        //App.EventManager.sendEvent(proto,json);
+        var proto = byte.readUTF();
+        var dataLen = byte.readInt();
+        var json = JSON.parse(byte.readUTFBytes(dataLen));
+        App.MessageCenter.sendCommand(proto, json);
     };
     /**连接错误*/
     p.onError = function (e) {
         if (this.checkReconnenct() == false) {
-            App.EventManager.sendEvent(SocketConst.SOCKET_ERROR, this);
+            App.MessageCenter.sendEvent(SocketConst.SOCKET_ERROR, this);
         }
     };
     /**连接断开*/
@@ -63,11 +80,11 @@ var ClientSocket = (function (_super) {
         if (this.checkReconnenct()) {
             this.curReconnectCount++;
             this.socket.connectByUrl(this.serverUrl);
-            App.EventManager.sendEvent(SocketConst.SOCKET_RECONNECT, this, this.curReconnectCount);
+            App.MessageCenter.sendEvent(SocketConst.SOCKET_RECONNECT, this, this.curReconnectCount);
         }
         else {
             this.resetReconnect();
-            App.EventManager.sendEvent(SocketConst.SOCKET_CLOSE, this);
+            App.MessageCenter.sendEvent(SocketConst.SOCKET_CLOSE, this);
         }
     };
     /**

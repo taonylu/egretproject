@@ -2,6 +2,13 @@
  * 舞台管理类
  * @author chenkai
  * @date 2016/12/23
+ *
+ * Example:
+ * //进入游戏场景钱，先初始化stage
+ * App.StageUtils.init(this.stage);
+ *
+ * //全局获取stage
+ * App.StageUtils.getStage();
  */
 var StageUtils = (function (_super) {
     __extends(StageUtils, _super);
@@ -32,12 +39,10 @@ var StageUtils = (function (_super) {
     /**改变舞台适配模式 PC上showall，手机上大于4:3FixedWidth，小于4:3showAll*/
     p.changeStageMode = function () {
         if (App.DeviceUtils.isPC) {
-            this.changeBgColor("#ffffff");
             this.getStage().orientation = egret.OrientationMode.AUTO;
             this.getStage().scaleMode = egret.StageScaleMode.SHOW_ALL;
         }
         else {
-            this.changeBgColor("#fb5116");
             if (this.stageHeight / this.stageWidth <= 4 / 3) {
                 this.getStage().scaleMode = egret.StageScaleMode.SHOW_ALL;
             }

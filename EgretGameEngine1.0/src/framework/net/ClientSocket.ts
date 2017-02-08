@@ -2,6 +2,10 @@
  * Socket类
  * @author chenkai
  * @date 2016/12/19
+ * 
+ * Example:
+ * App.Socket.connect("127.0.0.1:3000");
+ * App.socket.Send("Login",{account:"chenkai", password:"123456"});
  */
 class ClientSocket extends SingleClass{
 	/**WebSocket*/
@@ -20,7 +24,7 @@ class ClientSocket extends SingleClass{
 	 * serverUrl 服务器地址
 	 * @allowReconnect 是否允许重连(默认false)
 	 */
-	public connenct(serverUrl:string, allowReconnect:boolean = false){
+	public connect(serverUrl:string, allowReconnect:boolean = false){
 		this.resetReconnect();
 		this.allowReconnect = allowReconnect;
 		this.createSocket();
@@ -42,25 +46,38 @@ class ClientSocket extends SingleClass{
 	/**连接成功*/
 	private onConnect(e:egret.Event){
 		this.resetReconnect();
-		App.EventManager.sendEvent(SocketConst.SOCKET_CONNECT, this);
+        App.MessageCenter.sendEvent(SocketConst.SOCKET_CONNECT, this);
+	}
+	
+	/**
+	 * 发送数据
+	 * @param proto 数据协议
+	 * @param json  json格式数据
+	 */ 
+	public send(proto:string, json){
+        var data = JSON.stringify(json);
+    	var byte:egret.ByteArray = new egret.ByteArray();
+    	byte.writeUTF(proto);
+    	byte.writeInt(data.length);
+    	byte.writeUTFBytes(data);
+    	this.socket.writeBytes(byte);
+    	this.socket.flush();
 	}
 
 	/**接收数据*/
 	private onReceive(e:egret.Event){
 		var byte:egret.ByteArray = new egret.ByteArray();
         this.socket.readBytes(byte);
-
-		//TODO
-		//var proto:string = byte.readUTF();
-		//var dataLen:number = byte.readInt();
-        //var json = JSON.parse(byte.readUTFBytes(dataLen));
-		//App.EventManager.sendEvent(proto,json);
+		var proto:string = byte.readUTF();
+		var dataLen:number = byte.readInt();
+        var json = JSON.parse(byte.readUTFBytes(dataLen));
+		App.MessageCenter.sendCommand(proto,json);
 	}
 
 	/**连接错误*/
 	private onError(e:egret.Event){
 		if(this.checkReconnenct() == false){
-			App.EventManager.sendEvent(SocketConst.SOCKET_ERROR, this);
+            App.MessageCenter.sendEvent(SocketConst.SOCKET_ERROR, this);
 		}
 	}
 
@@ -69,10 +86,10 @@ class ClientSocket extends SingleClass{
 		if(this.checkReconnenct()){
 			this.curReconnectCount++;
 			this.socket.connectByUrl(this.serverUrl);
-			App.EventManager.sendEvent(SocketConst.SOCKET_RECONNECT, this, this.curReconnectCount);
+            App.MessageCenter.sendEvent(SocketConst.SOCKET_RECONNECT, this, this.curReconnectCount);
 		}else{
 			this.resetReconnect();
-			App.EventManager.sendEvent(SocketConst.SOCKET_CLOSE, this);
+            App.MessageCenter.sendEvent(SocketConst.SOCKET_CLOSE, this);
 		}
 	}
 

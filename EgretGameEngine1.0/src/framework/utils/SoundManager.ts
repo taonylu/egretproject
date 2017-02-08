@@ -3,6 +3,21 @@
  * @author chenkai
  * @date 2016/12/26 
  *
+ * Example:
+ * //添加声音
+ * App.Sound.addSound("bgm");
+ * App.Sound.addSound("attack");
+ * 
+ * //播放声音
+ * App.Sound.playEffect("attack");
+ * App.Sound.playBGM("bgm");
+ * 
+ * //停止声音
+ * App.Sound.StopBGM();
+ * 
+ * //设置声音权限
+ * App.Sound.allowEffect = true;
+ * App.Sound.allowBGM = true;
  */
 class SoundManager extends SingleClass {
     /**允许播放音效*/

@@ -4,7 +4,10 @@
  * @date 2017/1/5
  * 
  * Example:
+ * //配置微信
  * App.WxContent.configWx();
+ * 
+ * //游戏有得分后，重新设置分享标题
  * App.WxContent.setTitle("这是一个重新设置的分享标题");
  * 
  */ 

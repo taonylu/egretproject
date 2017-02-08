@@ -2,6 +2,10 @@
  * 场景管理类
  * @author chenkai
  * @date 2016/12/23
+ *
+ * Example:
+ * App.SceneManager.register("HomeScene", HomeScene);
+ * App.SceneManager.open("HomeScene");
  */
 var SceneManager = (function (_super) {
     __extends(SceneManager, _super);
@@ -22,32 +26,28 @@ var SceneManager = (function (_super) {
         this.clzMap[sceneName] = sceneClz;
     };
     /**
-     * 运行场景
+     * 打开场景
      * @sceneName 场景名
-     * @destory 是否销毁上一场景
      */
-    p.replaceScene = function (sceneName, destroy) {
-        if (destroy === void 0) { destroy = false; }
+    p.open = function (sceneName) {
         var scene = this.sceneMap[sceneName];
         if (scene) {
-            this.openScene(scene);
+            this.replaceScene(scene);
         }
         else {
             var clz = this.clzMap[sceneName];
             if (clz) {
                 scene = new clz();
                 this.sceneMap[sceneName] = scene;
-                this.openScene(scene, destroy);
+                this.replaceScene(scene);
             }
         }
     };
     /**
      * 打开场景
      * @sceneName 场景名
-     * @destroy 是否销毁上一场景
      */
-    p.openScene = function (scene, destroy) {
-        if (destroy === void 0) { destroy = false; }
+    p.replaceScene = function (scene) {
         scene.once(egret.Event.ADDED_TO_STAGE, function () {
             scene.onEnable();
         }, this);
@@ -56,7 +56,6 @@ var SceneManager = (function (_super) {
         if (removeScene) {
             removeScene.once(egret.Event.REMOVED_FROM_STAGE, function () {
                 removeScene.onRemove();
-                //TODO 销毁上一场景
             }, this);
             App.LayerManager.sceneLayer.removeChild(removeScene);
         }

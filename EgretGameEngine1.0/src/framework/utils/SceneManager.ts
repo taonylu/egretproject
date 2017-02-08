@@ -2,6 +2,10 @@
  * 场景管理类
  * @author chenkai
  * @date 2016/12/23
+ * 
+ * Example:
+ * App.SceneManager.register("HomeScene", HomeScene);
+ * App.SceneManager.open("HomeScene");
  */
 class SceneManager extends SingleClass {
     /**面板实例*/
@@ -25,20 +29,19 @@ class SceneManager extends SingleClass {
     }
 
 	/**
-	 * 运行场景
+	 * 打开场景
 	 * @sceneName 场景名
-	 * @destory 是否销毁上一场景
 	 */
-    public replaceScene(sceneName: string,destroy: boolean = false) {
+    public open(sceneName: string) {
         var scene: BaseScene = this.sceneMap[sceneName];
         if(scene) {
-            this.openScene(scene);
+            this.replaceScene(scene);
         } else {
             var clz = this.clzMap[sceneName];
             if(clz) {
                 scene = new clz();
                 this.sceneMap[sceneName] = scene;
-                this.openScene(scene,destroy);
+                this.replaceScene(scene);
             }
         }
     }
@@ -46,10 +49,9 @@ class SceneManager extends SingleClass {
 	/**
 	 * 打开场景
 	 * @sceneName 场景名
-	 * @destroy 是否销毁上一场景
 	 */
-    private openScene(scene: BaseScene,destroy: boolean = false) {
-        scene.once(egret.Event.ADDED_TO_STAGE,() => {
+    private replaceScene(scene: BaseScene) {
+        (<BaseScene>scene).once(egret.Event.ADDED_TO_STAGE,() => {
             scene.onEnable();
         },this);
         App.LayerManager.sceneLayer.addChild(scene);
@@ -58,7 +60,6 @@ class SceneManager extends SingleClass {
         if(removeScene) {
             removeScene.once(egret.Event.REMOVED_FROM_STAGE,() => {
                 removeScene.onRemove();
-                //TODO 销毁上一场景
             },this);
             App.LayerManager.sceneLayer.removeChild(removeScene);
         }
