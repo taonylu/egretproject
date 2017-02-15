@@ -78,7 +78,7 @@ class Main extends eui.UILayer {
         //移除预加载界面
         this.removeChild(this.preloadScene);
         this.preloadScene = null;
-        
+    
         //启动游戏
         App.MessageCenter.addCommand(CmdConst.STARTUP, StartupCommand);
         App.MessageCenter.sendCommand(CmdConst.STARTUP);
