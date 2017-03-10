@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * 蓝月亮SDK
  * 后台记录玩家行为
@@ -10,21 +18,20 @@
 var BluemoonSDK = (function (_super) {
     __extends(BluemoonSDK, _super);
     function BluemoonSDK() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
-    var d = __define,c=BluemoonSDK,p=c.prototype;
     /**
      * 记录数据
      * @title 标题
      */
-    p.tracking = function (title) {
+    BluemoonSDK.prototype.tracking = function (title) {
         if (window["tracking"]) {
             console.log("bluemoon tracking:", title);
             window["tracking"].event(title, this.getDate());
         }
     };
     /**获取日期*/
-    p.getDate = function () {
+    BluemoonSDK.prototype.getDate = function () {
         var date = new Date();
         var seperator1 = "-";
         var seperator2 = ":";
@@ -43,14 +50,14 @@ var BluemoonSDK = (function (_super) {
             + seperator2 + date.getSeconds();
         return currentdate;
     };
-    /**进入游戏*/
-    BluemoonSDK.ENTER_GAME = "enter_game";
-    /**分享游戏*/
-    BluemoonSDK.SHARE_GAME = "share_game";
-    /**开始游戏*/
-    BluemoonSDK.START_GAME = "start_game";
-    /**进入商城*/
-    BluemoonSDK.ENTER_SHOP = "enter_shop";
     return BluemoonSDK;
 }(SingleClass));
-egret.registerClass(BluemoonSDK,'BluemoonSDK');
+/**进入游戏*/
+BluemoonSDK.ENTER_GAME = "enter_game";
+/**分享游戏*/
+BluemoonSDK.SHARE_GAME = "share_game";
+/**开始游戏*/
+BluemoonSDK.START_GAME = "start_game";
+/**进入商城*/
+BluemoonSDK.ENTER_SHOP = "enter_shop";
+__reflect(BluemoonSDK.prototype, "BluemoonSDK");

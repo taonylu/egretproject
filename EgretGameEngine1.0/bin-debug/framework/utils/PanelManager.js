@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * 弹框面板加载类
  * @author chenkai
@@ -14,20 +22,20 @@
 var PanelManager = (function (_super) {
     __extends(PanelManager, _super);
     function PanelManager() {
-        _super.call(this);
+        var _this = _super.call(this) || this;
         /**面板实例*/
-        this.panelMap = {};
+        _this.panelMap = {};
         /**面板类定义*/
-        this.clzMap = {};
+        _this.clzMap = {};
         /**面板所需资源组*/
-        this.groupMap = {};
+        _this.groupMap = {};
+        return _this;
     }
-    var d = __define,c=PanelManager,p=c.prototype;
     /**
      * @注册
      * @clz panel类名
      */
-    p.register = function (panelName, panelClz, groupName) {
+    PanelManager.prototype.register = function (panelName, panelClz, groupName) {
         if (groupName === void 0) { groupName = null; }
         this.clzMap[panelName] = panelClz;
         this.groupMap[panelName] = groupName;
@@ -39,7 +47,7 @@ var PanelManager = (function (_super) {
      * @thisObject 回调函数执行对象
      * @reutrn 返回打开的面板
      */
-    p.open = function (panelName, callBack, thisObject) {
+    PanelManager.prototype.open = function (panelName, callBack, thisObject) {
         var _this = this;
         if (callBack === void 0) { callBack = null; }
         if (thisObject === void 0) { thisObject = null; }
@@ -67,7 +75,7 @@ var PanelManager = (function (_super) {
         return panel;
     };
     /**打开弹框*/
-    p.openPanel = function (panelName, callBack, thisObject) {
+    PanelManager.prototype.openPanel = function (panelName, callBack, thisObject) {
         if (callBack === void 0) { callBack = null; }
         if (thisObject === void 0) { thisObject = null; }
         var panel = this.panelMap[panelName];
@@ -86,7 +94,7 @@ var PanelManager = (function (_super) {
      * 关闭弹框
      * @panelName 弹框名
     */
-    p.close = function (panelName) {
+    PanelManager.prototype.close = function (panelName) {
         var panel = this.panelMap[panelName];
         if (panel) {
             panel.once(egret.Event.REMOVED_FROM_STAGE, function () {
@@ -96,11 +104,11 @@ var PanelManager = (function (_super) {
         }
     };
     /**关闭所有弹框*/
-    p.closeAll = function () {
+    PanelManager.prototype.closeAll = function () {
         for (var key in this.panelMap) {
             this.close(key);
         }
     };
     return PanelManager;
 }(SingleClass));
-egret.registerClass(PanelManager,'PanelManager');
+__reflect(PanelManager.prototype, "PanelManager");

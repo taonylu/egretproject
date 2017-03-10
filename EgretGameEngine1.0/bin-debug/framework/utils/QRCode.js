@@ -1,3 +1,6 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
 /**
  * 长按识别二维码(只适用于竖屏游戏)
  * 创建img标签的二维码，在微信里长按扫描识别
@@ -17,9 +20,8 @@ var QRCode = (function () {
         /**二维码是否初始化过位置*/
         this.bInit = false;
     }
-    var d = __define,c=QRCode,p=c.prototype;
     /**旋转屏幕，重置位置*/
-    p.onResize = function () {
+    QRCode.prototype.onResize = function () {
         if (this.htmlImgUrl && this.euiImg) {
             this.showHtmlCode(this.htmlImgUrl, this.euiImg);
         }
@@ -29,7 +31,7 @@ var QRCode = (function () {
      * htmlImgUrl html中img标签二维码图片地址
      * euiImg egret中二维码图片 (二维码图片容器必须和stage相等高宽)
      */
-    p.showHtmlCode = function (htmlImgUrl, euiImg) {
+    QRCode.prototype.showHtmlCode = function (htmlImgUrl, euiImg) {
         var _this = this;
         //pc端不重置
         if (App.DeviceUtils.isPC) {
@@ -88,7 +90,7 @@ var QRCode = (function () {
         }
     };
     /**隐藏二维码*/
-    p.hideHtmlCode = function () {
+    QRCode.prototype.hideHtmlCode = function () {
         if (App.DeviceUtils.isPC) {
             return;
         }
@@ -99,9 +101,9 @@ var QRCode = (function () {
         }
     };
     /**销毁*/
-    p.onDestroy = function () {
+    QRCode.prototype.onDestroy = function () {
         //TODO
     };
     return QRCode;
 }());
-egret.registerClass(QRCode,'QRCode');
+__reflect(QRCode.prototype, "QRCode");

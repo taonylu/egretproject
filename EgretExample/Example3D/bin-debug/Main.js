@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * 主类
  * 测试Egret3D
@@ -5,60 +13,60 @@
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
-        _super.call(this);
+        var _this = _super.call(this) || this;
         /**键盘按下值*/
-        this.key = -1;
+        _this.key = -1;
         //隐藏div图标
         var loadingMap = document.getElementById('loadingCon');
         loadingMap.hidden = true;
         //测试Unity插件导出
         new UnityScene();
-        return;
+        return _this;
         //创建3d画布
-        this.create3DCanvas();
+        _this.create3DCanvas();
         //创建视口
-        this.createView3D();
+        _this.createView3D();
         //创建方块
-        this.createCube();
+        _this.createCube();
         //创建地板
-        this.createPanel();
+        _this.createPanel();
         //自定义三角面
-        this.createTriangle();
+        _this.createTriangle();
         //贴图材质
-        this.createTextureCube();
+        _this.createTextureCube();
         //键盘控制
         //this.keyControl();
         //创建灯光
-        this.createLight();
+        _this.createLight();
         //加载测试 人物模型、骨骼动画
-        this.loadTest();
+        _this.loadTest();
         //声音测试
-        this.soundTest();
+        _this.soundTest();
         //Object3D测试
-        this.object3DTest();
+        _this.object3DTest();
         //创建公告板
-        this.createBillboard();
+        _this.createBillboard();
         //天空盒
-        this.loaderSkyBox();
+        _this.loaderSkyBox();
         //摄像机控制
-        this.cameroController();
+        _this.cameroController();
         //加载地形
         //this.loaderTerrain();
         //创建线框
-        this.createWireframeForGeometry();
+        _this.createWireframeForGeometry();
         //碰撞
-        this.colliose();
+        _this.colliose();
         //粒子
-        this.createParticle();
+        _this.createParticle();
         //自定义粒子效果
-        this.createComParticle();
+        _this.createComParticle();
         //GUI
-        this.createGUI();
+        _this.createGUI();
         console.log("Hello egret3D");
+        return _this;
     }
-    var d = __define,c=Main,p=c.prototype;
     /**创建3d画布*/
-    p.create3DCanvas = function () {
+    Main.prototype.create3DCanvas = function () {
         this.egret3DCanvas = new egret3d.Egret3DCanvas();
         this.egret3DCanvas.x = 0;
         this.egret3DCanvas.y = 0;
@@ -67,7 +75,7 @@ var Main = (function (_super) {
         this.egret3DCanvas.start();
     };
     /**创建3d视口*/
-    p.createView3D = function () {
+    Main.prototype.createView3D = function () {
         //var camera:egret3d.Camera3D = new egret3d.Camera3D(egret3d.CameraType.orthogonal);
         var camera = new egret3d.Camera3D(egret3d.CameraType.perspective);
         this.view3D = new egret3d.View3D(0, 0, window.innerWidth, innerHeight, camera);
@@ -77,14 +85,14 @@ var Main = (function (_super) {
         this.camera = this.view3D.camera3D;
     };
     /**创建方块*/
-    p.createCube = function () {
+    Main.prototype.createCube = function () {
         var material = new egret3d.ColorMaterial(0xff0000);
         var model = new egret3d.CubeGeometry();
         this.cube = new egret3d.Mesh(model, material);
         this.view3D.addChild3D(this.cube);
     };
     /**创建地板*/
-    p.createPanel = function () {
+    Main.prototype.createPanel = function () {
         ;
         var material = new egret3d.ColorMaterial(0x00ff00);
         var model = new egret3d.PlaneGeometry();
@@ -92,7 +100,7 @@ var Main = (function (_super) {
         this.view3D.addChild3D(this.plane);
     };
     /**自定义数据构造一个三角面片*/
-    p.createTriangle = function () {
+    Main.prototype.createTriangle = function () {
         var geom = egret3d.GeometryUtil.createGeometry();
         var vb = [];
         var ib = [];
@@ -114,7 +122,7 @@ var Main = (function (_super) {
         mesh.x = -200;
     };
     /**创建贴图材质方块*/
-    p.createTextureCube = function () {
+    Main.prototype.createTextureCube = function () {
         var material = new egret3d.TextureMaterial();
         var model = new egret3d.CubeGeometry();
         this.textureCube = new egret3d.Mesh(model, material);
@@ -122,21 +130,21 @@ var Main = (function (_super) {
         this.view3D.addChild3D(this.textureCube);
     };
     /**键盘控制 */
-    p.keyControl = function () {
+    Main.prototype.keyControl = function () {
         this.egret3DCanvas.addEventListener(egret3d.Event3D.ENTER_FRAME, this.onUpdate, this);
         egret3d.Input.addEventListener(egret3d.KeyEvent3D.KEY_DOWN, this.onKeyDown, this);
         egret3d.Input.addEventListener(egret3d.KeyEvent3D.KEY_UP, this.onKeyUp, this);
     };
     /**键盘弹起*/
-    p.onKeyUp = function (e) {
+    Main.prototype.onKeyUp = function (e) {
         this.key = -1;
     };
     /**键盘按下*/
-    p.onKeyDown = function (e) {
+    Main.prototype.onKeyDown = function (e) {
         this.key = e.keyCode;
     };
     /**每帧执行*/
-    p.onUpdate = function (e) {
+    Main.prototype.onUpdate = function (e) {
         switch (this.key) {
             case egret3d.KeyCode.Key_A:
                 this.camera.x -= 1;
@@ -159,7 +167,7 @@ var Main = (function (_super) {
         }
     };
     /**创建灯光*/
-    p.createLight = function () {
+    Main.prototype.createLight = function () {
         var light = new egret3d.DirectLight();
         light.dir = new egret3d.Vector3D(-0.5, -0.5, 1);
         light.diffuse = 0xff0000;
@@ -170,7 +178,7 @@ var Main = (function (_super) {
         this.textureCube.lightGroup = this.lights;
     };
     /**加载测试*/
-    p.loadTest = function () {
+    Main.prototype.loadTest = function () {
         var queueLoader = new egret3d.QueueLoader();
         queueLoader.load("resource/LingTong/Bonezero.esm"); //模型
         queueLoader.load("resource/LingTong/hero_12.png"); //贴图
@@ -180,7 +188,7 @@ var Main = (function (_super) {
         queueLoader.addEventListener(egret3d.LoaderEvent3D.LOADER_COMPLETE, this.onLoadComplete, this);
     };
     /**加载完成*/
-    p.onLoadComplete = function (e) {
+    Main.prototype.onLoadComplete = function (e) {
         var queueLoader = e.target;
         //获取模型
         var model = queueLoader.getAsset("resource/LingTong/Bonezero.esm");
@@ -216,7 +224,7 @@ var Main = (function (_super) {
      * 3. pick必须单体监听，这个单体必须enablePick=true。不能监听到egret3d.Input.
      *    touch可以用input监听。
     */
-    p.onPick = function (e) {
+    Main.prototype.onPick = function (e) {
         console.log("pick");
         console.log("pick faceIndex:", e.pickResult.faceIndex);
         console.log("pick globalPosition:", e.pickResult.globalPosition);
@@ -227,22 +235,22 @@ var Main = (function (_super) {
      * 触摸
      * 1. 触摸可以摸到多个物体。原理是射线穿透物体？
      */
-    p.onTouchStart = function (e) {
+    Main.prototype.onTouchStart = function (e) {
         console.log("touch");
         console.log("touch target:", e.target);
         console.log("touch target clientX:", e.targetTouches[0].clientX);
     };
     /**2d触摸*/
-    p.onTouchMove = function (e) {
+    Main.prototype.onTouchMove = function (e) {
         //console.log("touch move");
         //this.view3D.camera3D.rotation.y += 1;
     };
     /**声音测试*/
-    p.soundTest = function () {
+    Main.prototype.soundTest = function () {
         egret3d.AudioManager.instance.createSound("resource/bgm.mp3", this.loadSoundSuccess);
     };
     /**加载声音完成*/
-    p.loadSoundSuccess = function (e) {
+    Main.prototype.loadSoundSuccess = function (e) {
         var audioManager = egret3d.AudioManager.instance;
         //var channel:egret3d.Channel = audioManager.playSound(e,{volume:0.5, loop:true});
         //var channel3D:egret3d.Channel3d = audioManager.playSound3d(e, new egret3d.Vector3D(0,0,0), {volume:0.5, loop:true});
@@ -250,7 +258,7 @@ var Main = (function (_super) {
         //channel.stop();
     };
     /**object3D测试*/
-    p.object3DTest = function () {
+    Main.prototype.object3DTest = function () {
         var objA = new egret3d.Object3D();
         var objB = new egret3d.Object3D();
         objA.addChildAt(objB, 5); //和2d的差不多一致...
@@ -258,13 +266,13 @@ var Main = (function (_super) {
         console.log(objA.childs[5]);
     };
     /**公告板 一直朝像摄像头的一个东西...*/
-    p.createBillboard = function () {
+    Main.prototype.createBillboard = function () {
         var billboard = new egret3d.Billboard(new egret3d.TextureMaterial());
         this.view3D.addChild3D(billboard);
         billboard.y = 300;
     };
     /**加载天空素材*/
-    p.loaderSkyBox = function () {
+    Main.prototype.loaderSkyBox = function () {
         var loader = new egret3d.QueueLoader();
         loader.load("resource/quanjing/pano_b.jpg");
         loader.load("resource/quanjing/pano_f.jpg");
@@ -275,7 +283,7 @@ var Main = (function (_super) {
         loader.addEventListener(egret3d.LoaderEvent3D.LOADER_COMPLETE, this.onSkyBoxTexture, this);
     };
     /**天空盒资源加载完成 创建天空盒*/
-    p.onSkyBoxTexture = function (e) {
+    Main.prototype.onSkyBoxTexture = function (e) {
         var loader = e.target;
         var fr = loader.getAsset("resource/quanjing/pano_f.jpg");
         var bk = loader.getAsset("resource/quanjing/pano_b.jpg");
@@ -291,7 +299,7 @@ var Main = (function (_super) {
         sky.material.cullMode = egret3d.ContextConfig.FRONT;
         this.view3D.addChild3D(sky);
     };
-    p.cameroController = function () {
+    Main.prototype.cameroController = function () {
         //Hover
         // this.ctl = new egret3d.HoverController(this.view3D.camera3D, this.cube);
         // this.ctl.distance = 1000;
@@ -303,11 +311,11 @@ var Main = (function (_super) {
         this.ctl.rotationY = 120;
         this.egret3DCanvas.addEventListener(egret3d.Event3D.ENTER_FRAME, this.updateCamera, this);
     };
-    p.updateCamera = function (evt) {
+    Main.prototype.updateCamera = function (evt) {
         this.ctl.update();
     };
     /**加载地形*/
-    p.loaderTerrain = function () {
+    Main.prototype.loaderTerrain = function () {
         var loader = new egret3d.QueueLoader();
         loader.addEventListener(egret3d.LoaderEvent3D.LOADER_COMPLETE, this.onTerrainComplete, this);
         // 高度图
@@ -319,7 +327,7 @@ var Main = (function (_super) {
         //loader.load("resource/terrain/a.jpg");
     };
     /***/
-    p.onTerrainComplete = function (e) {
+    Main.prototype.onTerrainComplete = function (e) {
         var loader = e.target;
         // 使用高度图创建地形
         var heightImage = loader.getAsset("resource/terrain/a.jpg");
@@ -348,7 +356,7 @@ var Main = (function (_super) {
         // terrainMethod.splat_3_Texture = loader.getAsset("resource/terrain/a.jpg");
     };
     /**创建线框*/
-    p.createWireframeForGeometry = function () {
+    Main.prototype.createWireframeForGeometry = function () {
         // 用cube 的Geometry 创建线框
         var cubeWireframe = new egret3d.Wireframe();
         cubeWireframe.fromGeometry(this.cube.geometry);
@@ -356,7 +364,7 @@ var Main = (function (_super) {
         this.cube.addChild(cubeWireframe);
     };
     /**碰撞检测*/
-    p.colliose = function () {
+    Main.prototype.colliose = function () {
         //点碰撞
         var pointResult = this.cube.bound.pointIntersect(new egret3d.Vector3D(0, 0, 0));
         console.log("pointResult:", pointResult);
@@ -371,7 +379,7 @@ var Main = (function (_super) {
         console.log("modelResult:", modelResult);
     };
     /**粒子效果*/
-    p.createParticle = function () {
+    Main.prototype.createParticle = function () {
         var queueLoader = new egret3d.QueueLoader();
         var mat = new egret3d.TextureMaterial();
         mat.ambientColor = 0xffffff;
@@ -415,7 +423,7 @@ var Main = (function (_super) {
         this.view3D.addChild3D(particle);
     };
     //创建一个粒子特效
-    p.createComParticle = function () {
+    Main.prototype.createComParticle = function () {
         var material = this.createMaterial();
         var particleData = this.createParticleData();
         this.particle = new egret3d.ParticleEmitter(particleData, material);
@@ -423,7 +431,7 @@ var Main = (function (_super) {
         this.view3D.addChild3D(this.particle);
     };
     //创建一个粒子数据
-    p.createParticleData = function () {
+    Main.prototype.createParticleData = function () {
         var data = new egret3d.ParticleData();
         data.geometry.planeW = data.geometry.planeH = 30;
         var life = data.life;
@@ -500,7 +508,7 @@ var Main = (function (_super) {
         return data;
     };
     //创建一个材质球
-    p.createMaterial = function () {
+    Main.prototype.createMaterial = function () {
         var mat = new egret3d.TextureMaterial();
         mat.bothside = true;
         mat.ambientColor = 0xffffff;
@@ -508,13 +516,13 @@ var Main = (function (_super) {
         return mat;
     };
     /**创建GUI*/
-    p.createGUI = function () {
+    Main.prototype.createGUI = function () {
         var queueLoader = new egret3d.QueueLoader();
         queueLoader.addEventListener(egret3d.LoaderEvent3D.LOADER_COMPLETE, this.onLoadGUISkinComplete, this);
         queueLoader.loadDefaultGUISkin();
     };
     /**加载GUI完成*/
-    p.onLoadGUISkinComplete = function () {
+    Main.prototype.onLoadGUISkinComplete = function () {
         // var textField:egret3d.gui.UITextField = new egret3d.gui.UITextField();
         // textField.x = 100;
         // textField.y = 100;
@@ -523,4 +531,4 @@ var Main = (function (_super) {
     };
     return Main;
 }(egret.DisplayObject));
-egret.registerClass(Main,'Main');
+__reflect(Main.prototype, "Main");

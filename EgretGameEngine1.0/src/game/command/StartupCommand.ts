@@ -3,8 +3,8 @@
  * @author chenkai 
  * @date 2017/2/8
  */
-class StartupCommand implements ICommand{
-	public execute() {
+class StartupCommand extends puremvc.SimpleCommand{
+	public execute(notification:puremvc.INotification) {
     	 //注册控制模块
     	
     	 //注册场景

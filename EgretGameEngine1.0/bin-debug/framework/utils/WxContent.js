@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * 微信接口
  * @author chenkai & liaotianzi
@@ -14,23 +22,23 @@
 var WxContent = (function (_super) {
     __extends(WxContent, _super);
     function WxContent() {
-        _super.apply(this, arguments);
+        var _this = _super.apply(this, arguments) || this;
         /**是否已配置*/
-        this.isConfig = false;
+        _this.isConfig = false;
         /**后台地址*/
-        this.serverUrl = "http://h5pf.xykjg.com/gamesServer/wx/getSignature";
+        _this.serverUrl = "http://h5pf.xykjg.com/gamesServer/wx/getSignature";
         /**分享标题*/
-        this.title = "洁净之旅";
+        _this.title = "洁净之旅";
         /**分享描述*/
-        this.desc = "体验蓝月亮洁净之旅享受科学洗衣";
+        _this.desc = "体验蓝月亮洁净之旅享受科学洗衣";
         /**分享连接*/
-        this.link = "http://h5.xykjg.com/CleanJourney/?_campaign=CleanJourney&_adTag=prd";
+        _this.link = "http://h5.xykjg.com/CleanJourney/?_campaign=CleanJourney&_adTag=prd";
         /**分享图片*/
-        this.imgUrl = "http://h5.xykjg.com/CleanJourney/resource/assets/wx/wx.png";
+        _this.imgUrl = "http://h5.xykjg.com/CleanJourney/resource/assets/wx/wx.png";
+        return _this;
     }
-    var d = __define,c=WxContent,p=c.prototype;
     /**是否在微信浏览器中打开*/
-    p.isWx = function () {
+    WxContent.prototype.isWx = function () {
         var ua = navigator.userAgent.toLowerCase();
         if (/micromessenger/.test(ua)) {
             return true;
@@ -38,7 +46,7 @@ var WxContent = (function (_super) {
         return false;
     };
     /**配置微信*/
-    p.configWx = function () {
+    WxContent.prototype.configWx = function () {
         if (this.isWx() == false) {
             return;
         }
@@ -48,7 +56,7 @@ var WxContent = (function (_super) {
         App.Http.send(data, this.toConfig, this);
     };
     /**配置文件*/
-    p.toConfig = function (ret) {
+    WxContent.prototype.toConfig = function (ret) {
         egret.log("get wx config:", ret);
         //body配置
         var bodyConfig = new BodyConfig();
@@ -72,7 +80,7 @@ var WxContent = (function (_super) {
      * 设置分享
      * @title 标题
      */
-    p.setTile = function (title) {
+    WxContent.prototype.setTile = function (title) {
         if (this.isConfig == false) {
             return;
         }
@@ -118,4 +126,4 @@ var WxContent = (function (_super) {
     };
     return WxContent;
 }(SingleClass));
-egret.registerClass(WxContent,'WxContent');
+__reflect(WxContent.prototype, "WxContent");

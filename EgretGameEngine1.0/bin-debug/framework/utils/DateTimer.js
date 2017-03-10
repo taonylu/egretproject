@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * 根据系统时间的计时器
  * @author chenkai
@@ -13,25 +21,25 @@ var DateTimer = (function (_super) {
     __extends(DateTimer, _super);
     function DateTimer(delay, repeatCount) {
         if (repeatCount === void 0) { repeatCount = 0; }
-        _super.call(this);
-        this.delay = delay;
-        this.repeatCount = repeatCount;
+        var _this = _super.call(this) || this;
+        _this.delay = delay;
+        _this.repeatCount = repeatCount;
+        return _this;
     }
-    var d = __define,c=DateTimer,p=c.prototype;
-    p.start = function () {
+    DateTimer.prototype.start = function () {
         this.previous = egret.getTimer();
         this.accTime = 0;
         egret.startTick(this.update, this);
     };
-    p.reset = function () {
+    DateTimer.prototype.reset = function () {
         this.previous = egret.getTimer();
         this.accTime = 0;
         this.currentCount = 0;
     };
-    p.stop = function () {
+    DateTimer.prototype.stop = function () {
         egret.stopTick(this.update, this);
     };
-    p.update = function () {
+    DateTimer.prototype.update = function () {
         this.curTime = egret.getTimer();
         this.passTime = this.curTime - this.previous;
         this.previous = this.curTime;
@@ -49,4 +57,4 @@ var DateTimer = (function (_super) {
     };
     return DateTimer;
 }(egret.EventDispatcher));
-egret.registerClass(DateTimer,'DateTimer');
+__reflect(DateTimer.prototype, "DateTimer");

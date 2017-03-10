@@ -1,35 +1,39 @@
 {
-  "native": {
-    "path_ignore": []
-  },
-  "publish": {
-    "web": 0,
-    "native": 1,
-    "path": "bin-release"
-  },
-  "egret_version": "3.2.3",
-  "modules": [
-    {
-      "name": "egret"
-    },
-    {
-      "name": "eui"
-    },
-    {
-      "name": "res"
-    },
-    {
-      "name": "tween"
-    },
-    {
-      "name": "socket"
-    },
-	{
-	  "name": "weixinapi",
-	  "path": "libsrc/weixinapi"
+	"native": {
+		"path_ignore": []
 	},
-    {
-      "name": "dragonBones"
-    }
-  ]
+	"publish": {
+		"web": 0,
+		"native": 1,
+		"path": "bin-release"
+	},
+	"egret_version": "3.2.6",
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "eui"
+		},
+		{
+			"name": "res"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "socket"
+		},
+		{
+			"name": "weixinapi",
+			"path": "libsrc/weixinapi"
+		},
+		{
+			"name": "dragonBones"
+		},
+		{
+			"name": "puremvc",
+			"path":"libsrc/puremvc"
+		}
+	]
 }

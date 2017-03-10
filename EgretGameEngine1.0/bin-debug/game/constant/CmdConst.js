@@ -1,3 +1,6 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
 /**
  * command常量
  * @author chenkai
@@ -6,9 +9,8 @@
 var CmdConst = (function () {
     function CmdConst() {
     }
-    var d = __define,c=CmdConst,p=c.prototype;
-    /**启动命令*/
-    CmdConst.STARTUP = "STARTUP";
     return CmdConst;
 }());
-egret.registerClass(CmdConst,'CmdConst');
+/**启动命令*/
+CmdConst.STARTUP = "STARTUP";
+__reflect(CmdConst.prototype, "CmdConst");

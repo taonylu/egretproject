@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * Socket类
  * @author chenkai
@@ -10,20 +18,20 @@
 var ClientSocket = (function (_super) {
     __extends(ClientSocket, _super);
     function ClientSocket() {
-        _super.apply(this, arguments);
+        var _this = _super.apply(this, arguments) || this;
         /**重连次数限制*/
-        this.reconnenctMax = 3;
+        _this.reconnenctMax = 3;
         /**当前重连次数*/
-        this.curReconnectCount = 0;
+        _this.curReconnectCount = 0;
         /**是否允许重连*/
-        this.allowReconnect = false;
+        _this.allowReconnect = false;
+        return _this;
     }
-    var d = __define,c=ClientSocket,p=c.prototype;
     /**
      * serverUrl 服务器地址
      * @allowReconnect 是否允许重连(默认false)
      */
-    p.connect = function (serverUrl, allowReconnect) {
+    ClientSocket.prototype.connect = function (serverUrl, allowReconnect) {
         if (allowReconnect === void 0) { allowReconnect = false; }
         this.resetReconnect();
         this.allowReconnect = allowReconnect;
@@ -31,7 +39,7 @@ var ClientSocket = (function (_super) {
         this.socket.connectByUrl(serverUrl);
     };
     /**创建Socket*/
-    p.createSocket = function () {
+    ClientSocket.prototype.createSocket = function () {
         if (this.socket == null) {
             this.socket = new egret.WebSocket();
             this.socket.type = egret.WebSocket.TYPE_BINARY;
@@ -42,16 +50,16 @@ var ClientSocket = (function (_super) {
         }
     };
     /**连接成功*/
-    p.onConnect = function (e) {
+    ClientSocket.prototype.onConnect = function (e) {
         this.resetReconnect();
-        App.MessageCenter.sendEvent(SocketConst.SOCKET_CONNECT, this);
+        App.sendNotification(SocketConst.SOCKET_CONNECT);
     };
     /**
      * 发送数据
      * @param proto 数据协议
      * @param json  json格式数据
      */
-    p.send = function (proto, json) {
+    ClientSocket.prototype.send = function (proto, json) {
         var data = JSON.stringify(json);
         var byte = new egret.ByteArray();
         byte.writeUTF(proto);
@@ -61,43 +69,43 @@ var ClientSocket = (function (_super) {
         this.socket.flush();
     };
     /**接收数据*/
-    p.onReceive = function (e) {
+    ClientSocket.prototype.onReceive = function (e) {
         var byte = new egret.ByteArray();
         this.socket.readBytes(byte);
         var proto = byte.readUTF();
         var dataLen = byte.readInt();
         var json = JSON.parse(byte.readUTFBytes(dataLen));
-        App.MessageCenter.sendCommand(proto, json);
+        App.sendNotification(proto, json);
     };
     /**连接错误*/
-    p.onError = function (e) {
+    ClientSocket.prototype.onError = function (e) {
         if (this.checkReconnenct() == false) {
-            App.MessageCenter.sendEvent(SocketConst.SOCKET_ERROR, this);
+            App.sendNotification(SocketConst.SOCKET_ERROR);
         }
     };
     /**连接断开*/
-    p.onClose = function () {
+    ClientSocket.prototype.onClose = function () {
         if (this.checkReconnenct()) {
             this.curReconnectCount++;
             this.socket.connectByUrl(this.serverUrl);
-            App.MessageCenter.sendEvent(SocketConst.SOCKET_RECONNECT, this, this.curReconnectCount);
+            App.sendNotification(SocketConst.SOCKET_RECONNECT, this.curReconnectCount);
         }
         else {
             this.resetReconnect();
-            App.MessageCenter.sendEvent(SocketConst.SOCKET_CLOSE, this);
+            App.sendNotification(SocketConst.SOCKET_CLOSE);
         }
     };
     /**
      * 检查是否可以重连
      * @return 返回是否可以重连
      * */
-    p.checkReconnenct = function () {
+    ClientSocket.prototype.checkReconnenct = function () {
         return this.allowReconnect && (this.curReconnectCount < this.reconnenctMax);
     };
     /**重置重连参数*/
-    p.resetReconnect = function () {
+    ClientSocket.prototype.resetReconnect = function () {
         this.curReconnectCount = 0;
     };
     return ClientSocket;
 }(SingleClass));
-egret.registerClass(ClientSocket,'ClientSocket');
+__reflect(ClientSocket.prototype, "ClientSocket");
