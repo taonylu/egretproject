@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * 声音管理类
  * @author chenkai
@@ -22,20 +30,20 @@
 var SoundManager = (function (_super) {
     __extends(SoundManager, _super);
     function SoundManager() {
-        _super.apply(this, arguments);
+        var _this = _super.apply(this, arguments) || this;
         /**允许播放音效*/
-        this._allowEffect = true;
+        _this._allowEffect = true;
         /**允许播放背景音乐*/
-        this._allowBGM = true;
+        _this._allowBGM = true;
         /**声音列表*/
-        this.soundList = {};
+        _this.soundList = {};
+        return _this;
     }
-    var d = __define,c=SoundManager,p=c.prototype;
     /**
      * 添加声音
      * @soundName 声音名
      */
-    p.addSound = function (soundName) {
+    SoundManager.prototype.addSound = function (soundName) {
         var sound = RES.getRes(soundName);
         if (sound) {
             this.soundList[soundName] = sound;
@@ -49,7 +57,7 @@ var SoundManager = (function (_super) {
      * @soundName 声音名
      * @loop 循环次数
      */
-    p.playEffect = function (soundName, loop) {
+    SoundManager.prototype.playEffect = function (soundName, loop) {
         if (loop === void 0) { loop = 1; }
         if (this.allowEffect == false) {
             return;
@@ -66,7 +74,7 @@ var SoundManager = (function (_super) {
      * 播放背景音乐
      * @soundName 声音名
      */
-    p.playBGM = function (soundName) {
+    SoundManager.prototype.playBGM = function (soundName) {
         if (this.allowBGM == false) {
             return;
         }
@@ -83,44 +91,48 @@ var SoundManager = (function (_super) {
     /**
      * 停止背景音乐
      */
-    p.stopBGM = function () {
+    SoundManager.prototype.stopBGM = function () {
         if (this.bgmChannel) {
             this.bgmChannel.stop();
             this.bgmChannel = null;
         }
     };
     /**暂停背景音乐*/
-    p.pauseBGM = function () {
+    SoundManager.prototype.pauseBGM = function () {
         if (this.bgmChannel) {
             this.bgmChannel.volume = 0;
         }
     };
     /**继续背景音乐*/
-    p.resumeBGM = function () {
+    SoundManager.prototype.resumeBGM = function () {
         if (this.bgmChannel) {
             this.bgmChannel.volume = 1;
         }
     };
-    d(p, "allowEffect"
+    Object.defineProperty(SoundManager.prototype, "allowEffect", {
         /**是否允许播放音效*/
-        ,function () {
+        get: function () {
             return this._allowEffect;
-        }
+        },
         /**是否允许播放音效*/
-        ,function (allow) {
+        set: function (allow) {
             this._allowEffect = allow;
-        }
-    );
-    d(p, "allowBGM"
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SoundManager.prototype, "allowBGM", {
         /**是否允许播放背景音乐*/
-        ,function () {
+        get: function () {
             return this._allowBGM;
-        }
+        },
         /**是否允许播放背景音乐*/
-        ,function (allow) {
+        set: function (allow) {
             this._allowBGM = allow;
-        }
-    );
+        },
+        enumerable: true,
+        configurable: true
+    });
     return SoundManager;
 }(SingleClass));
-egret.registerClass(SoundManager,'SoundManager');
+__reflect(SoundManager.prototype, "SoundManager");

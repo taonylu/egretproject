@@ -3,13 +3,17 @@
  * @author chenkai 
  * @date 2016/12/18
  */
-class App extends SingleClass{
+class App extends puremvc.Facade{
 	
-    /**获取视图模块*/
-    public static get View(): View{
-        return View.getInstance();
+    /**
+     * 发送通知
+     * @name 通知名
+     * @body 通知消息
+     */ 
+    public static sendNotification(name:string, body:any = null){
+        App.getInstance().sendNotification(name, body);
     }
-	
+ 
     /**版本管理*/
 	public static get VersionManager():VersionManager{
     	return VersionManager.getInstance();
@@ -33,11 +37,6 @@ class App extends SingleClass{
 	/**字符串工具*/
 	public static get StringTool():StringTool{
     	return StringTool.getInstance();
-	}
-
-	/**事件管理类*/
-    public static get MessageCenter(): MessageCenter{
-        return MessageCenter.getInstance();
 	}
 
 	/**对象池*/

@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * 设备工具类
  * @author chenkai
@@ -6,45 +14,56 @@
 var DeviceUtils = (function (_super) {
     __extends(DeviceUtils, _super);
     function DeviceUtils() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
-    var d = __define,c=DeviceUtils,p=c.prototype;
-    d(p, "isNative"
+    Object.defineProperty(DeviceUtils.prototype, "isNative", {
         /**是否Native*/
-        ,function () {
+        get: function () {
             return (egret.Capabilities.runtimeType == egret.RuntimeType.NATIVE);
-        }
-    );
-    d(p, "isWeb"
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DeviceUtils.prototype, "isWeb", {
         /**是否Web*/
-        ,function () {
+        get: function () {
             return (egret.Capabilities.runtimeType == egret.RuntimeType.WEB);
-        }
-    );
-    d(p, "isMoile"
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DeviceUtils.prototype, "isMoile", {
         /**是否移动端*/
-        ,function () {
+        get: function () {
             return egret.Capabilities.isMobile;
-        }
-    );
-    d(p, "isPC"
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DeviceUtils.prototype, "isPC", {
         /**是否PC端*/
-        ,function () {
+        get: function () {
             return !egret.Capabilities.isMobile;
-        }
-    );
-    d(p, "isAndroid"
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DeviceUtils.prototype, "isAndroid", {
         /**是否Android系统*/
-        ,function () {
+        get: function () {
             return egret.Capabilities.os == "Android";
-        }
-    );
-    d(p, "isIos"
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DeviceUtils.prototype, "isIos", {
         /**是否ios系统*/
-        ,function () {
+        get: function () {
             return egret.Capabilities.os == "iOS";
-        }
-    );
+        },
+        enumerable: true,
+        configurable: true
+    });
     return DeviceUtils;
 }(SingleClass));
-egret.registerClass(DeviceUtils,'DeviceUtils');
+__reflect(DeviceUtils.prototype, "DeviceUtils");

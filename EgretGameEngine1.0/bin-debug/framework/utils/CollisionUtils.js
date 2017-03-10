@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * 碰撞检测工具类
  * 适用于少量碰撞
@@ -8,9 +16,8 @@
 var CollisionUtils = (function (_super) {
     __extends(CollisionUtils, _super);
     function CollisionUtils() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
-    var d = __define,c=CollisionUtils,p=c.prototype;
     /**
      * 根据圆形的半径，检查圆形是否碰撞
      * @ballA 圆形A
@@ -18,7 +25,7 @@ var CollisionUtils = (function (_super) {
      * @radius 半径
      * @return 是否碰撞
      */
-    p.checkCircle = function (ballA, ballB, radius) {
+    CollisionUtils.prototype.checkCircle = function (ballA, ballB, radius) {
         var pA = new egret.Point(ballA.x, ballA.y);
         var pB = new egret.Point(ballB.x, ballB.y);
         if (egret.Point.distance(pA, pB) <= radius * 2) {
@@ -42,7 +49,7 @@ var CollisionUtils = (function (_super) {
      * @objA 对象A car
      * @objB 对象B clothes等
      */
-    p.checkRect = function (objA, objB) {
+    CollisionUtils.prototype.checkRect = function (objA, objB) {
         var x1 = objA.x - objA.anchorOffsetX;
         var y1 = objA.y - objA.anchorOffsetY;
         var x2 = objB.x - objB.anchorOffsetX;
@@ -72,7 +79,7 @@ var CollisionUtils = (function (_super) {
      * @y 检测点
      * @calAnchor 计算锚点
      */
-    p.checkPoint = function (obj, x, y, calAnchor) {
+    CollisionUtils.prototype.checkPoint = function (obj, x, y, calAnchor) {
         if (calAnchor) {
             if (y > (obj.y - obj.anchorOffsetY) && y < (obj.y + obj.height - obj.anchorOffsetY)) {
                 if (x > (obj.x - obj.anchorOffsetX) && x < (obj.x + obj.width - obj.anchorOffsetX)) {
@@ -92,4 +99,4 @@ var CollisionUtils = (function (_super) {
     };
     return CollisionUtils;
 }(SingleClass));
-egret.registerClass(CollisionUtils,'CollisionUtils');
+__reflect(CollisionUtils.prototype, "CollisionUtils");

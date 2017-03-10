@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * 舞台管理类
  * @author chenkai
@@ -13,31 +21,34 @@
 var StageUtils = (function (_super) {
     __extends(StageUtils, _super);
     function StageUtils() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
-    var d = __define,c=StageUtils,p=c.prototype;
     /**初始化舞台 egret.MainContext API废弃，这里必须在Main.ts里传入stage*/
-    p.init = function (stage) {
+    StageUtils.prototype.init = function (stage) {
         this.stage = stage;
     };
     /**获取舞台*/
-    p.getStage = function () {
+    StageUtils.prototype.getStage = function () {
         return this.stage;
     };
-    d(p, "stageWidth"
+    Object.defineProperty(StageUtils.prototype, "stageWidth", {
         /**舞台宽度*/
-        ,function () {
+        get: function () {
             return this.stage.stageWidth;
-        }
-    );
-    d(p, "stageHeight"
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(StageUtils.prototype, "stageHeight", {
         /**舞台高度*/
-        ,function () {
+        get: function () {
             return this.stage.stageHeight;
-        }
-    );
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**改变舞台适配模式 PC上showall，手机上大于4:3FixedWidth，小于4:3showAll*/
-    p.changeStageMode = function () {
+    StageUtils.prototype.changeStageMode = function () {
         if (App.DeviceUtils.isPC) {
             this.getStage().orientation = egret.OrientationMode.AUTO;
             this.getStage().scaleMode = egret.StageScaleMode.SHOW_ALL;
@@ -52,11 +63,11 @@ var StageUtils = (function (_super) {
         }
     };
     /**改变背景颜色*/
-    p.changeBgColor = function (color) {
+    StageUtils.prototype.changeBgColor = function (color) {
         document.body.style.backgroundColor = color;
     };
     /**激活和非激活处理*/
-    p.activeHandler = function () {
+    StageUtils.prototype.activeHandler = function () {
         this.stage.addEventListener(egret.Event.ACTIVATE, function () {
             egret.log("active");
             App.Sound.resumeBGM();
@@ -68,4 +79,4 @@ var StageUtils = (function (_super) {
     };
     return StageUtils;
 }(SingleClass));
-egret.registerClass(StageUtils,'StageUtils');
+__reflect(StageUtils.prototype, "StageUtils");

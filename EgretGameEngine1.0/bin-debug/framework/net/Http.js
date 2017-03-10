@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * Http请求类
  * 序列发送http请求
@@ -11,24 +19,24 @@
 var Http = (function (_super) {
     __extends(Http, _super);
     function Http() {
-        _super.call(this);
+        var _this = _super.call(this) || this;
         /**请求格式POST or GET*/
-        this.httpMethod = egret.HttpMethod.POST;
+        _this.httpMethod = egret.HttpMethod.POST;
         /**发送缓存*/
-        this.cacheList = [];
+        _this.cacheList = [];
         /**请求状态*/
-        this.requesting = false;
-        this.request = new egret.HttpRequest();
-        this.request.responseType = egret.HttpResponseType.TEXT;
-        this.request.addEventListener(egret.Event.COMPLETE, this.onPostComplete, this);
-        this.request.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onPostIOError, this);
+        _this.requesting = false;
+        _this.request = new egret.HttpRequest();
+        _this.request.responseType = egret.HttpResponseType.TEXT;
+        _this.request.addEventListener(egret.Event.COMPLETE, _this.onPostComplete, _this);
+        _this.request.addEventListener(egret.IOErrorEvent.IO_ERROR, _this.onPostIOError, _this);
+        return _this;
     }
-    var d = __define,c=Http,p=c.prototype;
     /**
      * 初始化http访问地址
      * @serverUrl 访问地址
      */
-    p.initServerUrl = function (serverUrl) {
+    Http.prototype.initServerUrl = function (serverUrl) {
         this.serverUrl = serverUrl;
     };
     /**
@@ -37,12 +45,12 @@ var Http = (function (_super) {
      * @callBack 回调
      * @thisObject 回调执行对象
      */
-    p.send = function (msg, callBack, thisObject) {
+    Http.prototype.send = function (msg, callBack, thisObject) {
         this.cacheList.push([JSON.stringify(msg), callBack, thisObject]);
         this.next();
     };
     /**发送下一条*/
-    p.next = function () {
+    Http.prototype.next = function () {
         if (this.requesting) {
             return;
         }
@@ -57,7 +65,7 @@ var Http = (function (_super) {
         this.requesting = true;
     };
     /**发送完成*/
-    p.onPostComplete = function (e) {
+    Http.prototype.onPostComplete = function (e) {
         if (this.curSend) {
             this.curSend[1].call(this.curSend[2], this.request.response);
         }
@@ -65,17 +73,17 @@ var Http = (function (_super) {
         this.next();
     };
     /**发送失败*/
-    p.onPostIOError = function (e) {
+    Http.prototype.onPostIOError = function (e) {
         console.error("Http send error");
         this.requesting = false;
         this.next();
     };
     /**删除所有请求*/
-    p.clearAllRequest = function () {
+    Http.prototype.clearAllRequest = function () {
         this.request.abort();
         this.curSend = null;
         this.cacheList.length = 0;
     };
     return Http;
 }(SingleClass));
-egret.registerClass(Http,'Http');
+__reflect(Http.prototype, "Http");

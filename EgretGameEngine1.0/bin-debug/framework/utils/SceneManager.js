@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * 场景管理类
  * @author chenkai
@@ -10,26 +18,26 @@
 var SceneManager = (function (_super) {
     __extends(SceneManager, _super);
     function SceneManager() {
-        _super.call(this);
+        var _this = _super.call(this) || this;
         /**面板实例*/
-        this.sceneMap = {};
+        _this.sceneMap = {};
         /**面板类定义*/
-        this.clzMap = {};
+        _this.clzMap = {};
+        return _this;
     }
-    var d = __define,c=SceneManager,p=c.prototype;
     /**
      * 注册场景
      * @sceneName 场景名
      * @sceneClz 场景类定义
      */
-    p.register = function (sceneName, sceneClz) {
+    SceneManager.prototype.register = function (sceneName, sceneClz) {
         this.clzMap[sceneName] = sceneClz;
     };
     /**
      * 打开场景
      * @sceneName 场景名
      */
-    p.open = function (sceneName) {
+    SceneManager.prototype.open = function (sceneName) {
         var scene = this.sceneMap[sceneName];
         if (scene) {
             this.replaceScene(scene);
@@ -47,7 +55,7 @@ var SceneManager = (function (_super) {
      * 打开场景
      * @sceneName 场景名
      */
-    p.replaceScene = function (scene) {
+    SceneManager.prototype.replaceScene = function (scene) {
         scene.once(egret.Event.ADDED_TO_STAGE, function () {
             scene.onEnable();
         }, this);
@@ -64,9 +72,9 @@ var SceneManager = (function (_super) {
     /**
      * 获取当前场景
      */
-    p.getCurScene = function () {
+    SceneManager.prototype.getCurScene = function () {
         return this.curScene;
     };
     return SceneManager;
 }(SingleClass));
-egret.registerClass(SceneManager,'SceneManager');
+__reflect(SceneManager.prototype, "SceneManager");

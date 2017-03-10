@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * 主页
  * @author chenkai
@@ -6,16 +14,16 @@
 var HomeScene = (function (_super) {
     __extends(HomeScene, _super);
     function HomeScene() {
-        _super.call(this);
-        this.skinName = "HomeSceneSkin";
+        var _this = _super.call(this) || this;
+        _this.skinName = "HomeSceneSkin";
+        return _this;
     }
-    var d = __define,c=HomeScene,p=c.prototype;
-    p.childrenCreated = function () {
+    HomeScene.prototype.childrenCreated = function () {
     };
-    p.onEnable = function () {
+    HomeScene.prototype.onEnable = function () {
     };
-    p.onRemove = function () {
+    HomeScene.prototype.onRemove = function () {
     };
     return HomeScene;
 }(BaseScene));
-egret.registerClass(HomeScene,'HomeScene');
+__reflect(HomeScene.prototype, "HomeScene");

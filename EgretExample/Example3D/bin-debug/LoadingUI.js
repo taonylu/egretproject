@@ -1,3 +1,6 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
 /**
  * @language zh_CN
  * @classdesc
@@ -9,8 +12,7 @@ var LoadingUI = (function () {
     function LoadingUI() {
         this.div = document.getElementById('descCon');
     }
-    var d = __define,c=LoadingUI,p=c.prototype;
-    p.OnInitLoadingView = function (max) {
+    LoadingUI.prototype.OnInitLoadingView = function (max) {
         this.max = max;
         this.cur = 0;
         if (max == 0) {
@@ -21,7 +23,7 @@ var LoadingUI = (function () {
             this.div.innerHTML = "正在加载:0%";
         }
     };
-    p.OnLoadFinished = function () {
+    LoadingUI.prototype.OnLoadFinished = function () {
         if (this.cur == this.max) {
             return;
         }
@@ -34,7 +36,7 @@ var LoadingUI = (function () {
             this.div.innerHTML = "\u6B63\u5728\u52A0\u8F7D:" + Math.ceil(this.cur / this.max * 100) + "%";
         }
     };
-    p.CloseLoadingView = function () {
+    LoadingUI.prototype.CloseLoadingView = function () {
         this.div.innerHTML = "正在加载:100%";
         window.setTimeout(function () {
             var loadingMap = document.getElementById('loadingCon');
@@ -43,4 +45,4 @@ var LoadingUI = (function () {
     };
     return LoadingUI;
 }());
-egret.registerClass(LoadingUI,'LoadingUI');
+__reflect(LoadingUI.prototype, "LoadingUI");

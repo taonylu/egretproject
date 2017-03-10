@@ -26,13 +26,20 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
-    var d = __define,c=Main,p=c.prototype;
-    p.createChildren = function () {
+    Main.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
         var assetAdapter = new AssetAdapter();
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
@@ -44,15 +51,15 @@ var Main = (function (_super) {
         App.ResUtils.loadConfig(this.onConfigComplete, this);
     };
     //加载exml主题
-    p.onConfigComplete = function (event) {
+    Main.prototype.onConfigComplete = function (event) {
         var theme = new eui.Theme("resource/default.thm.json", this.stage);
         theme.addEventListener(eui.UIEvent.COMPLETE, this.onThemeLoadComplete, this);
     };
     //加载预加载资源
-    p.onThemeLoadComplete = function () {
+    Main.prototype.onThemeLoadComplete = function () {
         App.ResUtils.loadGroup(AssetConst.Preload, this.onPreloadComplete, this);
     };
-    p.onPreloadComplete = function (event) {
+    Main.prototype.onPreloadComplete = function (event) {
         //舞台适配模式
         App.StageUtils.init(this.stage);
         App.StageUtils.changeStageMode();
@@ -63,18 +70,18 @@ var Main = (function (_super) {
         var groups = [AssetConst.Home, AssetConst.Game, AssetConst.Result];
         App.ResUtils.loadGroups("AllRes", groups, this.onResComplete, this.onResProgress, this);
     };
-    p.onResProgress = function (e) {
+    Main.prototype.onResProgress = function (e) {
         this.preloadScene.setProgress(Math.round(e.itemsLoaded / e.itemsTotal * 100));
     };
-    p.onResComplete = function () {
+    Main.prototype.onResComplete = function () {
         //移除预加载界面
         this.removeChild(this.preloadScene);
         this.preloadScene = null;
         //启动游戏
-        App.MessageCenter.addCommand(CmdConst.STARTUP, StartupCommand);
-        App.MessageCenter.sendCommand(CmdConst.STARTUP);
-        App.MessageCenter.removeCommand(CmdConst.STARTUP);
+        App.getInstance().registerCommand(CmdConst.STARTUP, StartupCommand);
+        App.getInstance().sendNotification(CmdConst.STARTUP);
+        App.getInstance().removeCommand(CmdConst.STARTUP);
     };
     return Main;
 }(eui.UILayer));
-egret.registerClass(Main,'Main');
+__reflect(Main.prototype, "Main");

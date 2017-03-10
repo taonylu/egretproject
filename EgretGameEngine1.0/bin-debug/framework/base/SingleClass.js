@@ -1,3 +1,6 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
 /**
  * 单例基类
  * 方便的继承单例基类即可实现单例，但是getInstance方法返回的是any，无法直接使用"."访问属性或方法
@@ -7,7 +10,6 @@
 var SingleClass = (function () {
     function SingleClass() {
     }
-    var d = __define,c=SingleClass,p=c.prototype;
     /**
      * 获取一个单例
      * @returns 单例
@@ -15,7 +17,7 @@ var SingleClass = (function () {
     SingleClass.getInstance = function () {
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i - 0] = arguments[_i];
+            args[_i] = arguments[_i];
         }
         var Class = this;
         if (!Class._instance) {
@@ -37,4 +39,4 @@ var SingleClass = (function () {
     };
     return SingleClass;
 }());
-egret.registerClass(SingleClass,'SingleClass');
+__reflect(SingleClass.prototype, "SingleClass");

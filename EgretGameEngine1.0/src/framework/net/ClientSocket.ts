@@ -46,7 +46,7 @@ class ClientSocket extends SingleClass{
 	/**连接成功*/
 	private onConnect(e:egret.Event){
 		this.resetReconnect();
-        App.MessageCenter.sendEvent(SocketConst.SOCKET_CONNECT, this);
+		App.sendNotification(SocketConst.SOCKET_CONNECT);
 	}
 	
 	/**
@@ -71,13 +71,14 @@ class ClientSocket extends SingleClass{
 		var proto:string = byte.readUTF();
 		var dataLen:number = byte.readInt();
         var json = JSON.parse(byte.readUTFBytes(dataLen));
-		App.MessageCenter.sendCommand(proto,json);
+        
+        App.sendNotification(proto, json);
 	}
 
 	/**连接错误*/
 	private onError(e:egret.Event){
 		if(this.checkReconnenct() == false){
-            App.MessageCenter.sendEvent(SocketConst.SOCKET_ERROR, this);
+            App.sendNotification(SocketConst.SOCKET_ERROR);
 		}
 	}
 
@@ -86,10 +87,10 @@ class ClientSocket extends SingleClass{
 		if(this.checkReconnenct()){
 			this.curReconnectCount++;
 			this.socket.connectByUrl(this.serverUrl);
-            App.MessageCenter.sendEvent(SocketConst.SOCKET_RECONNECT, this, this.curReconnectCount);
+            App.sendNotification(SocketConst.SOCKET_RECONNECT, this.curReconnectCount);
 		}else{
 			this.resetReconnect();
-            App.MessageCenter.sendEvent(SocketConst.SOCKET_CLOSE, this);
+            App.sendNotification(SocketConst.SOCKET_CLOSE);
 		}
 	}
 

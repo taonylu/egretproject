@@ -1,3 +1,6 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
 /**
  * 事件常量
  * @author chenkai
@@ -6,7 +9,6 @@
 var EventConst = (function () {
     function EventConst() {
     }
-    var d = __define,c=EventConst,p=c.prototype;
     return EventConst;
 }());
-egret.registerClass(EventConst,'EventConst');
+__reflect(EventConst.prototype, "EventConst");

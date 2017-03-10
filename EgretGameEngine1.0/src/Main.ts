@@ -80,9 +80,9 @@ class Main extends eui.UILayer {
         this.preloadScene = null;
     
         //启动游戏
-        App.MessageCenter.addCommand(CmdConst.STARTUP, StartupCommand);
-        App.MessageCenter.sendCommand(CmdConst.STARTUP);
-        App.MessageCenter.removeCommand(CmdConst.STARTUP);
+        App.getInstance().registerCommand(CmdConst.STARTUP, StartupCommand);
+        App.getInstance().sendNotification(CmdConst.STARTUP);
+        App.getInstance().removeCommand(CmdConst.STARTUP);
     }
 }
 

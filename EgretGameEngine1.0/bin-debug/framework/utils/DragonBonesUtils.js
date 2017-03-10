@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * 骨骼动画工具
  * @author chenkai
@@ -21,17 +29,17 @@ display.animation.play("attack");
 var DragonBonesUtils = (function (_super) {
     __extends(DragonBonesUtils, _super);
     function DragonBonesUtils() {
-        _super.call(this);
-        this.factory = new dragonBones.EgretFactory();
+        var _this = _super.call(this) || this;
+        _this.factory = new dragonBones.EgretFactory();
+        return _this;
     }
-    var d = __define,c=DragonBonesUtils,p=c.prototype;
     /**
      * 添加龙骨动画数据
      * @dragonData 龙骨数据
      * @texureJson 贴图集数据
      * @texture 贴图
      */
-    p.addDragonBones = function (dragonbonesData, textureData, texture) {
+    DragonBonesUtils.prototype.addDragonBones = function (dragonbonesData, textureData, texture) {
         this.factory.addDragonBonesData(dragonBones.DataParser.parseDragonBonesData(dragonbonesData));
         this.factory.addTextureAtlas(new dragonBones.EgretTextureAtlas(texture, textureData));
     };
@@ -39,7 +47,7 @@ var DragonBonesUtils = (function (_super) {
      * 添加龙骨动画数据
      * @configList 龙骨配置数组 [[dataRes, textureDataRes, textureRes],...]
      */
-    p.addDragonBonesByConfig = function (configList) {
+    DragonBonesUtils.prototype.addDragonBonesByConfig = function (configList) {
         var len = configList.length;
         for (var i = 0; i < len; i++) {
             var config = configList[i];
@@ -55,9 +63,9 @@ var DragonBonesUtils = (function (_super) {
      * @armatureName 骨架名
      * @return 返回骨架
      */
-    p.getArmatureDisplay = function (armatureName) {
+    DragonBonesUtils.prototype.getArmatureDisplay = function (armatureName) {
         return this.factory.buildArmatureDisplay(armatureName);
     };
     return DragonBonesUtils;
 }(SingleClass));
-egret.registerClass(DragonBonesUtils,'DragonBonesUtils');
+__reflect(DragonBonesUtils.prototype, "DragonBonesUtils");
