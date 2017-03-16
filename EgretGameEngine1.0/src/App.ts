@@ -1,7 +1,7 @@
 /**
  * App主类
  * @author chenkai 
- * @date 2016/12/18
+ * @since 2016/12/18
  */
 class App extends puremvc.Facade{
 	

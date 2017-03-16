@@ -4,7 +4,7 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 /**
  * 声音常量
  * @author chenkai
- * @date 2016/12/28
+ * @since 2017/3/16
  */
 var SoundConst = (function () {
     function SoundConst() {
@@ -12,3 +12,4 @@ var SoundConst = (function () {
     return SoundConst;
 }());
 __reflect(SoundConst.prototype, "SoundConst");
+//# sourceMappingURL=SoundConst.js.map

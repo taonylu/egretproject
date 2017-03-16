@@ -7,9 +7,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- *
- * @author
- *
+ * 游戏场景
+ * @author chenkai
+ * @since 2017/3/16
  */
 var GameScene = (function (_super) {
     __extends(GameScene, _super);
@@ -30,3 +30,4 @@ var GameScene = (function (_super) {
     return GameScene;
 }(BaseScene));
 __reflect(GameScene.prototype, "GameScene");
+//# sourceMappingURL=GameScene.js.map

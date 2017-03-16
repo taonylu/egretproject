@@ -67,3 +67,4 @@ var DeviceUtils = (function (_super) {
     return DeviceUtils;
 }(SingleClass));
 __reflect(DeviceUtils.prototype, "DeviceUtils");
+//# sourceMappingURL=DeviceUtils.js.map

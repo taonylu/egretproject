@@ -1,7 +1,7 @@
 /**
  * 声音常量
  * @author chenkai
- * @date 2016/12/28
+ * @since 2017/3/16
  */
 class SoundConst {
 	public constructor() {

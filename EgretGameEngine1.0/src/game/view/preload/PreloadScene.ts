@@ -1,7 +1,7 @@
 /**
  * 预加载界面
  * @author chenkai
- * @date 2016/12/27
+ * @since 2016/12/27
  */
 class PreloadScene extends BaseScene{
     /**进度文本*/

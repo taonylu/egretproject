@@ -3,6 +3,8 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 };
 /**
  * Socket常量
+ * @author chenkai
+ * @since 2017/3/16
 */
 var SocketConst = (function () {
     function SocketConst() {
@@ -18,3 +20,4 @@ SocketConst.SOCKET_CLOSE = "SOCKET_CLOSE";
 /**Socket重连*/
 SocketConst.SOCKET_RECONNECT = "SOCKET_RECONNECT";
 __reflect(SocketConst.prototype, "SocketConst");
+//# sourceMappingURL=SocketConst.js.map

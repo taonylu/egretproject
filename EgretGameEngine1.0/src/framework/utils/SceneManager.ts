@@ -31,17 +31,18 @@ class SceneManager extends SingleClass {
 	/**
 	 * 打开场景
 	 * @sceneName 场景名
+     * @data 传入数据
 	 */
-    public open(sceneName: string) {
+    public open(sceneName: string, data:any =null) {
         var scene: BaseScene = this.sceneMap[sceneName];
         if(scene) {
-            this.replaceScene(scene);
+            this.replaceScene(scene, data);
         } else {
             var clz = this.clzMap[sceneName];
             if(clz) {
                 scene = new clz();
                 this.sceneMap[sceneName] = scene;
-                this.replaceScene(scene);
+                this.replaceScene(scene, data);
             }
         }
     }
@@ -49,10 +50,11 @@ class SceneManager extends SingleClass {
 	/**
 	 * 打开场景
 	 * @sceneName 场景名
+     * @data 传入数据
 	 */
-    private replaceScene(scene: BaseScene) {
+    private replaceScene(scene: BaseScene, data:any= null) {
         (<BaseScene>scene).once(egret.Event.ADDED_TO_STAGE,() => {
-            scene.onEnable();
+            scene.onEnable(data);
         },this);
         App.LayerManager.sceneLayer.addChild(scene);
 

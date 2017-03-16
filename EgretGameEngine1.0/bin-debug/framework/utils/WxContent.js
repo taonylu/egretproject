@@ -127,3 +127,4 @@ var WxContent = (function (_super) {
     return WxContent;
 }(SingleClass));
 __reflect(WxContent.prototype, "WxContent");
+//# sourceMappingURL=WxContent.js.map

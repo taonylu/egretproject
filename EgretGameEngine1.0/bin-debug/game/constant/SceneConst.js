@@ -4,7 +4,7 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 /**
  * 场景常量
  * @author chenkai
- * @date 2016/12/28
+ * @since 2016/12/28
  */
 var SceneConst = (function () {
     function SceneConst() {
@@ -18,3 +18,4 @@ SceneConst.GAME = "GAME";
 /**结算*/
 SceneConst.RESULT = "RESULT";
 __reflect(SceneConst.prototype, "SceneConst");
+//# sourceMappingURL=SceneConst.js.map

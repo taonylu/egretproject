@@ -1,5 +1,7 @@
 /**
  * 资源常量
+ * @author chenkai
+ * @since 2017/3/16
  */
 class AssetConst {
 	/**预加载*/

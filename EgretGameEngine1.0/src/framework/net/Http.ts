@@ -14,7 +14,7 @@ class Http extends SingleClass{
 	/**请求地址*/
 	private serverUrl:string;
 	/**请求格式POST or GET*/
-	private httpMethod:string = egret.HttpMethod.POST;
+	public httpMethod:string = egret.HttpMethod.POST;
 	/**发送缓存*/
 	private cacheList = [];
 	/**当前发送内容*/
@@ -26,8 +26,8 @@ class Http extends SingleClass{
 		super();
 		this.request = new egret.HttpRequest();
         this.request.responseType = egret.HttpResponseType.TEXT;
-        this.request.addEventListener(egret.Event.COMPLETE,this.onPostComplete,this);
-        this.request.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onPostIOError,this);
+        this.request.addEventListener(egret.Event.COMPLETE,this.onSendComplete,this);
+        this.request.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onSendIOError,this);
 	}
 
 	/**
@@ -51,22 +51,32 @@ class Http extends SingleClass{
 
 	/**发送下一条*/
 	private next(){
+		//当前正在发送时，需要等待
 		if(this.requesting){
 			return;
 		}
+		//全部发送完成，停止发送
 		if(this.cacheList.length == 0){
 			return;
 		}
+		//获取数组第一条待发送包
 		this.curSend = this.cacheList.shift();
+		//发送数据
 		this.request.open(this.serverUrl ,this.httpMethod);
+		//设置编码 JSON:application/json
         this.request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        //this.request.setRequestHeader("Content-Type","application/json");
-		this.request.send(this.curSend[0]);
+		//根据POST和GET方式，选择是否发送msg数据
+		if(this.httpMethod == egret.HttpMethod.POST){
+			this.request.send(this.curSend[0]);
+		}else{
+			this.request.send();
+		}
+		//设置发送状态
 		this.requesting = true;
 	}
 	
 	/**发送完成*/
-	private onPostComplete(e:egret.Event):void{
+	private onSendComplete(e:egret.Event):void{
 		if(this.curSend){
 			this.curSend[1].call(this.curSend[2], this.request.response);
 		}
@@ -76,7 +86,7 @@ class Http extends SingleClass{
 	}
 	
 	/**发送失败*/
-	private onPostIOError(e:egret.IOErrorEvent):void{
+	private onSendIOError(e:egret.IOErrorEvent):void{
 		 console.error("Http send error");
     	 this.requesting = false;
 		 this.next();

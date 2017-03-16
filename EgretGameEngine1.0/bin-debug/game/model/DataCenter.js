@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 /**
  * 数据中心
  * @author chenkai
- * @date 2016/12/18
+ * @since 2016/12/18
  */
 var DataCenter = (function (_super) {
     __extends(DataCenter, _super);
@@ -19,3 +19,4 @@ var DataCenter = (function (_super) {
     return DataCenter;
 }(SingleClass));
 __reflect(DataCenter.prototype, "DataCenter");
+//# sourceMappingURL=DataCenter.js.map

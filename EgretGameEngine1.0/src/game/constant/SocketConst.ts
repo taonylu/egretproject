@@ -1,5 +1,7 @@
 /**
  * Socket常量
+ * @author chenkai
+ * @since 2017/3/16
 */
 class SocketConst {
 	/**Socket连接成功*/

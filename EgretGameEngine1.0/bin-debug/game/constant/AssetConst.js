@@ -3,6 +3,8 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 };
 /**
  * 资源常量
+ * @author chenkai
+ * @since 2017/3/16
  */
 var AssetConst = (function () {
     function AssetConst() {
@@ -20,3 +22,4 @@ AssetConst.Result = "result";
 /**声音*/
 AssetConst.Sound = "sound";
 __reflect(AssetConst.prototype, "AssetConst");
+//# sourceMappingURL=AssetConst.js.map

@@ -45,3 +45,4 @@ var VersionManager = (function (_super) {
     return VersionManager;
 }(SingleClass));
 __reflect(VersionManager.prototype, "VersionManager");
+//# sourceMappingURL=VersionManager.js.map

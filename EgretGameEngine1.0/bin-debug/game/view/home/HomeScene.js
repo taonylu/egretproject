@@ -7,9 +7,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * 主页
+ * 主页场景
  * @author chenkai
- * @date 2016/12/26
+ * @since 2016/12/26
  */
 var HomeScene = (function (_super) {
     __extends(HomeScene, _super);
@@ -27,3 +27,4 @@ var HomeScene = (function (_super) {
     return HomeScene;
 }(BaseScene));
 __reflect(HomeScene.prototype, "HomeScene");
+//# sourceMappingURL=HomeScene.js.map

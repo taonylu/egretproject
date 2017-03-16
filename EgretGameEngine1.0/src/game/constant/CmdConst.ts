@@ -1,7 +1,7 @@
 /**
  * command常量
  * @author chenkai
- * @date 2017/2/8
+ * @since 2017/2/8
  */
 class CmdConst {
     /**启动命令*/

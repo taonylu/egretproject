@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 /**
  * 弹框基类
  * @author chenkai
- * @date 2016/12/18
+ * @since 2016/12/18
  */
 var BasePanel = (function (_super) {
     __extends(BasePanel, _super);
@@ -20,7 +20,8 @@ var BasePanel = (function (_super) {
         return _this;
     }
     /**显示到舞台*/
-    BasePanel.prototype.onEnable = function () {
+    BasePanel.prototype.onEnable = function (data) {
+        if (data === void 0) { data = null; }
     };
     /**从舞台移除*/
     BasePanel.prototype.onRemove = function () {
@@ -28,3 +29,4 @@ var BasePanel = (function (_super) {
     return BasePanel;
 }(eui.Component));
 __reflect(BasePanel.prototype, "BasePanel");
+//# sourceMappingURL=BasePanel.js.map

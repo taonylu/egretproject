@@ -4,7 +4,7 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 /**
  * 弹框常量
  * @author chenkai
- * @date 2016/12/28
+ * @since 2016/12/28
  */
 var PanelConst = (function () {
     function PanelConst() {
@@ -12,3 +12,4 @@ var PanelConst = (function () {
     return PanelConst;
 }());
 __reflect(PanelConst.prototype, "PanelConst");
+//# sourceMappingURL=PanelConst.js.map

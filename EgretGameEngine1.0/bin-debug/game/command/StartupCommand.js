@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 /**
  * 启动
  * @author chenkai
- * @date 2017/2/8
+ * @since 2017/2/8
  */
 var StartupCommand = (function (_super) {
     __extends(StartupCommand, _super);
@@ -27,3 +27,4 @@ var StartupCommand = (function (_super) {
     return StartupCommand;
 }(puremvc.SimpleCommand));
 __reflect(StartupCommand.prototype, "StartupCommand");
+//# sourceMappingURL=StartupCommand.js.map

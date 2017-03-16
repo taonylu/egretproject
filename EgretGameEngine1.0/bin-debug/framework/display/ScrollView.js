@@ -7,11 +7,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
-*  文 件 名：ItemScroll.ts
-*  功    能： 滚动组件
-*  内    容： 自定义组件，支持多张图片水平(垂直)切换滚动
 *
-* Example:
+* 自定义组件，支持多张图片水平(垂直)切换滚动
+* @author chenkai
+* @since 2017/3/16
+* @example
 * 1. 从自定义组件中找到ItemScroller，并拖动到exml上
 * 2. 将需要显示对象(图片等)拖动到ItemScroller的Group下
 * 3. 设置Group的布局为垂直or水平
@@ -23,7 +23,9 @@ var ScrollView = (function (_super) {
         /**当前滚动到第几项  0表示第1项*/
         _this.curItemCount = 0;
         /**滚动时间*/
-        _this.delayScroll = 300;
+        _this.delayScroll = 250;
+        /**滚动中*/
+        _this.bScrolling = false;
         return _this;
     }
     ScrollView.prototype.childrenCreated = function () {
@@ -46,6 +48,16 @@ var ScrollView = (function (_super) {
         this.bounces = true;
         this.addEventListener(eui.UIEvent.CHANGE_START, this.onChangeStartHandler, this);
         this.addEventListener(eui.UIEvent.CHANGE_END, this.onChangeEndHandler, this);
+    };
+    /**可以滚动*/
+    ScrollView.prototype.start = function () {
+        this.touchEnabled = true;
+        this.touchChildren = true;
+    };
+    /**禁用滚动*/
+    ScrollView.prototype.stop = function () {
+        this.touchEnabled = false;
+        this.touchChildren = false;
     };
     /**拖动开始*/
     ScrollView.prototype.onChangeStartHandler = function () {
@@ -80,6 +92,9 @@ var ScrollView = (function (_super) {
     };
     /**滑动到下一项*/
     ScrollView.prototype.scrollToNext = function () {
+        if (this.bScrolling) {
+            return;
+        }
         var item = this.curItemCount;
         if (item < this.itemNum - 1) {
             item++;
@@ -88,6 +103,9 @@ var ScrollView = (function (_super) {
     };
     /**滑动到上一项*/
     ScrollView.prototype.scrollToLast = function () {
+        if (this.bScrolling) {
+            return;
+        }
         var item = this.curItemCount;
         if (item > 0) {
             item--;
@@ -99,7 +117,13 @@ var ScrollView = (function (_super) {
      * @item 指定项
      */
     ScrollView.prototype.scrollToItem = function (item) {
+        var _this = this;
+        if (this.bScrolling) {
+            return;
+        }
         if (item >= 0 && item < this.itemNum) {
+            this.bScrolling = true;
+            this.disableTouch();
             this.curItemCount = item;
             egret.Tween.removeTweens(this.viewport);
             if (this.isHScroller) {
@@ -108,7 +132,19 @@ var ScrollView = (function (_super) {
             else {
                 egret.Tween.get(this.viewport).to({ scrollV: item * this.itemSize, ease: egret.Ease.quadOut }, this.delayScroll);
             }
+            egret.Tween.get(this.viewport).wait(this.delayScroll).call(function () {
+                _this.bScrolling = false;
+                _this.enableTouch();
+            }, this);
         }
+    };
+    ScrollView.prototype.enableTouch = function () {
+        this.touchEnabled = true;
+        this.touchChildren = true;
+    };
+    ScrollView.prototype.disableTouch = function () {
+        this.touchChildren = false;
+        this.touchEnabled = false;
     };
     /**销毁*/
     ScrollView.prototype.destroy = function () {
@@ -116,3 +152,4 @@ var ScrollView = (function (_super) {
     return ScrollView;
 }(eui.Scroller));
 __reflect(ScrollView.prototype, "ScrollView");
+//# sourceMappingURL=ScrollView.js.map

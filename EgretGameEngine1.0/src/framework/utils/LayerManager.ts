@@ -14,7 +14,7 @@ class LayerManager extends SingleClass{
 	public constructor() {
 		super();
 
-		var stage:egret.Stage = App.StageUtils.getStage();
+		var stage:egret.Stage = App.StageUtils.stage;
 
 		this.sceneLayer = new eui.UILayer();
 		this.sceneLayer.percentWidth = 100;

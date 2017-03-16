@@ -1,7 +1,7 @@
 /**
- *
- * @author 
- *
+ * 游戏场景
+ * @author chenkai 
+ * @since 2017/3/16
  */
 class GameScene extends BaseScene{
 	public constructor() {

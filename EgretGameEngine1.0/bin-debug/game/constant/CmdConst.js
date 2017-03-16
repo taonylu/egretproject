@@ -4,7 +4,7 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 /**
  * command常量
  * @author chenkai
- * @date 2017/2/8
+ * @since 2017/2/8
  */
 var CmdConst = (function () {
     function CmdConst() {
@@ -14,3 +14,4 @@ var CmdConst = (function () {
 /**启动命令*/
 CmdConst.STARTUP = "STARTUP";
 __reflect(CmdConst.prototype, "CmdConst");
+//# sourceMappingURL=CmdConst.js.map

@@ -1,13 +1,13 @@
-/**
- * 单例基类
- * 方便的继承单例基类即可实现单例，但是getInstance方法返回的是any，无法直接使用"."访问属性或方法
- * @author chenkai
- * @date 2016/12/18
- */ 
+/** 
+* 单例基类。
+* 方便的继承单例基类即可实现单例，但是getInstance方法返回的是any，无法直接使用"."访问属性或方法。
+* @author chenkai
+* @since 2017/3/16
+*/
 class SingleClass {
     
     /**
-     * 获取一个单例
+     * 获取一个单例(支持<=3个参数)
      * @returns 单例
      */
     public static getInstance(...args: any[]): any {

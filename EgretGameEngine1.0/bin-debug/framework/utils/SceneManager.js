@@ -36,28 +36,32 @@ var SceneManager = (function (_super) {
     /**
      * 打开场景
      * @sceneName 场景名
+     * @data 传入数据
      */
-    SceneManager.prototype.open = function (sceneName) {
+    SceneManager.prototype.open = function (sceneName, data) {
+        if (data === void 0) { data = null; }
         var scene = this.sceneMap[sceneName];
         if (scene) {
-            this.replaceScene(scene);
+            this.replaceScene(scene, data);
         }
         else {
             var clz = this.clzMap[sceneName];
             if (clz) {
                 scene = new clz();
                 this.sceneMap[sceneName] = scene;
-                this.replaceScene(scene);
+                this.replaceScene(scene, data);
             }
         }
     };
     /**
      * 打开场景
      * @sceneName 场景名
+     * @data 传入数据
      */
-    SceneManager.prototype.replaceScene = function (scene) {
+    SceneManager.prototype.replaceScene = function (scene, data) {
+        if (data === void 0) { data = null; }
         scene.once(egret.Event.ADDED_TO_STAGE, function () {
-            scene.onEnable();
+            scene.onEnable(data);
         }, this);
         App.LayerManager.sceneLayer.addChild(scene);
         var removeScene = this.curScene;
@@ -78,3 +82,4 @@ var SceneManager = (function (_super) {
     return SceneManager;
 }(SingleClass));
 __reflect(SceneManager.prototype, "SceneManager");
+//# sourceMappingURL=SceneManager.js.map
