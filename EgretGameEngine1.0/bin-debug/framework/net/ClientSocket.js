@@ -9,9 +9,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 /**
  * Socket类
  * @author chenkai
- * @date 2016/12/19
- *
- * Example:
+ * @since 2016/12/19
+ * @example
  * App.Socket.connect("127.0.0.1:3000");
  * App.socket.Send("Login",{account:"chenkai", password:"123456"});
  */
@@ -109,3 +108,4 @@ var ClientSocket = (function (_super) {
     return ClientSocket;
 }(SingleClass));
 __reflect(ClientSocket.prototype, "ClientSocket");
+//# sourceMappingURL=ClientSocket.js.map

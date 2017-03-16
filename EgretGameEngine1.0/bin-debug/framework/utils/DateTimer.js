@@ -26,19 +26,23 @@ var DateTimer = (function (_super) {
         _this.repeatCount = repeatCount;
         return _this;
     }
+    /**开始计时 */
     DateTimer.prototype.start = function () {
         this.previous = egret.getTimer();
         this.accTime = 0;
         egret.startTick(this.update, this);
     };
+    /**重置计时 */
     DateTimer.prototype.reset = function () {
         this.previous = egret.getTimer();
         this.accTime = 0;
         this.currentCount = 0;
     };
+    /**停止计时 */
     DateTimer.prototype.stop = function () {
         egret.stopTick(this.update, this);
     };
+    /**更新时间 */
     DateTimer.prototype.update = function () {
         this.curTime = egret.getTimer();
         this.passTime = this.curTime - this.previous;
@@ -58,3 +62,4 @@ var DateTimer = (function (_super) {
     return DateTimer;
 }(egret.EventDispatcher));
 __reflect(DateTimer.prototype, "DateTimer");
+//# sourceMappingURL=DateTimer.js.map

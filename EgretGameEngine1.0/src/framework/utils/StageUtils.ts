@@ -12,16 +12,11 @@
  */
 class StageUtils extends SingleClass {
     /**舞台*/
-    private stage: egret.Stage;
+    public stage: egret.Stage;
 
     /**初始化舞台 egret.MainContext API废弃，这里必须在Main.ts里传入stage*/
     public init(stage: egret.Stage) {
         this.stage = stage;
-    }
-
-    /**获取舞台*/
-    public getStage(): egret.Stage {
-        return this.stage;
     }
 
     /**舞台宽度*/
@@ -37,24 +32,24 @@ class StageUtils extends SingleClass {
     /**改变舞台适配模式 PC上showall，手机上大于4:3FixedWidth，小于4:3showAll*/
     public changeStageMode() {
         if(App.DeviceUtils.isPC) {
-            this.getStage().orientation = egret.OrientationMode.AUTO;
-            this.getStage().scaleMode = egret.StageScaleMode.SHOW_ALL;
+            this.stage.orientation = egret.OrientationMode.AUTO;
+            this.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
         } else {
             if(this.stageHeight / this.stageWidth <= 4 / 3) {
-                this.getStage().scaleMode = egret.StageScaleMode.SHOW_ALL;
+                this.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
             } else {
-                this.getStage().scaleMode = egret.StageScaleMode.FIXED_WIDTH;
+                this.stage.scaleMode = egret.StageScaleMode.FIXED_WIDTH;
             }
         }
     }
 	
-    /**改变背景颜色*/
+    /**改变背景颜色 颜色值:"#FFFFFF" */
     public changeBgColor(color: string) {
         document.body.style.backgroundColor = color;
     }
 	
-    /**激活和非激活处理*/
-    public activeHandler() {
+    /**窗口失去焦点时，停止播放音乐*/
+    public addFocusListener() {
         this.stage.addEventListener(egret.Event.ACTIVATE,() => {
             egret.log("active");
             App.Sound.resumeBGM();

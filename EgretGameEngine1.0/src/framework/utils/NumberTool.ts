@@ -12,4 +12,6 @@ class NumberTool extends SingleClass{
     public getRandInt(start: number,end: number) {
         return start + Math.round(Math.random() * (end - start));
     }
+
+    
 }

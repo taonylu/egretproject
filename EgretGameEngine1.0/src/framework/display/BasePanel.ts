@@ -1,7 +1,7 @@
 /**
  * 弹框基类
  * @author chenkai
- * @date 2016/12/18
+ * @since 2016/12/18
  */
 class BasePanel extends eui.Component{
 
@@ -12,7 +12,7 @@ class BasePanel extends eui.Component{
 	}
 
 	/**显示到舞台*/
-	public onEnable(){
+	public onEnable(data:any = null){
 
 	}
 

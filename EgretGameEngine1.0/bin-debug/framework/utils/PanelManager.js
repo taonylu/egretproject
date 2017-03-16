@@ -45,12 +45,14 @@ var PanelManager = (function (_super) {
      * @panelName 面板名
      * @callBack 面板添加到舞台后的回调函数
      * @thisObject 回调函数执行对象
+     * @data 传入数据
      * @reutrn 返回打开的面板
      */
-    PanelManager.prototype.open = function (panelName, callBack, thisObject) {
+    PanelManager.prototype.open = function (panelName, callBack, thisObject, data) {
         var _this = this;
         if (callBack === void 0) { callBack = null; }
         if (thisObject === void 0) { thisObject = null; }
+        if (data === void 0) { data = null; }
         var panel = this.panelMap[panelName];
         if (panel) {
             panel = this.openPanel(panelName, callBack, thisObject);
@@ -64,24 +66,25 @@ var PanelManager = (function (_super) {
                 var groupName = this.groupMap[panelName];
                 if (groupName != null) {
                     App.ResUtils.loadGroup(groupName, function () {
-                        _this.openPanel(panelName, callBack, thisObject);
+                        _this.openPanel(panelName, callBack, thisObject, data);
                     }, this);
                 }
                 else {
-                    this.openPanel(panelName, callBack, thisObject);
+                    this.openPanel(panelName, callBack, thisObject, data);
                 }
             }
         }
         return panel;
     };
     /**打开弹框*/
-    PanelManager.prototype.openPanel = function (panelName, callBack, thisObject) {
+    PanelManager.prototype.openPanel = function (panelName, callBack, thisObject, data) {
         if (callBack === void 0) { callBack = null; }
         if (thisObject === void 0) { thisObject = null; }
+        if (data === void 0) { data = null; }
         var panel = this.panelMap[panelName];
         if (panel) {
             panel.once(egret.Event.ADDED_TO_STAGE, function () {
-                panel.onEnable();
+                panel.onEnable(data);
                 if (callBack && thisObject) {
                     callBack.apply(thisObject);
                 }
@@ -112,3 +115,4 @@ var PanelManager = (function (_super) {
     return PanelManager;
 }(SingleClass));
 __reflect(PanelManager.prototype, "PanelManager");
+//# sourceMappingURL=PanelManager.js.map

@@ -4,7 +4,7 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 /**
  * 键盘按钮值常量
  * @author chenkai
- * @date 2016/12/29
+ * @since 2016/12/29
  */
 var KeyCode = (function () {
     function KeyCode() {
@@ -31,3 +31,4 @@ KeyCode.D = 68;
 KeyCode.W = 87;
 KeyCode.S = 83;
 __reflect(KeyCode.prototype, "KeyCode");
+//# sourceMappingURL=KeyCode.js.map

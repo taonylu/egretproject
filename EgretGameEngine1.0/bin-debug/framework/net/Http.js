@@ -28,8 +28,8 @@ var Http = (function (_super) {
         _this.requesting = false;
         _this.request = new egret.HttpRequest();
         _this.request.responseType = egret.HttpResponseType.TEXT;
-        _this.request.addEventListener(egret.Event.COMPLETE, _this.onPostComplete, _this);
-        _this.request.addEventListener(egret.IOErrorEvent.IO_ERROR, _this.onPostIOError, _this);
+        _this.request.addEventListener(egret.Event.COMPLETE, _this.onSendComplete, _this);
+        _this.request.addEventListener(egret.IOErrorEvent.IO_ERROR, _this.onSendIOError, _this);
         return _this;
     }
     /**
@@ -51,21 +51,32 @@ var Http = (function (_super) {
     };
     /**发送下一条*/
     Http.prototype.next = function () {
+        //当前正在发送时，需要等待
         if (this.requesting) {
             return;
         }
+        //全部发送完成，停止发送
         if (this.cacheList.length == 0) {
             return;
         }
+        //获取数组第一条待发送包
         this.curSend = this.cacheList.shift();
+        //发送数据
         this.request.open(this.serverUrl, this.httpMethod);
+        //设置编码 JSON:application/json
         this.request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        //this.request.setRequestHeader("Content-Type","application/json");
-        this.request.send(this.curSend[0]);
+        //根据POST和GET方式，选择是否发送msg数据
+        if (this.httpMethod == egret.HttpMethod.POST) {
+            this.request.send(this.curSend[0]);
+        }
+        else {
+            this.request.send();
+        }
+        //设置发送状态
         this.requesting = true;
     };
     /**发送完成*/
-    Http.prototype.onPostComplete = function (e) {
+    Http.prototype.onSendComplete = function (e) {
         if (this.curSend) {
             this.curSend[1].call(this.curSend[2], this.request.response);
         }
@@ -73,7 +84,7 @@ var Http = (function (_super) {
         this.next();
     };
     /**发送失败*/
-    Http.prototype.onPostIOError = function (e) {
+    Http.prototype.onSendIOError = function (e) {
         console.error("Http send error");
         this.requesting = false;
         this.next();
@@ -87,3 +98,4 @@ var Http = (function (_super) {
     return Http;
 }(SingleClass));
 __reflect(Http.prototype, "Http");
+//# sourceMappingURL=Http.js.map

@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 /**
  * 场景
  * @author chenkai
- * @date 2016/12/18
+ * @since 2016/12/18
  */
 var BaseScene = (function (_super) {
     __extends(BaseScene, _super);
@@ -20,7 +20,8 @@ var BaseScene = (function (_super) {
         return _this;
     }
     /**显示到舞台*/
-    BaseScene.prototype.onEnable = function () {
+    BaseScene.prototype.onEnable = function (data) {
+        if (data === void 0) { data = null; }
     };
     /**从舞台移除*/
     BaseScene.prototype.onRemove = function () {
@@ -28,3 +29,4 @@ var BaseScene = (function (_super) {
     return BaseScene;
 }(eui.Component));
 __reflect(BaseScene.prototype, "BaseScene");
+//# sourceMappingURL=BaseScene.js.map

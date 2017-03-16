@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 /**
  * App主类
  * @author chenkai
- * @date 2016/12/18
+ * @since 2016/12/18
  */
 var App = (function (_super) {
     __extends(App, _super);
@@ -164,3 +164,4 @@ var App = (function (_super) {
     return App;
 }(puremvc.Facade));
 __reflect(App.prototype, "App");
+//# sourceMappingURL=App.js.map

@@ -100,3 +100,4 @@ var CollisionUtils = (function (_super) {
     return CollisionUtils;
 }(SingleClass));
 __reflect(CollisionUtils.prototype, "CollisionUtils");
+//# sourceMappingURL=CollisionUtils.js.map

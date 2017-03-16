@@ -69,3 +69,4 @@ var DragonBonesUtils = (function (_super) {
     return DragonBonesUtils;
 }(SingleClass));
 __reflect(DragonBonesUtils.prototype, "DragonBonesUtils");
+//# sourceMappingURL=DragonBonesUtils.js.map

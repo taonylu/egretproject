@@ -1,7 +1,7 @@
 /**
  * 启动
  * @author chenkai 
- * @date 2017/2/8
+ * @since 2017/2/8
  */
 class StartupCommand extends puremvc.SimpleCommand{
 	public execute(notification:puremvc.INotification) {

@@ -61,3 +61,4 @@ BluemoonSDK.START_GAME = "start_game";
 /**进入商城*/
 BluemoonSDK.ENTER_SHOP = "enter_shop";
 __reflect(BluemoonSDK.prototype, "BluemoonSDK");
+//# sourceMappingURL=BluemoonSDK.js.map

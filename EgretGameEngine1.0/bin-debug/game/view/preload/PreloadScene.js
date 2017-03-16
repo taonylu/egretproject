@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 /**
  * 预加载界面
  * @author chenkai
- * @date 2016/12/27
+ * @since 2016/12/27
  */
 var PreloadScene = (function (_super) {
     __extends(PreloadScene, _super);
@@ -31,3 +31,4 @@ var PreloadScene = (function (_super) {
     return PreloadScene;
 }(BaseScene));
 __reflect(PreloadScene.prototype, "PreloadScene");
+//# sourceMappingURL=PreloadScene.js.map

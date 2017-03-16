@@ -27,3 +27,4 @@ var NumberTool = (function (_super) {
     return NumberTool;
 }(SingleClass));
 __reflect(NumberTool.prototype, "NumberTool");
+//# sourceMappingURL=NumberTool.js.map

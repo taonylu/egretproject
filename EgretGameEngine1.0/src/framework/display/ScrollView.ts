@@ -1,9 +1,9 @@
 /**
-*  文 件 名：ItemScroll.ts
-*  功    能： 滚动组件
-*  内    容： 自定义组件，支持多张图片水平(垂直)切换滚动
-* 
-* Example:
+*  
+* 自定义组件，支持多张图片水平(垂直)切换滚动
+* @author chenkai
+* @since 2017/3/16
+* @example
 * 1. 从自定义组件中找到ItemScroller，并拖动到exml上
 * 2. 将需要显示对象(图片等)拖动到ItemScroller的Group下
 * 3. 设置Group的布局为垂直or水平
@@ -11,18 +11,20 @@
 class ScrollView extends eui.Scroller {
     /**滚动项数量*/
     public itemNum: number;
-    /**单个滚动项长度*/s
+    /**单个滚动项长度*/
     public itemSize: number;
     /**当前滚动到第几项  0表示第1项*/
     public curItemCount: number = 0;
     /**滚动时间*/
-    public delayScroll: number = 300;
+    public delayScroll: number = 250;
     /**是否是水平滚动*/
     public isHScroller: Boolean;
     /**触摸起始位置*/
     private touchStartPos: number;
     /**当前触摸位置和起始触摸位置距离*/
     private touchDist: number;
+    /**滚动中*/
+    private bScrolling:Boolean = false;
 
     public constructor() {
         super();
@@ -50,6 +52,18 @@ class ScrollView extends eui.Scroller {
         this.bounces = true;
         this.addEventListener(eui.UIEvent.CHANGE_START,this.onChangeStartHandler,this);
         this.addEventListener(eui.UIEvent.CHANGE_END,this.onChangeEndHandler,this);
+    }
+    
+    /**可以滚动*/
+    public start(){
+        this.touchEnabled = true;
+        this.touchChildren = true;
+    }
+    
+    /**禁用滚动*/
+    public stop() {
+        this.touchEnabled = false;
+        this.touchChildren = false;
     }
     
     /**拖动开始*/
@@ -84,6 +98,10 @@ class ScrollView extends eui.Scroller {
     
     /**滑动到下一项*/
     public scrollToNext(): void {
+        if(this.bScrolling){
+            return;
+        }
+        
         var item: number = this.curItemCount;
         if(item < this.itemNum - 1) {
             item++;
@@ -93,6 +111,10 @@ class ScrollView extends eui.Scroller {
     
     /**滑动到上一项*/
     public scrollToLast(): void {
+        if(this.bScrolling) {
+            return;
+        }
+        
         var item: number = this.curItemCount;
         if(item > 0) {
             item--;
@@ -105,7 +127,13 @@ class ScrollView extends eui.Scroller {
      * @item 指定项
      */
     public scrollToItem(item: number): void {
+        if(this.bScrolling) {
+            return;
+        }
+        
         if(item >= 0 && item < this.itemNum) {
+            this.bScrolling = true;
+            this.disableTouch();
             this.curItemCount = item;
             egret.Tween.removeTweens(this.viewport);
             if(this.isHScroller) {
@@ -113,7 +141,21 @@ class ScrollView extends eui.Scroller {
             } else {
                 egret.Tween.get(this.viewport).to({ scrollV: item * this.itemSize,ease: egret.Ease.quadOut },this.delayScroll);
             }
+            egret.Tween.get(this.viewport).wait(this.delayScroll).call(()=>{
+                this.bScrolling = false;
+                this.enableTouch();
+            },this);
         }
+    }
+    
+    public enableTouch(){
+        this.touchEnabled = true;
+        this.touchChildren = true;
+    }
+    
+    public disableTouch(){
+        this.touchChildren = false;
+        this.touchEnabled = false;
     }
     
     /**销毁*/

@@ -1,7 +1,7 @@
 /**
  * 键盘按钮值常量
  * @author chenkai
- * @date 2016/12/29
+ * @since 2016/12/29
  */
 class KeyCode {
 /* 键盘事件

@@ -1,7 +1,7 @@
 /**
- * 主页
+ * 主页场景
  * @author chenkai 
- * @date 2016/12/26
+ * @since 2016/12/26
  */
 class HomeScene extends BaseScene{
     private qrCode:eui.Rect;

@@ -1,7 +1,7 @@
 /**
  * 场景
  * @author chenkai
- * @date 2016/12/18
+ * @since 2016/12/18
  */
 class BaseScene extends eui.Component{
 	
@@ -12,7 +12,7 @@ class BaseScene extends eui.Component{
 	}
 
 	/**显示到舞台*/
-	public onEnable(){
+	public onEnable(data:any = null){
 
 	}
 

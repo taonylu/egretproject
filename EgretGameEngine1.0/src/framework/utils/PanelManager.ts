@@ -37,9 +37,10 @@ class PanelManager extends SingleClass {
 	 * @panelName 面板名
 	 * @callBack 面板添加到舞台后的回调函数
 	 * @thisObject 回调函数执行对象
+     * @data 传入数据
 	 * @reutrn 返回打开的面板
 	 */
-    public open(panelName: string,callBack: Function = null,thisObject: any = null): BasePanel {
+    public open(panelName: string,callBack: Function = null,thisObject: any = null,data:any = null): BasePanel {
         var panel: BasePanel = this.panelMap[panelName];
         if(panel) {
             panel = this.openPanel(panelName,callBack,thisObject);
@@ -52,10 +53,10 @@ class PanelManager extends SingleClass {
                 var groupName: string = this.groupMap[panelName];
                 if(groupName != null) {
                     App.ResUtils.loadGroup(groupName,() => {
-                        this.openPanel(panelName,callBack,thisObject);
+                        this.openPanel(panelName,callBack,thisObject,data);
                     },this);
                 } else {
-                    this.openPanel(panelName,callBack,thisObject);
+                    this.openPanel(panelName,callBack,thisObject,data);
                 }
             }
         }
@@ -63,11 +64,11 @@ class PanelManager extends SingleClass {
     }
 
     /**打开弹框*/
-    private openPanel(panelName: string,callBack: Function = null,thisObject: any = null) {
+    private openPanel(panelName: string,callBack: Function = null,thisObject: any = null, data:any = null) {
         var panel: BasePanel = this.panelMap[panelName];
         if(panel) {
             panel.once(egret.Event.ADDED_TO_STAGE,() => {
-                panel.onEnable();
+                panel.onEnable(data);
                 if(callBack && thisObject) {
                     callBack.apply(thisObject);
                 }

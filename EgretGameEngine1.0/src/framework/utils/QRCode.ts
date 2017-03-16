@@ -12,100 +12,77 @@
  */
 class QRCode{
     /**html中<img>标签二维码*/
-    private htmlImg: HTMLImageElement;
-    /**二维码图片地址*/
-    private htmlImgUrl:string;
-    /**二维码图片*/
-    private euiImg:egret.DisplayObject;
-    /**是否允许旋转屏幕时重置二维码，在显示有黑色半透明分享提示时，不需要重置*/
-    private enable:boolean = true;
-    /**二维码是否初始化过位置*/
-    private bInit:boolean = false;
-    
-    /**旋转屏幕，重置位置*/
-    private onResize(){
-        if(this.htmlImgUrl && this.euiImg){
-            this.showHtmlCode(this.htmlImgUrl,this.euiImg); 
+    private htmlCode: HTMLImageElement;
+
+    /**
+     * 创建<img>的二维码图片
+     * @param codeImgUrl 二维码图片地址
+     */
+    private createHtmlCode(codeImgUrl:string){
+        if(this.htmlCode == null) {
+            var gameDiv = document.getElementById("gameDiv");
+            this.htmlCode = document.createElement("img");
+            this.htmlCode.src = codeImgUrl;
+            this.htmlCode.style.position = "absolute";
+            this.htmlCode.style.display = "none";
+            gameDiv.appendChild(this.htmlCode);
         }
     }
 
+
     /**
      * 显示二维码
-     * htmlImgUrl html中img标签二维码图片地址
+     * codeImgUrl 二维码图片地址
      * euiImg egret中二维码图片 (二维码图片容器必须和stage相等高宽)
      */ 
-    public showHtmlCode(htmlImgUrl: string,euiImg: egret.DisplayObject): void {
-        //pc端不重置
-        if(App.DeviceUtils.isPC) {
-            return;
+    public showHtmlCode(codeImgUrl: string,euiImg: egret.DisplayObject): void {
+        if(this.htmlCode){
+             this.setSize(euiImg.width, euiImg.height);
+             this.setPosition(euiImg.x, euiImg.y);
+             this.htmlCode.style.display = "none";
         }
-        //监听屏幕旋转
-        App.StageUtils.getStage().addEventListener(
-            egret.StageOrientationEvent.ORIENTATION_CHANGE,this.onResize,this);
-        //判断横竖屏
-        var portrait: boolean = document.body.clientWidth < document.body.clientHeight;
-        this.htmlImgUrl = htmlImgUrl;
-        this.euiImg = euiImg;
-        //横屏时，始终显示eui二维码
-        if(portrait == false){
-            this.euiImg.visible = true;
-            if(this.htmlImg ){
-                this.htmlImg.style.display = "none";
-            }
-        //竖屏时，设置html二维码标签，延迟一段时间才能获取euiImg.y值
-        }else{
-            this.enable = true; //防止间隔小于400ms时，二维码异步处理出错
-            egret.Tween.get(this).wait(400).call(() => {
-                //禁止重置时，退出
-                if(this.enable == false){
-                    return;
-                }
-                //显示html二维码，并隐藏eui二维码
-                if(this.htmlImg == null) {
-                    var gameDiv = document.getElementById("gameDiv");
-                    this.htmlImg = document.createElement("img");
-                    this.htmlImg.onload = function() {
-                        euiImg.visible = false;
-                    }
-                    this.htmlImg.src = htmlImgUrl;
-                    this.htmlImg.style.position = "absolute";
-                    this.htmlImg.style.display = "none";
-                    gameDiv.appendChild(this.htmlImg);
-                } else {
-                    this.euiImg.visible = false;
-                }
-                //计算hmtl二维码的高宽
-                var wScale = document.body.clientWidth / App.StageUtils.stageWidth;
-                var hScale = document.body.clientHeight / App.StageUtils.stageHeight;
-                var htmlImgWidth = euiImg.width * wScale;
-                var htmlImgHeight = euiImg.height * hScale;
-                //旋转时，stage的高宽会偶尔发生获取错误，这里在获取错误时，不重置二维码大小和位置
-                if(this.bInit == false || htmlImgWidth / htmlImgHeight == this.euiImg.width / this.euiImg.height) {
-                    this.bInit = true;
-                    this.htmlImg.style.width = htmlImgWidth + "px";
-                    this.htmlImg.style.height = htmlImgHeight + "px";
-                    this.htmlImg.style.left = euiImg.x * wScale + "px";
-                    this.htmlImg.style.top = euiImg.y * hScale + 1 + "px"; //有1px的偏移
-                }
-                this.htmlImg.style.display = "inline";
-            },this); 
-        } 
     }
     
     /**隐藏二维码*/
     public hideHtmlCode(): void {
-        if(App.DeviceUtils.isPC) {
-            return;
+        if(this.htmlCode) {
+            this.htmlCode.style.display = "none";
         }
-        this.enable = false;
-        if(this.htmlImg && this.euiImg) {
-            this.htmlImg.style.display = "none";
-            this.euiImg.visible = true;
+    }
+
+    /**
+     * 设置二维码图片位置
+     * @param xPos exml中x坐标
+     * @param yPos exml中y坐标
+     */
+    public setPosition(xPos:number, yPos:number){
+        if(this.htmlCode){
+            var wScale = document.body.clientWidth / App.StageUtils.stageWidth;
+            var hScale = document.body.clientHeight / App.StageUtils.stageHeight;
+            this.htmlCode.style.left = xPos * wScale + "px";
+            this.htmlCode.style.top = yPos * hScale + "px";
+        }
+    }
+
+    /**
+     * 设置二维码高宽
+     * @param width  <img>在exml中width
+     * @param height <img>在exml中的height
+     */
+    public setSize(width:number, height:number){
+        if(this.htmlCode){
+            var wScale = document.body.clientWidth / App.StageUtils.stageWidth;
+            var hScale = document.body.clientHeight / App.StageUtils.stageHeight;
+            this.htmlCode.style.left = width * wScale + "px";
+            this.htmlCode.style.top = height * hScale + "px";
         }
     }
     
     /**销毁*/
-    public onDestroy(){
-        //TODO
+    public destroy(){
+        if(this.htmlCode){
+            this.htmlCode.parentNode.removeChild(this.htmlCode);
+            this.htmlCode = null;
+        }
     }
 }

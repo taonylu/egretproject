@@ -15,7 +15,7 @@ var LayerManager = (function (_super) {
     __extends(LayerManager, _super);
     function LayerManager() {
         var _this = _super.call(this) || this;
-        var stage = App.StageUtils.getStage();
+        var stage = App.StageUtils.stage;
         _this.sceneLayer = new eui.UILayer();
         _this.sceneLayer.percentWidth = 100;
         _this.sceneLayer.percentHeight = 100;
@@ -36,3 +36,4 @@ var LayerManager = (function (_super) {
     return LayerManager;
 }(SingleClass));
 __reflect(LayerManager.prototype, "LayerManager");
+//# sourceMappingURL=LayerManager.js.map
